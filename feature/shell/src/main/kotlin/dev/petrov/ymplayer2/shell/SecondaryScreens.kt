@@ -34,22 +34,23 @@ import dev.petrov.ymplayer2.designsystem.prismFocus
                 }
             }
         }
-        item { Text("Вход в Яндекс и управление аккаунтами появятся после подключения провайдера. Здесь только вымышленные профили.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text("Локальные профили используют общий каталог. Вход в Яндекс и управление аккаунтами появятся после подключения провайдера.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
 }
 
-@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit) {
+@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, folders: () -> Unit = {}) {
     LazyColumn(Modifier.fillMaxSize().testTag("settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text("Настройки", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
         item { Text("Оформление", style = MaterialTheme.typography.titleMedium) }
         items(listOf("dark" to "Тёмная", "light" to "Светлая", "system" to "Как в системе")) { (id, label) ->
             Choice(label, theme == id, "theme_$id") { setTheme(id) }
         }
-        item { HorizontalDivider(); Text("Состояние демокаталога", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 16.dp)) }
-        items(CatalogState.entries) { item -> Choice(item.label, catalog == item, "state_${item.name}") { setCatalog(item) } }
+        if (demo) {
+            item { HorizontalDivider(); Text("Состояние демокаталога", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 16.dp)) }
+            items(CatalogState.entries) { item -> Choice(item.label, catalog == item, "state_${item.name}") { setCatalog(item) } }
+        } else item { OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { Text("Папки с музыкой") } }
         item { HorizontalDivider(); Text("YMPlayer 2 · $version", fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp)) }
-        item { Text("Самостоятельное приложение. Данные YMPlayer 1.x не используются. В M1 нет звука, сетевых запросов, импорта файлов и обновлятора.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        item { Text("Диагностика: демонстрационный режим. Каталог локальный, аудиодвижок не подключён.", style = MaterialTheme.typography.bodySmall) }
+        item { Text(if (demo) "Демонстрационный режим M1 · без звука" else "Музыка из выбранных папок. Фоновое воспроизведение и системное управление. Яндекс, клипы и обновления появятся на следующих этапах.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
 }
 

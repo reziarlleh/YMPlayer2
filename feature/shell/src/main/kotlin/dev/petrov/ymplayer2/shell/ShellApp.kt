@@ -32,8 +32,10 @@ private val destinations = listOf(
     Destination("clips", "Клипы", Icons.Default.SmartDisplay),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null) {
     val playback by model.player.state.collectAsStateWithLifecycle()
+    val library by model.library.collectAsStateWithLifecycle()
+    val demo = model.local == null
     var history by rememberSaveable { mutableStateOf(listOf("player")) }
     var theme by rememberSaveable { mutableStateOf("dark") }
     var catalogState by rememberSaveable { mutableStateOf(CatalogState.READY) }
@@ -63,7 +65,7 @@ private val destinations = listOf(
                         if (history.size > 1) ActionIcon(Icons.AutoMirrored.Filled.ArrowBack, "Назад", back)
                         Column(Modifier.weight(1f).padding(vertical = 6.dp)) {
                             Text("YMPlayer 2", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                            Text("Прототип · Без звука", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text(if (demo) "Прототип · Без звука" else "Локальная музыка · Beta", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         }
                         ActionIcon(Icons.Default.AccountCircle, "Профили", { navigate("profiles") }, Modifier.testTag("profiles"))
                         ActionIcon(Icons.Default.Settings, "Настройки", { navigate("settings") }, Modifier.testTag("settings"))
@@ -72,14 +74,16 @@ private val destinations = listOf(
                         // Each route/profile owns its scroll, filters, detail and text field state.
                         holder.SaveableStateProvider("${playback.profileId}:$route") {
                             when (route) {
-                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") })
-                                "library" -> CatalogScreen(model.catalog.tracks(playback.profileId), model.player, false, catalogState) { catalogState = CatalogState.READY }
-                                "search" -> CatalogScreen(model.catalog.tracks(playback.profileId), model.player, true, catalogState) { catalogState = CatalogState.READY }
+                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") })
+                                "library", "search" -> CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else library.tracks, model.player, route == "search", if (demo) catalogState else CatalogState.READY,
+                                    demo = demo, folders = { navigate("folders") }, scanning = library.scanning, issue = library.issue,
+                                    retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 "queue" -> QueueScreen(playback, model.player)
                                 "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId) {
                                     model.player.switchProfile(it); history = listOf("player")
                                 }
-                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it })
+                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") })
+                                "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
                                 "clips" -> MessageScreen("Клипы", "Модуль появится на следующем этапе", "В прототипе нет видео, авторизации и сетевых запросов.", Icons.Default.SmartDisplay)
                             }
                         }

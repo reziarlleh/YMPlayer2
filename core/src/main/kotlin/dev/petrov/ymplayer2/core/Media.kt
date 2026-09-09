@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.core
 
+import kotlinx.coroutines.flow.StateFlow
+
 enum class Source(val label: String) { YANDEX("Яндекс"), LOCAL("Устройство"), USB("USB") }
 
 data class Track(
@@ -7,6 +9,8 @@ data class Track(
     val source: Source, val durationSeconds: Int, val offline: Boolean,
     val available: Boolean = true, val genre: String = "Электроника",
     val folder: String = "Музыка", val tint: Int = 0,
+    val uri: String? = null, val rootId: String? = null,
+    val sizeBytes: Long = 0, val modifiedMillis: Long = 0,
 )
 
 data class Profile(val id: String, val name: String, val description: String, val guest: Boolean = false)
@@ -14,6 +18,18 @@ data class Profile(val id: String, val name: String, val description: String, va
 interface Catalog {
     val profiles: List<Profile>
     fun tracks(profileId: String): List<Track>
+}
+
+data class LibraryRoot(val uri: String, val name: String, val source: Source, val issue: String? = null)
+data class LibrarySnapshot(
+    val roots: List<LibraryRoot> = emptyList(), val tracks: List<Track> = emptyList(),
+    val scanning: Boolean = false, val ready: Boolean = false, val issue: String? = null,
+)
+interface LocalLibrary : Catalog {
+    val state: StateFlow<LibrarySnapshot>
+    suspend fun addFolder(uri: String, source: Source)
+    suspend fun refresh()
+    suspend fun forgetFolder(uri: String)
 }
 
 /** Fictional, explicit fixtures. No provider, filesystem or audio access. */

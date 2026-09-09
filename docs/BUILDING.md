@@ -1,6 +1,7 @@
-# Сборка M1
+# Сборка YMPlayer 2
 
-2026-09-09. Четыре модуля Kotlin/Compose: app, core, designsystem, feature:shell.
+2026-09-09. Модули: app, core, designsystem, feature:shell, library:local,
+playback:android. Аудиодвижок Media3 1.11.0.
 AGP 9.3.2 с built-in Kotlin, Kotlin/Compose compiler 2.3.21, Compose BOM
 2026.08.00, Gradle wrapper 9.5.0, JDK 17. SDK: compile 37, target 36, min 29;
 Build Tools 36.0.0. Значения закреплены в version catalog и Gradle.
@@ -63,7 +64,15 @@ ViewModel сохраняет все демонстрационные профи�
 Неактивные профили после смерти процесса возвращаются к демоданным. UI route/history,
 тема, запросы, фильтры и scroll сохраняются через Compose saveable state по route/profile.
 Это ещё не постоянное хранилище настоящего плеера: force-stop, перезагрузка устройства
-и полноценные многопрофильные checkpoints войдут в функциональный этап.
+и полноценные многопрофильные checkpoints в M1 отсутствовали.
+
+В M2 индекс хранится в files/local-library.json, очереди и позиции профилей —
+в приватных SharedPreferences. После восстановления процесса плеер остаётся
+на паузе; URI проверяются повторным обходом SAF. UI-тесты M1 теперь запускают
+только debug DemoActivity. LocalPlaybackTest использует отдельный DocumentsProvider
+в тестовом APK, синтетические WAV и настоящий ExoPlayer на Android и Android TV.
+Тестовые provider/Activity не входят в release APK. Для внешней проверки SAF
+`tools/make-test-audio.py` создаёт два собственных тихих 45-секундных WAV.
 
 ## Выбор инструментов
 

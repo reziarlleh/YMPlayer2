@@ -26,7 +26,8 @@ import androidx.compose.ui.unit.dp
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 
-@Composable internal fun CatalogScreen(tracks: List<Track>, player: PlaybackController, search: Boolean, state: CatalogState, retry: () -> Unit) {
+@Composable internal fun CatalogScreen(tracks: List<Track>, player: PlaybackController, search: Boolean, state: CatalogState,
+    demo: Boolean = true, folders: () -> Unit = {}, scanning: Boolean = false, issue: String? = null, retry: () -> Unit) {
     var query by rememberSaveable { mutableStateOf("") }
     var source by rememberSaveable { mutableStateOf<Source?>(null) }
     var offline by rememberSaveable { mutableStateOf(false) }
@@ -49,6 +50,11 @@ import dev.petrov.ymplayer2.designsystem.*
                     Text(detail ?: if (search) "Поиск" else "Медиатека", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
                 }
             }
+            if (!demo && !search && detail == null) item {
+                OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { Icon(Icons.Default.FolderOpen, null); Spacer(Modifier.width(8.dp)); Text("Папки с музыкой") }
+            }
+            if (scanning) item { LinearProgressIndicator(Modifier.fillMaxWidth()); Text("Обновляем каталог…") }
+            if (issue != null) item { Text(issue, color = MaterialTheme.colorScheme.error) }
             if (detail == null) {
                 if (search) item {
                     OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth().testTag("search_input").prismFocus(),
@@ -60,7 +66,7 @@ import dev.petrov.ymplayer2.designsystem.*
                 }
                 if (!search) item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Category.entries.forEach { item -> FilterChip(category == item, { category = item }, { Text(item.label) }, Modifier.prismFocus().testTag("category_${item.name}")) }
+                        Category.entries.filter { demo || it != Category.PLAYLISTS }.forEach { item -> FilterChip(category == item, { category = item }, { Text(item.label) }, Modifier.prismFocus().testTag("category_${item.name}")) }
                     }
                 }
                 item {
@@ -77,6 +83,7 @@ import dev.petrov.ymplayer2.designsystem.*
                 }
             }
             when {
+                !demo && tracks.isEmpty() && !search -> item { CatalogMessage("Медиатека пока пуста", "Выберите папку с аудиофайлами на устройстве или USB.", folders, "Добавить музыку") }
                 state == CatalogState.ERROR -> item { CatalogMessage("Не удалось загрузить медиатеку", "Демонстрация ошибки. Текущая очередь сохранена.", retry, "Повторить") }
                 state == CatalogState.EMPTY -> item { CatalogMessage("Медиатека пока пуста", "Демонстрация первого запуска.", retry, "Показать демоданные") }
                 filtered.isEmpty() -> item { CatalogMessage("Ничего не найдено", "Попробуйте другой запрос или сбросьте фильтры.", { query = ""; source = null; offline = false }, "Сбросить") }
@@ -84,7 +91,7 @@ import dev.petrov.ymplayer2.designsystem.*
                     if (state == CatalogState.OFFLINE) item { Text("Нет сети · показаны доступные офлайн треки", color = MaterialTheme.colorScheme.primary) }
                     if (detail != null || category == Category.TRACKS || search) {
                         val shown = if (detail == null) filtered else filtered.filter { it.group(category) == detail }
-                        item { Text("${shown.size} треков · демонстрационный каталог", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                        item { Text("${shown.size} треков" + if (demo) " · демонстрационный каталог" else "", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                         items(shown, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }) }
                     } else {
                         items(filtered.groupBy { it.group(category) }.entries.toList(), key = { it.key }) { group ->

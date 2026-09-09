@@ -36,6 +36,13 @@ DemoPlaybackController реализует минимальный UI-контра
 
 ## Проверка границ
 
+В M2 добавлены `:library:local` (SAF, чтение метаданных, атомарный JSON-индекс)
+и `:playback:android` (Media3, MediaSessionService, постоянные checkpoints).
+`PlayerApplication` связывает их с `ShellModel`. Service создаёт и освобождает
+единственный ExoPlayer; UI получает Android-независимый PlaybackController.
+Сканирование работает на Dispatchers.IO, аудиокоманды — на главном потоке.
+Решение и пределы: [ADR-003](DECISIONS/ADR-003-local-playback.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

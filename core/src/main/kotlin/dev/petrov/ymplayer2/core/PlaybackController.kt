@@ -10,6 +10,9 @@ data class PlaybackState(
     val index: Int = 0,
     val positionSeconds: Int = 0,
     val playing: Boolean = false,
+    val buffering: Boolean = false,
+    val error: String? = null,
+    val connected: Boolean = true,
 ) {
     val current: Track? get() = queue.getOrNull(index)
 }

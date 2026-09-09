@@ -48,6 +48,9 @@ gradle.taskGraph.whenReady {
 }
 dependencies {
     implementation(project(":core"))
+    implementation(project(":library:local"))
+    implementation(project(":playback:android"))
+    implementation(libs.coroutines.android)
     implementation(project(":designsystem"))
     implementation(project(":feature:shell"))
     implementation(platform(libs.compose.bom))

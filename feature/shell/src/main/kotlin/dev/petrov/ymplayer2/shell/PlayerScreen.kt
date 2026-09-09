@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 
-@Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit) {
+@Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {}) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val compact = short || maxHeight < 520.dp || androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.3f
     Row(Modifier.fillMaxSize().padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
@@ -42,15 +42,21 @@ import dev.petrov.ymplayer2.designsystem.*
             }
             Column {
                 Slider(state.positionSeconds.toFloat(), { player.seek(it.toInt()) }, Modifier.fillMaxWidth().testTag("progress"), enabled = state.current != null,
-                    valueRange = 0f..(state.current?.durationSeconds ?: 1).toFloat())
+                    valueRange = 0f..(state.current?.durationSeconds ?: 1).coerceAtLeast(1).toFloat())
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(secondsLabel(state.positionSeconds), style = MaterialTheme.typography.labelMedium, modifier = Modifier.testTag("position"))
                     Text(secondsLabel(state.current?.durationSeconds ?: 0), style = MaterialTheme.typography.labelMedium)
                 }
             }
             if (!compact) TransportControls(state, player, queue)
-            SourceSelector(player, state.profileId == "guest")
-            Text("Демонстрационные данные. Play меняет состояние; звук и ход времени пока не подключены.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (state.buffering) Text("Подготовка аудио…", color = MaterialTheme.colorScheme.primary)
+            state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+            SourceSelector(player, state.profileId == "guest" || !demo)
+            if (demo) Text("Демонстрационные данные. Play меняет состояние; звук и ход времени пока не подключены.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            else {
+                OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { Icon(Icons.Default.FolderOpen, null); Spacer(Modifier.width(8.dp)); Text("Папки с музыкой") }
+                if (state.current == null) Text("Добавьте папку с музыкой или выберите трек в медиатеке.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             Spacer(Modifier.height(8.dp))
         }
         if (wide) Column(Modifier.width(330.dp).fillMaxHeight()) { QueueScreen(state, player) }
@@ -61,7 +67,7 @@ import dev.petrov.ymplayer2.designsystem.*
 @Composable private fun TransportControls(state: PlaybackState, player: PlaybackController, queue: () -> Unit) {
     val focus = remember { FocusRequester() }
     val isTv = LocalConfiguration.current.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION
-    LaunchedEffect(Unit) { if (isTv) focus.requestFocus() }
+    LaunchedEffect(state.current?.available) { if (isTv && state.current?.available == true) focus.requestFocus() }
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
         ActionIcon(Icons.Default.SkipPrevious, "Предыдущий трек", { player.skip(-1) })
         ActionIcon(if (state.playing) Icons.Default.Pause else Icons.Default.PlayArrow, if (state.playing) "Пауза" else "Воспроизвести", player::toggle,
@@ -110,7 +116,7 @@ import dev.petrov.ymplayer2.designsystem.*
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
                 Text(track.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text(if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else "USB недоступен", style = MaterialTheme.typography.labelSmall, color = if (track.available) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.error)
+                Text(if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else "Файл недоступен", style = MaterialTheme.typography.labelSmall, color = if (track.available) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.error)
             }
             Icon(if (selected) Icons.Default.GraphicEq else Icons.Default.PlayArrow, if (selected) "Текущий трек" else "Воспроизвести трек", Modifier.size(24.dp))
         }

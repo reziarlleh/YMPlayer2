@@ -14,7 +14,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class ShellInstrumentedTest {
-    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule val compose = createAndroidComposeRule<DemoActivity>()
     private fun model() = ViewModelProvider(compose.activity)[ShellModel::class.java]
     private fun nav(route: String) { compose.onNodeWithTag("nav_$route").performClick() }
     private fun state() = model().player.state.value
