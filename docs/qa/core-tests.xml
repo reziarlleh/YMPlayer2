@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-09-09T06:55:52.993Z" hostname="REZIARLLEH-NB" time="0.067">
+  <properties/>
+  <testcase name="emptySourceIsSafe" classname="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" time="0.042"/>
+  <testcase name="browsingCatalogDoesNotChangePlayback" classname="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" time="0.014"/>
+  <testcase name="profilesKeepSeparatePausedSessions" classname="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" time="0.001"/>
+  <testcase name="processCheckpointRestoresPausedAndRejectsForeignIds" classname="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" time="0.004"/>
+  <testcase name="queueEndStopsWithoutPlayingUnavailableTrack" classname="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" time="0.0"/>
+  <testcase name="unavailableAndForeignTracksCannotPlay" classname="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" time="0.0"/>
+  <testcase name="seekClampsAndStopResets" classname="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" time="0.0"/>
+  <testcase name="sourceSelectionStopsAndWaitsForPlay" classname="dev.petrov.ymplayer2.core.DemoPlaybackControllerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

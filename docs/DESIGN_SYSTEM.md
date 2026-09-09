@@ -1,0 +1,56 @@
+# Минимальная дизайн-система
+
+Дата: 2026-09-09. Статус: базовые токены PRISM реализованы в designsystem/Prism.kt;
+расширенные состояния и будущие компоненты ниже остаются проектной картой.
+Токены определяются в одном UI-модуле. Domain не знает темы и размеров окна.
+
+## Токены
+
+| Группа | Начальные значения |
+| --- | --- |
+| Spacing | 4, 8, 12, 16, 24, 32 dp |
+| Typography | Caption 12, Body 16, Title 20/24, TrackTitle 28 sp; системный шрифт |
+| Control | Обычный target 48 dp; основной transport 64 dp; icon 20/24 dp |
+| Radius | Small 6, Surface 12, Sheet 20 dp; угловатый акцент отдельно от hit target |
+| Motion | 120/180/240 ms; без циклического свечения, reduced motion учитывается |
+| Focus | Контрастная рамка и фон; геометрия и размер элемента не меняются |
+| Layout | Compact/Medium/Expanded/Large из RESPONSIVE_RULES |
+
+Начальные семантические цвета:
+
+| Token | Dark | Light |
+| --- | --- | --- |
+| background | `#10131B` | `#F3F5FA` |
+| surface | `#191E2A` | `#FFFFFF` |
+| surfaceVariant | `#232A39` | `#E8EDF5` |
+| textPrimary | `#F2F5FC` | `#151B2A` |
+| textSecondary | `#B2BDD0` | `#526078` |
+| primary | `#67DCF5` | `#006D85` |
+| secondary | `#EA94E0` | `#922682` |
+| error | `#FFB4B4` | `#A82435` |
+| warning | `#F4C977` | `#815600` |
+| success | `#8FDFC1` | `#146449` |
+
+Градиент cyan → magenta используется для декоративной линии/акцента. Обычный
+текст и значки имеют самостоятельный контраст. Проверка реальных пар цветов
+и всех состояний controls входит в Android-прототип; таблица не является
+сертификатом доступности готового интерфейса.
+
+## Компоненты и состояния
+
+- AppShell: навигация, профиль, контент, общий статус и место постоянного плеера.
+- Navigation: bottom bar/rail и TV focus policy при общих route IDs.
+- PlayerSurface, MiniPlayer, TransportControls, Progress: одна модель состояния,
+  разные композиции; не два владельца воспроизведения.
+- TrackRow: artwork, название/исполнитель, источник, доступность, контекстное меню.
+- AlbumCard/ArtistCard/PlaylistCard и DetailHeader: ограниченная ширина текста,
+  отдельная семантика Play/просмотра; заглушка не считается настоящей обложкой.
+- QueuePanel: текущий элемент, следующие элементы, возврат фокуса по MediaId.
+- SourceFilter, SearchField, SortMenu: меняют выдачу каталога, не playback source.
+- ProfilePanel: локальный профиль и его аккаунт, вход и явное переключение.
+- StatusStrip/LogSheet; Loading, Empty, Error, Offline и Unavailable states.
+
+У controls описать default/focused/pressed/disabled/loading. Disabled содержит
+понятную причину; loading не создаёт повторные команды. Строки имеют стабильные
+ключи. Макеты используют реалистичные длинные названия, отсутствующие artwork и
+недоступный USB, а не только идеальный набор карточек.

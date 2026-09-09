@@ -1,0 +1,337 @@
+{
+  "targets": {
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt": {
+      "target": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt",
+      "type": "file",
+      "title": "File: core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt",
+      "summary": "`core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt` is a kotlin source file in the Service layer.",
+      "docs": {
+        "symbols": [
+          {
+            "name": "PlaybackState",
+            "kind": "class",
+            "signature": "class PlaybackState",
+            "line": 7,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackState"
+          },
+          {
+            "name": "current",
+            "kind": "variable",
+            "signature": "current",
+            "line": 14,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackState::current"
+          },
+          {
+            "name": "PlaybackController",
+            "kind": "interface",
+            "signature": "class PlaybackController",
+            "line": 17,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController"
+          },
+          {
+            "name": "state",
+            "kind": "variable",
+            "signature": "state",
+            "line": 18,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController::state"
+          },
+          {
+            "name": "toggle",
+            "kind": "method",
+            "signature": "function toggle()",
+            "line": 19,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController::toggle"
+          },
+          {
+            "name": "stop",
+            "kind": "method",
+            "signature": "function stop()",
+            "line": 20,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController::stop"
+          },
+          {
+            "name": "seek",
+            "kind": "method",
+            "signature": "function seek(seconds: Int)",
+            "line": 21,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController::seek"
+          },
+          {
+            "name": "skip",
+            "kind": "method",
+            "signature": "function skip(direction: Int)",
+            "line": 22,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController::skip"
+          },
+          {
+            "name": "select",
+            "kind": "method",
+            "signature": "function select(trackId: String)",
+            "line": 23,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController::select"
+          },
+          {
+            "name": "switchProfile",
+            "kind": "method",
+            "signature": "function switchProfile(profileId: String)",
+            "line": 24,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController::switchProfile"
+          },
+          {
+            "name": "chooseSource",
+            "kind": "method",
+            "signature": "function chooseSource(source: Source?)",
+            "line": 25,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackController::chooseSource"
+          },
+          {
+            "name": "PlaybackCheckpoint",
+            "kind": "class",
+            "signature": "class PlaybackCheckpoint",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint"
+          },
+          {
+            "name": "checkpoint",
+            "kind": "function",
+            "signature": "function checkpoint()",
+            "line": 30,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::checkpoint"
+          },
+          {
+            "name": "DemoPlaybackController",
+            "kind": "class",
+            "signature": "class DemoPlaybackController",
+            "line": 33,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController"
+          },
+          {
+            "name": "sessions",
+            "kind": "variable",
+            "signature": "sessions",
+            "line": 34,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::sessions"
+          },
+          {
+            "name": "mutableState",
+            "kind": "variable",
+            "signature": "mutableState",
+            "line": 35,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::mutableState"
+          },
+          {
+            "name": "state",
+            "kind": "variable",
+            "signature": "state",
+            "line": 36,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::state"
+          },
+          {
+            "name": "initial",
+            "kind": "method",
+            "signature": "function initial(id: String)",
+            "line": 37,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::initial"
+          },
+          {
+            "name": "restore",
+            "kind": "method",
+            "signature": "function restore(checkpoint: PlaybackCheckpoint?)",
+            "line": 38,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::restore"
+          },
+          {
+            "name": "toggle",
+            "kind": "method",
+            "signature": "function toggle()",
+            "line": 47,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::toggle"
+          },
+          {
+            "name": "stop",
+            "kind": "method",
+            "signature": "function stop()",
+            "line": 51,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::stop"
+          },
+          {
+            "name": "seek",
+            "kind": "method",
+            "signature": "function seek(seconds: Int)",
+            "line": 52,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::seek"
+          },
+          {
+            "name": "skip",
+            "kind": "method",
+            "signature": "function skip(direction: Int)",
+            "line": 55,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::skip"
+          },
+          {
+            "name": "select",
+            "kind": "method",
+            "signature": "function select(trackId: String)",
+            "line": 62,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::select"
+          },
+          {
+            "name": "switchProfile",
+            "kind": "method",
+            "signature": "function switchProfile(profileId: String)",
+            "line": 68,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::switchProfile"
+          },
+          {
+            "name": "chooseSource",
+            "kind": "method",
+            "signature": "function chooseSource(source: Source?)",
+            "line": 74,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::DemoPlaybackController::chooseSource"
+          },
+          {
+            "name": "component1",
+            "kind": "method",
+            "signature": "public String component1()",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint::component1"
+          },
+          {
+            "name": "component2",
+            "kind": "method",
+            "signature": "public List<String> component2()",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint::component2"
+          },
+          {
+            "name": "component3",
+            "kind": "method",
+            "signature": "public String? component3()",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint::component3"
+          },
+          {
+            "name": "component4",
+            "kind": "method",
+            "signature": "public Int component4()",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint::component4"
+          },
+          {
+            "name": "copy",
+            "kind": "method",
+            "signature": "public PlaybackCheckpoint copy(profileId: String, queueIds: List<String>, currentId: String?, positionSeconds: Int)",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint::copy"
+          },
+          {
+            "name": "equals",
+            "kind": "method",
+            "signature": "public equals()",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint::equals"
+          },
+          {
+            "name": "hashCode",
+            "kind": "method",
+            "signature": "public hashCode()",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint::hashCode"
+          },
+          {
+            "name": "toString",
+            "kind": "method",
+            "signature": "public toString()",
+            "line": 28,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackCheckpoint::toString"
+          },
+          {
+            "name": "component1",
+            "kind": "method",
+            "signature": "public String component1()",
+            "line": 7,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackState::component1"
+          },
+          {
+            "name": "component2",
+            "kind": "method",
+            "signature": "public List<Track> component2()",
+            "line": 7,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackState::component2"
+          },
+          {
+            "name": "component3",
+            "kind": "method",
+            "signature": "public Int component3()",
+            "line": 7,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackState::component3"
+          },
+          {
+            "name": "component4",
+            "kind": "method",
+            "signature": "public Int component4()",
+            "line": 7,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackState::component4"
+          },
+          {
+            "name": "component5",
+            "kind": "method",
+            "signature": "public Boolean component5()",
+            "line": 7,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackState::component5"
+          },
+          {
+            "name": "copy",
+            "kind": "method",
+            "signature": "public PlaybackState copy(profileId: String, queue: List<Track>, index: Int, positionSeconds: Int, playing: Boolean)",
+            "line": 7,
+            "symbol_id": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt::PlaybackState::copy"
+          }
+        ],
+        "symbols_truncated": {
+          "shown": 40,
+          "total": 43,
+          "hint": "Call with compact=False or include=['full_doc'] for the full list."
+        }
+      },
+      "layer": "Service",
+      "stale": false,
+      "path": "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt"
+    },
+    "tools/Build-Release.ps1": {
+      "target": "tools/Build-Release.ps1",
+      "type": "file",
+      "summary": "Build-Release.ps1: 47 lines, no indexed symbols.",
+      "docs": {
+        "file_preview": {
+          "lines": 47,
+          "chars": 3932,
+          "head": [
+            "param([string]$Sdk = $env:ANDROID_HOME)",
+            "$ErrorActionPreference = 'Stop'",
+            "$projectRoot = Split-Path $PSScriptRoot -Parent",
+            "if (-not $env:JAVA_HOME) { throw 'Set JAVA_HOME to JDK 17.' }",
+            "if (-not $Sdk) { throw 'Set ANDROID_HOME or pass -Sdk.' }",
+            "if (-not (Test-Path -LiteralPath (Join-Path $projectRoot '.signing\\signing.properties'))) { throw 'Run Initialize-Signin",
+            "Push-Location $projectRoot",
+            "$lock = $null",
+            "try {",
+            "    $common = (& git rev-parse --git-common-dir).Trim()",
+            "    if ($LASTEXITCODE -ne 0) { throw 'Release allocation requires the product Git repository.' }",
+            "    $common = if ([IO.Path]::IsPathRooted($common)) { [IO.Path]::GetFullPath($common) } else { [IO.Path]::GetFullPath((J",
+            "    # A common Git directory shares the lock and counter across linked worktrees.",
+            "    $lock = [IO.File]::Open((Join-Path $common 'ymplayer2-release.lock'), 'OpenOrCreate', 'ReadWrite', 'None')",
+            "    $counterPath = Join-Path $common 'ymplayer2-build-number'"
+          ],
+          "note": "This file has no indexed symbols, so there is no structural card for it. The fields above are counts and verbatim excerpts. Read the file for its full content."
+        }
+      },
+      "path": "tools/Build-Release.ps1",
+      "index_status": "live_file_without_index_record",
+      "verification_basis": "live"
+    }
+  },
+  "index": {
+    "index_age_days": 0
+  }
+}

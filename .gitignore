@@ -1,0 +1,12 @@
+.repowise/
+.local-preview/
+.gradle/
+.kotlin/
+.local-build/
+.signing/
+local.properties
+**/build/
+captures/
+*.iml
+.idea/
+releases/**/*.apk

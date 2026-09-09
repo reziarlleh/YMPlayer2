@@ -1,0 +1,15 @@
+{
+  "serial": "emulator-5582",
+  "package": "dev.petrov.ymplayer2",
+  "oldPid": "7213",
+  "newPid": "7369",
+  "before": [
+    "1:22",
+    "3:58"
+  ],
+  "after": [
+    "1:22",
+    "3:58"
+  ],
+  "restoredPaused": true
+}
