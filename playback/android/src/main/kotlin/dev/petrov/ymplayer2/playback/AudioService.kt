@@ -34,6 +34,9 @@ class AudioService : MediaSessionService() {
                 setSessionActivity(PendingIntent.getActivity(this@AudioService, 0, it, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT))
             }
         }.build()
+        // Our UI uses an in-process adapter, so no controller bind invokes onGetSession.
+        // Register explicitly for MediaSessionService notification/foreground ownership.
+        addSession(requireNotNull(session))
         playback.attach(player)
     }
 

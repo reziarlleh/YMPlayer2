@@ -142,7 +142,7 @@ INSTRUMENTATION_STATUS: test=firstPlayAndMiniPlayerShareStateAcrossNavigationAnd
 INSTRUMENTATION_STATUS_CODE: 0
 INSTRUMENTATION_RESULT: stream=
 
-Time: 47.695
+Time: 40.878
 
 OK (10 tests)
 

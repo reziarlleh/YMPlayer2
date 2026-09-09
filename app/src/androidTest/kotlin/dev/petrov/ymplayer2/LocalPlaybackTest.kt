@@ -37,6 +37,11 @@ class LocalPlaybackTest {
         assertTrue(library.state.value.tracks.any { it.folder.contains("nested") })
         compose.onNodeWithTag("player_play").performScrollTo().performClick()
         waitFor { player.state.value.positionSeconds >= 2 && player.state.value.playing && !player.state.value.buffering }
+        waitFor {
+            graph.getSystemService(android.app.NotificationManager::class.java).activeNotifications.any {
+                it.notification.flags and android.app.Notification.FLAG_FOREGROUND_SERVICE != 0
+            }
+        }
         compose.activityRule.scenario.moveToState(Lifecycle.State.CREATED)
         val before = player.state.value.positionSeconds
         // This state comes from ExoPlayer's AudioTrack clock, not a demo timer.
