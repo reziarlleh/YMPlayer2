@@ -1,0 +1,9 @@
+{
+  "builtAtUtc": "2026-09-09T17:53:22.2034478Z",
+  "versionName": "2.0.0beta-build4",
+  "sha256": "94e0b64822f1400e79027c9e68575d03fa9da8a3d171e5751b49efe1da3d5cb7",
+  "versionCode": 4,
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "beta",
+  "runtimeAcceptance": "emulator_m3_1_verified"
+}

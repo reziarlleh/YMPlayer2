@@ -10,6 +10,6 @@ dependencies {
     implementation(libs.android.core)
     api(platform(libs.compose.bom))
     api(libs.compose.material3)
-    api(libs.compose.icons)
+    implementation(libs.compose.icons)
     implementation(libs.compose.foundation)
 }

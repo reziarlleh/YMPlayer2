@@ -23,6 +23,8 @@ class ShellModel(val catalog: Catalog, val player: PlaybackController, savedStat
                     putStringArrayList("queue", ArrayList(state.queue.map(Track::id)))
                     putString("current", state.current?.id)
                     putInt("position", state.positionSeconds)
+                    putString("repeat", state.repeatMode.name)
+                    putBoolean("shuffle", state.shuffle)
                 }
             }
         }
@@ -30,7 +32,8 @@ class ShellModel(val catalog: Catalog, val player: PlaybackController, savedStat
 }
 
 fun SavedStateHandle.playbackCheckpoint(): PlaybackCheckpoint? = get<Bundle>("playback")?.let {
-    PlaybackCheckpoint(it.getString("profile") ?: return null, it.getStringArrayList("queue").orEmpty(), it.getString("current"), it.getInt("position"))
+    PlaybackCheckpoint(it.getString("profile") ?: return null, it.getStringArrayList("queue").orEmpty(), it.getString("current"), it.getInt("position"),
+        runCatching { RepeatMode.valueOf(it.getString("repeat").orEmpty()) }.getOrDefault(RepeatMode.OFF), it.getBoolean("shuffle"))
 }
 
 enum class CatalogState(val label: String) {

@@ -4,6 +4,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+enum class RepeatMode { OFF, ALL, ONE;
+    fun next() = entries[(ordinal + 1) % entries.size]
+}
+
 data class PlaybackState(
     val profileId: String,
     val queue: List<Track>,
@@ -13,6 +17,8 @@ data class PlaybackState(
     val buffering: Boolean = false,
     val error: String? = null,
     val connected: Boolean = true,
+    val repeatMode: RepeatMode = RepeatMode.OFF,
+    val shuffle: Boolean = false,
 ) {
     val current: Track? get() = queue.getOrNull(index)
 }
@@ -26,11 +32,18 @@ interface PlaybackController {
     fun select(trackId: String)
     fun switchProfile(profileId: String)
     fun chooseSource(source: Source?)
+    fun setRepeatMode(mode: RepeatMode)
+    fun setShuffle(enabled: Boolean)
+    fun enqueue(trackId: String)
+    fun moveInQueue(trackId: String, toIndex: Int)
+    fun removeFromQueue(trackId: String)
+    fun clearQueue()
 }
 
-data class PlaybackCheckpoint(val profileId: String, val queueIds: List<String>, val currentId: String?, val positionSeconds: Int)
+data class PlaybackCheckpoint(val profileId: String, val queueIds: List<String>, val currentId: String?, val positionSeconds: Int,
+    val repeatMode: RepeatMode = RepeatMode.OFF, val shuffle: Boolean = false)
 
-fun PlaybackState.checkpoint() = PlaybackCheckpoint(profileId, queue.map(Track::id), current?.id, positionSeconds)
+fun PlaybackState.checkpoint() = PlaybackCheckpoint(profileId, queue.map(Track::id), current?.id, positionSeconds, repeatMode, shuffle)
 
 /** Commands are serialized by the caller (UI thread). No timer and no sound in M1. */
 class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackCheckpoint? = null) : PlaybackController {
@@ -44,7 +57,7 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
         val queue = checkpoint.queueIds.distinct().mapNotNull(allowed::get)
         val index = queue.indexOfFirst { it.id == checkpoint.currentId }.coerceAtLeast(0)
         return PlaybackState(checkpoint.profileId, queue, index,
-            checkpoint.positionSeconds.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0))
+            checkpoint.positionSeconds.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0), repeatMode = checkpoint.repeatMode, shuffle = checkpoint.shuffle)
     }
 
     override fun toggle() {
@@ -58,8 +71,10 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
     override fun skip(direction: Int) {
         if (direction == 0) return
         val s = state.value
-        val indices = if (direction > 0) (s.index + 1 until s.queue.size) else (s.index - 1 downTo 0)
-        val next = indices.firstOrNull { s.queue[it].available }
+        val order = s.queue.indices.filter { s.queue[it].available }.let { if (s.shuffle) it.shuffled(kotlin.random.Random(42)) else it }
+        val position = order.indexOf(s.index)
+        val step = direction.compareTo(0)
+        val next = order.getOrNull(position + step) ?: if (s.repeatMode == RepeatMode.ALL && order.isNotEmpty()) order[if (step > 0) 0 else order.lastIndex] else null
         mutableState.value = if (next == null) s.copy(playing = false) else s.copy(index = next, positionSeconds = 0)
     }
     override fun select(trackId: String) {
@@ -77,6 +92,30 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
     override fun chooseSource(source: Source?) {
         val s = state.value
         val queue = catalog.tracks(s.profileId).filter { source == null || it.source == source }
-        mutableState.value = PlaybackState(s.profileId, queue, index = queue.indexOfFirst { it.available }.coerceAtLeast(0))
+        mutableState.value = PlaybackState(s.profileId, queue, index = queue.indexOfFirst { it.available }.coerceAtLeast(0), repeatMode = s.repeatMode, shuffle = s.shuffle)
     }
+    override fun setRepeatMode(mode: RepeatMode) { mutableState.value = state.value.copy(repeatMode = mode) }
+    override fun setShuffle(enabled: Boolean) { mutableState.value = state.value.copy(shuffle = enabled) }
+    override fun enqueue(trackId: String) {
+        val s = state.value
+        val track = catalog.tracks(s.profileId).find { it.id == trackId && it.available } ?: return
+        if (s.queue.none { it.id == trackId }) mutableState.value = s.copy(queue = s.queue + track)
+    }
+    override fun moveInQueue(trackId: String, toIndex: Int) {
+        val s = state.value
+        val from = s.queue.indexOfFirst { it.id == trackId }
+        if (from < 0 || toIndex !in s.queue.indices) return
+        val queue = s.queue.toMutableList().apply { add(toIndex, removeAt(from)) }
+        mutableState.value = s.copy(queue = queue, index = queue.indexOfFirst { it.id == s.current?.id }.coerceAtLeast(0))
+    }
+    override fun removeFromQueue(trackId: String) {
+        val s = state.value
+        val queue = s.queue.filterNot { it.id == trackId }
+        if (queue.size == s.queue.size) return
+        val removingCurrent = s.current?.id == trackId
+        mutableState.value = s.copy(queue = queue,
+            index = if (removingCurrent) s.index.coerceAtMost((queue.size - 1).coerceAtLeast(0)) else queue.indexOfFirst { it.id == s.current?.id }.coerceAtLeast(0),
+            positionSeconds = if (removingCurrent) 0 else s.positionSeconds, playing = s.playing && !removingCurrent)
+    }
+    override fun clearQueue() { mutableState.value = state.value.copy(queue = emptyList(), index = 0, positionSeconds = 0, playing = false) }
 }

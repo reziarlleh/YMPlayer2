@@ -8,9 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -25,6 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
+import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun CatalogScreen(tracks: List<Track>, player: PlaybackController, search: Boolean, state: CatalogState,
     demo: Boolean = true, folders: () -> Unit = {}, scanning: Boolean = false, issue: String? = null, retry: () -> Unit) {
@@ -36,6 +34,8 @@ import dev.petrov.ymplayer2.designsystem.*
     var descending by rememberSaveable { mutableStateOf(false) }
     val holder = rememberSaveableStateHolder()
     val keyboard = LocalSoftwareKeyboardController.current
+    val playback by player.state.collectAsState()
+    val queuedIds = remember(playback.queue) { playback.queue.mapTo(hashSetOf(), Track::id) }
     BackHandler(detail != null) { detail = null }
     val filtered = tracks.filter {
         (source == null || it.source == source) && (!offline || it.offline && it.available) &&
@@ -46,12 +46,12 @@ import dev.petrov.ymplayer2.designsystem.*
         LazyColumn(Modifier.fillMaxSize().imePadding().testTag("catalog_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (detail != null) ActionIcon(Icons.AutoMirrored.Filled.ArrowBack, "К списку", { detail = null })
+                    if (detail != null) ActionIcon(UiIcon.BACK, "К списку", { detail = null })
                     Text(detail ?: if (search) "Поиск" else "Медиатека", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
                 }
             }
             if (!demo && !search && detail == null) item {
-                OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { Icon(Icons.Default.FolderOpen, null); Spacer(Modifier.width(8.dp)); Text("Папки с музыкой") }
+                OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { SkinIcon(UiIcon.FOLDER, null); Spacer(Modifier.width(8.dp)); Text("Папки с музыкой") }
             }
             if (scanning) item { LinearProgressIndicator(Modifier.fillMaxWidth()); Text("Обновляем каталог…") }
             if (issue != null) item { Text(issue, color = MaterialTheme.colorScheme.error) }
@@ -61,8 +61,8 @@ import dev.petrov.ymplayer2.designsystem.*
                         label = { Text("Трек, исполнитель или альбом") }, singleLine = true,
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                         keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                        leadingIcon = { Icon(Icons.Default.Search, null) },
-                        trailingIcon = { if (query.isNotEmpty()) ActionIcon(Icons.Default.Close, "Очистить поиск", { query = "" }) })
+                        leadingIcon = { SkinIcon(UiIcon.SEARCH, null) },
+                        trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { query = "" }) })
                 }
                 if (!search) item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -92,7 +92,7 @@ import dev.petrov.ymplayer2.designsystem.*
                     if (detail != null || category == Category.TRACKS || search) {
                         val shown = if (detail == null) filtered else filtered.filter { it.group(category) == detail }
                         item { Text("${shown.size} треков" + if (demo) " · демонстрационный каталог" else "", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                        items(shown, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }) }
+                        items(shown, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }, enqueue = { player.enqueue(track.id) }, queued = track.id in queuedIds) }
                     } else {
                         items(filtered.groupBy { it.group(category) }.entries.toList(), key = { it.key }) { group ->
                             Surface(onClick = { detail = group.key }, modifier = Modifier.fillMaxWidth().prismFocus(), shape = MaterialTheme.shapes.medium) {
@@ -102,7 +102,7 @@ import dev.petrov.ymplayer2.designsystem.*
                                         Text(group.key, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
                                         Text("${group.value.size} треков", color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
-                                    Icon(Icons.Default.ChevronRight, "Открыть")
+                                    SkinIcon(UiIcon.FORWARD, "Открыть")
                                 }
                             }
                         }

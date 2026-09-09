@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0beta-build4",
+  "modes_survive_process_restart": true,
+  "before_move": {
+    "state": "PLAYING",
+    "position_ms": 2000,
+    "metadata": "size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома\r",
+    "queue_size": 2
+  },
+  "after_move_and_remove_other": {
+    "state": "PAUSED",
+    "position_ms": 10664,
+    "metadata": "size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома\r",
+    "queue_size": 1
+  },
+  "clear_observed_before_restart": true,
+  "empty_queue_survives_process_restart": true,
+  "passed": true
+}

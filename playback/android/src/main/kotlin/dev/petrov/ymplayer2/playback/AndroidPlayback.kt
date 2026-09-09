@@ -24,6 +24,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var updating = false
     private var pending: (() -> Unit)? = null
     private var ready = false
+    private var followLibrary = true
+    private var tracksById = emptyMap<String, Track>()
 
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
 
@@ -31,7 +33,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         check(engine == null)
         engine = player
         player.addListener(object : Player.Listener {
-            override fun onEvents(player: Player, events: Player.Events) { if (!updating && ready) { publish(); checkpoint() } }
+            override fun onEvents(player: Player, events: Player.Events) { if (!updating && ready) { publish(events.contains(Player.EVENT_TIMELINE_CHANGED)); checkpoint() } }
             override fun onPlayerError(error: PlaybackException) {
                 mutable.value = state.value.copy(playing = false, buffering = false, error = "Не удалось воспроизвести файл. Проверьте носитель или выберите другой трек.")
             }
@@ -78,17 +80,27 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         engine?.seekTo(seconds.coerceIn(0, duration).toLong() * 1000); publish(); checkpoint()
     }
     override fun skip(direction: Int) = command {
-        val next = state.value.index + direction.compareTo(0)
-        if (next in state.value.queue.indices) {
-            mutable.value = state.value.copy(error = null)
-            engine?.seekTo(next, 0); engine?.prepare()
-        } else engine?.pause()
+        val player = engine ?: return@command
+        if (direction == 0) return@command
+        mutable.value = state.value.copy(error = null)
+        when {
+            direction > 0 && player.hasNextMediaItem() -> player.seekToNextMediaItem()
+            direction < 0 && player.hasPreviousMediaItem() -> player.seekToPreviousMediaItem()
+            else -> player.pause()
+        }
+        player.prepare(); publish(); checkpoint()
     }
     override fun select(trackId: String) = command {
         val tracks = library.tracks(state.value.profileId).filter { it.available }
         if (tracks.none { it.id == trackId }) return@command
-        val queue = state.value.queue.takeIf { it.any { track -> track.id == trackId } } ?: tracks
-        load(queue, queue.indexOfFirst { it.id == trackId }, 0)
+        val index = state.value.queue.indexOfFirst { it.id == trackId }
+        mutable.value = state.value.copy(error = null)
+        if (index >= 0) engine?.seekTo(index, 0)
+        else {
+            followLibrary = true
+            prefs.edit().remove("source:${state.value.profileId}").apply()
+            load(tracks, tracks.indexOfFirst { it.id == trackId }, 0)
+        }
         engine?.prepare(); engine?.play()
     }
     override fun switchProfile(profileId: String) = command {
@@ -98,7 +110,36 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
     override fun chooseSource(source: Source?) = command {
         prefs.edit().putString("source:${state.value.profileId}", source?.name).apply()
+        followLibrary = true
         load(defaultQueue(state.value.profileId), 0, 0)
+    }
+
+    override fun setRepeatMode(mode: RepeatMode) = command { engine?.repeatMode = mode.toPlayerMode(); publish(); checkpoint() }
+    override fun setShuffle(enabled: Boolean) = command { engine?.shuffleModeEnabled = enabled; publish(); checkpoint() }
+    override fun enqueue(trackId: String) = command {
+        val track = tracksById[trackId]?.takeIf { it.available } ?: return@command
+        if (state.value.queue.any { it.id == trackId }) return@command
+        followLibrary = false
+        engine?.addMediaItem(track.mediaItem()); publish(true); checkpoint(forceEmpty = true)
+    }
+    override fun moveInQueue(trackId: String, toIndex: Int) = command {
+        val from = state.value.queue.indexOfFirst { it.id == trackId }
+        if (from < 0 || toIndex !in state.value.queue.indices || from == toIndex) return@command
+        followLibrary = false
+        engine?.moveMediaItem(from, toIndex); publish(true); checkpoint()
+    }
+    override fun removeFromQueue(trackId: String) = command {
+        val index = state.value.queue.indexOfFirst { it.id == trackId }
+        if (index < 0) return@command
+        followLibrary = false
+        // Removing the current item must not unexpectedly start its successor.
+        if (state.value.current?.id == trackId) { engine?.pause(); mutable.value = state.value.copy(error = null) }
+        engine?.removeMediaItem(index); publish(true); checkpoint(forceEmpty = true)
+    }
+    override fun clearQueue() = command {
+        followLibrary = false
+        mutable.value = state.value.copy(error = null)
+        engine?.pause(); engine?.clearMediaItems(); publish(true); checkpoint(forceEmpty = true)
     }
 
     private fun defaultQueue(profile: String): List<Track> {
@@ -110,10 +151,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val validProfile = profile.takeIf { id -> library.profiles.any { it.id == id } } ?: "owner"
         mutable.value = state.value.copy(profileId = validProfile, error = null)
         val json = runCatching { JSONObject(prefs.getString("queue:$validProfile", "")!!) }.getOrNull()
-        val allowed = library.tracks(validProfile).filter { it.available }.associateBy(Track::id)
+        tracksById = library.tracks(validProfile).filter { it.available }.associateBy(Track::id)
         val ids = json?.optJSONArray("ids")
-        val restored = if (ids == null) defaultQueue(validProfile) else (0 until ids.length()).mapNotNull { allowed[ids.optString(it)] }.distinctBy(Track::id)
-        val queue = if (restored.isEmpty()) defaultQueue(validProfile) else restored
+        followLibrary = json?.optBoolean("followLibrary", ids == null || ids.length() == 0) ?: true
+        val queue = if (followLibrary) defaultQueue(validProfile) else (0 until (ids?.length() ?: 0)).mapNotNull { tracksById[ids?.optString(it)] }.distinctBy(Track::id)
+        engine?.repeatMode = runCatching { RepeatMode.valueOf(prefs.getString("repeat:$validProfile", "OFF")!!) }.getOrDefault(RepeatMode.OFF).toPlayerMode()
+        engine?.shuffleModeEnabled = prefs.getBoolean("shuffle:$validProfile", false)
         val current = json?.optString("current")
         val index = queue.indexOfFirst { it.id == current }.coerceAtLeast(0)
         val position = if (queue.getOrNull(index)?.id == current) json?.optInt("position", 0) ?: 0 else 0
@@ -122,43 +165,58 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun reconcile() {
         val state = state.value
-        val allowed = library.tracks(state.profileId).filter { it.available }.associateBy(Track::id)
-        val next = state.queue.mapNotNull { allowed[it.id] }.ifEmpty { defaultQueue(state.profileId) }
+        tracksById = library.tracks(state.profileId).filter { it.available }.associateBy(Track::id)
+        val next = if (followLibrary) defaultQueue(state.profileId) else state.queue.mapNotNull { tracksById[it.id] }
         if (next == state.queue) return
-        // A rescan may change titles; preserve audio only when its file is still available.
-        val resume = state.playing && next.any { it.id == state.current?.id }
-        val index = next.indexOfFirst { it.id == state.current?.id }.coerceAtLeast(0)
-        val position = if (next.getOrNull(index)?.id == state.current?.id) state.positionSeconds else 0
-        load(next, index, position)
-        if (resume) { engine?.prepare(); engine?.play() }
+        val player = engine ?: return
+        updating = true
+        try {
+            if (next.none { it.id == state.current?.id }) player.pause()
+            val keep = next.mapTo(hashSetOf(), Track::id)
+            for (i in player.mediaItemCount - 1 downTo 0) if (player.getMediaItemAt(i).mediaId !in keep) player.removeMediaItem(i)
+            next.forEachIndexed { index, track ->
+                val from = (index until player.mediaItemCount).firstOrNull { player.getMediaItemAt(it).mediaId == track.id }
+                if (from == null) player.addMediaItem(index, track.mediaItem())
+                else {
+                    if (from != index) player.moveMediaItem(from, index)
+                    if (player.getMediaItemAt(index) != track.mediaItem()) player.replaceMediaItem(index, track.mediaItem())
+                }
+            }
+        } finally { updating = false }
+        publish(true); checkpoint()
     }
 
     private fun load(queue: List<Track>, index: Int, position: Int) {
         val player = engine ?: return
         updating = true
         player.pause()
-        mutable.value = PlaybackState(state.value.profileId, queue, index, position.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0))
+        mutable.value = state.value.copy(queue = queue, index = index, positionSeconds = position.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0), playing = false, connected = true, error = null)
         if (queue.isEmpty()) player.clearMediaItems()
-        else player.setMediaItems(queue.map { track ->
-            MediaItem.Builder().setMediaId(track.id).setUri(track.uri)
-                .setMediaMetadata(MediaMetadata.Builder().setTitle(track.title).setArtist(track.artist).setAlbumTitle(track.album).build()).build()
-        }, index, state.value.positionSeconds.toLong() * 1000)
+        else player.setMediaItems(queue.map { it.mediaItem() }, index, state.value.positionSeconds.toLong() * 1000)
         updating = false
         publish(); checkpoint()
     }
 
-    private fun publish() {
+    private fun publish(updateQueue: Boolean = false) {
         val player = engine ?: return
         val index = player.currentMediaItemIndex.coerceAtLeast(0)
-        mutable.value = state.value.copy(index = index, positionSeconds = (player.currentPosition.coerceAtLeast(0) / 1000).coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
+        mutable.value = state.value.copy(queue = if (updateQueue) (0 until player.mediaItemCount).mapNotNull { tracksById[player.getMediaItemAt(it).mediaId] } else state.value.queue,
+            index = index, positionSeconds = (player.currentPosition.coerceAtLeast(0) / 1000).coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
             playing = player.playWhenReady && player.playbackState != Player.STATE_ENDED && player.playerError == null,
-            buffering = player.playbackState == Player.STATE_BUFFERING)
+            buffering = player.playbackState == Player.STATE_BUFFERING, repeatMode = player.repeatMode.toRepeatMode(), shuffle = player.shuffleModeEnabled)
     }
-    private fun checkpoint() {
+    private fun checkpoint(forceEmpty: Boolean = false) {
         val state = state.value
-        if (state.queue.isEmpty() && library.state.value.tracks.any { !it.available }) return
+        val editor = prefs.edit().putString("profile", state.profileId)
+            .putString("repeat:${state.profileId}", state.repeatMode.name).putBoolean("shuffle:${state.profileId}", state.shuffle)
+        if (!forceEmpty && state.queue.isEmpty() && library.state.value.tracks.any { !it.available }) { editor.apply(); return }
         val json = JSONObject().put("ids", JSONArray(state.queue.map(Track::id)))
-            .put("current", state.current?.id).put("position", state.positionSeconds)
-        prefs.edit().putString("profile", state.profileId).putString("queue:${state.profileId}", json.toString()).apply()
+            .put("current", state.current?.id).put("position", state.positionSeconds).put("followLibrary", followLibrary)
+        editor.putString("queue:${state.profileId}", json.toString()).apply()
     }
 }
+
+private fun Track.mediaItem() = MediaItem.Builder().setMediaId(id).setUri(uri)
+    .setMediaMetadata(MediaMetadata.Builder().setTitle(title).setArtist(artist).setAlbumTitle(album).build()).build()
+private fun RepeatMode.toPlayerMode() = when (this) { RepeatMode.OFF -> Player.REPEAT_MODE_OFF; RepeatMode.ALL -> Player.REPEAT_MODE_ALL; RepeatMode.ONE -> Player.REPEAT_MODE_ONE }
+private fun Int.toRepeatMode() = when (this) { Player.REPEAT_MODE_ALL -> RepeatMode.ALL; Player.REPEAT_MODE_ONE -> RepeatMode.ONE; else -> RepeatMode.OFF }

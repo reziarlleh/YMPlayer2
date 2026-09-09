@@ -23,6 +23,7 @@ public class TestMusicProvider extends DocumentsProvider {
     public static final Uri tree = DocumentsContract.buildTreeDocumentUri("dev.petrov.ymplayer2.test.music", "music");
     private boolean unavailable;
     private boolean corrupt;
+    private boolean extra;
     private File directory() { File dir = new File(getContext().getCacheDir(), "test-music"); dir.mkdirs(); return dir; }
     @Override public boolean onCreate() { return true; }
     @Override public MatrixCursor queryRoots(String[] projection) {
@@ -34,21 +35,23 @@ public class TestMusicProvider extends DocumentsProvider {
     @Override public MatrixCursor queryChildDocuments(String parent, String[] projection, String sortOrder) throws FileNotFoundException {
         if (unavailable) throw new FileNotFoundException("Fixture storage disconnected");
         MatrixCursor cursor = cursor(projection);
-        if (parent.equals("music")) { addDocument(cursor, "one.wav"); addDocument(cursor, "nested"); if (corrupt) addDocument(cursor, "broken.wav"); }
+        if (parent.equals("music")) { addDocument(cursor, "one.wav"); addDocument(cursor, "nested"); if (corrupt) addDocument(cursor, "broken.wav"); if (extra) { addDocument(cursor, "three.wav"); addDocument(cursor, "four.wav"); } }
         else if (parent.equals("nested")) addDocument(cursor, "two.wav");
         return cursor;
     }
     @Override public boolean isChildDocument(String parent, String id) { return parent.equals("music") || parent.equals("nested") && id.equals("two.wav"); }
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal) throws FileNotFoundException {
-        if (unavailable || !mode.equals("r") || !Arrays.asList("one.wav", "two.wav", "broken.wav").contains(id)) throw new FileNotFoundException();
+        if (unavailable || !mode.equals("r") || !Arrays.asList("one.wav", "two.wav", "three.wav", "four.wav", "broken.wav").contains(id)) throw new FileNotFoundException();
         return ParcelFileDescriptor.open(new File(directory(), id), ParcelFileDescriptor.MODE_READ_ONLY);
     }
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("fixtures")) {
-            unavailable = false; corrupt = false;
+            unavailable = false; corrupt = false; extra = false;
             try {
                 wave(new File(directory(), "one.wav"), 440);
                 wave(new File(directory(), "two.wav"), 660);
+                wave(new File(directory(), "three.wav"), 550);
+                wave(new File(directory(), "four.wav"), 330);
                 Files.write(new File(directory(), "broken.wav").toPath(), "not an audio file".getBytes());
             } catch (IOException error) { throw new IllegalStateException(error); }
             grant(); return Bundle.EMPTY;
@@ -56,6 +59,7 @@ public class TestMusicProvider extends DocumentsProvider {
         if (method.equals("grant")) { grant(); return Bundle.EMPTY; }
         if (method.equals("unavailable")) { unavailable = "true".equals(arg); return Bundle.EMPTY; }
         if (method.equals("corrupt")) { corrupt = true; return Bundle.EMPTY; }
+        if (method.equals("extra")) { extra = true; return Bundle.EMPTY; }
         return super.call(method, arg, extras);
     }
     private void grant() {

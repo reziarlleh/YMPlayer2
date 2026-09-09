@@ -1,6 +1,6 @@
 # Карта миграции
 
-Дата: 2026-09-09. M1 завершён, локальная часть M2 реализована независимо от 1.x.
+Дата: 2026-09-09. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь.
 `analysis` означает выполненный первичный
 анализ, но не готовую поведенческую спецификацию каждой внутренней ветки.
 Ссылки на Fxx: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md), Sxx:
@@ -12,7 +12,7 @@
 | F02 | ROADMAP, S08 как ограничение | profiles/auth | new | design | Account scope, отмена старых работ, guest local mode |
 | F01 | S01/S04/S08 | profiles + provider/yandex | migration/refactor | analysis | Device code, expiry/cancel, изоляция токенов |
 | F16/F17 | ROADMAP; S05 как reference | library + local index | new | design | Пагинация, USB unavailable, инкрементальный индекс |
-| F04/F05/F06 | S02 | playback + Android adapter | migration/refactor | M2 partial | Реальные play/pause/stop/seek/skip и checkpoints есть; repeat/shuffle и редактирование очереди — M3 |
+| F04/F05/F06 | S02 | playback + Android adapter | migration/refactor | M3.1 local | Play/pause/stop/seek/skip, repeat/shuffle, ручная очередь и checkpoints; native Media3, профили и фон проверяются отдельно от облачных сценариев |
 | F03 | S03/S04 | provider/yandex + playback | migration/refactor | analysis | Session/batch/feedback, continuation, retry/prefetch |
 | F07/F08/F09 | S03/S06/S08 | favorites sync + cache | migration/refactor | analysis | Сохранить существующие integrity cases; unlike во время sync |
 | F10/F12 | S01/S03/S04 | library/search + yandex | migration/refactor | analysis | Подтверждённые операции, partial pages, API errors |
@@ -28,8 +28,8 @@
 
 Подробный порядок M1–M12 и критерии завершения: [ROADMAP.md](ROADMAP.md).
 
-Ближайшее после M2: контракт оформления/базовый PRISM, затем полнота локальных
-сценариев. Далее аккаунты → каталог/поиск Яндекса → волна → likes/cache →
+После M3.1: локальные плейлисты/избранное, обложки и USB/reconnect.
+Далее аккаунты → каталог/поиск Яндекса → волна → likes/cache →
 системная интеграция/CWG → клипы → SideBar/K4811 → пользовательские скины → выпуск.
 
 Перед каждым переносом: inputs/outputs/side effects → поведенческие примеры →
