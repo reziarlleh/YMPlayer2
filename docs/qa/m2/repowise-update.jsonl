@@ -1,0 +1,7 @@
+{"event": "start", "repo": "D:\\_codex\\YMPlaer2", "since": "5843c97"}
+{"event": "stage", "name": "detect_changes"}
+{"event": "stage", "name": "rebuild_graph"}
+{"event": "stage", "name": "plan_pages"}
+{"event": "stage", "name": "generate"}
+{"event": "stage", "name": "persist"}
+{"event": "done", "ok": true, "outcome": "regenerated", "pages_generated": 38, "cost_usd": 0.0, "duration_s": 34.03100000000268, "degraded": []}

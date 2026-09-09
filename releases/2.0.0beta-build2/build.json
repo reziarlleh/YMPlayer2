@@ -1,0 +1,9 @@
+{
+  "versionName": "2.0.0beta-build2",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionCode": 2,
+  "sha256": "0bfd2d43b51d40dc14e4d5e63e610a7ebf3239d422e0d306b34919a5c79a740d",
+  "builtAtUtc": "2026-09-09T16:47:40.2186802Z",
+  "runtimeAcceptance": "rejected_missing_foreground_notification",
+  "channel": "beta"
+}
