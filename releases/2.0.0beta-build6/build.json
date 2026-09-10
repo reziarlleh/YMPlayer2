@@ -1,0 +1,9 @@
+{
+  "sha256": "a60a5df43a29cb215a1fc60cc98df30b7d2ed62db9a299023bf7a8fe80019ebb",
+  "versionName": "2.0.0beta-build6",
+  "runtimeAcceptance": "emulator_m3_3_verified",
+  "channel": "beta",
+  "versionCode": 6,
+  "builtAtUtc": "2026-09-10T11:59:11.5227924Z",
+  "applicationId": "dev.petrov.ymplayer2"
+}

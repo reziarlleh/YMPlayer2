@@ -13,11 +13,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import dev.petrov.ymplayer2.core.Source
 import dev.petrov.ymplayer2.shell.ShellApp
 import dev.petrov.ymplayer2.shell.ShellModel
 
 class MainActivity : ComponentActivity() {
+    override fun onStart() {
+        super.onStart()
+        lifecycleScope.launch { (application as PlayerApplication).library.refresh() }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 source = it; pickerIssue = null
                 try { picker.launch(null) }
                 catch (_: ActivityNotFoundException) { pickerIssue = "На устройстве нет системного выбора папки. Нужен файловый менеджер с поддержкой Storage Access Framework." }
-            }, folderIssue = pickerIssue)
+            }, folderIssue = pickerIssue, onExit = ::finish)
         }
     }
 }

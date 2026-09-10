@@ -55,6 +55,13 @@ M3.2: `UserCollections` и чистые изменения списков нах
 Хранилище не получает `PlaybackController` или `ContentResolver`; оно меняет только
 собственный файл метаданных. Явный запуск списка проходит отдельной командой `playQueue`.
 
+M3.3: `ArtworkCache` и `StorageMonitor` находятся в `:library:local`. Ядро передаёт
+необязательный URI обложки, shell читает уменьшенное изображение вне UI-потока
+и использует форму/запасную иллюстрацию скина. AndroidPlayback хранит логическую
+очередь со ссылками на недоступные файлы отдельно от доступных MediaItem движка.
+Фиксированная иерархия «Назад» и двойной выход относятся только к shell/Activity.
+Решения: [ADR-007](DECISIONS/ADR-007-navigation-artwork-storage.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

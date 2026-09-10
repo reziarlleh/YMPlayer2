@@ -26,12 +26,14 @@ import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun CatalogScreen(tracks: List<Track>, player: PlaybackController, search: Boolean, state: CatalogState,
     demo: Boolean = true, folders: () -> Unit = {}, scanning: Boolean = false, issue: String? = null,
-    collections: Boolean = false, playlists: () -> Unit = {}, favorites: () -> Unit = {}, more: ((Track) -> Unit)? = null, retry: () -> Unit) {
+    collections: Boolean = false, playlists: () -> Unit = {}, favorites: () -> Unit = {}, more: ((Track) -> Unit)? = null, upRequest: Int = 0, retry: () -> Unit) {
     var query by rememberSaveable { mutableStateOf("") }
     var source by rememberSaveable { mutableStateOf<Source?>(null) }
     var offline by rememberSaveable { mutableStateOf(false) }
     var category by rememberSaveable { mutableStateOf(Category.TRACKS) }
     var detail by rememberSaveable { mutableStateOf<String?>(null) }
+    var handledUpRequest by rememberSaveable { mutableIntStateOf(upRequest) }
+    LaunchedEffect(upRequest) { if (handledUpRequest != upRequest) { detail = null; handledUpRequest = upRequest } }
     var descending by rememberSaveable { mutableStateOf(false) }
     val holder = rememberSaveableStateHolder()
     val keyboard = LocalSoftwareKeyboardController.current
@@ -101,7 +103,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                         items(filtered.groupBy { it.group(category) }.entries.toList(), key = { it.key }) { group ->
                             Surface(onClick = { detail = group.key }, modifier = Modifier.fillMaxWidth().prismFocus(), shape = MaterialTheme.shapes.medium) {
                                 Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                                    DemoArtwork(group.value.first().tint, Modifier.size(64.dp))
+                                    TrackArtwork(group.value.first(), Modifier.size(64.dp))
                                     Column(Modifier.weight(1f)) {
                                         Text(group.key, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
                                         Text("${group.value.size} треков", color = MaterialTheme.colorScheme.onSurfaceVariant)

@@ -31,7 +31,15 @@ import kotlinx.coroutines.launch
     var editing by rememberSaveable { mutableStateOf(false) }
     var actionTrack by remember { mutableStateOf<Track?>(null) }
     val selected = data.playlists.find { it.id == selectedId }
-    BackHandler(selectedId != null) { selectedId = null; editing = false }
+    BackHandler(selectedId != null || adding || naming || deleting != null || actionTrack != null) {
+        when {
+            adding -> adding = false
+            naming -> naming = false
+            deleting != null -> deleting = null
+            actionTrack != null -> actionTrack = null
+            else -> { selectedId = null; editing = false }
+        }
+    }
     Column(Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
         if (!state.ready) LinearProgressIndicator(Modifier.fillMaxWidth())
         state.issue?.let {

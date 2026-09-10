@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0beta-build6",
+  "before": {
+    "state": "PLAYING",
+    "position_ms": 0
+  },
+  "parents_ignore_history": true,
+  "first_back_keeps_activity": true,
+  "second_back_closes_activity": true,
+  "after_exit_paused_by_system": {
+    "state": "PAUSED",
+    "position_ms": 21441
+  },
+  "passed": true
+}

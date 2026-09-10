@@ -45,6 +45,31 @@ class CollectionsPlaybackTest {
     }
     @After fun stop() { compose.runOnIdle { player.stop() }; provider("unavailable", "false") }
 
+    @Test fun backClosesDialogThenAscendsPlaylistAndResetsUnrelatedCatalogDetail() {
+        edit(CollectionEdit.Create("Навигация", id("one")))
+        val list = data().playlists.single().id
+        goCollections()
+        compose.onNodeWithTag("playlist_$list").performClick()
+        compose.onNodeWithTag("playlist_add_tracks").performClick()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.waitForIdle(200, 3000)
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
+        compose.waitUntil(5000) { compose.onAllNodesWithTag("playlist_picker_done").fetchSemanticsNodes().isEmpty() }
+        compose.onNodeWithTag("playlist_picker_done").assertDoesNotExist()
+        compose.onNodeWithTag("collection_play").assertExists()
+        compose.onNodeWithTag("navigate_up").performClick()
+        compose.onNodeWithTag("playlist_create").assertExists()
+        compose.onNodeWithTag("navigate_up").performClick()
+        compose.onNodeWithTag("category_ALBUMS").performScrollTo().performClick()
+        compose.onNodeWithText("Без альбома").performScrollTo().performClick()
+        compose.onNodeWithTag("settings").performClick()
+        compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("manage_folders"))
+        compose.onNodeWithTag("manage_folders").performScrollTo().performClick()
+        compose.onNodeWithTag("navigate_up").performClick()
+        compose.onNodeWithTag("category_ALBUMS").assertExists()
+        compose.onNodeWithTag("navigate_up").performClick()
+        compose.onNodeWithTag("player_play").assertExists()
+    }
+
     @Test fun nativeUiCreatesEditsAndPlaysOnlyTheChosenPlaylist() {
         val one = id("one"); val two = id("two")
         goCollections()

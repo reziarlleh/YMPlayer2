@@ -21,6 +21,8 @@ import java.security.MessageDigest
 class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
     private val resolver = context.applicationContext.contentResolver
     private val file = AtomicFile(File(context.filesDir, "local-library.json"))
+    private val artwork = ArtworkCache(File(context.cacheDir, "artwork"))
+    private val artworkChecked = mutableSetOf<String>()
     private val mutex = Mutex()
     private val loaded = CompletableDeferred<Unit>()
     private val mutable = MutableStateFlow(LibrarySnapshot())
@@ -33,6 +35,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
     override fun tracks(profileId: String) = if (profiles.any { it.id == profileId }) state.value.tracks else emptyList()
 
     init {
+        monitorStorage(context, scope, this)
         scope.launch(Dispatchers.IO) {
             mutable.value = try { readIndex() }
             catch (_: Exception) { LibrarySnapshot(ready = true, issue = "Не удалось прочитать индекс. Добавьте папку заново.") }
@@ -101,6 +104,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
         val next = snapshot.copy(roots = roots, tracks = tracks.distinctBy(Track::id).sortedBy { it.title.lowercase() })
         writeIndex(next)
         mutable.value = next
+        artwork.trim()
     }
 
     private suspend fun scan(root: LibraryRoot, previous: List<Track>): List<Track> {
@@ -137,7 +141,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
                     val id = "local:" + MessageDigest.getInstance("SHA-256").digest(uri.toString().toByteArray()).joinToString("") { byte -> "%02x".format(byte) }
                     val size = it.getLong(3)
                     val modified = it.getLong(4)
-                    val cached = old[id]?.takeIf { track -> modified > 0 && track.modifiedMillis == modified && track.sizeBytes == size }
+                    val cached = old[id]?.takeIf { track -> modified > 0 && track.modifiedMillis == modified && track.sizeBytes == size && id in artworkChecked && artwork.present(track.artworkUri) }
                     result += cached?.copy(available = true, folder = folder, source = root.source)
                         ?: metadata(uri, id, root, name, folder, size, modified)
                 }
@@ -153,6 +157,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
         var album = "Без альбома"
         var genre = "Без жанра"
         var duration = 0
+        var cover: String? = null
         // Invalid tags don't hide a file: the player reports a decoding error if necessary.
         runCatching {
             MediaMetadataRetriever().use { retriever ->
@@ -164,11 +169,13 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
                     album = tag(MediaMetadataRetriever.METADATA_KEY_ALBUM) ?: album
                     genre = tag(MediaMetadataRetriever.METADATA_KEY_GENRE) ?: genre
                     duration = ((tag(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLongOrNull() ?: 0L) / 1000).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
+                    cover = artwork.store(retriever.embeddedPicture)
                 }
             }
         }
+        artworkChecked += id
         return Track(id, title, artist, album, root.source, duration, true, genre = genre, folder = folder,
-            tint = (id.hashCode() and Int.MAX_VALUE) % 6, uri = uri.toString(), rootId = root.uri, sizeBytes = size, modifiedMillis = modified)
+            tint = (id.hashCode() and Int.MAX_VALUE) % 6, uri = uri.toString(), rootId = root.uri, sizeBytes = size, modifiedMillis = modified, artworkUri = cover)
     }
 
     private fun readIndex(): LibrarySnapshot {
@@ -178,9 +185,10 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
             LibraryRoot(it.getString("uri"), it.getString("name"), Source.valueOf(it.getString("source")))
         }
         val tracks = json.getJSONArray("tracks").objects().map {
+            if (it.optBoolean("artworkChecked")) artworkChecked += it.getString("id")
             Track(it.getString("id"), it.getString("title"), it.getString("artist"), it.getString("album"), Source.valueOf(it.getString("source")),
                 it.getInt("duration"), true, available = false, genre = it.getString("genre"), folder = it.getString("folder"), tint = it.getInt("tint"),
-                uri = it.getString("uri"), rootId = it.getString("root"), sizeBytes = it.getLong("size"), modifiedMillis = it.getLong("modified"))
+                uri = it.getString("uri"), rootId = it.getString("root"), sizeBytes = it.getLong("size"), modifiedMillis = it.getLong("modified"), artworkUri = artwork.uri(it.optString("artwork")))
         }
         return LibrarySnapshot(roots, tracks)
     }
@@ -192,6 +200,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
             JSONObject().put("id", it.id).put("title", it.title).put("artist", it.artist).put("album", it.album)
                 .put("source", it.source.name).put("duration", it.durationSeconds).put("genre", it.genre).put("folder", it.folder)
                 .put("tint", it.tint).put("uri", it.uri).put("root", it.rootId).put("size", it.sizeBytes).put("modified", it.modifiedMillis)
+                .put("artwork", it.artworkUri?.let { uri -> Uri.parse(uri).lastPathSegment }).put("artworkChecked", it.id in artworkChecked)
         }))
         val output = file.startWrite()
         try { output.write(json.toString().toByteArray()); file.finishWrite(output) }

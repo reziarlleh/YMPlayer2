@@ -24,6 +24,8 @@ public class TestMusicProvider extends DocumentsProvider {
     private boolean unavailable;
     private boolean corrupt;
     private boolean extra;
+    private boolean artwork;
+    private boolean missingSecond;
     private File directory() { File dir = new File(getContext().getCacheDir(), "test-music"); dir.mkdirs(); return dir; }
     @Override public boolean onCreate() { return true; }
     @Override public MatrixCursor queryRoots(String[] projection) {
@@ -35,18 +37,18 @@ public class TestMusicProvider extends DocumentsProvider {
     @Override public MatrixCursor queryChildDocuments(String parent, String[] projection, String sortOrder) throws FileNotFoundException {
         if (unavailable) throw new FileNotFoundException("Fixture storage disconnected");
         MatrixCursor cursor = cursor(projection);
-        if (parent.equals("music")) { addDocument(cursor, "one.wav"); addDocument(cursor, "nested"); if (corrupt) addDocument(cursor, "broken.wav"); if (extra) { addDocument(cursor, "three.wav"); addDocument(cursor, "four.wav"); } }
-        else if (parent.equals("nested")) addDocument(cursor, "two.wav");
+        if (parent.equals("music")) { addDocument(cursor, "one.wav"); addDocument(cursor, "nested"); if (artwork) addDocument(cursor, "cover.mp3"); if (corrupt) addDocument(cursor, "broken.wav"); if (extra) { addDocument(cursor, "three.wav"); addDocument(cursor, "four.wav"); } }
+        else if (parent.equals("nested") && !missingSecond) addDocument(cursor, "two.wav");
         return cursor;
     }
     @Override public boolean isChildDocument(String parent, String id) { return parent.equals("music") || parent.equals("nested") && id.equals("two.wav"); }
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal) throws FileNotFoundException {
-        if (unavailable || !mode.equals("r") || !Arrays.asList("one.wav", "two.wav", "three.wav", "four.wav", "broken.wav").contains(id)) throw new FileNotFoundException();
+        if (unavailable || missingSecond && id.equals("two.wav") || !mode.equals("r") || !Arrays.asList("one.wav", "two.wav", "three.wav", "four.wav", "broken.wav", "cover.mp3").contains(id)) throw new FileNotFoundException();
         return ParcelFileDescriptor.open(new File(directory(), id), ParcelFileDescriptor.MODE_READ_ONLY);
     }
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("fixtures")) {
-            unavailable = false; corrupt = false; extra = false;
+            unavailable = false; corrupt = false; extra = false; artwork = false; missingSecond = false;
             try {
                 wave(new File(directory(), "one.wav"), 440);
                 wave(new File(directory(), "two.wav"), 660);
@@ -60,6 +62,15 @@ public class TestMusicProvider extends DocumentsProvider {
         if (method.equals("unavailable")) { unavailable = "true".equals(arg); return Bundle.EMPTY; }
         if (method.equals("corrupt")) { corrupt = true; return Bundle.EMPTY; }
         if (method.equals("extra")) { extra = true; return Bundle.EMPTY; }
+        if (method.equals("missingSecond")) { missingSecond = "true".equals(arg); return Bundle.EMPTY; }
+        if (method.equals("notify")) { getContext().getContentResolver().notifyChange(DocumentsContract.buildChildDocumentsUriUsingTree(tree, "music"), null); return Bundle.EMPTY; }
+        if (method.equals("artwork")) {
+            artwork = true;
+            try (java.io.InputStream input = getContext().getAssets().open("cover.mp3")) {
+                Files.copy(input, new File(directory(), "cover.mp3").toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException error) { throw new IllegalStateException(error); }
+            return Bundle.EMPTY;
+        }
         return super.call(method, arg, extras);
     }
     private void grant() {
@@ -72,7 +83,7 @@ public class TestMusicProvider extends DocumentsProvider {
         boolean folder = id.equals("music") || id.equals("nested");
         File file = new File(directory(), id);
         cursor.newRow().add(Document.COLUMN_DOCUMENT_ID, id).add(Document.COLUMN_DISPLAY_NAME, id.equals("music") ? "Test Music" : id)
-            .add(Document.COLUMN_MIME_TYPE, folder ? Document.MIME_TYPE_DIR : "audio/wav").add(Document.COLUMN_SIZE, folder ? 0L : file.length())
+            .add(Document.COLUMN_MIME_TYPE, folder ? Document.MIME_TYPE_DIR : id.endsWith("mp3") ? "audio/mpeg" : "audio/wav").add(Document.COLUMN_SIZE, folder ? 0L : file.length())
             .add(Document.COLUMN_LAST_MODIFIED, file.lastModified()).add(Document.COLUMN_FLAGS, 0);
     }
     private void wave(File file, double frequency) throws IOException {

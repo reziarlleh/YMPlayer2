@@ -11,6 +11,7 @@ data class Track(
     val folder: String = "Музыка", val tint: Int = 0,
     val uri: String? = null, val rootId: String? = null,
     val sizeBytes: Long = 0, val modifiedMillis: Long = 0,
+    val artworkUri: String? = null,
 )
 
 data class Profile(val id: String, val name: String, val description: String, val guest: Boolean = false)

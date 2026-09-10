@@ -26,7 +26,7 @@ class DemoActivity : ComponentActivity() {
                     ShellModel(catalog, DemoPlaybackController(catalog, savedState.playbackCheckpoint()), savedState)
                 }
             })
-            ShellApp(model, BuildConfig.VERSION_NAME)
+            ShellApp(model, BuildConfig.VERSION_NAME, onExit = ::finish)
         }
     }
 }

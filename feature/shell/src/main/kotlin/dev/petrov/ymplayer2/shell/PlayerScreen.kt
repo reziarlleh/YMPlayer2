@@ -30,12 +30,12 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             if (compact) TransportControls(state, player, queue)
             if (compact) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    DemoArtwork(state.current?.tint ?: 0, Modifier.size(88.dp))
+                    TrackArtwork(state.current, Modifier.size(88.dp))
                     TrackHeading(state.current, Modifier.weight(1f))
                 }
             } else {
                 BoxWithConstraints(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    DemoArtwork(state.current?.tint ?: 0, Modifier.size(minOf(maxWidth, if (wide) 280.dp else 208.dp)))
+                    TrackArtwork(state.current, Modifier.size(minOf(maxWidth, if (wide) 280.dp else 208.dp)))
                 }
                 TrackHeading(state.current)
             }
@@ -145,7 +145,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     Surface(onClick = play, enabled = track.available, modifier = Modifier.weight(1f).prismFocus().testTag("track_${track.id}"),
         shape = MaterialTheme.shapes.medium, color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            DemoArtwork(track.tint, Modifier.size(44.dp))
+            TrackArtwork(track, Modifier.size(44.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
                 Text(track.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
