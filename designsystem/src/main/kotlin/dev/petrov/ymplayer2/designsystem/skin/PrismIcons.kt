@@ -45,6 +45,11 @@ val PrismIcons: Map<UiIcon, ImageVector> = mapOf(
     UiIcon.REMOVE to Icons.Default.RemoveCircleOutline,
     UiIcon.ADD_QUEUE to Icons.Default.PlaylistAdd,
     UiIcon.CLEAR_QUEUE to Icons.Default.ClearAll,
+    UiIcon.FAVORITE to Icons.Default.Favorite,
+    UiIcon.FAVORITE_OFF to Icons.Default.FavoriteBorder,
+    UiIcon.MORE to Icons.Default.MoreVert,
+    UiIcon.PLAYLIST to Icons.AutoMirrored.Filled.QueueMusic,
+    UiIcon.ADD to Icons.Default.Add,
     UiIcon.ARTWORK to ImageVector.Builder("Prism artwork", 100.dp, 100.dp, 100f, 100f).apply {
         path(stroke = Brush.linearGradient(listOf(Color(0xFF67DCF5), Color(0xFFEA94E0)), Offset.Zero, Offset(100f, 100f)), strokeLineWidth = 2.6f) {
             moveTo(18f, 75f); lineTo(48f, 18f); lineTo(80f, 75f); close()

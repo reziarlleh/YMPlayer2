@@ -1,0 +1,9 @@
+{
+  "versionCode": 5,
+  "channel": "beta",
+  "applicationId": "dev.petrov.ymplayer2",
+  "runtimeAcceptance": "emulator_m3_2_verified",
+  "builtAtUtc": "2026-09-10T01:49:08.7275950Z",
+  "sha256": "e20809f41103d1e26f371ac7958fd39a5189a3ad9bc89a760a57b6281fae5d3a",
+  "versionName": "2.0.0beta-build5"
+}

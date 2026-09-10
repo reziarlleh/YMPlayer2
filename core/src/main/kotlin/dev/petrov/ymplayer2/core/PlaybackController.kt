@@ -38,6 +38,7 @@ interface PlaybackController {
     fun moveInQueue(trackId: String, toIndex: Int)
     fun removeFromQueue(trackId: String)
     fun clearQueue()
+    fun playQueue(trackIds: List<String>, startId: String? = null)
 }
 
 data class PlaybackCheckpoint(val profileId: String, val queueIds: List<String>, val currentId: String?, val positionSeconds: Int,
@@ -118,4 +119,10 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
             positionSeconds = if (removingCurrent) 0 else s.positionSeconds, playing = s.playing && !removingCurrent)
     }
     override fun clearQueue() { mutableState.value = state.value.copy(queue = emptyList(), index = 0, positionSeconds = 0, playing = false) }
+    override fun playQueue(trackIds: List<String>, startId: String?) {
+        val allowed = catalog.tracks(state.value.profileId).filter { it.available }.associateBy(Track::id)
+        val queue = trackIds.distinct().mapNotNull(allowed::get)
+        if (queue.isEmpty()) return
+        mutableState.value = state.value.copy(queue = queue, index = queue.indexOfFirst { it.id == startId }.coerceAtLeast(0), positionSeconds = 0, playing = true, error = null)
+    }
 }

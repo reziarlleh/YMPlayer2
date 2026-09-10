@@ -1,6 +1,7 @@
 # Карта миграции
 
-Дата: 2026-09-09. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь.
+Дата: 2026-09-10. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь,
+в M3.2 — локальные плейлисты и избранное по профилям; [проверки build5](M3_2_VERIFICATION.md).
 `analysis` означает выполненный первичный
 анализ, но не готовую поведенческую спецификацию каждой внутренней ветки.
 Ссылки на Fxx: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md), Sxx:
@@ -17,7 +18,7 @@
 | F07/F08/F09 | S03/S06/S08 | favorites sync + cache | migration/refactor | analysis | Сохранить существующие integrity cases; unlike во время sync |
 | F10/F12 | S01/S03/S04 | library/search + yandex | migration/refactor | analysis | Подтверждённые операции, partial pages, API errors |
 | F11/F25 | ROADMAP | provider capability extensions | new | planned | Доступность API ещё не подтверждена |
-| F13/F14/F15 | S05 | local source + library | migration/refactor | M2 partial | SAF, ручной rescan, unavailable и удаление только из индекса есть; playlists/favorites/hot-plug — M3 |
+| F13/F14/F15 | S05 | local source + library | migration/refactor | M3.2 local | SAF, rescan, unavailable; собственные плейлисты, локальное избранное и редактирование метаданных без удаления оригиналов. Hot-plug и обложки — M3.3 |
 | F18 | S07 | clips | migration/refactor | analysis | Взаимное исключение аудио/видео, prefetch, Back |
 | F20 | S02 | Android media session | migration/refactor | M2 basic session | MediaSession и медиакнопки проверяются в M2; CWG/MediaBrowser/целевое устройство — M8 |
 | F21/F22 | S09/ROADMAP | headunit/sidebar | migration/refactor | analysis | Overlay permission, команды K4811, состав кнопок |
@@ -28,7 +29,7 @@
 
 Подробный порядок M1–M12 и критерии завершения: [ROADMAP.md](ROADMAP.md).
 
-После M3.1: локальные плейлисты/избранное, обложки и USB/reconnect.
+После M3.2: обложки и USB/reconnect.
 Далее аккаунты → каталог/поиск Яндекса → волна → likes/cache →
 системная интеграция/CWG → клипы → SideBar/K4811 → пользовательские скины → выпуск.
 

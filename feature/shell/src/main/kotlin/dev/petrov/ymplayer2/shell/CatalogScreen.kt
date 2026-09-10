@@ -25,7 +25,8 @@ import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun CatalogScreen(tracks: List<Track>, player: PlaybackController, search: Boolean, state: CatalogState,
-    demo: Boolean = true, folders: () -> Unit = {}, scanning: Boolean = false, issue: String? = null, retry: () -> Unit) {
+    demo: Boolean = true, folders: () -> Unit = {}, scanning: Boolean = false, issue: String? = null,
+    collections: Boolean = false, playlists: () -> Unit = {}, favorites: () -> Unit = {}, more: ((Track) -> Unit)? = null, retry: () -> Unit) {
     var query by rememberSaveable { mutableStateOf("") }
     var source by rememberSaveable { mutableStateOf<Source?>(null) }
     var offline by rememberSaveable { mutableStateOf(false) }
@@ -66,7 +67,10 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 }
                 if (!search) item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Category.entries.filter { demo || it != Category.PLAYLISTS }.forEach { item -> FilterChip(category == item, { category = item }, { Text(item.label) }, Modifier.prismFocus().testTag("category_${item.name}")) }
+                        Category.entries.filter { demo || collections || it != Category.PLAYLISTS }.forEach { item ->
+                            FilterChip(category == item, { if (item == Category.PLAYLISTS && collections) playlists() else category = item }, { Text(item.label) }, Modifier.prismFocus().testTag("category_${item.name}"))
+                        }
+                        if (collections) AssistChip(favorites, { Text("Избранное") }, Modifier.prismFocus().testTag("category_FAVORITES"), leadingIcon = { SkinIcon(UiIcon.FAVORITE, null) })
                     }
                 }
                 item {
@@ -92,7 +96,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                     if (detail != null || category == Category.TRACKS || search) {
                         val shown = if (detail == null) filtered else filtered.filter { it.group(category) == detail }
                         item { Text("${shown.size} треков" + if (demo) " · демонстрационный каталог" else "", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                        items(shown, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }, enqueue = { player.enqueue(track.id) }, queued = track.id in queuedIds) }
+                        items(shown, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }, enqueue = { player.enqueue(track.id) }, queued = track.id in queuedIds, more = more?.let { action -> { action(track) } }) }
                     } else {
                         items(filtered.groupBy { it.group(category) }.entries.toList(), key = { it.key }) { group ->
                             Surface(onClick = { detail = group.key }, modifier = Modifier.fillMaxWidth().prismFocus(), shape = MaterialTheme.shapes.medium) {

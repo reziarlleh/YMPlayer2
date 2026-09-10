@@ -141,6 +141,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         mutable.value = state.value.copy(error = null)
         engine?.pause(); engine?.clearMediaItems(); publish(true); checkpoint(forceEmpty = true)
     }
+    override fun playQueue(trackIds: List<String>, startId: String?) = command {
+        val queue = trackIds.distinct().mapNotNull { tracksById[it]?.takeIf(Track::available) }
+        if (queue.isEmpty()) return@command
+        followLibrary = false
+        load(queue, queue.indexOfFirst { it.id == startId }.coerceAtLeast(0), 0)
+        engine?.prepare(); engine?.play()
+    }
 
     private fun defaultQueue(profile: String): List<Track> {
         val source = prefs.getString("source:$profile", null)

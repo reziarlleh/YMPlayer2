@@ -140,7 +140,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun TrackRow(track: Track, selected: Boolean = false, play: () -> Unit, enqueue: (() -> Unit)? = null, queued: Boolean = false) {
+@Composable internal fun TrackRow(track: Track, selected: Boolean = false, play: () -> Unit, enqueue: (() -> Unit)? = null, queued: Boolean = false, more: (() -> Unit)? = null) {
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
     Surface(onClick = play, enabled = track.available, modifier = Modifier.weight(1f).prismFocus().testTag("track_${track.id}"),
         shape = MaterialTheme.shapes.medium, color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface) {
@@ -156,5 +156,6 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
     if (enqueue != null) ActionIcon(if (queued) UiIcon.CHECK else UiIcon.ADD_QUEUE, if (queued) "Уже в очереди: ${track.title}" else "В очередь: ${track.title}", enqueue,
         Modifier.testTag("enqueue_${track.id}"), enabled = track.available && !queued)
+    if (more != null) ActionIcon(UiIcon.MORE, "Действия: ${track.title}", more, Modifier.testTag("track_more_${track.id}"))
     }
 }

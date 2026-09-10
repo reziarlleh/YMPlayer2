@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0beta-build5",
+  "files_before": "2080311e92fd93f125d7593ca182948f3900c97440b63712f9cf3a8cdf2872e6  /sdcard/Music/YM2-Test/01 - Evening route.wav\r\n87708ce7b8f896d445b4f15796bdc7be4309968a0aaecef816735e5144e4f16f  /sdcard/Music/YM2-Test/02 - City lights.wav",
+  "playlist_playing": {
+    "state": "PLAYING",
+    "position_ms": 0,
+    "metadata": "size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома",
+    "queue_size": 2
+  },
+  "playlist_survives_process_restart": true,
+  "favorite_survives_process_restart": true,
+  "guest_isolated": true,
+  "owner_restored": true,
+  "files_after": "2080311e92fd93f125d7593ca182948f3900c97440b63712f9cf3a8cdf2872e6  /sdcard/Music/YM2-Test/01 - Evening route.wav\r\n87708ce7b8f896d445b4f15796bdc7be4309968a0aaecef816735e5144e4f16f  /sdcard/Music/YM2-Test/02 - City lights.wav",
+  "passed": true
+}

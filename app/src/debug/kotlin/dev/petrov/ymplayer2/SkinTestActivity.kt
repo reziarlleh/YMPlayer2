@@ -25,7 +25,7 @@ class SkinTestActivity : ComponentActivity() {
         graph.playback.connect()
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
-                initializer { ShellModel(graph.library, graph.playback, createSavedStateHandle()) }
+                initializer { ShellModel(graph.library, graph.playback, createSavedStateHandle(), graph.collections) }
             })
             ShellApp(model, "Skin contract test", skin = skin)
         }

@@ -50,6 +50,11 @@ DemoPlaybackController реализует минимальный UI-контра
 реальный адаптер делегирует перестановки/удаления самому Media3 без пересоздания
 плеера. Сохраняются порядок, текущий трек, позиция и режимы каждого профиля.
 
+M3.2: `UserCollections` и чистые изменения списков находятся в `:core`,
+`LocalCollections` с AtomicFile — в `:library:local`, `CollectionsScreen` — в shell.
+Хранилище не получает `PlaybackController` или `ContentResolver`; оно меняет только
+собственный файл метаданных. Явный запуск списка проходит отдельной командой `playQueue`.
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

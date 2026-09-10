@@ -35,8 +35,10 @@ private val destinations = listOf(
     var history by rememberSaveable { mutableStateOf(listOf("player")) }
     var theme by rememberSaveable { mutableStateOf("dark") }
     var catalogState by rememberSaveable { mutableStateOf(CatalogState.READY) }
+    var collectionTrack by remember(playback.profileId) { mutableStateOf<Track?>(null) }
     val holder = rememberSaveableStateHolder()
     val route = history.last()
+    val navigationRoute = if (route == "playlists" || route == "favorites") "library" else route
     val navigate: (String) -> Unit = { if (route != it) history = history + it }
     val back: () -> Unit = { if (history.size > 1) history = history.dropLast(1) }
     BackHandler(history.size > 1, back)
@@ -51,7 +53,7 @@ private val destinations = listOf(
                     Text("YM", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
                     Spacer(Modifier.height(24.dp))
                     destinations.forEach { item ->
-                        NavigationRailItem(route == item.route, { navigate(item.route) },
+                        NavigationRailItem(navigationRoute == item.route, { navigate(item.route) },
                             { SkinIcon(item.icon, item.label) }, Modifier.testTag("nav_${item.route}").prismFocus(),
                             label = { Text(item.label) })
                     }
@@ -73,7 +75,10 @@ private val destinations = listOf(
                                 "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") })
                                 "library", "search" -> CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else library.tracks, model.player, route == "search", if (demo) catalogState else CatalogState.READY,
                                     demo = demo, folders = { navigate("folders") }, scanning = library.scanning, issue = library.issue,
+                                    collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
+                                    more = model.collections?.let { { track -> collectionTrack = track } },
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
+                                "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites") }
                                 "queue" -> QueueScreen(playback, model.player)
                                 "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId) {
                                     model.player.switchProfile(it); history = listOf("player")
@@ -87,11 +92,14 @@ private val destinations = listOf(
                     if (route != "player") MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
                     if (!rail) NavigationBar(containerColor = MaterialTheme.colorScheme.background) {
                         destinations.forEach { item ->
-                            NavigationBarItem(route == item.route, { navigate(item.route) },
+                            NavigationBarItem(navigationRoute == item.route, { navigate(item.route) },
                                 { SkinIcon(item.icon, item.label) }, Modifier.testTag("nav_${item.route}").prismFocus(),
                                 label = { Text(item.label, maxLines = 1, overflow = TextOverflow.Ellipsis) })
                         }
                     }
+                    collectionTrack?.let { track -> model.collections?.let { store ->
+                        TrackCollectionDialog(track, store, playback.profileId, library.tracks.any { it.id == track.id }, { collectionTrack = null })
+                    } }
                 }
             }
         }
