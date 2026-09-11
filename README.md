@@ -43,12 +43,17 @@
 ## Сборки и проверка
 
 Репозиторий пока приватный. Выдаваемые beta APK и сведения об их проверке
-привязаны к номеру Build. [Отчёт M4](docs/M4_VERIFICATION.md), [отчёт M3.3](docs/M3_3_VERIFICATION.md),
+привязаны к номеру Build. [Исправление входа M4.1](docs/M4_1_VERIFICATION.md),
+[отчёт M4](docs/M4_VERIFICATION.md), [отчёт M3.3](docs/M3_3_VERIFICATION.md),
 [отчёт M3.2](docs/M3_2_VERIFICATION.md),
 [отчёт M3.1](docs/M3_VERIFICATION.md), [отчёт M2](docs/M2_VERIFICATION.md),
 [история UI-прототипа M1](docs/M1_VERIFICATION.md).
 
-Последняя beta: [2.0.0beta-build7](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build7).
+Последняя beta: [2.0.0beta-build8](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build8).
+
+В build8 исправлен порядок сохранения OAuth по рабочему 1.x и повтор ожидания
+после сетевого сбоя. Полный живой вход после исправления требует подтверждения
+владельцем аккаунта; исходная ошибка замечена на Android 15 / HyperOS.
 
 Проверки включают Android 35 и Android TV 29, реальный аудиодвижок, фон,
 восстановление состояния, ошибки файлов и регрессии интерфейса. Физические

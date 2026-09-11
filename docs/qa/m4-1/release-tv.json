@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0beta-build8",
+  "androidApi": 29,
+  "image": "android-tv;x86",
+  "upgradeFrom": 7,
+  "liveDeviceCode": true,
+  "codeHintBeforeBrowser": true,
+  "backCancelsAndAscendsToProfiles": true,
+  "realAccountConfirmed": false,
+  "passed": true
+}

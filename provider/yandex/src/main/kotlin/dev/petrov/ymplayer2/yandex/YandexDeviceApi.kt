@@ -8,8 +8,11 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.net.URL
 import java.net.URLEncoder
+import java.net.UnknownHostException
+import java.net.SocketTimeoutException
 import java.util.UUID
 import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.SSLException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -24,16 +27,19 @@ class AuthReply(val status: Int, val body: JSONObject)
 fun interface AuthTransport { suspend fun request(request: AuthRequest): AuthReply }
 
 /** Fixed HTTPS destinations, standard certificate checks, no redirects or response logging. */
-class HttpsAuthTransport : AuthTransport {
+class HttpsAuthTransport(private val open: (YandexEndpoint) -> HttpsURLConnection = { URL(it.url).openConnection() as HttpsURLConnection }) : AuthTransport {
     override suspend fun request(request: AuthRequest): AuthReply = withContext(Dispatchers.IO) {
         suspendCancellableCoroutine { continuation ->
-            val connection = URL(request.endpoint.url).openConnection() as HttpsURLConnection
+            val connection = open(request.endpoint)
             continuation.invokeOnCancellation { connection.disconnect() }
             try {
-                connection.connectTimeout = 15_000; connection.readTimeout = 15_000
+                connection.connectTimeout = 15_000; connection.readTimeout = 20_000
                 connection.instanceFollowRedirects = false
                 connection.setRequestProperty("Accept", "application/json")
-                connection.setRequestProperty("User-Agent", "YMPlayer2")
+                // Keep the request identity used by the working 1.x Music adapter.
+                connection.setRequestProperty("User-Agent", "Yandex-Music-API")
+                connection.setRequestProperty("X-Yandex-Music-Client", "YandexMusicAndroid/24023621")
+                connection.setRequestProperty("Accept-Language", "ru")
                 request.token?.let { connection.setRequestProperty("Authorization", "OAuth $it") }
                 if (request.endpoint != YandexEndpoint.ACCOUNT) {
                     connection.requestMethod = "POST"; connection.doOutput = true
@@ -43,6 +49,9 @@ class HttpsAuthTransport : AuthTransport {
                     connection.outputStream.use { it.write(body) }
                 }
                 val status = connection.responseCode
+                // Outages often return HTML; classify the HTTP status before attempting JSON.
+                if (status == 408 || status == 429 || status in 500..599) throw AuthException(AuthFailure.NETWORK, NetworkIssue.SERVICE,
+                    connection.getHeaderField("Retry-After")?.toLongOrNull()?.coerceIn(1, 3600))
                 if (status in 300..399) throw AuthException(AuthFailure.RESPONSE)
                 val stream = if (status in 200..299) connection.inputStream else connection.errorStream
                 val bytes = ByteArrayOutputStream()
@@ -60,7 +69,12 @@ class HttpsAuthTransport : AuthTransport {
             } catch (e: Exception) {
                 if (continuation.isActive) continuation.resumeWithException(when (e) {
                     is AuthException -> e
-                    is IOException -> AuthException(AuthFailure.NETWORK)
+                    is IOException -> AuthException(AuthFailure.NETWORK, when (e) {
+                        is UnknownHostException -> NetworkIssue.DNS
+                        is SocketTimeoutException -> NetworkIssue.TIMEOUT
+                        is SSLException -> NetworkIssue.TLS
+                        else -> NetworkIssue.CONNECTION
+                    })
                     else -> AuthException(AuthFailure.RESPONSE)
                 })
             } finally { connection.disconnect() }
@@ -110,6 +124,7 @@ class YandexDeviceApi(
     }
     override suspend fun account(credentials: OAuthCredentials): YandexAccount {
         val reply = transport.request(AuthRequest(YandexEndpoint.ACCOUNT, token = credentials.accessToken))
+        if (reply.status == 408 || reply.status == 429 || reply.status in 500..599) throw AuthException(AuthFailure.NETWORK, NetworkIssue.SERVICE)
         if (reply.status !in 200..299 || reply.body.has("error")) throw AuthException(AuthFailure.ACCOUNT)
         val account = reply.body.optJSONObject("result")?.optJSONObject("account") ?: throw AuthException(AuthFailure.ACCOUNT)
         val id = account.optString("uid")

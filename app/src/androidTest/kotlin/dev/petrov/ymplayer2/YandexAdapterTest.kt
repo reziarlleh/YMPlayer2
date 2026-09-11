@@ -10,10 +10,78 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.net.URL
+import java.net.UnknownHostException
+import java.net.SocketTimeoutException
+import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.SSLHandshakeException
+import java.security.cert.Certificate
+import java.security.KeyStore
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
 
 @RunWith(AndroidJUnit4::class)
 class YandexAdapterTest {
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
+    private class Connection(val status: Int = 200, val body: String = "{}", val failure: IOException? = null) : HttpsURLConnection(URL(YandexEndpoint.CODE.url)) {
+        val sent = ByteArrayOutputStream()
+        var closed = false
+        var bodyRead = false
+        override fun connect() {}
+        override fun disconnect() { closed = true }
+        override fun usingProxy() = false
+        override fun getCipherSuite() = "fixture"
+        override fun getLocalCertificates(): Array<Certificate>? = null
+        override fun getServerCertificates(): Array<Certificate> = emptyArray()
+        override fun getOutputStream() = sent
+        override fun getResponseCode(): Int { failure?.let { throw it }; return status }
+        override fun getHeaderField(name: String?) = if (name == "Retry-After") "60" else null
+        override fun getInputStream() = body.byteInputStream().also { bodyRead = true }
+        override fun getErrorStream() = inputStream
+    }
+    @Test fun transportMatchesLegacyHeadersAndClassifiesFailuresWithoutReadingErrorBodies() = runBlocking {
+        for (status in listOf(408, 429, 500, 503)) {
+            val connection = Connection(status, "<html>private upstream body</html>")
+            try {
+                HttpsAuthTransport { connection }.request(AuthRequest(YandexEndpoint.CODE, mapOf("client_id" to "fixture")))
+                fail("Outage accepted")
+            } catch (e: AuthException) {
+                assertEquals(AuthFailure.NETWORK, e.failure); assertEquals(NetworkIssue.SERVICE, e.networkIssue)
+                assertEquals(60L, e.retryAfterSeconds); assertFalse(e.toString().contains("private"))
+            }
+            assertTrue(connection.closed); assertFalse(connection.bodyRead)
+            assertEquals("Yandex-Music-API", connection.getRequestProperty("User-Agent"))
+            assertEquals("YandexMusicAndroid/24023621", connection.getRequestProperty("X-Yandex-Music-Client"))
+            assertEquals("ru", connection.getRequestProperty("Accept-Language"))
+            assertEquals(15000, connection.connectTimeout); assertEquals(20000, connection.readTimeout)
+        }
+        for ((error, kind) in listOf(UnknownHostException("private") to NetworkIssue.DNS, SocketTimeoutException("private") to NetworkIssue.TIMEOUT,
+            SSLHandshakeException("private") to NetworkIssue.TLS, IOException("private") to NetworkIssue.CONNECTION)) {
+            val connection = Connection(failure = error)
+            try { HttpsAuthTransport { connection }.request(AuthRequest(YandexEndpoint.ACCOUNT)); fail("Network failure accepted") }
+            catch (e: AuthException) { assertEquals(kind, e.networkIssue); assertFalse(e.toString().contains("private")) }
+            assertTrue(connection.closed)
+        }
+    }
+    @Test fun encryptedStoreReadsBuild7SchemaAndPersistsOAuthBeforeAccountMetadata() = runBlocking {
+        val profile = "auth_test_migration"; val store = KeystoreAccountStore(context)
+        try {
+            store.write(profile, AccountSession(null, OAuthCredentials("new-private-token", "refresh", null)))
+            val reopened = KeystoreAccountStore(context)
+            assertNull(reopened.read(profile)!!.account)
+            assertEquals("new-private-token", reopened.read(profile)!!.credentials.accessToken)
+            // Build7 schema 1 used mandatory id/name fields in the same AES-GCM envelope.
+            val legacy = JSONObject().put("schema", 1).put("id", "123").put("name", "Legacy fixture").put("access", "legacy-private-token")
+            val key = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }.getKey("ymplayer2.yandex.$profile", null) as SecretKey
+            val cipher = Cipher.getInstance("AES/GCM/NoPadding").apply { init(Cipher.ENCRYPT_MODE, key); updateAAD(profile.toByteArray()) }
+            val bytes = byteArrayOf(1) + cipher.iv + cipher.doFinal(legacy.toString().toByteArray())
+            File(context.noBackupFilesDir, "yandex-accounts/$profile.bin").writeBytes(bytes)
+            assertEquals("legacy-private-token", reopened.read(profile)!!.credentials.accessToken)
+            assertEquals("Legacy fixture", reopened.read(profile)!!.account!!.name)
+        } finally { store.write(profile, null) }
+    }
     @Test fun parsesDeviceAndTokenProtocolAndKeepsDeviceIdsDistinctAndStable() = runBlocking {
         val requests = mutableListOf<AuthRequest>()
         var reply = AuthReply(200, JSONObject("""{"device_code":"secret-device","user_code":"ABCD1234","verification_url":"https://oauth.yandex.ru/device","expires_in":300,"interval":5}"""))
@@ -73,7 +141,7 @@ class YandexAdapterTest {
             try { reopened.read(road); fail("Cross-profile ciphertext accepted") } catch (e: AuthException) { assertEquals(AuthFailure.STORAGE, e.failure) }
             roadFile.writeBytes(originalRoad)
             store.write(owner, null)
-            assertNull(reopened.read(owner)); assertEquals("456", reopened.read(road)!!.account.id)
+            assertNull(reopened.read(owner)); assertEquals("456", reopened.read(road)!!.account!!.id)
             bytes[bytes.lastIndex] = (bytes.last().toInt() xor 1).toByte(); file.writeBytes(bytes)
             try { reopened.read(owner); fail("Tampered ciphertext accepted") } catch (e: AuthException) { assertEquals(AuthFailure.STORAGE, e.failure) }
         } finally { store.write(owner, null); store.write(road, null) }

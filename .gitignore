@@ -3,6 +3,7 @@
 .gradle/
 .kotlin/
 .local-build/
+.codex-remote-attachments/
 .signing/
 .provider/
 local.properties

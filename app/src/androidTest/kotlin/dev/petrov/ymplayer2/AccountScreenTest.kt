@@ -15,6 +15,7 @@ class AccountScreenTest {
     private val fixture get() = compose.activity.harness
     private fun openAccount() {
         compose.onNodeWithTag("profiles").performClick()
+        compose.onNode(hasScrollToIndexAction()).performScrollToNode(hasTestTag("account_open"))
         compose.onNodeWithTag("account_open").performScrollTo().performClick()
     }
     private fun action(tag: String) {
@@ -45,6 +46,7 @@ class AccountScreenTest {
         compose.onNode(hasScrollToIndexAction()).performScrollToNode(hasTestTag("profile_guest"))
         compose.onNodeWithTag("profile_guest").performClick()
         openAccount(); waitPhase(AuthPhase.GUEST)
+        compose.onNodeWithTag("account_screen").performScrollToNode(hasTestTag("auth_guest"))
         compose.onNodeWithTag("auth_guest").assertExists(); compose.onNodeWithTag("auth_start").assertDoesNotExist()
         assertEquals(1, fixture.requests)
     }
@@ -73,5 +75,32 @@ class AccountScreenTest {
         action("auth_start"); waitPhase(AuthPhase.WAITING)
         assertEquals(2, fixture.requests)
         action("auth_cancel")
+    }
+    @Test fun backgroundNetworkFailureKeepsCodeAndCompletesAfterReturn() {
+        compose.runOnIdle { fixture.failure = AuthFailure.NETWORK }
+        openAccount(); action("auth_start"); waitPhase(AuthPhase.WAITING)
+        compose.activityRule.scenario.moveToState(Lifecycle.State.CREATED)
+        compose.waitUntil(7000) { fixture.auth.state.value.issue != null }
+        compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
+        compose.onNodeWithTag("account_screen").performScrollToNode(hasTestTag("auth_network_wait"))
+        compose.onNodeWithTag("auth_network_wait").assertTextContains("Код сохранён", substring = true)
+        compose.onNodeWithTag("auth_start").assertDoesNotExist()
+        assertEquals("TEST1234", fixture.auth.state.value.userCode)
+        compose.activityRule.scenario.recreate()
+        compose.runOnIdle { fixture.failure = null; fixture.result = TokenPoll.Granted(OAuthCredentials("test-access", null, null)) }
+        waitPhase(AuthPhase.SIGNED_IN)
+        assertEquals(1, fixture.requests); assertTrue(fixture.sessions.containsKey("owner"))
+    }
+    @Test fun accountRetryAfterRotationUsesGrantedTokenWithoutAnotherBrowserCode() {
+        compose.runOnIdle { fixture.accountFailure = AuthFailure.NETWORK; fixture.result = TokenPoll.Granted(OAuthCredentials("test-access", null, null)) }
+        openAccount(); action("auth_start"); waitPhase(AuthPhase.SIGNED_IN)
+        compose.waitUntil(7000) { fixture.auth.state.value.issue != null }
+        compose.onNodeWithTag("auth_start").assertDoesNotExist()
+        compose.activityRule.scenario.recreate()
+        compose.onNodeWithTag("account_screen").performScrollToNode(hasTestTag("auth_account_retry_message"))
+        compose.onNodeWithTag("auth_account_retry_message").assertTextContains("Вход сохранён", substring = true)
+        compose.runOnIdle { fixture.accountFailure = null }
+        action("auth_retry_account"); compose.waitUntil(7000) { fixture.auth.state.value.account != null }
+        assertEquals(1, fixture.requests); assertEquals(1, fixture.polls); assertEquals(2, fixture.accounts)
     }
 }

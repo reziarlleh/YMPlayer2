@@ -32,7 +32,7 @@ import kotlinx.coroutines.delay
         when (state.phase) {
             AuthPhase.LOADING, AuthPhase.REQUESTING, AuthPhase.VERIFYING -> {
                 item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
-                item { Text(when (state.phase) { AuthPhase.REQUESTING -> "Получаем код…"; AuthPhase.VERIFYING -> "Проверяем аккаунт Музыки…"; else -> "Загружаем состояние входа…" }) }
+                item { Text(when (state.phase) { AuthPhase.REQUESTING -> "Получаем код…"; AuthPhase.VERIFYING -> "Сохраняем вход…"; else -> "Загружаем состояние входа…" }) }
             }
             AuthPhase.WAITING -> {
                 item { Text("Введите код на другом устройстве или откройте страницу Яндекса здесь.") }
@@ -51,8 +51,13 @@ import kotlinx.coroutines.delay
             }
             AuthPhase.SIGNED_IN -> {
                 item { Text("Вход выполнен", style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("auth_connected")) }
-                item { Text(state.account?.name.orEmpty(), fontWeight = FontWeight.Bold) }
-                item { Text("Аккаунт подключён к этому профилю. Онлайн-каталог и воспроизведение Яндекса появятся на следующем этапе.") }
+                state.account?.let { account -> item { Text(account.name, fontWeight = FontWeight.Bold) } }
+                item { Text("Вход сохранён для этого профиля. Онлайн-каталог и воспроизведение Яндекса появятся на следующем этапе.") }
+                if (state.updatingAccount) item { Text("Обновляем сведения об аккаунте…") }
+                state.issue?.let { issue -> item { Text(issue, modifier = Modifier.testTag("auth_account_retry_message")) } }
+                if (state.account == null || state.issue != null) item {
+                    OutlinedButton(auth::retryAccount, Modifier.prismFocus().testTag("auth_retry_account"), enabled = !state.updatingAccount) { Text("Обновить сведения об аккаунте") }
+                }
                 item { OutlinedButton({ confirmLogout = true }, Modifier.prismFocus().testTag("auth_logout")) { Text("Выйти из аккаунта") } }
             }
             AuthPhase.GUEST -> item { Text("Гость слушает локальную музыку без аккаунта. Для входа выберите другой профиль.", modifier = Modifier.testTag("auth_guest")) }
@@ -66,6 +71,8 @@ import kotlinx.coroutines.delay
                 }
             }
         }
+        if (state.phase == AuthPhase.WAITING) state.issue?.let { issue -> item { Text(issue, modifier = Modifier.testTag("auth_network_wait")) } }
+        state.diagnostic?.let { code -> item { Text("Код ошибки: $code", style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("auth_diagnostic")) } }
         if (state.phase in setOf(AuthPhase.REQUESTING, AuthPhase.WAITING, AuthPhase.VERIFYING)) item {
             OutlinedButton(auth::cancel, Modifier.prismFocus().testTag("auth_cancel")) { Text("Отменить вход") }
         }

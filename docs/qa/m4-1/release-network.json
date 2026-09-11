@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0beta-build8",
+  "androidApi": 35,
+  "upgradeFrom": 7,
+  "retainedLocalTrack": "01 - Evening route",
+  "retainedLocalPositionSeconds": 22,
+  "liveDeviceCode": true,
+  "codeHintBeforeBrowser": true,
+  "browserOpened": true,
+  "networkDisabled": true,
+  "noActiveDefaultNetworkObserved": true,
+  "errorDiagnostic": "TOKEN_DNS",
+  "automaticRetryMessage": true,
+  "sameCodeDuringOutage": true,
+  "sameCodeAfterReconnect": true,
+  "pendingResumed": true,
+  "realAccountConfirmed": false,
+  "passed": true,
+  "method": "UI/ADB verification; restored app task and scrolled to diagnostic after initial automation missed browser task/scroll"
+}

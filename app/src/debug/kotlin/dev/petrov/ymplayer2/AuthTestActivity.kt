@@ -18,8 +18,11 @@ class AuthHarness : ViewModel() {
     val sessions = mutableMapOf<String, AccountSession>()
     var result: TokenPoll = TokenPoll.Pending
     var failure: AuthFailure? = null
+    var accountFailure: AuthFailure? = null
     var lifetimeSeconds = 60L
     var requests = 0
+    var polls = 0
+    var accounts = 0
     private val api = object : DeviceAuthApi {
         override val configured = true
         override suspend fun requestCode(profileId: String): DeviceChallenge {
@@ -27,10 +30,15 @@ class AuthHarness : ViewModel() {
             return DeviceChallenge("test-device-$profileId", "TEST1234", "https://oauth.yandex.ru/device", lifetimeSeconds, 1)
         }
         override suspend fun poll(code: DeviceChallenge): TokenPoll {
+            polls++
             failure?.let { throw AuthException(it) }
             return result
         }
-        override suspend fun account(credentials: OAuthCredentials) = YandexAccount("123", "Тестовый слушатель")
+        override suspend fun account(credentials: OAuthCredentials): YandexAccount {
+            accounts++
+            accountFailure?.let { throw AuthException(it) }
+            return YandexAccount("123", "Тестовый слушатель")
+        }
     }
     val auth = AccountAuth(catalog.profiles, api, object : AccountStore {
         override suspend fun read(profileId: String) = sessions[profileId]

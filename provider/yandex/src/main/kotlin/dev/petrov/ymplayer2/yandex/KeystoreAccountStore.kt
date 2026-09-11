@@ -44,8 +44,10 @@ class KeystoreAccountStore(context: Context) : AccountStore {
             cipher.init(Cipher.DECRYPT_MODE, key(profileId, false), GCMParameterSpec(128, bytes.copyOfRange(1, 13)))
             cipher.updateAAD(profileId.toByteArray(Charsets.UTF_8))
             val json = JSONObject(String(cipher.doFinal(bytes.copyOfRange(13, bytes.size)), Charsets.UTF_8))
-            check(json.getInt("schema") == 1)
-            AccountSession(YandexAccount(json.getString("id"), json.getString("name")),
+            val schema = json.getInt("schema")
+            check(schema in 1..2 && json.has("id") == json.has("name"))
+            val account = if (schema == 1 || json.has("id")) YandexAccount(json.getString("id"), json.getString("name")) else null
+            AccountSession(account,
                 OAuthCredentials(json.getString("access"), json.optString("refresh").takeIf { it.isNotEmpty() },
                     if (json.has("expires")) json.getLong("expires") else null))
         } catch (_: Exception) { throw AuthException(AuthFailure.STORAGE) }
@@ -61,7 +63,7 @@ class KeystoreAccountStore(context: Context) : AccountStore {
                 return@withContext
             }
             check(directory.isDirectory || directory.mkdirs())
-            val json = JSONObject().put("schema", 1).put("id", session.account.id).put("name", session.account.name)
+            val json = JSONObject().put("schema", 2).put("id", session.account?.id).put("name", session.account?.name)
                 .put("access", session.credentials.accessToken).put("refresh", session.credentials.refreshToken)
                 .put("expires", session.credentials.expiresAtMillis)
             val cipher = Cipher.getInstance("AES/GCM/NoPadding")

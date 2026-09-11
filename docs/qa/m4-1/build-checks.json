@@ -1,0 +1,8 @@
+{
+  "coreTests": 33,
+  "coreFailures": 0,
+  "lintErrors": 0,
+  "lintWarnings": 14,
+  "oauthClientParametersInTrackedFiles": false,
+  "localMarkdownLinksValid": true
+}

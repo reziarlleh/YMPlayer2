@@ -1,0 +1,9 @@
+{
+  "versionCode": 8,
+  "versionName": "2.0.0beta-build8",
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "beta",
+  "runtimeAcceptance": "emulators_verified_live_code_and_network_recovery; real_account_and_HyperOS_confirmation_pending",
+  "sha256": "1ef11368a7a8ecfb949781a267b369d0420e5258f3c84bbe1b1501a21ea7eafd",
+  "builtAtUtc": "2026-09-11T04:22:52.1744459Z"
+}

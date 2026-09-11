@@ -1,0 +1,657 @@
+Libraries NOT loaded:
+Libraries loaded:
+ Library haptic_generator
+  path: /vendor/lib64/soundfx/libhapticgenerator.so
+  Haptic Generator / The Android Open Source Project
+    UUID: 97c4acd1-8b82-4f2f-832e-c2fe5d7a9931
+    TYPE: 1411e6d6-aecd-4021-a1cf-a6aceb0d71e5
+    apiVersion: 00020000
+    flags: 00000008
+ Library dynamics_processing
+  path: /vendor/lib64/soundfx/libdynproc.so
+  Dynamics Processing / The Android Open Source Project
+    UUID: e0e6539b-1781-7261-676f-6d7573696340
+    TYPE: 7261676f-6d75-7369-6364-28e2fd3ac39e
+    apiVersion: 00020000
+    flags: 00000050
+ Library loudness_enhancer
+  path: /vendor/lib64/soundfx/libldnhncr.so
+  Loudness Enhancer / The Android Open Source Project
+    UUID: fa415329-2034-4bea-b5dc-5b381c8d1e2c
+    TYPE: fe3199be-aed0-413f-87bb-11260eb63cf1
+    apiVersion: 00020000
+    flags: 00000008
+ Library downmix
+  path: /vendor/lib64/soundfx/libdownmix.so
+  Multichannel Downmix To Stereo / The Android Open Source Project
+    UUID: 93f04452-e4fe-41cc-91f9-e475b6d1d69f
+    TYPE: 381e49cc-a858-4aa2-87f6-e8388e7601b2
+    apiVersion: 00020000
+    flags: 00000008
+ Library visualizer
+  path: /vendor/lib64/soundfx/libvisualizer.so
+  Visualizer / The Android Open Source Project
+    UUID: d069d9e0-8329-11df-9168-0002a5d5c51b
+    TYPE: e46b26a0-dddd-11db-8afd-0002a5d5c51b
+    apiVersion: 00020000
+    flags: 00000008
+ Library reverb
+  path: /vendor/lib64/soundfx/libreverbwrapper.so
+  Insert Preset Reverb / NXP Software Ltd.
+    UUID: 172cdf00-a3bc-11df-a72f-0002a5d5c51b
+    TYPE: 47382d60-ddd8-11db-bf3a-0002a5d5c51b
+    apiVersion: 00020000
+    flags: 00000048
+  Auxiliary Preset Reverb / NXP Software Ltd.
+    UUID: f29a1400-a3bb-11df-8ddc-0002a5d5c51b
+    TYPE: 47382d60-ddd8-11db-bf3a-0002a5d5c51b
+    apiVersion: 00020000
+    flags: 00000001
+  Insert Environmental Reverb / NXP Software Ltd.
+    UUID: c7a511a0-a3bb-11df-860e-0002a5d5c51b
+    TYPE: c2e5d5f0-94bd-4763-9cac-4e234d06839e
+    apiVersion: 00020000
+    flags: 00000048
+  Auxiliary Environmental Reverb / NXP Software Ltd.
+    UUID: 4a387fc0-8ab3-11df-8bad-0002a5d5c51b
+    TYPE: c2e5d5f0-94bd-4763-9cac-4e234d06839e
+    apiVersion: 00020000
+    flags: 00000001
+ Library bundle
+  path: /vendor/lib64/soundfx/libbundlewrapper.so
+  Volume / NXP Software Ltd.
+    UUID: 119341a0-8469-11df-81f9-0002a5d5c51b
+    TYPE: 09e8ede0-ddde-11db-b4f6-0002a5d5c51b
+    apiVersion: 00020000
+    flags: 00000050
+  Equalizer / NXP Software Ltd.
+    UUID: ce772f20-847d-11df-bb17-0002a5d5c51b
+    TYPE: 0bed4300-ddd6-11db-8f34-0002a5d5c51b
+    apiVersion: 00020000
+    flags: 00000048
+  Virtualizer / NXP Software Ltd.
+    UUID: 1d4033c0-8557-11df-9f2d-0002a5d5c51b
+    TYPE: 37cc2c00-dddd-11db-8577-0002a5d5c51b
+    apiVersion: 00020000
+    flags: 00000250
+  Dynamic Bass Boost / NXP Software Ltd.
+    UUID: 8631f300-72e2-11df-b57e-0002a5d5c51b
+    TYPE: 0634f220-ddd4-11db-a0fc-0002a5d5c51b
+    apiVersion: 00020000
+    flags: 00000248
+XML effect configuration loaded successfully.
+Client Allocators:
+Client: 584
+Primary:
+Dedicated Pool Allocator Dump:
+  HeapID    Size  Offset   Order   Name
+      11    4096       0       0   Track ID: 55
+Secondary:
+Primary:
+Large Shared Allocator Dump:
+  HeapID    Size  Offset   Order   Name
+Secondary:
+Small Shared Allocator Dump:
+  HeapID    Size  Offset   Order   Name
+Client: 2118
+Primary:
+Dedicated Pool Allocator Dump:
+  HeapID    Size  Offset   Order   Name
+       8   20480       0       0   Track ID: 56
+Secondary:
+Primary:
+Large Shared Allocator Dump:
+  HeapID    Size  Offset   Order   Name
+Secondary:
+Small Shared Allocator Dump:
+  HeapID    Size  Offset   Order   Name
+Notification Clients:
+   pid    uid  name
+   426   1041  audioserver
+   584   1000  android.uid.system
+  2118  10150  dev.petrov.ymplayer2
+Global session refs:
+  session  cnt     pid    uid  name
+       89    1     584   1000  android.uid.system
+      105    1    2118  10150  dev.petrov.ymplayer2
+Hardware status: 0
+Vibrator infos(size=1):
+  - AudioVibratorInfo{id: 1, resonantFrequency: 150.000000, qFactor: 11.000000, maxAmplitude: nan}
+Bluetooth latency modes are enabled
+
+Output thread 0x77b8538158e0, name AudioOut_D, tid 535, type 0 (MIXER):
+  I/O handle: 13
+  Standby: no
+  Sample rate: 48000 Hz
+  HAL frame count: 1088
+  HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+  HAL buffer size: 4352 bytes
+  Channel count: 2
+  Channel mask: 0x00000003 (front-left, front-right)
+  Processing format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+  Processing frame size: 4 bytes
+  Pending config events: none
+  Output devices: 0x2 (AUDIO_DEVICE_OUT_SPEAKER)
+  Input device: 0 (AUDIO_DEVICE_NONE)
+  Audio source: 0 (AUDIO_SOURCE_DEFAULT)
+  Timestamp stats: n=4122 disc=39 cold=0 nRdy=0 err=1 rate=0.99994 jitterMs(ave=0.0470325 std=0.835323 min=-0.0202667 max=21.7497) localSR(47998, 1.17679e-08) correctedJitterMs(ave=0.0540899 std=0.35244 min=-0.589833 max=6.64783)
+  Timestamp corrected: no
+  Last write occurred (msecs): 22
+  Process time ms stats: ave=0.98947 std=0.827483 min=0.3564 max=2.3375
+  Hal write jitter ms stats: ave=0.279072 std=0.892888 min=-0.850767 max=1.41423
+  Threadloop write latency stats: ave=84.8194 std=7.09936 min=70.0251 max=89.6262
+  Master volume: 1.000000
+  Master mute: off
+  Mixer channel Mask: 0x3 (front-left, front-right)
+  Normal frame count: 1088
+  Total writes: 2205
+  Delayed writes: 0
+  Blocked in write: no
+  Suspend count: 0
+  Fast track availMask=0xfe
+  Standby delay ns=3000000000
+  AudioStreamOut: 0x77b61d4a26c0 flags 0x2 (AUDIO_OUTPUT_FLAG_PRIMARY)
+  Frames written: 2399040
+  Suspended frames: 0
+  Hal stream dump:
+      Signal power history (resolution: 1000.0 ms):
+       09-11 04:24:04.686: [  -60.8  -59.8  -58.5  -63.3  -60.3 ] sum(-3.5)
+       09-11 04:24:11.646: [  -60.3  -63.3  -60.3  -63.3  -58.5  -60.3  -63.3  -63.3  -63.3  -60.3 ] sum(-1.4)
+       09-11 04:24:25.096: [  -58.5 ] sum(-8.7)
+       09-11 04:24:27.930: [  -63.3 ] sum(-13.5)
+       09-11 04:25:01.969: [  -63.3 ] sum(-13.5)
+       09-11 04:25:04.970: [  -63.3 ] sum(-13.5)
+       09-11 04:25:07.326: [  -63.3 ] sum(-13.5)
+       09-11 04:26:07.840: [  -63.3 ] sum(-13.5)
+       09-11 04:28:21.100: [  -63.3 ] sum(-13.5)
+       09-11 04:28:24.164: [  -63.3 ] sum(-13.5)
+       09-11 04:28:30.726: [  -63.3 ] sum(-13.5)
+       09-11 04:31:57.373: [  -62.1  -62.3  -62.3
+      Signal power history (resolution: 50.0 ms):
+       09-11 04:24:25.096: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:24:25.572: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:24:25.891: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:24:27.930: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:25:01.969: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:25:04.970: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:25:07.326: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:26:07.840: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:28:21.100: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:28:24.164: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:28:30.726: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:31:57.373: [  -50.3  -84.5 ] sum(-13.5)
+       09-11 04:31:58.078: [  -64.0  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3
+       09-11 04:31:58.577:    -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3
+       09-11 04:31:59.077:    -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3
+       09-11 04:31:59.577:    -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3
+       09-11 04:32:00.078:    -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3  -62.3
+       09-11 04:32:00.579:    -62.8  -79.4 ] sum(-8.5)
+       09-11 04:32:00.774: [  -63.9  -62.3  -62.3
+
+    -46.8 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -50.3 -|* |* |* |* |* |* |* |* |* |* |* |* |                                                    |
+    -53.7 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -57.1 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -60.5 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -64.0 -|  |  |  |  |  |  |  |  |  |  |  |  |*************************************************** |**
+    -67.4 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -70.8 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -74.2 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -77.7 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -81.1 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                   *|
+    -84.5 -| *| *| *| *| *| *| *| *| *| *| *| *|                                                    |
+    -87.9 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+    -91.4 -|  |  |  |  |  |  |  |  |  |  |  |  |                                                    |
+           |___________________________________________________________________________________________
+
+
+  Thread throttle time (msecs): 218
+  AudioMixer tracks: 55 56
+  Master mono: off
+  Master balance: 0.000000 (balance 0 channelCount 2 volumes: 1 1)
+  No FastMixer
+Bluetooth latency modes are not enabled
+HAL does not support Bluetooth latency modes
+Supported latency modes: { }
+  Stream volumes in dB: 0:-inf, 1:-11, 2:-inf, 3:-33, 4:-inf, 5:-inf, 6:-inf, 7:-inf, 8:-inf, 9:0, 10:-inf, 11:-inf, 12:0, 13:0, 14:0
+  Normal mixer raw underrun counters: partial=0 empty=0
+  2 Tracks of which 1 are active
+    Type     Id Active Client Session Port Id S  Flags   Format Chn mask  SRate ST Usg CT  G db  L dB  R dB  VS dB   Server FrmCnt  FrmRdy F Underruns  Flushed BitPerfect InternalMute   Latency
+             56    yes   2118     105      16 A  0x000 00000001 00000001  16000  3   1  2   -33     0     0     0  0000ACD5   8000    6549 A         0        0      false        false  496.43 t
+       S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00029DC0   4512       0 f         0        0      false        false   22.88 k
+  0 Effect Chains
+  Local log:
+   09-11 04:24:17.230 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00016080   4512       0 f         0        0      false        false   75.31 k
+   09-11 04:24:17.407 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00016080   4512       0 F         0        0      false        false   75.31 k
+   09-11 04:24:17.637 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00017220   4512       0 f         0        0      false        false   76.49 k
+   09-11 04:24:17.691 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00017220   4512       0 F         0        0      false        false   76.49 k
+   09-11 04:24:17.928 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  000183C0   4512       0 f         0        0      false        false   77.31 k
+   09-11 04:24:19.451 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  000183C0   4512       0 F         0        0      false        false   77.31 k
+   09-11 04:24:19.671 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00019560   4512       0 f         0        0      false        false   76.09 k
+   09-11 04:24:20.423 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00019560   4512       0 F         0        0      false        false   76.09 k
+   09-11 04:24:20.651 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001A700   4512       0 f         0        0      false        false   71.28 k
+   09-11 04:24:20.835 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001A700   4512       0 F         0        0      false        false   71.28 k
+   09-11 04:24:21.076 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001B8A0   4512       0 f         0        0      false        false   69.40 k
+   09-11 04:24:21.125 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001B8A0   4512       0 F         0        0      false        false   69.40 k
+   09-11 04:24:21.352 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001CA40   4512       0 f         0        0      false        false   76.38 k
+   09-11 04:24:25.092 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001CA40   4512       0 F         0        0      false        false   76.38 k
+   09-11 04:24:25.277 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001DBE0   4512       0 f         0        0      false        false   46.79 k
+   09-11 04:24:25.552 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001DBE0   4512       0 F         0        0      false        false   46.79 k
+   09-11 04:24:25.785 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001ED80   4512       0 f         0        0      false        false   59.44 k
+   09-11 04:24:25.875 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001ED80   4512       0 F         0        0      false        false   59.44 k
+   09-11 04:24:26.103 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001FF20   4512       0 f         0        0      false        false   70.55 k
+   09-11 04:24:27.898 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  0001FF20   4512       0 F         0        0      false        false   70.55 k
+   09-11 04:24:28.136 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  000210C0   4512       0 f         0        0      false        false   74.51 k
+   09-11 04:25:01.960 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  000210C0   4512       0 F         0        0      false        false   74.51 k
+   09-11 04:25:02.128 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00022260   4512       0 f         0        0      false        false   73.93 k
+   09-11 04:25:04.926 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00022260   4512       0 F         0        0      false        false   73.93 k
+   09-11 04:25:05.174 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00023400   4512       0 f         0        0      false        false   75.40 k
+   09-11 04:25:07.303 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00023400   4512       0 F         0        0      false        false   75.40 k
+   09-11 04:25:07.529 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  000245A0   4512       0 f         0        0      false        false   74.29 k
+   09-11 04:26:07.836 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  000245A0   4512       0 F         0        0      false        false   74.29 k
+   09-11 04:26:08.004 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00025740   4512       0 f         0        0      false        false   76.64 k
+   09-11 04:28:21.078 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00025740   4512       0 F         0        0      false        false   76.64 k
+   09-11 04:28:21.261 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  000268E0   4512       0 f         0        0      false        false   74.31 k
+   09-11 04:28:24.137 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  000268E0   4512       0 F         0        0      false        false   74.31 k
+   09-11 04:28:24.371 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00027A80   4512       0 f         0        0      false        false   75.30 k
+   09-11 04:28:30.703 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00027A80   4512       0 F         0        0      false        false   75.30 k
+   09-11 04:28:30.907 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00028C20   4512       0 f         0        0      false        false   61.85 k
+   09-11 04:31:57.365 AT::add       (0x77b65d490908)    S     55     no    584      89      15 A  0x200 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00028C20   4512       0 F         0        0      false        false   61.85 k
+   09-11 04:31:57.601 AT::remove    (0x77b65d490908)    S     55     no    584      89      15 S  0x600 00000001 00000003  48000  1   d  4   -17    -6    -6     0  00029DC0   4512       0 f         0        0      false        false   22.88 k
+   09-11 04:31:58.040 AT::add       (0x77b65d48ef48)          56     no   2118     105      16 A  0x000 00000001 00000001  16000  3   1  2  -inf     0     0     0  00000000   8000    8000 f         0        0      false        false       new
+   09-11 04:32:00.733 AT::remove    (0x77b65d48ef48)          56     no   2118     105      16 P  0x400 00000001 00000001  16000  3   1  2  -inf     0     0     0  0000A015   8000    8000 A         0        0      false        false  575.20 k
+   09-11 04:32:00.764 AT::add       (0x77b65d48ef48)          56     no   2118     105      16 r  0x000 00000001 00000001  16000  3   1  2  -inf     0     0     0  0000A015   8000    8000 f         0        0      false        false  575.20 k
+
+Output thread 0x77b8537748e0, name AudioOut_15, tid 543, type 0 (MIXER):
+  I/O handle: 21
+  Standby: yes
+  Sample rate: 48000 Hz
+  HAL frame count: 1088
+  HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+  HAL buffer size: 4352 bytes
+  Channel count: 2
+  Channel mask: 0x00000003 (front-left, front-right)
+  Processing format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+  Processing frame size: 4 bytes
+  Pending config events: none
+  Output devices: 0x10000 (AUDIO_DEVICE_OUT_TELEPHONY_TX)
+  Input device: 0 (AUDIO_DEVICE_NONE)
+  Audio source: 0 (AUDIO_SOURCE_DEFAULT)
+  Timestamp stats: n=0 disc=0 cold=0 nRdy=0 err=1 jitterMs(unavail) localSR(-nan, -nan) correctedJitterMs(unavail)
+  Timestamp corrected: no
+  Master volume: 1.000000
+  Master mute: off
+  Mixer channel Mask: 0x3 (front-left, front-right)
+  Normal frame count: 1088
+  Total writes: 0
+  Delayed writes: 0
+  Blocked in write: no
+  Suspend count: 0
+  Fast track availMask=0xfe
+  Standby delay ns=3000000000
+  AudioStreamOut: 0x77b61d4a2f80 flags 0 (AUDIO_OUTPUT_FLAG_NONE)
+  Frames written: 0
+  Suspended frames: 0
+  Hal stream dump:
+      Signal power history: (none)
+      Signal power history: (none)
+  Thread throttle time (msecs): 0
+  AudioMixer tracks:
+  Master mono: off
+  Master balance: 0.000000 (balance 0 channelCount 2 volumes: 1 1)
+  No FastMixer
+Bluetooth latency modes are not enabled
+HAL does not support Bluetooth latency modes
+Supported latency modes: { }
+  Stream volumes in dB: 0:-inf, 1:-inf, 2:-inf, 3:-inf, 4:-inf, 5:-inf, 6:-inf, 7:-inf, 8:-inf, 9:0, 10:-inf, 11:-inf, 12:0, 13:0, 14:0
+  Normal mixer raw underrun counters: partial=0 empty=0
+  0 Tracks
+  0 Effect Chains
+  Local log:
+   09-11 04:23:22.439 CFG_EVENT_CREATE_AUDIO_PATCH: old device  (Empty device types) new device 0x10000 (AUDIO_DEVICE_OUT_TELEPHONY_TX)
+
+Reroute submix audio module:
+ route[0], rate=0 addr=[]
+ route[1], rate=0 addr=[]
+ route[2], rate=0 addr=[]
+ route[3], rate=0 addr=[]
+ route[4], rate=0 addr=[]
+ route[5], rate=0 addr=[]
+ route[6], rate=0 addr=[]
+ route[7], rate=0 addr=[]
+ route[8], rate=0 addr=[]
+ route[9], rate=48000 addr=[]
+
+Patches:
+  Patch 12: No software bridge (thread 0x0 => thread 0x0) thread 0x77b853859fe8 num sinks (1) first device type 00000002
+  Patch 20: No software bridge (thread 0x0 => thread 0x0) thread 0x77b8537b8fe8 num sinks (1) first device type 00010000
+
+Device Effects:
+
+Sound Dose:
+CSD is disabled
+Rejected setParameters:
+
+App setParameters:
+
+System setParameters:
+    09-11 04:23:31.054 UID  1000, 1 KVP received: BT_SCO=off
+    09-11 04:23:31.055 UID  1000, 1 KVP received: A2dpSuspended=false
+    09-11 04:23:31.056 UID  1000, 1 KVP received: LeAudioSuspended=false
+    09-11 04:23:32.009 UID  1000, 1 KVP received: screen_state=on
+    09-11 04:23:32.017 UID  1000, 1 KVP received: screen_state=on
+    09-11 04:23:58.114 UID  1000, 1 KVP received: screen_state=on
+    09-11 04:23:58.424 UID  1000, 1 KVP received: screen_state=on
+    09-11 04:24:28.527 UID  1000, 1 KVP received: screen_state=on
+    09-11 04:24:28.727 UID  1000, 1 KVP received: screen_state=on
+Historical Thread Log 09-11 04:23:22.500 -
+- Input thread 0x77b8535c9b88, name AudioIn_E, tid 551, type 3 (RECORD):
+-   I/O handle: 14
+-   Standby: no
+-   Sample rate: 48000 Hz
+-   HAL frame count: 768
+-   HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+-   HAL buffer size: 3072 bytes
+-   Channel count: 2
+-   Channel mask: 0x0000000c (left, right)
+-   Processing format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+-   Processing frame size: 4 bytes
+-   Pending config events: none
+-   Output devices:  (Empty device types)
+-   Input device: 0 (AUDIO_DEVICE_NONE)
+-   Audio source: 0 (AUDIO_SOURCE_DEFAULT)
+-   Timestamp stats: n=0 disc=0 cold=0 nRdy=0 err=0 jitterMs(unavail) localSR(-nan, -nan) correctedJitterMs(unavail)
+-   Timestamp corrected: no
+-   AudioStreamIn: 0x77b61d4a2580 flags 0 (AUDIO_INPUT_FLAG_NONE)
+-   Frames read: 0
+-   No active record clients
+-   Hal stream dump:
+-       Signal power history: (none)
+-       Signal power history: (none)
+-   Fast capture thread: no
+-   Fast track available: no
+-   FastCapture not initialized
+-   0 Tracks
+-   0 Effect Chains
+-   Local log:
+
+Historical Thread Log 09-11 04:23:22.509 -
+- Input thread 0x77b8535c9b88, name AudioIn_16, tid 555, type 3 (RECORD):
+-   I/O handle: 22
+-   Standby: no
+-   Sample rate: 48000 Hz
+-   HAL frame count: 768
+-   HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+-   HAL buffer size: 3072 bytes
+-   Channel count: 2
+-   Channel mask: 0x0000000c (left, right)
+-   Processing format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+-   Processing frame size: 4 bytes
+-   Pending config events: none
+-   Output devices:  (Empty device types)
+-   Input device: 0 (AUDIO_DEVICE_NONE)
+-   Audio source: 0 (AUDIO_SOURCE_DEFAULT)
+-   Timestamp stats: n=0 disc=0 cold=0 nRdy=0 err=0 jitterMs(unavail) localSR(-nan, -nan) correctedJitterMs(unavail)
+-   Timestamp corrected: no
+-   AudioStreamIn: 0x77b61d4a2f30 flags 0 (AUDIO_INPUT_FLAG_NONE)
+-   Frames read: 0
+-   No active record clients
+-   Hal stream dump:
+-       Signal power history: (none)
+-       Signal power history: (none)
+-   Fast capture thread: no
+-   Fast track available: no
+-   FastCapture not initialized
+-   0 Tracks
+-   0 Effect Chains
+-   Local log:
+
+Historical Thread Log 09-11 04:23:22.532 -
+- Input thread 0x77b8535c9b88, name AudioIn_1E, tid 559, type 3 (RECORD):
+-   I/O handle: 30
+-   Standby: no
+-   Sample rate: 48000 Hz
+-   HAL frame count: 768
+-   HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+-   HAL buffer size: 3072 bytes
+-   Channel count: 2
+-   Channel mask: 0x0000000c (left, right)
+-   Processing format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+-   Processing frame size: 4 bytes
+-   Pending config events: none
+-   Output devices:  (Empty device types)
+-   Input device: 0 (AUDIO_DEVICE_NONE)
+-   Audio source: 0 (AUDIO_SOURCE_DEFAULT)
+-   Timestamp stats: n=0 disc=0 cold=0 nRdy=0 err=0 jitterMs(unavail) localSR(-nan, -nan) correctedJitterMs(unavail)
+-   Timestamp corrected: no
+-   AudioStreamIn: 0x77b61d4a2580 flags 0 (AUDIO_INPUT_FLAG_NONE)
+-   Frames read: 0
+-   No active record clients
+-   Hal stream dump:
+-       Signal power history: (none)
+-       Signal power history: (none)
+-   Fast capture thread: no
+-   Fast track available: no
+-   FastCapture not initialized
+-   0 Tracks
+-   0 Effect Chains
+-   Local log:
+
+Historical Thread Log 09-11 04:23:22.571 -
+- Input thread 0x77b8535c9b88, name AudioIn_26, tid 564, type 3 (RECORD):
+-   I/O handle: 38
+-   Standby: no
+-   Sample rate: 48000 Hz
+-   HAL frame count: 1024
+-   HAL format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+-   HAL buffer size: 4096 bytes
+-   Channel count: 2
+-   Channel mask: 0x0000000c (left, right)
+-   Processing format: 0x1 (AUDIO_FORMAT_PCM_16_BIT)
+-   Processing frame size: 4 bytes
+-   Pending config events: none
+-   Output devices:  (Empty device types)
+-   Input device: 0 (AUDIO_DEVICE_NONE)
+-   Audio source: 0 (AUDIO_SOURCE_DEFAULT)
+-   Timestamp stats: n=0 disc=0 cold=0 nRdy=0 err=0 jitterMs(unavail) localSR(-nan, -nan) correctedJitterMs(unavail)
+-   Timestamp corrected: no
+-   AudioStreamIn: 0x77b61d4a24e0 flags 0 (AUDIO_INPUT_FLAG_NONE)
+-   Frames read: 0
+-   No active record clients
+-   Hal stream dump:
+-       Signal power history: (none)
+-       Signal power history: (none)
+-   Fast capture thread: no
+-   Fast track available: no
+-   FastCapture not initialized
+-   0 Tracks
+-   0 Effect Chains
+-   Local log:
+
+
+IAudioFlinger binder call profile:
+1 createTrack n=2 ave=16.6099 std=2.34759 min=14.9499 max=18.2699
+11 setMasterBalance n=2 ave=0.039449 std=0.00516188 min=0.035799 max=0.043099
+18 setMicMute n=5 ave=2.73056 std=1.65215 min=1.2928 max=5.4758
+19 getMicMute n=11 ave=0.883099 std=0.367155 min=0.413399 max=1.3939
+21 setParameters n=9 ave=2.66331 std=2.04102 min=0.469099 max=6.8812
+22 getParameters n=1 ave=4.4377 min=4.4377 max=4.4377
+23 registerClient n=3 ave=1.37913 std=1.93783 min=0.135299 max=3.6119
+35 newAudioUniqueId n=5 ave=0.136519 std=0.132443 min=0.041999 max=0.366499
+36 acquireAudioSessionId n=2 ave=0.097099 std=0.0667509 min=0.049899 max=0.144299
+47 setLowRamDevice n=1 ave=0.281099 min=0.281099 max=0.281099
+54 systemReady n=1 ave=1.1278 min=1.1278 max=1.1278
+58 setAudioHalPids n=1 ave=0.060499 min=0.060499 max=0.060499
+59 setVibratorInfos n=1 ave=0.031699 min=0.031699 max=0.031699
+71 getSoundDoseInterface n=1 ave=0.050999 min=0.050999 max=0.050999
+
+IEffect binder call profile:
+
+DeviceHalHidl binder call profile:
+createAudioPatch n=2 ave=0.197948 std=0.095813 min=0.130198 max=0.265698
+dump n=3 ave=1.95623 std=0.97703 min=0.869198 max=2.7612
+getMasterMute n=1 ave=0.146998 min=0.146998 max=0.146998
+getMasterVolume n=1 ave=0.126398 min=0.126398 max=0.126398
+getMicMute n=11 ave=0.639034 std=0.346436 min=0.263998 max=1.29
+getParameters n=8 ave=0.653486 std=1.1301 min=0.122498 max=3.4348
+initCheck n=3 ave=0.310965 std=0.337596 min=0.099398 max=0.700298
+openInputStream n=4 ave=2.34247 std=1.38177 min=1.1193 max=4.1155
+openOutputStream n=2 ave=3.38985 std=0.358008 min=3.1367 max=3.643
+setMasterMute n=3 ave=0.188398 std=0.136262 min=0.106598 max=0.345698
+setMasterVolume n=3 ave=0.860265 std=1.33744 min=0.084598 max=2.4046
+setMicMute n=15 ave=0.818771 std=0.944358 min=0.229398 max=3.7071
+setMode n=1 ave=0.083198 min=0.083198 max=0.083198
+setParameters n=27 ave=0.599328 std=0.878705 min=0.068798 max=4.1372
+supportsAudioPatches n=2 ave=0.118748 std=0.0109602 min=0.110998 max=0.126498
+
+EffectHalHidl binder call profile:
+
+StreamInHalHidl binder call profile:
+dump n=4 ave=2.16007 std=0.75456 min=1.6388 max=3.2698
+getAudioProperties n=16 ave=0.900786 std=0.747907 min=0.108198 max=2.1272
+getBufferSize n=8 ave=0.72306 std=0.925743 min=0.094098 max=2.8944
+getFrameSize n=4 ave=1.7731 std=2.16308 min=0.134198 max=4.8164
+standby n=8 ave=0.75841 std=0.750148 min=0.068798 max=2.1849
+
+StreamOutHalHidl binder call profile:
+dump n=2 ave=6.2647 std=4.26781 min=3.2469 max=9.2825
+getAudioProperties n=8 ave=0.701135 std=0.745525 min=0.152298 max=2.2555
+getBufferSize n=4 ave=1.06512 std=0.941264 min=0.282598 max=2.24
+getFrameSize n=2 ave=0.968398 std=1.21778 min=0.107298 max=1.8295
+getHalPid n=1 ave=0.231398 min=0.231398 max=0.231398
+getLatency n=439 ave=0.57676 std=1.32449 min=0.026498 max=16.4363
+getRecommendedLatencyModes n=2 ave=0.664848 std=0.819466 min=0.085398 max=1.2443
+setEventCallback n=2 ave=0.695548 std=0.616385 min=0.259698 max=1.1314
+setLatencyModeCallback n=2 ave=0.705848 std=0.48953 min=0.359698 max=1.052
+standby n=8 ave=0.897698 std=0.506263 min=0.109198 max=1.7096
+updateSourceMetadata n=80 ave=1.15562 std=1.65124 min=0.094898 max=10.9755
+
+TimeCheck:
+now 04:32:00.958
+secondChanceCount 0
+analysis [  ]
+timeout [  ]
+pending [ { IAudioFlinger::dump scheduled 04:32:00.928 deadline :03.928 tid 674 } ]
+retired [ { StreamOutHalHidl::getLatency scheduled 04:32:00.684 deadline  tid 535 } { StreamOutHalHidl::getLatency scheduled 04:32:00.696 deadline  tid 535 } { StreamOutHalHidl::getLatency scheduled 04:32:00.707 deadline  tid 535 } { StreamOutHalHidl::getLatency scheduled 04:32:00.720 deadline  tid 535 } { StreamOutHalHidl::getLatency scheduled 04:32:00.732 deadline  tid 535 } { StreamOutHalHidl::updateSourceMetadata scheduled 04:32:00.734 deadline  tid 535 } { StreamOutHalHidl::updateSourceMetadata scheduled 04:32:00.766 deadline  tid 535 } { IAudioPolicyService::listAudioPorts scheduled 04:32:00.767 deadline :03.767 tid 674 } { IAudioPolicyService::listAudioPorts scheduled 04:32:00.768 deadline :03.768 tid 674 } { IAudioPolicyService::listAudioPatches scheduled 04:32:00.770 deadline :03.770 tid 674 } { IAudioPolicyService::listAudioPatches scheduled 04:32:00.771 deadline :03.771 tid 674 } { StreamOutHalHidl::dump scheduled 04:32:00.935 deadline  tid 674 } { StreamOutHalHidl::dump scheduled 04:32:00.941 deadline  tid 674 } { DeviceHalHidl::dump scheduled 04:32:00.951 deadline  tid 674 } { DeviceHalHidl::dump scheduled 04:32:00.954 deadline  tid 674 } { DeviceHalHidl::dump scheduled 04:32:00.956 deadline  tid 674 } ]
+mutex stats: priority inheritance enabled
+Capability: AudioPolicyEffects_Mutex
+locks: 77
+uncontested: 77
+waits: 0
+unlocks: 77
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: AudioPolicyService_Mutex
+locks: 1368
+uncontested: 1362
+waits: 6
+unlocks: 1368
+avg_wait_ms: 2.546517
+std_wait_ms: 2.404443
+Capability: CommandThread_Mutex
+locks: 2261
+uncontested: 2244
+waits: 17
+unlocks: 2261
+avg_wait_ms: 1.218906
+std_wait_ms: 2.477735
+Capability: AudioCommand_Mutex
+locks: 1168
+uncontested: 1168
+waits: 0
+unlocks: 1168
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: UidPolicy_Mutex
+locks: 3084
+uncontested: 3084
+waits: 0
+unlocks: 3084
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: AudioFlinger_Mutex
+locks: 63
+uncontested: 62
+waits: 1
+unlocks: 63
+avg_wait_ms: 0.016400
+std_wait_ms: 0.000000
+Capability: AudioFlinger_HardwareMutex
+locks: 45
+uncontested: 44
+waits: 1
+unlocks: 45
+avg_wait_ms: 0.016000
+std_wait_ms: 0.000000
+Capability: DeviceEffectManager_Mutex
+locks: 3
+uncontested: 2
+waits: 1
+unlocks: 3
+avg_wait_ms: 0.013700
+std_wait_ms: 0.000000
+Capability: PatchCommandThread_Mutex
+locks: 7
+uncontested: 7
+waits: 0
+unlocks: 7
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: ThreadBase_Mutex
+locks: 20500
+uncontested: 20450
+waits: 50
+unlocks: 20500
+avg_wait_ms: 1.243946
+std_wait_ms: 2.623703
+Capability: AudioFlinger_ClientMutex
+locks: 68
+uncontested: 66
+waits: 2
+unlocks: 68
+avg_wait_ms: 0.117200
+std_wait_ms: 0.102500
+Capability: MelReporter_Mutex
+locks: 1
+uncontested: 1
+waits: 0
+unlocks: 1
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: ConfigEvent_Mutex
+locks: 108
+uncontested: 108
+waits: 0
+unlocks: 108
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: PatchCommandThread_ListenerMutex
+locks: 4
+uncontested: 4
+waits: 0
+unlocks: 4
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: PlaybackThread_AudioTrackCbMutex
+locks: 2
+uncontested: 2
+waits: 0
+unlocks: 2
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: AudioPolicyService_NotificationClientsMutex
+locks: 540
+uncontested: 540
+waits: 0
+unlocks: 540
+avg_wait_ms: 0.000000
+std_wait_ms: 0.000000
+Capability: MediaLogNotifier_Mutex
+locks: 6087
+uncontested: 6083
+waits: 4
+unlocks: 6087
+avg_wait_ms: 0.035375
+std_wait_ms: 0.013583
+thread count: 10
+tids without current activity [ 426 491 494 517 519 520 535 543 674 992 ]

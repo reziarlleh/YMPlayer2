@@ -22,6 +22,7 @@ import dev.petrov.ymplayer2.shell.ShellModel
 class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
+        (application as PlayerApplication).accounts.retryAccount()
         lifecycleScope.launch { (application as PlayerApplication).library.refresh() }
     }
     override fun onCreate(savedInstanceState: Bundle?) {

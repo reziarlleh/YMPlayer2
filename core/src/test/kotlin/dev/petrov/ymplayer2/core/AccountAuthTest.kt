@@ -28,6 +28,8 @@ class AccountAuthTest {
         var requestDelay = 0L
         var pollDelay = 0L
         var accountDelay = 0L
+        var accountFailure: AuthFailure? = null
+        var accounts = 0
         var result: TokenPoll = TokenPoll.Granted(credentials())
         var failure: AuthFailure? = null
         override suspend fun requestCode(profileId: String): DeviceChallenge {
@@ -42,9 +44,25 @@ class AccountAuthTest {
             return result
         }
         override suspend fun account(credentials: OAuthCredentials): YandexAccount {
+            accounts++
             withContext(NonCancellable) { delay(accountDelay) }
+            accountFailure?.let { throw AuthException(it) }
             return YandexAccount("123", "Тестовый аккаунт")
         }
+    }
+    @Test fun temporaryNetworkFailureKeepsCodeAndResumesTheSameLogin() = runTest {
+        val api = Api().apply { failure = AuthFailure.NETWORK }; val store = Store()
+        val auth = AccountAuth(profiles, api, store, this) { testScheduler.currentTime }
+        auth.activate("owner"); runCurrent(); auth.start(); runCurrent()
+        advanceTimeBy(5000); runCurrent()
+        assertEquals(AuthPhase.WAITING, auth.state.value.phase)
+        assertEquals("ABCD1234", auth.state.value.userCode)
+        assertNotNull(auth.state.value.issue)
+        api.failure = null
+        advanceUntilIdle()
+        assertEquals(AuthPhase.SIGNED_IN, auth.state.value.phase)
+        assertEquals(1, api.requests); assertEquals(2, api.polls)
+        assertTrue(store.data.containsKey("owner"))
     }
     @Test fun successRespectsIntervalAndRestoresOnlyMatchingProfile() = runTest {
         val api = Api(); val store = Store()
@@ -93,7 +111,7 @@ class AccountAuthTest {
         val api = Api().apply { accountDelay = 1000 }; val store = Store()
         val auth = AccountAuth(profiles, api, store, this) { testScheduler.currentTime }
         auth.activate("owner"); runCurrent(); auth.start(); runCurrent(); advanceTimeBy(5000); runCurrent()
-        assertEquals(AuthPhase.VERIFYING, auth.state.value.phase)
+        assertEquals(AuthPhase.SIGNED_IN, auth.state.value.phase); assertTrue(auth.state.value.updatingAccount)
         auth.signOut(); advanceUntilIdle()
         assertEquals(AuthPhase.SIGNED_OUT, auth.state.value.phase); assertTrue(store.data.isEmpty())
     }
@@ -138,5 +156,72 @@ class AccountAuthTest {
         val auth = AccountAuth(profiles, Api(), store, this) { 2 }
         auth.activate("owner"); runCurrent()
         assertEquals(AuthPhase.SIGNED_OUT, auth.state.value.phase); assertNull(auth.state.value.account)
+    }
+    @Test fun accountNetworkFailureRetainsTokenForRetryWithoutAnotherCodeOrPoll() = runTest {
+        val api = Api().apply { accountFailure = AuthFailure.NETWORK }; val store = Store()
+        val auth = AccountAuth(profiles, api, store, this) { testScheduler.currentTime }
+        auth.activate("owner"); runCurrent(); auth.start(); advanceUntilIdle()
+        assertEquals(AuthPhase.SIGNED_IN, auth.state.value.phase)
+        assertNotNull(store.data["owner"]); assertNull(store.data["owner"]!!.account); assertNull(auth.state.value.userCode)
+        assertEquals("ACCOUNT_NETWORK", auth.state.value.diagnostic)
+        assertFalse(auth.state.value.toString().contains("private"))
+        api.accountFailure = null
+        auth.retryAccount(); auth.retryAccount(); advanceUntilIdle()
+        assertEquals(AuthPhase.SIGNED_IN, auth.state.value.phase)
+        assertEquals(1, api.requests); assertEquals(1, api.polls); assertEquals(2, api.accounts)
+        assertEquals("private-access", store.data["owner"]!!.credentials.accessToken)
+    }
+    @Test fun logoutOrProfileSwitchCannotReuseAnotherProfilesAccountToken() = runTest {
+        for (switch in listOf(false, true)) {
+            val api = Api().apply { accountFailure = AuthFailure.NETWORK }; val store = Store()
+            val auth = AccountAuth(profiles, api, store, this) { testScheduler.currentTime }
+            auth.activate("owner"); runCurrent(); auth.start(); advanceUntilIdle()
+            if (switch) auth.activate("road") else auth.signOut()
+            runCurrent(); api.accountFailure = null; auth.retryAccount(); advanceUntilIdle()
+            assertEquals(switch, store.data.containsKey("owner")); assertFalse(store.data.containsKey("road")); assertEquals(1, api.accounts)
+            assertEquals(AuthPhase.SIGNED_OUT, auth.state.value.phase)
+        }
+    }
+    @Test fun cancelDuringNetworkBackoffStopsAllFurtherPolls() = runTest {
+        val api = Api().apply { failure = AuthFailure.NETWORK }; val store = Store()
+        val auth = AccountAuth(profiles, api, store, this) { testScheduler.currentTime }
+        auth.activate("owner"); runCurrent(); auth.start(); advanceTimeBy(5000); runCurrent()
+        assertEquals(AuthPhase.WAITING, auth.state.value.phase)
+        auth.cancel(); advanceUntilIdle()
+        assertEquals(1, api.polls); assertEquals(AuthPhase.SIGNED_OUT, auth.state.value.phase)
+    }
+    @Test fun serverRetryAfterAndCodeExpiryBoundNetworkRetries() = runTest {
+        var polls = 0
+        val api = object : DeviceAuthApi {
+            override val configured = true
+            override suspend fun requestCode(profileId: String) = challenge
+            override suspend fun poll(code: DeviceChallenge): TokenPoll {
+                polls++; throw AuthException(AuthFailure.NETWORK, NetworkIssue.SERVICE, 60)
+            }
+            override suspend fun account(credentials: OAuthCredentials) = error("Unexpected account request")
+        }
+        val auth = AccountAuth(profiles, api, Store(), this) { testScheduler.currentTime }
+        auth.activate("owner"); runCurrent(); auth.start(); advanceUntilIdle()
+        assertEquals(1, polls); assertEquals(30_000, testScheduler.currentTime)
+        assertEquals(AuthPhase.ERROR, auth.state.value.phase); assertNull(auth.state.value.userCode)
+    }
+    @Test fun expiredSavedTokenRequiresNewCodeAndDoesNotReachAccountApi() = runTest {
+        val api = Api().apply { accountFailure = AuthFailure.NETWORK; result = TokenPoll.Granted(OAuthCredentials("private", null, 6000)) }
+        val auth = AccountAuth(profiles, api, Store(), this) { testScheduler.currentTime }
+        auth.activate("owner"); runCurrent(); auth.start(); advanceUntilIdle()
+        advanceTimeBy(1000); auth.retryAccount(); runCurrent()
+        assertEquals(1, api.accounts); assertEquals(AuthPhase.SIGNED_OUT, auth.state.value.phase)
+    }
+    @Test fun savedTokenSurvivesRestartEvenWhenAccountServiceStaysUnavailable() = runTest {
+        val api = Api().apply { accountFailure = AuthFailure.NETWORK }; val store = Store()
+        val auth = AccountAuth(profiles, api, store, this) { testScheduler.currentTime }
+        auth.activate("owner"); runCurrent(); auth.start(); advanceUntilIdle()
+        val restored = AccountAuth(profiles, api, store, this) { testScheduler.currentTime }
+        restored.activate("owner"); advanceUntilIdle()
+        assertEquals(AuthPhase.SIGNED_IN, restored.state.value.phase)
+        assertEquals("private-access", store.data["owner"]!!.credentials.accessToken)
+        assertEquals(1, api.requests); assertEquals(1, api.polls); assertEquals(2, api.accounts)
+        api.accountFailure = null; restored.retryAccount(); advanceUntilIdle()
+        assertEquals("123", restored.state.value.account?.id)
     }
 }
