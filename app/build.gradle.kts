@@ -5,6 +5,14 @@ val versionInfo = Properties().apply { rootProject.file("version.properties").in
 val issuedBuild = providers.gradleProperty("issuedBuildNumber").orNull?.toInt()
 val base = versionInfo.getProperty("baseVersion")
 val channel = versionInfo.getProperty("channel")
+val yandexInfo = Properties().apply {
+    rootProject.file(".provider/yandex.properties").takeIf { it.isFile }?.inputStream()?.use(::load)
+}
+fun yandexValue(name: String): String {
+    val value = yandexInfo.getProperty(name, "")
+    require(value.matches(Regex("[A-Za-z0-9_.-]*"))) { "Invalid OAuth client configuration format." }
+    return "\"$value\""
+}
 val signingInfo = Properties().apply {
     rootProject.file(".signing/signing.properties").takeIf { it.isFile }?.inputStream()?.use(::load)
 }
@@ -18,6 +26,8 @@ android {
         versionCode = issuedBuild ?: 1
         versionName = if (issuedBuild == null) "$base-internal" else "$base${if (channel == "beta") "beta" else ""}-build$issuedBuild"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "YANDEX_CLIENT_ID", yandexValue("clientId"))
+        buildConfigField("String", "YANDEX_CLIENT_SECRET", yandexValue("clientSecret"))
     }
     signingConfigs {
         if (signingInfo.isNotEmpty()) create("product") {
@@ -50,6 +60,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":library:local"))
     implementation(project(":playback:android"))
+    implementation(project(":provider:yandex"))
     implementation(libs.coroutines.android)
     implementation(project(":designsystem"))
     implementation(project(":feature:shell"))

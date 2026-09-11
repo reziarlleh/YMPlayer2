@@ -18,10 +18,15 @@ import dev.petrov.ymplayer2.core.Profile
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
-@Composable internal fun ProfilesScreen(profiles: List<Profile>, current: String, select: (String) -> Unit) {
+@Composable internal fun ProfilesScreen(profiles: List<Profile>, current: String, account: (() -> Unit)? = null, select: (String) -> Unit) {
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         item { Text("Профили", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
         item { Text("У каждого профиля своя очередь. При переключении плеер остаётся на паузе.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        if (account != null) item {
+            OutlinedButton(account, Modifier.fillMaxWidth().prismFocus().testTag("account_open")) {
+                Text("Яндекс · ${profiles.first { it.id == current }.name}")
+            }
+        }
         items(profiles, key = Profile::id) { profile ->
             Surface(onClick = { select(profile.id) }, Modifier.fillMaxWidth().prismFocus().testTag("profile_${profile.id}"),
                 color = if (current == profile.id) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, shape = MaterialTheme.shapes.medium) {
@@ -32,7 +37,8 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 }
             }
         }
-        item { Text("Локальные профили используют общий каталог. Вход в Яндекс и управление аккаунтами появятся после подключения провайдера.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text(if (account == null) "Локальные профили используют общий каталог. В этом режиме аккаунты не подключены."
+            else "Локальный каталог общий. Вход в Яндекс, очередь и списки принадлежат выбранному профилю. Гость работает без аккаунта.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
 }
 
@@ -48,7 +54,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             items(CatalogState.entries) { item -> Choice(item.label, catalog == item, "state_${item.name}") { setCatalog(item) } }
         } else item { OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { Text("Папки с музыкой") } }
         item { HorizontalDivider(); Text("YMPlayer 2 · $version", fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp)) }
-        item { Text(if (demo) "Демонстрационный режим M1 · без звука" else "Музыка из выбранных папок. Фоновое воспроизведение и системное управление. Яндекс, клипы и обновления появятся на следующих этапах.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text(if (demo) "Демонстрационный режим M1 · без звука" else "Музыка из выбранных папок. Вход в Яндекс — в профилях. Онлайн-каталог, клипы и обновления появятся на следующих этапах.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
 }
 

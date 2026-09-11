@@ -4,6 +4,7 @@
 .kotlin/
 .local-build/
 .signing/
+.provider/
 local.properties
 **/build/
 captures/

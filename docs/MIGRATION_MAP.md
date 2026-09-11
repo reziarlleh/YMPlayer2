@@ -1,6 +1,6 @@
 # Карта миграции
 
-Дата: 2026-09-10. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь,
+Дата: 2026-09-11. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь,
 в M3.2 — локальные плейлисты и избранное по профилям; в M3.3 — обложки, иерархия
 «Назад» и восстановление недоступных ссылок очереди; [проверки build6](M3_3_VERIFICATION.md).
 `analysis` означает выполненный первичный
@@ -11,8 +11,8 @@
 | Функции | Источник | Модуль 2.x | Тип | Статус | Проверка перед done |
 | --- | --- | --- | --- | --- | --- |
 | F19, новый shell | S01/S11 только сценарии | designsystem, feature:shell | redesign | M3.3 local | Иерархия «Назад», двойной выход, детали/диалоги, шрифт 200% и короткое окно проверены; облачные экраны отдельно |
-| F02 | ROADMAP, S08 как ограничение | profiles/auth | new | design | Account scope, отмена старых работ, guest local mode |
-| F01 | S01/S04/S08 | profiles + provider/yandex | migration/refactor | analysis | Device code, expiry/cancel, изоляция токенов |
+| F02 | ROADMAP, S08 как ограничение | core/auth + provider/yandex | new | M4 implementation | Отдельные сессии/ключи/device ID, отмена старых работ, guest local mode; изоляция будущих музыкальных запросов — M5 |
+| F01 | S01/S04/S08 | core/auth + provider/yandex + shell | migration/refactor | M4 verification | Device code, expiry/cancel, изоляция токенов; успешный живой вход подтверждается отдельно от тестов |
 | F16/F17 | ROADMAP; S05 как reference | library + local index | new | design | Пагинация, USB unavailable, инкрементальный индекс |
 | F04/F05/F06 | S02 | playback + Android adapter | migration/refactor | M3.3 local | Play/pause/stop/seek/skip, repeat/shuffle, ручная очередь и checkpoints; недоступные ссылки сохраняются, возврат текущего трека на паузе. Native Media3 и фон проверены; физический USB и облачные сценарии отдельно |
 | F03 | S03/S04 | provider/yandex + playback | migration/refactor | analysis | Session/batch/feedback, continuation, retry/prefetch |

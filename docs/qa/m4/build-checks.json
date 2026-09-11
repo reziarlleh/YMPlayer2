@@ -1,0 +1,9 @@
+{
+  "coreTests": 26,
+  "coreFailures": 0,
+  "lintErrors": 0,
+  "lintWarnings": 14,
+  "buildLog": ".local-build/m4-hint-build.log",
+  "providerBuildLog": ".local-build/m4-live-fix-build.log",
+  "releaseBuildLog": ".local-build/m4-release-build.log"
+}

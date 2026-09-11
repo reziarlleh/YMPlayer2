@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0beta-build7",
+  "upgradeFrom": 6,
+  "liveCodeAfterEmulatorReboot": true,
+  "dpadRequestedCode": true,
+  "backCancelsAndAscendsToProfiles": true,
+  "profilesAscendsToPlayer": true,
+  "firstBackKeepsActivity": true,
+  "secondBackExits": true,
+  "passed": true
+}

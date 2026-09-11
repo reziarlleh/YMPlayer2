@@ -62,6 +62,14 @@ M3.3: `ArtworkCache` и `StorageMonitor` находятся в `:library:local`.
 Фиксированная иерархия «Назад» и двойной выход относятся только к shell/Activity.
 Решения: [ADR-007](DECISIONS/ADR-007-navigation-artwork-storage.md).
 
+M4: `:provider:yandex` реализует device OAuth, проверку аккаунта и шифрованное
+Android-хранилище. `AccountAuth` в ядре отделяет состояние экрана от credentials,
+владеет отменой/поколениями операций и порядком записи сессий. Shell получает
+только контроллер и безопасный `AccountAuthState`; не вызывает HTTP и не читает токены.
+`PlayerApplication` собирает зависимости, `ShellModel` сообщает текущий профиль.
+Клиентская конфигурация относится к сборке, пользовательские токены — к данным
+каждого профиля на устройстве. [ADR-008](DECISIONS/ADR-008-profile-yandex-auth.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

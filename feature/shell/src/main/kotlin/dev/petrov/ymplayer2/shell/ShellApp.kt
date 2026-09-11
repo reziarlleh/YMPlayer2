@@ -50,7 +50,10 @@ private val destinations = listOf(
     var collectionTrack by remember(playback.profileId) { mutableStateOf<Track?>(null) }
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders")) "library" else route
-    val navigate: (String) -> Unit = { exitAt = null; route = it }
+    val navigate: (String) -> Unit = {
+        if (route == "account" && it != "account") model.accounts?.cancel()
+        exitAt = null; route = it
+    }
     val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     DisposableEffect(lifecycle) {
@@ -61,6 +64,7 @@ private val destinations = listOf(
     LaunchedEffect(exitAt) { if (exitAt != null) { delay(2000); exitAt = null } }
     BackHandler {
         when (route) {
+            "account" -> navigate("profiles")
             "playlists", "favorites", "folders" -> { libraryUpRequest++; navigate("library") }
             "player" -> {
                 val now = SystemClock.elapsedRealtime()
@@ -109,9 +113,10 @@ private val destinations = listOf(
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites") }
                                 "queue" -> QueueScreen(playback, model.player)
-                                "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId) {
+                                "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
                                     model.player.switchProfile(it); navigate("player")
                                 }
+                                "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                 "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") })
                                 "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
                                 "clips" -> MessageScreen("Клипы", "Модуль появится на следующем этапе", "В прототипе нет видео, авторизации и сетевых запросов.", UiIcon.CLIPS)

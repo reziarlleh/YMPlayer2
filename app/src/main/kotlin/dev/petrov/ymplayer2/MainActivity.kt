@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer {
-                    ShellModel(graph.library, graph.playback, createSavedStateHandle(), graph.collections)
+                    ShellModel(graph.library, graph.playback, createSavedStateHandle(), graph.collections, graph.accounts)
                 }
             })
             var source by rememberSaveable { mutableStateOf(Source.LOCAL) }

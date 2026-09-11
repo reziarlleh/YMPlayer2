@@ -5,16 +5,21 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import android.os.Bundle
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.distinctUntilChanged
 import dev.petrov.ymplayer2.core.*
 
 /** Screens depend on contracts; the debug demo supplies its own explicit fixtures. */
-class ShellModel(val catalog: Catalog, val player: PlaybackController, savedState: SavedStateHandle, val collections: UserCollections? = null) : ViewModel() {
+class ShellModel(val catalog: Catalog, val player: PlaybackController, savedState: SavedStateHandle, val collections: UserCollections? = null, val accounts: AccountAuth? = null) : ViewModel() {
     val local get() = catalog as? LocalLibrary
     val library = local?.state ?: kotlinx.coroutines.flow.MutableStateFlow(LibrarySnapshot(ready = true))
     fun addFolder(uri: String, source: Source) { viewModelScope.launch { local?.addFolder(uri, source) } }
     fun refresh() { viewModelScope.launch { local?.refresh() } }
     fun forgetFolder(uri: String) { viewModelScope.launch { local?.forgetFolder(uri) } }
     init {
+        accounts?.let { auth -> viewModelScope.launch {
+            player.state.map { it.profileId }.distinctUntilChanged().collect(auth::activate)
+        } }
         viewModelScope.launch {
             if (local != null) return@launch // Real checkpoints live in the service, never a large Activity Bundle.
             player.state.collect { state ->

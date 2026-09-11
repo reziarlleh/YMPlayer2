@@ -2,5 +2,6 @@
     <application>
         <activity android:name=".DemoActivity" android:exported="false" />
         <activity android:name=".SkinTestActivity" android:exported="false" />
+        <activity android:name=".AuthTestActivity" android:exported="false" />
     </application>
 </manifest>

@@ -1,0 +1,23 @@
+{
+  "status": 200,
+  "fields": [
+    "device_code",
+    "expires_in",
+    "interval",
+    "user_code",
+    "verification_url"
+  ],
+  "fieldTypes": {
+    "device_code": "str",
+    "expires_in": "int",
+    "interval": "int",
+    "user_code": "str",
+    "verification_url": "str"
+  },
+  "verification_url": "https://ya.ru/device",
+  "expires_in": 300,
+  "interval": 5,
+  "user_code_length": 8,
+  "device_code_length": 32,
+  "error": null
+}

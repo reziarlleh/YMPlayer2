@@ -1,0 +1,9 @@
+{
+  "runtimeAcceptance": "emulators_verified_live_code; real_account_confirmation_pending",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionName": "2.0.0beta-build7",
+  "versionCode": 7,
+  "builtAtUtc": "2026-09-10T22:07:40.6174117Z",
+  "channel": "beta",
+  "sha256": "c604d766dd6cee636b024fdc765b69340e84fdd6a7ccb2f210bdd055e4166658"
+}
