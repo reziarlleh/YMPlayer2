@@ -111,8 +111,11 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         val id = trackKey(trackId.removePrefix("yandex:"))
         accounts.withSession(profileId) { session ->
             val variants = api(session.credentials.accessToken, "/tracks/$id/download-info") as JSONArray
-            val best = variants.objects().filter { !it.optBoolean("preview", false) && it.optString("codec").equals("mp3", true) }
-                .maxByOrNull { it.optInt("bitrateInKbps", 0) } ?: throw MusicException(MusicFailure.UNAVAILABLE)
+            // Same default AUTO choice as 1.x chooseDownloadInfo: skip previews,
+            // highest bitrate, with the original small MP3 preference (not an MP3-only filter).
+            val best = variants.objects().filter { !it.optBoolean("preview", false) }
+                .maxByOrNull { it.optInt("bitrateInKbps", 0) + if (it.optString("codec").equals("mp3", true)) 2 else 0 }
+                ?: throw MusicException(MusicFailure.UNAVAILABLE)
             val infoUrl = secureUrl(best.getString("downloadInfoUrl"))
             // The signed media URL itself grants access. OAuth never leaves the API origin.
             buildDirectLink(transport.request(infoUrl, null, null))
@@ -182,7 +185,9 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
                 return nodes.item(0).textContent
             }
             val host = tag("host"); val path = tag("path"); val ts = tag("ts"); val salt = tag("s")
-            if (!host.matches(Regex("[A-Za-z0-9.-]+")) || !path.startsWith('/') || path.startsWith("//") || !ts.matches(Regex("[0-9]+"))) throw MusicException(MusicFailure.RESPONSE)
+            // 1.x passes ts through verbatim. Real Yandex XML uses hex, e.g. 1a093e33038.
+            // Validate only that it stays a single safe URI segment; never parse it as a number.
+            if (!host.matches(Regex("[A-Za-z0-9.-]+")) || !path.startsWith('/') || path.startsWith("//") || !ts.matches(Regex("[A-Za-z0-9_-]+"))) throw MusicException(MusicFailure.RESPONSE)
             val signature = MessageDigest.getInstance("MD5").digest(("XGRlBW9FXlekgbPrRHuSiA" + path.removePrefix("/") + salt).toByteArray(Charsets.UTF_8))
                 .joinToString("") { "%02x".format(it.toInt() and 255) }
             return secureUrl("https://$host/get-mp3/$signature/$ts$path")

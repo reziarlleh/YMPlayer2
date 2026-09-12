@@ -106,6 +106,35 @@ class OnlineAdapterTest {
         assertFalse(isYandexMediaUrl("https://user:password@storage.yandex.net/info"))
         assertTrue(runCatching { YandexMusicApi.secureUrl("file:///secret") }.isFailure)
     }
+    @Test fun directLinkPreservesHexTimestampFromLiveYandexResponse() {
+        // Live public XML for Titanik, 2026-09-12: ts=1a093e33038. 1.x treats it as text.
+        for (ts in listOf("1a093e33038", "0001A093E33038")) {
+            val xml = "<download-info><host>api.music.yandex.net</host><path>/abc.mp3</path><ts>$ts</ts><s>salt</s></download-info>"
+            assertEquals("https://api.music.yandex.net/get-mp3/2f148641ff189e7401af984377ed413d/$ts/abc.mp3", YandexMusicApi.buildDirectLink(xml))
+        }
+    }
+    @Test fun defaultAudioSelectionMatchesLegacyAutoIncludingOtherCodecs() = runBlocking {
+        for ((variants, expected) in listOf(
+            """{"codec":"aac","bitrateInKbps":192,"downloadInfoUrl":"https://storage.yandex.net/aac"}""" to "aac",
+            """{"codec":"aac","bitrateInKbps":320,"downloadInfoUrl":"https://storage.yandex.net/aac"},{"codec":"mp3","bitrateInKbps":320,"downloadInfoUrl":"https://storage.yandex.net/mp3"}""" to "mp3",
+            """{"codec":"aac","bitrateInKbps":320,"downloadInfoUrl":"https://storage.yandex.net/aac"},{"codec":"mp3","bitrateInKbps":192,"downloadInfoUrl":"https://storage.yandex.net/mp3"}""" to "aac"
+        )) {
+            var fetched = false
+            val api = YandexMusicApi(auth(this), MusicTransport { url, token, _ ->
+                if (url.endsWith("download-info")) """{"result":[$variants]}""" else {
+                    assertEquals("https://storage.yandex.net/$expected", url); assertNull(token); fetched = true
+                    "<download-info><host>storage.yandex.net</host><path>/abc.mp3</path><ts>1a093e33038</ts><s>salt</s></download-info>"
+                }
+            })
+            assertTrue(api.stream("owner", "yandex:1:7").contains("/1a093e33038/abc.mp3")); assertTrue(fetched)
+        }
+    }
+    @Test fun opaqueTimestampCannotChangeUriStructure() {
+        for (ts in listOf("", "../a", "a/b", "a?x=1", "a#x", "a%2fb", "a b")) {
+            val xml = "<download-info><host>storage.yandex.net</host><path>/abc.mp3</path><ts>$ts</ts><s>salt</s></download-info>"
+            assertTrue(runCatching { YandexMusicApi.buildDirectLink(xml) }.isFailure)
+        }
+    }
     @Test fun transientHtmlErrorsAreClassifiedBeforeParsingAndRedirectsDoNotLeakOAuth() = runBlocking {
         for ((code, expected) in listOf(503 to MusicFailure.NETWORK, 429 to MusicFailure.NETWORK, 403 to MusicFailure.ACCESS, 404 to MusicFailure.UNAVAILABLE, 302 to MusicFailure.RESPONSE)) {
             val transport = HttpsMusicTransport { object : HttpsURLConnection(URL("https://api.music.yandex.net/test")) {

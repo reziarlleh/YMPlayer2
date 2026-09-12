@@ -1,0 +1,9 @@
+{
+  "versionCode": 10,
+  "sha256": "fad48d52cc6f97be440bf694ddf05d5d9fa73dea1930460b3ed045ab44ae5a74",
+  "runtimeAcceptance": "upgrade_9_to_10_phone_tv_verified; parser_regression_verified; live_yandex_public_preview_phone_tv_verified; release_phone_local_playback_verified; owner_full_track_pending",
+  "versionName": "2.0.0beta-build10",
+  "channel": "beta",
+  "builtAtUtc": "2026-09-12T03:44:28.0267983Z",
+  "applicationId": "dev.petrov.ymplayer2"
+}

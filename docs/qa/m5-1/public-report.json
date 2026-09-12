@@ -1,0 +1,15 @@
+{
+  "trackId": "26219946",
+  "title": "Титаник",
+  "downloadInfoHttp": 200,
+  "xmlHttp": 200,
+  "publicPreview": true,
+  "ts": "1a093e33038",
+  "build9DigitOnlyValidationPasses": false,
+  "host": "api.music.yandex.net",
+  "legacyFormulaAudioRange": {
+    "http": 206,
+    "bytesRead": 1024,
+    "contentType": "application/octet-stream"
+  }
+}

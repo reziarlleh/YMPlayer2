@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-12",
+  "nativePhone": 17,
+  "nativeTv": 17,
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 19
+  },
+  "sha256": "fad48d52cc6f97be440bf694ddf05d5d9fa73dea1930460b3ed045ab44ae5a74",
+  "redRegressionConfirmed": true,
+  "livePublicPreviewOnBoth": true,
+  "fullTrackOnOwnerDevice": "pending"
+}

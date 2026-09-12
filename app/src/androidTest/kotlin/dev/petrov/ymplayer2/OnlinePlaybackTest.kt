@@ -94,6 +94,8 @@ class OnlinePlaybackTest {
         compose.runOnIdle { player.playQueue(listOf(local)) }; waitFor { player.state.value.positionSeconds >= 1 }
         search(); action("online_kind_ALBUMS"); waitFor { fixture.online.state.value.entries.firstOrNull()?.entity != null }
         action("online_entity_7"); waitFor { fixture.online.state.value.request.entity != null }
+        // TV IME closes asynchronously; the short-window toolbar returns after its inset update.
+        waitFor { compose.onAllNodesWithTag("navigate_up").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("navigate_up").performClick()
         waitFor { fixture.online.state.value.request.entity == null }
         assertEquals(MusicKind.ALBUMS, fixture.online.state.value.request.kind)
