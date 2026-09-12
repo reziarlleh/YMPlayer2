@@ -149,7 +149,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
                 Text(track.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text(if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else "Файл недоступен", style = MaterialTheme.typography.labelSmall, color = if (track.available) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.error)
+                Text(if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else if (track.source == Source.YANDEX) "Трек недоступен" else "Файл недоступен", style = MaterialTheme.typography.labelSmall, color = if (track.available) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.error)
             }
             SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY, if (selected) "Текущий трек" else "Воспроизвести трек", Modifier.size(24.dp))
         }

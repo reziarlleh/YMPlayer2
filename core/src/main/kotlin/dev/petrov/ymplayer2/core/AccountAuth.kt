@@ -54,6 +54,7 @@ class AccountAuth(
     private val mutable = MutableStateFlow(AccountAuthState())
     val state = mutable.asStateFlow()
     private var generation = 0L
+    @Volatile private var accessGeneration = 0L
     private var job: Job? = null
     private val writes = Mutex()
     private fun valid(ticket: Long, profile: String) = generation == ticket && state.value.profileId == profile
@@ -62,6 +63,7 @@ class AccountAuth(
     fun activate(profileId: String) {
         if (state.value.profileId == profileId) return
         require(profiles.any { it.id == profileId })
+        accessGeneration++
         val ticket = stopWork()
         mutable.value = AccountAuthState(profileId)
         job = scope.launch { restore(profileId, ticket) }
@@ -98,6 +100,7 @@ class AccountAuth(
     fun start() {
         val profile = state.value.profileId
         if (profiles.none { it.id == profile && !it.guest } || !api.configured || state.value.phase !in setOf(AuthPhase.SIGNED_OUT, AuthPhase.ERROR)) return
+        accessGeneration++
         val ticket = stopWork()
         mutable.value = AccountAuthState(profile, AuthPhase.REQUESTING)
         job = scope.launch {
@@ -206,11 +209,24 @@ class AccountAuth(
         }
     }
 
+    /** Provider-only credential access; a late response never crosses a logout/profile/login boundary. */
+    suspend fun <T> withSession(profileId: String, action: suspend (AccountSession) -> T): T {
+        val ticket = accessGeneration
+        fun allowed() = ticket == accessGeneration && state.value.profileId == profileId && state.value.phase == AuthPhase.SIGNED_IN
+        if (!allowed()) throw MusicException(MusicFailure.SIGN_IN)
+        val session = writes.withLock { store.read(profileId) } ?: throw MusicException(MusicFailure.SIGN_IN)
+        if (!allowed() || session.credentials.expiresAtMillis?.let { it <= now() } == true) throw MusicException(MusicFailure.SIGN_IN)
+        val result = action(session)
+        if (!allowed()) throw MusicException(MusicFailure.SIGN_IN)
+        return result
+    }
+
     private fun diagnostic(stage: String, error: AuthException) = "${stage}_${error.networkIssue?.name ?: error.failure.name}"
 
     fun signOut() {
         val profile = state.value.profileId
         if (profiles.none { it.id == profile && !it.guest }) return
+        accessGeneration++
         val ticket = stopWork()
         mutable.value = AccountAuthState(profile)
         // Logout belongs to the requested profile even if the user switches during the write.

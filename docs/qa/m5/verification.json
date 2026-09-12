@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-12",
+  "version": "2.0.0beta-build9",
+  "sha256": "715ace91bcf75aaffed7f16669fd363b95f6a4aa811332133980c3b72718134b",
+  "unit": {
+    "tests": 43,
+    "failures": 0,
+    "errors": 0
+  },
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 19
+  },
+  "native": [
+    {
+      "log": "instrumentation-phone.txt",
+      "tests": 50,
+      "passed": true
+    },
+    {
+      "log": "instrumentation-tv.txt",
+      "tests": 50,
+      "passed": true
+    },
+    {
+      "log": "online-tv-final.txt",
+      "tests": 13,
+      "passed": true
+    },
+    {
+      "log": "layout-phone.txt",
+      "tests": 1,
+      "passed": true
+    },
+    {
+      "log": "layout-phone-font200.txt",
+      "tests": 1,
+      "passed": true
+    },
+    {
+      "log": "layout-short-font200.txt",
+      "tests": 1,
+      "passed": true
+    }
+  ],
+  "fullYandexAudioWithSubscription": "pending_owner_acceptance",
+  "releaseTvLocalAudio": "not_executed_no_DocumentsUI_or_selected_folder",
+  "intermediateRuns": [
+    "phone_system_ui_anr_cleared_by_emulator_reboot",
+    "short_tv_keyboard_resize_corrected_and_verified",
+    "one_fixture_search_timeout_during_parallel_R8_not_reproduced_in_diagnostic_rerun"
+  ]
+}

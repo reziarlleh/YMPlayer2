@@ -17,7 +17,7 @@
 | F04/F05/F06 | S02 | playback + Android adapter | migration/refactor | M3.3 local | Play/pause/stop/seek/skip, repeat/shuffle, ручная очередь и checkpoints; недоступные ссылки сохраняются, возврат текущего трека на паузе. Native Media3 и фон проверены; физический USB и облачные сценарии отдельно |
 | F03 | S03/S04 | provider/yandex + playback | migration/refactor | analysis | Session/batch/feedback, continuation, retry/prefetch |
 | F07/F08/F09 | S03/S06/S08 | favorites sync + cache | migration/refactor | analysis | Сохранить существующие integrity cases; unlike во время sync |
-| F10/F12 | S01/S03/S04 | library/search + yandex | migration/refactor | analysis | Подтверждённые операции, partial pages, API errors |
+| F10/F12 | S01/S03/S04 | core/OnlineMusic + provider/yandex + playback + shell | migration/refactor | M5 verification | Чтение/запуск списков, поиск четырёх типов, детали и страницы; изоляция запросов и очередь. [Проверки](M5_VERIFICATION.md). Изменения облачных плейлистов F10 — M7 |
 | F11/F25 | ROADMAP | provider capability extensions | new | planned | Доступность API ещё не подтверждена |
 | F13/F14/F15 | S05 | local source + library | migration/refactor | M3.3 local | SAF, rescan, unavailable; собственные плейлисты/избранное, встроенные обложки и ограниченный кэш без изменения оригиналов. Возврат источника проверен через DocumentsProvider; физический hot-plug отдельно |
 | F18 | S07 | clips | migration/refactor | analysis | Взаимное исключение аудио/видео, prefetch, Back |
@@ -30,8 +30,9 @@
 
 Подробный порядок M1–M12 и критерии завершения: [ROADMAP.md](ROADMAP.md).
 
-После M3.3: аккаунты Яндекса внутри профиля (M4).
-Далее каталог/поиск Яндекса → волна → likes/cache →
+M4: успешный вход подтверждён владельцем на build8. M5/build9: каталог и поиск
+проверены на эмуляторах; полный трек под подпиской ожидает приёмки.
+Далее волна → likes/cache →
 системная интеграция/CWG → клипы → SideBar/K4811 → пользовательские скины → выпуск.
 
 Перед каждым переносом: inputs/outputs/side effects → поведенческие примеры →

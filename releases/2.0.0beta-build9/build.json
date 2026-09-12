@@ -1,0 +1,9 @@
+{
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "beta",
+  "sha256": "715ace91bcf75aaffed7f16669fd363b95f6a4aa811332133980c3b72718134b",
+  "versionCode": 9,
+  "runtimeAcceptance": "emulator_upgrade_8_to_9_phone_and_tv_verified; release_phone_local_playback_verified; online_fixtures_verified; owner_full_yandex_audio_pending",
+  "versionName": "2.0.0beta-build9",
+  "builtAtUtc": "2026-09-11T21:00:17.9342671Z"
+}

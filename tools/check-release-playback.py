@@ -28,10 +28,12 @@ def session():
     if not block:
         return None
     text = block.group(1)
-    match = re.search(r'state=PlaybackState \{state=(\w+)\(\d+\), position=(\d+)', text)
+    # API 29 dumps numeric states; newer releases add names such as PLAYING(3).
+    match = re.search(r'state=PlaybackState \{state=(\w+)(?:\(\d+\))?, position=(\d+)', text)
     if not match:
         return None
-    return dict(state=match[1], position_ms=int(match[2]), metadata=re.search(r'metadata: ([^\n]*)', text)[1].strip(), dump=text)
+    state = {'0': 'NONE', '1': 'STOPPED', '2': 'PAUSED', '3': 'PLAYING', '6': 'BUFFERING'}.get(match[1], match[1])
+    return dict(state=state, position_ms=int(match[2]), metadata=re.search(r'metadata: ([^\n]*)', text)[1].strip(), dump=text)
 
 def wait_for(predicate, timeout=15):
     until = time.monotonic() + timeout

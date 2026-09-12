@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0beta-build9",
+  "playing": {
+    "state": "PLAYING",
+    "position_ms": 0,
+    "metadata": "size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{69450a5: PendingIntentRecord{ddbb14b dev.petrov.ymplayer2 startActivity (allowlist: 169e70c:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=null\n      active=true\n      flags=7\n      rating type=0\n      controllers: 9\n      state=PlaybackState {state=PLAYING(3), position=0, buffered position=32700, speed=1.0, updated=1209404, actions=7340027, custom actions=[], active item id=0, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "system_pause_background": {
+    "state": "PAUSED",
+    "position_ms": 2343,
+    "metadata": "size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{69450a5: PendingIntentRecord{ddbb14b dev.petrov.ymplayer2 startActivity (allowlist: 169e70c:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=null\n      active=true\n      flags=7\n      rating type=0\n      controllers: 9\n      state=PlaybackState {state=PAUSED(2), position=2343, buffered position=45000, speed=0.0, updated=1212048, actions=7340029, custom actions=[], active item id=0, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "system_play": {
+    "state": "PLAYING",
+    "position_ms": 2583,
+    "metadata": "size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{69450a5: PendingIntentRecord{ddbb14b dev.petrov.ymplayer2 startActivity (allowlist: 169e70c:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=null\n      active=true\n      flags=7\n      rating type=0\n      controllers: 9\n      state=PlaybackState {state=PLAYING(3), position=2583, buffered position=45000, speed=1.0, updated=1212291, actions=7340027, custom actions=[], active item id=0, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "system_next": {
+    "state": "PLAYING",
+    "position_ms": 0,
+    "metadata": "size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{69450a5: PendingIntentRecord{ddbb14b dev.petrov.ymplayer2 startActivity (allowlist: 169e70c:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=null\n      active=true\n      flags=7\n      rating type=0\n      controllers: 9\n      state=PlaybackState {state=PLAYING(3), position=0, buffered position=32700, speed=1.0, updated=1212578, actions=7340027, custom actions=[], active item id=1, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "before_restart": {
+    "state": "PAUSED",
+    "position_ms": 2865,
+    "metadata": "size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{69450a5: PendingIntentRecord{ddbb14b dev.petrov.ymplayer2 startActivity (allowlist: 169e70c:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=null\n      active=true\n      flags=7\n      rating type=0\n      controllers: 9\n      state=PlaybackState {state=PAUSED(2), position=2865, buffered position=32700, speed=0.0, updated=1215707, actions=7340029, custom actions=[], active item id=1, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "restored_paused": {
+    "state": "NONE",
+    "position_ms": 2000,
+    "metadata": "size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{8027928: PendingIntentRecord{6e7f641 dev.petrov.ymplayer2 startActivity}}\n      mediaButtonReceiver=null\n      active=true\n      flags=7\n      rating type=0\n      controllers: 3\n      state=PlaybackState {state=NONE(0), position=2000, buffered position=2000, speed=0.0, updated=1217936, actions=7339701, custom actions=[], active item id=1, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "passed": true
+}

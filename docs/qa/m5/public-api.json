@@ -1,0 +1,151 @@
+[
+  {
+    "request": "search-track",
+    "http": 200,
+    "shape": [
+      "type",
+      "page",
+      "perPage",
+      "text",
+      "searchRequestId",
+      "tracks"
+    ]
+  },
+  {
+    "request": "search-track-page1",
+    "http": 200,
+    "shape": [
+      "type",
+      "page",
+      "perPage",
+      "text",
+      "searchRequestId",
+      "tracks"
+    ]
+  },
+  {
+    "request": "download-info",
+    "http": 200,
+    "shape": "list"
+  },
+  {
+    "request": "stream-variants",
+    "nonPreviewMp3": 0
+  },
+  {
+    "request": "search-album",
+    "http": 200,
+    "shape": [
+      "type",
+      "page",
+      "perPage",
+      "text",
+      "searchRequestId",
+      "albums"
+    ]
+  },
+  {
+    "request": "album",
+    "http": 200,
+    "shape": [
+      "id",
+      "title",
+      "type",
+      "metaType",
+      "version",
+      "year",
+      "releaseDate",
+      "coverUri",
+      "cover",
+      "ogImage",
+      "trackCount",
+      "likesCount",
+      "recent",
+      "veryImportant",
+      "artists",
+      "labels",
+      "available",
+      "availableForPremiumUsers",
+      "availableForOptions",
+      "availableForMobile",
+      "availablePartially",
+      "bests",
+      "disclaimers",
+      "hasTrailer",
+      "trailer",
+      "derivedColors",
+      "customWave",
+      "sortOrder",
+      "volumes",
+      "pager"
+    ]
+  },
+  {
+    "request": "search-artist",
+    "http": 200,
+    "shape": [
+      "type",
+      "page",
+      "perPage",
+      "text",
+      "searchRequestId",
+      "artists"
+    ]
+  },
+  {
+    "request": "artist",
+    "http": 200,
+    "shape": [
+      "pager",
+      "tracks"
+    ]
+  },
+  {
+    "request": "search-playlist",
+    "http": 200,
+    "shape": [
+      "type",
+      "page",
+      "perPage",
+      "text",
+      "searchRequestId",
+      "playlists"
+    ]
+  },
+  {
+    "request": "playlist",
+    "http": 200,
+    "shape": [
+      "owner",
+      "playlistUuid",
+      "available",
+      "uid",
+      "kind",
+      "title",
+      "description",
+      "descriptionFormatted",
+      "revision",
+      "snapshot",
+      "trackCount",
+      "visibility",
+      "collective",
+      "created",
+      "modified",
+      "isBanner",
+      "isPremiere",
+      "idForFrom",
+      "durationMs",
+      "cover",
+      "ogImage",
+      "tracks",
+      "tags",
+      "likesCount",
+      "lastOwnerPlaylists",
+      "customWave",
+      "pager",
+      "hasTrailer",
+      "trailer",
+      "derivedColors"
+    ]
+  }
+]

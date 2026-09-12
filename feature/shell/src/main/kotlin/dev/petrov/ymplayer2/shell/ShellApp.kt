@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import android.os.SystemClock
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -48,6 +49,7 @@ private val destinations = listOf(
     var theme by rememberSaveable { mutableStateOf("dark") }
     var catalogState by rememberSaveable { mutableStateOf(CatalogState.READY) }
     var collectionTrack by remember(playback.profileId) { mutableStateOf<Track?>(null) }
+    var onlineSource by rememberSaveable(playback.profileId) { mutableStateOf(false) }
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders")) "library" else route
     val navigate: (String) -> Unit = {
@@ -79,6 +81,8 @@ private val destinations = listOf(
             val rail = maxWidth >= 600.dp
             val widePlayer = maxWidth >= 960.dp && maxHeight >= 500.dp
             val short = maxHeight < 480.dp
+            // Give text entry room on short windows; playback continues while its bar is hidden.
+            val typingInShortWindow = short && WindowInsets.ime.getBottom(density) > 0
             Row(Modifier.fillMaxSize()) {
                 if (rail) NavigationRail(Modifier.fillMaxHeight().verticalScroll(rememberScrollState()), containerColor = MaterialTheme.colorScheme.background) {
                     Spacer(Modifier.height(12.dp))
@@ -91,11 +95,11 @@ private val destinations = listOf(
                     }
                 }
                 Column(Modifier.weight(1f).fillMaxHeight()) {
-                    Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                    if (!typingInShortWindow) Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                         if (route != "player") ActionIcon(UiIcon.BACK, "Назад", { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))
                         Column(Modifier.weight(1f).padding(vertical = 6.dp)) {
                             Text("YMPlayer 2", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                            Text(if (demo) "Прототип · Без звука" else "Локальная музыка · Beta", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text(if (demo) "Прототип · Без звука" else "Музыка рядом · Beta", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         }
                         ActionIcon(UiIcon.PROFILE, "Профили", { navigate("profiles") }, Modifier.testTag("profiles"))
                         ActionIcon(UiIcon.SETTINGS, "Настройки", { navigate("settings") }, Modifier.testTag("settings"))
@@ -105,12 +109,21 @@ private val destinations = listOf(
                         holder.SaveableStateProvider("${playback.profileId}:$route") {
                             when (route) {
                                 "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") })
-                                "library", "search" -> CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else library.tracks, model.player, route == "search", if (demo) catalogState else CatalogState.READY,
+                                "library", "search" -> Column(Modifier.fillMaxSize()) {
+                                    model.online?.let {
+                                        if (!typingInShortWindow) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                            FilterChip(!onlineSource, { onlineSource = false }, { Text("Устройство / USB") }, Modifier.prismFocus().testTag("source_local"))
+                                            FilterChip(onlineSource, { onlineSource = true }, { Text("Яндекс Музыка") }, Modifier.prismFocus().testTag("source_yandex"))
+                                        }
+                                    }
+                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") })
+                                    else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else library.tracks, model.player, route == "search", if (demo) catalogState else CatalogState.READY,
                                     demo = demo, folders = { navigate("folders") }, scanning = library.scanning, issue = library.issue,
                                     collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
                                     upRequest = if (route == "library") libraryUpRequest else 0,
                                     more = model.collections?.let { { track -> collectionTrack = track } },
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
+                                }
                                 "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites") }
                                 "queue" -> QueueScreen(playback, model.player)
                                 "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
@@ -119,12 +132,12 @@ private val destinations = listOf(
                                 "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                 "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") })
                                 "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
-                                "clips" -> MessageScreen("Клипы", "Модуль появится на следующем этапе", "В прототипе нет видео, авторизации и сетевых запросов.", UiIcon.CLIPS)
+                                "clips" -> MessageScreen("Клипы", "Видеомодуль ещё разрабатывается", "Аудиоплеер продолжает работать при переходе между разделами.", UiIcon.CLIPS)
                             }
                         }
                     }
-                    if (route != "player") MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
-                    if (!rail) NavigationBar(Modifier.onSizeChanged { bottomBarHeight = it.height }, containerColor = MaterialTheme.colorScheme.background) {
+                    if (route != "player" && !typingInShortWindow) MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
+                    if (!rail && !typingInShortWindow) NavigationBar(Modifier.onSizeChanged { bottomBarHeight = it.height }, containerColor = MaterialTheme.colorScheme.background) {
                         destinations.forEach { item ->
                             NavigationBarItem(navigationRoute == item.route, { navigate(item.route) },
                                 { SkinIcon(item.icon, item.label) }, Modifier.testTag("nav_${item.route}").prismFocus(),

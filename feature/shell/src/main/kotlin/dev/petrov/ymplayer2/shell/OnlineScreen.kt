@@ -1,0 +1,96 @@
+package dev.petrov.ymplayer2.shell
+
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dev.petrov.ymplayer2.core.*
+import dev.petrov.ymplayer2.designsystem.*
+import dev.petrov.ymplayer2.designsystem.skin.*
+
+@Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit) {
+    val state by music.state.collectAsStateWithLifecycle()
+    val playback by player.state.collectAsStateWithLifecycle()
+    val keyboard = LocalSoftwareKeyboardController.current
+    val request = state.request
+    val detail = request.entity
+    BackHandler(detail != null) { music.up() }
+    LaunchedEffect(search, state.profileId, state.signedIn) {
+        if (search && request.collection) music.search("")
+        if (!search && state.signedIn && (!request.collection || !state.loaded && !state.loading && state.issue == null)) music.collection()
+    }
+    val shownTracks = state.entries.mapNotNull(MusicEntry::track)
+    val queued = playback.queue.mapTo(hashSetOf(), Track::id)
+    LazyColumn(Modifier.fillMaxSize().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        item {
+            if (detail != null) TextButton({ music.up() }, Modifier.prismFocus().testTag("online_up")) { Text("К результатам") }
+            Text(detail?.title ?: if (search) "Поиск в Яндекс Музыке" else "Моя музыка в Яндексе", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+        }
+        if (!state.signedIn) {
+            item {
+                Text("Для онлайн-музыки войдите в Яндекс в этом профиле. Локальная музыка доступна без входа.")
+                OutlinedButton(signIn, Modifier.prismFocus().testTag("online_sign_in")) { Text("Открыть аккаунт") }
+            }
+        } else {
+            if (detail == null) {
+                if (search) item {
+                    OutlinedTextField(request.query, { music.search(it) }, Modifier.fillMaxWidth().prismFocus().testTag("online_query"),
+                        label = { Text("Название") }, singleLine = true,
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                        keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
+                        trailingIcon = { if (request.query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { music.search("") }) })
+                }
+                item {
+                    Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        (if (search) MusicKind.entries else listOf(MusicKind.TRACKS, MusicKind.PLAYLISTS)).forEach { kind ->
+                            FilterChip(request.kind == kind, { if (search) music.search(request.query, kind, false) else music.collection(kind) },
+                                { Text(if (!search && kind == MusicKind.TRACKS) "Мне нравится" else kind.label) }, Modifier.prismFocus().testTag("online_kind_${kind.name}"))
+                        }
+                    }
+                }
+            }
+            if (state.loading) item { LinearProgressIndicator(Modifier.fillMaxWidth().testTag("online_loading")); Text("Загружаем…") }
+            if (state.issue != null) item {
+                Text(state.issue!!, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("online_issue"))
+                OutlinedButton(music::retry, Modifier.prismFocus().testTag("online_retry"), enabled = !state.loading) { Text("Повторить") }
+            }
+            if (!state.loading && state.issue == null && state.entries.isEmpty()) item {
+                Text(if (search && request.query.isBlank() && detail == null) "Введите название и выберите тип результатов."
+                    else if (state.loaded) "Здесь пока ничего нет. Попробуйте другой запрос или раздел." else "Выберите раздел.", Modifier.testTag("online_empty"))
+            }
+            if (shownTracks.any { it.available }) item {
+                OutlinedButton({ player.playQueue(shownTracks.map(Track::id)); keyboard?.hide() }, Modifier.prismFocus().testTag("online_play_all")) { Text("Слушать показанные треки") }
+            }
+            items(state.entries, key = MusicEntry::id) { entry ->
+                val track = entry.track
+                if (track != null) TrackRow(track,
+                    play = { keyboard?.hide(); player.playQueue(shownTracks.map(Track::id), track.id) },
+                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued)
+                else entry.entity?.let { entity ->
+                    Surface(onClick = { keyboard?.hide(); music.open(entity) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("online_entity_${entity.id}"), shape = MaterialTheme.shapes.medium) {
+                        Column(Modifier.padding(16.dp)) {
+                            Text(entry.title, fontWeight = FontWeight.Bold)
+                            Text(entry.subtitle, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                }
+            }
+            if (state.nextPage != null && state.issue == null) item {
+                OutlinedButton(music::more, Modifier.prismFocus().testTag("online_more"), enabled = !state.loading) { Text("Загрузить ещё") }
+            }
+        }
+    }
+}

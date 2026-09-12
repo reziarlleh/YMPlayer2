@@ -75,6 +75,13 @@ M4.1: OAuth записывается до необязательных свед�
 сведений из сохранённого токена. Транспорт классифицирует HTTP/сетевые сбои без
 передачи сырых ответов в UI. Store читает схемы 1/2; [ADR-009](DECISIONS/ADR-009-auth-legacy-parity.md).
 
+M5: `OnlineMusic` в core управляет страницами и поколением запросов. `YandexMusicApi`
+и отдельный HTTPS-транспорт находятся в provider:yandex. Shell отображает модели,
+передаёт команды и читает уменьшенные публичные обложки вне UI-потока. AndroidPlayback
+объединяет выбранные онлайн-ссылки с локальной очередью; сервис использует Media3
+ResolvingDataSource для запроса временного URL. Токены и временные ссылки не входят
+в checkpoint/MediaItem. [ADR-010](DECISIONS/ADR-010-online-catalog-playback.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

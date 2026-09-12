@@ -3,5 +3,6 @@
         <activity android:name=".DemoActivity" android:exported="false" />
         <activity android:name=".SkinTestActivity" android:exported="false" />
         <activity android:name=".AuthTestActivity" android:exported="false" />
+        <activity android:name=".OnlineTestActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
     </application>
 </manifest>
