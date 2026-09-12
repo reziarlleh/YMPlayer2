@@ -58,8 +58,14 @@ private val destinations = listOf(
     }
     val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val lifecycle = LocalLifecycleOwner.current.lifecycle
-    DisposableEffect(lifecycle) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) exitAt = null }
+    DisposableEffect(lifecycle, model.taste) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) exitAt = null
+            if (event == Lifecycle.Event.ON_RESUME) model.taste?.let { taste ->
+                // Pick up marks changed in Yandex while this app was in the background.
+                if (taste.state.value.signedIn) TasteKind.entries.filter { !taste.state.value.shelf(it).busy }.forEach(taste::refresh)
+            }
+        }
         lifecycle.addObserver(observer)
         onDispose { lifecycle.removeObserver(observer) }
     }
@@ -125,7 +131,7 @@ private val destinations = listOf(
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 }
                                 "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites") }
-                                "queue" -> QueueScreen(playback, model.player)
+                                "queue" -> QueueScreen(playback, model.player, model.taste)
                                 "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
                                     model.player.switchProfile(it); navigate("player")
                                 }

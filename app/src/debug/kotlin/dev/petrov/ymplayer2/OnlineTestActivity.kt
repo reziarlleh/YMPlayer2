@@ -49,6 +49,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             requests++; delay(50)
             failure?.let { throw MusicException(it) }
             if (request.query == "empty") return MusicPage(emptyList())
+            if (request.kind == MusicKind.ARTISTS && request.entity == null) return MusicPage(listOf(MusicEntry("artist:5", "Первый исполнитель", "Исполнитель", entity = MusicEntity("5", "Первый исполнитель", MusicKind.ARTISTS))))
             if (request.kind != MusicKind.TRACKS && request.entity == null) return MusicPage(listOf(MusicEntry("album:7", "Тестовый альбом", "Два трека", entity = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS))))
             val rows = library.state.value.tracks.take(2).mapIndexed { index, original ->
                 val track = onlineTrack(index + 1)
@@ -63,12 +64,19 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             library.state.value.tracks[(trackId.removePrefix("yandex:").substringBefore(':').toInt() - 1) % 2].uri!!
         }
     }, viewModelScope)
+    var collaborators = false
     private fun onlineTrack(id: Int): Track = library.state.value.tracks[(id - 1) % 2].copy(id = "yandex:$id:7", title = "Онлайн: трек $id",
-        source = Source.YANDEX, offline = false, uri = null, artworkUri = null, artists = listOf(ArtistRef(if (id % 2 == 1) "5" else "6", if (id % 2 == 1) "Первый исполнитель" else "Второй исполнитель")), albumId = "7")
+        source = Source.YANDEX, offline = false, uri = null, artworkUri = null, artists = listOf(ArtistRef(if (id % 2 == 1) "5" else "6", if (id % 2 == 1) "Первый исполнитель" else "Второй исполнитель")) + if (collaborators) listOf(ArtistRef("8", "Совместный исполнитель")) else emptyList(), albumId = "7")
     val tasteLists = mutableMapOf<Pair<String, TasteKind>, TasteList>()
     val tasteWrites = mutableListOf<Pair<TasteTarget, TasteAction>>()
+    var tasteReadGate: CompletableDeferred<Unit>? = null
+    var tasteReadFailure: MusicFailure? = null
     val taste = MusicTaste(auth, object : MusicTasteApi {
-        override suspend fun taste(profileId: String, kind: TasteKind) = tasteLists[profileId to kind] ?: TasteList()
+        override suspend fun taste(profileId: String, kind: TasteKind): TasteList {
+            tasteReadGate?.await()
+            tasteReadFailure?.let { throw MusicException(it) }
+            return tasteLists[profileId to kind] ?: TasteList()
+        }
         override suspend fun react(profileId: String, target: TasteTarget, action: TasteAction) {
             tasteWrites += target to action
             val key = profileId to target.kind; val old = tasteLists[key] ?: TasteList()

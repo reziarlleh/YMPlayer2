@@ -1,0 +1,10 @@
+[
+  {
+    "layout": "phone-font200",
+    "passed": true,
+    "tests": 5,
+    "fontScale": "2.0",
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  }
+]

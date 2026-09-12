@@ -96,7 +96,7 @@ class MyWavePlaybackTest {
         compose.runOnIdle { fixture.waveFailure = null }
         compose.onNodeWithTag("wave_retry").performScrollTo().performClick()
         waitFor { player.state.value.positionSeconds >= 1 }
-        compose.onNodeWithTag("taste_TRACK_1_like").performScrollTo().performClick()
+        compose.onNodeWithTag("player_taste_TRACK_1_like").performScrollTo().performClick()
         waitFor { "1" in fixture.taste.state.value.shelf(TasteKind.TRACK).list.liked }
         compose.onNodeWithTag("player_artist_actions").performScrollTo().performClick()
         compose.onNodeWithTag("taste_ARTIST_5_like").performScrollTo().performClick()

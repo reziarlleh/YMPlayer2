@@ -30,22 +30,30 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val compact = short || maxHeight < 520.dp || androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.3f
     Row(Modifier.fillMaxSize().padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
         Column(Modifier.weight(1f).fillMaxHeight().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text("Сейчас играет", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            taste?.let { preferences ->
-                val account by preferences.state.collectAsStateWithLifecycle()
-                WaveButton(player, account.signedIn, signIn)
+            BoxWithConstraints(Modifier.fillMaxWidth()) {
+                val title: @Composable (Modifier) -> Unit = { Text("Сейчас играет", it, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold) }
+                if (taste != null) {
+                    val account by taste.state.collectAsStateWithLifecycle()
+                    if (maxWidth >= 340.dp && androidx.compose.ui.platform.LocalDensity.current.fontScale <= 1.3f) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        title(Modifier.weight(1f))
+                        WaveButton(player, account.signedIn, signIn, modifier = Modifier.widthIn(max = 180.dp))
+                    } else Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        title(Modifier)
+                        WaveButton(player, account.signedIn, signIn)
+                    }
+                } else title(Modifier)
             }
             if (compact) TransportControls(state, player, queue)
             if (compact) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     TrackArtwork(state.current, Modifier.size(88.dp))
-                    TrackHeading(state.current, Modifier.weight(1f))
+                    TrackHeading(state.current, Modifier.weight(1f), taste)
                 }
             } else {
                 BoxWithConstraints(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    TrackArtwork(state.current, Modifier.size(minOf(maxWidth, if (wide) 280.dp else 208.dp)))
+                    TrackArtwork(state.current, Modifier.size(minOf(maxWidth, if (wide) 280.dp else if (taste != null && state.current?.source == Source.YANDEX) 160.dp else 208.dp)))
                 }
-                TrackHeading(state.current)
+                TrackHeading(state.current, taste = taste)
             }
             Column {
                 Slider(state.positionSeconds.toFloat(), { player.seek(it.toInt()) }, Modifier.fillMaxWidth().testTag("progress"), enabled = state.current != null,
@@ -64,7 +72,6 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 OutlinedButton(player::retryWave, Modifier.prismFocus().testTag("wave_retry")) { Text("Продолжить волну") }
             }
             if (taste != null && state.current?.source == Source.YANDEX) {
-                TasteControls(taste, state.current!!.tasteTarget())
                 TextButton({ details = true }, Modifier.prismFocus().testTag("player_artist_actions")) { Text("Исполнители и альбом · отметки") }
             }
             if (state.buffering) Text("Подготовка аудио…", color = MaterialTheme.colorScheme.primary)
@@ -77,7 +84,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             }
             Spacer(Modifier.height(8.dp))
         }
-        if (wide) Column(Modifier.width(330.dp).fillMaxHeight()) { QueueScreen(state, player) }
+        if (wide) Column(Modifier.width(330.dp).fillMaxHeight()) { QueueScreen(state, player, taste) }
     }
     }
 }
@@ -96,10 +103,18 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable private fun TrackHeading(track: Track?, modifier: Modifier = Modifier) {
+@Composable private fun TrackHeading(track: Track?, modifier: Modifier = Modifier, taste: MusicTaste? = null) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text(track?.title ?: "Очередь пуста", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, maxLines = 3, overflow = TextOverflow.Ellipsis, modifier = Modifier.testTag("current_title"))
-        Text(track?.artist ?: "Выберите источник", style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
+        val title: @Composable () -> Unit = {
+            Text(track?.title ?: "Очередь пуста", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, maxLines = 3, overflow = TextOverflow.Ellipsis, modifier = Modifier.testTag("current_title"))
+        }
+        if (taste != null && track?.source == Source.YANDEX) {
+            TasteLabel(taste, track.tasteTarget(), "player", title)
+            ArtistTasteLabels(track, taste, "player")
+        } else {
+            title()
+            Text(track?.artist ?: "Выберите источник", style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
+        }
         Text(listOfNotNull(track?.source?.label, track?.let { if (it.offline) "Доступно офлайн" else "Онлайн" }).joinToString(" · "), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
     }
 }
@@ -127,7 +142,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun QueueScreen(state: PlaybackState, player: PlaybackController) {
+@Composable internal fun QueueScreen(state: PlaybackState, player: PlaybackController, taste: MusicTaste? = null) {
     var editing by rememberSaveable { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().padding(horizontal = 8.dp)) {
         Text("Очередь · ${state.queue.size}", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 12.dp))
@@ -146,7 +161,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             items(state.queue.size, key = { state.queue[it].id }) { index ->
                 val track = state.queue[index]
                 Column {
-                    TrackRow(track, state.current?.id == track.id, { player.select(track.id) })
+                    TrackRow(track, state.current?.id == track.id, { player.select(track.id) }, taste = taste, location = "queue")
                     if (editing) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                         ActionIcon(UiIcon.UP, "Выше: ${track.title}", { player.moveInQueue(track.id, index - 1) }, Modifier.testTag("queue_up_${track.id}"), enabled = index > 0)
                         ActionIcon(UiIcon.DOWN, "Ниже: ${track.title}", { player.moveInQueue(track.id, index + 1) }, Modifier.testTag("queue_down_${track.id}"), enabled = index < state.queue.lastIndex)
@@ -158,7 +173,15 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun TrackRow(track: Track, selected: Boolean = false, play: () -> Unit, enqueue: (() -> Unit)? = null, queued: Boolean = false, more: (() -> Unit)? = null) {
+@Composable internal fun TrackRow(track: Track, selected: Boolean = false, play: () -> Unit, enqueue: (() -> Unit)? = null, queued: Boolean = false, more: (() -> Unit)? = null,
+    taste: MusicTaste? = null, location: String = "catalog") {
+    val onlineTaste = taste?.takeIf { track.source == Source.YANDEX }
+    val actions: @Composable () -> Unit = {
+        if (enqueue != null) ActionIcon(if (queued) UiIcon.CHECK else UiIcon.ADD_QUEUE, if (queued) "Уже в очереди: ${track.title}" else "В очередь: ${track.title}", enqueue,
+            Modifier.testTag("enqueue_${track.id}"), enabled = track.available && !queued)
+        if (more != null) ActionIcon(UiIcon.MORE, "Действия: ${track.title}", more, Modifier.testTag("track_more_${track.id}"))
+    }
+    Column(Modifier.fillMaxWidth()) {
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
     Surface(onClick = play, enabled = track.available, modifier = Modifier.weight(1f).prismFocus().testTag("track_${track.id}"),
         shape = MaterialTheme.shapes.medium, color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface) {
@@ -166,14 +189,32 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             TrackArtwork(track, Modifier.size(44.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
-                Text(track.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                if (onlineTaste == null) Text(track.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else if (track.source == Source.YANDEX) "Трек недоступен" else "Файл недоступен", style = MaterialTheme.typography.labelSmall, color = if (track.available) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.error)
             }
             SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY, if (selected) "Текущий трек" else "Воспроизвести трек", Modifier.size(24.dp))
         }
     }
-    if (enqueue != null) ActionIcon(if (queued) UiIcon.CHECK else UiIcon.ADD_QUEUE, if (queued) "Уже в очереди: ${track.title}" else "В очередь: ${track.title}", enqueue,
-        Modifier.testTag("enqueue_${track.id}"), enabled = track.available && !queued)
-    if (more != null) ActionIcon(UiIcon.MORE, "Действия: ${track.title}", more, Modifier.testTag("track_more_${track.id}"))
+    if (onlineTaste != null) TasteIcons(onlineTaste, track.tasteTarget(), location)
+    else actions()
+    }
+    if (onlineTaste != null) {
+        val shelf = onlineTaste.state.collectAsStateWithLifecycle().value.shelf(TasteKind.TRACK)
+        if (shelf.issue != null) TextButton({ onlineTaste.refresh(TasteKind.TRACK) }, Modifier.prismFocus(), enabled = !shelf.busy) { Text("Обновить отметки трека", color = MaterialTheme.colorScheme.error) }
+        Column(Modifier.padding(start = 12.dp)) { ArtistTasteLabels(track, onlineTaste, "${location}_${track.id}") }
+    }
+    if (onlineTaste != null && (enqueue != null || more != null)) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { actions() }
+    }
+}
+
+@Composable private fun ArtistTasteLabels(track: Track, taste: MusicTaste, location: String) {
+    if (track.artists.isEmpty()) Text(track.artist, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    track.artists.distinctBy(ArtistRef::id).forEach { artist ->
+        TasteLabel(taste, TasteTarget(TasteKind.ARTIST, artist.id, artist.name), location) {
+            Column {
+                Text("Исполнитель", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(artist.name, style = MaterialTheme.typography.bodyLarge, maxLines = 3, overflow = TextOverflow.Ellipsis)
+            }
+        }
     }
 }

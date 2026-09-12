@@ -47,7 +47,9 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     LazyColumn(Modifier.fillMaxSize().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
             if (detail != null) TextButton({ music.up() }, Modifier.prismFocus().testTag("online_up")) { Text("К результатам") }
-            Text(detail?.title ?: if (search) "Поиск в Яндекс Музыке" else "Моя музыка в Яндексе", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+            val title: @Composable () -> Unit = { Text(detail?.title ?: if (search) "Поиск в Яндекс Музыке" else "Моя музыка в Яндексе", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
+            val target = detail?.tasteTarget()
+            if (state.signedIn && taste != null && target != null) Column { TasteLabel(taste, target, "detail", title) } else title()
         }
         if (!state.signedIn) {
             item {
@@ -55,7 +57,6 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 OutlinedButton(signIn, Modifier.prismFocus().testTag("online_sign_in")) { Text("Открыть аккаунт") }
             }
         } else {
-            if (detail != null && taste != null) detail.tasteTarget()?.let { target -> item { TasteControls(taste, target) } }
             if (detail == null) {
                 if (!search && taste != null) item { WaveButton(player, state.signedIn, signIn, waveStarted) }
                 if (search) item {
@@ -101,14 +102,16 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 val track = entry.track
                 if (track != null) TrackRow(track,
                     play = { play(track.id) },
-                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null)
+                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null, taste = taste)
                 else entry.entity?.let { entity ->
-                    Surface(onClick = { keyboard?.hide(); music.open(entity) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("online_entity_${entity.id}"), shape = MaterialTheme.shapes.medium) {
+                    val label: @Composable () -> Unit = { Surface(onClick = { keyboard?.hide(); music.open(entity) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("online_entity_${entity.id}"), shape = MaterialTheme.shapes.medium) {
                         Column(Modifier.padding(16.dp)) {
                             Text(entry.title, fontWeight = FontWeight.Bold)
                             Text(entry.subtitle, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
-                    }
+                    } }
+                    val target = entity.tasteTarget()
+                    if (taste != null && target != null) Column { TasteLabel(taste, target, "catalog", label) } else label()
                 }
             }
             if (state.nextPage != null && state.issue == null) item {
