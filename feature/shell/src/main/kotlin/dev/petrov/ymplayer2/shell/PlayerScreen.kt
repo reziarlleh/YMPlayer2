@@ -17,16 +17,24 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
-@Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {}) {
+@Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {},
+    taste: MusicTaste? = null, signIn: () -> Unit = {}) {
+    var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
+    if (details && taste != null) state.current?.let { TrackTasteDialog(it, taste) { details = false } }
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val compact = short || maxHeight < 520.dp || androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.3f
     Row(Modifier.fillMaxSize().padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
         Column(Modifier.weight(1f).fillMaxHeight().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text("Сейчас играет", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+            taste?.let { preferences ->
+                val account by preferences.state.collectAsStateWithLifecycle()
+                WaveButton(player, account.signedIn, signIn)
+            }
             if (compact) TransportControls(state, player, queue)
             if (compact) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -48,7 +56,17 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 }
             }
             if (!compact) TransportControls(state, player, queue)
-            PlaybackModes(state, player)
+            if (state.wave) Text("Моя волна · рекомендации Яндекса", color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("wave_mode"))
+            else PlaybackModes(state, player)
+            if (state.waveLoading) Text("Подбираем следующий трек…", Modifier.testTag("wave_loading"))
+            state.waveIssue?.let {
+                Text(it, color = MaterialTheme.colorScheme.error)
+                OutlinedButton(player::retryWave, Modifier.prismFocus().testTag("wave_retry")) { Text("Продолжить волну") }
+            }
+            if (taste != null && state.current?.source == Source.YANDEX) {
+                TasteControls(taste, state.current!!.tasteTarget())
+                TextButton({ details = true }, Modifier.prismFocus().testTag("player_artist_actions")) { Text("Исполнители и альбом · отметки") }
+            }
             if (state.buffering) Text("Подготовка аудио…", color = MaterialTheme.colorScheme.primary)
             state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
             SourceSelector(player, state.profileId == "guest" || !demo)
@@ -71,7 +89,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
         ActionIcon(UiIcon.PREVIOUS, "Предыдущий трек", { player.skip(-1) })
         ActionIcon(if (state.playing) UiIcon.PAUSE else UiIcon.PLAY, if (state.playing) "Пауза" else "Воспроизвести", player::toggle,
-            Modifier.testTag("player_play").focusRequester(focus), state.current?.available == true, primary = true)
+            Modifier.testTag("player_play").focusRequester(focus), state.current?.available == true || state.waveLoading, primary = true)
         ActionIcon(UiIcon.NEXT, "Следующий трек", { player.skip(1) })
         ActionIcon(UiIcon.STOP, "Остановить", player::stop)
         ActionIcon(UiIcon.QUEUE, "Очередь", queue)

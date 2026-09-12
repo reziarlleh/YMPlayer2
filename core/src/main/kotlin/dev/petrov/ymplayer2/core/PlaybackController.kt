@@ -19,6 +19,8 @@ data class PlaybackState(
     val connected: Boolean = true,
     val repeatMode: RepeatMode = RepeatMode.OFF,
     val shuffle: Boolean = false,
+    val wave: Boolean = false, val waveLoading: Boolean = false, val waveIssue: String? = null,
+    val recommendations: Boolean = false,
 ) {
     val current: Track? get() = queue.getOrNull(index)
 }
@@ -39,6 +41,9 @@ interface PlaybackController {
     fun removeFromQueue(trackId: String)
     fun clearQueue()
     fun playQueue(trackIds: List<String>, startId: String? = null)
+    fun playMyWave() = Unit
+    fun retryWave() = Unit
+    fun playRecommendedQueue(trackIds: List<String>, startId: String? = null) = playQueue(trackIds, startId)
 }
 
 data class PlaybackCheckpoint(val profileId: String, val queueIds: List<String>, val currentId: String?, val positionSeconds: Int,

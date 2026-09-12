@@ -21,7 +21,7 @@ import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
-@Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit) {
+@Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit, taste: MusicTaste? = null, waveStarted: () -> Unit = {}) {
     val state by music.state.collectAsStateWithLifecycle()
     val playback by player.state.collectAsStateWithLifecycle()
     val keyboard = LocalSoftwareKeyboardController.current
@@ -32,7 +32,17 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         if (search && request.collection) music.search("")
         if (!search && state.signedIn && (!request.collection || !state.loaded && !state.loading && state.issue == null)) music.collection()
     }
-    val shownTracks = state.entries.mapNotNull(MusicEntry::track)
+    val preferences = taste?.state?.collectAsStateWithLifecycle()?.value
+    var actions by remember(state.profileId) { mutableStateOf<Track?>(null) }
+    if (taste != null) actions?.let { TrackTasteDialog(it, taste) { actions = null } }
+    val entries = if (request.recommended) state.entries.filter { entry -> entry.track?.let { preferences?.allows(it) != false } ?: true } else state.entries
+    val shownTracks = entries.mapNotNull(MusicEntry::track)
+    val filtersReady = !request.recommended || preferences?.let { it.shelf(TasteKind.TRACK).ready && it.shelf(TasteKind.ARTIST).ready } != false
+    fun play(trackId: String? = null) {
+        if (!filtersReady) return
+        if (request.recommended) player.playRecommendedQueue(shownTracks.map(Track::id), trackId) else player.playQueue(shownTracks.map(Track::id), trackId)
+        keyboard?.hide()
+    }
     val queued = playback.queue.mapTo(hashSetOf(), Track::id)
     LazyColumn(Modifier.fillMaxSize().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
@@ -45,7 +55,9 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 OutlinedButton(signIn, Modifier.prismFocus().testTag("online_sign_in")) { Text("Открыть аккаунт") }
             }
         } else {
+            if (detail != null && taste != null) detail.tasteTarget()?.let { target -> item { TasteControls(taste, target) } }
             if (detail == null) {
+                if (!search && taste != null) item { WaveButton(player, state.signedIn, signIn, waveStarted) }
                 if (search) item {
                     OutlinedTextField(request.query, { music.search(it) }, Modifier.fillMaxWidth().prismFocus().testTag("online_query"),
                         label = { Text("Название") }, singleLine = true,
@@ -55,30 +67,41 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 }
                 item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        (if (search) MusicKind.entries else listOf(MusicKind.TRACKS, MusicKind.PLAYLISTS)).forEach { kind ->
-                            FilterChip(request.kind == kind, { if (search) music.search(request.query, kind, false) else music.collection(kind) },
-                                { Text(if (!search && kind == MusicKind.TRACKS) "Мне нравится" else kind.label) }, Modifier.prismFocus().testTag("online_kind_${kind.name}"))
+                        MusicKind.entries.forEach { kind ->
+                            FilterChip(request.kind == kind && !request.recommended, { if (search) music.search(request.query, kind, false) else music.collection(kind) },
+                                { Text(if (search) kind.label else when (kind) {
+                                    MusicKind.TRACKS -> "Мне нравится"
+                                    MusicKind.ARTISTS -> "Любимые исполнители"
+                                    MusicKind.ALBUMS -> "Любимые альбомы"
+                                    MusicKind.PLAYLISTS -> "Мои плейлисты"
+                                }) }, Modifier.prismFocus().testTag("online_kind_${kind.name}"))
                         }
+                        if (!search) FilterChip(request.recommended, music::recommendations, { Text("Рекомендации") }, Modifier.prismFocus().testTag("online_recommendations"))
                     }
                 }
+                if (!search && request.recommended) item { Text("Плейлисты, подобранные Яндексом для вашего аккаунта.") }
             }
             if (state.loading) item { LinearProgressIndicator(Modifier.fillMaxWidth().testTag("online_loading")); Text("Загружаем…") }
             if (state.issue != null) item {
                 Text(state.issue!!, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("online_issue"))
                 OutlinedButton(music::retry, Modifier.prismFocus().testTag("online_retry"), enabled = !state.loading) { Text("Повторить") }
             }
-            if (!state.loading && state.issue == null && state.entries.isEmpty()) item {
+            if (!state.loading && state.issue == null && entries.isEmpty()) item {
                 Text(if (search && request.query.isBlank() && detail == null) "Введите название и выберите тип результатов."
                     else if (state.loaded) "Здесь пока ничего нет. Попробуйте другой запрос или раздел." else "Выберите раздел.", Modifier.testTag("online_empty"))
             }
             if (shownTracks.any { it.available }) item {
-                OutlinedButton({ player.playQueue(shownTracks.map(Track::id)); keyboard?.hide() }, Modifier.prismFocus().testTag("online_play_all")) { Text("Слушать показанные треки") }
+                if (!filtersReady) {
+                    Text("Для рекомендаций нужно проверить запрещённые треки и исполнителей.")
+                    TextButton({ taste?.refresh(TasteKind.TRACK); taste?.refresh(TasteKind.ARTIST) }, Modifier.prismFocus()) { Text("Обновить отметки") }
+                }
+                OutlinedButton({ play() }, Modifier.prismFocus().testTag("online_play_all"), enabled = filtersReady) { Text("Слушать показанные треки") }
             }
-            items(state.entries, key = MusicEntry::id) { entry ->
+            items(entries, key = MusicEntry::id) { entry ->
                 val track = entry.track
                 if (track != null) TrackRow(track,
-                    play = { keyboard?.hide(); player.playQueue(shownTracks.map(Track::id), track.id) },
-                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued)
+                    play = { play(track.id) },
+                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null)
                 else entry.entity?.let { entity ->
                     Surface(onClick = { keyboard?.hide(); music.open(entity) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("online_entity_${entity.id}"), shape = MaterialTheme.shapes.medium) {
                         Column(Modifier.padding(16.dp)) {

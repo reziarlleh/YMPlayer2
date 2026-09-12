@@ -108,7 +108,7 @@ private val destinations = listOf(
                         // Each route/profile owns its scroll, filters, detail and text field state.
                         holder.SaveableStateProvider("${playback.profileId}:$route") {
                             when (route) {
-                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") })
+                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") })
                                 "library", "search" -> Column(Modifier.fillMaxSize()) {
                                     model.online?.let {
                                         if (!typingInShortWindow) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -116,7 +116,7 @@ private val destinations = listOf(
                                             FilterChip(onlineSource, { onlineSource = true }, { Text("Яндекс Музыка") }, Modifier.prismFocus().testTag("source_yandex"))
                                         }
                                     }
-                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") })
+                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") })
                                     else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else library.tracks, model.player, route == "search", if (demo) catalogState else CatalogState.READY,
                                     demo = demo, folders = { navigate("folders") }, scanning = library.scanning, issue = library.issue,
                                     collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },

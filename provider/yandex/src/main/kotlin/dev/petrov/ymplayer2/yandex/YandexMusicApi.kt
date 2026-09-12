@@ -8,7 +8,7 @@ import java.net.URLEncoder
 import java.security.MessageDigest
 import javax.xml.parsers.DocumentBuilderFactory
 
-/** Read-only catalog and the same download-info/XML signing protocol as the working 1.x. */
+/** Provider catalog and the same download-info/XML signing protocol as the working 1.x. */
 class YandexMusicApi(private val accounts: AccountAuth, private val transport: MusicTransport = HttpsMusicTransport()) : OnlineMusicApi {
     override suspend fun page(profileId: String, request: MusicRequest, page: Int): MusicPage = safe {
         require(page in 0..1000)
@@ -17,18 +17,25 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
             val entity = request.entity
             when {
                 entity != null -> details(token, entity, page)
+                request.recommended -> recommendations(token)
                 request.collection -> collection(token, session.account?.id ?: accountId(token), request.kind, page)
                 else -> search(token, request, page)
             }
         }
     }
 
-    private suspend fun api(token: String, path: String, form: List<Pair<String, String>>? = null): Any {
-        val root = JSONObject(transport.request("https://api.music.yandex.net$path", token, form))
+    internal suspend fun api(token: String, path: String, form: List<Pair<String, String>>? = null, json: JSONObject? = null): Any {
+        val text = if (json != null) transport.json("https://api.music.yandex.net$path", token, json.toString())
+            else transport.request("https://api.music.yandex.net$path", token, form)
+        if (text.trim().equals("ok", true)) return "ok"
+        val root = JSONObject(text)
         if (root.has("error")) throw MusicException(MusicFailure.ACCESS)
         return root.opt("result")?.takeUnless { it == JSONObject.NULL } ?: throw MusicException(MusicFailure.RESPONSE)
     }
     private suspend fun accountId(token: String): String = numeric((api(token, "/account/status") as JSONObject).getJSONObject("account").getString("uid"))
+    internal suspend fun <T> account(profile: String, action: suspend (String, String) -> T): T = safe {
+        accounts.withSession(profile) { action(it.credentials.accessToken, it.account?.id ?: accountId(it.credentials.accessToken)) }
+    }
 
     private suspend fun search(token: String, request: MusicRequest, page: Int): MusicPage {
         val query = request.query.trim().take(200)
@@ -56,8 +63,38 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
                 val rows = api(token, "/users/$owner/playlists/list") as JSONArray
                 MusicPage(rows.objects().drop(page * PAGE_SIZE).take(PAGE_SIZE).mapNotNull { entry(it, kind, owner) }, next(page, rows.length()))
             }
-            else -> throw MusicException(MusicFailure.UNAVAILABLE)
+            MusicKind.ARTISTS, MusicKind.ALBUMS -> {
+                val type = kind.name.lowercase()
+                val rows = api(token, "/users/$owner/likes/$type?rich=true&with-timestamps=true") as JSONArray
+                MusicPage(rows.objects().drop(page * PAGE_SIZE).take(PAGE_SIZE).mapNotNull {
+                    entry(it.optJSONObject(type.removeSuffix("s")) ?: it, kind)
+                }, next(page, rows.length()))
+            }
         }
+    }
+
+    private suspend fun recommendations(token: String): MusicPage {
+        val entries = mutableListOf<MusicEntry>()
+        var failure: Exception? = null
+        try {
+            val landing = api(token, "/landing3?blocks=personalplaylists,playlists") as JSONObject
+            landing.optJSONArray("blocks")?.objects()?.forEach { block ->
+                block.optJSONArray("entities")?.objects()?.forEach entity@{ entity ->
+                    val data = entity.optJSONObject("data") ?: return@entity
+                    if (data.has("ready") && !data.optBoolean("ready")) return@entity
+                    entry(data.optJSONObject("data") ?: data.optJSONObject("playlist") ?: data, MusicKind.PLAYLISTS)?.let(entries::add)
+                }
+            }
+        } catch (e: CancellationException) { throw e } catch (e: Exception) { failure = e }
+        if (entries.isEmpty()) {
+            try {
+                val feed = api(token, "/feed") as JSONObject
+                feed.optJSONArray("generatedPlaylists")?.objects()?.forEach {
+                    if (!it.has("ready") || it.optBoolean("ready")) entry(it.optJSONObject("data") ?: it, MusicKind.PLAYLISTS)?.let(entries::add)
+                }
+            } catch (e: CancellationException) { throw e } catch (e: Exception) { throw failure ?: e }
+        }
+        return MusicPage(entries.distinctBy(MusicEntry::id))
     }
 
     private suspend fun details(token: String, entity: MusicEntity, page: Int): MusicPage = when (entity.kind) {
@@ -95,7 +132,7 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         return MusicPage(entries, next(page, rows.length()))
     }
 
-    private suspend fun tracks(token: String, ids: List<String>): List<Track> {
+    internal suspend fun tracks(token: String, ids: List<String>): List<Track> {
         if (ids.isEmpty()) return emptyList()
         val result = mutableListOf<Track>()
         for (batch in ids.chunked(PAGE_SIZE)) {
@@ -138,7 +175,7 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         return MusicEntry("${kind.name}:$uid:$id", title, subtitle, entity = MusicEntity(id, title, kind, uid))
     }
 
-    private fun trackEntry(item: JSONObject, fallbackAlbum: JSONObject? = null): MusicEntry? {
+    internal fun trackEntry(item: JSONObject, fallbackAlbum: JSONObject? = null): MusicEntry? {
         val rawId = item.optString("id")
         if (!rawId.matches(NUMERIC)) return null
         val album = item.optJSONArray("albums")?.optJSONObject(0) ?: fallbackAlbum
@@ -149,12 +186,17 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         val track = Track("yandex:$rawId" + albumId?.let { ":$it" }.orEmpty(), title,
             artists(item).ifBlank { album?.let(::artists).orEmpty() }, album?.optString("title").orEmpty().take(500),
             Source.YANDEX, (item.optLong("durationMs", item.optLong("duration", 0)) / 1000).coerceIn(0, Int.MAX_VALUE.toLong()).toInt(),
-            offline = false, available = item.optBoolean("available", true), genre = album?.optString("genre").orEmpty(), folder = "Яндекс Музыка", artworkUri = artwork)
+            offline = false, available = item.optBoolean("available", true), genre = album?.optString("genre").orEmpty(), folder = "Яндекс Музыка", artworkUri = artwork,
+            artists = artistRefs(item).ifEmpty { album?.let(::artistRefs).orEmpty() }, albumId = albumId)
         return asEntry(track)
     }
 
     private fun asEntry(track: Track) = MusicEntry(track.id, track.title, track.artist, track = track)
     private fun artists(item: JSONObject) = item.optJSONArray("artists")?.objects()?.map { it.optString("name") }?.filter(String::isNotBlank)?.joinToString(", ").orEmpty().take(500)
+    private fun artistRefs(item: JSONObject) = item.optJSONArray("artists")?.objects()?.mapNotNull {
+        val id = it.optString("id"); val name = it.optString("name").take(500)
+        if (id.matches(NUMERIC) && name.isNotBlank()) ArtistRef(id, name) else null
+    }?.distinctBy(ArtistRef::id).orEmpty()
     private fun key(item: JSONObject): String? = item.optString("id").takeIf { it.matches(NUMERIC) }?.let { id ->
         id + item.optString("albumId").takeIf { it.matches(NUMERIC) }?.let { ":$it" }.orEmpty()
     }
@@ -195,4 +237,4 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
     }
 }
 
-private fun JSONArray.objects(): List<JSONObject> = (0 until length()).mapNotNull { optJSONObject(it) }
+internal fun JSONArray.objects(): List<JSONObject> = (0 until length()).mapNotNull { optJSONObject(it) }

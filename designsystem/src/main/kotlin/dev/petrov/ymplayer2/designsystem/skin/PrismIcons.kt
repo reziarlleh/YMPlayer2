@@ -47,6 +47,8 @@ val PrismIcons: Map<UiIcon, ImageVector> = mapOf(
     UiIcon.CLEAR_QUEUE to Icons.Default.ClearAll,
     UiIcon.FAVORITE to Icons.Default.Favorite,
     UiIcon.FAVORITE_OFF to Icons.Default.FavoriteBorder,
+    UiIcon.BLOCK to Icons.Default.Block,
+    UiIcon.WAVE to Icons.Default.GraphicEq,
     UiIcon.MORE to Icons.Default.MoreVert,
     UiIcon.PLAYLIST to Icons.AutoMirrored.Filled.QueueMusic,
     UiIcon.ADD to Icons.Default.Add,

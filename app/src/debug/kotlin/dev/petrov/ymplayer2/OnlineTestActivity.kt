@@ -17,6 +17,7 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.playback.AndroidPlayback
 import dev.petrov.ymplayer2.playback.onlineDataSourceFactory
+import dev.petrov.ymplayer2.playback.sessionPlayer
 import dev.petrov.ymplayer2.shell.*
 import kotlinx.coroutines.*
 
@@ -50,7 +51,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             if (request.query == "empty") return MusicPage(emptyList())
             if (request.kind != MusicKind.TRACKS && request.entity == null) return MusicPage(listOf(MusicEntry("album:7", "Тестовый альбом", "Два трека", entity = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS))))
             val rows = library.state.value.tracks.take(2).mapIndexed { index, original ->
-                val track = original.copy(id = "yandex:${index + 1}:7", title = "Онлайн: ${original.title}", source = Source.YANDEX, offline = false, uri = null, artworkUri = null)
+                val track = onlineTrack(index + 1)
                 MusicEntry(track.id, track.title, track.artist, track)
             }
             return MusicPage(if (page == 0) rows.take(1) else rows.drop(1), if (page == 0 && rows.size > 1) 1 else null)
@@ -59,10 +60,40 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             resolved += profileId to trackId
             delay(streamDelayMillis)
             streamFailure?.let { throw MusicException(it) }
-            library.state.value.tracks[trackId.removePrefix("yandex:").substringBefore(':').toInt() - 1].uri!!
+            library.state.value.tracks[(trackId.removePrefix("yandex:").substringBefore(':').toInt() - 1) % 2].uri!!
         }
     }, viewModelScope)
-    val player = AndroidPlayback(context, library, viewModelScope, online)
+    private fun onlineTrack(id: Int): Track = library.state.value.tracks[(id - 1) % 2].copy(id = "yandex:$id:7", title = "Онлайн: трек $id",
+        source = Source.YANDEX, offline = false, uri = null, artworkUri = null, artists = listOf(ArtistRef(if (id % 2 == 1) "5" else "6", if (id % 2 == 1) "Первый исполнитель" else "Второй исполнитель")), albumId = "7")
+    val tasteLists = mutableMapOf<Pair<String, TasteKind>, TasteList>()
+    val tasteWrites = mutableListOf<Pair<TasteTarget, TasteAction>>()
+    val taste = MusicTaste(auth, object : MusicTasteApi {
+        override suspend fun taste(profileId: String, kind: TasteKind) = tasteLists[profileId to kind] ?: TasteList()
+        override suspend fun react(profileId: String, target: TasteTarget, action: TasteAction) {
+            tasteWrites += target to action
+            val key = profileId to target.kind; val old = tasteLists[key] ?: TasteList()
+            tasteLists[key] = when (action) {
+                TasteAction.LIKE -> old.copy(liked = old.liked + target.key, blocked = old.blocked - target.key)
+                TasteAction.UNLIKE -> old.copy(liked = old.liked - target.key)
+                TasteAction.BLOCK -> old.copy(blocked = old.blocked + target.key, liked = old.liked - target.key)
+                TasteAction.UNBLOCK -> old.copy(blocked = old.blocked - target.key)
+            }
+        }
+    }, viewModelScope, online::refreshCollection)
+    var waveDelayMillis = 100L
+    var waveFailure: MusicFailure? = null
+    val waveFeedback = mutableListOf<Triple<String, WaveTrack, WaveFeedback>>()
+    val waveApi = object : MyWaveApi {
+        private suspend fun batch(id: Int): WaveBatch {
+            delay(waveDelayMillis); waveFailure?.let { throw MusicException(it) }
+            return WaveBatch(listOf(WaveTrack(onlineTrack(id), "batch$id")), "session", id.toString())
+        }
+        override suspend fun start(profileId: String) = batch(1)
+        override suspend fun next(profileId: String, previous: WaveBatch) = batch(previous.cursor.toInt() + 1)
+        override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) { waveFeedback += Triple(profileId, item, type) }
+    }
+    val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi)
+    val systemPlayer get() = sessionPlayer(engine!!, player)
     private var engine: ExoPlayer? = null
     init { createEngine() }
     private fun createEngine() {
@@ -81,7 +112,7 @@ class OnlineTestActivity : ComponentActivity() {
         super.onCreate(savedInstanceState); enableEdgeToEdge()
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
-                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online) }
+                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste) }
             })
             ShellApp(model, "Online fixture", onExit = ::finish)
         }

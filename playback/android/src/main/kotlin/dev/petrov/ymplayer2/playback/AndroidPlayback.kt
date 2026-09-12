@@ -16,7 +16,8 @@ interface PlaybackHost { val playback: AndroidPlayback }
 
 /** Main-thread command adapter. The service alone creates/releases the audio engine. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-class AndroidPlayback(private val context: Context, private val library: LocalLibrary, private val scope: CoroutineScope, private val online: OnlineMusic? = null) : PlaybackController {
+class AndroidPlayback(private val context: Context, private val library: LocalLibrary, private val scope: CoroutineScope, private val online: OnlineMusic? = null,
+    private val taste: MusicTaste? = null, private val waveApi: MyWaveApi? = null) : PlaybackController {
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
@@ -30,6 +31,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var tracksById = emptyMap<String, Track>()
     private var logicalQueue = emptyList<Track>()
     private var waitingId: String? = null
+    private var waveBatch: WaveBatch? = null
+    private val waveItems = linkedMapOf<String, WaveTrack>()
+    private var waveJob: Job? = null
+    private var waveGeneration = 0L
+    private var waveAdvance = false
+    private var waveResume = false
+    private var waveStarted: String? = null
 
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
 
@@ -37,7 +45,24 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         check(engine == null)
         engine = player
         player.addListener(object : Player.Listener {
-            override fun onEvents(player: Player, events: Player.Events) { if (!updating && !restoring && ready) { publish(); checkpoint() } }
+            override fun onEvents(player: Player, events: Player.Events) { if (!updating && !restoring && ready) { publish(); checkpoint(); maintainWave() } }
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                if (isPlaying && state.value.wave && !updating && !restoring) {
+                    val id = player.currentMediaItem?.mediaId
+                    if (id != null && id != waveStarted) { waveStarted = id; feedback(id, WaveFeedback.STARTED) }
+                }
+            }
+            override fun onPositionDiscontinuity(oldPosition: Player.PositionInfo, newPosition: Player.PositionInfo, reason: Int) {
+                val old = oldPosition.mediaItem?.mediaId
+                if (!updating && !restoring && old != newPosition.mediaItem?.mediaId && old == waveStarted) {
+                    feedback(old, if (reason == Player.DISCONTINUITY_REASON_AUTO_TRANSITION) WaveFeedback.FINISHED else WaveFeedback.SKIP,
+                        (oldPosition.positionMs / 1000).toInt())
+                    waveStarted = null
+                }
+            }
+            override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+                if (!updating && !restoring && state.value.wave && waveAdvance) waveResume = playWhenReady
+            }
             override fun onPlayerError(error: PlaybackException) {
                 val remote = state.value.current?.source == Source.YANDEX
                 val failure = generateSequence<Throwable>(error) { it.cause }.filterIsInstance<MusicException>().firstOrNull()?.failure
@@ -49,6 +74,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         })
         job = scope.launch {
             online?.let { music -> launch { music.catalog.collect { reconcileOnline() } } }
+            taste?.let { preferences -> launch { preferences.state.collect { filterWave() } } }
             launch {
                 library.state.collect { catalog ->
                     if (!catalog.ready || catalog.scanning) return@collect
@@ -59,12 +85,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                     } else reconcile()
                 }
             }
-            while (isActive) { delay(500); if (ready) publish(); if (state.value.playing && state.value.positionSeconds % 5 == 0) checkpoint() }
+            while (isActive) { delay(500); if (ready) { publish(); maintainWave() }; if (state.value.playing && state.value.positionSeconds % 5 == 0) checkpoint() }
         }
     }
 
     internal fun detach() {
         if (ready) { publish(); checkpoint() }
+        cancelWave()
         job?.cancel(); job = null; engine = null; ready = false
         mutable.value = state.value.copy(playing = false, buffering = false, connected = false)
     }
@@ -76,6 +103,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     override fun toggle() = command {
         val player = engine ?: return@command
+        if (state.value.wave && waveAdvance && state.value.waveLoading) {
+            waveResume = !waveResume
+            if (!waveResume) player.pause()
+            publish(); return@command
+        }
+        if (state.value.wave && state.value.waveIssue != null && (player.playbackState == Player.STATE_ENDED || state.value.current == null)) {
+            waveResume = true; waveAdvance = true; fetchWave(); return@command
+        }
         if (state.value.current?.available != true) return@command
         mutable.value = state.value.copy(error = null)
         if (player.playWhenReady && player.playerError == null) player.pause()
@@ -85,6 +120,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
     }
     override fun stop() = command {
+        cancelWave()
         mutable.value = state.value.copy(positionSeconds = 0)
         engine?.pause(); engine?.seekTo(0); engine?.stop(); publish(); checkpoint()
     }
@@ -109,6 +145,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         when {
             direction > 0 && player.hasNextMediaItem() -> player.seekToNextMediaItem()
             direction < 0 && player.hasPreviousMediaItem() -> player.seekToPreviousMediaItem()
+            direction > 0 && state.value.wave -> {
+                feedback(waveStarted, WaveFeedback.SKIP, state.value.positionSeconds); waveStarted = null
+                waveAdvance = true; waveResume = player.playWhenReady
+                updating = true
+                try { player.pause() } finally { updating = false }
+                fetchWave(); return@command
+            }
             else -> player.pause()
         }
         player.prepare(); publish(); checkpoint()
@@ -119,10 +162,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val index = state.value.queue.indexOfFirst { it.id == trackId }
         mutable.value = state.value.copy(error = null)
         if (index >= 0) {
+            waveAdvance = false
             if (waitingId != null) load(logicalQueue, index, 0)
             else engine?.seekTo(logicalQueue.filter { it.available }.indexOfFirst { it.id == trackId }, 0)
         }
         else {
+            cancelWave()
             followLibrary = tracks.first { it.id == trackId }.source != Source.YANDEX
             prefs.edit().remove("source:${state.value.profileId}").apply()
             val next = if (followLibrary) tracks.filter { it.source != Source.YANDEX } else tracks.filter { it.source == Source.YANDEX }
@@ -133,38 +178,44 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     override fun switchProfile(profileId: String) = command {
         if (profileId == state.value.profileId || library.profiles.none { it.id == profileId }) return@command
         engine?.pause(); publish(); checkpoint()
+        cancelWave()
         restore(profileId)
     }
     override fun chooseSource(source: Source?) = command {
+        cancelWave()
         prefs.edit().putString("source:${state.value.profileId}", source?.name).apply()
         followLibrary = true
         val queue = defaultQueue(state.value.profileId)
         load(queue, queue.indexOfFirst { it.available }.coerceAtLeast(0), 0)
     }
 
-    override fun setRepeatMode(mode: RepeatMode) = command { engine?.repeatMode = mode.toPlayerMode(); publish(); checkpoint() }
-    override fun setShuffle(enabled: Boolean) = command { engine?.shuffleModeEnabled = enabled; publish(); checkpoint() }
+    override fun setRepeatMode(mode: RepeatMode) = command { if (!state.value.wave) { engine?.repeatMode = mode.toPlayerMode(); publish(); checkpoint() } }
+    override fun setShuffle(enabled: Boolean) = command { if (!state.value.wave) { engine?.shuffleModeEnabled = enabled; publish(); checkpoint() } }
     override fun enqueue(trackId: String) = command {
         val track = knownTracks(state.value.profileId).find { it.id == trackId && it.available } ?: return@command
         if (state.value.queue.any { it.id == trackId }) return@command
+        cancelWave()
         followLibrary = false
         syncQueue(logicalQueue + track)
     }
     override fun moveInQueue(trackId: String, toIndex: Int) = command {
         val from = state.value.queue.indexOfFirst { it.id == trackId }
         if (from < 0 || toIndex !in state.value.queue.indices || from == toIndex) return@command
+        cancelWave()
         followLibrary = false
         syncQueue(logicalQueue.toMutableList().apply { add(toIndex, removeAt(from)) })
     }
     override fun removeFromQueue(trackId: String) = command {
         val index = state.value.queue.indexOfFirst { it.id == trackId }
         if (index < 0) return@command
+        cancelWave()
         followLibrary = false
         // Removing the current item must not unexpectedly start its successor.
         if (state.value.current?.id == trackId) { engine?.pause(); mutable.value = state.value.copy(error = null) }
         syncQueue(logicalQueue.filterNot { it.id == trackId })
     }
     override fun clearQueue() = command {
+        cancelWave()
         followLibrary = false
         mutable.value = state.value.copy(error = null)
         load(emptyList(), 0, 0)
@@ -173,9 +224,114 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val known = knownTracks(state.value.profileId).associateBy(Track::id)
         val queue = trackIds.distinct().mapNotNull { known[it]?.takeIf(Track::available) }
         if (queue.isEmpty()) return@command
+        cancelWave()
         followLibrary = false
         load(queue, queue.indexOfFirst { it.id == startId }.coerceAtLeast(0), 0)
         engine?.prepare(); engine?.play()
+    }
+
+    override fun playMyWave() = command {
+        if (waveApi == null || !remoteEnabled(state.value.profileId)) return@command
+        cancelWave(); followLibrary = false
+        engine?.repeatMode = Player.REPEAT_MODE_OFF; engine?.shuffleModeEnabled = false
+        load(emptyList(), 0, 0)
+        mutable.value = state.value.copy(wave = true)
+        waveAdvance = true; waveResume = true
+        fetchWave()
+    }
+    override fun playRecommendedQueue(trackIds: List<String>, startId: String?) = command {
+        if (trackIds.none { id -> knownTracks(state.value.profileId).any { it.id == id && it.available } }) return@command
+        playQueue(trackIds, startId)
+        mutable.value = state.value.copy(recommendations = true)
+        filterWave(); checkpoint()
+    }
+    override fun retryWave() = command {
+        if (!state.value.wave) return@command
+        fetchWave()
+    }
+    internal fun sessionPlay() = command {
+        waveResume = true
+        if (state.value.wave && waveAdvance) { if (!state.value.waveLoading) fetchWave(); publish() }
+        else { engine?.prepare(); engine?.play() }
+    }
+    internal fun sessionPause() = command { waveResume = false; engine?.pause(); publish() }
+    private fun cancelWave() {
+        waveGeneration++; waveJob?.cancel(); waveJob = null
+        waveBatch = null; waveItems.clear(); waveAdvance = false; waveResume = false; waveStarted = null
+        mutable.value = state.value.copy(wave = false, waveLoading = false, waveIssue = null, recommendations = false)
+    }
+    private fun feedback(id: String?, type: WaveFeedback, seconds: Int = 0) {
+        val api = waveApi ?: return
+        val item = waveItems[id] ?: return
+        val profile = state.value.profileId
+        scope.launch { try { api.feedback(profile, item, type, seconds) } catch (e: CancellationException) { throw e } catch (_: Exception) { /* Feedback must not stop audio. */ } }
+    }
+    private fun maintainWave() {
+        val player = engine ?: return
+        if (!state.value.wave || updating || restoring || !ready || !remoteEnabled(state.value.profileId)) return
+        if (player.isPlaying && player.currentMediaItem?.mediaId != waveStarted) {
+            waveStarted = player.currentMediaItem?.mediaId; feedback(waveStarted, WaveFeedback.STARTED)
+        }
+        if (player.playbackState == Player.STATE_ENDED && player.playWhenReady && !waveAdvance) {
+            feedback(waveStarted, WaveFeedback.FINISHED, state.value.positionSeconds); waveStarted = null
+            waveAdvance = true; waveResume = true
+        }
+        if (state.value.waveIssue == null && !state.value.waveLoading && (waveAdvance || player.isPlaying && !player.hasNextMediaItem())) fetchWave()
+    }
+    private fun fetchWave() {
+        val api = waveApi ?: return
+        if (!state.value.wave || state.value.waveLoading) return
+        val ticket = waveGeneration; val profile = state.value.profileId
+        mutable.value = state.value.copy(waveLoading = true, waveIssue = null)
+        waveJob = scope.launch {
+            try {
+                taste?.requireRecommendationFilters(profile)
+                val batch = WaveLoader(api).load(profile, waveBatch, waveItems.values.mapTo(hashSetOf()) { it.track.tasteTarget().key }) {
+                    taste?.state?.value?.allows(it) != false
+                }
+                ensureActive()
+                if (ticket != waveGeneration || profile != state.value.profileId || !remoteEnabled(profile)) return@launch
+                val first = waveBatch == null
+                waveBatch = batch
+                batch.tracks.forEach { waveItems[it.track.id] = it }
+                if (first) feedback(batch.tracks.first().track.id, WaveFeedback.RADIO_STARTED)
+                val before = state.value.current?.id
+                val resume = waveResume
+                val advance = waveAdvance
+                // Keep a small playback history; the dedup history is capped separately below.
+                val next = (logicalQueue + batch.tracks.map(WaveTrack::track)).distinctBy(Track::id)
+                syncQueue(next)
+                if (advance) {
+                    val target = if (before == null) 0 else next.indexOfFirst { it.id == before } + 1
+                    waveAdvance = false
+                    load(next, target.coerceAtMost(next.lastIndex), 0)
+                    engine?.prepare(); if (resume) engine?.play()
+                }
+                if (state.value.index > 30) syncQueue(logicalQueue.drop(state.value.index - 10))
+                while (waveItems.size > 4000) waveItems.remove(waveItems.keys.first())
+                mutable.value = state.value.copy(waveLoading = false, waveIssue = null)
+                checkpoint()
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                if (ticket == waveGeneration) mutable.value = state.value.copy(waveLoading = false,
+                    waveIssue = "Моя волна: " + ((e as? MusicException)?.failure ?: MusicFailure.RESPONSE).message())
+            }
+        }
+    }
+    private fun filterWave() {
+        val preferences = taste?.state?.value ?: return
+        if (!ready || restoring || !(state.value.wave || state.value.recommendations) || preferences.profileId != state.value.profileId || !preferences.signedIn) return
+        val next = logicalQueue.filter(preferences::allows)
+        if (next == logicalQueue) return
+        val blockedCurrent = state.value.current?.let { !preferences.allows(it) } == true
+        val successor = logicalQueue.drop(state.value.index + 1).firstOrNull(preferences::allows)
+        val resume = engine?.playWhenReady == true || waveAdvance && waveResume
+        if (blockedCurrent) { feedback(state.value.current?.id, WaveFeedback.DISLIKE); waveStarted = null }
+        syncQueue(next)
+        if (blockedCurrent) {
+            if (successor != null) { load(next, next.indexOf(successor), 0); engine?.prepare(); if (resume) engine?.play() }
+            else if (state.value.wave) { waveAdvance = true; waveResume = resume; fetchWave() }
+        }
     }
 
     private fun defaultQueue(profile: String): List<Track> {
@@ -201,6 +357,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val json = runCatching { JSONObject(prefs.getString("queue:$validProfile", "")!!) }.getOrNull()
         restoring = true
         try {
+        cancelWave()
         logicalQueue = emptyList()
         mutable.value = state.value.copy(profileId = validProfile, queue = emptyList(), index = 0, positionSeconds = 0, playing = false, error = null)
         online?.accounts?.activate(validProfile)
@@ -212,7 +369,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             val item = references!!.getJSONObject(index)
             if (item.getString("source") == Source.YANDEX.name) Track(item.getString("id"), item.getString("title"), item.getString("artist"),
                 item.optString("album"), Source.YANDEX, item.getInt("duration"), false, available = remoteEnabled(validProfile),
-                genre = "", folder = "Яндекс Музыка", artworkUri = item.optString("artwork").takeIf { it.isNotBlank() })
+                genre = "", folder = "Яндекс Музыка", artworkUri = item.optString("artwork").takeIf { it.isNotBlank() },
+                artists = item.optJSONArray("artists")?.let { rows -> (0 until rows.length()).map { rows.getJSONObject(it).let { ArtistRef(it.getString("id"), it.getString("name")) } } }.orEmpty(),
+                albumId = item.optString("albumId").takeIf { it.isNotBlank() })
             else SavedTrack(item.getString("id"), item.getString("title"), item.getString("artist"), Source.valueOf(item.getString("source")), item.getInt("duration"), item.getInt("tint")).resolve(tracksById)
         }.getOrNull() }.associateBy(Track::id)
         val queue = if (followLibrary) defaultQueue(validProfile) else (0 until (ids?.length() ?: 0)).mapNotNull { tracksById[ids?.optString(it)] ?: saved[ids?.optString(it)] }.distinctBy(Track::id)
@@ -222,6 +381,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val index = queue.indexOfFirst { it.id == current }.takeIf { it >= 0 } ?: queue.indexOfFirst { it.available }.coerceAtLeast(0)
         val position = if (queue.getOrNull(index)?.id == current) json?.optInt("position", 0) ?: 0 else 0
         load(queue, index, position)
+        mutable.value = state.value.copy(recommendations = json?.optBoolean("recommendations", false) == true)
+        if (json?.optBoolean("wave", false) == true && waveApi != null) {
+            val batches = json.optJSONObject("waveBatches")
+            queue.forEach { waveItems[it.id] = WaveTrack(it, batches?.optString(it.id).orEmpty()) }
+            waveBatch = WaveBatch(emptyList(), json.optString("waveSession"), json.optString("waveCursor"))
+            mutable.value = state.value.copy(wave = true)
+            engine?.repeatMode = Player.REPEAT_MODE_OFF; engine?.shuffleModeEnabled = false
+        }
         } finally { restoring = false }
         reconcileOnline()
     }
@@ -230,6 +397,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val remote = online?.catalog?.value ?: return
         if (!ready || restoring || remote.profileId != state.value.profileId) return
         if (remote.phase in setOf(AuthPhase.SIGNED_OUT, AuthPhase.GUEST, AuthPhase.UNCONFIGURED, AuthPhase.ERROR)) {
+            cancelWave()
             val keep = logicalQueue.filter { it.source != Source.YANDEX }
             if (keep != logicalQueue) syncQueue(keep)
         } else reconcile()
@@ -294,7 +462,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val index = logicalQueue.indexOfFirst { it.id == (waitingId ?: player.currentMediaItem?.mediaId) }.coerceAtLeast(0)
         mutable.value = state.value.copy(queue = logicalQueue, index = index,
             positionSeconds = if (waitingId != null) state.value.positionSeconds else (player.currentPosition.coerceAtLeast(0) / 1000).coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
-            playing = waitingId == null && player.playWhenReady && player.playbackState != Player.STATE_ENDED && player.playerError == null,
+            playing = if (state.value.wave && waveAdvance && state.value.waveLoading) waveResume else waitingId == null && player.playWhenReady && player.playbackState != Player.STATE_ENDED && player.playerError == null,
             buffering = waitingId == null && player.playbackState == Player.STATE_BUFFERING, repeatMode = player.repeatMode.toRepeatMode(), shuffle = player.shuffleModeEnabled)
     }
     private fun checkpoint() {
@@ -304,7 +472,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val json = JSONObject().put("ids", JSONArray(state.queue.map(Track::id)))
             .put("current", state.current?.id).put("position", state.positionSeconds).put("followLibrary", followLibrary)
             .put("tracks", JSONArray(state.queue.map { JSONObject().put("id", it.id).put("title", it.title).put("artist", it.artist)
-                .put("source", it.source.name).put("duration", it.durationSeconds).put("tint", it.tint).put("album", it.album).put("artwork", it.artworkUri) }))
+                .put("source", it.source.name).put("duration", it.durationSeconds).put("tint", it.tint).put("album", it.album).put("artwork", it.artworkUri)
+                .put("albumId", it.albumId).put("artists", JSONArray(it.artists.map { artist -> JSONObject().put("id", artist.id).put("name", artist.name) })) }))
+            .put("wave", state.wave).put("waveSession", waveBatch?.sessionId).put("waveCursor", waveBatch?.cursor)
+            .put("recommendations", state.recommendations)
+            .put("waveBatches", JSONObject().apply { state.queue.forEach { track -> put(track.id, waveItems[track.id]?.batchId) } })
         editor.putString("queue:${state.profileId}", json.toString()).apply()
     }
 }

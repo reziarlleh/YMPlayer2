@@ -82,6 +82,13 @@ M5: `OnlineMusic` в core управляет страницами и покол�
 ResolvingDataSource для запроса временного URL. Токены и временные ссылки не входят
 в checkpoint/MediaItem. [ADR-010](DECISIONS/ADR-010-online-catalog-playback.md).
 
+M6: `MusicTaste` и `MyWave` в core задают типизированные реакции и контракт
+рекомендаций; отдельные `YandexTasteApi`/`YandexWaveApi` используют общий HTTP
+адаптер провайдера. `ArtistRef`/`albumId` сохраняют идентичность объектов в
+очереди. `AndroidPlayback` владеет жизненным циклом волны и рекомендационной
+очередью; `TasteControls` только отображает состояние и передаёт команды.
+Офлайн-синхронизация не подключена; [границы и перенос](DECISIONS/ADR-011-wave-and-taste.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

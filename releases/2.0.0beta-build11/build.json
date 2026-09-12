@@ -1,0 +1,9 @@
+{
+  "versionName": "2.0.0beta-build11",
+  "builtAtUtc": "2026-09-12T08:34:43.3769527Z",
+  "channel": "beta",
+  "versionCode": 11,
+  "applicationId": "dev.petrov.ymplayer2",
+  "runtimeAcceptance": "Emulator upgrade/local audio verified; personalized wave and account mutations pending owner acceptance",
+  "sha256": "22ba695faa5af1bb118e15def493a095aff750a83f59a694d20b399eef937acc"
+}

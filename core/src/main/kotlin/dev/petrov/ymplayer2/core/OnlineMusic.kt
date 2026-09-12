@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 enum class MusicKind(val label: String) { TRACKS("Треки"), ALBUMS("Альбомы"), ARTISTS("Исполнители"), PLAYLISTS("Плейлисты") }
 data class MusicEntity(val id: String, val title: String, val kind: MusicKind, val ownerId: String? = null)
 data class MusicEntry(val id: String, val title: String, val subtitle: String, val track: Track? = null, val entity: MusicEntity? = null)
-data class MusicRequest(val query: String = "", val kind: MusicKind = MusicKind.TRACKS, val collection: Boolean = false, val entity: MusicEntity? = null)
+data class MusicRequest(val query: String = "", val kind: MusicKind = MusicKind.TRACKS, val collection: Boolean = false, val entity: MusicEntity? = null, val recommended: Boolean = false)
 data class MusicPage(val entries: List<MusicEntry>, val nextPage: Int? = null)
 enum class MusicFailure { SIGN_IN, NETWORK, ACCESS, UNAVAILABLE, RESPONSE }
 class MusicException(val failure: MusicFailure) : Exception(failure.name)
@@ -44,6 +44,7 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
     private var generation = 0L
     private var job: Job? = null
     private var parent: OnlineMusicState? = null
+    private var parentNeedsRefresh = false
 
     init {
         scope.launch {
@@ -74,10 +75,20 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
         if (query.isNotBlank()) load(0, if (debounce) 350 else 0)
     }
     fun collection(kind: MusicKind = MusicKind.TRACKS) {
-        require(kind in setOf(MusicKind.TRACKS, MusicKind.PLAYLISTS))
         parent = null; invalidateRequest()
         mutable.value = OnlineMusicState(state.value.profileId, state.value.signedIn, MusicRequest(kind = kind, collection = true))
         load(0)
+    }
+    fun recommendations() {
+        parent = null; invalidateRequest()
+        mutable.value = OnlineMusicState(state.value.profileId, state.value.signedIn,
+            MusicRequest(kind = MusicKind.PLAYLISTS, collection = true, recommended = true))
+        load(0)
+    }
+    /** Refresh a visible account shelf after a confirmed mutation, without resetting search/details. */
+    fun refreshCollection() {
+        if (parent?.request?.collection == true) parentNeedsRefresh = true
+        if (state.value.request.collection && state.value.request.entity == null) load(0)
     }
     fun open(entity: MusicEntity) {
         if (!state.value.signedIn) return
@@ -89,6 +100,7 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
     fun up(): Boolean {
         val previous = parent ?: return false
         invalidateRequest(); parent = null; mutable.value = previous
+        if (parentNeedsRefresh) { parentNeedsRefresh = false; load(0) }
         return true
     }
     fun more() { if (!state.value.loading) state.value.nextPage?.let { load(it) } }

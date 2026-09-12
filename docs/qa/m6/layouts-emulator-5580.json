@@ -1,0 +1,16 @@
+[
+  {
+    "layout": "phone",
+    "passed": true,
+    "fontScale": "1.0",
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  },
+  {
+    "layout": "phone-font200",
+    "passed": true,
+    "fontScale": "2.0",
+    "size": "Physical size: 1080x1920",
+    "density": "Physical density: 420"
+  }
+]

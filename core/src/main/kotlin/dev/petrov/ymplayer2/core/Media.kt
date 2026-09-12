@@ -4,6 +4,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 enum class Source(val label: String) { YANDEX("Яндекс"), LOCAL("Устройство"), USB("USB") }
 
+data class ArtistRef(val id: String, val name: String)
+
 data class Track(
     val id: String, val title: String, val artist: String, val album: String,
     val source: Source, val durationSeconds: Int, val offline: Boolean,
@@ -12,6 +14,7 @@ data class Track(
     val uri: String? = null, val rootId: String? = null,
     val sizeBytes: Long = 0, val modifiedMillis: Long = 0,
     val artworkUri: String? = null,
+    val artists: List<ArtistRef> = emptyList(), val albumId: String? = null,
 )
 
 data class Profile(val id: String, val name: String, val description: String, val guest: Boolean = false)

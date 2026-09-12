@@ -4,6 +4,8 @@ import android.app.PendingIntent
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.common.ForwardingPlayer
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.DefaultHttpDataSource
@@ -30,7 +32,7 @@ class AudioService : MediaSessionService() {
             setWakeMode(C.WAKE_MODE_NETWORK)
         }
         engine = player
-        session = MediaSession.Builder(this, player).setCallback(object : MediaSession.Callback {
+        session = MediaSession.Builder(this, sessionPlayer(player, playback)).setCallback(object : MediaSession.Callback {
             // The catalog is loaded by our in-process adapter. External controllers may
             // operate the current queue, but cannot inject file paths or network URIs.
             override fun onAddMediaItems(session: MediaSession, controller: MediaSession.ControllerInfo, mediaItems: List<MediaItem>): ListenableFuture<List<MediaItem>> =
@@ -54,6 +56,21 @@ class AudioService : MediaSessionService() {
         engine?.release(); engine = null
         super.onDestroy()
     }
+}
+
+/** A wave still has a next item when its network request is in flight. The same commands
+ * are used by notification/headset controllers and by the on-screen transport. */
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
+internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = object : ForwardingPlayer(player) {
+    override fun getAvailableCommands(): Player.Commands = super.getAvailableCommands().buildUpon()
+        .add(Player.COMMAND_SEEK_TO_NEXT).add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM).build()
+    override fun isCommandAvailable(command: Int) = availableCommands.contains(command)
+    override fun seekToNext() { playback.skip(1) }
+    override fun seekToNextMediaItem() { playback.skip(1) }
+    override fun play() { playback.sessionPlay() }
+    override fun pause() { playback.sessionPause() }
+    override fun stop() { playback.stop() }
+    override fun setPlayWhenReady(playWhenReady: Boolean) { if (playWhenReady) play() else pause() }
 }
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)

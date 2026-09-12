@@ -38,6 +38,18 @@ class OnlineMusicTest {
         assertEquals("album", api.requests.single().first.query)
         assertEquals("album", music.state.value.entries.single().id)
     }
+    @Test fun reactionRefreshKeepsDetailParentAndReloadsFavouriteShelfOnUp() = runTest {
+        val api = Api(); val music = OnlineMusic(auth(), api, backgroundScope); runCurrent()
+        music.collection(MusicKind.ARTISTS); runCurrent()
+        music.open(MusicEntity("7", "Artist", MusicKind.ARTISTS)); runCurrent()
+        music.refreshCollection(); runCurrent()
+        assertEquals("7", music.state.value.request.entity!!.id)
+        assertTrue(music.up()); runCurrent()
+        assertNull(music.state.value.request.entity)
+        assertTrue(music.state.value.request.collection)
+        assertEquals(MusicKind.ARTISTS, music.state.value.request.kind)
+        assertEquals(3, api.requests.size)
+    }
     @Test fun ignoredCancellationCannotOverwriteNewSearch() = runTest {
         val api = Api().apply { handle = { request, _ -> withContext(NonCancellable) { delay(if (request.query == "old") 1000 else 1) }; MusicPage(listOf(row(request.query))) } }
         val music = OnlineMusic(auth(), api, backgroundScope); runCurrent()

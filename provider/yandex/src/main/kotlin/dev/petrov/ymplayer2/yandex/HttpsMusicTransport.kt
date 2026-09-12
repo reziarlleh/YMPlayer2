@@ -13,11 +13,15 @@ import kotlin.coroutines.resumeWithException
 
 fun interface MusicTransport {
     suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String
+    suspend fun json(url: String, token: String, body: String): String = throw MusicException(MusicFailure.UNAVAILABLE)
 }
 
 /** OAuth is only sent to the API origin, never to media/cover servers or redirects. */
 class HttpsMusicTransport(private val open: (String) -> HttpsURLConnection = { URL(it).openConnection() as HttpsURLConnection }) : MusicTransport {
-    override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String = withContext(Dispatchers.IO) {
+    override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String = execute(url, token,
+        form?.joinToString("&") { (key, value) -> "${URLEncoder.encode(key, "UTF-8")}=${URLEncoder.encode(value, "UTF-8")}" }, "application/x-www-form-urlencoded; charset=UTF-8")
+    override suspend fun json(url: String, token: String, body: String): String = execute(url, token, body, "application/json; charset=UTF-8")
+    private suspend fun execute(url: String, token: String?, body: String?, contentType: String): String = withContext(Dispatchers.IO) {
         val uri = runCatching { URI(url) }.getOrNull() ?: throw MusicException(MusicFailure.RESPONSE)
         if (!isYandexMediaUrl(url) || (token != null && uri.host != "api.music.yandex.net")) throw MusicException(MusicFailure.RESPONSE)
         suspendCancellableCoroutine { continuation ->
@@ -30,10 +34,10 @@ class HttpsMusicTransport(private val open: (String) -> HttpsURLConnection = { U
                 c.setRequestProperty("X-Yandex-Music-Client", "YandexMusicAndroid/24023621")
                 c.setRequestProperty("Accept-Language", "ru")
                 token?.let { c.setRequestProperty("Authorization", "OAuth $it") }
-                if (form != null) {
+                if (body != null) {
                     c.requestMethod = "POST"; c.doOutput = true
-                    c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-                    val bytes = form.joinToString("&") { (key, value) -> "${URLEncoder.encode(key, "UTF-8")}=${URLEncoder.encode(value, "UTF-8")}" }.toByteArray(Charsets.UTF_8)
+                    c.setRequestProperty("Content-Type", contentType)
+                    val bytes = body.toByteArray(Charsets.UTF_8)
                     c.setFixedLengthStreamingMode(bytes.size)
                     c.outputStream.use { it.write(bytes) }
                 }
