@@ -16,7 +16,7 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
             val token = session.credentials.accessToken
             val entity = request.entity
             when {
-                entity != null -> details(token, entity, page)
+                entity != null -> details(token, entity, page, request.kind)
                 request.recommended -> recommendations(token)
                 request.collection -> collection(token, session.account?.id ?: accountId(token), request.kind, page)
                 else -> search(token, request, page)
@@ -97,7 +97,7 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         return MusicPage(entries.distinctBy(MusicEntry::id))
     }
 
-    private suspend fun details(token: String, entity: MusicEntity, page: Int): MusicPage = when (entity.kind) {
+    private suspend fun details(token: String, entity: MusicEntity, page: Int, section: MusicKind): MusicPage = when (entity.kind) {
         MusicKind.ALBUMS -> {
             val album = api(token, "/albums/${numeric(entity.id)}/with-tracks") as JSONObject
             val rows = JSONArray()
@@ -106,13 +106,18 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
             MusicPage(rows.objects().drop(page * PAGE_SIZE).take(PAGE_SIZE).mapNotNull { trackEntry(it, album) }, next(page, rows.length()))
         }
         MusicKind.ARTISTS -> {
-            val result = api(token, "/artists/${numeric(entity.id)}/tracks?page=$page&page-size=$PAGE_SIZE") as JSONObject
-            val rows = result.optJSONArray("tracks") ?: result.optJSONArray("results")
-            val entries = if (rows != null) rows.objects().mapNotNull { trackEntry(it.optJSONObject("track") ?: it) }
-                else tracks(token, (result.optJSONArray("trackIds") ?: JSONArray()).let { ids -> (0 until ids.length()).map { ids.getString(it) } }).map(::asEntry)
-            val pager = result.optJSONObject("pager")
-            val hasNext = if (pager != null && pager.has("total")) (page.toLong() + 1) * pager.optInt("perPage", PAGE_SIZE).coerceAtLeast(1) < pager.getLong("total") else entries.size >= PAGE_SIZE
-            MusicPage(entries, if (hasNext && entries.isNotEmpty()) page + 1 else null)
+            if (section == MusicKind.ALBUMS) {
+                val result = api(token, "/artists/${numeric(entity.id)}/direct-albums?page=$page&page-size=$PAGE_SIZE&sort-by=year") as JSONObject
+                val rows = result.optJSONArray("albums") ?: JSONArray()
+                val entries = rows.objects().mapNotNull { entry(it, MusicKind.ALBUMS) }
+                val pager = result.optJSONObject("pager")
+                val hasNext = if (pager != null && pager.has("total")) (page.toLong() + 1) * pager.optInt("perPage", PAGE_SIZE).coerceAtLeast(1) < pager.getLong("total") else rows.length() >= PAGE_SIZE
+                MusicPage(entries, if (hasNext && entries.isNotEmpty()) page + 1 else null)
+            } else {
+                val result = api(token, "/artists/${numeric(entity.id)}/brief-info") as JSONObject
+                val rows = result.optJSONArray("popularTracks") ?: JSONArray()
+                MusicPage(rows.objects().drop(page * PAGE_SIZE).take(PAGE_SIZE).mapNotNull { trackEntry(it) }, next(page, rows.length()))
+            }
         }
         MusicKind.PLAYLISTS -> {
             val list = api(token, "/users/${numeric(entity.ownerId.orEmpty())}/playlists/${numeric(entity.id)}") as JSONObject

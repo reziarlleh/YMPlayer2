@@ -56,17 +56,18 @@ class TasteIconsTest {
             fixture.tasteLists["owner" to TasteKind.ARTIST] = TasteList(blocked = setOf("5"))
         }
         refresh()
-        icon(TasteKind.TRACK, "1").performScrollTo().assertIsDisplayed().assertIsOn()
+        icon(TasteKind.TRACK, "1").assertIsDisplayed().assertIsOn()
         icon(TasteKind.TRACK, "1", "block").assertIsOff()
-        icon(TasteKind.ARTIST, "5", "block").performScrollTo().assertIsDisplayed().assertIsOn()
-        icon(TasteKind.ARTIST, "5").assertIsOff()
+        icon(TasteKind.ARTIST, "5", "block").assertDoesNotExist()
         screenshot("player")
-        icon(TasteKind.ARTIST, "8").performScrollTo().assertIsOff().performClick()
+        compose.onNodeWithTag("player_more").performClick()
+        compose.onNodeWithTag("taste_ARTIST_5_block").performScrollTo().assertTextContains("Снова предлагать исполнителя")
+        compose.onNodeWithTag("taste_ARTIST_8_like").performScrollTo().performClick()
         waitFor { "8" in fixture.taste.state.value.shelf(TasteKind.ARTIST).list.liked }
-        icon(TasteKind.ARTIST, "8").assertIsOn()
-        icon(TasteKind.ARTIST, "5", "block").performScrollTo().performClick()
+        compose.onNodeWithTag("taste_ARTIST_8_like").assertTextContains("Убрать из любимых исполнителей")
+        compose.onNodeWithTag("taste_ARTIST_5_block").performScrollTo().performClick()
         waitFor { fixture.taste.state.value.shelf(TasteKind.ARTIST).list.blocked.isEmpty() }
-        icon(TasteKind.ARTIST, "5", "block").assertIsOff()
+        compose.onNodeWithTag("taste_ARTIST_5_block").assertTextContains("Никогда не предлагать исполнителя")
         assertEquals(setOf("1"), fixture.taste.state.value.shelf(TasteKind.TRACK).list.liked)
         assertEquals(listOf("8" to TasteAction.LIKE, "5" to TasteAction.UNBLOCK), fixture.tasteWrites.map { it.first.id to it.second })
         assertFalse(fixture.player.state.value.playing)
@@ -74,7 +75,7 @@ class TasteIconsTest {
     @Test fun unconfirmedWriteShowsUnknownAndCanReloadActualServerMark() {
         loadTrack()
         compose.runOnIdle { fixture.tasteReadGate = CompletableDeferred(); fixture.tasteReadFailure = MusicFailure.NETWORK }
-        icon(TasteKind.TRACK, "1").performScrollTo().assertIsOff().performClick()
+        icon(TasteKind.TRACK, "1").assertIsOff().performClick()
         icon(TasteKind.TRACK, "1").assertIsNotEnabled().assertIsOff()
         assertEquals(1, fixture.tasteWrites.size)
         compose.runOnIdle { fixture.tasteReadGate!!.complete(Unit) }
@@ -83,9 +84,9 @@ class TasteIconsTest {
         unknown(icon(TasteKind.TRACK, "1", "block"))
         screenshot("unknown")
         compose.runOnIdle { fixture.tasteReadFailure = null }
-        compose.onNodeWithTag("player_taste_TRACK_1_retry").performScrollTo().performClick()
+        compose.onNodeWithTag("player_taste_TRACK_1_retry").performClick()
         waitFor { fixture.taste.state.value.shelf(TasteKind.TRACK).ready }
-        icon(TasteKind.TRACK, "1").performScrollTo().assertIsOn().assertIsEnabled()
+        icon(TasteKind.TRACK, "1").assertIsOn().assertIsEnabled()
         icon(TasteKind.TRACK, "1", "block").assertIsOff()
         assertEquals(1, fixture.tasteWrites.size)
     }
@@ -101,18 +102,21 @@ class TasteIconsTest {
         icon(TasteKind.TRACK, "1", "block", "catalog").performClick()
         waitFor { "1" in fixture.taste.state.value.shelf(TasteKind.TRACK).list.blocked }
         icon(TasteKind.TRACK, "1", "block", "catalog").assertIsOn()
-        icon(TasteKind.ARTIST, "5", "block", "catalog_yandex:1:7").assertIsOff()
+        icon(TasteKind.ARTIST, "5", "block", "catalog_yandex:1:7").assertDoesNotExist()
         screenshot("catalog")
         compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("online_kind_ARTISTS"))
         compose.onNodeWithTag("online_kind_ARTISTS").performClick()
         waitFor { fixture.online.state.value.entries.singleOrNull()?.entity?.kind == MusicKind.ARTISTS }
-        icon(TasteKind.ARTIST, "5", location = "catalog").performScrollTo().performClick()
+        compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("catalog_taste_ARTIST_5_like"))
+        icon(TasteKind.ARTIST, "5", location = "catalog").performClick()
         waitFor { "5" in fixture.taste.state.value.shelf(TasteKind.ARTIST).list.liked }
         icon(TasteKind.ARTIST, "5", location = "catalog").assertIsOn()
         assertNull(fixture.online.state.value.request.entity)
         assertFalse(fixture.player.state.value.playing)
+        compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("online_entity_5"))
         compose.onNodeWithTag("online_entity_5").performClick()
         waitFor { fixture.online.state.value.request.entity != null }
+        compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("detail_taste_ARTIST_5_like"))
         icon(TasteKind.ARTIST, "5", location = "detail").assertIsOn()
     }
     @Test fun resumeRefreshesMarksChangedOutsideApp() {
@@ -123,8 +127,10 @@ class TasteIconsTest {
         harness.tasteLists["owner" to TasteKind.ARTIST] = TasteList(blocked = setOf("5"))
         compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
         waitFor { "1" in harness.taste.state.value.shelf(TasteKind.TRACK).list.liked && "5" in harness.taste.state.value.shelf(TasteKind.ARTIST).list.blocked }
-        icon(TasteKind.TRACK, "1").performScrollTo().assertIsOn()
-        icon(TasteKind.ARTIST, "5", "block").performScrollTo().assertIsOn()
+        icon(TasteKind.TRACK, "1").assertIsOn()
+        icon(TasteKind.ARTIST, "5", "block").assertDoesNotExist()
+        compose.onNodeWithTag("player_more").performClick()
+        compose.onNodeWithTag("taste_ARTIST_5_block").performScrollTo().assertTextContains("Снова предлагать исполнителя")
         assertTrue(harness.tasteWrites.isEmpty())
     }
 }

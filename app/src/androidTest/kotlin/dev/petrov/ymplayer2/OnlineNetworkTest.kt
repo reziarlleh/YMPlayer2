@@ -14,6 +14,9 @@ import dev.petrov.ymplayer2.playback.onlineDataSourceFactory
 import dev.petrov.ymplayer2.playback.WaveAudioBuffer
 import dev.petrov.ymplayer2.core.Source
 import dev.petrov.ymplayer2.core.Track
+import dev.petrov.ymplayer2.core.*
+import dev.petrov.ymplayer2.yandex.MusicTransport
+import kotlinx.coroutines.yield
 import dev.petrov.ymplayer2.yandex.HttpsMusicTransport
 import dev.petrov.ymplayer2.yandex.YandexMusicApi
 import kotlinx.coroutines.runBlocking
@@ -28,6 +31,33 @@ import java.io.File
 @RunWith(AndroidJUnit4::class)
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class OnlineNetworkTest {
+    @Test fun publicArtistCardUsesRealPopularTracksAndAlbumResponses() = runBlocking {
+        assumeTrue(InstrumentationRegistry.getArguments().getString("yandexLiveProbe") == "true")
+        val session = AccountSession(YandexAccount("1", "Public protocol probe"), OAuthCredentials("fixture-not-sent", null, null))
+        val accounts = AccountAuth(DemoCatalog().profiles, object : DeviceAuthApi {
+            override val configured = true
+            override suspend fun requestCode(profileId: String): DeviceChallenge = error("not used")
+            override suspend fun poll(code: DeviceChallenge): TokenPoll = error("not used")
+            override suspend fun account(credentials: OAuthCredentials) = session.account!!
+        }, object : AccountStore {
+            override suspend fun read(profileId: String) = session
+            override suspend fun write(profileId: String, session: AccountSession?) = Unit
+        }, this).also { it.activate("owner"); yield() }
+        val transport = HttpsMusicTransport()
+        val api = YandexMusicApi(accounts, MusicTransport { url, _, form -> transport.request(url, null, form) })
+        val artist = MusicEntity("218099", "Public artist", MusicKind.ARTISTS)
+        val popular = api.page("owner", MusicRequest(entity = artist), 0)
+        val albums = api.page("owner", MusicRequest(kind = MusicKind.ALBUMS, entity = artist), 0)
+        assertTrue(popular.entries.isNotEmpty()); assertTrue(popular.entries.all { it.track != null })
+        assertTrue(albums.entries.isNotEmpty()); assertTrue(albums.entries.all { it.entity?.kind == MusicKind.ALBUMS })
+        val tracks = api.page("owner", MusicRequest(entity = albums.entries.first().entity!!), 0)
+        assertTrue(tracks.entries.any { it.track != null })
+        val report = JSONObject().put("publicArtist", artist.id).put("credentialsUsed", false)
+            .put("popularTracks", popular.entries.size).put("albums", albums.entries.size).put("albumTracks", tracks.entries.size)
+            .put("androidApi", android.os.Build.VERSION.SDK_INT)
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        File(context.getExternalFilesDir(null), "yandex-live-artist.json").writeText(report.toString(2))
+    }
     @Test fun publicYandexXmlResolvesAndMedia3ReadsActualAudio() = runBlocking {
         assumeTrue(InstrumentationRegistry.getArguments().getString("yandexLiveProbe") == "true")
         val transport = HttpsMusicTransport()

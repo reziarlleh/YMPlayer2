@@ -21,20 +21,24 @@ import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
-@Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit, taste: MusicTaste? = null, waveStarted: () -> Unit = {}) {
+@Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit, taste: MusicTaste? = null, waveStarted: () -> Unit = {},
+    artist: (ArtistRef) -> Unit = { music.open(MusicEntity(it.id, it.name, MusicKind.ARTISTS)) }, standalone: Boolean = false, closeArtist: () -> Unit = {}) {
     val state by music.state.collectAsStateWithLifecycle()
     val playback by player.state.collectAsStateWithLifecycle()
     val keyboard = LocalSoftwareKeyboardController.current
     val request = state.request
     val detail = request.entity
-    BackHandler(detail != null) { music.up() }
+    fun up() { if (standalone && detail?.kind == MusicKind.ARTISTS) closeArtist() else music.up() }
+    BackHandler(detail != null) { up() }
     LaunchedEffect(search, state.profileId, state.signedIn) {
-        if (search && request.collection) music.search("")
-        if (!search && state.signedIn && (!request.collection || !state.loaded && !state.loading && state.issue == null)) music.collection()
+        if (!standalone && detail == null) {
+            if (search && request.collection) music.search("")
+            if (!search && state.signedIn && (!request.collection || !state.loaded && !state.loading && state.issue == null)) music.collection()
+        }
     }
     val preferences = taste?.state?.collectAsStateWithLifecycle()?.value
     var actions by remember(state.profileId) { mutableStateOf<Track?>(null) }
-    if (taste != null) actions?.let { TrackTasteDialog(it, taste) { actions = null } }
+    if (taste != null) actions?.let { TrackTasteDialog(it, taste, artist = artist) { actions = null } }
     val entries = if (request.recommended) state.entries.filter { entry -> entry.track?.let { preferences?.allows(it) != false } ?: true } else state.entries
     val shownTracks = entries.mapNotNull(MusicEntry::track)
     val filtersReady = !request.recommended || preferences?.let { it.shelf(TasteKind.TRACK).ready && it.shelf(TasteKind.ARTIST).ready } != false
@@ -46,7 +50,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val queued = playback.queue.mapTo(hashSetOf(), Track::id)
     LazyColumn(Modifier.fillMaxSize().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
-            if (detail != null) TextButton({ music.up() }, Modifier.prismFocus().testTag("online_up")) { Text("К результатам") }
+            if (detail != null) TextButton({ up() }, Modifier.prismFocus().testTag("online_up")) { Text("На уровень выше") }
             val title: @Composable () -> Unit = { Text(detail?.title ?: if (search) "Поиск в Яндекс Музыке" else "Моя музыка в Яндексе", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
             val target = detail?.tasteTarget()
             if (state.signedIn && taste != null && target != null) Column { TasteLabel(taste, target, "detail", title) } else title()
@@ -57,6 +61,13 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 OutlinedButton(signIn, Modifier.prismFocus().testTag("online_sign_in")) { Text("Открыть аккаунт") }
             }
         } else {
+            if (detail?.kind == MusicKind.ARTISTS) item {
+                Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf(MusicKind.TRACKS to "Популярные треки", MusicKind.ALBUMS to "Альбомы").forEach { (kind, label) ->
+                        FilterChip(request.kind == kind, { music.artistSection(kind) }, { Text(label) }, Modifier.prismFocus().testTag("artist_section_${kind.name}"))
+                    }
+                }
+            }
             if (detail == null) {
                 if (!search && taste != null) item { WaveButton(player, state.signedIn, signIn, waveStarted) }
                 if (search) item {
@@ -102,7 +113,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 val track = entry.track
                 if (track != null) TrackRow(track,
                     play = { play(track.id) },
-                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null, taste = taste)
+                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null, taste = taste, artist = artist)
                 else entry.entity?.let { entity ->
                     val label: @Composable () -> Unit = { Surface(onClick = { keyboard?.hide(); music.open(entity) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("online_entity_${entity.id}"), shape = MaterialTheme.shapes.medium) {
                         Column(Modifier.padding(16.dp)) {

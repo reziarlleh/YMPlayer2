@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
+        <activity android:name="dev.petrov.ymplayer2.TestDspActivity" android:label="YMPlayer Test DSP" android:exported="true">
+            <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /><category android:name="android.intent.category.LEANBACK_LAUNCHER" /></intent-filter>
+        </activity>
+        <activity android:name="dev.petrov.ymplayer2.TestEqualizerActivity" android:label="YMPlayer Test DSP" android:exported="true">
+            <intent-filter><action android:name="android.media.action.DISPLAY_AUDIO_EFFECT_CONTROL_PANEL" /><category android:name="android.intent.category.DEFAULT" /></intent-filter>
+        </activity>
         <provider android:name="dev.petrov.ymplayer2.TestMusicProvider" android:authorities="dev.petrov.ymplayer2.test.music" android:exported="true" android:grantUriPermissions="true" android:permission="android.permission.MANAGE_DOCUMENTS">
             <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER" /></intent-filter>
         </provider>

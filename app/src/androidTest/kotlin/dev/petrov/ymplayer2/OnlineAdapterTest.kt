@@ -77,12 +77,20 @@ class OnlineAdapterTest {
         val result = api.page("owner", MusicRequest(collection = true), 1)
         assertEquals(25, requested); assertNull(result.nextPage)
     }
-    @Test fun artistPagerControlsNextPage() = runBlocking {
+    @Test fun artistAlbumPagerControlsNextPage() = runBlocking {
         val api = YandexMusicApi(auth(this), MusicTransport { url, _, _ ->
-            assertTrue(url.contains("/artists/5/tracks?page=1&page-size=50"))
-            """{"result":{"pager":{"total":101,"perPage":50},"tracks":[${track(1)}]}}"""
+            assertTrue(url.contains("/artists/5/direct-albums?page=1&page-size=50&sort-by=year"))
+            """{"result":{"pager":{"total":101,"perPage":50},"albums":[{"id":7,"title":"Album"}]}}"""
         })
-        assertEquals(2, api.page("owner", MusicRequest(entity = MusicEntity("5", "Artist", MusicKind.ARTISTS)), 1).nextPage)
+        assertEquals(2, api.page("owner", MusicRequest(kind = MusicKind.ALBUMS, entity = MusicEntity("5", "Artist", MusicKind.ARTISTS)), 1).nextPage)
+    }
+    @Test fun artistPopularTracksKeepServerOrder() = runBlocking {
+        val api = YandexMusicApi(auth(this), MusicTransport { url, _, _ ->
+            assertTrue(url.endsWith("/artists/5/brief-info"))
+            """{"result":{"artist":{"id":5,"name":"Artist"},"popularTracks":[${track(9)},${track(2)}],"albums":[]}}"""
+        })
+        val page = api.page("owner", MusicRequest(entity = MusicEntity("5", "Artist", MusicKind.ARTISTS)), 0)
+        assertEquals(listOf("yandex:9:7", "yandex:2:7"), page.entries.map { it.id }); assertNull(page.nextPage)
     }
     @Test fun streamRejectsPreviewAndSendsNoOAuthToInfoServer() = runBlocking {
         val api = YandexMusicApi(auth(this), MusicTransport { url, token, _ ->

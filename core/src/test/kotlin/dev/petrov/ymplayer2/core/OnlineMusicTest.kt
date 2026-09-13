@@ -50,6 +50,28 @@ class OnlineMusicTest {
         assertEquals(MusicKind.ARTISTS, music.state.value.request.kind)
         assertEquals(3, api.requests.size)
     }
+    @Test fun artistCardRestoresCatalogAndAlbumUpKeepsArtistSection() = runTest {
+        val api = Api(); val music = OnlineMusic(auth(), api, backgroundScope); runCurrent()
+        music.search("keep this query", debounce = false); runCurrent()
+        val initial = music.state.value
+        music.openArtistCard(ArtistRef("5", "Artist")); runCurrent()
+        music.artistSection(MusicKind.ALBUMS); runCurrent()
+        music.open(MusicEntity("7", "Album", MusicKind.ALBUMS)); runCurrent()
+        assertTrue(music.up()); runCurrent()
+        assertEquals(MusicKind.ARTISTS, music.state.value.request.entity!!.kind)
+        assertEquals(MusicKind.ALBUMS, music.state.value.request.kind)
+        music.closeArtistCard(); runCurrent()
+        assertEquals(initial, music.state.value)
+    }
+    @Test fun anotherArtistInsideCardDoesNotCreateNavigationHistory() = runTest {
+        val api = Api(); val music = OnlineMusic(auth(), api, backgroundScope); runCurrent()
+        music.collection(); runCurrent(); val initial = music.state.value
+        music.openArtistCard(ArtistRef("5", "First")); runCurrent()
+        music.open(MusicEntity("7", "Album", MusicKind.ALBUMS)); runCurrent()
+        music.openArtistCard(ArtistRef("8", "Other")); runCurrent()
+        music.closeArtistCard(); runCurrent()
+        assertEquals(initial, music.state.value)
+    }
     @Test fun ignoredCancellationCannotOverwriteNewSearch() = runTest {
         val api = Api().apply { handle = { request, _ -> withContext(NonCancellable) { delay(if (request.query == "old") 1000 else 1) }; MusicPage(listOf(row(request.query))) } }
         val music = OnlineMusic(auth(), api, backgroundScope); runCurrent()

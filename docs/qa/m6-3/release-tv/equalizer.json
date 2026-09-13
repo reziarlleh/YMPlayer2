@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "package": "dev.petrov.ymplayer2",
+  "launcherDsp": true,
+  "preferredDspReopenedDirectly": true,
+  "systemPanelSessionTested": false,
+  "fixtureOnlyNoAudioEffectApplied": true
+}

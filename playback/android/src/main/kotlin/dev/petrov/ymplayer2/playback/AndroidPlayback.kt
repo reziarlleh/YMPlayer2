@@ -46,6 +46,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var wavePausePending = false
 
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
+    fun audioSessionId(): Int = engine?.audioSessionId ?: 0
 
     internal fun attach(player: ExoPlayer) {
         check(engine == null)

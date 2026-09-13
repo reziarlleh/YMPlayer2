@@ -37,11 +37,12 @@ private val destinations = listOf(
     Destination("clips", "Клипы", UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val library by model.library.collectAsStateWithLifecycle()
     val demo = model.local == null
     var route by rememberSaveable { mutableStateOf("player") }
+    var artistFrom by rememberSaveable { mutableStateOf("player") }
     var exitAt by remember { mutableStateOf<Long?>(null) }
     var libraryUpRequest by rememberSaveable { mutableIntStateOf(0) }
     var bottomBarHeight by remember { mutableIntStateOf(0) }
@@ -54,8 +55,17 @@ private val destinations = listOf(
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders")) "library" else route
     val navigate: (String) -> Unit = {
         if (route == "account" && it != "account") model.accounts?.cancel()
+        if (route == "artist" && it != "artist") model.online?.closeArtistCard()
         exitAt = null; route = it
     }
+    val openArtist: (ArtistRef) -> Unit = { artist ->
+        model.online?.let { music ->
+            if (route != "artist") artistFrom = route
+            music.openArtistCard(artist)
+            navigate("artist")
+        }
+    }
+    val closeArtist: () -> Unit = { navigate(artistFrom) }
     val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     DisposableEffect(lifecycle, model.taste) {
@@ -87,17 +97,20 @@ private val destinations = listOf(
             val rail = maxWidth >= 600.dp
             val widePlayer = maxWidth >= 960.dp && maxHeight >= 500.dp
             val short = maxHeight < 480.dp
+            val compactRail = route == "player" && (short || density.fontScale > 1.3f)
             // Give text entry room on short windows; playback continues while its bar is hidden.
             val typingInShortWindow = short && WindowInsets.ime.getBottom(density) > 0
             Row(Modifier.fillMaxSize()) {
-                if (rail) NavigationRail(Modifier.fillMaxHeight().verticalScroll(rememberScrollState()), containerColor = MaterialTheme.colorScheme.background) {
-                    Spacer(Modifier.height(12.dp))
-                    Text("YM", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
-                    Spacer(Modifier.height(24.dp))
+                if (rail) NavigationRail(Modifier.fillMaxHeight().then(if (route != "player") Modifier.verticalScroll(rememberScrollState()) else Modifier), containerColor = MaterialTheme.colorScheme.background) {
+                    if (!compactRail) {
+                        Spacer(Modifier.height(12.dp))
+                        Text("YM", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
+                        Spacer(Modifier.height(24.dp))
+                    }
                     destinations.forEach { item ->
                         NavigationRailItem(navigationRoute == item.route, { navigate(item.route) },
-                            { SkinIcon(item.icon, item.label) }, Modifier.testTag("nav_${item.route}").prismFocus(),
-                            label = { Text(item.label) })
+                            { SkinIcon(item.icon, item.label) }, Modifier.height(if (compactRail) 56.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
+                            label = if (compactRail) null else ({ Text(item.label) }))
                     }
                 }
                 Column(Modifier.weight(1f).fillMaxHeight()) {
@@ -105,7 +118,7 @@ private val destinations = listOf(
                         if (route != "player") ActionIcon(UiIcon.BACK, "Назад", { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))
                         Column(Modifier.weight(1f).padding(vertical = 6.dp)) {
                             Text("YMPlayer 2", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                            Text(if (demo) "Прототип · Без звука" else "Музыка рядом · Beta", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            if (route != "player") Text(if (demo) "Прототип · Без звука" else "Музыка рядом · Beta", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         }
                         ActionIcon(UiIcon.PROFILE, "Профили", { navigate("profiles") }, Modifier.testTag("profiles"))
                         ActionIcon(UiIcon.SETTINGS, "Настройки", { navigate("settings") }, Modifier.testTag("settings"))
@@ -114,7 +127,8 @@ private val destinations = listOf(
                         // Each route/profile owns its scroll, filters, detail and text field state.
                         holder.SaveableStateProvider("${playback.profileId}:$route") {
                             when (route) {
-                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") })
+                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer)
+                                "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist) }
                                 "library", "search" -> Column(Modifier.fillMaxSize()) {
                                     model.online?.let {
                                         if (!typingInShortWindow) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -122,7 +136,7 @@ private val destinations = listOf(
                                             FilterChip(onlineSource, { onlineSource = true }, { Text("Яндекс Музыка") }, Modifier.prismFocus().testTag("source_yandex"))
                                         }
                                     }
-                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") })
+                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist)
                                     else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else library.tracks, model.player, route == "search", if (demo) catalogState else CatalogState.READY,
                                     demo = demo, folders = { navigate("folders") }, scanning = library.scanning, issue = library.issue,
                                     collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
@@ -131,7 +145,7 @@ private val destinations = listOf(
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 }
                                 "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites") }
-                                "queue" -> QueueScreen(playback, model.player, model.taste)
+                                "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
                                 "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
                                     model.player.switchProfile(it); navigate("player")
                                 }

@@ -125,13 +125,15 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun TrackTasteDialog(track: Track, taste: MusicTaste, dismiss: () -> Unit) {
+@Composable internal fun TrackTasteDialog(track: Track, taste: MusicTaste, artist: (ArtistRef) -> Unit = {}, extra: @Composable () -> Unit = {}, dismiss: () -> Unit) {
     val content: @Composable () -> Unit = {
-            TasteControls(taste, track.tasteTarget())
-            HorizontalDivider()
-            track.artists.forEach { TasteControls(taste, TasteTarget(TasteKind.ARTIST, it.id, it.name)) }
+            track.artists.distinctBy(ArtistRef::id).forEach {
+                TextButton({ dismiss(); artist(it) }, Modifier.prismFocus().testTag("actions_artist_${it.id}")) { Text("Открыть: ${it.name}") }
+                TasteControls(taste, TasteTarget(TasteKind.ARTIST, it.id, it.name))
+            }
             track.albumId?.let { TasteControls(taste, TasteTarget(TasteKind.ALBUM, it, track.album)) }
             if (track.artists.isEmpty()) Text("Идентификаторы исполнителей отсутствуют. Откройте трек заново из поиска или медиатеки.")
+            extra()
     }
     if (LocalConfiguration.current.screenHeightDp < 480 || LocalDensity.current.fontScale > 1.3f) {
         Dialog(dismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {

@@ -27,7 +27,7 @@ class SkinPlaybackTest {
         compose.activity.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
         compose.waitUntil(15000) { player.state.value.queue.size == 2 }
-        compose.onNodeWithTag("player_play").performScrollTo().performClick()
+        compose.onNodeWithTag("player_play").performClick()
         compose.waitUntil(15000) { player.state.value.positionSeconds >= 2 }
         val before = player.state.value
         val accent = Color(0xFFAA33EE)

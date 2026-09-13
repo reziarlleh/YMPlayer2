@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val graph = application as PlayerApplication
         graph.playback.connect()
+        val equalizer = EqualizerLauncher(this, graph.playback::audioSessionId)
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer {
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
                 source = it; pickerIssue = null
                 try { picker.launch(null) }
                 catch (_: ActivityNotFoundException) { pickerIssue = "На устройстве нет системного выбора папки. Нужен файловый менеджер с поддержкой Storage Access Framework." }
-            }, folderIssue = pickerIssue, onExit = ::finish)
+            }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open)
         }
     }
 }

@@ -11,6 +11,12 @@ import android.os.Bundle;
 public class TestControlProvider extends ContentProvider {
     @Override public boolean onCreate() { return true; }
     @Override public Bundle call(String method, String arg, Bundle extras) {
+        if (method.equals("equalizer-report")) {
+            android.content.SharedPreferences p = getContext().getSharedPreferences("equalizer-probe", 0);
+            Bundle result = new Bundle(); result.putString("action", p.getString("action", ""));
+            result.putInt("session", p.getInt("session", -1)); result.putString("package", p.getString("package", ""));
+            result.putInt("content", p.getInt("content", -1)); return result;
+        }
         long identity = Binder.clearCallingIdentity();
         try { return getContext().getContentResolver().call(TestMusicProvider.tree, method, arg, extras); }
         finally { Binder.restoreCallingIdentity(identity); }

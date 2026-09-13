@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "package": "dev.petrov.ymplayer2",
+  "systemPanelSession": 97,
+  "musicContentType": true,
+  "systemPanelCallerPackage": true,
+  "audioContinuesInPanel": true,
+  "launcherDsp": true,
+  "preferredDspReopenedDirectly": true,
+  "fixtureOnlyNoAudioEffectApplied": true,
+  "stockMusicFxTemporarilyDisabledForFixtureProbe": true
+}

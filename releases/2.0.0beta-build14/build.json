@@ -1,0 +1,9 @@
+{
+  "runtimeAcceptance": "Android 35 and Android TV 29 emulator upgrade 13 to 14, launch and signed-out entry verified. Signed phone audio/background/system controls/paused restore and EQ session intent passed; phone/TV preferred external DSP launch passed using test fixtures. Physical HyperOS layout/vendor DSP and continuous personal My Wave await acceptance.",
+  "versionName": "2.0.0beta-build14",
+  "sha256": "c4731dfc1912947076abea769174b05620bb22b40d10c0e04e746ecffc24037b",
+  "versionCode": 14,
+  "builtAtUtc": "2026-09-13T16:46:05.6149175Z",
+  "channel": "beta",
+  "applicationId": "dev.petrov.ymplayer2"
+}

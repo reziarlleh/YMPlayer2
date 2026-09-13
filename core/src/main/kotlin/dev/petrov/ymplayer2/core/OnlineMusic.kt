@@ -43,7 +43,8 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
     val catalog = mutableCatalog.asStateFlow()
     private var generation = 0L
     private var job: Job? = null
-    private var parent: OnlineMusicState? = null
+    private val parents = mutableListOf<OnlineMusicState>()
+    private var artistCardDepth: Int? = null
     private var parentNeedsRefresh = false
 
     init {
@@ -53,7 +54,7 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
                 mutableCatalog.value = OnlineCatalogState(profile, phase,
                     if (profile == previous.profileId && phase == AuthPhase.SIGNED_IN && previous.enabled) previous.tracks else emptyList())
                 if (profile != previous.profileId || (phase == AuthPhase.SIGNED_IN) != previous.enabled) {
-                    invalidateRequest(); parent = null
+                    invalidateRequest(); parents.clear(); artistCardDepth = null
                     mutable.value = OnlineMusicState(profile, phase == AuthPhase.SIGNED_IN)
                 }
             }
@@ -70,37 +71,56 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
     fun search(query: String, kind: MusicKind = state.value.request.kind, debounce: Boolean = true) {
         val request = MusicRequest(query.take(200), kind)
         if (request == state.value.request && (state.value.loading || state.value.loaded)) return
-        parent = null; invalidateRequest()
+        parents.clear(); invalidateRequest()
         mutable.value = OnlineMusicState(state.value.profileId, state.value.signedIn, request)
         if (query.isNotBlank()) load(0, if (debounce) 350 else 0)
     }
     fun collection(kind: MusicKind = MusicKind.TRACKS) {
-        parent = null; invalidateRequest()
+        parents.clear(); invalidateRequest()
         mutable.value = OnlineMusicState(state.value.profileId, state.value.signedIn, MusicRequest(kind = kind, collection = true))
         load(0)
     }
     fun recommendations() {
-        parent = null; invalidateRequest()
+        parents.clear(); invalidateRequest()
         mutable.value = OnlineMusicState(state.value.profileId, state.value.signedIn,
             MusicRequest(kind = MusicKind.PLAYLISTS, collection = true, recommended = true))
         load(0)
     }
     /** Refresh a visible account shelf after a confirmed mutation, without resetting search/details. */
     fun refreshCollection() {
-        if (parent?.request?.collection == true) parentNeedsRefresh = true
+        if (parents.any { it.request.collection }) parentNeedsRefresh = true
         if (state.value.request.collection && state.value.request.entity == null) load(0)
     }
-    fun open(entity: MusicEntity) {
+    fun open(entity: MusicEntity, replace: Boolean = false) {
         if (!state.value.signedIn) return
-        if (state.value.request.entity == null) parent = state.value.copy(loading = false)
+        if (!replace) parents += state.value.copy(loading = false)
         invalidateRequest()
-        mutable.value = state.value.copy(request = state.value.request.copy(entity = entity), entries = emptyList(), loaded = false, nextPage = null, issue = null, failedPage = null)
+        mutable.value = state.value.copy(request = state.value.request.copy(entity = entity, kind = MusicKind.TRACKS), entries = emptyList(), loaded = false, nextPage = null, issue = null, failedPage = null)
         load(0)
     }
+    fun artistSection(kind: MusicKind) {
+        if (state.value.request.entity?.kind != MusicKind.ARTISTS || kind !in setOf(MusicKind.TRACKS, MusicKind.ALBUMS)) return
+        invalidateRequest()
+        mutable.value = state.value.copy(request = state.value.request.copy(kind = kind), entries = emptyList(), loaded = false, nextPage = null, issue = null, failedPage = null)
+        load(0)
+    }
+    /** A card opened from player/queue must restore the catalog it temporarily covers. */
+    fun openArtistCard(artist: ArtistRef) {
+        if (!state.value.signedIn) return
+        val depth = artistCardDepth
+        if (depth == null) artistCardDepth = parents.size
+        else while (parents.size > depth + 1) parents.removeAt(parents.lastIndex)
+        open(MusicEntity(artist.id, artist.name, MusicKind.ARTISTS), replace = depth != null)
+    }
+    fun closeArtistCard() {
+        val depth = artistCardDepth ?: return
+        artistCardDepth = null
+        while (parents.size > depth) up()
+    }
     fun up(): Boolean {
-        val previous = parent ?: return false
-        invalidateRequest(); parent = null; mutable.value = previous
-        if (parentNeedsRefresh) { parentNeedsRefresh = false; load(0) }
+        val previous = parents.removeLastOrNull() ?: return false
+        invalidateRequest(); mutable.value = previous
+        if (parentNeedsRefresh && previous.request.entity == null) { parentNeedsRefresh = false; load(0) }
         return true
     }
     fun more() { if (!state.value.loading) state.value.nextPage?.let { load(it) } }

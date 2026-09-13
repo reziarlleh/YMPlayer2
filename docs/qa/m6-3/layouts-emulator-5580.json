@@ -1,0 +1,18 @@
+[
+  {
+    "layout": "phone-small-font200",
+    "passed": true,
+    "tests": 7,
+    "size": "720x1280",
+    "density": "320",
+    "fontScale": "2.0"
+  },
+  {
+    "layout": "phone-landscape-font200",
+    "passed": true,
+    "tests": 7,
+    "size": "1280x720",
+    "density": "320",
+    "fontScale": "2.0"
+  }
+]

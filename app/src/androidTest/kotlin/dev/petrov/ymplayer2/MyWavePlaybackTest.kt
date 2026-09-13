@@ -30,7 +30,7 @@ class MyWavePlaybackTest {
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
     private fun start() {
-        compose.onNodeWithTag("my_wave").performScrollTo().performClick()
+        compose.onNodeWithTag("my_wave").performClick()
         waitFor { player.state.value.positionSeconds >= 1 && player.state.value.queue.size >= 2 }
     }
     @Test fun fastStartPrefetchAutomaticContinuationAndPausedRestore() {
@@ -186,11 +186,11 @@ class MyWavePlaybackTest {
         compose.runOnIdle { fixture.waveFailure = MusicFailure.NETWORK; player.playMyWave() }
         waitFor { player.state.value.waveIssue != null }
         compose.runOnIdle { fixture.waveFailure = null }
-        compose.onNodeWithTag("wave_retry").performScrollTo().performClick()
+        compose.onNodeWithTag("wave_retry").performClick()
         waitFor { player.state.value.positionSeconds >= 1 }
-        compose.onNodeWithTag("player_taste_TRACK_1_like").performScrollTo().performClick()
+        compose.onNodeWithTag("player_taste_TRACK_1_like").performClick()
         waitFor { "1" in fixture.taste.state.value.shelf(TasteKind.TRACK).list.liked }
-        compose.onNodeWithTag("player_artist_actions").performScrollTo().performClick()
+        compose.onNodeWithTag("player_more").performClick()
         compose.onNodeWithTag("taste_ARTIST_5_like").performScrollTo().performClick()
         compose.onNodeWithTag("taste_ALBUM_7_like").performScrollTo().performClick()
         waitFor { "7" in fixture.taste.state.value.shelf(TasteKind.ALBUM).list.liked }

@@ -90,13 +90,13 @@ class StorageRecoveryTest {
         compose.runOnIdle { player.select(coverTrack.id) }
         waitFor { player.state.value.playing }
         compose.waitUntil(10000) { compose.onAllNodesWithTag("track_artwork").fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithTag("track_artwork").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("track_artwork").assertIsDisplayed()
         assertTrue(file.delete())
         runBlocking { library.refresh() }
         assertTrue(file.isFile)
         assertEquals(originalSize, library.state.value.tracks.single { it.id == coverTrack.id }.sizeBytes)
         compose.runOnIdle { player.select(id("one")) }
-        compose.onNodeWithTag("artwork_placeholder").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("artwork_placeholder").assertIsDisplayed()
         assertNull(player.state.value.error)
     }
     @Test fun missingCurrentCanBeSkippedWithoutStartingItsSuccessor() {

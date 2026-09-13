@@ -1,0 +1,13 @@
+
+
+dev.petrov.ymplayer2.PlayerCompositionTest:...
+
+dev.petrov.ymplayer2.TasteIconsTest:....
+
+
+
+Time: 31.937
+
+
+
+OK (7 tests)

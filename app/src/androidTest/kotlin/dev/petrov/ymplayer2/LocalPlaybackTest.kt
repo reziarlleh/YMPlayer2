@@ -40,7 +40,7 @@ class LocalPlaybackTest {
         assertEquals(setOf("one", "two"), library.state.value.tracks.map { it.title }.toSet())
         assertTrue(library.state.value.tracks.all { it.durationSeconds == 30 && it.sizeBytes > 900000 })
         assertTrue(library.state.value.tracks.any { it.folder.contains("nested") })
-        compose.onNodeWithTag("player_play").performScrollTo().performClick()
+        compose.onNodeWithTag("player_play").performClick()
         waitFor { player.state.value.positionSeconds >= 2 && player.state.value.playing && !player.state.value.buffering }
         waitFor {
             graph.getSystemService(android.app.NotificationManager::class.java).activeNotifications.any {
@@ -178,10 +178,10 @@ class LocalPlaybackTest {
     @Test fun modeAndQueueControlsOperateTheRealPlayer() {
         val one = library.state.value.tracks.single { it.title == "one" }.id
         val two = library.state.value.tracks.single { it.title == "two" }.id
-        compose.onNodeWithTag("repeat_mode").performScrollTo().performClick()
-        compose.onNodeWithTag("shuffle_mode").performScrollTo().performClick()
+        compose.onNodeWithTag("repeat_mode").performClick()
+        compose.onNodeWithTag("shuffle_mode").performClick()
         assertEquals(RepeatMode.ALL, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
-        compose.onNodeWithContentDescription("Очередь").performScrollTo().performClick()
+        compose.onNodeWithContentDescription("Очередь").performClick()
         compose.onNodeWithTag("queue_edit").performClick()
         compose.onNodeWithTag("queue_down_$one").performScrollTo().performClick()
         assertEquals(listOf(two, one), player.state.value.queue.map { it.id })

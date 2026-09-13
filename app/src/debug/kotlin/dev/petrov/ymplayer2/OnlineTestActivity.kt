@@ -51,6 +51,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             requests++; delay(50)
             failure?.let { throw MusicException(it) }
             if (request.query == "empty") return MusicPage(emptyList())
+            if (request.entity?.kind == MusicKind.ARTISTS && request.kind == MusicKind.ALBUMS) return MusicPage(listOf(MusicEntry("album:7", "Тестовый альбом", "Альбом", entity = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS))))
             if (request.kind == MusicKind.ARTISTS && request.entity == null) return MusicPage(listOf(MusicEntry("artist:5", "Первый исполнитель", "Исполнитель", entity = MusicEntity("5", "Первый исполнитель", MusicKind.ARTISTS))))
             if (request.kind != MusicKind.TRACKS && request.entity == null) return MusicPage(listOf(MusicEntry("album:7", "Тестовый альбом", "Два трека", entity = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS))))
             val rows = library.state.value.tracks.take(2).mapIndexed { index, original ->
@@ -70,7 +71,9 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         }
     }, viewModelScope)
     var collaborators = false
-    private fun onlineTrack(id: Int): Track = library.state.value.tracks[(id - 1) % 2].copy(id = "yandex:$id:7", title = "Онлайн: трек $id",
+    var longLabels = false
+    val equalizerRequests = mutableListOf<Boolean>()
+    private fun onlineTrack(id: Int): Track = library.state.value.tracks[(id - 1) % 2].copy(id = "yandex:$id:7", title = if (longLabels) "Очень длинное название композиции — концертная версия с дополнительными исполнителями $id" else "Онлайн: трек $id",
         source = Source.YANDEX, offline = false, uri = null, artworkUri = null, artists = listOf(ArtistRef(if (id % 2 == 1) "5" else "6", if (id % 2 == 1) "Первый исполнитель" else "Второй исполнитель")) + if (collaborators) listOf(ArtistRef("8", "Совместный исполнитель")) else emptyList(), albumId = "7")
     val tasteLists = mutableMapOf<Pair<String, TasteKind>, TasteList>()
     val tasteWrites = mutableListOf<Pair<TasteTarget, TasteAction>>()
@@ -131,7 +134,7 @@ class OnlineTestActivity : ComponentActivity() {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste) }
             })
-            ShellApp(model, "Online fixture", onExit = ::finish)
+            ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it })
         }
     }
 }

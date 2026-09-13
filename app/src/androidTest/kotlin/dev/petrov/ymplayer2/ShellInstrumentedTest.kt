@@ -24,7 +24,7 @@ class ShellInstrumentedTest {
     }
 
     @Test fun firstPlayAndMiniPlayerShareStateAcrossNavigationAndRecreation() {
-        compose.onNodeWithTag("player_play").performScrollTo().performClick()
+        compose.onNodeWithTag("player_play").performClick()
         compose.runOnIdle { model().player.seek(73); assertTrue(state().playing) }
         nav("library")
         compose.onNodeWithTag("mini_play").assertContentDescriptionEquals("Пауза")
@@ -32,7 +32,7 @@ class ShellInstrumentedTest {
         compose.onNodeWithTag("mini_play").assertContentDescriptionEquals("Пауза")
         compose.runOnIdle { assertEquals(73, state().positionSeconds) }
         compose.onNodeWithTag("mini_open").performClick()
-        compose.onNodeWithTag("position").performScrollTo().assertTextEquals("1:13")
+        compose.onNodeWithTag("position").assertTextEquals("1:13")
         compose.onNodeWithTag("player_play").performClick()
         compose.runOnIdle { assertFalse(state().playing) }
     }

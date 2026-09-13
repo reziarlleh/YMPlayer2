@@ -95,6 +95,13 @@ M6.2: `WaveRecovery` задаёт ограниченные повторы, `Wave
 Временный буфер текущего/следующего аудио не является постоянной офлайн-коллекцией.
 [Карта рабочих методов 1.x и правила продолжения](DECISIONS/ADR-012-wave-continuation.md).
 
+M6.3: `OnlineMusic` управляет вложенными карточками и возвратом к каталогу,
+`YandexMusicApi` получает popularTracks/direct-albums. Shell рассчитывает компоновку
+по доступным границам, оставляя аудио и реакции в прежних модулях.
+`app/EqualizerLauncher` открывает выбранный DSP или системную панель; playback
+предоставляет только текущий audioSessionId. Иконка EQ входит в контракт скина.
+[Решение](DECISIONS/ADR-013-fixed-player-and-artist-cards.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

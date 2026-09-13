@@ -1,0 +1,40 @@
+{
+  "build": {
+    "runtimeAcceptance": "Android 35 and Android TV 29 emulator upgrade 13 to 14, launch and signed-out entry verified. Signed phone audio/background/system controls/paused restore and EQ session intent passed; phone/TV preferred external DSP launch passed using test fixtures. Physical HyperOS layout/vendor DSP and continuous personal My Wave await acceptance.",
+    "versionName": "2.0.0beta-build14",
+    "sha256": "c4731dfc1912947076abea769174b05620bb22b40d10c0e04e746ecffc24037b",
+    "versionCode": 14,
+    "builtAtUtc": "2026-09-13T16:46:05.6149175Z",
+    "channel": "beta",
+    "applicationId": "dev.petrov.ymplayer2"
+  },
+  "jvm": {
+    "tests": 59,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "native": {
+    "Android35": {
+      "fullSuite": 83
+    },
+    "AndroidTV29": {
+      "fullSuite": 83
+    }
+  },
+  "finalLayoutMatrix": {
+    "phone360x640font200": 7,
+    "phone640x360font200": 7,
+    "tv960x360font200": 7
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 20
+  },
+  "publicArtistCard": {
+    "Android35": 1,
+    "AndroidTV29": 1,
+    "credentialsUsed": false
+  },
+  "note": "Full native suite before final inline time/slider layout for short landscape. Final three 200% layouts verify that change, all large controls, artist cards and taste actions. Normal layout behavior unchanged. Test scrolling adapted to lazy catalog on very short windows."
+}
