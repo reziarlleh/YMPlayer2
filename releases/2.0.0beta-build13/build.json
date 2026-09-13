@@ -1,0 +1,9 @@
+{
+  "builtAtUtc": "2026-09-13T03:14:52.8063394Z",
+  "channel": "beta",
+  "runtimeAcceptance": "Android 35 and Android TV 29 emulator upgrade 12 to 13, launch and signed-out entry verified. Signed phone local audio/background/system controls/paused restore passed. Continuous personal My Wave on the owner phone awaits acceptance.",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionCode": 13,
+  "versionName": "2.0.0beta-build13",
+  "sha256": "55606641425b5f3560be48fff3a53a1f1b221ec85bef074db5e112c7c1b15ad8"
+}

@@ -1,0 +1,6 @@
+
+dev.petrov.ymplayer2.OnlineNetworkTest:.
+
+Time: 5.676
+
+OK (1 test)

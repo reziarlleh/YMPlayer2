@@ -11,6 +11,9 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import dev.petrov.ymplayer2.playback.onlineDataSourceFactory
+import dev.petrov.ymplayer2.playback.WaveAudioBuffer
+import dev.petrov.ymplayer2.core.Source
+import dev.petrov.ymplayer2.core.Track
 import dev.petrov.ymplayer2.yandex.HttpsMusicTransport
 import dev.petrov.ymplayer2.yandex.YandexMusicApi
 import kotlinx.coroutines.runBlocking
@@ -36,14 +39,18 @@ class OnlineNetworkTest {
         val xml = transport.request(YandexMusicApi.secureUrl(preview.getString("downloadInfoUrl")), null, null)
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
+        val buffer = WaveAudioBuffer(context)
         var engine: ExoPlayer? = null
         var failure: PlaybackException? = null
         var position = 0L
         var playing = false
         try {
+            // Verify the new full-file path with actual public MP3 packets, without a personal account.
+            val track = Track("yandex:26219946", "Public preview", "", "", Source.YANDEX, 0, false)
+            buffer.prepare("protocol-probe", track) { YandexMusicApi.buildDirectLink(xml) }
             instrumentation.runOnMainSync {
                 engine = ExoPlayer.Builder(context).setMediaSourceFactory(DefaultMediaSourceFactory(context)
-                    .setDataSourceFactory(onlineDataSourceFactory(context) { _, _ -> YandexMusicApi.buildDirectLink(xml) })).build().apply {
+                    .setDataSourceFactory(onlineDataSourceFactory(context) { profile, id -> checkNotNull(buffer.uri(profile, id)) })).build().apply {
                     addListener(object : Player.Listener { override fun onPlayerError(error: PlaybackException) { failure = error } })
                     setMediaItem(MediaItem.fromUri(Uri.parse("ymplayer2://yandex/protocol-probe/yandex%3A26219946")))
                     prepare(); play()
@@ -57,9 +64,10 @@ class OnlineNetworkTest {
             assertNull("Media3 error code=${failure?.errorCode}", failure)
             assertTrue("Real public audio did not advance: $position", playing && position >= 2500)
             val report = JSONObject().put("publicPreview", true).put("credentialsUsed", false)
+                .put("verifiedTemporaryBuffer", true)
                 .put("realHttpsAudio", true).put("positionMs", position).put("playing", playing)
                 .put("androidApi", android.os.Build.VERSION.SDK_INT)
             File(context.getExternalFilesDir(null), "yandex-live-audio.json").writeText(report.toString(2))
-        } finally { instrumentation.runOnMainSync { engine?.release() } }
+        } finally { instrumentation.runOnMainSync { engine?.release() }; buffer.clear() }
     }
 }

@@ -42,6 +42,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     var failure: MusicFailure? = null
     @Volatile var streamFailure: MusicFailure? = null
     @Volatile var streamDelayMillis = 0L
+    @Volatile var brokenStreamTrackIds: Set<String> = emptySet()
+    @Volatile var streamGates: Map<String, CompletableDeferred<Unit>> = emptyMap()
     val resolved = java.util.concurrent.CopyOnWriteArrayList<Pair<String, String>>()
     var requests = 0
     val online = OnlineMusic(auth, object : OnlineMusicApi {
@@ -60,7 +62,10 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         override suspend fun stream(profileId: String, trackId: String): String = auth.withSession(profileId) {
             resolved += profileId to trackId
             delay(streamDelayMillis)
+            streamGates[trackId]?.await()
             streamFailure?.let { throw MusicException(it) }
+            if (trackId in brokenStreamTrackIds) return@withSession android.provider.DocumentsContract.buildDocumentUriUsingTree(
+                android.net.Uri.parse(library.state.value.tracks.first().uri), "broken.wav").toString()
             library.state.value.tracks[(trackId.removePrefix("yandex:").substringBefore(':').toInt() - 1) % 2].uri!!
         }
     }, viewModelScope)
@@ -90,10 +95,14 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     }, viewModelScope, online::refreshCollection)
     var waveDelayMillis = 100L
     var waveFailure: MusicFailure? = null
+    var waveFailuresRemaining = 0
+    val waveRequests = mutableListOf<Int>()
     val waveFeedback = mutableListOf<Triple<String, WaveTrack, WaveFeedback>>()
     val waveApi = object : MyWaveApi {
         private suspend fun batch(id: Int): WaveBatch {
+            waveRequests += id
             delay(waveDelayMillis); waveFailure?.let { throw MusicException(it) }
+            if (waveFailuresRemaining > 0) { waveFailuresRemaining--; throw MusicException(MusicFailure.NETWORK) }
             return WaveBatch(listOf(WaveTrack(onlineTrack(id), "batch$id")), "session", id.toString())
         }
         override suspend fun start(profileId: String) = batch(1)

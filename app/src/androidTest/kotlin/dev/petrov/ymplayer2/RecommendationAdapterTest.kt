@@ -159,4 +159,21 @@ class RecommendationAdapterTest {
         assertTrue(transport.writes.last().second.contains("totalPlayedSeconds" to "9"))
         assertTrue(transport.writes.last().second.contains("trackId" to "1"))
     }
+    @Test fun echoedListeningHistoryDoesNotHideThirdAndFourthRecommendations() = runBlocking {
+        var last = 3
+        val transport = Transport().apply { jsonResponse = { url ->
+            assertTrue(url.endsWith("/session/s/tracks"))
+            """{"result":{"batchId":"b$last","sequence":[${(1..last).joinToString(",") { """{"track":${track(it)}}""" }}]}}"""
+        } }
+        val api = YandexWaveApi(YandexMusicApi(auth(this), transport))
+        var previous = WaveBatch(emptyList(), "s", "2")
+        for (id in 3..4) {
+            last = id
+            val next = WaveLoader(api).load("owner", previous, (1 until id).mapTo(hashSetOf()) { it.toString() }) { true }
+            assertEquals(id.toString(), next.cursor)
+            assertEquals("yandex:$id:7", next.tracks.single().track.id)
+            assertEquals("b$id", next.tracks.single().batchId)
+            previous = next
+        }
+    }
 }

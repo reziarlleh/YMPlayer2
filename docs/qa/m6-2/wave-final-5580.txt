@@ -1,0 +1,7 @@
+
+dev.petrov.ymplayer2.MyWavePlaybackTest:............
+dev.petrov.ymplayer2.RecommendationAdapterTest:..........
+
+Time: 93.823
+
+OK (22 tests)

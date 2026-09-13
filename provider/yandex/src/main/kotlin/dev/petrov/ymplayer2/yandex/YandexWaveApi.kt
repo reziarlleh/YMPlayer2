@@ -34,18 +34,21 @@ class YandexWaveApi(private val music: YandexMusicApi) : MyWaveApi {
     private suspend fun parse(token: String, result: JSONObject, session: String, skip: String = ""): WaveBatch {
         val batch = result.optString("batchId").ifBlank { result.optString("batch_id") }
         val sequence = result.optJSONArray("sequence")?.objects().orEmpty()
-        // 1.x requests one next recommendation, keeping the first returned ID as cursor.
-        // Both embedded track objects and track IDs occur in session responses.
+        // Preserve the returned candidates for core to exclude the whole listening history.
+        // Returning only the first candidate can hide a new item behind an older echoed item.
+        val candidates = linkedMapOf<String, Track?>()
         for (row in sequence) {
             val embedded = row.optJSONObject("track")
             val id = (listOf("id", "trackId", "track_id", "realId").map { embedded?.optString(it).orEmpty() } +
                 listOf(row.optString("trackId"), row.optString("track"))).firstOrNull { it.isNotBlank() }.orEmpty().substringBefore(':')
             if (!id.matches(Regex("[0-9]+")) || id == skip) continue
             val direct = embedded?.takeIf { it.optString("title").isNotBlank() && it.optString("id") == id }?.let { music.trackEntry(it)?.track }
-            val track = direct ?: music.tracks(token, listOf(id)).firstOrNull() ?: continue
-            return WaveBatch(listOf(WaveTrack(track, batch)), session, id)
+            candidates.putIfAbsent(id, direct)
         }
-        return WaveBatch(emptyList(), session)
+        val unresolved = candidates.filterValues { it == null }.keys.toList()
+        val resolved = if (unresolved.isEmpty()) emptyMap() else music.tracks(token, unresolved).associateBy { it.tasteTarget().key }
+        val tracks = candidates.mapNotNull { (id, track) -> (track ?: resolved[id])?.let { WaveTrack(it, batch) } }
+        return WaveBatch(tracks, session, tracks.firstOrNull()?.track?.tasteTarget()?.key ?: skip)
     }
     override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) {
         if (item.batchId.isBlank()) return

@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.MyWavePlaybackTest:
+INSTRUMENTATION_STATUS: test=transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:18)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack(MyWavePlaybackTest.kt:52)
+
+INSTRUMENTATION_STATUS: stream=
+Error in transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack(dev.petrov.ymplayer2.MyWavePlaybackTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:18)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack(MyWavePlaybackTest.kt:52)
+
+INSTRUMENTATION_STATUS: test=transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 31.748
+There was 1 failure:
+1) transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack(dev.petrov.ymplayer2.MyWavePlaybackTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:18)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack(MyWavePlaybackTest.kt:52)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
