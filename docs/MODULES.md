@@ -102,6 +102,11 @@ M6.3: `OnlineMusic` управляет вложенными карточками
 предоставляет только текущий audioSessionId. Иконка EQ входит в контракт скина.
 [Решение](DECISIONS/ADR-013-fixed-player-and-artist-cards.md).
 
+M6.4: `PlaybackState.supportsQueueOrdering` отделяет обычный список от волны;
+`AndroidPlayback` разделяет остановку работы и завершение источника. Системный
+player facade направляет режимы в контроллер, а не непосредственно в ExoPlayer.
+[Правила Stop/Pause и отображения](DECISIONS/ADR-014-wave-source-and-queue-order.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

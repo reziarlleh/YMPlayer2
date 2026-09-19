@@ -116,7 +116,7 @@ class MyWavePlaybackTest {
         waitFor { fixture.resolved.any { it.second == "yandex:4:7" } }
         compose.runOnIdle { player.stop(); next.complete(Unit) }
         compose.waitForIdle()
-        assertFalse(player.state.value.wave); assertFalse(player.state.value.playing)
+        assertTrue(player.state.value.wave); assertFalse(player.state.value.playing)
         assertTrue(player.bufferedWaveAudioIds().isEmpty())
     }
     @Test fun systemPauseDuringNextRequestCannotRestartAudioOnLateReply() {

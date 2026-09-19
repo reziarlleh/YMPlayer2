@@ -57,7 +57,8 @@
 ## Сборки и проверка
 
 Репозиторий пока приватный. Выдаваемые beta APK и сведения об их проверке
-привязаны к номеру Build. [Главный экран и карточки M6.3](docs/M6_3_VERIFICATION.md),
+привязаны к номеру Build. [Режимы очереди и Stop волны M6.4](docs/M6_4_VERIFICATION.md),
+[главный экран и карточки M6.3](docs/M6_3_VERIFICATION.md),
 [продолжение волны M6.2](docs/M6_2_VERIFICATION.md),
 [видимые отметки M6.1](docs/M6_1_VERIFICATION.md),
 [волна и отметки M6](docs/M6_VERIFICATION.md),
@@ -68,7 +69,12 @@
 [отчёт M3.1](docs/M3_VERIFICATION.md), [отчёт M2](docs/M2_VERIFICATION.md),
 [история UI-прототипа M1](docs/M1_VERIFICATION.md).
 
-Последняя beta: [2.0.0beta-build14](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build14).
+Последняя beta: [2.0.0beta-build15](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build15).
+
+Build15 сохраняет режим «Моей волны» после Stop и восстановления. Повтор и
+перемешивание доступны только для обычных списков; системный контроллер тоже
+не может включить их для волны. Компоновка build14 сохранена.
+[Исправление и проверки M6.4](docs/M6_4_VERIFICATION.md).
 
 Build14 меняет главный плеер: все элементы помещаются без прокрутки, основные
 кнопки увеличены, действия исполнителей перенесены в «…». Имена открывают карточки

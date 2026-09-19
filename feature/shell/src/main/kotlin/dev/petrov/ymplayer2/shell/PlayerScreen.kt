@@ -73,7 +73,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             }
             Spacer(Modifier.weight(1f))
             if (state.wave) SkinIcon(UiIcon.WAVE, "Моя волна", Modifier.size(28.dp).testTag("wave_mode"))
-            else PlaybackModes(state, player)
+            else if (state.supportsQueueOrdering) PlaybackModes(state, player)
         }
     }
     BoxWithConstraints(Modifier.fillMaxSize().testTag("player_viewport").padding(horizontal = 16.dp, vertical = 4.dp)) {
@@ -134,7 +134,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         @Composable fun button(icon: UiIcon, label: String, click: () -> Unit, tag: String, primary: Boolean = false) {
             val size = if (primary) if (compact) 80.dp else 96.dp else 64.dp
             FilledIconButton(click, Modifier.size(size).prismFocus().testTag(tag).then(if (primary) Modifier.focusRequester(focus) else Modifier),
-                enabled = !primary || state.current?.available == true || state.waveLoading,
+                enabled = !primary || state.current?.available == true || state.wave,
                 colors = IconButtonDefaults.filledIconButtonColors(containerColor = if (primary) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceContainerHigh,
                     contentColor = if (primary) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface)) {
                 SkinIcon(icon, label, Modifier.size(if (primary) 48.dp else 36.dp))

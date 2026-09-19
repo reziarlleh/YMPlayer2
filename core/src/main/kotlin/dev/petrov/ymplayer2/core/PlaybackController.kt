@@ -23,6 +23,7 @@ data class PlaybackState(
     val recommendations: Boolean = false,
 ) {
     val current: Track? get() = queue.getOrNull(index)
+    val supportsQueueOrdering: Boolean get() = connected && queue.isNotEmpty() && !wave
 }
 
 interface PlaybackController {

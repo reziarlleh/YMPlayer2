@@ -62,14 +62,20 @@ class AudioService : MediaSessionService() {
  * are used by notification/headset controllers and by the on-screen transport. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = object : ForwardingPlayer(player) {
-    override fun getAvailableCommands(): Player.Commands = super.getAvailableCommands().buildUpon()
-        .add(Player.COMMAND_SEEK_TO_NEXT).add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM).build()
+    override fun getAvailableCommands(): Player.Commands {
+        val commands = super.getAvailableCommands().buildUpon()
+            .add(Player.COMMAND_SEEK_TO_NEXT).add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+        if (!playback.state.value.supportsQueueOrdering) commands.remove(Player.COMMAND_SET_REPEAT_MODE).remove(Player.COMMAND_SET_SHUFFLE_MODE)
+        return commands.build()
+    }
     override fun isCommandAvailable(command: Int) = availableCommands.contains(command)
     override fun seekToNext() { playback.skip(1) }
     override fun seekToNextMediaItem() { playback.skip(1) }
     override fun play() { playback.sessionPlay() }
     override fun pause() { playback.sessionPause() }
     override fun stop() { playback.stop() }
+    override fun setRepeatMode(repeatMode: Int) { playback.sessionRepeatMode(repeatMode) }
+    override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) { playback.setShuffle(shuffleModeEnabled) }
     override fun setPlayWhenReady(playWhenReady: Boolean) { if (playWhenReady) play() else pause() }
 }
 

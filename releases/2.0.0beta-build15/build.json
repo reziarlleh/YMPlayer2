@@ -1,0 +1,9 @@
+{
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionName": "2.0.0beta-build15",
+  "sha256": "0f025f9a71375a7bd1336c73c4e4a15afd5a19719ba7852ac53e84c187f7ee3c",
+  "runtimeAcceptance": "Android 35 and Android TV 29 emulator upgrade 14 to 15, retained state, launch and signed-out entry verified. Signed phone audio/background/system controls/paused restore passed with local fixtures. Wave Stop/resume/restore and repeat/shuffle guards passed in native fixture tests on both emulators. Physical HyperOS and personal My Wave await acceptance.",
+  "versionCode": 15,
+  "channel": "beta",
+  "builtAtUtc": "2026-09-19T08:23:28.9986916Z"
+}

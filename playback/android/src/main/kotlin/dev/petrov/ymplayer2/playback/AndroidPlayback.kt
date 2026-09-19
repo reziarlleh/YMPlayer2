@@ -124,7 +124,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             if (!waveResume) player.pause()
             publish(); return@command
         }
-        if (state.value.wave && state.value.waveIssue != null && (player.playbackState == Player.STATE_ENDED || state.value.current == null)) {
+        if (state.value.wave && (state.value.current == null || state.value.waveIssue != null && player.playbackState == Player.STATE_ENDED)) {
             waveResume = true; waveAdvance = true; fetchWave(); return@command
         }
         if (state.value.current?.available != true) return@command
@@ -136,9 +136,24 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
     }
     override fun stop() = command {
-        cancelWave()
-        mutable.value = state.value.copy(positionSeconds = 0)
-        engine?.pause(); engine?.seekTo(0); engine?.stop(); publish(); checkpoint()
+        val player = engine ?: return@command
+        player.pause()
+        if (state.value.wave) {
+            // Stop cancels audio/network work, not the selected station. A stopped wave
+            // must never become a finite, shuffleable copy of its current batch.
+            val upcoming = logicalQueue.getOrNull(state.value.index + 1)?.let { waveItems[it.id] }
+            val pending = upcoming?.let { waveBatch?.copy(tracks = listOf(it)) } ?: pendingWaveBatch
+            cancelWaveWork()
+            pendingWaveBatch = pending
+            waveAdvance = state.value.current == null
+            // Discard audio, retaining metadata. Resume must prepare the next full file again.
+            load(logicalQueue, state.value.index, 0)
+        } else {
+            cancelWave()
+            mutable.value = state.value.copy(positionSeconds = 0)
+            player.seekTo(0)
+        }
+        player.stop(); publish(); checkpoint()
     }
     override fun seek(seconds: Int) = command {
         val duration = state.value.current?.durationSeconds ?: 0
@@ -270,16 +285,26 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
     internal fun sessionPlay() = command {
         waveResume = true
-        if (state.value.wave && waveAdvance) { if (!state.value.waveLoading) fetchWave(); publish() }
+        if (state.value.wave && (waveAdvance || state.value.current == null)) {
+            waveAdvance = true
+            if (!state.value.waveLoading) fetchWave()
+            publish()
+        }
         else { engine?.prepare(); engine?.play() }
     }
     internal fun sessionPause() = command { waveResume = false; engine?.pause(); publish() }
-    private fun cancelWave() {
+    internal fun sessionRepeatMode(mode: Int) = setRepeatMode(mode.toRepeatMode())
+    private fun cancelWaveWork() {
         waveGeneration++; waveJob?.cancel(); waveJob = null
         waveTrackErrorJob?.cancel(); waveTrackErrorJob = null
         pendingWaveBatch = null; waveRecovery.reset(); waveAudio.clear(); failedWaveTracks = 0; wavePausePending = false
-        waveBatch = null; waveItems.clear(); waveAdvance = false; waveResume = false; waveStarted = null
-        mutable.value = state.value.copy(wave = false, waveLoading = false, waveIssue = null, recommendations = false)
+        waveAdvance = false; waveResume = false; waveStarted = null
+        mutable.value = state.value.copy(waveLoading = false, waveIssue = null)
+    }
+    private fun cancelWave() {
+        cancelWaveWork()
+        waveBatch = null; waveItems.clear()
+        mutable.value = state.value.copy(wave = false, recommendations = false)
     }
     private fun feedback(id: String?, type: WaveFeedback, seconds: Int = 0) {
         val api = waveApi ?: return
@@ -469,6 +494,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             val batches = json.optJSONObject("waveBatches")
             queue.forEach { waveItems[it.id] = WaveTrack(it, batches?.optString(it.id).orEmpty()) }
             waveBatch = WaveBatch(emptyList(), json.optString("waveSession"), json.optString("waveCursor"))
+                .takeUnless { queue.isEmpty() && it.sessionId.isBlank() && it.cursor.isBlank() }
             queue.getOrNull(index + 1)?.let { next ->
                 pendingWaveBatch = waveBatch!!.copy(tracks = listOf(waveItems.getValue(next.id)), cursor = next.tasteTarget().key)
             }

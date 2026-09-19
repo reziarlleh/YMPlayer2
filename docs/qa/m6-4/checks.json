@@ -1,0 +1,40 @@
+{
+  "build": {
+    "applicationId": "dev.petrov.ymplayer2",
+    "versionName": "2.0.0beta-build15",
+    "sha256": "0f025f9a71375a7bd1336c73c4e4a15afd5a19719ba7852ac53e84c187f7ee3c",
+    "runtimeAcceptance": "Android 35 and Android TV 29 emulator upgrade 14 to 15, retained state, launch and signed-out entry verified. Signed phone audio/background/system controls/paused restore passed with local fixtures. Wave Stop/resume/restore and repeat/shuffle guards passed in native fixture tests on both emulators. Physical HyperOS and personal My Wave await acceptance.",
+    "versionCode": 15,
+    "channel": "beta",
+    "builtAtUtc": "2026-09-19T08:23:28.9986916Z"
+  },
+  "jvm": {
+    "tests": 59,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "native": {
+    "Android35": {
+      "fullSuite": 86,
+      "focused": 3
+    },
+    "AndroidTV29": {
+      "fullSuite": 86
+    }
+  },
+  "beforeFix": {
+    "tests": 3,
+    "failures": 3,
+    "baseline": "6d9cbc396814da557a588729f9458d2be7cd2857"
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 20
+  },
+  "dates": {
+    "jvmFocusedAndTV": "2026-09-14",
+    "fullPhoneAndSignedUpgrade": "2026-09-19"
+  },
+  "note": "Actual Media3 with local audio/provider fixtures; no private account credentials. No Yandex API protocol or player geometry changes. Existing build14 200% layout matrix was not repeated; full PlayerCompositionTest is included in both 86-test suites."
+}
