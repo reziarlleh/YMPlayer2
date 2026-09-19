@@ -87,7 +87,7 @@ M6: `MusicTaste` и `MyWave` в core задают типизированные �
 адаптер провайдера. `ArtistRef`/`albumId` сохраняют идентичность объектов в
 очереди. `AndroidPlayback` владеет жизненным циклом волны и рекомендационной
 очередью; `TasteControls` только отображает состояние и передаёт команды.
-Офлайн-синхронизация не подключена; [границы и перенос](DECISIONS/ADR-011-wave-and-taste.md).
+В M6 офлайн-синхронизация ещё не была подключена; [границы и перенос](DECISIONS/ADR-011-wave-and-taste.md).
 
 M6.2: `WaveRecovery` задаёт ограниченные повторы, `WaveAudioBuffer` внутри playback
 готовит и проверяет полный следующий файл отдельно от текущего Media3 loader.
@@ -106,6 +106,13 @@ M6.4: `PlaybackState.supportsQueueOrdering` отделяет обычный сп
 `AndroidPlayback` разделяет остановку работы и завершение источника. Системный
 player facade направляет режимы в контроллер, а не непосредственно в ExoPlayer.
 [Правила Stop/Pause и отображения](DECISIONS/ADR-014-wave-source-and-queue-order.md).
+
+M7.1 добавляет `core/OfflineMusic` — состояние, принадлежность профиль/аккаунт,
+подтверждённые лайки, поколения работы и отмена. `YandexLikedMusicApi` получает
+только track likes; новый `:library:offline` проверяет и атомарно сохраняет файлы.
+`app/OfflineSyncService` обеспечивает фоновую ручную загрузку; shell использует
+контракты, playback выбирает проверенный офлайн-файл до сети.
+[Границы и источники алгоритмов](DECISIONS/ADR-015-liked-offline-sync.md).
 
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.

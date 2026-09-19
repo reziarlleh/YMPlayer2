@@ -7,3 +7,4 @@ rootProject.name = "YMPlayer2"
 include(":app", ":core", ":designsystem", ":feature:shell")
 include(":library:local", ":playback:android")
 include(":provider:yandex")
+include(":library:offline")

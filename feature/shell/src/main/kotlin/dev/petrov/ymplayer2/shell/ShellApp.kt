@@ -37,7 +37,7 @@ private val destinations = listOf(
     Destination("clips", "Клипы", UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val library by model.library.collectAsStateWithLifecycle()
     val demo = model.local == null
@@ -52,7 +52,7 @@ private val destinations = listOf(
     var collectionTrack by remember(playback.profileId) { mutableStateOf<Track?>(null) }
     var onlineSource by rememberSaveable(playback.profileId) { mutableStateOf(false) }
     val holder = rememberSaveableStateHolder()
-    val navigationRoute = if (route in listOf("playlists", "favorites", "folders")) "library" else route
+    val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline")) "library" else route
     val navigate: (String) -> Unit = {
         if (route == "account" && it != "account") model.accounts?.cancel()
         if (route == "artist" && it != "artist") model.online?.closeArtistCard()
@@ -83,7 +83,7 @@ private val destinations = listOf(
     BackHandler {
         when (route) {
             "account" -> navigate("profiles")
-            "playlists", "favorites", "folders" -> { libraryUpRequest++; navigate("library") }
+            "playlists", "favorites", "folders", "offline" -> { libraryUpRequest++; navigate("library") }
             "player" -> {
                 val now = SystemClock.elapsedRealtime()
                 if (exitAt?.let { now - it in 0..1999 } == true) { exitAt = null; onExit() }
@@ -134,6 +134,7 @@ private val destinations = listOf(
                                         if (!typingInShortWindow) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                             FilterChip(!onlineSource, { onlineSource = false }, { Text("Устройство / USB") }, Modifier.prismFocus().testTag("source_local"))
                                             FilterChip(onlineSource, { onlineSource = true }, { Text("Яндекс Музыка") }, Modifier.prismFocus().testTag("source_yandex"))
+                                            if (model.offline != null) FilterChip(false, { navigate("offline") }, { Text("Офлайн") }, Modifier.prismFocus().testTag("open_offline"))
                                         }
                                     }
                                     if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist)
@@ -146,11 +147,12 @@ private val destinations = listOf(
                                 }
                                 "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites") }
                                 "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
+                                "offline" -> model.offline?.let { OfflineScreen(it, model.player, syncOffline, { navigate("account") }) }
                                 "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
                                     model.player.switchProfile(it); navigate("player")
                                 }
                                 "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
-                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") })
+                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } })
                                 "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
                                 "clips" -> MessageScreen("Клипы", "Видеомодуль ещё разрабатывается", "Аудиоплеер продолжает работать при переходе между разделами.", UiIcon.CLIPS)
                             }

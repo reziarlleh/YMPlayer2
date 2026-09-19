@@ -17,7 +17,7 @@ interface PlaybackHost { val playback: AndroidPlayback }
 /** Main-thread command adapter. The service alone creates/releases the audio engine. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class AndroidPlayback(private val context: Context, private val library: LocalLibrary, private val scope: CoroutineScope, private val online: OnlineMusic? = null,
-    private val taste: MusicTaste? = null, private val waveApi: MyWaveApi? = null) : PlaybackController {
+    private val taste: MusicTaste? = null, private val waveApi: MyWaveApi? = null, private val offline: OfflineMusic? = null) : PlaybackController {
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
@@ -90,6 +90,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         })
         job = scope.launch {
             online?.let { music -> launch { music.catalog.collect { reconcileOnline() } } }
+            offline?.let { cache -> launch { cache.state.collect { if (ready && !restoring) reconcileOnline() } } }
             taste?.let { preferences -> launch { preferences.state.collect { filterWave() } } }
             launch {
                 library.state.collect { catalog ->
@@ -448,11 +449,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun remoteEnabled(profile: String) = online?.catalog?.value?.let { it.profileId == profile && it.enabled } == true
     private fun knownTracks(profile: String): List<Track> = library.tracks(profile) + if (remoteEnabled(profile))
-        (logicalQueue.filter { it.source == Source.YANDEX } + online!!.tracksForPlayback(profile)).associateBy(Track::id).values else emptyList()
+        (logicalQueue.filter { it.source == Source.YANDEX } + online!!.tracksForPlayback(profile) + offline?.tracks(profile).orEmpty())
+            .associateBy(Track::id).values.map { offline?.decorate(profile, it) ?: it } else emptyList()
 
     /** Called on the Media3 loader thread, never the main thread. No token or signed URI enters a MediaItem. */
     internal fun resolveStream(profile: String, trackId: String): String {
         val music = online ?: throw java.io.IOException("Online source unavailable")
+        if (profile == state.value.profileId && remoteEnabled(profile)) runBlocking { offline?.audio(profile, trackId) }?.let { return it }
         if (state.value.wave && profile == state.value.profileId && remoteEnabled(profile)) waveAudio.uri(profile, trackId)?.let { return it }
         return try { runBlocking { withTimeout(60_000) { music.api.stream(profile, trackId) } } }
         catch (e: Exception) { throw java.io.IOException("Online source unavailable", e) }
@@ -520,7 +523,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val state = state.value
         tracksById = (library.tracks(state.profileId) + online?.catalog?.value?.takeIf { it.profileId == state.profileId && it.enabled }?.tracks.orEmpty()).associateBy(Track::id)
         val next = if (followLibrary) defaultQueue(state.profileId) else logicalQueue.map { track ->
-            if (track.source == Source.YANDEX) (tracksById[track.id] ?: track.copy(available = true)).let { it.copy(available = it.available && remoteEnabled(state.profileId)) }
+            if (track.source == Source.YANDEX) (tracksById[track.id] ?: track.copy(available = true, offline = false)).let {
+                val decorated = offline?.decorate(state.profileId, it) ?: it
+                decorated.copy(available = decorated.available && remoteEnabled(state.profileId))
+            }
             else tracksById[track.id] ?: track.copy(available = false, uri = null)
         }
         if (next == state.queue) return

@@ -17,6 +17,7 @@ import dev.petrov.ymplayer2.core.Track
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.yandex.MusicTransport
 import kotlinx.coroutines.yield
+import kotlinx.coroutines.delay
 import dev.petrov.ymplayer2.yandex.HttpsMusicTransport
 import dev.petrov.ymplayer2.yandex.YandexMusicApi
 import kotlinx.coroutines.runBlocking
@@ -31,6 +32,44 @@ import java.io.File
 @RunWith(AndroidJUnit4::class)
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class OnlineNetworkTest {
+    @Test fun publicPreviewAndRealArtworkAreVerifiedInPermanentOfflineStore() = runBlocking {
+        assumeTrue(InstrumentationRegistry.getArguments().getString("yandexLiveProbe") == "true")
+        val transport = HttpsMusicTransport()
+        val details = JSONObject(transport.request("https://api.music.yandex.net/tracks/26219946", null, null)).getJSONArray("result").getJSONObject(0)
+        val cover = details.optString("coverUri").ifBlank { details.getJSONArray("albums").getJSONObject(0).getString("coverUri") }
+        val variants = JSONObject(transport.request("https://api.music.yandex.net/tracks/26219946/download-info", null, null)).getJSONArray("result")
+        val preview = (0 until variants.length()).map { variants.getJSONObject(it) }.first { it.optBoolean("preview") && it.optString("codec") == "mp3" }
+        val xml = transport.request(YandexMusicApi.secureUrl(preview.getString("downloadInfoUrl")), null, null)
+        val instrumentation = InstrumentationRegistry.getInstrumentation(); val context = instrumentation.targetContext
+        val store = dev.petrov.ymplayer2.offline.LikedFileStore(context)
+        val owner = OfflineOwner("public-protocol-probe", "no-account")
+        val track = Track("yandex:26219946", "Public preview", "", "", Source.YANDEX, 0, false,
+            artworkUri = YandexMusicApi.secureUrl(cover.replace("%%", "400x400")))
+        var engine: ExoPlayer? = null; var failure: PlaybackException? = null
+        try {
+            store.clear(owner)
+            val result = store.sync(owner, track, { YandexMusicApi.buildDirectLink(xml) }, { true }, {})
+            assertFalse(result.audioFailed); assertFalse(result.coverFailed); assertFalse(result.noCover)
+            val stored = store.load(owner).single()
+            assertTrue(stored.offline); assertNotNull(stored.artworkUri)
+            val file = store.audio(owner, track.id)!!
+            instrumentation.runOnMainSync {
+                engine = ExoPlayer.Builder(context).build().apply {
+                    addListener(object : Player.Listener { override fun onPlayerError(error: PlaybackException) { failure = error } })
+                    setMediaItem(MediaItem.fromUri(file)); prepare(); play()
+                }
+            }
+            var position = 0L; var playing = false
+            val deadline = SystemClock.elapsedRealtime() + 30000
+            while (SystemClock.elapsedRealtime() < deadline && position < 2500 && failure == null) {
+                delay(100); instrumentation.runOnMainSync { position = engine!!.currentPosition; playing = engine!!.isPlaying }
+            }
+            assertNull(failure); assertTrue(playing && position >= 2500)
+            File(context.getExternalFilesDir(null), "offline-live.json").writeText(JSONObject()
+                .put("credentialsUsed", false).put("publicPreview", true).put("audioVerified", true).put("realCoverVerified", true)
+                .put("restoredFromDisk", true).put("positionMs", position).put("bytes", stored.sizeBytes).put("androidApi", android.os.Build.VERSION.SDK_INT).toString(2))
+        } finally { instrumentation.runOnMainSync { engine?.release() }; store.clear(owner) }
+    }
     @Test fun publicArtistCardUsesRealPopularTracksAndAlbumResponses() = runBlocking {
         assumeTrue(InstrumentationRegistry.getArguments().getString("yandexLiveProbe") == "true")
         val session = AccountSession(YandexAccount("1", "Public protocol probe"), OAuthCredentials("fixture-not-sent", null, null))

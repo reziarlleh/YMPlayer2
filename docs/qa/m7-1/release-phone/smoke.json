@@ -1,0 +1,7 @@
+{
+  "version": "2.0.0beta-build16",
+  "offlineSignInPrompt": true,
+  "onlineSignInPrompt": true,
+  "accountEntryAvailable": true,
+  "passed": true
+}

@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0beta-build16",
+  "missingDocumentsUiExplained": true,
+  "offlineSignInPrompt": true,
+  "onlineSignInPrompt": true,
+  "accountEntryAvailable": true,
+  "passed": true
+}

@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer {
-                    ShellModel(graph.library, graph.playback, createSavedStateHandle(), graph.collections, graph.accounts, graph.online, graph.taste)
+                    ShellModel(graph.library, graph.playback, createSavedStateHandle(), graph.collections, graph.accounts, graph.online, graph.taste, graph.offline)
                 }
             })
             var source by rememberSaveable { mutableStateOf(Source.LOCAL) }
@@ -46,7 +46,10 @@ class MainActivity : ComponentActivity() {
                 source = it; pickerIssue = null
                 try { picker.launch(null) }
                 catch (_: ActivityNotFoundException) { pickerIssue = "На устройстве нет системного выбора папки. Нужен файловый менеджер с поддержкой Storage Access Framework." }
-            }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open)
+            }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
+                try { startForegroundService(android.content.Intent(this, OfflineSyncService::class.java)) }
+                catch (_: Exception) { graph.offline.report("Не удалось запустить фоновую синхронизацию. Повторите из открытого приложения.") }
+            })
         }
     }
 }

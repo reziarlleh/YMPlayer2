@@ -13,6 +13,9 @@ import dev.petrov.ymplayer2.yandex.YandexDeviceApi
 import dev.petrov.ymplayer2.yandex.YandexMusicApi
 import dev.petrov.ymplayer2.yandex.YandexTasteApi
 import dev.petrov.ymplayer2.yandex.YandexWaveApi
+import dev.petrov.ymplayer2.core.OfflineMusic
+import dev.petrov.ymplayer2.offline.LikedFileStore
+import dev.petrov.ymplayer2.yandex.YandexLikedMusicApi
 import kotlinx.coroutines.*
 
 class PlayerApplication : Application(), PlaybackHost {
@@ -22,7 +25,15 @@ class PlayerApplication : Application(), PlaybackHost {
     private val musicApi by lazy { YandexMusicApi(accounts) }
     val online by lazy { OnlineMusic(accounts, musicApi, scope) }
     val taste by lazy { MusicTaste(accounts, YandexTasteApi(musicApi), scope, online::refreshCollection) }
-    override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi)) }
+    private val offlinePrefs by lazy { getSharedPreferences("offline", MODE_PRIVATE) }
+    val offline by lazy { OfflineMusic(accounts, taste, YandexLikedMusicApi(musicApi), musicApi, LikedFileStore(this), scope,
+        offlinePrefs.getBoolean("wifiOnly", true), { offlinePrefs.edit().putBoolean("wifiOnly", it).apply() }, { wifi ->
+            val manager = getSystemService(android.net.ConnectivityManager::class.java)
+            val caps = manager.getNetworkCapabilities(manager.activeNetwork)
+            caps != null && caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
+                (!wifi || caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI))
+        }) }
+    override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi), offline) }
     val accounts by lazy { AccountAuth(library.profiles,
         YandexDeviceApi(this, BuildConfig.YANDEX_CLIENT_ID, BuildConfig.YANDEX_CLIENT_SECRET), KeystoreAccountStore(this), scope) }
 }

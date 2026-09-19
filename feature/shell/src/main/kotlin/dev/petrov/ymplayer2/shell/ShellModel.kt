@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import dev.petrov.ymplayer2.core.*
 
 /** Screens depend on contracts; the debug demo supplies its own explicit fixtures. */
-class ShellModel(val catalog: Catalog, val player: PlaybackController, savedState: SavedStateHandle, val collections: UserCollections? = null, val accounts: AccountAuth? = null, val online: OnlineMusic? = null, val taste: MusicTaste? = null) : ViewModel() {
+class ShellModel(val catalog: Catalog, val player: PlaybackController, savedState: SavedStateHandle, val collections: UserCollections? = null, val accounts: AccountAuth? = null, val online: OnlineMusic? = null, val taste: MusicTaste? = null, val offline: OfflineMusic? = null) : ViewModel() {
     val local get() = catalog as? LocalLibrary
     val library = local?.state ?: kotlinx.coroutines.flow.MutableStateFlow(LibrarySnapshot(ready = true))
     fun addFolder(uri: String, source: Source) { viewModelScope.launch { local?.addFolder(uri, source) } }

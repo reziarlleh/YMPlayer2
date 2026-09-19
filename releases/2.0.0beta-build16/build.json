@@ -1,0 +1,9 @@
+{
+  "builtAtUtc": "2026-09-19T14:11:03.9991932Z",
+  "versionCode": 16,
+  "sha256": "b086033a612dd83f207880ce7395f1864702761781a5d313011f8e9d911fc77c",
+  "runtimeAcceptance": "Android 35 and Android TV 29 emulator upgrade 15 to 16, retained state, launch and signed-out offline/account entry verified. Signed phone audio/background/system controls/paused restore passed with local fixtures. Offline sync, separate repair, cancellation/unlike races and profile/account isolation passed in JVM/native tests; real foreground service verified on both emulators. Public Yandex MP3 preview and artwork downloaded, verified and played from permanent store on both emulators without credentials. Personal full collection, long subscription tracks and physical HyperOS await acceptance.",
+  "channel": "beta",
+  "versionName": "2.0.0beta-build16",
+  "applicationId": "dev.petrov.ymplayer2"
+}

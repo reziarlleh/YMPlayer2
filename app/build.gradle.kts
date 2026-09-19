@@ -59,6 +59,7 @@ gradle.taskGraph.whenReady {
 dependencies {
     implementation(project(":core"))
     implementation(project(":library:local"))
+    implementation(project(":library:offline"))
     implementation(project(":playback:android"))
     implementation(project(":provider:yandex"))
     implementation(libs.coroutines.android)

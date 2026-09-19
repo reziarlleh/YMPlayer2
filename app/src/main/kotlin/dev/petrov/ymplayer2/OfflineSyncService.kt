@@ -1,0 +1,51 @@
+package dev.petrov.ymplayer2
+
+import android.app.*
+import android.content.Intent
+import android.content.pm.ServiceInfo
+import android.content.pm.PackageManager
+import android.Manifest
+import android.os.Build
+import android.os.IBinder
+import dev.petrov.ymplayer2.core.OfflineState
+import kotlinx.coroutines.*
+
+/** User-started download, separate from the audio foreground service. Never auto-starts on boot. */
+open class OfflineSyncService : Service() {
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    protected open val offline get() = (application as PlayerApplication).offline
+    private var watching: Job? = null
+    override fun onBind(intent: Intent?): IBinder? = null
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent?.action == CANCEL) { offline.cancel(); finish(); return START_NOT_STICKY }
+        val manager = getSystemService(NotificationManager::class.java)
+        manager.createNotificationChannel(NotificationChannel(CHANNEL, "Офлайн-музыка", NotificationManager.IMPORTANCE_LOW))
+        startForeground(ID, notification(offline.state.value), ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        if (watching != null) return START_NOT_STICKY
+        offline.sync()
+        watching = scope.launch {
+            offline.state.collect { state ->
+                if (!state.running) finish()
+                else if (Build.VERSION.SDK_INT < 33 || checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED)
+                    manager.notify(ID, notification(state))
+            }
+        }
+        return START_NOT_STICKY
+    }
+    override fun onTimeout(startId: Int, fgsType: Int) { offline.cancel(); offline.report("Android остановил длительную синхронизацию. Готовые файлы сохранены."); finish() }
+    override fun onDestroy() { if (offline.state.value.running) offline.cancel(); scope.cancel(); super.onDestroy() }
+    private fun finish() { stopForeground(STOP_FOREGROUND_REMOVE); stopSelf() }
+    private fun notification(state: OfflineState): Notification {
+        val open = PendingIntent.getActivity(this, 21, Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val cancel = PendingIntent.getService(this, 22, Intent(this, OfflineSyncService::class.java).setAction(CANCEL), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        return Notification.Builder(this, CHANNEL).setSmallIcon(R.drawable.ic_launcher).setContentTitle("«Мне нравится» офлайн")
+            .setContentText(state.message ?: "Подготовка…").setContentIntent(open).setOnlyAlertOnce(true).setOngoing(true)
+            .setCategory(Notification.CATEGORY_PROGRESS).setProgress(state.total, state.checked, state.total == 0)
+            .addAction(Notification.Action.Builder(null, "Остановить", cancel).build()).build()
+    }
+    companion object {
+        private const val CHANNEL = "offline-sync"
+        private const val ID = 201
+        private const val CANCEL = "dev.petrov.ymplayer2.OFFLINE_CANCEL"
+    }
+}

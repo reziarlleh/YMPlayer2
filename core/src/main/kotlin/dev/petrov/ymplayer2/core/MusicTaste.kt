@@ -21,8 +21,8 @@ data class TasteList(val liked: Set<String> = emptySet(), val blocked: Set<Strin
     fun allows(track: Track, artists: TasteList): Boolean =
         track.tasteTarget().key !in blocked && track.artists.none { it.id in artists.blocked }
 }
-data class TasteShelf(val list: TasteList = TasteList(), val ready: Boolean = false, val busy: Boolean = false, val issue: String? = null)
-data class TasteState(val profileId: String = "", val signedIn: Boolean = false, val shelves: Map<TasteKind, TasteShelf> = emptyMap(), val revision: Long = 0) {
+data class TasteShelf(val list: TasteList = TasteList(), val ready: Boolean = false, val busy: Boolean = false, val issue: String? = null, val verifiedRevision: Long = 0)
+data class TasteState(val profileId: String = "", val signedIn: Boolean = false, val shelves: Map<TasteKind, TasteShelf> = emptyMap(), val revision: Long = 0, val accountId: String? = null) {
     fun shelf(kind: TasteKind) = shelves[kind] ?: TasteShelf()
     fun allows(track: Track) = shelf(TasteKind.TRACK).list.allows(track, shelf(TasteKind.ARTIST).list)
 }
@@ -41,9 +41,9 @@ class MusicTaste(private val accounts: AccountAuth, private val api: MusicTasteA
     private var tasks: Job? = null
 
     init { scope.launch {
-        accounts.state.map { it.profileId to it.phase }.distinctUntilChanged().collect { (profile, phase) ->
+        accounts.state.map { Triple(it.profileId, it.phase, it.account?.id) }.distinctUntilChanged().collect { (profile, phase, account) ->
             generation++; tasks?.cancel()
-            mutable.value = TasteState(profile, phase == AuthPhase.SIGNED_IN)
+            mutable.value = TasteState(profile, phase == AuthPhase.SIGNED_IN, accountId = account)
             if (phase == AuthPhase.SIGNED_IN) tasks = launch { TasteKind.entries.forEach { kind -> launch { refreshNow(kind) } } }
         }
     } }
@@ -57,7 +57,7 @@ class MusicTaste(private val accounts: AccountAuth, private val api: MusicTasteA
         try {
             val list = api.taste(before.profileId, kind)
             currentCoroutineContext().ensureActive()
-            if (ticket == generation) put(kind, TasteShelf(list, ready = true))
+            if (ticket == generation) put(kind, TasteShelf(list, ready = true, verifiedRevision = before.shelf(kind).verifiedRevision + 1))
         } catch (e: CancellationException) { throw e }
         catch (e: Exception) { if (ticket == generation) put(kind, before.shelf(kind).copy(busy = false, issue = failure(e))) }
     }
@@ -87,7 +87,7 @@ class MusicTaste(private val accounts: AccountAuth, private val api: MusicTasteA
                     val list = api.taste(before.profileId, target.kind)
                     currentCoroutineContext().ensureActive()
                     if (ticket == generation) {
-                        put(target.kind, TasteShelf(list, ready = true, issue = writeFailure?.let(::failure)))
+                        put(target.kind, TasteShelf(list, ready = true, issue = writeFailure?.let(::failure), verifiedRevision = shelf.verifiedRevision + 1))
                         mutable.value = state.value.copy(revision = state.value.revision + 1)
                         changed()
                     }

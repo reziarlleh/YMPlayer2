@@ -27,6 +27,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     val library = (app as PlayerApplication).library
     private val context = object : ContextWrapper(app) {
         override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("online-fixture-$name", mode)
+        override fun getFilesDir() = java.io.File(super.getFilesDir(), "online-fixture").apply { mkdirs() }
     }
     init { context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit() }
     private val sessions = mutableMapOf("owner" to session("1"), "road" to session("2"))
@@ -96,6 +97,18 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             }
         }
     }, viewModelScope, online::refreshCollection)
+    var offlineArtwork: String? = null
+    var offlineNetwork = true
+    val offlineStore = dev.petrov.ymplayer2.offline.LikedFileStore(context)
+    val offline = OfflineMusic(auth, taste, object : LikedMusicApi {
+        override suspend fun keys(profileId: String) = tasteLists[profileId to TasteKind.TRACK]?.listKeys().orEmpty()
+        override suspend fun snapshot(profileId: String): LikedSnapshot {
+            failure?.let { throw MusicException(it) }
+            val keys = keys(profileId)
+            return LikedSnapshot(keys, keys.map { onlineTrack(it.toInt()).copy(artworkUri = offlineArtwork) })
+        }
+        private fun TasteList.listKeys() = liked - blocked
+    }, online.api, offlineStore, viewModelScope, network = { offlineNetwork })
     var waveDelayMillis = 100L
     var waveFailure: MusicFailure? = null
     var waveFailuresRemaining = 0
@@ -112,7 +125,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         override suspend fun next(profileId: String, previous: WaveBatch) = batch(previous.cursor.toInt() + 1)
         override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) { waveFeedback += Triple(profileId, item, type) }
     }
-    val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi)
+    val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi, offline)
     val systemPlayer get() = sessionPlayer(engine!!, player)
     private var engine: ExoPlayer? = null
     init { createEngine() }
@@ -132,7 +145,7 @@ class OnlineTestActivity : ComponentActivity() {
         super.onCreate(savedInstanceState); enableEdgeToEdge()
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
-                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste) }
+                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline) }
             })
             ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it })
         }

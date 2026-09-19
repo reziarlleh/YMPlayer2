@@ -1,0 +1,7 @@
+
+dev.petrov.ymplayer2.OfflinePlaybackTest:..........
+dev.petrov.ymplayer2.OfflineAdapterTest:...
+
+Time: 43.253
+
+OK (13 tests)
