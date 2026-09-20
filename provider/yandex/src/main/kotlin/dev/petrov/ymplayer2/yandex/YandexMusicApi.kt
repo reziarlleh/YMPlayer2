@@ -148,15 +148,24 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         return result
     }
 
-    override suspend fun stream(profileId: String, trackId: String): String = safe {
+    override suspend fun stream(profileId: String, trackId: String, quality: AudioQuality): String = safe {
         require(trackId.startsWith("yandex:"))
         val id = trackKey(trackId.removePrefix("yandex:"))
         accounts.withSession(profileId) { session ->
             val variants = api(session.credentials.accessToken, "/tracks/$id/download-info") as JSONArray
-            // Same default AUTO choice as 1.x chooseDownloadInfo: skip previews,
-            // highest bitrate, with the original small MP3 preference (not an MP3-only filter).
+            // 1.x chooseDownloadInfo: best <= target, otherwise closest above it.
+            // AUTO/MAX choose the highest bitrate. Preserve the small MP3 bonus and skip previews.
             val best = variants.objects().filter { !it.optBoolean("preview", false) }
-                .maxByOrNull { it.optInt("bitrateInKbps", 0) + if (it.optString("codec").equals("mp3", true)) 2 else 0 }
+                .maxByOrNull {
+                    val bitrate = it.optInt("bitrateInKbps", 0).toLong()
+                    val bonus = if (it.optString("codec").equals("mp3", true)) 2 else 0
+                    val target = quality.targetKbps
+                    when {
+                        target == null -> bitrate + bonus
+                        bitrate <= target -> 200_000 + bitrate + bonus
+                        else -> 100_000 - kotlin.math.abs(bitrate - target) + bonus
+                    }
+                }
                 ?: throw MusicException(MusicFailure.UNAVAILABLE)
             val infoUrl = secureUrl(best.getString("downloadInfoUrl"))
             // The signed media URL itself grants access. OAuth never leaves the API origin.

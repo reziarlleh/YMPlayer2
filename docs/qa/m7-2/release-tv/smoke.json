@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0beta-build17",
+  "missingDocumentsUiExplained": true,
+  "offlineSignInPrompt": true,
+  "onlineSignInPrompt": true,
+  "accountEntryAvailable": true,
+  "qualityDpadSelection": true,
+  "qualityDefaultsAuto": true,
+  "qualityChoicesPersistedAfterProcessRestart": true,
+  "qualityBackToSettings": true,
+  "passed": true
+}

@@ -1,0 +1,7 @@
+
+dev.petrov.ymplayer2.AudioQualityAdapterTest:...
+dev.petrov.ymplayer2.AudioQualityPlaybackTest:....
+
+Time: 30.04
+
+OK (7 tests)

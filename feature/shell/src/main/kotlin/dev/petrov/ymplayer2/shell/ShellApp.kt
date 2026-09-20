@@ -82,6 +82,7 @@ private val destinations = listOf(
     LaunchedEffect(exitAt) { if (exitAt != null) { delay(2000); exitAt = null } }
     BackHandler {
         when (route) {
+            "quality" -> navigate("settings")
             "account" -> navigate("profiles")
             "playlists", "favorites", "folders", "offline" -> { libraryUpRequest++; navigate("library") }
             "player" -> {
@@ -152,7 +153,8 @@ private val destinations = listOf(
                                     model.player.switchProfile(it); navigate("player")
                                 }
                                 "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
-                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } })
+                                "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
+                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } }, model.audioQuality?.let { { navigate("quality") } })
                                 "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
                                 "clips" -> MessageScreen("Клипы", "Видеомодуль ещё разрабатывается", "Аудиоплеер продолжает работать при переходе между разделами.", UiIcon.CLIPS)
                             }

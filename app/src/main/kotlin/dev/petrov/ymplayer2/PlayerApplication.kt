@@ -26,14 +26,16 @@ class PlayerApplication : Application(), PlaybackHost {
     val online by lazy { OnlineMusic(accounts, musicApi, scope) }
     val taste by lazy { MusicTaste(accounts, YandexTasteApi(musicApi), scope, online::refreshCollection) }
     private val offlinePrefs by lazy { getSharedPreferences("offline", MODE_PRIVATE) }
+    val audioQuality by lazy { loadAudioQuality(this) }
     val offline by lazy { OfflineMusic(accounts, taste, YandexLikedMusicApi(musicApi), musicApi, LikedFileStore(this), scope,
         offlinePrefs.getBoolean("wifiOnly", true), { offlinePrefs.edit().putBoolean("wifiOnly", it).apply() }, { wifi ->
             val manager = getSystemService(android.net.ConnectivityManager::class.java)
             val caps = manager.getNetworkCapabilities(manager.activeNetwork)
             caps != null && caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
                 (!wifi || caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI))
-        }) }
-    override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi), offline) }
+        }, cacheQuality = { audioQuality.state.value.cache }) }
+    override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi), offline,
+        streamQuality = { audioQuality.state.value.stream }) }
     val accounts by lazy { AccountAuth(library.profiles,
         YandexDeviceApi(this, BuildConfig.YANDEX_CLIENT_ID, BuildConfig.YANDEX_CLIENT_SECRET), KeystoreAccountStore(this), scope) }
 }

@@ -14,7 +14,7 @@ class OnlineMusicTest {
             requests += request to page
             return handle(request, page)
         }
-        override suspend fun stream(profileId: String, trackId: String) = error("not used by the screen")
+        override suspend fun stream(profileId: String, trackId: String, quality: AudioQuality) = error("not used by the screen")
     }
     private fun TestScope.auth(): AccountAuth {
         val saved = mutableMapOf("owner" to AccountSession(YandexAccount("1", "One"), OAuthCredentials("fixture-one", null, null)),

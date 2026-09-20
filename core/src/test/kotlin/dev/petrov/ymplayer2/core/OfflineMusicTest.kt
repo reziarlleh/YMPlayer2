@@ -62,7 +62,7 @@ class OfflineMusicTest {
         }
         val online = object : OnlineMusicApi {
             override suspend fun page(profileId: String, request: MusicRequest, page: Int) = error("Offline sync must not traverse artist/album/catalog pages")
-            override suspend fun stream(profileId: String, trackId: String) = "unused"
+            override suspend fun stream(profileId: String, trackId: String, quality: AudioQuality) = "unused"
         }
         val store = Store()
         var network = true

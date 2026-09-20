@@ -23,7 +23,7 @@ fun MusicFailure.message() = when (this) {
 
 interface OnlineMusicApi {
     suspend fun page(profileId: String, request: MusicRequest, page: Int): MusicPage
-    suspend fun stream(profileId: String, trackId: String): String
+    suspend fun stream(profileId: String, trackId: String, quality: AudioQuality = AudioQuality.AUTO): String
 }
 data class OnlineCatalogState(val profileId: String = "", val phase: AuthPhase = AuthPhase.LOADING, val tracks: List<Track> = emptyList()) {
     val enabled get() = phase == AuthPhase.SIGNED_IN

@@ -1,0 +1,10 @@
+{
+  "version": "2.0.0beta-build17",
+  "offlineSignInPrompt": true,
+  "onlineSignInPrompt": true,
+  "accountEntryAvailable": true,
+  "qualityDefaultsAuto": true,
+  "qualityChoicesPersistedAfterProcessRestart": true,
+  "qualityBackToSettings": true,
+  "passed": true
+}

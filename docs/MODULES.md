@@ -114,6 +114,12 @@ M7.1 добавляет `core/OfflineMusic` — состояние, принад
 контракты, playback выбирает проверенный офлайн-файл до сети.
 [Границы и источники алгоритмов](DECISIONS/ADR-015-liked-offline-sync.md).
 
+M7.2: `AudioQualityPreferences` в ядре хранит независимые предпочтения потока
+и кэша. `app/AudioQualitySettings` сохраняет ключи в preferences, shell отображает
+выбор. Плеер и синхронизация передают снимок нужного качества в `OnlineMusicApi`;
+`YandexMusicApi` выбирает вариант по проверенной формуле 1.x. Настройки не владеют
+плеером или файлами. [Решение](DECISIONS/ADR-016-audio-quality.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

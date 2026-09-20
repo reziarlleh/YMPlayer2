@@ -32,7 +32,7 @@ data class OfflineState(
 class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTaste, private val api: LikedMusicApi,
     private val online: OnlineMusicApi, private val store: OfflineStore, private val scope: CoroutineScope,
     wifiOnly: Boolean = true, private val saveWifi: (Boolean) -> Unit = {},
-    private val network: (Boolean) -> Boolean = { true }) {
+    private val network: (Boolean) -> Boolean = { true }, private val cacheQuality: () -> AudioQuality = { AudioQuality.AUTO }) {
     private val mutable = MutableStateFlow(OfflineState(wifiOnly = wifiOnly))
     val state = mutable.asStateFlow()
     @Volatile private var generation = 0L
@@ -128,7 +128,8 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
                     val key = track.tasteTarget().key
                     if (key in excluded) continue
                     mutable.value = state.value.copy(message = "${state.value.checked + 1}/${rows.size} · ${track.title}")
-                    val result = store.sync(owner, track, { online.stream(owner.profileId, track.id) }, { valid(owner, ticket) && key !in excluded }, ::transfer)
+                    val quality = cacheQuality()
+                    val result = store.sync(owner, track, { online.stream(owner.profileId, track.id, quality) }, { valid(owner, ticket) && key !in excluded }, ::transfer)
                     ensureActive()
                     if (!valid(owner, ticket)) return@launch
                     if (key !in excluded) {

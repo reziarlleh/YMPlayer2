@@ -17,7 +17,8 @@ interface PlaybackHost { val playback: AndroidPlayback }
 /** Main-thread command adapter. The service alone creates/releases the audio engine. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class AndroidPlayback(private val context: Context, private val library: LocalLibrary, private val scope: CoroutineScope, private val online: OnlineMusic? = null,
-    private val taste: MusicTaste? = null, private val waveApi: MyWaveApi? = null, private val offline: OfflineMusic? = null) : PlaybackController {
+    private val taste: MusicTaste? = null, private val waveApi: MyWaveApi? = null, private val offline: OfflineMusic? = null,
+    private val streamQuality: () -> AudioQuality = { AudioQuality.AUTO }) : PlaybackController {
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
@@ -377,7 +378,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                         // complete audio prefetch before joining Media3's playlist, so a bad future
                         // source cannot fail the loader of the track that is still playing.
                         waveAudio.retain(profile, setOfNotNull(state.value.current?.id, item.track.id))
-                        if (state.value.current != null) waveAudio.prepare(profile, item.track) { online!!.api.stream(profile, item.track.id) }
+                        val quality = streamQuality()
+                        if (state.value.current != null) waveAudio.prepare(profile, item.track) { online!!.api.stream(profile, item.track.id, quality) }
                         ensureActive()
                         if (taste?.state?.value?.allows(item.track) == false) throw MusicException(MusicFailure.UNAVAILABLE)
                         prepared = candidate
@@ -457,7 +459,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val music = online ?: throw java.io.IOException("Online source unavailable")
         if (profile == state.value.profileId && remoteEnabled(profile)) runBlocking { offline?.audio(profile, trackId) }?.let { return it }
         if (state.value.wave && profile == state.value.profileId && remoteEnabled(profile)) waveAudio.uri(profile, trackId)?.let { return it }
-        return try { runBlocking { withTimeout(60_000) { music.api.stream(profile, trackId) } } }
+        val quality = streamQuality()
+        return try { runBlocking { withTimeout(60_000) { music.api.stream(profile, trackId, quality) } } }
         catch (e: Exception) { throw java.io.IOException("Online source unavailable", e) }
     }
     internal fun bufferedWaveAudioIds() = waveAudio.ids()
