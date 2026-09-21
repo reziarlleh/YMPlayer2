@@ -47,11 +47,19 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     @Volatile var streamGates: Map<String, CompletableDeferred<Unit>> = emptyMap()
     val resolved = java.util.concurrent.CopyOnWriteArrayList<Pair<String, String>>()
     var requests = 0
+    val cloudRows = mutableMapOf("owner" to mutableListOf(CloudPlaylist("77", "1", "Дорожный плейлист")),
+        "road" to mutableListOf(CloudPlaylist("88", "2", "Другой аккаунт")))
+    val cloudWrites = mutableListOf<String>()
+    var cloudGate: CompletableDeferred<Unit>? = null
+    var cloudFailAdd = false
     val online = OnlineMusic(auth, object : OnlineMusicApi {
         override suspend fun page(profileId: String, request: MusicRequest, page: Int): MusicPage {
             requests++; delay(50)
             failure?.let { throw MusicException(it) }
             if (request.query == "empty") return MusicPage(emptyList())
+            if (request.kind == MusicKind.PLAYLISTS && request.entity == null) return MusicPage(cloudRows[profileId].orEmpty().map {
+                MusicEntry("PLAYLISTS:${it.ownerId}:${it.id}", it.title, "${it.trackCount} треков", entity = it.entity())
+            })
             if (request.entity?.kind == MusicKind.ARTISTS && request.kind == MusicKind.ALBUMS) return MusicPage(listOf(MusicEntry("album:7", "Тестовый альбом", "Альбом", entity = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS))))
             if (request.kind == MusicKind.ARTISTS && request.entity == null) return MusicPage(listOf(MusicEntry("artist:5", "Первый исполнитель", "Исполнитель", entity = MusicEntity("5", "Первый исполнитель", MusicKind.ARTISTS))))
             if (request.kind != MusicKind.TRACKS && request.entity == null) return MusicPage(listOf(MusicEntry("album:7", "Тестовый альбом", "Два трека", entity = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS))))
@@ -72,6 +80,25 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             library.state.value.tracks[(trackId.removePrefix("yandex:").substringBefore(':').toInt() - 1) % 2].uri!!
         }
     }, viewModelScope)
+    val cloudPlaylists = CloudPlaylists(auth, object : CloudPlaylistApi {
+        override suspend fun list(owner: PlaylistOwner) = cloudRows[owner.profileId].orEmpty().toList()
+        override suspend fun create(owner: PlaylistOwner, title: String): CloudPlaylist {
+            cloudWrites += "create:${owner.profileId}"; cloudGate?.await()
+            val p = CloudPlaylist("${100 + cloudWrites.size}", owner.accountId, title)
+            cloudRows.getOrPut(owner.profileId) { mutableListOf() }.add(p); return p
+        }
+        override suspend fun add(owner: PlaylistOwner, playlist: CloudPlaylist, track: Track): CloudPlaylist {
+            cloudWrites += "add:${playlist.id}"; cloudGate?.await()
+            if (cloudFailAdd) throw MusicException(MusicFailure.NETWORK)
+            val updated = playlist.copy(trackCount = playlist.trackCount + 1)
+            val rows = cloudRows.getValue(owner.profileId); rows[rows.indexOfFirst { it.id == playlist.id }] = updated
+            return updated
+        }
+        override suspend fun delete(owner: PlaylistOwner, playlist: CloudPlaylist) {
+            cloudWrites += "delete:${playlist.id}"; cloudGate?.await()
+            cloudRows.getValue(owner.profileId).removeAll { it.id == playlist.id }
+        }
+    }, viewModelScope, online::playlistChanged)
     var collaborators = false
     var longLabels = false
     val equalizerRequests = mutableListOf<Boolean>()
@@ -149,7 +176,7 @@ class OnlineTestActivity : ComponentActivity() {
         super.onCreate(savedInstanceState); enableEdgeToEdge()
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
-                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality) }
+                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists) }
             })
             ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it })
         }

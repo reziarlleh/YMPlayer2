@@ -1,0 +1,9 @@
+{
+  "version": "2.0.0beta-build18",
+  "offlineSignInPrompt": true,
+  "onlineSignInPrompt": true,
+  "accountEntryAvailable": true,
+  "qualityPreferencesRetainedFromBuild17": true,
+  "qualityBackToSettings": true,
+  "passed": true
+}

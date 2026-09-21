@@ -12,7 +12,7 @@ data class MusicEntry(val id: String, val title: String, val subtitle: String, v
 data class MusicRequest(val query: String = "", val kind: MusicKind = MusicKind.TRACKS, val collection: Boolean = false, val entity: MusicEntity? = null, val recommended: Boolean = false)
 data class MusicPage(val entries: List<MusicEntry>, val nextPage: Int? = null)
 enum class MusicFailure { SIGN_IN, NETWORK, ACCESS, UNAVAILABLE, RESPONSE }
-class MusicException(val failure: MusicFailure) : Exception(failure.name)
+class MusicException(val failure: MusicFailure, val httpStatus: Int? = null) : Exception(failure.name)
 fun MusicFailure.message() = when (this) {
     MusicFailure.SIGN_IN -> "Войдите в Яндекс в этом профиле."
     MusicFailure.NETWORK -> "Нет связи с Яндекс Музыкой. Проверьте сеть и повторите."
@@ -90,6 +90,14 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
     fun refreshCollection() {
         if (parents.any { it.request.collection }) parentNeedsRefresh = true
         if (state.value.request.collection && state.value.request.entity == null) load(0)
+    }
+    fun playlistChanged(playlist: CloudPlaylist, deleted: Boolean) {
+        val entity = state.value.request.entity
+        val matching = entity?.kind == MusicKind.PLAYLISTS && entity.id == playlist.id && entity.ownerId == playlist.ownerId
+        if (matching) {
+            if (deleted) { collection(MusicKind.PLAYLISTS); return } else load(0)
+        }
+        refreshCollection()
     }
     fun open(entity: MusicEntity, replace: Boolean = false) {
         if (!state.value.signedIn) return

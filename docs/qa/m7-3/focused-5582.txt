@@ -1,0 +1,7 @@
+
+dev.petrov.ymplayer2.CloudPlaylistAdapterTest:......
+dev.petrov.ymplayer2.CloudPlaylistPlaybackTest:...
+
+Time: 46.22
+
+OK (9 tests)

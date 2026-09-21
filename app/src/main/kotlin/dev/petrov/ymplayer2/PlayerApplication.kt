@@ -24,6 +24,8 @@ class PlayerApplication : Application(), PlaybackHost {
     val collections by lazy { LocalCollections(this, library, scope) }
     private val musicApi by lazy { YandexMusicApi(accounts) }
     val online by lazy { OnlineMusic(accounts, musicApi, scope) }
+    val cloudPlaylists by lazy { dev.petrov.ymplayer2.core.CloudPlaylists(accounts,
+        dev.petrov.ymplayer2.yandex.YandexPlaylistApi(musicApi), scope, online::playlistChanged) }
     val taste by lazy { MusicTaste(accounts, YandexTasteApi(musicApi), scope, online::refreshCollection) }
     private val offlinePrefs by lazy { getSharedPreferences("offline", MODE_PRIVATE) }
     val audioQuality by lazy { loadAudioQuality(this) }

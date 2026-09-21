@@ -32,6 +32,11 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         if (root.has("error")) throw MusicException(MusicFailure.ACCESS)
         return root.opt("result")?.takeUnless { it == JSONObject.NULL } ?: throw MusicException(MusicFailure.RESPONSE)
     }
+    /** The working 1.x delete accepts a successful HTTP response, including an empty body. */
+    internal suspend fun acknowledge(token: String, path: String, form: List<Pair<String, String>>) {
+        val text = transport.request("https://api.music.yandex.net$path", token, form).trim()
+        if (text.startsWith('{') && JSONObject(text).has("error")) throw MusicException(MusicFailure.ACCESS)
+    }
     private suspend fun accountId(token: String): String = numeric((api(token, "/account/status") as JSONObject).getJSONObject("account").getString("uid"))
     internal suspend fun <T> account(profile: String, action: suspend (String, String) -> T): T = safe {
         accounts.withSession(profile) { action(it.credentials.accessToken, it.account?.id ?: accountId(it.credentials.accessToken)) }

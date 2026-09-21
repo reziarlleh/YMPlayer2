@@ -24,11 +24,12 @@ import dev.petrov.ymplayer2.designsystem.skin.*
 
 /** Only artwork is flexible. Transport and actions never live in a scroll container. */
 @Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {},
-    taste: MusicTaste? = null, signIn: () -> Unit = {}, artist: (ArtistRef) -> Unit = {}, equalizer: (Boolean) -> Unit = {}) {
+    taste: MusicTaste? = null, signIn: () -> Unit = {}, artist: (ArtistRef) -> Unit = {}, equalizer: (Boolean) -> Unit = {}, playlists: CloudPlaylists? = null) {
     var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var issue by remember { mutableStateOf(false) }
     if (details && taste != null) state.current?.let { TrackTasteDialog(it, taste, artist = artist, extra = {
+        playlists?.let { lists -> AddToCloudPlaylist(state.current!!, lists) { details = false } }
         HorizontalDivider()
         TextButton({ details = false; menu = true }, Modifier.prismFocus().testTag("player_sources")) { Text("Источник и папки") }
         TextButton({ details = false; equalizer(true) }, Modifier.prismFocus()) { Text("Выбрать эквалайзер / DSP") }

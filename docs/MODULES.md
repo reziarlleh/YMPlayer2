@@ -120,6 +120,11 @@ M7.2: `AudioQualityPreferences` в ядре хранит независимые 
 `YandexMusicApi` выбирает вариант по проверенной формуле 1.x. Настройки не владеют
 плеером или файлами. [Решение](DECISIONS/ADR-016-audio-quality.md).
 
+M7.3: `core/CloudPlaylists` управляет облачными командами и состоянием диалога;
+`CloudPlaylistApi` реализован в `YandexPlaylistApi`, `app` связывает аккаунты и
+обновление OnlineMusic. Контроллер не получает плеер или офлайн-кэш; операции
+не меняют проигрываемую очередь. [Решение](DECISIONS/ADR-017-cloud-playlists.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

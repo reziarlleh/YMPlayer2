@@ -128,8 +128,8 @@ private val destinations = listOf(
                         // Each route/profile owns its scroll, filters, detail and text field state.
                         holder.SaveableStateProvider("${playback.profileId}:$route") {
                             when (route) {
-                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer)
-                                "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist) }
+                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists)
+                                "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists) }
                                 "library", "search" -> Column(Modifier.fillMaxSize()) {
                                     model.online?.let {
                                         if (!typingInShortWindow) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -138,7 +138,7 @@ private val destinations = listOf(
                                             if (model.offline != null) FilterChip(false, { navigate("offline") }, { Text("Офлайн") }, Modifier.prismFocus().testTag("open_offline"))
                                         }
                                     }
-                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist)
+                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist, playlists = model.cloudPlaylists)
                                     else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else library.tracks, model.player, route == "search", if (demo) catalogState else CatalogState.READY,
                                     demo = demo, folders = { navigate("folders") }, scanning = library.scanning, issue = library.issue,
                                     collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
@@ -174,6 +174,7 @@ private val destinations = listOf(
                     BackHandler(collectionTrack != null) { collectionTrack = null }
                 }
             }
+            model.cloudPlaylists?.let { CloudPlaylistDialog(it) }
             if (exitAt != null) Snackbar(Modifier.align(Alignment.BottomCenter).padding(start = 16.dp, end = 16.dp, bottom = 16.dp + if (rail) 0.dp else with(density) { bottomBarHeight.toDp() }).testTag("exit_hint")) {
                 Text("Нажмите «Назад» ещё раз для выхода")
             }

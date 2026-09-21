@@ -1,0 +1,37 @@
+{
+  "build": {
+    "sha256": "e69e5bf35c832cf71fee6f25c0e93b895f0c051c79dd0604449c6f3db0daa820",
+    "runtimeAcceptance": "Android 35 and Android TV 29 emulator upgrade 17 to 18, retained queue/quality preferences, launch and signed-out entry verified. Signed phone background audio/system controls/paused restore passed. Cloud create/append/delete, partial create recovery, account isolation and non-interruption passed with debug fixtures and protocol transports; normal/200% UI and TV D-pad empty creation verified. Personal Yandex server writes and physical HyperOS await acceptance.",
+    "versionName": "2.0.0beta-build18",
+    "builtAtUtc": "2026-09-21T03:29:08.6427136Z",
+    "versionCode": 18,
+    "applicationId": "dev.petrov.ymplayer2",
+    "channel": "beta"
+  },
+  "date": "2026-09-21",
+  "jvm": {
+    "tests": 78,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "native": {
+    "Android35": {
+      "fullSuite": 115,
+      "cloudFocused": 9,
+      "font200": 1,
+      "normalUiRepeat": 1
+    },
+    "AndroidTV29": {
+      "fullSuite": 115,
+      "cloudFocused": 9,
+      "font200": 1,
+      "normalUiRepeat": 1
+    }
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 22
+  },
+  "note": "Full regression ran before the final dialog focus/keyboard adjustment. Final code then passed the 9 cloud tests, 200% and normal UI runs on each emulator and real TV D-pad creation. Personal cloud writes were not performed. Protocol tests use the working 1.x request contract and a test transport; native UI uses isolated debug fixtures with real Media3 audio."
+}

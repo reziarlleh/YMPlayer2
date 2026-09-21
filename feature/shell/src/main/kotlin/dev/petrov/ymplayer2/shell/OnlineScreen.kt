@@ -22,9 +22,10 @@ import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit, taste: MusicTaste? = null, waveStarted: () -> Unit = {},
-    artist: (ArtistRef) -> Unit = { music.open(MusicEntity(it.id, it.name, MusicKind.ARTISTS)) }, standalone: Boolean = false, closeArtist: () -> Unit = {}) {
+    artist: (ArtistRef) -> Unit = { music.open(MusicEntity(it.id, it.name, MusicKind.ARTISTS)) }, standalone: Boolean = false, closeArtist: () -> Unit = {}, playlists: CloudPlaylists? = null) {
     val state by music.state.collectAsStateWithLifecycle()
     val playback by player.state.collectAsStateWithLifecycle()
+    val cloudState = playlists?.state?.collectAsStateWithLifecycle()?.value
     val keyboard = LocalSoftwareKeyboardController.current
     val request = state.request
     val detail = request.entity
@@ -38,7 +39,8 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
     val preferences = taste?.state?.collectAsStateWithLifecycle()?.value
     var actions by remember(state.profileId) { mutableStateOf<Track?>(null) }
-    if (taste != null) actions?.let { TrackTasteDialog(it, taste, artist = artist) { actions = null } }
+    if (taste != null) actions?.let { track -> TrackTasteDialog(track, taste, artist = artist,
+        extra = { playlists?.let { AddToCloudPlaylist(track, it) { actions = null } } }) { actions = null } }
     val entries = if (request.recommended) state.entries.filter { entry -> entry.track?.let { preferences?.allows(it) != false } ?: true } else state.entries
     val shownTracks = entries.mapNotNull(MusicEntry::track)
     val filtersReady = !request.recommended || preferences?.let { it.shelf(TasteKind.TRACK).ready && it.shelf(TasteKind.ARTIST).ready } != false
@@ -61,6 +63,9 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 OutlinedButton(signIn, Modifier.prismFocus().testTag("online_sign_in")) { Text("Открыть аккаунт") }
             }
         } else {
+            if (cloudState?.owner != null && playlists != null && detail != null && playlists.editable(detail)) item {
+                OutlinedButton({ playlists.askDelete(detail) }, Modifier.prismFocus().testTag("cloud_delete")) { Text("Удалить плейлист Яндекса") }
+            }
             if (detail?.kind == MusicKind.ARTISTS) item {
                 Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     listOf(MusicKind.TRACKS to "Популярные треки", MusicKind.ALBUMS to "Альбомы").forEach { (kind, label) ->
@@ -92,6 +97,9 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                     }
                 }
                 if (!search && request.recommended) item { Text("Плейлисты, подобранные Яндексом для вашего аккаунта.") }
+                if (!search && !request.recommended && request.kind == MusicKind.PLAYLISTS && playlists != null) item {
+                    OutlinedButton({ playlists.newPlaylist(null) }, Modifier.prismFocus().testTag("cloud_create"), enabled = cloudState?.owner != null && !cloudState.busy) { Text("Создать плейлист Яндекса") }
+                }
             }
             if (state.loading) item { LinearProgressIndicator(Modifier.fillMaxWidth().testTag("online_loading")); Text("Загружаем…") }
             if (state.issue != null) item {

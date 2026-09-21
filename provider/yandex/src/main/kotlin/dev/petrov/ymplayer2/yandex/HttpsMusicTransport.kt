@@ -42,10 +42,10 @@ class HttpsMusicTransport(private val open: (String) -> HttpsURLConnection = { U
                     c.outputStream.use { it.write(bytes) }
                 }
                 when (val status = c.responseCode) {
-                    401, 403 -> throw MusicException(MusicFailure.ACCESS)
-                    404 -> throw MusicException(MusicFailure.UNAVAILABLE)
-                    408, 429, in 500..599 -> throw MusicException(MusicFailure.NETWORK)
-                    !in 200..299 -> throw MusicException(MusicFailure.RESPONSE)
+                    401, 403 -> throw MusicException(MusicFailure.ACCESS, status)
+                    404 -> throw MusicException(MusicFailure.UNAVAILABLE, status)
+                    408, 429, in 500..599 -> throw MusicException(MusicFailure.NETWORK, status)
+                    !in 200..299 -> throw MusicException(MusicFailure.RESPONSE, status)
                 }
                 val bytes = ByteArrayOutputStream()
                 c.inputStream.use { input ->
