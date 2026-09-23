@@ -20,7 +20,8 @@
 | F08, офлайн F07 | S03/S06 | core/OfflineMusic + library:offline + app/OfflineSyncService | migration/refactor | M7.1 emulator / public API verified | Независимый ремонт аудио/обложки, отмена, unlike во время sync, profile/account scope, Media3 без сети; [перенос](DECISIONS/ADR-015-liked-offline-sync.md), [проверки](M7_1_VERIFICATION.md). Личная коллекция ожидает приёмки |
 | F09 | S08/S04 | core/AudioQualityPreferences + provider:yandex + app + shell | migration/refactor | M7.2 verification | Раздельные сохранённые настройки потока/кэша, выбор варианта по алгоритму 1.x; текущий звук и готовые файлы сохраняются. [Перенос](DECISIONS/ADR-016-audio-quality.md), [проверки](M7_2_VERIFICATION.md) |
 | F10/F12 | S01/S03/S04 | core/OnlineMusic + provider/yandex + playback + shell | migration/refactor | M5 verification | Чтение/запуск списков, поиск четырёх типов, детали и страницы; изоляция запросов и очередь. [Проверки](M5_VERIFICATION.md). Создание, append и удаление своих облачных списков F10 — [M7.3](M7_3_VERIFICATION.md), core/CloudPlaylists + YandexPlaylistApi; серверная приёмка отдельно |
-| F11/F25 | ROADMAP + запрос владельца | provider capability extensions | new | M6 partial verification | Персональные плейлисты и любимые исполнители/альбомы реализованы; реальный аккаунт принимает владелец. Волна по треку/артисту и mood остаются будущими возможностями |
+| F11 | Запрос владельца + протокол клиента Яндекса, не реализация 1.x | core/CloudPlaylists + YandexPlaylistApi + shell | new | M7.4 verification | Переименование, удаление конкретного вхождения, перемещение одним diff; revision, сохранение повторов и перечитывание результата. [Решение](DECISIONS/ADR-018-cloud-playlist-editor.md), [проверки](M7_4_VERIFICATION.md); реальную запись принимает владелец |
+| F25 | ROADMAP + запрос владельца | provider capability extensions | new | M6 partial verification | Рекомендованные плейлисты и любимые исполнители/альбомы реализованы; реальный аккаунт принимает владелец. Волна по треку/артисту и mood остаются будущими возможностями |
 | F13/F14/F15 | S05 | local source + library | migration/refactor | M3.3 local | SAF, rescan, unavailable; собственные плейлисты/избранное, встроенные обложки и ограниченный кэш без изменения оригиналов. Возврат источника проверен через DocumentsProvider; физический hot-plug отдельно |
 | F18 | S07 | clips | migration/refactor | analysis | Взаимное исключение аудио/видео, prefetch, Back |
 | F20 | S02 | Android media session | migration/refactor | M2 basic session | MediaSession и медиакнопки проверяются в M2; CWG/MediaBrowser/целевое устройство — M8 |
@@ -37,7 +38,8 @@ M4: успешный вход подтверждён владельцем на b
 2026-09-12 владелец подтвердил воспроизведение.
 M6 добавил волну, рекомендации и отдельные likes/dislikes. В текущем M7.1
 реализован офлайн-кэш только «Мне нравится»; любимые альбомы/исполнители не
-разворачиваются в загрузки. M7.2 добавляет качество сети/кэша; M7.3 — облачные операции плейлистов. Далее
+разворачиваются в загрузки. M7.2 добавляет качество сети/кэша; M7.3 — облачные операции,
+M7.4 — полный редактор плейлистов. Далее
 системная интеграция/CWG → клипы → SideBar/K4811 → пользовательские скины → выпуск.
 
 Перед каждым переносом: inputs/outputs/side effects → поведенческие примеры →

@@ -52,6 +52,15 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     val cloudWrites = mutableListOf<String>()
     var cloudGate: CompletableDeferred<Unit>? = null
     var cloudFailAdd = false
+    val cloudTracks = mutableMapOf<String, List<CloudPlaylistEntry>>()
+    val cloudRevisions = mutableMapOf<String, Long>()
+    var cloudFailAfterEdit = false
+    fun seedCloudEditor() {
+        cloudTracks["owner:77"] = listOf(CloudPlaylistEntry("1", "7", "Первый трек", "Первый исполнитель"),
+            CloudPlaylistEntry("2", "7", "Второй трек", "Второй исполнитель"), CloudPlaylistEntry("1", "7", "Первый трек", "Первый исполнитель"))
+        cloudRows.getValue("owner")[0] = cloudRows.getValue("owner")[0].copy(trackCount = 3)
+        cloudRevisions["owner:77"] = 1
+    }
     val online = OnlineMusic(auth, object : OnlineMusicApi {
         override suspend fun page(profileId: String, request: MusicRequest, page: Int): MusicPage {
             requests++; delay(50)
@@ -91,12 +100,37 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             cloudWrites += "add:${playlist.id}"; cloudGate?.await()
             if (cloudFailAdd) throw MusicException(MusicFailure.NETWORK)
             val updated = playlist.copy(trackCount = playlist.trackCount + 1)
+            val key = "${owner.profileId}:${playlist.id}"
+            cloudTracks[key] = cloudTracks[key].orEmpty() + CloudPlaylistEntry(track.cloudTrackKey()!!.first, track.cloudTrackKey()!!.second, track.title, track.artist)
+            cloudRevisions[key] = (cloudRevisions[key] ?: 1) + 1
             val rows = cloudRows.getValue(owner.profileId); rows[rows.indexOfFirst { it.id == playlist.id }] = updated
             return updated
         }
         override suspend fun delete(owner: PlaylistOwner, playlist: CloudPlaylist) {
             cloudWrites += "delete:${playlist.id}"; cloudGate?.await()
             cloudRows.getValue(owner.profileId).removeAll { it.id == playlist.id }
+        }
+        override suspend fun load(owner: PlaylistOwner, playlist: CloudPlaylist): CloudPlaylistSnapshot {
+            val key = "${owner.profileId}:${playlist.id}"
+            return CloudPlaylistSnapshot(cloudRows.getValue(owner.profileId).first { it.id == playlist.id }, cloudRevisions[key] ?: 1, cloudTracks[key].orEmpty())
+        }
+        override suspend fun rename(owner: PlaylistOwner, snapshot: CloudPlaylistSnapshot, title: String): CloudPlaylistSnapshot {
+            cloudWrites += "rename:$title"; cloudGate?.await()
+            val rows = cloudRows.getValue(owner.profileId); val index = rows.indexOfFirst { it.id == snapshot.playlist.id }
+            rows[index] = rows[index].copy(title = title)
+            cloudRevisions["${owner.profileId}:${snapshot.playlist.id}"] = snapshot.revision + 1
+            if (cloudFailAfterEdit) throw MusicException(MusicFailure.NETWORK)
+            return load(owner, snapshot.playlist)
+        }
+        override suspend fun edit(owner: PlaylistOwner, snapshot: CloudPlaylistSnapshot, change: CloudTrackEdit): CloudPlaylistSnapshot {
+            cloudWrites += "edit:$change"; cloudGate?.await()
+            val key = "${owner.profileId}:${snapshot.playlist.id}"
+            if ((cloudRevisions[key] ?: 1) != snapshot.revision) throw MusicException(MusicFailure.RESPONSE, 409)
+            val tracks = snapshot.edited(change); cloudTracks[key] = tracks; cloudRevisions[key] = snapshot.revision + 1
+            val rows = cloudRows.getValue(owner.profileId); val index = rows.indexOfFirst { it.id == snapshot.playlist.id }
+            rows[index] = rows[index].copy(trackCount = tracks.size)
+            if (cloudFailAfterEdit) throw MusicException(MusicFailure.NETWORK)
+            return load(owner, snapshot.playlist)
         }
     }, viewModelScope, online::playlistChanged)
     var collaborators = false

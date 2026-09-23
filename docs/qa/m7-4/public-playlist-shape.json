@@ -1,0 +1,22 @@
+{
+  "endpoint": "/users/{publicChartOwner}/playlists/{kind}",
+  "anonymousReadOnly": true,
+  "publicEndpoint": "/users/414787002/playlists/1076",
+  "revisionType": "int",
+  "revision": 0,
+  "trackCount": 100,
+  "rows": 100,
+  "firstRowKeys": [
+    "id",
+    "originalIndex",
+    "originalShuffleIndex",
+    "recent",
+    "timestamp",
+    "track"
+  ],
+  "firstRowHasEmbeddedTrack": true,
+  "allRowsHaveId": true,
+  "allRowsHaveAlbumId": false,
+  "compositeIds": 0,
+  "embeddedAlbumCount": 100
+}

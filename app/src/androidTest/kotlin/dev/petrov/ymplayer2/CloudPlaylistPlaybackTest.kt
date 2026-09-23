@@ -29,7 +29,7 @@ class CloudPlaylistPlaybackTest {
         runBlocking { h.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
         waitFor { h.library.state.value.tracks.size == 2 && h.cloudPlaylists.state.value.owner == PlaylistOwner("owner", "1") }
     }
-    @After fun stop() { compose.runOnIdle { h.cloudGate?.complete(Unit); player.stop() } }
+    @After fun stop() { compose.runOnIdle { h.cloudGate?.complete(Unit); player.setRepeatMode(RepeatMode.OFF); player.stop() } }
     private fun click(tag: String, list: String = "cloud_dialog_list") {
         compose.onNodeWithTag(list).performScrollToNode(hasTestTag(tag)); compose.onNodeWithTag(tag).performClick()
     }
@@ -114,5 +114,59 @@ class CloudPlaylistPlaybackTest {
         assertNull(h.cloudPlaylists.state.value.dialog); assertNull(h.cloudPlaylists.state.value.message)
         compose.onNodeWithTag("cloud_close").assertDoesNotExist()
         assertEquals(0, h.cloudRows.getValue("road").single().trackCount)
+    }
+    private fun openEditor() {
+        compose.runOnIdle { h.seedCloudEditor(); player.setRepeatMode(RepeatMode.ONE) }
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("online_kind_PLAYLISTS").performScrollTo().performClick()
+        waitFor { !h.online.state.value.loading && h.online.state.value.entries.any { it.entity?.id == "77" } }
+        click("online_entity_77", "online_list"); waitFor { h.online.state.value.request.entity?.id == "77" }
+        click("cloud_edit", "online_list"); waitFor { h.cloudPlaylists.state.value.loaded && !h.cloudPlaylists.state.value.busy }
+    }
+    private fun awaitEditor() = waitFor { h.cloudPlaylists.state.value.dialog == PlaylistDialog.EDIT && !h.cloudPlaylists.state.value.busy && h.cloudPlaylists.state.value.loaded }
+    @Test fun renameMoveAndRemoveOccurrenceKeepAudioAndSurviveRecreation() {
+        searchAndPlay(); val queue = player.state.value.queue.map { it.id }; val current = player.state.value.current!!.id
+        openEditor(); snapshot("cloud-editor.png"); click("cloud_rename")
+        compose.onNodeWithTag("cloud_rename_title").performTextReplacement("Мои дорожные треки")
+        compose.onNodeWithTag("cloud_rename_title").performImeAction(); snapshot("cloud-rename.png")
+        compose.runOnIdle { h.cloudGate = CompletableDeferred() }; click("cloud_rename_confirm")
+        waitFor { h.cloudPlaylists.state.value.busy }; compose.activityRule.scenario.recreate()
+        compose.onNodeWithTag("cloud_close").assertIsNotEnabled(); compose.runOnIdle { h.cloudGate!!.complete(Unit) }
+        awaitEditor(); assertEquals("Мои дорожные треки", h.cloudPlaylists.state.value.target!!.title)
+        click("cloud_move_0"); compose.onNodeWithTag("cloud_move_position").performTextReplacement("3")
+        compose.onNodeWithTag("cloud_move_position").performImeAction(); snapshot("cloud-move.png")
+        click("cloud_move_confirm"); awaitEditor()
+        assertEquals(listOf("2", "1", "1"), h.cloudPlaylists.state.value.snapshot!!.tracks.map { it.id })
+        click("cloud_remove_2"); snapshot("cloud-remove.png"); compose.onNodeWithTag("cloud_close").performClick()
+        assertEquals(2, h.cloudWrites.size)
+        click("cloud_remove_2"); click("cloud_remove_confirm"); awaitEditor()
+        assertEquals(listOf("2", "1"), h.cloudPlaylists.state.value.snapshot!!.tracks.map { it.id })
+        assertEquals(3, h.cloudWrites.size); assertTrue(player.state.value.playing)
+        assertEquals(current, player.state.value.current?.id); assertEquals(queue, player.state.value.queue.map { it.id })
+        snapshot("cloud-edited.png"); compose.onNodeWithTag("cloud_close").performClick()
+        waitFor { h.online.state.value.request.entity?.title == "Мои дорожные треки" }
+        compose.onNodeWithText("Мои дорожные треки").assertExists()
+    }
+    @Test fun uncertainEditorWriteNeedsRefreshAndNeverRemovesNextOccurrence() {
+        searchAndPlay(); openEditor(); compose.runOnIdle { h.cloudFailAfterEdit = true }
+        click("cloud_remove_0"); click("cloud_remove_confirm")
+        waitFor { !h.cloudPlaylists.state.value.busy && h.cloudPlaylists.state.value.issue != null }
+        assertFalse(h.cloudPlaylists.state.value.loaded); assertEquals(listOf("2", "1"), h.cloudTracks["owner:77"]!!.map { it.id })
+        compose.onNodeWithTag("cloud_remove_0").assertDoesNotExist()
+        snapshot("cloud-editor-recovery.png"); val writes = h.cloudWrites.size
+        compose.runOnIdle { h.cloudFailAfterEdit = false }; click("cloud_editor_refresh"); awaitEditor()
+        assertEquals(writes, h.cloudWrites.size); assertEquals(listOf("2", "1"), h.cloudPlaylists.state.value.snapshot!!.tracks.map { it.id })
+        assertTrue(player.state.value.playing)
+    }
+    @Test fun profileSwitchClosesPendingEditorAndDoesNotRenameOtherAccount() {
+        searchAndPlay(); openEditor(); click("cloud_rename")
+        compose.onNodeWithTag("cloud_rename_title").performTextReplacement("Старый профиль")
+        compose.onNodeWithTag("cloud_rename_title").performImeAction()
+        compose.runOnIdle { h.cloudGate = CompletableDeferred() }; click("cloud_rename_confirm")
+        waitFor { h.cloudPlaylists.state.value.busy }; compose.runOnIdle { player.switchProfile("road"); h.cloudGate!!.complete(Unit) }
+        waitFor { h.cloudPlaylists.state.value.owner == PlaylistOwner("road", "2") }
+        assertNull(h.cloudPlaylists.state.value.dialog); assertNull(h.cloudPlaylists.state.value.snapshot)
+        assertEquals("Другой аккаунт", h.cloudRows.getValue("road").single().title)
+        compose.onNodeWithTag("cloud_close").assertDoesNotExist()
     }
 }

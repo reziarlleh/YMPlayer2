@@ -95,7 +95,9 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
         val entity = state.value.request.entity
         val matching = entity?.kind == MusicKind.PLAYLISTS && entity.id == playlist.id && entity.ownerId == playlist.ownerId
         if (matching) {
-            if (deleted) { collection(MusicKind.PLAYLISTS); return } else load(0)
+            if (deleted) { collection(MusicKind.PLAYLISTS); return }
+            mutable.value = state.value.copy(request = state.value.request.copy(entity = playlist.entity()))
+            load(0)
         }
         refreshCollection()
     }

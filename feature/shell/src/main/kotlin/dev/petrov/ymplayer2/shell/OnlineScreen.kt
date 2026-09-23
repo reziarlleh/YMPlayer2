@@ -64,6 +64,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             }
         } else {
             if (cloudState?.owner != null && playlists != null && detail != null && playlists.editable(detail)) item {
+                OutlinedButton({ playlists.openEditor(detail) }, Modifier.prismFocus().testTag("cloud_edit")) { Text("Редактировать плейлист") }
                 OutlinedButton({ playlists.askDelete(detail) }, Modifier.prismFocus().testTag("cloud_delete")) { Text("Удалить плейлист Яндекса") }
             }
             if (detail?.kind == MusicKind.ARTISTS) item {

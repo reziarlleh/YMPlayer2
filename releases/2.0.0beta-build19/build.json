@@ -1,0 +1,9 @@
+{
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionCode": 19,
+  "builtAtUtc": "2026-09-23T13:15:50.4008414Z",
+  "runtimeAcceptance": "Android 35 and Android TV 29 emulator upgrade 18 to 19, retained queue/quality preferences, launch and signed-out entry verified. Signed phone background audio/system controls/paused restore passed. Cloud rename, move, occurrence removal, conflict and unknown-result recovery, account isolation and non-interruption passed with isolated debug fixtures and protocol transports; normal/200% UI and TV D-pad rename verified. Personal Yandex server writes and physical HyperOS await acceptance.",
+  "versionName": "2.0.0beta-build19",
+  "channel": "beta",
+  "sha256": "91251d92e6220542c4f78d96797109d4d598e558cc41af1a1047c720e7f53bdf"
+}

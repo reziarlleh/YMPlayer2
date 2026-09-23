@@ -1,0 +1,10 @@
+{
+  "version": "2.0.0beta-build19",
+  "missingDocumentsUiExplained": true,
+  "offlineSignInPrompt": true,
+  "onlineSignInPrompt": true,
+  "accountEntryAvailable": true,
+  "qualityPreferencesRetainedFromBuild18": true,
+  "qualityBackToSettings": true,
+  "passed": true
+}

@@ -50,6 +50,19 @@ class CloudPlaylistAdapterTest {
         assertEquals(3, api.add(owner, list, track).trackCount)
         assertTrue(urls[0].endsWith("/77")); assertTrue(urls[1].endsWith("/77/change")); assertEquals(2, urls.size)
     }
+    @Test fun appendUsesZeroRevisionWhenServerReturnsIt() = runBlocking {
+        var posted = false
+        val api = YandexPlaylistApi(YandexMusicApi(auth(this), MusicTransport { _, _, form ->
+            if (form == null) response(0).replace("\"revision\":12", "\"revision\":0")
+            else {
+                posted = true
+                assertEquals("0", form.toMap()["revision"])
+                response(1)
+            }
+        }))
+        assertEquals(1, api.add(owner, list, track).trackCount)
+        assertTrue(posted)
+    }
     @Test fun missingChangeEndpointUsesRelativeButTimeoutConflictAndAccessNeverReplay() = runBlocking {
         for (status in listOf(404, 405, 409, 403, 500, null)) {
             val posts = mutableListOf<String>()
