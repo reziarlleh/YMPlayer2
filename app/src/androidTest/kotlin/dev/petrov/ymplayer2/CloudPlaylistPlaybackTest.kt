@@ -3,6 +3,7 @@ package dev.petrov.ymplayer2
 
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.test.*
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -117,13 +118,53 @@ class CloudPlaylistPlaybackTest {
     }
     private fun openEditor() {
         compose.runOnIdle { h.seedCloudEditor(); player.setRepeatMode(RepeatMode.ONE) }
+        compose.runOnIdle { h.online.collection(MusicKind.PLAYLISTS) }
         compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
         compose.onNodeWithTag("online_kind_PLAYLISTS").performScrollTo().performClick()
         waitFor { !h.online.state.value.loading && h.online.state.value.entries.any { it.entity?.id == "77" } }
         click("online_entity_77", "online_list"); waitFor { h.online.state.value.request.entity?.id == "77" }
         click("cloud_edit", "online_list"); waitFor { h.cloudPlaylists.state.value.loaded && !h.cloudPlaylists.state.value.busy }
     }
     private fun awaitEditor() = waitFor { h.cloudPlaylists.state.value.dialog == PlaylistDialog.EDIT && !h.cloudPlaylists.state.value.busy && h.cloudPlaylists.state.value.loaded }
+    @Test fun playlistTrackKeepsItsActionsInsideOneCard() {
+        compose.runOnIdle { h.online.collection(MusicKind.PLAYLISTS) }
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
+        waitFor { h.online.state.value.entries.any { it.entity?.id == "77" } }
+        click("online_entity_77", "online_list")
+        waitFor { h.online.state.value.entries.any { it.track?.id == "yandex:1:7" } }
+        compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("track_card_yandex:1:7"))
+        val card = compose.onNodeWithTag("track_card_yandex:1:7").fetchSemanticsNode().boundsInRoot
+        listOf("track_yandex:1:7", "catalog_yandex:1:7_artist_5", "enqueue_yandex:1:7", "track_more_yandex:1:7").forEach { tag ->
+            assertTrue("$tag outside track card", card.contains(compose.onNodeWithTag(tag).fetchSemanticsNode().boundsInRoot.center))
+        }
+        snapshot("cloud-playlist-card.png")
+    }
+    @Test fun draggingAnOccurrenceCommitsOneFinalServerMove() {
+        openEditor()
+        val writes = h.cloudWrites.size
+        if (compose.activity.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION) {
+            // A remote cannot drag; keep the position control for the same operation.
+            click("cloud_move_0")
+            compose.onNodeWithTag("cloud_move_position").performTextReplacement("2")
+            click("cloud_move_confirm")
+        } else {
+            compose.onNodeWithTag("cloud_dialog_list").performScrollToNode(hasTestTag("cloud_drag_0"))
+            val first = compose.onNodeWithTag("cloud_drag_0").fetchSemanticsNode().boundsInRoot.center
+            val second = compose.onNodeWithTag("cloud_drag_1").fetchSemanticsNode().boundsInRoot.center
+            compose.onNodeWithTag("cloud_drag_0").performTouchInput {
+                down(center)
+                advanceEventTime(700)
+                moveBy(Offset(0f, (second.y - first.y) / 2f))
+                moveBy(Offset(0f, (second.y - first.y) / 2f))
+                up()
+            }
+        }
+        awaitEditor()
+        assertEquals(listOf("2", "1", "1"), h.cloudPlaylists.state.value.snapshot!!.tracks.map { it.id })
+        assertEquals(writes + 1, h.cloudWrites.size)
+    }
     @Test fun renameMoveAndRemoveOccurrenceKeepAudioAndSurviveRecreation() {
         searchAndPlay(); val queue = player.state.value.queue.map { it.id }; val current = player.state.value.current!!.id
         openEditor(); snapshot("cloud-editor.png"); click("cloud_rename")

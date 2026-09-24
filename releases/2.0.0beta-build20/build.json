@@ -1,0 +1,9 @@
+{
+  "sha256": "3019541f83d3296f8ab7fcbe46c2a6384d48b9259b4d3a10c303be75d9b5fbc3",
+  "versionName": "2.0.0beta-build20",
+  "versionCode": 20,
+  "runtimeAcceptance": "Android 35 and Android TV 29 signed upgrade 19 to 20 and launch verified; firstInstallTime retained. JVM 83/83, Android TV native 132/132, Android phone native 131/132 in first full pass with one Back test blocked by emulator System UI ANR; same test passed 1/1 after emulator reboot. Focused playlist drag and TV position tests passed at normal and 200 percent font. Personal Yandex writes and physical HyperOS await acceptance.",
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "beta",
+  "builtAtUtc": "2026-09-24T02:16:49.6008297Z"
+}

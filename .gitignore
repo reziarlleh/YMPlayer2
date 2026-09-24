@@ -11,4 +11,5 @@ local.properties
 captures/
 *.iml
 .idea/
+.vscode/
 releases/**/*.apk

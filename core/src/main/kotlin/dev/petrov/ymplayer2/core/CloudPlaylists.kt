@@ -148,6 +148,14 @@ class CloudPlaylists(private val accounts: AccountAuth, private val api: CloudPl
         if (from == to) { backToEditor(); return }
         editTracks(CloudTrackEdit.Move(from, to))
     }
+    /** Commit one completed drag, never the intermediate preview positions. */
+    fun dragMove(from: Int, to: Int) {
+        val before = state.value
+        val tracks = before.snapshot?.tracks ?: return
+        if (before.dialog != PlaylistDialog.EDIT || before.busy || !before.loaded ||
+            from !in tracks.indices || to !in tracks.indices || from == to || !tracks[from].movable) return
+        editTracks(CloudTrackEdit.Move(from, to))
+    }
     private fun editTracks(change: CloudTrackEdit) {
         val before = state.value; val snapshot = before.snapshot ?: return
         if (!before.loaded) return

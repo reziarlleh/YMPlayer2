@@ -160,15 +160,15 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun ArtistNames(track: Track?, open: (ArtistRef) -> Unit, location: String) {
+@Composable internal fun ArtistNames(track: Track?, open: (ArtistRef) -> Unit, location: String, compact: Boolean = false) {
     val artists = track?.artists.orEmpty().distinctBy(ArtistRef::id)
     if (track?.source != Source.YANDEX || artists.isEmpty()) Text(track?.artist ?: "", maxLines = 1, overflow = TextOverflow.Ellipsis,
         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
     else Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         artists.forEachIndexed { index, item ->
             if (index > 0) Text(", ", color = MaterialTheme.colorScheme.onSurfaceVariant)
-            TextButton({ open(item) }, Modifier.weight(item.name.length.toFloat().coerceAtLeast(1f), fill = false).heightIn(min = 40.dp).prismFocus().testTag("${location}_artist_${item.id}"), contentPadding = PaddingValues(0.dp)) {
-                Text(item.name, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodyMedium)
+            TextButton({ open(item) }, Modifier.weight(item.name.length.toFloat().coerceAtLeast(1f), fill = false).heightIn(min = if (compact) 36.dp else 40.dp).prismFocus().testTag("${location}_artist_${item.id}"), contentPadding = PaddingValues(0.dp)) {
+                Text(item.name, maxLines = 1, overflow = TextOverflow.Ellipsis, style = if (compact) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyMedium)
             }
         }
     }
@@ -220,35 +220,40 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val onlineTaste = taste?.takeIf { track.source == Source.YANDEX }
     var details by remember(track.id) { mutableStateOf(false) }
     if (details && onlineTaste != null) TrackTasteDialog(track, onlineTaste, artist = artist) { details = false }
-    Column(Modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Surface(onClick = play, enabled = track.available, modifier = Modifier.weight(1f).prismFocus().testTag("track_${track.id}"),
-                shape = MaterialTheme.shapes.medium, color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface) {
-                Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    TrackArtwork(track, Modifier.size(44.dp))
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                        Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
-                        if (onlineTaste == null) Text(track.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall)
-                        Text(if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else "Трек недоступен", style = MaterialTheme.typography.labelSmall)
-                    }
-                    SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY, if (selected) "Текущий трек" else "Воспроизвести трек", Modifier.size(24.dp))
+    Surface(Modifier.fillMaxWidth().testTag("track_card_${track.id}"), shape = MaterialTheme.shapes.medium,
+        color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow) {
+        Column(Modifier.fillMaxWidth()) {
+            Row(Modifier.fillMaxWidth().clickable(enabled = track.available, onClick = play).prismFocus().testTag("track_${track.id}")
+                .padding(start = 12.dp, end = 12.dp, top = 8.dp, bottom = 2.dp),
+                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                TrackArtwork(track, Modifier.size(44.dp))
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(0.dp)) {
+                    Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
+                    ArtistNames(track, artist, "${location}_${track.id}", compact = true)
+                    Text(if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else "Трек недоступен",
+                        style = MaterialTheme.typography.labelSmall)
+                }
+                SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY,
+                    if (selected) "Текущий трек" else "Воспроизвести трек", Modifier.size(24.dp))
+            }
+            if (onlineTaste != null || enqueue != null || more != null) {
+                Row(Modifier.fillMaxWidth().padding(start = 8.dp, end = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    if (onlineTaste != null) TasteIcons(onlineTaste, track.tasteTarget(), location)
+                    Spacer(Modifier.weight(1f))
+                    if (enqueue != null) ActionIcon(if (queued) UiIcon.CHECK else UiIcon.ADD_QUEUE,
+                        if (queued) "Уже в очереди: ${track.title}" else "В очередь: ${track.title}", enqueue,
+                        Modifier.testTag("enqueue_${track.id}"), enabled = track.available && !queued)
+                    if (onlineTaste != null || more != null) ActionIcon(UiIcon.MORE,
+                        "Исполнители и альбом: ${track.title}", { if (more != null) more() else details = true },
+                        Modifier.testTag("track_more_${track.id}"))
                 }
             }
-            if (onlineTaste == null) {
-                if (enqueue != null) ActionIcon(if (queued) UiIcon.CHECK else UiIcon.ADD_QUEUE, "В очередь: ${track.title}", enqueue, Modifier.testTag("enqueue_${track.id}"), enabled = track.available && !queued)
-                if (more != null) ActionIcon(UiIcon.MORE, "Действия: ${track.title}", more, Modifier.testTag("track_more_${track.id}"))
+            if (onlineTaste != null) {
+                val shelf = onlineTaste.state.collectAsStateWithLifecycle().value.shelf(TasteKind.TRACK)
+                if (shelf.issue != null) TextButton({ onlineTaste.refresh(TasteKind.TRACK) }, Modifier.prismFocus(), enabled = !shelf.busy) {
+                    Text("Обновить отметки трека", color = MaterialTheme.colorScheme.error)
+                }
             }
-        }
-        if (onlineTaste != null) {
-            ArtistNames(track, artist, "${location}_${track.id}")
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                TasteIcons(onlineTaste, track.tasteTarget(), location)
-                Spacer(Modifier.weight(1f))
-                if (enqueue != null) ActionIcon(if (queued) UiIcon.CHECK else UiIcon.ADD_QUEUE, "В очередь: ${track.title}", enqueue, Modifier.testTag("enqueue_${track.id}"), enabled = track.available && !queued)
-                ActionIcon(UiIcon.MORE, "Исполнители и альбом: ${track.title}", { if (more != null) more() else details = true }, Modifier.testTag("track_more_${track.id}"))
-            }
-            val shelf = onlineTaste.state.collectAsStateWithLifecycle().value.shelf(TasteKind.TRACK)
-            if (shelf.issue != null) TextButton({ onlineTaste.refresh(TasteKind.TRACK) }, Modifier.prismFocus(), enabled = !shelf.busy) { Text("Обновить отметки трека", color = MaterialTheme.colorScheme.error) }
         }
     }
 }

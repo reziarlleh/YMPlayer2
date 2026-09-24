@@ -44,6 +44,7 @@ val PrismIcons: Map<UiIcon, ImageVector> = mapOf(
     UiIcon.UP to Icons.Default.KeyboardArrowUp,
     UiIcon.DOWN to Icons.Default.KeyboardArrowDown,
     UiIcon.REMOVE to Icons.Default.RemoveCircleOutline,
+    UiIcon.DRAG_HANDLE to Icons.Default.DragHandle,
     UiIcon.ADD_QUEUE to Icons.Default.PlaylistAdd,
     UiIcon.CLEAR_QUEUE to Icons.Default.ClearAll,
     UiIcon.FAVORITE to Icons.Default.Favorite,

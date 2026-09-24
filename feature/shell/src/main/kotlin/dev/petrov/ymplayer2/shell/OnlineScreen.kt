@@ -50,7 +50,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         keyboard?.hide()
     }
     val queued = playback.queue.mapTo(hashSetOf(), Track::id)
-    LazyColumn(Modifier.fillMaxSize().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyColumn(Modifier.fillMaxSize().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         item {
             if (detail != null) TextButton({ up() }, Modifier.prismFocus().testTag("online_up")) { Text("На уровень выше") }
             val title: @Composable () -> Unit = { Text(detail?.title ?: if (search) "Поиск в Яндекс Музыке" else "Моя музыка в Яндексе", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }

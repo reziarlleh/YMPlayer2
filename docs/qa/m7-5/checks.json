@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-24",
+  "build": {
+    "versionName": "2.0.0beta-build20",
+    "versionCode": 20,
+    "applicationId": "dev.petrov.ymplayer2",
+    "sha256": "3019541f83d3296f8ab7fcbe46c2a6384d48b9259b4d3a10c303be75d9b5fbc3"
+  },
+  "jvm": { "tests": 83, "failures": 0 },
+  "lint": { "errors": 0, "warnings": 21 },
+  "native": {
+    "Android35": {
+      "fullSuite": 132,
+      "firstRunFailures": 1,
+      "isolatedRerun": "Back navigation test passed 1/1 after rebooting emulator with System UI ANR",
+      "playlistFocusedNormal": 8,
+      "font200Card": 1,
+      "font200DragAfterScroll": 1
+    },
+    "AndroidTV29": {
+      "fullSuite": 132,
+      "failures": 0,
+      "playlistFocusedNormal": 8,
+      "font200CardAndPosition": 2
+    }
+  },
+  "signedUpgrade": {
+    "Android35": "build19 to build20; versionCode and firstInstallTime verified; MainActivity launched",
+    "AndroidTV29": "build19 to build20; versionCode and firstInstallTime verified; MainActivity launched"
+  },
+  "limits": "Personal Yandex account writes and physical HyperOS device behavior require owner acceptance."
+}
