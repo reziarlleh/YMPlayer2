@@ -63,7 +63,8 @@
 ## Сборки и проверка
 
 Репозиторий пока приватный. Выдаваемые beta APK и сведения об их проверке
-привязаны к номеру Build. [Компактные карточки и перетаскивание M7.5](docs/M7_5_VERIFICATION.md),
+привязаны к номеру Build. [Уплотнение карточек M7.6](docs/M7_6_VERIFICATION.md),
+[компактные карточки и перетаскивание M7.5](docs/M7_5_VERIFICATION.md),
 [редактор плейлистов M7.4](docs/M7_4_VERIFICATION.md),
 [облачные плейлисты M7.3](docs/M7_3_VERIFICATION.md),
 [качество потока/кэша M7.2](docs/M7_2_VERIFICATION.md),
@@ -80,7 +81,12 @@
 [отчёт M3.1](docs/M3_VERIFICATION.md), [отчёт M2](docs/M2_VERIFICATION.md),
 [история UI-прототипа M1](docs/M1_VERIFICATION.md).
 
-Последняя beta: [2.0.0beta-build20](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build20).
+Последняя beta: [2.0.0beta-build21](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build21).
+
+Build21 уплотняет строки трека и исполнителя, а источник с длительностью
+переносит в центр ряда действий. Проверены 83 JVM-теста, по 8 сценариев
+плейлистов на Android/TV, обычный и 200% шрифт, обновление с build20.
+[Отчёт M7.6](docs/M7_6_VERIFICATION.md).
 
 Build20 объединяет сведения и действия одного трека внутри компактной карточки
 плейлиста. Редактор оформлен так же; на сенсорном экране треки можно

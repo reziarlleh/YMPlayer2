@@ -1,0 +1,9 @@
+{
+  "builtAtUtc": "2026-09-24T14:00:02.112488Z",
+  "sha256": "297d3b6f3b61e2ec74bb2d9ce906f2b1767c39575610b95953e589b4a8fd77f6",
+  "versionName": "2.0.0beta-build21",
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "beta",
+  "versionCode": 21,
+  "runtimeAcceptance": "Android 35 and Android TV 29 signed upgrade 20 to 21 and MainActivity launch verified; firstInstallTime retained and signer unchanged. JVM 83/83, cloud playlist native suite 8/8 per platform, track card and artist click at normal and 200 percent font passed. Physical HyperOS and personal Yandex writes await owner acceptance."
+}

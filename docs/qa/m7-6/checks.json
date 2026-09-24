@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-24",
+  "build": {
+    "versionName": "2.0.0beta-build21",
+    "versionCode": 21,
+    "applicationId": "dev.petrov.ymplayer2",
+    "sha256": "297d3b6f3b61e2ec74bb2d9ce906f2b1767c39575610b95953e589b4a8fd77f6"
+  },
+  "jvm": { "tests": 83, "failures": 0 },
+  "lint": { "errors": 0, "warnings": 22 },
+  "native": {
+    "Android35": { "cloudSuite": 8, "failures": 0, "cardAndArtistAt200Percent": 1 },
+    "AndroidTV29": { "cloudSuite": 8, "failures": 0, "cardAndArtistAt200Percent": 1 }
+  },
+  "signedUpgrade": {
+    "Android35": "build20 to build21; versionCode, unchanged firstInstallTime and MainActivity launch verified",
+    "AndroidTV29": "build20 to build21; versionCode, unchanged firstInstallTime and MainActivity launch verified"
+  },
+  "limits": "Physical HyperOS and personal Yandex server writes were not exercised."
+}

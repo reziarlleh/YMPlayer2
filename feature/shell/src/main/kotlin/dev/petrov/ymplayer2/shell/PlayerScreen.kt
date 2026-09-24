@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -167,8 +168,13 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     else Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         artists.forEachIndexed { index, item ->
             if (index > 0) Text(", ", color = MaterialTheme.colorScheme.onSurfaceVariant)
-            TextButton({ open(item) }, Modifier.weight(item.name.length.toFloat().coerceAtLeast(1f), fill = false).heightIn(min = if (compact) 36.dp else 40.dp).prismFocus().testTag("${location}_artist_${item.id}"), contentPadding = PaddingValues(0.dp)) {
-                Text(item.name, maxLines = 1, overflow = TextOverflow.Ellipsis, style = if (compact) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyMedium)
+            val modifier = Modifier.weight(item.name.length.toFloat().coerceAtLeast(1f), fill = false)
+                .prismFocus().testTag("${location}_artist_${item.id}")
+            if (compact) Box(modifier.heightIn(min = 32.dp).clickable { open(item) }, contentAlignment = Alignment.CenterStart) {
+                Text(item.name, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+            } else TextButton({ open(item) }, modifier.heightIn(min = 40.dp), contentPadding = PaddingValues(0.dp)) {
+                Text(item.name, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
@@ -218,6 +224,8 @@ import dev.petrov.ymplayer2.designsystem.skin.*
 @Composable internal fun TrackRow(track: Track, selected: Boolean = false, play: () -> Unit, enqueue: (() -> Unit)? = null, queued: Boolean = false, more: (() -> Unit)? = null,
     taste: MusicTaste? = null, location: String = "catalog", artist: (ArtistRef) -> Unit = {}) {
     val onlineTaste = taste?.takeIf { track.source == Source.YANDEX }
+    val hasActions = onlineTaste != null || enqueue != null || more != null
+    val metadata = if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else "Трек недоступен"
     var details by remember(track.id) { mutableStateOf(false) }
     if (details && onlineTaste != null) TrackTasteDialog(track, onlineTaste, artist = artist) { details = false }
     Surface(Modifier.fillMaxWidth().testTag("track_card_${track.id}"), shape = MaterialTheme.shapes.medium,
@@ -230,16 +238,17 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(0.dp)) {
                     Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
                     ArtistNames(track, artist, "${location}_${track.id}", compact = true)
-                    Text(if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else "Трек недоступен",
-                        style = MaterialTheme.typography.labelSmall)
+                    if (!hasActions) Text(metadata, style = MaterialTheme.typography.labelSmall)
                 }
                 SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY,
                     if (selected) "Текущий трек" else "Воспроизвести трек", Modifier.size(24.dp))
             }
-            if (onlineTaste != null || enqueue != null || more != null) {
+            if (hasActions) {
                 Row(Modifier.fillMaxWidth().padding(start = 8.dp, end = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                     if (onlineTaste != null) TasteIcons(onlineTaste, track.tasteTarget(), location)
-                    Spacer(Modifier.weight(1f))
+                    Text(metadata, Modifier.weight(1f).testTag("track_meta_${track.id}"), maxLines = 1,
+                        overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (enqueue != null) ActionIcon(if (queued) UiIcon.CHECK else UiIcon.ADD_QUEUE,
                         if (queued) "Уже в очереди: ${track.title}" else "В очередь: ${track.title}", enqueue,
                         Modifier.testTag("enqueue_${track.id}"), enabled = track.available && !queued)

@@ -140,6 +140,8 @@ class CloudPlaylistPlaybackTest {
             assertTrue("$tag outside track card", card.contains(compose.onNodeWithTag(tag).fetchSemanticsNode().boundsInRoot.center))
         }
         snapshot("cloud-playlist-card.png")
+        compose.onNodeWithTag("catalog_yandex:1:7_artist_5").performClick()
+        waitFor { h.online.state.value.request.entity?.let { it.id == "5" && it.kind == MusicKind.ARTISTS } == true }
     }
     @Test fun draggingAnOccurrenceCommitsOneFinalServerMove() {
         openEditor()
