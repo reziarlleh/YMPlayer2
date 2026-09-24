@@ -74,6 +74,7 @@ dependencies {
     androidTestImplementation(libs.android.test.runner)
     androidTestImplementation(libs.android.test.junit)
     androidTestImplementation(libs.media3.exoplayer)
+    androidTestImplementation(libs.media3.session)
     debugImplementation(libs.compose.test.manifest)
     debugImplementation(libs.media3.exoplayer)
 }

@@ -274,6 +274,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         waveAdvance = true; waveResume = true
         fetchWave()
     }
+    internal fun playOfflineLikes() = command {
+        val profile = state.value.profileId
+        val tracks = offline?.tracks(profile)?.filter { it.available && it.offline }.orEmpty()
+        if (tracks.isEmpty()) return@command
+        cancelWave(); followLibrary = false
+        load(tracks, 0, 0)
+        engine?.prepare(); engine?.play()
+    }
     override fun playRecommendedQueue(trackIds: List<String>, startId: String?) = command {
         if (trackIds.none { id -> knownTracks(state.value.profileId).any { it.id == id && it.available } }) return@command
         playQueue(trackIds, startId)
