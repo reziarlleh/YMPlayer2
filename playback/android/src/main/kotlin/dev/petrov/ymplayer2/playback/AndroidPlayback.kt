@@ -12,7 +12,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import org.json.JSONArray
 import org.json.JSONObject
 
-interface PlaybackHost { val playback: AndroidPlayback }
+enum class AudioServiceEvent { CREATED, DESTROYED, RESUMPTION_REQUESTED, RESUMPTION_AVAILABLE }
+interface PlaybackHost {
+    val playback: AndroidPlayback
+    fun onAudioServiceEvent(event: AudioServiceEvent) = Unit
+}
 
 /** Main-thread command adapter. The service alone creates/releases the audio engine. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)

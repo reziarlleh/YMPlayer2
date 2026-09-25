@@ -42,7 +42,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, folders: () -> Unit = {}, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null) {
+@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, folders: () -> Unit = {}, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null) {
     LazyColumn(Modifier.fillMaxSize().testTag("settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text("Настройки", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
         if (quality != null) item { OutlinedButton(quality, Modifier.fillMaxWidth().prismFocus().testTag("settings_quality")) { Text("Качество звука") } }
@@ -55,6 +55,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             items(CatalogState.entries) { item -> Choice(item.label, catalog == item, "state_${item.name}") { setCatalog(item) } }
         } else item { OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { Text("Папки с музыкой") } }
         if (offline != null) item { OutlinedButton(offline, Modifier.prismFocus().testTag("settings_offline")) { Text("«Мне нравится» офлайн") } }
+        if (diagnostics != null) item { OutlinedButton(diagnostics, Modifier.fillMaxWidth().prismFocus().testTag("settings_diagnostics")) { Text("Диагностика") } }
         item { HorizontalDivider(); Text("YMPlayer 2 · $version", fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp)) }
         item { Text(if (demo) "Демонстрационный режим M1 · без звука" else "Локальная и онлайн-музыка. Вход в Яндекс — в профилях. Сохранённое «Мне нравится» — в разделе «Офлайн».", color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }

@@ -31,8 +31,8 @@
 - APK установлен поверх build22 на Android 15 и TV 29: `versionCode=23`,
   первая дата установки сохранилась, `MainActivity` запустилась на обоих.
 
-Протоколы: [Android 15](../qa/m8-2/android-15.xml),
-[Android TV 29](../qa/m8-2/android-tv.xml).
+Протоколы: [Android 15](qa/m8-2/android-15.xml),
+[Android TV 29](qa/m8-2/android-tv.xml).
 Артефакт: [GitHub prerelease](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build23).
 
 Предел: эмуляторный broadcast и platform MediaController подтверждают маршрут

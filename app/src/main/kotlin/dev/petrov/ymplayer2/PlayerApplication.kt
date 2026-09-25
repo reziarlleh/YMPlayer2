@@ -5,6 +5,7 @@ import dev.petrov.ymplayer2.library.SafLibrary
 import dev.petrov.ymplayer2.library.LocalCollections
 import dev.petrov.ymplayer2.playback.AndroidPlayback
 import dev.petrov.ymplayer2.playback.PlaybackHost
+import dev.petrov.ymplayer2.playback.AudioServiceEvent
 import dev.petrov.ymplayer2.core.AccountAuth
 import dev.petrov.ymplayer2.core.OnlineMusic
 import dev.petrov.ymplayer2.core.MusicTaste
@@ -20,6 +21,15 @@ import kotlinx.coroutines.*
 
 class PlayerApplication : Application(), PlaybackHost {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    internal val diagnostics by lazy { DiagnosticsJournal(this) }
+    override fun onAudioServiceEvent(event: AudioServiceEvent) {
+        diagnostics.record(when (event) {
+            AudioServiceEvent.CREATED -> DiagnosticEvent.AUDIO_SERVICE_CREATED
+            AudioServiceEvent.DESTROYED -> DiagnosticEvent.AUDIO_SERVICE_DESTROYED
+            AudioServiceEvent.RESUMPTION_REQUESTED -> DiagnosticEvent.RESUMPTION_REQUESTED
+            AudioServiceEvent.RESUMPTION_AVAILABLE -> DiagnosticEvent.RESUMPTION_AVAILABLE
+        })
+    }
     val library by lazy { SafLibrary(this, scope) }
     val collections by lazy { LocalCollections(this, library, scope) }
     private val musicApi by lazy { YandexMusicApi(accounts) }

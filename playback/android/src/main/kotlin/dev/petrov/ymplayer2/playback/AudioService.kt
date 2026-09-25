@@ -24,10 +24,12 @@ import com.google.common.collect.ImmutableList
 class AudioService : MediaLibraryService() {
     private var session: MediaLibrarySession? = null
     private var engine: ExoPlayer? = null
-    private val playback get() = (application as PlaybackHost).playback
+    private val host get() = application as PlaybackHost
+    private val playback get() = host.playback
 
     override fun onCreate() {
         super.onCreate()
+        host.onAudioServiceEvent(AudioServiceEvent.CREATED)
         val source = onlineDataSourceFactory(this, playback::resolveStream)
         val player = ExoPlayer.Builder(this).setMediaSourceFactory(DefaultMediaSourceFactory(this).setDataSourceFactory(source)).build().apply {
             setAudioAttributes(AudioAttributes.Builder().setUsage(C.USAGE_MEDIA).setContentType(C.AUDIO_CONTENT_TYPE_MUSIC).build(), true)
@@ -35,7 +37,7 @@ class AudioService : MediaLibraryService() {
             setWakeMode(C.WAKE_MODE_NETWORK)
         }
         engine = player
-        session = MediaLibrarySession.Builder(this, sessionPlayer(player, playback), browserCallback(playback)).apply {
+        session = MediaLibrarySession.Builder(this, sessionPlayer(player, playback), browserCallback(playback, host::onAudioServiceEvent)).apply {
             packageManager.getLaunchIntentForPackage(packageName)?.let {
                 setSessionActivity(PendingIntent.getActivity(this@AudioService, 0, it, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT))
             }
@@ -51,6 +53,7 @@ class AudioService : MediaLibraryService() {
         playback.detach()
         session?.release(); session = null
         engine?.release(); engine = null
+        host.onAudioServiceEvent(AudioServiceEvent.DESTROYED)
         super.onDestroy()
     }
 }
@@ -84,10 +87,12 @@ internal object BrowserSources {
         ?.setUri("ymplayer2://browser/$id")?.build()
 }
 
-private fun browserCallback(playback: AndroidPlayback) = object : MediaLibraryService.MediaLibrarySession.Callback {
+private fun browserCallback(playback: AndroidPlayback, diagnostic: (AudioServiceEvent) -> Unit) = object : MediaLibraryService.MediaLibrarySession.Callback {
     override fun onPlaybackResumption(session: MediaSession, controller: MediaSession.ControllerInfo,
         isForPlayback: Boolean): ListenableFuture<MediaSession.MediaItemsWithStartPosition> {
+        diagnostic(AudioServiceEvent.RESUMPTION_REQUESTED)
         val item = playback.resumptionItem()
+        if (item != null) diagnostic(AudioServiceEvent.RESUMPTION_AVAILABLE)
         return Futures.immediateFuture(MediaSession.MediaItemsWithStartPosition(
             listOfNotNull(item), if (item == null) C.INDEX_UNSET else 0, C.TIME_UNSET))
     }

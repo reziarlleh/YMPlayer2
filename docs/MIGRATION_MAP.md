@@ -1,6 +1,6 @@
 # Карта миграции
 
-Обновлено: 2026-09-24. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь,
+Обновлено: 2026-09-25. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь,
 в M3.2 — локальные плейлисты и избранное по профилям; в M3.3 — обложки, иерархия
 «Назад» и восстановление недоступных ссылок очереди; [проверки build6](M3_3_VERIFICATION.md).
 `analysis` означает выполненный первичный
@@ -13,7 +13,8 @@
 | F19, новый shell | S01/S11 только сценарии | designsystem, feature:shell | redesign | M3.3 local | Иерархия «Назад», двойной выход, детали/диалоги, шрифт 200% и короткое окно проверены; облачные экраны отдельно |
 | F02 | ROADMAP, S08 как ограничение | core/auth + provider/yandex | new | M4 implementation | Отдельные сессии/ключи/device ID, отмена старых работ, guest local mode; изоляция будущих музыкальных запросов — M5 |
 | F01 | S01/S04/S08 | core/auth + provider/yandex + shell | migration/refactor | M4.1 verification | Повторная сверка с 1.x: OAuth сохраняется до account/status, возвращены HTTP-заголовки и тайм-ауты, код переживает сетевой сбой. [Проверки](M4_1_VERIFICATION.md); живой вход подтверждается отдельно |
-| F16/F17 | ROADMAP; S05 как reference | library + local index | new | design | Пагинация, USB unavailable, инкрементальный индекс |
+| F16 | ROADMAP; S05 как reference | library + local index + shell | new | M2/M5 частично; полный объём M11 | Разделы UI и онлайн-страницы есть; единый индекс метаданных, постраничные локальные запросы, источник/доступность и большой USB-каталог ещё открыты |
+| F17 | ROADMAP; S05 как reference | library + shell | new | после 2.0.0 | Расширенная история, недавно добавленное и массовые действия не включены в приёмку 2.0.0 |
 | F04/F05/F06 | S02 | playback + Android adapter | migration/refactor | M3.3 local | Play/pause/stop/seek/skip, repeat/shuffle, ручная очередь и checkpoints; недоступные ссылки сохраняются, возврат текущего трека на паузе. Native Media3 и фон проверены; физический USB и облачные сценарии отдельно |
 | F03 | S03/S04 | core/MyWave + provider/yandex + playback | migration/refactor | M6 verification | Session/batch/feedback, продолжение, retry и следующая рекомендация; пауза, профиль, восстановление. [Правила](DECISIONS/ADR-011-wave-and-taste.md) |
 | F07 | S03/S06 + запрос владельца | core/MusicTaste + provider/yandex + shell | migration/refactor | M6 / M7.1 verification | Раздельные реакции трека/исполнителя, любимые альбомы; unlike не является block. Постоянный кэш подключён в M7.1 только для liked tracks |
@@ -26,12 +27,12 @@
 | F18 | S07 | clips | migration/refactor | analysis | Взаимное исключение аудио/видео, prefetch, Back |
 | F20 | S02 | playback/android MediaLibrarySession | migration/refactor | M8.1–M8.2/build22–23, эмуляторы; CWG открыт | Media3 и platform MediaBrowser публикуют два источника 1.x; запуск и защита внешних URI проверены. MediaButtonReceiver запускает остановленную службу; физические кнопки/boot/CWG — M8.4. [Браузер](M8_1_VERIFICATION.md), [кнопки и фокус](M8_2_VERIFICATION.md) |
 | F21/F22 | S09/ROADMAP | headunit/sidebar | migration/refactor | analysis | Overlay permission, команды K4811, состав кнопок |
-| F23 | S10/S11 | diagnostics + UI status | migration/refactor | analysis | Журнал по запросу, отсутствие секретов, длинный текст |
+| F23 | S10/S11 | app/DiagnosticsJournal + shell/DiagnosticsScreen | migration/refactor | M8.3/build24, emulator verification | Фиксированные коды без секретов, ограничение размера, просмотр/очистка/экспорт Downloads. [Решение](DECISIONS/ADR-021-diagnostics.md), [проверки](M8_3_VERIFICATION.md); физическая приёмка отдельно |
 | F24 | S10 | distribution/update | redesign | design | Только 2.x, beta/stable, Build, hash/signature, сохранение данных |
 
 ## Порядок
 
-Подробный порядок M1–M12 и критерии завершения: [ROADMAP.md](ROADMAP.md).
+Подробный порядок M1–M13 и критерии завершения: [ROADMAP.md](ROADMAP.md).
 
 M4: успешный вход подтверждён владельцем на build8. M5/build9: каталог и поиск
 подтверждены владельцем; перенос аудиопротокола исправлен в build10/M5.1,
@@ -41,7 +42,7 @@ M6 добавил волну, рекомендации и отдельные lik
 качество потока/кэша, облачные операции и редактор. M8.1–M8.2 добавили браузер
 двух источников, медиакнопки и восстановление остановленной службы. Открыты
 личная приёмка M7 и аппаратная M8; далее диагностика/CWG → клипы →
-SideBar/K4811 → скины → выпуск.
+SideBar/K4811 → полный каталог F16 → выпуск 2.0.0 → скины 2.1.0.
 
 Перед каждым переносом: inputs/outputs/side effects → поведенческие примеры →
 новый контракт → реализация → подходящие проверки → сравнение с reference →

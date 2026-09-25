@@ -139,6 +139,12 @@ M8.1: `:playback:android` предоставляет `MediaLibraryService` с т
 приёмкой. [Браузер](DECISIONS/ADR-019-system-browser.md),
 [медиакнопки](DECISIONS/ADR-020-media-button-resumption.md).
 
+M8.3: `app/DiagnosticsJournal` хранит только ограниченный список кодов событий
+в приватном файле и экспортирует снимок через MediaStore. `feature:shell`
+получает интерфейс `DiagnosticsAccess` и показывает журнал в настройках,
+не импортируя хранилище или аккаунты. Аудиосервис сообщает приложению только
+свои фиксированные события через `PlaybackHost`. [Решение](DECISIONS/ADR-021-diagnostics.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения
