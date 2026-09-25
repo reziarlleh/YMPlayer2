@@ -35,7 +35,7 @@ class AudioService : MediaLibraryService() {
             setWakeMode(C.WAKE_MODE_NETWORK)
         }
         engine = player
-        session = MediaLibrarySession.Builder(this, sessionPlayer(player, playback), browserCallback()).apply {
+        session = MediaLibrarySession.Builder(this, sessionPlayer(player, playback), browserCallback(playback)).apply {
             packageManager.getLaunchIntentForPackage(packageName)?.let {
                 setSessionActivity(PendingIntent.getActivity(this@AudioService, 0, it, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT))
             }
@@ -60,6 +60,7 @@ internal object BrowserSources {
     const val ROOT = "ymp_root"
     const val WAVE = "ymp_my_wave"
     const val LIKED_CACHE = "ymp_liked_cache"
+    const val RESUME = "ymp_resume"
 
     fun item(id: String): MediaItem? = when (id) {
         ROOT -> MediaItem.Builder().setMediaId(ROOT).setMediaMetadata(MediaMetadata.Builder()
@@ -83,7 +84,14 @@ internal object BrowserSources {
         ?.setUri("ymplayer2://browser/$id")?.build()
 }
 
-private fun browserCallback() = object : MediaLibraryService.MediaLibrarySession.Callback {
+private fun browserCallback(playback: AndroidPlayback) = object : MediaLibraryService.MediaLibrarySession.Callback {
+    override fun onPlaybackResumption(session: MediaSession, controller: MediaSession.ControllerInfo,
+        isForPlayback: Boolean): ListenableFuture<MediaSession.MediaItemsWithStartPosition> {
+        val item = playback.resumptionItem()
+        return Futures.immediateFuture(MediaSession.MediaItemsWithStartPosition(
+            listOfNotNull(item), if (item == null) C.INDEX_UNSET else 0, C.TIME_UNSET))
+    }
+
     override fun onGetLibraryRoot(session: MediaLibraryService.MediaLibrarySession, browser: MediaSession.ControllerInfo,
         params: MediaLibraryService.LibraryParams?): ListenableFuture<LibraryResult<MediaItem>> =
         Futures.immediateFuture(LibraryResult.ofItem(requireNotNull(BrowserSources.item(BrowserSources.ROOT)), params))
@@ -109,7 +117,7 @@ private fun browserCallback() = object : MediaLibraryService.MediaLibrarySession
 internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = object : ForwardingPlayer(player) {
     private var selectedSource: String? = null
     private fun select(items: List<MediaItem>) {
-        selectedSource = items.singleOrNull()?.mediaId?.takeIf { BrowserSources.launchItem(it) != null }
+        selectedSource = items.singleOrNull()?.mediaId?.takeIf { it == BrowserSources.RESUME || BrowserSources.launchItem(it) != null }
     }
     override fun setMediaItem(mediaItem: MediaItem) = select(listOf(mediaItem))
     override fun setMediaItem(mediaItem: MediaItem, startPositionMs: Long) = select(listOf(mediaItem))

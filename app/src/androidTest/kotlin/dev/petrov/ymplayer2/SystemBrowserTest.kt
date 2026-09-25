@@ -1,10 +1,12 @@
 package dev.petrov.ymplayer2
 
 import android.content.ComponentName
+import android.content.Intent
 import android.media.browse.MediaBrowser as PlatformBrowser
 import android.media.session.MediaController as PlatformController
 import android.os.Bundle
 import android.net.Uri
+import android.view.KeyEvent
 import androidx.media3.common.MediaItem
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
@@ -34,6 +36,12 @@ class SystemBrowserTest {
         val until = System.currentTimeMillis() + 15_000
         while (!block() && System.currentTimeMillis() < until) Thread.sleep(50)
         assertTrue("Expected player state was not reached", block())
+    }
+    private fun sendButton(code: Int) {
+        val button = Intent(Intent.ACTION_MEDIA_BUTTON).setClassName(context,
+            "androidx.media3.session.MediaButtonReceiver")
+        context.sendBroadcast(button.putExtra(Intent.EXTRA_KEY_EVENT, KeyEvent(KeyEvent.ACTION_DOWN, code)))
+        context.sendBroadcast(button.putExtra(Intent.EXTRA_KEY_EVENT, KeyEvent(KeyEvent.ACTION_UP, code)))
     }
 
     @Test fun media3BrowserPublishesOnlyLegacySourcesAndRejectsInjectedMedia() {
@@ -132,6 +140,58 @@ class SystemBrowserTest {
             }
         } finally {
             main { app.playback.stop(); browser.release() }
+            runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) }
+        }
+    }
+
+    @Test fun mediaButtonRestartsStoppedServiceAndResumesSavedLocalTrack() {
+        val app = context.applicationContext as PlayerApplication
+        context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+        try {
+            main { app.playback.connect() }
+            awaitState { app.playback.state.value.connected && app.library.state.value.tracks.size >= 2 }
+            val tracks = app.library.state.value.tracks.take(2).map { it.id }
+            val track = tracks.first()
+            main { app.playback.playQueue(tracks) }
+            awaitState { app.playback.state.value.current?.id == track && app.playback.state.value.playing }
+            main { app.playback.seek(7); app.playback.toggle() }
+            awaitState { !app.playback.state.value.playing && app.playback.state.value.positionSeconds >= 7 }
+            assertTrue(context.stopService(Intent(context, AudioService::class.java)))
+            awaitState { !app.playback.state.value.connected }
+
+            sendButton(KeyEvent.KEYCODE_MEDIA_PLAY)
+            try {
+                awaitState { app.playback.state.value.connected && app.playback.state.value.playing &&
+                    app.playback.state.value.current?.id == track && app.playback.state.value.positionSeconds >= 7 }
+            } catch (error: AssertionError) {
+                throw AssertionError("Resume button state: ${app.playback.state.value}; expected=$track", error)
+            }
+            val connected = CountDownLatch(1)
+            val browser = main { PlatformBrowser(context, service, object : PlatformBrowser.ConnectionCallback() {
+                override fun onConnected() { connected.countDown() }
+                override fun onConnectionFailed() { connected.countDown() }
+            }, Bundle.EMPTY) }
+            try {
+                main { browser.connect() }
+                assertTrue(connected.await(20, TimeUnit.SECONDS))
+                assertTrue(browser.isConnected)
+                val controller = main { PlatformController(context, browser.sessionToken) }
+                fun activeButton(code: Int) = main {
+                    controller.dispatchMediaButtonEvent(KeyEvent(KeyEvent.ACTION_DOWN, code))
+                    controller.dispatchMediaButtonEvent(KeyEvent(KeyEvent.ACTION_UP, code))
+                }
+                activeButton(KeyEvent.KEYCODE_MEDIA_PAUSE)
+                awaitState { !app.playback.state.value.playing }
+                activeButton(KeyEvent.KEYCODE_MEDIA_PLAY)
+                awaitState { app.playback.state.value.playing }
+                activeButton(KeyEvent.KEYCODE_MEDIA_NEXT)
+                awaitState { app.playback.state.value.current?.id == tracks[1] && app.playback.state.value.playing }
+            } finally {
+                main { browser.disconnect() }
+            }
+        } finally {
+            main { app.playback.stop() }
             runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) }
         }
     }

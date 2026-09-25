@@ -1,6 +1,9 @@
 package dev.petrov.ymplayer2
 
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.AudioFocusRequest
+import android.media.AudioManager
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
@@ -57,6 +60,24 @@ class LocalPlaybackTest {
         compose.runOnIdle { player.toggle() }
         waitFor { !player.state.value.playing }
         assertNull(player.state.value.error)
+    }
+
+    @Test fun transientExternalAudioFocusPausesAndRestoresPlayback() {
+        val manager = compose.activity.getSystemService(AudioManager::class.java)
+        val request = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+            .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
+            .setOnAudioFocusChangeListener { }
+            .build()
+        compose.runOnIdle { player.select(library.state.value.tracks.first().id) }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
+        try {
+            assertEquals(AudioManager.AUDIOFOCUS_REQUEST_GRANTED, manager.requestAudioFocus(request))
+            waitFor { !player.state.value.playing }
+        } finally {
+            manager.abandonAudioFocusRequest(request)
+        }
+        waitFor { player.state.value.playing }
     }
 
     @Test fun profileCheckpointsAndServiceRestartStayPaused() {

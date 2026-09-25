@@ -49,6 +49,25 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
     fun audioSessionId(): Int = engine?.audioSessionId ?: 0
 
+    /** A media-button receiver may create the service before the local catalog has loaded.
+     * Only describe the saved item here; the normal profile-scoped restore resolves its URI. */
+    internal fun resumptionItem(): MediaItem? {
+        val profile = state.value.profileId
+        val saved = runCatching { JSONObject(prefs.getString("queue:$profile", "")!!) }.getOrNull() ?: return null
+        val currentId = saved.optString("current")
+        val rows = saved.optJSONArray("tracks")
+        val item = (0 until (rows?.length() ?: 0)).mapNotNull { rows?.optJSONObject(it) }
+            .firstOrNull { it.optString("id") == currentId }
+        val wave = saved.optBoolean("wave", false)
+        if (item == null && !wave) return null
+        val title = item?.optString("title")?.takeIf { it.isNotBlank() } ?: "Моя волна"
+        val artist = item?.optString("artist")?.takeIf { it.isNotBlank() }
+        return MediaItem.Builder().setMediaId(BrowserSources.RESUME)
+            .setUri("ymplayer2://browser/${BrowserSources.RESUME}")
+            .setMediaMetadata(MediaMetadata.Builder().setTitle(title).setArtist(artist)
+                .setIsPlayable(true).build()).build()
+    }
+
     internal fun attach(player: ExoPlayer) {
         check(engine == null)
         engine = player
@@ -592,7 +611,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val index = logicalQueue.indexOfFirst { it.id == (waitingId ?: player.currentMediaItem?.mediaId) }.coerceAtLeast(0)
         mutable.value = state.value.copy(queue = logicalQueue, index = index,
             positionSeconds = if (waitingId != null) state.value.positionSeconds else (player.currentPosition.coerceAtLeast(0) / 1000).coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
-            playing = if (state.value.wave && waveAdvance && state.value.waveLoading) waveResume else waitingId == null && player.playWhenReady && player.playbackState != Player.STATE_ENDED && player.playerError == null,
+            playing = if (state.value.wave && waveAdvance && state.value.waveLoading) waveResume else waitingId == null &&
+                player.playWhenReady && player.playbackSuppressionReason == Player.PLAYBACK_SUPPRESSION_REASON_NONE &&
+                player.playbackState != Player.STATE_ENDED && player.playerError == null,
             buffering = waitingId == null && player.playbackState == Player.STATE_BUFFERING, repeatMode = player.repeatMode.toRepeatMode(), shuffle = player.shuffleModeEnabled)
     }
     private fun checkpoint() {
