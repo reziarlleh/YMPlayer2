@@ -1,7 +1,10 @@
 package dev.petrov.ymplayer2.clips
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Handler
@@ -11,6 +14,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.text.TextUtils
 
 /** Native overlay stays above the video surface on Android 15 release builds. */
 class ClipControlsView(context: Context, private val controller: ClipWaveController, close: () -> Unit) : FrameLayout(context) {
@@ -23,9 +27,11 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private val back = button("← Назад", close)
     private val heading = label("Клипы · Яндекс Музыка", 18f, true)
     private val status = label("", 16f)
-    private val title = label("", 22f, true)
-    private val artist = label("", 16f)
-    private val nextInfo = label("", 14f)
+    private val infoBand = DiagonalClipInfoBand(context)
+    private val title = label("", 22f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
+    private val artist = label("", 16f).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
+    private val nextTitle = label("", 18f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
+    private val nextArtist = label("", 14f).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val preview = label("Предпросмотр", 14f)
     private val retry = button("Повторить", controller::retry)
     private val previous = button("◀", controller::previous)
@@ -48,9 +54,26 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         bottom.background = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
             intArrayOf(0xe611151e.toInt(), 0x0011151e))
         bottom.addView(status)
-        bottom.addView(title)
-        bottom.addView(artist)
-        bottom.addView(nextInfo)
+        val infoRow = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL }
+        val currentColumn = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(16), dp(12), dp(12), dp(12))
+            addView(infoLabel("СЕЙЧАС", 0xff73dff2.toInt()))
+            addView(title)
+            addView(artist)
+        }
+        val nextColumn = LinearLayout(context).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(28), dp(12), dp(12), dp(12))
+            addView(infoLabel("ДАЛЕЕ", 0xffe3a1d6.toInt()))
+            addView(nextTitle)
+            addView(nextArtist)
+        }
+        infoRow.addView(currentColumn, LinearLayout.LayoutParams(0, -2, 3f))
+        infoRow.addView(nextColumn, LinearLayout.LayoutParams(0, -2, 2f))
+        infoBand.minimumHeight = dp(96)
+        infoBand.addView(infoRow, LayoutParams(-1, -2))
+        bottom.addView(infoBand, LinearLayout.LayoutParams(-1, -2))
         bottom.addView(preview)
         bottom.addView(retry, LinearLayout.LayoutParams(-2, dp(52)))
         val actions = LinearLayout(context).apply { gravity = Gravity.CENTER; orientation = LinearLayout.HORIZONTAL }
@@ -72,12 +95,11 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         status.text = state.issue ?: if (state.loading) "Загрузка клипов…" else ""
         status.visibility = if (status.text.isNotEmpty()) VISIBLE else GONE
         title.text = state.clip?.title.orEmpty()
-        title.visibility = if (state.clip != null) VISIBLE else GONE
         artist.text = state.clip?.artist.orEmpty()
-        artist.visibility = if (artist.text.isNotEmpty()) VISIBLE else GONE
-        nextInfo.text = state.nextClip?.let { "Далее: ${it.title}\n${it.artist}" }
-            ?: if (state.clip != null) "Следующий клип пока не определён" else ""
-        nextInfo.visibility = if (nextInfo.text.isNotEmpty()) VISIBLE else GONE
+        nextTitle.text = state.nextClip?.title ?: "Следующий клип пока не определён"
+        nextArtist.text = state.nextClip?.artist.orEmpty()
+        nextArtist.visibility = if (nextArtist.text.isNotEmpty()) VISIBLE else GONE
+        infoBand.visibility = if (state.clip != null) VISIBLE else GONE
         preview.visibility = if (state.preview) VISIBLE else GONE
         retry.visibility = if (state.issue != null) VISIBLE else GONE
         previous.isEnabled = state.canGoBack
@@ -110,6 +132,10 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         maxLines = 2
         setPadding(dp(6), dp(4), dp(6), dp(4))
     }
+    private fun infoLabel(value: String, color: Int) = label(value, 11f, true).apply {
+        setTextColor(color)
+        letterSpacing = .12f
+    }
     private fun button(value: String, action: () -> Unit) = label(value, 18f, true).apply {
         gravity = Gravity.CENTER
         isClickable = true; isFocusable = true
@@ -126,4 +152,37 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         setOnClickListener { action() }
     }
     private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()
+}
+
+/** Two translucent panels share a diagonal edge; the video remains visible underneath. */
+private class DiagonalClipInfoBand(context: Context) : FrameLayout(context) {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val shape = Path()
+
+    init { setWillNotDraw(false) }
+
+    override fun onDraw(canvas: Canvas) {
+        val w = width.toFloat()
+        val h = height.toFloat()
+        val seamTop = w * .62f
+        val seamBottom = w * .58f
+        shape.reset()
+        shape.moveTo(0f, 0f)
+        shape.lineTo(seamTop, 0f)
+        shape.lineTo(seamBottom, h)
+        shape.lineTo(0f, h)
+        shape.close()
+        paint.color = 0xdd102b38.toInt()
+        canvas.drawPath(shape, paint)
+        shape.reset()
+        shape.moveTo(seamTop, 0f)
+        shape.lineTo(w, 0f)
+        shape.lineTo(w, h)
+        shape.lineTo(seamBottom, h)
+        shape.close()
+        paint.color = 0xdd211b2c.toInt()
+        canvas.drawPath(shape, paint)
+        paint.color = 0xff62dbf1.toInt()
+        canvas.drawRect(0f, 0f, resources.displayMetrics.density * 4f, h, paint)
+    }
 }
