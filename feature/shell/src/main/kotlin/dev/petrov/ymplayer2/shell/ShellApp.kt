@@ -99,7 +99,8 @@ private val destinations = listOf(
             val rail = maxWidth >= 600.dp
             val widePlayer = maxWidth >= 960.dp && maxHeight >= 500.dp
             val short = maxHeight < 480.dp
-            val compactRail = route == "player" && (short || density.fontScale > 1.3f)
+            // Use one rail layout across routes; keep labels in ordinary landscape windows.
+            val compactRail = maxHeight < 380.dp || density.fontScale > 1.3f
             // Give text entry room on short windows; playback continues while its bar is hidden.
             val typingInShortWindow = short && WindowInsets.ime.getBottom(density) > 0
             Row(Modifier.fillMaxSize()) {
@@ -107,11 +108,11 @@ private val destinations = listOf(
                     if (!compactRail) {
                         Spacer(Modifier.height(12.dp))
                         Text("YM", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
-                        Spacer(Modifier.height(24.dp))
+                        Spacer(Modifier.height(if (short) 12.dp else 24.dp))
                     }
                     destinations.forEach { item ->
                         NavigationRailItem(navigationRoute == item.route, { navigate(item.route) },
-                            { SkinIcon(item.icon, item.label) }, Modifier.height(if (compactRail) 56.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
+                            { SkinIcon(item.icon, item.label) }, Modifier.height(if (compactRail) 56.dp else if (short) 72.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
                             label = if (compactRail) null else ({ Text(item.label) }))
                     }
                 }
