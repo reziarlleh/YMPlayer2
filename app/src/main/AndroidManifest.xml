@@ -14,7 +14,8 @@
         android:banner="@drawable/tv_banner" android:theme="@style/AppTheme"
         android:allowBackup="false" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true">
         <service android:name=".OfflineSyncService" android:exported="false" android:foregroundServiceType="dataSync" />
-        <activity android:name=".ClipActivity" android:exported="false" />
+        <activity android:name=".ClipActivity" android:exported="false"
+            android:configChanges="orientation|screenSize|smallestScreenSize" />
         <activity android:name=".MainActivity" android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

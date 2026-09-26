@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 data class ClipWaveState(
     val clip: YandexClip? = null,
+    val nextClip: YandexClip? = null,
     val loading: Boolean = true,
     val playing: Boolean = false,
     val issue: String? = null,
@@ -149,22 +150,39 @@ class ClipWaveController(
         player.setMediaItem(item)
         player.prepare()
         player.play()
-        mutable.value = ClipWaveState(clip = clip, loading = false, canGoBack = cursor > 0, preview = stream.preview)
+        mutable.value = ClipWaveState(clip = clip, nextClip = upcoming(), loading = false,
+            canGoBack = cursor > 0, preview = stream.preview)
     }
     private fun prefetch() {
         prefetchJob?.cancel()
+        val generation = operation
         prefetchJob = scope.launch {
             try {
                 if (pending.isEmpty()) {
                     val batch = api.next(profileId, sessionId, history.takeLast(40).map(YandexClip::id))
+                    if (stale(generation)) return@launch
                     pending.addAll(batch.clips.filter { candidate -> history.none { it.id == candidate.id } })
                 }
-                pending.firstOrNull()?.let { prefetched = it.id to api.stream(profileId, it) }
+                // Publish only a playable candidate, so "Далее" matches the actual next clip.
+                var attempts = 0
+                while (pending.isNotEmpty() && attempts++ < 12 && !stale(generation)) {
+                    val candidate = pending.first()
+                    val stream = try { api.stream(profileId, candidate) }
+                        catch (e: CancellationException) { throw e }
+                        catch (_: Exception) { null }
+                    if (stale(generation)) return@launch
+                    if (stream == null) { pending.removeFirst(); continue }
+                    prefetched = candidate.id to stream
+                    mutable.value = mutable.value.copy(nextClip = upcoming())
+                    return@launch
+                }
             }
             catch (e: CancellationException) { throw e }
             catch (_: Exception) { /* The normal request reports availability when Next is pressed. */ }
         }
     }
+    private fun upcoming(): YandexClip? = history.getOrNull(cursor + 1)
+        ?: pending.firstOrNull()?.takeIf { it.id == prefetched?.first }
     private fun send(clip: YandexClip, event: ClipFeedback, seconds: Float = 0f) {
         if (sessionId.isBlank()) return
         scope.launch { try { api.feedback(profileId, sessionId, clip, event, seconds) }

@@ -1,6 +1,6 @@
 # Карта миграции
 
-Обновлено: 2026-09-25. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь,
+Обновлено: 2026-09-26. M1/M2 завершены в своих границах; в M3.1 реализованы основа скинов и ручная очередь,
 в M3.2 — локальные плейлисты и избранное по профилям; в M3.3 — обложки, иерархия
 «Назад» и восстановление недоступных ссылок очереди; [проверки build6](M3_3_VERIFICATION.md).
 `analysis` означает выполненный первичный
@@ -10,7 +10,7 @@
 
 | Функции | Источник | Модуль 2.x | Тип | Статус | Проверка перед done |
 | --- | --- | --- | --- | --- | --- |
-| F19, новый shell | S01/S11 только сценарии | designsystem, feature:shell | redesign | M3.3 local; [UI/build30](UI_LANDSCAPE_RAIL_VERIFICATION.md) | Иерархия «Назад», двойной выход, детали/диалоги, шрифт 200% и короткое окно проверены. Левое меню в альбомной ориентации едино для всех разделов; облачные экраны отдельно |
+| F19, новый shell | S01/S11 только сценарии | designsystem, feature:shell | redesign | M3.3 local; [UI/build30](UI_LANDSCAPE_RAIL_VERIFICATION.md), [build31](M9_3_VERIFICATION.md) | Иерархия «Назад», двойной выход, детали/диалоги, шрифт 200% и короткое окно проверены. Левое меню в альбомной ориентации едино для всех разделов и сохраняет подписи при 200%; облачные экраны отдельно |
 | F02 | ROADMAP, S08 как ограничение | core/auth + provider/yandex | new | M4 implementation | Отдельные сессии/ключи/device ID, отмена старых работ, guest local mode; изоляция будущих музыкальных запросов — M5 |
 | F01 | S01/S04/S08 | core/auth + provider/yandex + shell | migration/refactor | M4.1 verification | Повторная сверка с 1.x: OAuth сохраняется до account/status, возвращены HTTP-заголовки и тайм-ауты, код переживает сетевой сбой. [Проверки](M4_1_VERIFICATION.md); живой вход подтверждается отдельно |
 | F16 | ROADMAP; S05 как reference | library + local index + shell | new | M2/M5 частично; полный объём M11 | Разделы UI и онлайн-страницы есть; единый индекс метаданных, постраничные локальные запросы, источник/доступность и большой USB-каталог ещё открыты |
@@ -24,7 +24,7 @@
 | F11 | Запрос владельца + протокол клиента Яндекса, не реализация 1.x | core/CloudPlaylists + YandexPlaylistApi + shell | new | M7.4 verification | Переименование, удаление конкретного вхождения, перемещение одним diff; revision, сохранение повторов и перечитывание результата. [Решение](DECISIONS/ADR-018-cloud-playlist-editor.md), [проверки](M7_4_VERIFICATION.md); реальную запись принимает владелец |
 | F25 | ROADMAP + запрос владельца | provider capability extensions | new | M6 partial verification | Рекомендованные плейлисты и любимые исполнители/альбомы реализованы; реальный аккаунт принимает владелец. Волна по треку/артисту и mood остаются будущими возможностями |
 | F13/F14/F15 | S05 | local source + library | migration/refactor | M3.3 local | SAF, rescan, unavailable; собственные плейлисты/избранное, встроенные обложки и ограниченный кэш без изменения оригиналов. Возврат источника проверен через DocumentsProvider; физический hot-plug отдельно |
-| F18 | S07 | provider/yandex/YandexClipApi + feature:clips | migration/refactor | [M9.1](M9_1_VERIFICATION.md) протокол; [M9.2/build29](M9_2_VERIFICATION.md) видео, эмуляторы | Сессия, очередь, feedback, выбор HLS/DASH/preview и граница OAuth перенесены; отдельный видеоплеер, предварительный запрос URL, Back и пауза аудио реализованы. Предзагрузка видеобайтов, живое видео/длительная очередь и физическая приёмка открыты |
+| F18 | S07 | provider/yandex/YandexClipApi + feature:clips | migration/refactor | [M9.1](M9_1_VERIFICATION.md) протокол; [M9.2/build29](M9_2_VERIFICATION.md) видео; [M9.3/build31](M9_3_VERIFICATION.md) поворот и инфо | Сессия, очередь, feedback, выбор HLS/DASH/preview и граница OAuth перенесены; отдельный видеоплеер, запрос следующего URL, Back, пауза аудио, сохранение сессии при повороте и сведения о следующем клипе реализованы. Владелец подтвердил базовое воспроизведение; повторная личная приёмка build31, предзагрузка видеобайтов и длительная очередь открыты |
 | F20 | S02 | playback/android MediaLibrarySession | migration/refactor | M8.1–M8.2/build22–23, эмуляторы; [M8.4](M8_4_VERIFICATION.md) boot emulator; CWG открыт | Media3 и platform MediaBrowser публикуют два источника 1.x; запуск и защита внешних URI проверены. MediaButtonReceiver запускает остановленную службу; восстановление после перезагрузки Android/TV эмуляторов проверено. Физические кнопки/boot/CWG ещё открыты. [Браузер](M8_1_VERIFICATION.md), [кнопки и фокус](M8_2_VERIFICATION.md) |
 | F21/F22 | S09/ROADMAP | headunit/sidebar | migration/refactor | analysis | Overlay permission, команды K4811, состав кнопок |
 | F23 | S10/S11 | app/DiagnosticsJournal + shell/DiagnosticsScreen | migration/refactor | M8.3/build24, emulator verification | Фиксированные коды без секретов, ограничение размера, просмотр/очистка/экспорт Downloads. [Решение](DECISIONS/ADR-021-diagnostics.md), [проверки](M8_3_VERIFICATION.md); физическая приёмка отдельно |

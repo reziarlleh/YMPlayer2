@@ -2,6 +2,7 @@ package dev.petrov.ymplayer2
 
 import android.os.Bundle
 import android.os.Build
+import android.content.res.Configuration
 import android.view.WindowInsets
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +26,7 @@ class ClipActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        if (Build.VERSION.SDK_INT >= 30) window.insetsController?.apply {
-            hide(WindowInsets.Type.systemBars())
-            systemBarsBehavior = android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        } else window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        hideSystemBars()
         val graph = application as PlayerApplication
         graph.playback.connect()
         if (graph.playback.state.value.playing) graph.playback.toggle()
@@ -51,6 +46,19 @@ class ClipActivity : ComponentActivity() {
             clips?.state?.collect(controls::render)
         } }
         clips?.start()
+    }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        hideSystemBars()
+    }
+    private fun hideSystemBars() {
+        if (Build.VERSION.SDK_INT >= 30) window.insetsController?.apply {
+            hide(WindowInsets.Type.systemBars())
+            systemBarsBehavior = android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
     }
     override fun onStop() { clips?.pause(); super.onStop() }
     override fun onDestroy() { clips?.close(); clips = null; super.onDestroy() }

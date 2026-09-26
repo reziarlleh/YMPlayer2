@@ -25,6 +25,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private val status = label("", 16f)
     private val title = label("", 22f, true)
     private val artist = label("", 16f)
+    private val nextInfo = label("", 14f)
     private val preview = label("Предпросмотр", 14f)
     private val retry = button("Повторить", controller::retry)
     private val previous = button("◀", controller::previous)
@@ -49,6 +50,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         bottom.addView(status)
         bottom.addView(title)
         bottom.addView(artist)
+        bottom.addView(nextInfo)
         bottom.addView(preview)
         bottom.addView(retry, LinearLayout.LayoutParams(-2, dp(52)))
         val actions = LinearLayout(context).apply { gravity = Gravity.CENTER; orientation = LinearLayout.HORIZONTAL }
@@ -73,6 +75,9 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         title.visibility = if (state.clip != null) VISIBLE else GONE
         artist.text = state.clip?.artist.orEmpty()
         artist.visibility = if (artist.text.isNotEmpty()) VISIBLE else GONE
+        nextInfo.text = state.nextClip?.let { "Далее: ${it.title}\n${it.artist}" }
+            ?: if (state.clip != null) "Следующий клип пока не определён" else ""
+        nextInfo.visibility = if (nextInfo.text.isNotEmpty()) VISIBLE else GONE
         preview.visibility = if (state.preview) VISIBLE else GONE
         retry.visibility = if (state.issue != null) VISIBLE else GONE
         previous.isEnabled = state.canGoBack

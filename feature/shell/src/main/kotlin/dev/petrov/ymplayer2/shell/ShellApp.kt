@@ -19,7 +19,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
@@ -99,12 +101,15 @@ private val destinations = listOf(
             val rail = maxWidth >= 600.dp
             val widePlayer = maxWidth >= 960.dp && maxHeight >= 500.dp
             val short = maxHeight < 480.dp
-            // Use one rail layout across routes; keep labels in ordinary landscape windows.
+            // Keep destinations readable at large text sizes without using a tall icon-only rail.
             val compactRail = maxHeight < 380.dp || density.fontScale > 1.3f
+            val tinyRail = maxHeight < 320.dp
             // Give text entry room on short windows; playback continues while its bar is hidden.
             val typingInShortWindow = short && WindowInsets.ime.getBottom(density) > 0
             Row(Modifier.fillMaxSize()) {
-                if (rail) NavigationRail(Modifier.fillMaxHeight().then(if (route != "player") Modifier.verticalScroll(rememberScrollState()) else Modifier), containerColor = MaterialTheme.colorScheme.background) {
+                if (rail) NavigationRail(Modifier.fillMaxHeight().then(if (compactRail && !tinyRail) Modifier.width(112.dp) else Modifier)
+                    .then(if (route != "player") Modifier.verticalScroll(rememberScrollState()) else Modifier),
+                    containerColor = MaterialTheme.colorScheme.background) {
                     if (!compactRail) {
                         Spacer(Modifier.height(12.dp))
                         Text("YM", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
@@ -112,8 +117,10 @@ private val destinations = listOf(
                     }
                     destinations.forEach { item ->
                         NavigationRailItem(navigationRoute == item.route, { navigate(item.route) },
-                            { SkinIcon(item.icon, item.label) }, Modifier.height(if (compactRail) 56.dp else if (short) 72.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
-                            label = if (compactRail) null else ({ Text(item.label) }))
+                            { SkinIcon(item.icon, item.label) }, Modifier.height(if (tinyRail) 56.dp else if (compactRail) 76.dp else if (short) 72.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
+                            label = if (tinyRail) null else ({ Text(item.label,
+                                fontSize = if (compactRail) 10.sp else 12.sp,
+                                maxLines = 2, textAlign = TextAlign.Center) }))
                     }
                 }
                 Column(Modifier.weight(1f).fillMaxHeight()) {
