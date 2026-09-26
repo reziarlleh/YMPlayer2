@@ -1,6 +1,7 @@
 package dev.petrov.ymplayer2
 
 import android.os.Bundle
+import android.content.Intent
 import android.content.ActivityNotFoundException
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -84,7 +85,9 @@ class MainActivity : ComponentActivity() {
             val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
                 if (uri != null) model.addFolder(uri.toString(), source)
             }
-            ShellApp(model, BuildConfig.VERSION_NAME, diagnostics = journal, addFolder = {
+            ShellApp(model, BuildConfig.VERSION_NAME, diagnostics = journal, openClips = {
+                startActivity(Intent(this, ClipActivity::class.java))
+            }, addFolder = {
                 source = it; pickerIssue = null
                 try { picker.launch(null) }
                 catch (_: ActivityNotFoundException) { pickerIssue = "На устройстве нет системного выбора папки. Нужен файловый менеджер с поддержкой Storage Access Framework." }

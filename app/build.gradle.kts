@@ -39,6 +39,16 @@ android {
     }
     buildTypes {
         debug { applicationIdSuffix = ".dev" }
+        create("minifiedDebug") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".dev.minified"
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("debug")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
+            matchingFallbacks += listOf("release")
+        }
         release {
             isDebuggable = false
             isMinifyEnabled = true
@@ -65,6 +75,8 @@ dependencies {
     implementation(libs.coroutines.android)
     implementation(project(":designsystem"))
     implementation(project(":feature:shell"))
+    implementation(project(":feature:clips"))
+    implementation(libs.media3.exoplayer)
     implementation(platform(libs.compose.bom))
     implementation(libs.activity.compose)
     implementation(libs.lifecycle.viewmodel.compose)
@@ -76,5 +88,4 @@ dependencies {
     androidTestImplementation(libs.media3.exoplayer)
     androidTestImplementation(libs.media3.session)
     debugImplementation(libs.compose.test.manifest)
-    debugImplementation(libs.media3.exoplayer)
 }

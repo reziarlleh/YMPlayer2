@@ -1,0 +1,10 @@
+{
+  "channel": "beta",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionCode": 27,
+  "versionName": "2.0.0beta-build27",
+  "builtAtUtc": "2026-09-25T08:00:51.8378205Z",
+  "runtimeAcceptance": "rejected",
+  "sha256": "ecd09c132fa11d17af4feabd87eab1384c688c8e0297df5d30e05344e62b7330",
+  "rejectionReason": "Android 15 release video layer hid clip controls"
+}

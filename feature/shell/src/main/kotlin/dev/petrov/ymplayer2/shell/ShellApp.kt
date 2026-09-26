@@ -37,7 +37,7 @@ private val destinations = listOf(
     Destination("clips", "Клипы", UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val library by model.library.collectAsStateWithLifecycle()
     val demo = model.local == null
@@ -56,7 +56,8 @@ private val destinations = listOf(
     val navigate: (String) -> Unit = {
         if (route == "account" && it != "account") model.accounts?.cancel()
         if (route == "artist" && it != "artist") model.online?.closeArtistCard()
-        exitAt = null; route = it
+        exitAt = null
+        if (it == "clips" && openClips != null) openClips() else route = it
     }
     val openArtist: (ArtistRef) -> Unit = { artist ->
         model.online?.let { music ->
