@@ -52,6 +52,16 @@ class ShellInstrumentedTest {
         compose.onNodeWithTag("search_input").performScrollTo().assertTextContains("невозможный запрос")
     }
 
+    @Test fun availableFilterHidesDisconnectedUsbWithoutChangingQueue() {
+        nav("library")
+        compose.onNodeWithTag("filter_USB").performScrollTo().performClick()
+        scrollTag("track_usb:6", "catalog_list").assertIsDisplayed()
+        compose.onNodeWithTag("filter_available").performScrollTo().performClick()
+        scrollTag("track_usb:3", "catalog_list").assertIsDisplayed()
+        compose.onNodeWithTag("track_usb:6").assertDoesNotExist()
+        compose.runOnIdle { assertEquals("yandex:1", state().current?.id) }
+    }
+
     @Test fun profilesStopAndRetainSeparatePositions() {
         compose.runOnIdle { model().player.toggle(); model().player.seek(54) }
         compose.onNodeWithTag("profiles").performClick()
