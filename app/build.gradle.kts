@@ -76,6 +76,7 @@ dependencies {
     implementation(project(":designsystem"))
     implementation(project(":feature:shell"))
     implementation(project(":feature:clips"))
+    implementation(project(":headunit:sidebar"))
     implementation(libs.media3.exoplayer)
     implementation(platform(libs.compose.bom))
     implementation(libs.activity.compose)
