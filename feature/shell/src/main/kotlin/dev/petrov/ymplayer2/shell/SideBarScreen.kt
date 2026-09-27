@@ -39,7 +39,7 @@ interface SideBarAccess {
     LazyColumn(Modifier.fillMaxSize().testTag("sidebar_settings"),
         contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text("Боковая панель", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { Text("Проведите от левого, правого или нижнего края экрана. Панель работает поверх других приложений после вашего разрешения.") }
+        item { Text("Потяните цветной маркер коротким свайпом от левого, правого или нижнего края к центру. Маркеры занимают лишь небольшую часть края; панель работает поверх других приложений после вашего разрешения.") }
         if (!state.permitted) item {
             OutlinedButton(access::requestPermission, Modifier.fillMaxWidth().prismFocus().testTag("sidebar_permission")) {
                 Text("Разрешить показ поверх приложений")

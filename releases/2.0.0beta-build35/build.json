@@ -1,0 +1,10 @@
+{
+  "sha256": "314770a6e9e9efd3efcfe69a7ce1ab071c452aea47c5c3a1c068b0c9f9ba341a",
+  "runtimeAcceptance": "rejected",
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-09-27T08:03:19.0129061Z",
+  "channel": "beta",
+  "versionName": "2.0.0beta-build35",
+  "versionCode": 35,
+  "rejectionReason": "After landscape-to-portrait rotation, bottom overlay window kept landscape width and intercepted extra taps"
+}
