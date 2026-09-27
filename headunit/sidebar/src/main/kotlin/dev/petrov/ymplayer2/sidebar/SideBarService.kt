@@ -15,16 +15,18 @@ import android.media.AudioManager
 import android.os.Build
 import android.os.IBinder
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import java.util.EnumMap
 
-/** User-enabled overlay. No vendor broadcasts, Accessibility service, or boot auto-start. */
+/** User-enabled overlay. K4811 commands stay in K4811Controls; no Accessibility service or boot auto-start. */
 class SideBarService : Service() {
     private lateinit var windows: WindowManager
     private lateinit var settings: SideBarSettings
@@ -96,34 +98,40 @@ class SideBarService : Service() {
     }
 
     private fun expand(target: SideBarEdge) {
+        val selected = SideBarButton.entries.filter { it in settings.read().buttons }
+        if (selected.isEmpty()) { stopSelf(); return }
         edge = target
         removeHandles(); removePanel()
         val horizontal = edge == SideBarEdge.BOTTOM
         val row = LinearLayout(this).apply {
-            orientation = if (horizontal) LinearLayout.HORIZONTAL else LinearLayout.VERTICAL
+            orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
-            setPadding(dp(10), dp(14), dp(10), dp(14))
+            setPadding(dp(10), dp(12), dp(10), dp(12))
             background = SideBarAppearance.panel(edge, resources.displayMetrics.density)
             setOnTouchListener { _, event ->
                 if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_MOVE) scheduleHide()
                 false
             }
         }
-        SideBarButton.entries.filter { it in settings.read().buttons }.forEach { button ->
-            row.addView(button(button.glyph, button.title, edge) {
+        val count = selected.size + 1
+        val maxRows = if (horizontal) 2 else
+            ((resources.displayMetrics.heightPixels / resources.displayMetrics.density * .78f) / 56f).toInt().coerceAtLeast(1)
+        val columns = if (horizontal) count.coerceAtMost(4) else ((count + maxRows - 1) / maxRows).coerceAtLeast(1)
+        val grid = GridLayout(this).apply { columnCount = columns; orientation = GridLayout.HORIZONTAL }
+        selected.forEach { button ->
+            grid.addView(button(button.glyph, button.title) {
                 scheduleHide()
                 perform(button)
             })
         }
         // Collapse is mandatory and always last, regardless of button preferences.
-        row.addView(button("×", "Свернуть", edge) { collapse() })
-        val width = if (horizontal) ViewGroup.LayoutParams.WRAP_CONTENT else dp(76)
-        val height = if (horizontal) dp(84) else ViewGroup.LayoutParams.WRAP_CONTENT
-        if (add(row, params(width, height, edge))) { panel = row; scheduleHide() }
+        grid.addView(button("×", "Спрятать сайдбар") { collapse() })
+        row.addView(grid)
+        if (add(row, params(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, edge))) { panel = row; scheduleHide() }
         else showHandles()
     }
 
-    private fun button(glyph: String, label: String, target: SideBarEdge, click: () -> Unit) = TextView(this).apply {
+    private fun button(glyph: String, label: String, click: () -> Unit) = TextView(this).apply {
         text = glyph
         textSize = 24f
         setTextColor(Color.WHITE)
@@ -131,18 +139,30 @@ class SideBarService : Service() {
         contentDescription = label
         isClickable = true
         isFocusable = true
-        background = SideBarAppearance.button(target, resources.displayMetrics.density)
+        background = SideBarAppearance.button(resources.displayMetrics.density)
         setOnClickListener { click() }
-        layoutParams = LinearLayout.LayoutParams(dp(52), dp(52)).apply { setMargins(dp(2), dp(2), dp(2), dp(2)) }
+        layoutParams = GridLayout.LayoutParams().apply { width = dp(52); height = dp(52); setMargins(dp(2), dp(2), dp(2), dp(2)) }
     }
 
     private fun perform(button: SideBarButton) {
         try {
             when (button) {
-                SideBarButton.VOLUME_UP -> audio().adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI)
-                SideBarButton.VOLUME_DOWN -> audio().adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI)
-                SideBarButton.MUTE -> audio().adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_TOGGLE_MUTE, AudioManager.FLAG_SHOW_UI)
-                SideBarButton.HOME -> startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                SideBarButton.VOLUME_UP -> if (!K4811Controls.volumeUp(this))
+                    audio().adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI)
+                SideBarButton.VOLUME_DOWN -> if (!K4811Controls.volumeDown(this))
+                    audio().adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI)
+                SideBarButton.MUTE -> if (!K4811Controls.mute(this))
+                    audio().adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_TOGGLE_MUTE, AudioManager.FLAG_SHOW_UI)
+                SideBarButton.PLAY_PAUSE -> {
+                    audio().dispatchMediaKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE))
+                    audio().dispatchMediaKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE))
+                }
+                SideBarButton.HOME -> if (!K4811Controls.home(this))
+                    startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                SideBarButton.BACK -> if (!K4811Controls.back(this))
+                    Toast.makeText(this, "«Назад» доступно только на K4811.", Toast.LENGTH_LONG).show()
+                SideBarButton.MENU -> if (!K4811Controls.menu(this))
+                    Toast.makeText(this, "«Меню» доступно только на K4811.", Toast.LENGTH_LONG).show()
             }
         } catch (_: Exception) { Toast.makeText(this, "${button.title}: действие недоступно", Toast.LENGTH_SHORT).show() }
     }
@@ -179,7 +199,8 @@ class SideBarService : Service() {
         private var downY = 0f
         init {
             contentDescription = "Провести от края для открытия панели YMPlayer 2"
-            background = SideBarAppearance.handle(target, resources.displayMetrics.density)
+            // Keep only the small touch window; the collapsed handle has no visible pixels.
+            background = null
         }
         override fun onTouchEvent(event: MotionEvent): Boolean {
             when (event.actionMasked) {

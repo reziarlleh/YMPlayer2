@@ -39,7 +39,7 @@ interface SideBarAccess {
     LazyColumn(Modifier.fillMaxSize().testTag("sidebar_settings"),
         contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text("Боковая панель", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { Text("Потяните цветной маркер коротким свайпом от левого, правого или нижнего края к центру. Маркеры занимают лишь небольшую часть края; панель работает поверх других приложений после вашего разрешения.") }
+        item { Text("На K4811 откройте панель коротким свайпом от середины левого или правого края либо от центра нижнего края. Зона жеста невидима и занимает лишь небольшую часть края.") }
         if (!state.permitted) item {
             OutlinedButton(access::requestPermission, Modifier.fillMaxWidth().prismFocus().testTag("sidebar_permission")) {
                 Text("Разрешить показ поверх приложений")
@@ -48,7 +48,7 @@ interface SideBarAccess {
         item {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text("Включить панель", Modifier.weight(1f))
-                Switch(state.enabled, access::setEnabled, enabled = state.permitted, modifier = Modifier.testTag("sidebar_enabled"))
+                Switch(state.enabled, access::setEnabled, enabled = state.permitted && state.options.any { it.selected }, modifier = Modifier.testTag("sidebar_enabled"))
             }
         }
         item {
@@ -64,11 +64,11 @@ interface SideBarAccess {
                 Switch(option.selected, { access.setButton(option.id, it) }, modifier = Modifier.testTag("sidebar_button_${option.id}"))
             }
         }
-        item { Text("Свернуть — всегда последняя кнопка и не отключается.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text("«Спрятать сайдбар» — всегда последняя кнопка и не отключается. Если все остальные кнопки выключены, SideBar отключается.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         if (state.enabled) item {
             OutlinedButton(access::toggle, Modifier.fillMaxWidth().prismFocus().testTag("sidebar_toggle")) { Text("Показать / скрыть панель") }
         }
-        item { Text("Назад, сон, перезагрузка и DSP появятся после проверки адаптера магнитолы. Команды устройства не отправляются без подтверждённой совместимости.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text("«Меню» открывает список приложений K4811. «Плей / пауза» управляет активным плеером. Работу кнопок на магнитоле ещё нужно проверить.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         state.message?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("sidebar_message")) } }
     }
 }

@@ -35,3 +35,7 @@ FGS](https://developer.android.com/develop/background-work/services/fgs/service-
 Эмуляторный успех SideBar не означает аппаратную приёмку.
 
 [Проверки M10.1](../M10_1_VERIFICATION.md).
+
+Срез M10.3 пересмотрел аппаратную часть именно для K4811 после уточнения
+владельца: [ADR-025](ADR-025-k4811-sidebar-controls.md). Это не меняет
+исторический результат M10.1 и не распространяет его на другие магнитолы.

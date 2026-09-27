@@ -30,6 +30,28 @@ class SideBarOverlayTest {
         assertTrue("SideBar overlay window remained after stop", waitFor { signature !in windows() })
     }
 
+    @Test fun removingTheLastButtonRemovesTheOverlay() {
+        val instrument = InstrumentationRegistry.getInstrumentation()
+        val context = instrument.targetContext
+        val settings = SideBarSettings(context)
+        assumeTrue("Grant the special overlay app-op on an emulator for this runtime check", settings.hasPermission())
+        val previous = settings.read()
+        val signature = "package=${context.packageName} appop=SYSTEM_ALERT_WINDOW"
+        try {
+            settings.setButtons(setOf(dev.petrov.ymplayer2.sidebar.SideBarButton.HOME))
+            settings.setEnabled(true)
+            SideBarService.start(context)
+            assertTrue("SideBar handle was not added", waitFor { signature in windows() })
+            settings.setButtons(emptySet())
+            SideBarService.refresh(context)
+            assertTrue("Empty SideBar kept its window", waitFor { signature !in windows() })
+        } finally {
+            SideBarService.stop(context)
+            settings.setButtons(previous.buttons)
+            settings.setEnabled(previous.enabled)
+        }
+    }
+
     private fun windows(): String {
         val automation = InstrumentationRegistry.getInstrumentation().uiAutomation
         val descriptor = automation.executeShellCommand("dumpsys window windows")

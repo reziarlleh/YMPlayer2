@@ -34,6 +34,10 @@ internal class SideBarCoordinator(private val activity: Activity) : SideBarAcces
     }
 
     override fun setEnabled(enabled: Boolean) {
+        if (enabled && settings.read().buttons.isEmpty()) {
+            updateMessage("Выберите хотя бы одну кнопку. Пустая панель отключена.")
+            return
+        }
         if (enabled && !settings.hasPermission()) { updateMessage("Сначала разрешите показ поверх приложений."); return }
         settings.setEnabled(enabled)
         if (enabled) {
@@ -57,7 +61,10 @@ internal class SideBarCoordinator(private val activity: Activity) : SideBarAcces
         val selection = settings.read().buttons.toMutableSet()
         if (enabled) selection += button else selection -= button
         settings.setButtons(selection)
-        if (settings.read().enabled && settings.hasPermission()) SideBarService.refresh(activity)
+        if (selection.isEmpty()) {
+            SideBarService.stop(activity)
+            updateMessage("Все команды выключены — SideBar отключён.")
+        } else if (settings.read().enabled && settings.hasPermission()) SideBarService.refresh(activity)
         refresh()
     }
 

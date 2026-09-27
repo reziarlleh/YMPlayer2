@@ -7,20 +7,21 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import kotlin.math.min
 
 internal enum class SideBarEdge { LEFT, RIGHT, BOTTOM }
 
 /** The built-in PRISM appearance is independent of the overlay's commands and gestures. */
 internal object SideBarAppearance {
-    private val surface = Color.rgb(25, 30, 42)
-    private val button = Color.rgb(35, 42, 57)
-    private val cyan = Color.rgb(103, 220, 245)
-    private val pink = Color.rgb(234, 148, 224)
+    fun panel(edge: SideBarEdge, density: Float): Drawable = AngledDrawable(
+        edge, density, Color.argb(190, 12, 16, 23), Color.argb(220, 255, 255, 255), 20f)
 
-    fun panel(edge: SideBarEdge, density: Float): Drawable = AngledDrawable(edge, density, surface, cyan, 18f)
-    fun button(edge: SideBarEdge, density: Float): Drawable = AngledDrawable(edge, density, button, pink, 8f)
-    fun handle(edge: SideBarEdge, density: Float): Drawable = AngledDrawable(edge, density, cyan, pink, 7f)
+    fun button(density: Float): Drawable = GradientDrawable().apply {
+        shape = GradientDrawable.OVAL
+        setColor(Color.argb(48, 255, 255, 255))
+        setStroke(density.coerceAtLeast(1f).toInt(), Color.argb(190, 255, 255, 255))
+    }
 
     private class AngledDrawable(
         private val edge: SideBarEdge,
