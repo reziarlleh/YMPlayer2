@@ -15,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.media3.common.AudioAttributes
 import androidx.media3.exoplayer.ExoPlayer
 import dev.petrov.ymplayer2.clips.ClipWaveController
+import dev.petrov.ymplayer2.clips.ClipMediaPreloader
 import dev.petrov.ymplayer2.clips.ClipControlsView
 import dev.petrov.ymplayer2.clips.clipVideoView
 import dev.petrov.ymplayer2.yandex.YandexClipApi
@@ -30,10 +31,12 @@ class ClipActivity : ComponentActivity() {
         val graph = application as PlayerApplication
         graph.playback.connect()
         if (graph.playback.state.value.playing) graph.playback.toggle()
-        val player = ExoPlayer.Builder(this).build().apply {
+        val preloader = ClipMediaPreloader(this)
+        val player = preloader.player.apply {
             setAudioAttributes(AudioAttributes.DEFAULT, true)
         }
-        clips = ClipWaveController(YandexClipApi(graph.accounts), graph.playback.state.value.profileId, player, lifecycleScope)
+        clips = ClipWaveController(YandexClipApi(graph.accounts), graph.playback.state.value.profileId,
+            player, lifecycleScope, preloader)
         val root = FrameLayout(this).apply { setBackgroundColor(android.graphics.Color.BLACK) }
         root.addView(clipVideoView(this, player), FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))

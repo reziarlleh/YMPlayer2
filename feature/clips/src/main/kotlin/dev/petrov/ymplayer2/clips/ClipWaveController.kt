@@ -20,23 +20,27 @@ data class ClipWaveState(
     val preview: Boolean = false,
 )
 
+private data class QueuedClip(val clip: YandexClip, val sessionId: String)
+
 /** A video-only session. Playback history, pending requests and prefetch never enter the audio queue. */
 class ClipWaveController(
     private val api: YandexClipApi,
     private val profileId: String,
     val player: ExoPlayer,
     private val scope: CoroutineScope,
+    private val preloader: ClipMediaPreloader? = null,
 ) {
     private val mutable = MutableStateFlow(ClipWaveState())
     val state = mutable.asStateFlow()
     private var sessionId = ""
-    private val pending = ArrayDeque<YandexClip>()
-    private val history = mutableListOf<YandexClip>()
+    private val pending = ArrayDeque<QueuedClip>()
+    private val history = mutableListOf<QueuedClip>()
     private var cursor = -1
     private var operation = 0
     private var loadingJob: Job? = null
     private var prefetchJob: Job? = null
     private var prefetched: Pair<String, ClipStream>? = null
+    private val announcedSessions = linkedSetOf<String>()
     private var reportedStart = false
     private var closed = false
     private val listener = object : Player.Listener {
@@ -65,8 +69,7 @@ class ClipWaveController(
                 val session = api.start(profileId)
                 if (stale(generation)) return@launch
                 sessionId = session.id
-                pending.addAll(session.batch.clips)
-                session.batch.clips.firstOrNull()?.let { send(it, ClipFeedback.QUEUE_STARTED) }
+                pending.addAll(session.batch.clips.map { QueuedClip(it, session.id) })
                 chooseNext(generation)
             } catch (e: CancellationException) { throw e }
               catch (e: Exception) { if (!stale(generation)) fail(e) }
@@ -75,21 +78,22 @@ class ClipWaveController(
     fun retry() {
         loadingJob?.cancel(); prefetchJob?.cancel(); ++operation
         sessionId = ""; pending.clear(); history.clear(); cursor = -1; prefetched = null
-        player.stop(); start()
+        announcedSessions.clear()
+        player.stop(); preloader?.reset(); start()
     }
     fun pause() { player.pause() }
     fun toggle() { if (player.isPlaying) player.pause() else if (mutable.value.clip != null) player.play() }
     fun previous() {
         if (cursor <= 0 || closed) return
         current()?.let { send(it, ClipFeedback.SKIPPED, player.currentPosition / 1000f) }
-        load(history[--cursor], backwards = true)
+        load(history[--cursor])
     }
     fun next() = advance(true)
     private fun advance(manual: Boolean) {
         if (closed || mutable.value.loading || sessionId.isBlank()) return
         current()?.let { send(it, if (manual) ClipFeedback.SKIPPED else ClipFeedback.FINISHED,
             player.currentPosition / 1000f) }
-        if (cursor < history.lastIndex) load(history[++cursor], backwards = false)
+        if (cursor < history.lastIndex) load(history[++cursor])
         else {
             loadingJob?.cancel()
             loadingJob = scope.launch {
@@ -105,17 +109,14 @@ class ClipWaveController(
         var attempts = 0
         while (!stale(generation) && attempts++ < 12) {
             if (pending.isEmpty()) prefetchJob?.join()
-            if (pending.isEmpty()) {
-                val batch = api.next(profileId, sessionId, history.takeLast(40).map(YandexClip::id))
-                if (stale(generation)) return
-                pending.addAll(batch.clips.filter { candidate -> history.none { it.id == candidate.id } })
-                if (pending.isEmpty()) break
-            }
+            if (pending.isEmpty()) fetchNextBatch(generation)
+            if (pending.isEmpty()) break
             val clip = pending.removeFirst()
-            if (history.any { it.id == clip.id }) continue
+            if (history.any { it.clip.id == clip.clip.id }) continue
             val stream = resolve(clip) ?: continue
             if (stale(generation)) return
             history += clip
+            if (history.size > 40) history.removeAt(0)
             cursor = history.lastIndex
             show(clip, stream)
             prefetch()
@@ -123,7 +124,7 @@ class ClipWaveController(
         }
         mutable.value = mutable.value.copy(loading = false, issue = "Новых доступных клипов пока нет. Повторите позже.")
     }
-    private fun load(clip: YandexClip, backwards: Boolean) {
+    private fun load(clip: QueuedClip) {
         loadingJob?.cancel()
         prefetchJob?.cancel()
         loadingJob = scope.launch {
@@ -133,47 +134,64 @@ class ClipWaveController(
                 val stream = resolve(clip) ?: throw MusicException(MusicFailure.UNAVAILABLE)
                 if (stale(generation)) return@launch
                 show(clip, stream)
-                if (!backwards) prefetch()
+                prefetch()
             } catch (e: CancellationException) { throw e }
               catch (e: Exception) { if (!stale(generation)) fail(e) }
         }
     }
-    private suspend fun resolve(clip: YandexClip): ClipStream? {
-        prefetched?.takeIf { it.first == clip.id }?.let { prefetched = null; return it.second }
-        return try { api.stream(profileId, clip) }
+    private suspend fun resolve(clip: QueuedClip): ClipStream? {
+        prefetched?.takeIf { it.first == clip.clip.id }?.let { prefetched = null; return it.second }
+        return try { api.stream(profileId, clip.clip) }
         catch (e: CancellationException) { throw e }
         catch (_: Exception) { null }
     }
-    private fun show(clip: YandexClip, stream: ClipStream) {
+    private fun show(clip: QueuedClip, stream: ClipStream) {
+        if (announcedSessions.add(clip.sessionId)) {
+            send(clip, ClipFeedback.QUEUE_STARTED)
+            if (announcedSessions.size > 40) announcedSessions.remove(announcedSessions.first())
+        }
         reportedStart = false
-        val item = MediaItem.Builder().setUri(stream.url).apply { stream.mimeType?.let(::setMimeType) }.build()
-        player.setMediaItem(item)
-        player.prepare()
-        player.play()
-        mutable.value = ClipWaveState(clip = clip, nextClip = upcoming(), loading = false,
+        val item = mediaItem(clip.clip, stream)
+        if (preloader != null) preloader.play(item) else {
+            player.setMediaItem(item)
+            player.prepare()
+            player.play()
+        }
+        mutable.value = ClipWaveState(clip = clip.clip, nextClip = upcoming(), loading = false,
             canGoBack = cursor > 0, preview = stream.preview)
     }
     private fun prefetch() {
         prefetchJob?.cancel()
         val generation = operation
+        if (cursor < history.lastIndex) {
+            val candidate = history[cursor + 1]
+            prefetchJob = scope.launch {
+                val stream = resolve(candidate) ?: return@launch
+                if (stale(generation)) return@launch
+                prefetched = candidate.clip.id to stream
+                try { preloader?.warmNext(mediaItem(candidate.clip, stream)) }
+                catch (_: Exception) { /* URL prefetch still serves the next clip. */ }
+            }
+            return
+        }
         prefetchJob = scope.launch {
             try {
-                if (pending.isEmpty()) {
-                    val batch = api.next(profileId, sessionId, history.takeLast(40).map(YandexClip::id))
-                    if (stale(generation)) return@launch
-                    pending.addAll(batch.clips.filter { candidate -> history.none { it.id == candidate.id } })
-                }
                 // Publish only a playable candidate, so "Далее" matches the actual next clip.
                 var attempts = 0
-                while (pending.isNotEmpty() && attempts++ < 12 && !stale(generation)) {
+                while (attempts++ < 12 && !stale(generation)) {
+                    if (pending.isEmpty()) fetchNextBatch(generation)
+                    if (pending.isEmpty() || stale(generation)) return@launch
                     val candidate = pending.first()
-                    val stream = try { api.stream(profileId, candidate) }
+                    if (history.any { it.clip.id == candidate.clip.id }) { pending.removeFirst(); continue }
+                    val stream = try { api.stream(profileId, candidate.clip) }
                         catch (e: CancellationException) { throw e }
                         catch (_: Exception) { null }
                     if (stale(generation)) return@launch
                     if (stream == null) { pending.removeFirst(); continue }
-                    prefetched = candidate.id to stream
+                    prefetched = candidate.clip.id to stream
                     mutable.value = mutable.value.copy(nextClip = upcoming())
+                    try { preloader?.warmNext(mediaItem(candidate.clip, stream)) }
+                    catch (_: Exception) { /* URL prefetch still serves the next clip. */ }
                     return@launch
                 }
             }
@@ -181,11 +199,28 @@ class ClipWaveController(
             catch (_: Exception) { /* The normal request reports availability when Next is pressed. */ }
         }
     }
-    private fun upcoming(): YandexClip? = history.getOrNull(cursor + 1)
-        ?: pending.firstOrNull()?.takeIf { it.id == prefetched?.first }
-    private fun send(clip: YandexClip, event: ClipFeedback, seconds: Float = 0f) {
-        if (sessionId.isBlank()) return
-        scope.launch { try { api.feedback(profileId, sessionId, clip, event, seconds) }
+    private suspend fun fetchNextBatch(generation: Int) {
+        val batch = api.next(profileId, sessionId,
+            history.filter { it.sessionId == sessionId }.takeLast(40).map { it.clip.id })
+        if (stale(generation)) return
+        pending.addAll(batch.clips.filter { candidate -> history.none { it.clip.id == candidate.id } }
+            .map { QueuedClip(it, sessionId) })
+        if (pending.isNotEmpty()) return
+
+        // Match 1.x: a drained rotor gets one fresh session, not an endless /next loop.
+        val restarted = api.start(profileId)
+        if (stale(generation)) return
+        sessionId = restarted.id
+        pending.addAll(restarted.batch.clips.filter { candidate -> history.none { it.clip.id == candidate.id } }
+            .map { QueuedClip(it, restarted.id) })
+    }
+    private fun upcoming(): YandexClip? = history.getOrNull(cursor + 1)?.clip
+        ?: pending.firstOrNull()?.takeIf { it.clip.id == prefetched?.first }?.clip
+    private fun mediaItem(clip: YandexClip, stream: ClipStream) = MediaItem.Builder()
+        .setMediaId(clip.id).setUri(stream.url).apply { stream.mimeType?.let(::setMimeType) }.build()
+    private fun send(clip: QueuedClip, event: ClipFeedback, seconds: Float = 0f) {
+        if (clip.sessionId.isBlank()) return
+        scope.launch { try { api.feedback(profileId, clip.sessionId, clip.clip, event, seconds) }
             catch (e: CancellationException) { throw e }
             catch (_: Exception) { /* Feedback cannot interrupt video. */ } }
     }
@@ -205,5 +240,6 @@ class ClipWaveController(
         loadingJob?.cancel(); prefetchJob?.cancel()
         player.removeListener(listener)
         player.release()
+        preloader?.release()
     }
 }

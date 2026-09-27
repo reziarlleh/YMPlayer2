@@ -16,9 +16,71 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.Collections
 
 @RunWith(AndroidJUnit4::class)
 class ClipQueueInfoTest {
+    @Test fun emptyContinuationRestartsOnceAndKeepsFeedbackInTheOriginalSession() {
+        val instrument = InstrumentationRegistry.getInstrumentation()
+        val context = instrument.targetContext
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+        val accounts = AccountAuth(DemoCatalog().profiles, object : DeviceAuthApi {
+            override val configured = true
+            override suspend fun requestCode(profileId: String) = error("unused")
+            override suspend fun poll(code: DeviceChallenge) = error("unused")
+            override suspend fun account(credentials: OAuthCredentials) = error("unused")
+        }, object : AccountStore {
+            override suspend fun read(profileId: String) = AccountSession(
+                YandexAccount("fixture", "Fixture"), OAuthCredentials("fixture", null, null))
+            override suspend fun write(profileId: String, session: AccountSession?) = Unit
+        }, scope)
+        val feedback = Collections.synchronizedList(mutableListOf<Pair<String, String>>())
+        var newSessions = 0
+        val transport = object : ClipTransport {
+            override suspend fun get(url: String, token: String) = error("No player URL expected")
+            override suspend fun post(url: String, token: String, body: JSONObject): String = when {
+                url.endsWith("/new") -> {
+                    newSessions++
+                    val session = "s$newSessions"
+                    val clips = when (newSessions) {
+                        1 -> """{"clipId":"one","title":"one","previewUrl":"https://strm.yandex.ru/one.mp4"}"""
+                        2 -> """{"clipId":"unplayable","title":"unplayable"},
+                            {"clipId":"two","title":"two","previewUrl":"https://strm.yandex.ru/two.mp4"}"""
+                        else -> """{"clipId":"three","title":"three","previewUrl":"https://strm.yandex.ru/three.mp4"}"""
+                    }
+                    """{"result":{"sessionId":"$session","batchId":"$session","list":[
+                        $clips
+                    ]}}"""
+                }
+                url.endsWith("/next") -> """{"result":{"batchId":"empty","list":[]}}"""
+                url.endsWith("/feedback") -> { feedback += url to body.toString(); "" }
+                else -> error(url)
+            }
+        }
+        var controller: ClipWaveController? = null
+        try {
+            instrument.runOnMainSync { accounts.activate("owner") }
+            waitFor { accounts.state.value.phase == AuthPhase.SIGNED_IN }
+            instrument.runOnMainSync {
+                val player = ExoPlayer.Builder(context).build()
+                controller = ClipWaveController(YandexClipApi(accounts, transport), "owner", player, scope)
+                controller!!.start()
+            }
+            waitFor { controller?.state?.value?.nextClip?.id == "two" }
+            assertEquals(2, newSessions)
+            assertEquals("one", controller?.state?.value?.clip?.id)
+            instrument.runOnMainSync { controller!!.next() }
+            waitFor { controller?.state?.value?.clip?.id == "two" }
+            waitFor { synchronized(feedback) { feedback.any { (url, body) ->
+                "/session/s1/feedback" in url && "playableItemSkip" in body && "one" in body } } }
+            waitFor { synchronized(feedback) { feedback.any { (url, body) ->
+                "/session/s2/feedback" in url && "combinedQueueStarted" in body } } }
+        } finally {
+            controller?.let { instrument.runOnMainSync { it.close() } }
+            scope.cancel()
+        }
+    }
+
     @Test fun infoNamesTheClipThatNextWillPlay() {
         val instrument = InstrumentationRegistry.getInstrumentation()
         val context = instrument.targetContext
