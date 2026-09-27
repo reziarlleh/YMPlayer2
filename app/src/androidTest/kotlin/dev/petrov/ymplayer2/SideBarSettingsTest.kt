@@ -8,6 +8,7 @@ import dev.petrov.ymplayer2.sidebar.SideBarButton
 import dev.petrov.ymplayer2.sidebar.SideBarSettings
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,6 +33,11 @@ class SideBarSettingsTest {
             compose.onNodeWithTag("sidebar_button_MENU").assertExists()
             compose.onNodeWithTag("sidebar_settings").performScrollToNode(hasTestTag("sidebar_button_PLAY_PAUSE"))
             compose.onNodeWithTag("sidebar_button_PLAY_PAUSE").assertExists()
+            compose.onNodeWithTag("sidebar_settings").performScrollToNode(hasTestTag("sidebar_button_SLEEP"))
+            compose.onNodeWithTag("sidebar_button_SLEEP").assertExists()
+            compose.onNodeWithTag("sidebar_settings").performScrollToNode(hasTestTag("sidebar_button_REBOOT"))
+            compose.onNodeWithTag("sidebar_button_REBOOT").assertExists()
+            assertEquals(listOf(SideBarButton.SLEEP, SideBarButton.REBOOT), SideBarButton.entries.takeLast(2))
             compose.onNodeWithTag("sidebar_settings").performScrollToNode(hasTestTag("sidebar_button_VOLUME_UP"))
             compose.onNodeWithTag("sidebar_button_VOLUME_UP").performClick()
             compose.waitForIdle()
@@ -54,6 +60,20 @@ class SideBarSettingsTest {
             settings.setEnabled(true)
             assertFalse(settings.read().enabled)
             assertEquals(emptySet<SideBarButton>(), settings.read().buttons)
+        } finally {
+            settings.setButtons(before.buttons)
+            settings.setEnabled(before.enabled)
+        }
+    }
+
+    @Test fun sleepAndRebootPreferencesPersistInTheLastTwoPositions() {
+        val settings = SideBarSettings(InstrumentationRegistry.getInstrumentation().targetContext)
+        val before = settings.read()
+        try {
+            settings.setButtons(setOf(SideBarButton.SLEEP, SideBarButton.REBOOT, SideBarButton.HOME))
+            val selected = SideBarButton.entries.filter { it in settings.read().buttons }
+            assertEquals(listOf(SideBarButton.HOME, SideBarButton.SLEEP, SideBarButton.REBOOT), selected)
+            assertTrue(SideBarButton.SLEEP in settings.read().buttons)
         } finally {
             settings.setButtons(before.buttons)
             settings.setEnabled(before.enabled)

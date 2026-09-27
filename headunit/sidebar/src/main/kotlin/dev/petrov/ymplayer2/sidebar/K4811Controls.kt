@@ -17,10 +17,12 @@ internal object K4811Controls {
     fun mute(context: Context): Boolean = sendKey(context, 2)
     fun home(context: Context): Boolean = sendKey(context, 20)
     fun back(context: Context): Boolean = sendKey(context, 18)
+    fun sleep(context: Context): Boolean = sendKey(context, 0)
 
     private fun sendKey(context: Context, value: Int): Boolean {
         if (!isTargetDevice()) return false
-        context.sendBroadcast(Intent(KEY_ACTION).putExtra(KEY_EXTRA, value.toByte()))
+        context.sendBroadcast(Intent(KEY_ACTION).putExtra(KEY_EXTRA, value.toByte())
+            .addFlags(Intent.FLAG_RECEIVER_FOREGROUND))
         return true
     }
 

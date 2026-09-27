@@ -13,6 +13,8 @@ enum class SideBarButton(val title: String, val glyph: String) {
     HOME("Домой", "⌂"),
     MENU("Меню", "☰"),
     BACK("Назад", "↩"),
+    SLEEP("Сон", "☾"),
+    REBOOT("Перезагрузка", "⟳"),
 }
 
 data class SideBarConfig(

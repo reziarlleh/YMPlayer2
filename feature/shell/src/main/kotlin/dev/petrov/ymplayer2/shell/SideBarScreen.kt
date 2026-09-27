@@ -68,7 +68,7 @@ interface SideBarAccess {
         if (state.enabled) item {
             OutlinedButton(access::toggle, Modifier.fillMaxWidth().prismFocus().testTag("sidebar_toggle")) { Text("Показать / скрыть панель") }
         }
-        item { Text("«Меню» открывает список приложений K4811. «Плей / пауза» управляет активным плеером. Работу кнопок на магнитоле ещё нужно проверить.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text("«Меню» открывает список приложений K4811. «Плей / пауза» управляет активным плеером. «Сон» усыпляет магнитолу, «Перезагрузка» сначала запрашивает подтверждение.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         state.message?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("sidebar_message")) } }
     }
 }

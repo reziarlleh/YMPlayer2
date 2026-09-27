@@ -163,6 +163,10 @@ class SideBarService : Service() {
                     Toast.makeText(this, "«Назад» доступно только на K4811.", Toast.LENGTH_LONG).show()
                 SideBarButton.MENU -> if (!K4811Controls.menu(this))
                     Toast.makeText(this, "«Меню» доступно только на K4811.", Toast.LENGTH_LONG).show()
+                SideBarButton.SLEEP -> if (K4811Controls.sleep(this)) collapse()
+                    else Toast.makeText(this, "«Сон» доступен только на K4811.", Toast.LENGTH_LONG).show()
+                SideBarButton.REBOOT -> if (K4811RebootActivity.open(this)) collapse()
+                    else Toast.makeText(this, "Подтверждение перезагрузки недоступно на этом устройстве.", Toast.LENGTH_LONG).show()
             }
         } catch (_: Exception) { Toast.makeText(this, "${button.title}: действие недоступно", Toast.LENGTH_SHORT).show() }
     }
