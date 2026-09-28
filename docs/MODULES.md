@@ -145,6 +145,13 @@ M8.3: `app/DiagnosticsJournal` хранит только ограниченны�
 не импортируя хранилище или аккаунты. Аудиосервис сообщает приложению только
 свои фиксированные события через `PlaybackHost`. [Решение](DECISIONS/ADR-021-diagnostics.md).
 
+M12.1: `:updater:android` читает только манифест и APK 2.x по HTTPS, проверяет
+размер, SHA-256, пакет, Build и подпись, затем передаёт локальный файл
+системному установщику через FileProvider. `app/UpdateCoordinator` хранит
+суточный интервал автопроверки и ожидающую установку. `feature:shell` получает
+только `UpdateAccess` и не знает сетевых адресов или Android PackageManager.
+[Решение](DECISIONS/ADR-027-independent-updater.md).
+
 - Core собирается/тестируется без Android runtime.
 - UI не импортирует YandexMusicClient, DAO или implementation другого feature.
 - Протоколы и backend проверяются отдельно от экранов; сборка приложения

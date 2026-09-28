@@ -1,0 +1,74 @@
+package dev.petrov.ymplayer2.updater
+
+import android.content.Context
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
+import org.junit.Assert.*
+import org.junit.Test
+import org.junit.runner.RunWith
+import java.io.ByteArrayInputStream
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
+import java.security.MessageDigest
+
+@RunWith(AndroidJUnit4::class)
+class UpdateClientTest {
+    private val context: Context get() = InstrumentationRegistry.getInstrumentation().targetContext
+    private fun manifest(packageName: String = context.packageName, primary: String = "https://primary.test/app.apk") = JSONObject()
+        .put("schemaVersion", 1).put("packageName", packageName).put("versionCode", 100)
+        .put("versionName", "2.0.0beta-build100").put("minSdk", 29)
+        .put("channel", "beta")
+        .put("releaseNotes", "Проверка")
+        .put("apk", JSONObject().put("primaryUrl", primary)
+            .put("alternativeUrl", "https://backup.test/app.apk")
+            .put("sizeBytes", 3)
+            .put("sha256", MessageDigest.getInstance("SHA-256").digest("abc".toByteArray()).joinToString("") { "%02x".format(it) }))
+
+    @Test fun manifestFallsBackAndKeepsOrderedApkSources() = runBlocking {
+        val calls = mutableListOf<String>()
+        val json = manifest().toString().toByteArray()
+        val client = UpdateClient(context, UpdateConnectionFactory { url ->
+            calls += url.host
+            FakeConnection(url, if (url.host == "primary.test") 503 else 200, json)
+        }, manifests = listOf("https://primary.test/manifest.json", "https://backup.test/manifest.json"))
+        val release = client.check()
+        assertEquals(listOf("primary.test", "backup.test"), calls)
+        assertEquals("backup.test", URL(release.manifestUrl).host)
+        assertEquals(listOf("https://backup.test/app.apk", "https://primary.test/app.apk"), release.sources(true))
+    }
+
+    @Test fun wrongPackageHttpAndInvalidDigestAreRejected() {
+        val client = UpdateClient(context)
+        assertThrows(IOException::class.java) { client.parseManifest(manifest("dev.petrov.yaplay"), "https://primary.test/manifest") }
+        assertThrows(IOException::class.java) { client.parseManifest(manifest(primary = "http://primary.test/app.apk"), "https://primary.test/manifest") }
+        val bad = manifest().apply { getJSONObject("apk").put("sha256", "bad") }
+        assertThrows(IOException::class.java) { client.parseManifest(bad, "https://primary.test/manifest") }
+        val stable = UpdateClient(context, channel = "stable")
+        assertThrows(IOException::class.java) { stable.parseManifest(manifest(), "https://primary.test/manifest") }
+    }
+
+    @Test fun corruptDownloadFailsBothSourcesAndRemovesPartialFile() = runBlocking {
+        val calls = mutableListOf<String>()
+        val client = UpdateClient(context, UpdateConnectionFactory { url ->
+            calls += url.host
+            FakeConnection(url, 200, "bad".toByteArray())
+        })
+        val release = client.parseManifest(manifest(), "https://primary.test/manifest")
+        assertThrows(IOException::class.java) { runBlocking { client.download(release) } }
+        assertEquals(listOf("primary.test", "backup.test"), calls)
+        assertFalse(context.filesDir.resolve("updates/YMPlayer2-100.part").exists())
+        assertFalse(context.filesDir.resolve("updates/YMPlayer2-100.apk").exists())
+    }
+
+    private class FakeConnection(url: URL, private val status: Int, private val bytes: ByteArray) : HttpURLConnection(url) {
+        override fun connect() = Unit
+        override fun disconnect() = Unit
+        override fun usingProxy() = false
+        override fun getResponseCode() = status
+        override fun getInputStream() = ByteArrayInputStream(bytes)
+        override fun getContentLengthLong() = bytes.size.toLong()
+    }
+}

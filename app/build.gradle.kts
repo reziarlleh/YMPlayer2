@@ -28,6 +28,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "YANDEX_CLIENT_ID", yandexValue("clientId"))
         buildConfigField("String", "YANDEX_CLIENT_SECRET", yandexValue("clientSecret"))
+        buildConfigField("String", "UPDATE_CHANNEL", "\"$channel\"")
     }
     signingConfigs {
         if (signingInfo.isNotEmpty()) create("product") {
@@ -77,6 +78,7 @@ dependencies {
     implementation(project(":feature:shell"))
     implementation(project(":feature:clips"))
     implementation(project(":headunit:sidebar"))
+    implementation(project(":updater:android"))
     implementation(libs.media3.exoplayer)
     implementation(platform(libs.compose.bom))
     implementation(libs.activity.compose)

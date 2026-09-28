@@ -28,6 +28,11 @@ import dev.petrov.ymplayer2.shell.ShellModel
 
 class MainActivity : ComponentActivity() {
     private lateinit var sideBar: SideBarCoordinator
+    private lateinit var updates: UpdateCoordinator
+    override fun onResume() {
+        super.onResume()
+        if (::updates.isInitialized) updates.resumePendingInstall()
+    }
     override fun onStart() {
         super.onStart()
         if (::sideBar.isInitialized) sideBar.refresh()
@@ -38,6 +43,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         sideBar = SideBarCoordinator(this)
+        updates = UpdateCoordinator(this)
+        updates.checkOnLaunch()
         val graph = application as PlayerApplication
         graph.playback.connect()
         val journal = graph.diagnostics
@@ -88,7 +95,7 @@ class MainActivity : ComponentActivity() {
             val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
                 if (uri != null) model.addFolder(uri.toString(), source)
             }
-            ShellApp(model, BuildConfig.VERSION_NAME, diagnostics = journal, sideBar = sideBar, openClips = {
+            ShellApp(model, BuildConfig.VERSION_NAME, diagnostics = journal, sideBar = sideBar, updates = updates, openClips = {
                 startActivity(Intent(this, ClipActivity::class.java))
             }, addFolder = {
                 source = it; pickerIssue = null

@@ -39,7 +39,7 @@ private val destinations = listOf(
     Destination("clips", "Клипы", UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val library by model.library.collectAsStateWithLifecycle()
     val demo = model.local == null
@@ -85,7 +85,7 @@ private val destinations = listOf(
     LaunchedEffect(exitAt) { if (exitAt != null) { delay(2000); exitAt = null } }
     BackHandler {
         when (route) {
-            "quality", "diagnostics", "sidebar" -> navigate("settings")
+            "quality", "diagnostics", "sidebar", "updates" -> navigate("settings")
             "account" -> navigate("profiles")
             "playlists", "favorites", "folders", "offline" -> { libraryUpRequest++; navigate("library") }
             "player" -> {
@@ -163,9 +163,10 @@ private val destinations = listOf(
                                 }
                                 "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                 "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
-                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } })
+                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } })
                                 "diagnostics" -> diagnostics?.let { DiagnosticsScreen(it) }
                                 "sidebar" -> sideBar?.let { SideBarScreen(it) }
+                                "updates" -> updates?.let { UpdateScreen(version, it) }
                                 "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
                                 "clips" -> MessageScreen("Клипы", "Видеомодуль ещё разрабатывается", "Аудиоплеер продолжает работать при переходе между разделами.", UiIcon.CLIPS)
                             }
@@ -189,6 +190,11 @@ private val destinations = listOf(
             if (exitAt != null) Snackbar(Modifier.align(Alignment.BottomCenter).padding(start = 16.dp, end = 16.dp, bottom = 16.dp + if (rail) 0.dp else with(density) { bottomBarHeight.toDp() }).testTag("exit_hint")) {
                 Text("Нажмите «Назад» ещё раз для выхода")
             }
+        }
+        if (updates != null) {
+            val updateState by updates.state.collectAsStateWithLifecycle()
+            val offer = updateState.offer
+            if (updateState.prompt && offer != null) UpdatePrompt(updates, offer)
         }
     }
 }

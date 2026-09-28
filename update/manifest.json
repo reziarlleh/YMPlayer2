@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "packageName": "dev.petrov.ymplayer2",
+  "versionCode": 40,
+  "versionName": "2.0.0beta-build40",
+  "channel": "beta",
+  "minSdk": 29,
+  "publishedAt": "2026-09-28T02:39:20.1577853Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build40",
+  "releaseNotes": "Проверка обновлений при запуске и вручную; резервный источник jsDelivr; проверка APK перед системной установкой. Репозиторий YMPlayer2 открыт для просмотра.",
+  "apk": {
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build40/YMPlayer-2.0.0beta-build40.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build40/releases/2.0.0beta-build40/YMPlayer-2.0.0beta-build40.apk",
+    "sizeBytes": 4672774,
+    "sha256": "003b16d7a27ad7e25b9f469ca941a4162a94208629a3f063278a2e8880848409"
+  }
+}
