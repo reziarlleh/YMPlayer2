@@ -43,5 +43,9 @@
   на Android 15 без сброса данных: `firstInstallTime` остался
   `2026-09-09 07:09:25`. После запуска процесс работает, fatal/SQLite-ошибки
   в проверенном фрагменте logcat отсутствуют.
-- Публикация GitHub Release и сверка двух источников загрузки: дополнить после
-  выпуска.
+- [GitHub Release build46](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build46)
+  опубликован как prerelease на коммите `bceabf7`. APK из GitHub Release и
+  версионного адреса jsDelivr имеют указанный SHA-256 и размер 4 705 546 байт.
+  Манифест GitHub `main` показывает build46; резервный `jsDelivr@main` при
+  проверке всё ещё показывал build40. Устранение задержки резервного
+  манифеста остаётся в M12.
