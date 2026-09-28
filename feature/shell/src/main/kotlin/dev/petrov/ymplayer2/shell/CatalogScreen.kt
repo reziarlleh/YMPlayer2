@@ -28,7 +28,8 @@ import kotlinx.coroutines.CancellationException
 @Composable internal fun CatalogScreen(tracks: List<Track>, player: PlaybackController, search: Boolean, state: CatalogState,
     demo: Boolean = true, folders: () -> Unit = {}, scanning: Boolean = false, issue: String? = null,
     collections: Boolean = false, playlists: () -> Unit = {}, favorites: () -> Unit = {}, more: ((Track) -> Unit)? = null, upRequest: Int = 0,
-    indexed: IndexedLocalLibrary? = null, retry: () -> Unit) {
+    indexed: IndexedLocalLibrary? = null, indexedSources: Set<Source> = emptySet(), noLocalRoots: Boolean = false,
+    retry: () -> Unit) {
     var query by rememberSaveable { mutableStateOf("") }
     var source by rememberSaveable { mutableStateOf<Source?>(null) }
     var offline by rememberSaveable { mutableStateOf(false) }
@@ -43,7 +44,7 @@ import kotlinx.coroutines.CancellationException
     val playback by player.state.collectAsState()
     val queuedIds = remember(playback.queue) { playback.queue.mapTo(hashSetOf(), Track::id) }
     BackHandler(detail != null) { detail = null }
-    val sources = remember(tracks) { tracks.mapTo(linkedSetOf(), Track::source) }
+    val sources = if (indexed != null) indexedSources else remember(tracks) { tracks.mapTo(linkedSetOf(), Track::source) }
     val filter = CatalogFilter(source, offline || state == CatalogState.OFFLINE, availableOnly, if (search) query else "")
     val currentDetail = detail
     val currentCategory = category
@@ -131,7 +132,7 @@ import kotlinx.coroutines.CancellationException
                 }
             }
             when {
-                !demo && tracks.isEmpty() && !search -> item { CatalogMessage("Медиатека пока пуста", "Выберите папку с аудиофайлами на устройстве или USB.", folders, "Добавить музыку") }
+                !demo && noLocalRoots && !search && !indexLoading && resultCount == 0 -> item { CatalogMessage("Медиатека пока пуста", "Выберите папку с аудиофайлами на устройстве или USB.", folders, "Добавить музыку") }
                 state == CatalogState.ERROR -> item { CatalogMessage("Не удалось загрузить медиатеку", "Демонстрация ошибки. Текущая очередь сохранена.", retry, "Повторить") }
                 state == CatalogState.EMPTY -> item { CatalogMessage("Медиатека пока пуста", "Демонстрация первого запуска.", retry, "Показать демоданные") }
                 indexLoading -> item { LinearProgressIndicator(Modifier.fillMaxWidth()) }

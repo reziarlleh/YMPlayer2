@@ -117,30 +117,33 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
         val db = readableDatabase
         val total = db.rawQuery("SELECT COUNT(DISTINCT $column) FROM tracks$where", args).use { it.moveToFirst(); it.getInt(0) }
         val direction = if (descending) "DESC" else "ASC"
-        val groups = db.rawQuery("SELECT $column,COUNT(*) FROM tracks$where GROUP BY $column ORDER BY $column COLLATE NOCASE $direction,$column $direction LIMIT ? OFFSET ?",
-            args + arrayOf(limit.toString(), offset.toString())).use { cursor ->
-            buildList {
-                while (cursor.moveToNext()) {
-                    val name = cursor.getString(0)
-                    val sample = pageTracks(filter, false, name, dimension, 0, 1).items.single()
-                    add(CatalogGroup(name, cursor.getInt(1), sample))
-                }
-            }
+        // One correlated lookup per group stays in SQLite. The old implementation ran
+        // pageTracks (COUNT + SELECT) for every visible group on the UI request path.
+        val (sampleWhere, sampleArgs) = condition(filter, null, dimension, "sample.")
+        val sampleFilter = if (sampleWhere.isEmpty()) "" else " AND ${sampleWhere.removePrefix(" WHERE ")}"
+        val rows = db.rawQuery("""SELECT $column,COUNT(*),
+            (SELECT sample.id FROM tracks AS sample WHERE sample.$column=tracks.$column$sampleFilter
+                ORDER BY sample.title_key,sample.id LIMIT 1)
+            FROM tracks$where GROUP BY $column
+            ORDER BY $column COLLATE NOCASE $direction,$column $direction LIMIT ? OFFSET ?""",
+            sampleArgs + args + arrayOf(limit.toString(), offset.toString())).use { cursor ->
+            buildList { while (cursor.moveToNext()) add(Triple(cursor.getString(0), cursor.getInt(1), cursor.getString(2))) }
         }
-        return CatalogPage(groups, total, offset)
+        val samples = tracksByIds(rows.map { it.third })
+        return CatalogPage(rows.map { (name, count, id) -> CatalogGroup(name, count, samples.getValue(id)) }, total, offset)
     }
 
-    private fun condition(filter: CatalogFilter, group: String?, dimension: CatalogDimension): Pair<String, Array<String>> {
+    private fun condition(filter: CatalogFilter, group: String?, dimension: CatalogDimension, prefix: String = ""): Pair<String, Array<String>> {
         val clauses = mutableListOf<String>()
         val args = mutableListOf<String>()
-        filter.source?.let { clauses += "source=?"; args += it.name }
-        if (filter.availableOnly || filter.offlineOnly) clauses += "available=1"
+        filter.source?.let { clauses += "${prefix}source=?"; args += it.name }
+        if (filter.availableOnly || filter.offlineOnly) clauses += "${prefix}available=1"
         val query = filter.query.trim().lowercase()
         if (query.isNotEmpty()) {
-            clauses += "(instr(title_key,?)>0 OR instr(artist_key,?)>0 OR instr(album_key,?)>0)"
+            clauses += "(instr(${prefix}title_key,?)>0 OR instr(${prefix}artist_key,?)>0 OR instr(${prefix}album_key,?)>0)"
             repeat(3) { args += query }
         }
-        if (group != null) { clauses += "${groupColumn(dimension)}=?"; args += group }
+        if (group != null) { clauses += "${prefix}${groupColumn(dimension)}=?"; args += group }
         return (if (clauses.isEmpty()) "" else " WHERE ${clauses.joinToString(" AND ")}") to args.toTypedArray()
     }
 

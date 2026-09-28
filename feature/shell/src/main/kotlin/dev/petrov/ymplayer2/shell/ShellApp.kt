@@ -148,15 +148,17 @@ private val destinations = listOf(
                                         }
                                     }
                                     if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist, playlists = model.cloudPlaylists)
-                                    else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else library.tracks, model.player, route == "search", if (demo) catalogState else CatalogState.READY,
+                                    else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else emptyList(), model.player, route == "search", if (demo) catalogState else CatalogState.READY,
                                     demo = demo, folders = { navigate("folders") }, scanning = library.scanning, issue = library.issue,
                                     collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
                                     upRequest = if (route == "library") libraryUpRequest else 0,
                                     more = model.collections?.let { { track -> collectionTrack = track } },
                                     indexed = model.local as? IndexedLocalLibrary,
+                                    indexedSources = library.roots.mapTo(linkedSetOf(), LibraryRoot::source),
+                                    noLocalRoots = library.roots.isEmpty(),
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 }
-                                "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites", model.local as? IndexedLocalLibrary) }
+                                "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, if (demo) library.tracks else emptyList(), model.player, route == "favorites", model.local as? IndexedLocalLibrary) }
                                 "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
                                 "offline" -> model.offline?.let { OfflineScreen(it, model.player, syncOffline, { navigate("account") }) }
                                 "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
@@ -182,7 +184,7 @@ private val destinations = listOf(
                         }
                     }
                     collectionTrack?.let { track -> model.collections?.let { store ->
-                        TrackCollectionDialog(track, store, playback.profileId, library.tracks.any { it.id == track.id }, { collectionTrack = null })
+                        TrackCollectionDialog(track, store, playback.profileId, demo || model.local is IndexedLocalLibrary || library.tracks.any { it.id == track.id }, { collectionTrack = null })
                     } }
                     BackHandler(collectionTrack != null) { collectionTrack = null }
                 }
