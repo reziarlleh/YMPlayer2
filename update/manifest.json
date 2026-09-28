@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 47,
-  "versionName": "2.0.0beta-build47",
+  "versionCode": 48,
+  "versionName": "2.0.0beta-build48",
   "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-09-28T13:20:53.6191647Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build47",
-  "releaseNotes": "Локальная автоматическая очередь подгружает ближайшие треки в Media3; выбор далёкого трека и переходы сохраняют порядок.",
+  "publishedAt": "2026-09-28T19:14:53.0709546Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build48",
+  "releaseNotes": "Очередь локальной медиатеки читает видимые страницы напрямую из индекса; дальний выбор трека сохраняет порядок.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build47/YMPlayer-2.0.0beta-build47.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build47/releases/2.0.0beta-build47/YMPlayer-2.0.0beta-build47.apk",
-    "sizeBytes": 4705542,
-    "sha256": "8f84293594f846ba380d89246cc3bed8d8eca927be093ac713e4850f8fd52462"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build48/YMPlayer-2.0.0beta-build48.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build48/releases/2.0.0beta-build48/YMPlayer-2.0.0beta-build48.apk",
+    "sizeBytes": 4721922,
+    "sha256": "246cdb932d2ee1473c752deac1c4bf66e9a8f05953a52b98558fc08694aa6703"
   }
 }
