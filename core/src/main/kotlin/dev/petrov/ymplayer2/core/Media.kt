@@ -36,6 +36,17 @@ interface LocalLibrary : Catalog {
     suspend fun forgetFolder(uri: String)
 }
 
+/** Optional disk-backed metadata queries; playback may still use [LocalLibrary.state]. */
+interface IndexedLocalLibrary : LocalLibrary {
+    val indexRevision: Long
+    suspend fun pageTracks(filter: CatalogFilter, descending: Boolean = false, group: String? = null,
+        dimension: CatalogDimension = CatalogDimension.TRACKS, offset: Int = 0, limit: Int = 80): CatalogPage<Track>
+    suspend fun pageGroups(filter: CatalogFilter, dimension: CatalogDimension,
+        descending: Boolean = false, offset: Int = 0, limit: Int = 80): CatalogPage<CatalogGroup>
+}
+
+enum class CatalogDimension { TRACKS, ALBUMS, ARTISTS, GENRES, FOLDERS }
+
 /** Fictional, explicit fixtures. No provider, filesystem or audio access. */
 class DemoCatalog : Catalog {
     override val profiles = listOf(

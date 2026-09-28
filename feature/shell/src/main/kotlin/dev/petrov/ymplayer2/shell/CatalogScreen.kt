@@ -23,10 +23,12 @@ import androidx.compose.ui.unit.dp
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
+import kotlinx.coroutines.CancellationException
 
 @Composable internal fun CatalogScreen(tracks: List<Track>, player: PlaybackController, search: Boolean, state: CatalogState,
     demo: Boolean = true, folders: () -> Unit = {}, scanning: Boolean = false, issue: String? = null,
-    collections: Boolean = false, playlists: () -> Unit = {}, favorites: () -> Unit = {}, more: ((Track) -> Unit)? = null, upRequest: Int = 0, retry: () -> Unit) {
+    collections: Boolean = false, playlists: () -> Unit = {}, favorites: () -> Unit = {}, more: ((Track) -> Unit)? = null, upRequest: Int = 0,
+    indexed: IndexedLocalLibrary? = null, retry: () -> Unit) {
     var query by rememberSaveable { mutableStateOf("") }
     var source by rememberSaveable { mutableStateOf<Source?>(null) }
     var offline by rememberSaveable { mutableStateOf(false) }
@@ -46,13 +48,42 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val currentDetail = detail
     val currentCategory = category
     val grouped = currentDetail == null && currentCategory != Category.TRACKS && !search
+    val dimension = currentCategory.dimension()
     var visibleCount by rememberSaveable(filter, currentCategory, currentDetail, descending, search) { mutableIntStateOf(80) }
-    val groups = if (grouped) remember(tracks, filter, currentCategory, descending, visibleCount) {
+    val groupBatches = remember(indexed, indexed?.indexRevision, filter, dimension, descending) {
+        mutableMapOf<Int, CatalogPage<CatalogGroup>>()
+    }
+    val trackBatches = remember(indexed, indexed?.indexRevision, filter, dimension, currentDetail, descending) {
+        mutableMapOf<Int, CatalogPage<Track>>()
+    }
+    val diskGroups by produceState<Result<CatalogPage<CatalogGroup>>?>(null,
+        indexed, indexed?.indexRevision, filter, dimension, descending, visibleCount, grouped) {
+        value = if (indexed != null && grouped) catalogResult {
+            for (offset in 0 until visibleCount step 80) {
+                if (offset !in groupBatches) groupBatches[offset] = indexed.pageGroups(filter, dimension, descending, offset, 80)
+                if (!groupBatches.getValue(offset).hasMore) break
+            }
+            CatalogPage(groupBatches.toSortedMap().values.flatMap { it.items }, groupBatches[0]?.total ?: 0, 0)
+        } else null
+    }
+    val diskPage by produceState<Result<CatalogPage<Track>>?>(null,
+        indexed, indexed?.indexRevision, filter, dimension, currentDetail, descending, visibleCount, grouped) {
+        value = if (indexed != null && !grouped) catalogResult {
+            for (offset in 0 until visibleCount step 80) {
+                if (offset !in trackBatches) trackBatches[offset] = indexed.pageTracks(filter, descending, currentDetail, dimension, offset, 80)
+                if (!trackBatches.getValue(offset).hasMore) break
+            }
+            CatalogPage(trackBatches.toSortedMap().values.flatMap { it.items }, trackBatches[0]?.total ?: 0, 0)
+        } else null
+    }
+    val groups = if (indexed != null) diskGroups?.getOrNull() else if (grouped) remember(tracks, filter, currentCategory, descending, visibleCount) {
         CatalogQueries.groups(tracks, filter, { it.group(currentCategory) }, descending, limit = visibleCount)
     } else null
-    val page = if (!grouped) remember(tracks, filter, currentCategory, currentDetail, descending, visibleCount) {
+    val page = if (indexed != null) diskPage?.getOrNull() else if (!grouped) remember(tracks, filter, currentCategory, currentDetail, descending, visibleCount) {
         CatalogQueries.tracks(tracks, filter, descending, currentDetail, { it.group(currentCategory) }, limit = visibleCount)
     } else null
+    val indexLoading = indexed != null && (if (grouped) diskGroups == null else diskPage == null)
+    val indexFailed = indexed != null && (if (grouped) diskGroups?.isFailure == true else diskPage?.isFailure == true)
     val resultCount = groups?.total ?: page?.total ?: 0
     val loadMore = { visibleCount = (visibleCount + 80).coerceAtMost(50_000) }
     holder.SaveableStateProvider(currentDetail ?: "root") {
@@ -103,6 +134,8 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 !demo && tracks.isEmpty() && !search -> item { CatalogMessage("Медиатека пока пуста", "Выберите папку с аудиофайлами на устройстве или USB.", folders, "Добавить музыку") }
                 state == CatalogState.ERROR -> item { CatalogMessage("Не удалось загрузить медиатеку", "Демонстрация ошибки. Текущая очередь сохранена.", retry, "Повторить") }
                 state == CatalogState.EMPTY -> item { CatalogMessage("Медиатека пока пуста", "Демонстрация первого запуска.", retry, "Показать демоданные") }
+                indexLoading -> item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+                indexFailed -> item { CatalogMessage("Не удалось прочитать индекс", "Повторите обновление каталога.", retry, "Обновить") }
                 resultCount == 0 -> item { CatalogMessage("Ничего не найдено", "Попробуйте другой запрос или сбросьте фильтры.", { query = ""; source = null; offline = false; availableOnly = false }, "Сбросить") }
                 else -> {
                     if (state == CatalogState.OFFLINE) item { Text("Нет сети · показаны доступные офлайн треки", color = MaterialTheme.colorScheme.primary) }
@@ -131,6 +164,22 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             }
         }
     }
+}
+
+private suspend fun <T> catalogResult(block: suspend () -> T): Result<T> = try {
+    Result.success(block())
+} catch (cancelled: CancellationException) {
+    throw cancelled
+} catch (error: Exception) {
+    Result.failure(error)
+}
+
+private fun Category.dimension() = when (this) {
+    Category.ALBUMS -> CatalogDimension.ALBUMS
+    Category.ARTISTS -> CatalogDimension.ARTISTS
+    Category.GENRES -> CatalogDimension.GENRES
+    Category.FOLDERS -> CatalogDimension.FOLDERS
+    Category.TRACKS, Category.PLAYLISTS -> CatalogDimension.TRACKS
 }
 
 @Composable private fun CatalogMessage(title: String, description: String, action: () -> Unit, label: String) {

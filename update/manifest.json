@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 43,
-  "versionName": "2.0.0beta-build43",
+  "versionCode": 44,
+  "versionName": "2.0.0beta-build44",
   "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-09-28T08:31:40.7131457Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build43",
-  "releaseNotes": "Сайдбар K4811: скосы внешней панели под 45°, увеличенный отступ вокруг круглых кнопок и чуть более тёмный полупрозрачный фон.",
+  "publishedAt": "2026-09-28T10:05:46.2193409Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build44",
+  "releaseNotes": "M11.2: дисковый индекс локальной и USB-медиатеки; постраничный поиск и группировки; безопасный перенос старого каталога.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build43/YMPlayer-2.0.0beta-build43.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build43/releases/2.0.0beta-build43/YMPlayer-2.0.0beta-build43.apk",
-    "sizeBytes": 4672778,
-    "sha256": "8bc6cbe50562559334ac9f32b2d1ed6b70bd08fe61b74649d3e5f6e9aec03566"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build44/YMPlayer-2.0.0beta-build44.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build44/releases/2.0.0beta-build44/YMPlayer-2.0.0beta-build44.apk",
+    "sizeBytes": 4689158,
+    "sha256": "f8eeed5c7f9894d00f5b020a583c16aefe158fbd978382da0949a6bc363542f3"
   }
 }

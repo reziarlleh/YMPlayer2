@@ -9,6 +9,8 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dev.petrov.ymplayer2.core.Source
+import dev.petrov.ymplayer2.core.CatalogFilter
+import dev.petrov.ymplayer2.core.CatalogDimension
 import dev.petrov.ymplayer2.core.RepeatMode
 import dev.petrov.ymplayer2.playback.AudioService
 import kotlinx.coroutines.runBlocking
@@ -38,6 +40,38 @@ class LocalPlaybackTest {
         waitFor { library.state.value.tracks.size == 2 && player.state.value.queue.size == 2 }
     }
     @After fun stop() { compose.runOnIdle { player.stop() }; provider("unavailable", "false") }
+
+    @Test fun diskIndexPaginatesGroupsAndRetainsUnavailableDocuments() = runBlocking {
+        val first = library.pageTracks(CatalogFilter(), limit = 1)
+        val second = library.pageTracks(CatalogFilter(), offset = 1, limit = 1)
+        assertEquals(2, first.total)
+        assertEquals(2, second.total)
+        assertTrue(first.hasMore)
+        assertNotEquals(first.items.single().id, second.items.single().id)
+        assertEquals(1, library.pageTracks(CatalogFilter(query = "one")).total)
+        assertEquals(0, library.pageTracks(CatalogFilter(source = Source.USB)).total)
+        val groups = library.pageGroups(CatalogFilter(), CatalogDimension.FOLDERS)
+        assertEquals(2, groups.items.sumOf { it.count })
+
+        provider("unavailable", "true")
+        library.refresh()
+        val unavailable = library.pageTracks(CatalogFilter())
+        assertEquals(first.items.map { it.id }.toSet() + second.items.map { it.id }, unavailable.items.map { it.id }.toSet())
+        assertTrue(unavailable.items.none { it.available })
+        assertEquals(0, library.pageTracks(CatalogFilter(availableOnly = true)).total)
+        provider("unavailable", "false")
+        library.refresh()
+        assertEquals(2, library.pageTracks(CatalogFilter(availableOnly = true)).total)
+    }
+
+    @Test fun localSearchReadsDiskIndexAndOpensSelectedTrack() {
+        val id = library.state.value.tracks.single { it.title == "one" }.id
+        compose.onNodeWithTag("nav_search").performClick()
+        compose.onNodeWithTag("search_input").performTextInput("one")
+        waitFor { compose.onAllNodesWithTag("track_$id").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("track_$id").assertIsDisplayed().performClick()
+        waitFor { player.state.value.current?.id == id }
+    }
 
     @Test fun safMetadataAndRealAudioContinueInBackground() {
         assertEquals(setOf("one", "two"), library.state.value.tracks.map { it.title }.toSet())

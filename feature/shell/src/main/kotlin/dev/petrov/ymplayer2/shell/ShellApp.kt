@@ -153,6 +153,7 @@ private val destinations = listOf(
                                     collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
                                     upRequest = if (route == "library") libraryUpRequest else 0,
                                     more = model.collections?.let { { track -> collectionTrack = track } },
+                                    indexed = model.local as? IndexedLocalLibrary,
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 }
                                 "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites") }

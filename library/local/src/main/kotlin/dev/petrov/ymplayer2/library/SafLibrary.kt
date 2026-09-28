@@ -18,14 +18,17 @@ import java.io.File
 import java.security.MessageDigest
 
 /** Read-only SAF index. A failed root scan never replaces its last complete snapshot. */
-class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
+class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary {
     private val resolver = context.applicationContext.contentResolver
     private val file = AtomicFile(File(context.filesDir, "local-library.json"))
     private val artwork = ArtworkCache(File(context.cacheDir, "artwork"))
+    private val index = LocalCatalogIndex(context, artwork)
     private val artworkChecked = mutableSetOf<String>()
     private val mutex = Mutex()
     private val loaded = CompletableDeferred<Unit>()
     private val mutable = MutableStateFlow(LibrarySnapshot())
+    @Volatile override var indexRevision: Long = 0
+        private set
     override val state = mutable.asStateFlow()
     override val profiles = listOf(
         Profile("owner", "Основной", "Общий локальный каталог · своя очередь"),
@@ -34,10 +37,27 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
     )
     override fun tracks(profileId: String) = if (profiles.any { it.id == profileId }) state.value.tracks else emptyList()
 
+    override suspend fun pageTracks(filter: CatalogFilter, descending: Boolean, group: String?,
+        dimension: CatalogDimension, offset: Int, limit: Int): CatalogPage<Track> {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.pageTracks(filter, descending, group, dimension, offset, limit) }
+    }
+
+    override suspend fun pageGroups(filter: CatalogFilter, dimension: CatalogDimension,
+        descending: Boolean, offset: Int, limit: Int): CatalogPage<CatalogGroup> {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.pageGroups(filter, dimension, descending, offset, limit) }
+    }
+
     init {
         monitorStorage(context, scope, this)
         scope.launch(Dispatchers.IO) {
-            mutable.value = try { readIndex() }
+            mutable.value = try {
+                if (!index.initialized()) index.replace(readLegacyIndex(), artworkChecked)
+                index.markUnavailable()
+                indexRevision++
+                index.read(artworkChecked)
+            }
             catch (_: Exception) { LibrarySnapshot(ready = true, issue = "Не удалось прочитать индекс. Добавьте папку заново.") }
             loaded.complete(Unit)
             if (state.value.roots.isNotEmpty()) refresh()
@@ -64,11 +84,13 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
 
     override suspend fun forgetFolder(uri: String) = operation {
         // Only our index and our grant change; no DocumentsContract.deleteDocument call.
-        mutable.value = state.value.copy(
+        val next = state.value.copy(
             roots = state.value.roots.filterNot { it.uri == uri },
             tracks = state.value.tracks.filterNot { it.rootId == uri }, issue = null,
         )
-        writeIndex(state.value)
+        index.replace(next, artworkChecked)
+        indexRevision++
+        mutable.value = next
         runCatching { resolver.releasePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION) }
     }
 
@@ -76,10 +98,11 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
         loaded.await()
         withContext(Dispatchers.IO) {
             mutex.withLock {
+                val before = state.value
                 mutable.value = state.value.copy(scanning = true, issue = null)
                 try { block() }
                 catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { mutable.value = state.value.copy(issue = "Не удалось открыть или сохранить папку. Проверьте доступ и повторите.") }
+                catch (_: Exception) { mutable.value = before.copy(issue = "Не удалось открыть или сохранить папку. Проверьте доступ и повторите.") }
                 finally { mutable.value = state.value.copy(scanning = false, ready = true) }
             }
         }
@@ -102,7 +125,8 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
             }
         }
         val next = snapshot.copy(roots = roots, tracks = tracks.distinctBy(Track::id).sortedBy { it.title.lowercase() })
-        writeIndex(next)
+        index.replace(next, artworkChecked)
+        indexRevision++
         mutable.value = next
         artwork.trim()
     }
@@ -178,7 +202,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
             tint = (id.hashCode() and Int.MAX_VALUE) % 6, uri = uri.toString(), rootId = root.uri, sizeBytes = size, modifiedMillis = modified, artworkUri = cover)
     }
 
-    private fun readIndex(): LibrarySnapshot {
+    private fun readLegacyIndex(): LibrarySnapshot {
         if (!file.baseFile.exists()) return LibrarySnapshot()
         val json = JSONObject(file.openRead().bufferedReader().use { it.readText() })
         val roots = json.getJSONArray("roots").objects().map {
@@ -193,19 +217,6 @@ class SafLibrary(context: Context, scope: CoroutineScope) : LocalLibrary {
         return LibrarySnapshot(roots, tracks)
     }
 
-    private fun writeIndex(snapshot: LibrarySnapshot) {
-        val json = JSONObject().put("roots", JSONArray(snapshot.roots.map {
-            JSONObject().put("uri", it.uri).put("name", it.name).put("source", it.source.name)
-        })).put("tracks", JSONArray(snapshot.tracks.map {
-            JSONObject().put("id", it.id).put("title", it.title).put("artist", it.artist).put("album", it.album)
-                .put("source", it.source.name).put("duration", it.durationSeconds).put("genre", it.genre).put("folder", it.folder)
-                .put("tint", it.tint).put("uri", it.uri).put("root", it.rootId).put("size", it.sizeBytes).put("modified", it.modifiedMillis)
-                .put("artwork", it.artworkUri?.let { uri -> Uri.parse(uri).lastPathSegment }).put("artworkChecked", it.id in artworkChecked)
-        }))
-        val output = file.startWrite()
-        try { output.write(json.toString().toByteArray()); file.finishWrite(output) }
-        catch (error: Exception) { file.failWrite(output); throw error }
-    }
     private fun JSONArray.objects() = (0 until length()).map(::getJSONObject)
     private companion object { val extensions = setOf("mp3", "m4a", "aac", "flac", "ogg", "opus", "wav", "aiff", "amr") }
 }
