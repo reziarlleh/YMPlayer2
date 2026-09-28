@@ -41,7 +41,15 @@ class LocalCollections(context: Context, private val catalog: Catalog, scope: Co
                 if (!state.value.writable || catalog.profiles.none { it.id == profileId }) return@withLock false
                 try {
                     val before = state.value
-                    val profile = before.profile(profileId).edited(change, catalog.tracks(profileId).associateBy(Track::id)) { UUID.randomUUID().toString() }
+                    val referenceId = when (change) {
+                        is CollectionEdit.Create -> change.initialTrackId
+                        is CollectionEdit.Add -> change.trackId
+                        is CollectionEdit.Favorite -> change.trackId.takeIf { change.selected }
+                        else -> null
+                    }
+                    val known = if (referenceId == null) emptyMap() else if (catalog is IndexedLocalLibrary)
+                        catalog.tracksByIds(listOf(referenceId)) else catalog.tracks(profileId).filter { it.id == referenceId }.associateBy(Track::id)
+                    val profile = before.profile(profileId).edited(change, known) { UUID.randomUUID().toString() }
                     val next = before.copy(profiles = before.profiles + (profileId to profile), issue = null)
                     if (profile != before.profile(profileId)) write(next.profiles)
                     mutable.value = next

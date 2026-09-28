@@ -56,7 +56,7 @@ import kotlinx.coroutines.CancellationException
     val trackBatches = remember(indexed, indexed?.indexRevision, filter, dimension, currentDetail, descending) {
         mutableMapOf<Int, CatalogPage<Track>>()
     }
-    val diskGroups by produceState<Result<CatalogPage<CatalogGroup>>?>(null,
+    val diskGroups by key(indexed, indexed?.indexRevision, filter, dimension, descending, visibleCount, grouped) { produceState<Result<CatalogPage<CatalogGroup>>?>(null,
         indexed, indexed?.indexRevision, filter, dimension, descending, visibleCount, grouped) {
         value = if (indexed != null && grouped) catalogResult {
             for (offset in 0 until visibleCount step 80) {
@@ -65,8 +65,8 @@ import kotlinx.coroutines.CancellationException
             }
             CatalogPage(groupBatches.toSortedMap().values.flatMap { it.items }, groupBatches[0]?.total ?: 0, 0)
         } else null
-    }
-    val diskPage by produceState<Result<CatalogPage<Track>>?>(null,
+    } }
+    val diskPage by key(indexed, indexed?.indexRevision, filter, dimension, currentDetail, descending, visibleCount, grouped) { produceState<Result<CatalogPage<Track>>?>(null,
         indexed, indexed?.indexRevision, filter, dimension, currentDetail, descending, visibleCount, grouped) {
         value = if (indexed != null && !grouped) catalogResult {
             for (offset in 0 until visibleCount step 80) {
@@ -75,7 +75,7 @@ import kotlinx.coroutines.CancellationException
             }
             CatalogPage(trackBatches.toSortedMap().values.flatMap { it.items }, trackBatches[0]?.total ?: 0, 0)
         } else null
-    }
+    } }
     val groups = if (indexed != null) diskGroups?.getOrNull() else if (grouped) remember(tracks, filter, currentCategory, descending, visibleCount) {
         CatalogQueries.groups(tracks, filter, { it.group(currentCategory) }, descending, limit = visibleCount)
     } else null
@@ -85,7 +85,7 @@ import kotlinx.coroutines.CancellationException
     val indexLoading = indexed != null && (if (grouped) diskGroups == null else diskPage == null)
     val indexFailed = indexed != null && (if (grouped) diskGroups?.isFailure == true else diskPage?.isFailure == true)
     val resultCount = groups?.total ?: page?.total ?: 0
-    val loadMore = { visibleCount = (visibleCount + 80).coerceAtMost(50_000) }
+    val loadMore = { visibleCount = if (indexed == null) (visibleCount + 80).coerceAtMost(50_000) else visibleCount + 80 }
     holder.SaveableStateProvider(currentDetail ?: "root") {
         LazyColumn(Modifier.fillMaxSize().imePadding().testTag("catalog_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
@@ -143,7 +143,7 @@ import kotlinx.coroutines.CancellationException
                         val shown = page!!
                         item { Text("${shown.total} треков" + if (demo) " · демонстрационный каталог" else "", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                         items(shown.items, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }, enqueue = { player.enqueue(track.id) }, queued = track.id in queuedIds, more = more?.let { action -> { action(track) } }) }
-                        if (shown.hasMore) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё") } }
+                        if (shown.hasMore && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё") } }
                     } else {
                         val shown = groups!!
                         items(shown.items, key = CatalogGroup::name) { group ->
@@ -158,7 +158,7 @@ import kotlinx.coroutines.CancellationException
                                 }
                             }
                         }
-                        if (shown.hasMore) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё") } }
+                        if (shown.hasMore && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё") } }
                     }
                 }
             }

@@ -37,6 +37,11 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     )
     override fun tracks(profileId: String) = if (profiles.any { it.id == profileId }) state.value.tracks else emptyList()
 
+    override suspend fun tracksByIds(ids: Collection<String>): Map<String, Track> {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.tracksByIds(ids) }
+    }
+
     override suspend fun pageTracks(filter: CatalogFilter, descending: Boolean, group: String?,
         dimension: CatalogDimension, offset: Int, limit: Int): CatalogPage<Track> {
         loaded.await()

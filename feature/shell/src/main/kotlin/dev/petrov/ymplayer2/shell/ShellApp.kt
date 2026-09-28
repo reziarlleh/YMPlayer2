@@ -156,7 +156,7 @@ private val destinations = listOf(
                                     indexed = model.local as? IndexedLocalLibrary,
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 }
-                                "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites") }
+                                "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, library.tracks, model.player, route == "favorites", model.local as? IndexedLocalLibrary) }
                                 "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
                                 "offline" -> model.offline?.let { OfflineScreen(it, model.player, syncOffline, { navigate("account") }) }
                                 "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {

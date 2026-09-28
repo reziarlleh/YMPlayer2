@@ -39,6 +39,7 @@ interface LocalLibrary : Catalog {
 /** Optional disk-backed metadata queries; playback may still use [LocalLibrary.state]. */
 interface IndexedLocalLibrary : LocalLibrary {
     val indexRevision: Long
+    suspend fun tracksByIds(ids: Collection<String>): Map<String, Track>
     suspend fun pageTracks(filter: CatalogFilter, descending: Boolean = false, group: String? = null,
         dimension: CatalogDimension = CatalogDimension.TRACKS, offset: Int = 0, limit: Int = 80): CatalogPage<Track>
     suspend fun pageGroups(filter: CatalogFilter, dimension: CatalogDimension,

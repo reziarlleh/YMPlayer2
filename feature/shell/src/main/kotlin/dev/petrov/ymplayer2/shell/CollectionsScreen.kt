@@ -15,12 +15,14 @@ import androidx.compose.ui.unit.dp
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.UiIcon
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
-@Composable internal fun CollectionsScreen(store: UserCollections, profileId: String, tracks: List<Track>, player: PlaybackController, favorites: Boolean) {
+@Composable internal fun CollectionsScreen(store: UserCollections, profileId: String, tracks: List<Track>, player: PlaybackController,
+    favorites: Boolean, indexed: IndexedLocalLibrary? = null) {
     val state by store.state.collectAsState()
     val data = state.profile(profileId)
-    val catalog = remember(tracks) { tracks.associateBy(Track::id) }
+    val legacyCatalog = if (indexed == null) remember(tracks) { tracks.associateBy(Track::id) } else emptyMap()
     val playback by player.state.collectAsState()
     val scope = rememberCoroutineScope()
     var selectedId by rememberSaveable { mutableStateOf<String?>(null) }
@@ -31,6 +33,13 @@ import kotlinx.coroutines.launch
     var editing by rememberSaveable { mutableStateOf(false) }
     var actionTrack by remember { mutableStateOf<Track?>(null) }
     val selected = data.playlists.find { it.id == selectedId }
+    val entries = if (favorites) data.favorites else selected?.tracks.orEmpty()
+    val diskCatalog by key(indexed, indexed?.indexRevision, entries) { produceState<Result<Map<String, Track>>?>(null, indexed, indexed?.indexRevision, entries) {
+        value = if (indexed == null) null else try { Result.success(indexed.tracksByIds(entries.map(SavedTrack::id))) }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (error: Exception) { Result.failure(error) }
+    } }
+    val catalog = if (indexed == null) legacyCatalog else diskCatalog?.getOrNull().orEmpty()
     BackHandler(selectedId != null || adding || naming || deleting != null || actionTrack != null) {
         when {
             adding -> adding = false
@@ -46,8 +55,8 @@ import kotlinx.coroutines.launch
             Text(it, color = MaterialTheme.colorScheme.error)
             TextButton({ scope.launch { store.reload() } }, Modifier.prismFocus()) { Text("Повторить чтение") }
         }
+        if (diskCatalog?.isFailure == true) Text("Не удалось прочитать метаданные. Обновите каталог папок.", color = MaterialTheme.colorScheme.error)
         if (favorites || selected != null) {
-            val entries = if (favorites) data.favorites else selected!!.tracks
             val resolved = remember(entries, catalog) { entries.map { it.resolve(catalog) } }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (!favorites) ActionIcon(UiIcon.BACK, "К плейлистам", { selectedId = null; editing = false })
@@ -58,7 +67,7 @@ import kotlinx.coroutines.launch
                 }
             }
             Text("${entries.size} треков · ${resolved.count { it.available }} доступно", style = MaterialTheme.typography.bodySmall)
-            Button({ player.playQueue(entries.map { it.id }) }, Modifier.heightIn(min = 48.dp).prismFocus().testTag("collection_play"), enabled = resolved.any { it.available } && playback.connected) {
+            Button({ player.playQueue(entries.map { it.id }) }, Modifier.heightIn(min = 48.dp).prismFocus().testTag("collection_play"), enabled = resolved.any { it.available } && playback.connected && (indexed == null || diskCatalog?.isSuccess == true)) {
                 SkinIcon(UiIcon.PLAY, null); Spacer(Modifier.width(8.dp)); Text("Воспроизвести список")
             }
             if (entries.isEmpty()) Text(if (favorites) "Добавляйте треки в избранное через меню рядом с треком." else "Добавьте музыку кнопкой «Добавить треки».", Modifier.padding(vertical = 16.dp))
@@ -107,7 +116,7 @@ import kotlinx.coroutines.launch
             confirmButton = { TextButton({ scope.launch { if (store.edit(profileId, CollectionEdit.Delete(list.id))) deleting = null } }, Modifier.prismFocus().testTag("playlist_delete_confirm")) { Text("Удалить") } },
             dismissButton = { TextButton({ deleting = null }, Modifier.prismFocus()) { Text("Отмена") } })
     }
-    if (adding && selected != null) AddTracksDialog(selected, tracks, state, { adding = false }) { store.edit(profileId, CollectionEdit.Add(selected.id, it)) }
+    if (adding && selected != null) AddTracksDialog(selected, tracks, state, { adding = false }, indexed) { store.edit(profileId, CollectionEdit.Add(selected.id, it)) }
     actionTrack?.let { track -> TrackCollectionDialog(track, store, profileId, catalog.containsKey(track.id), { actionTrack = null }) }
 }
 
@@ -123,20 +132,40 @@ import kotlinx.coroutines.launch
         dismissButton = { TextButton(dismiss, Modifier.prismFocus(), enabled = !busy) { Text("Отмена") } })
 }
 
-@Composable private fun AddTracksDialog(list: LocalPlaylist, tracks: List<Track>, state: CollectionsState, dismiss: () -> Unit, add: suspend (String) -> Boolean) {
+@Composable private fun AddTracksDialog(list: LocalPlaylist, tracks: List<Track>, state: CollectionsState, dismiss: () -> Unit,
+    indexed: IndexedLocalLibrary?, add: suspend (String) -> Boolean) {
     var query by rememberSaveable { mutableStateOf("") }
+    var visibleCount by rememberSaveable(query) { mutableIntStateOf(80) }
     var busy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val ids = remember(list.tracks) { list.tracks.mapTo(hashSetOf()) { it.id } }
+    val batches = remember(indexed, indexed?.indexRevision, query) { mutableMapOf<Int, CatalogPage<Track>>() }
+    val diskPage by key(indexed, indexed?.indexRevision, query, visibleCount) { produceState<Result<CatalogPage<Track>>?>(null, indexed, indexed?.indexRevision, query, visibleCount) {
+        value = if (indexed == null) null else try {
+            for (offset in 0 until visibleCount step 80) {
+                if (offset !in batches) batches[offset] = indexed.pageTracks(CatalogFilter(query = query), offset = offset, limit = 80)
+                if (!batches.getValue(offset).hasMore) break
+            }
+            Result.success(CatalogPage(batches.toSortedMap().values.flatMap { it.items }, batches[0]?.total ?: 0, 0))
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (error: Exception) { Result.failure(error) }
+    } }
+    val choices = if (indexed == null) tracks.filter { it.source != Source.YANDEX && (it.title.contains(query, true) || it.artist.contains(query, true)) }
+        else diskPage?.getOrNull()?.items.orEmpty()
     AlertDialog(onDismissRequest = dismiss, title = { Text("Добавить в «${list.name}»") }, text = { Column {
         OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth().testTag("playlist_track_search"), label = { Text("Поиск треков") }, singleLine = true)
         state.issue?.let { Text(it, color = MaterialTheme.colorScheme.error) }
         LazyColumn(Modifier.heightIn(max = 320.dp).testTag("playlist_picker")) {
-            items(tracks.filter { it.source != Source.YANDEX && (it.title.contains(query, true) || it.artist.contains(query, true)) }, key = Track::id) { track ->
+            if (indexed != null && diskPage == null) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+            if (diskPage?.isFailure == true) item { Text("Не удалось прочитать каталог. Повторите поиск.", color = MaterialTheme.colorScheme.error) }
+            items(choices, key = Track::id) { track ->
                 TextButton({ scope.launch { busy = true; try { add(track.id) } finally { busy = false } } }, Modifier.fillMaxWidth().heightIn(min = 48.dp).prismFocus().testTag("playlist_pick_${track.id}"), enabled = !busy && state.writable && track.id !in ids) {
                     Column(Modifier.weight(1f)) { Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis); Text(track.artist, style = MaterialTheme.typography.bodySmall, maxLines = 1, overflow = TextOverflow.Ellipsis) }
                     SkinIcon(if (track.id in ids) UiIcon.CHECK else UiIcon.ADD, if (track.id in ids) "Добавлен" else "Добавить")
                 }
+            }
+            if (diskPage?.getOrNull()?.hasMore == true && visibleCount <= Int.MAX_VALUE - 80) item {
+                TextButton({ visibleCount += 80 }, Modifier.fillMaxWidth().prismFocus().testTag("playlist_picker_more")) { Text("Показать ещё") }
             }
         }
     } }, confirmButton = { TextButton(dismiss, Modifier.prismFocus().testTag("playlist_picker_done")) { Text("Готово") } })

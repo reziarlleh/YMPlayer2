@@ -40,6 +40,9 @@ class LocalIndexMigrationTest {
             assertEquals(1, imported.total)
             assertEquals("local:stable-id", imported.items.single().id)
             assertFalse(imported.items.single().available)
+            assertEquals(setOf("local:stable-id"), first.tracksByIds(listOf("missing", "local:stable-id", "local:stable-id")).keys)
+            assertEquals(setOf("local:stable-id"), first.tracksByIds((0..450).map { "missing:$it" } + "local:stable-id").keys)
+            assertTrue(first.pageTracks(CatalogFilter(), offset = 50_000, limit = 80).items.isEmpty())
 
             // A stale legacy file must never replace the committed SQLite catalog.
             oldFile.writeText(JSONObject().put("roots", JSONArray()).put("tracks", JSONArray()).toString())

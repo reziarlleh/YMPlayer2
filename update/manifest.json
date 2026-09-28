@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 44,
-  "versionName": "2.0.0beta-build44",
+  "versionCode": 45,
+  "versionName": "2.0.0beta-build45",
   "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-09-28T10:05:46.2193409Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build44",
-  "releaseNotes": "M11.2: дисковый индекс локальной и USB-медиатеки; постраничный поиск и группировки; безопасный перенос старого каталога.",
+  "publishedAt": "2026-09-28T11:33:40.6490961Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build45",
+  "releaseNotes": "M11.3: адресный доступ избранного и плейлистов к локальному индексу; поиск и выбор треков порциями.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build44/YMPlayer-2.0.0beta-build44.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build44/releases/2.0.0beta-build44/YMPlayer-2.0.0beta-build44.apk",
-    "sizeBytes": 4689158,
-    "sha256": "f8eeed5c7f9894d00f5b020a583c16aefe158fbd978382da0949a6bc363542f3"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build45/YMPlayer-2.0.0beta-build45.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build45/releases/2.0.0beta-build45/YMPlayer-2.0.0beta-build45.apk",
+    "sizeBytes": 4705546,
+    "sha256": "5ccbcc360a66c7aabdee5a9e739fe36b1968bb5fac1cf39fbd38753b5c53e518"
   }
 }

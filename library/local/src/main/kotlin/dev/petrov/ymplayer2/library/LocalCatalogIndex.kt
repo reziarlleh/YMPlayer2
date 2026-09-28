@@ -71,6 +71,19 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
     /** SAF availability is unknown after process restart until the grant and root are scanned. */
     fun markUnavailable() { writableDatabase.execSQL("UPDATE tracks SET available=0") }
 
+    fun tracksByIds(ids: Collection<String>): Map<String, Track> {
+        if (ids.isEmpty()) return emptyMap()
+        val db = readableDatabase
+        return buildMap {
+            ids.distinct().chunked(400).forEach { batch ->
+                val placeholders = List(batch.size) { "?" }.joinToString(",")
+                db.rawQuery("SELECT $trackColumns FROM tracks WHERE id IN ($placeholders)", batch.toTypedArray()).use { cursor ->
+                    while (cursor.moveToNext()) track(cursor).let { put(it.id, it) }
+                }
+            }
+        }
+    }
+
     fun read(artworkChecked: MutableSet<String>): LibrarySnapshot {
         val db = readableDatabase
         val roots = db.rawQuery("SELECT uri,name,source FROM roots ORDER BY rowid", null).use { cursor ->
@@ -148,7 +161,7 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
             cursor.getString(11), cursor.getLong(12), cursor.getLong(13), cursor.getString(14)?.let(artwork::uri))
     }
 
-    private fun validate(offset: Int, limit: Int) { require(offset >= 0 && limit in 1..50_000 && offset <= 50_000 - limit) }
+    private fun validate(offset: Int, limit: Int) { require(offset >= 0 && limit in 1..50_000 && offset <= Int.MAX_VALUE - limit) }
 
     private companion object {
         const val trackColumns = "id,title,artist,album,source,duration,available,genre,folder,tint,uri,root,size,modified,artwork,artwork_checked"

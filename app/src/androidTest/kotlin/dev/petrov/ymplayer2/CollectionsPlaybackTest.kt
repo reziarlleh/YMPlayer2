@@ -135,6 +135,26 @@ class CollectionsPlaybackTest {
         compose.onNodeWithTag("track_$one").assertDoesNotExist()
         assertTrue(data("guest").favorites.isEmpty())
     }
+    @Test fun editsResolveOnlyRequestedIdsWithoutEnumeratingLibrary() {
+        val context = graph.createDeviceProtectedStorageContext()
+        val file = File(context.filesDir, "user-collections.json")
+        file.delete()
+        val indexed = object : IndexedLocalLibrary by library {
+            override fun tracks(profileId: String): List<Track> = error("Full catalog enumeration is forbidden for collection edits")
+        }
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        try {
+            val collections = LocalCollections(context, indexed, scope)
+            waitFor { collections.state.value.ready }
+            val one = id("one"); val two = id("two")
+            assertTrue(runBlocking { collections.edit("owner", CollectionEdit.Create("Адресно", one)) })
+            val list = collections.state.value.profile("owner").playlists.single().id
+            assertTrue(runBlocking { collections.edit("owner", CollectionEdit.Add(list, two)) })
+            assertTrue(runBlocking { collections.edit("owner", CollectionEdit.Favorite(one, true)) })
+            assertEquals(listOf(one, two), collections.state.value.profile("owner").playlists.single().tracks.map(SavedTrack::id))
+            assertEquals(one, collections.state.value.profile("owner").favorites.single().id)
+        } finally { scope.cancel(); file.delete() }
+    }
     @Test fun metadataEditsDoNotInterruptAudioAndUnavailableReferencesRecover() {
         val one = id("one")
         compose.runOnIdle { player.select(one); player.seek(5) }
