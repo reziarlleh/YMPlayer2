@@ -1,5 +1,6 @@
 package dev.petrov.ymplayer2
 
+import android.database.sqlite.SQLiteDatabase
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import dev.petrov.ymplayer2.core.CatalogFilter
@@ -22,6 +23,47 @@ import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class LocalIndexMigrationTest {
+    @Test fun versionOneIndexUpgradesWithoutLosingUnavailableReferences() = runBlocking {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext.createDeviceProtectedStorageContext()
+        context.deleteDatabase("local-catalog.db")
+        context.getDatabasePath("local-catalog.db").parentFile?.mkdirs()
+        val db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath("local-catalog.db"), null)
+        db.execSQL("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+        db.execSQL("INSERT INTO meta VALUES ('initialized','1')")
+        db.execSQL("CREATE TABLE roots (uri TEXT PRIMARY KEY, name TEXT NOT NULL, source TEXT NOT NULL)")
+        db.execSQL("""CREATE TABLE tracks (
+            id TEXT PRIMARY KEY, title TEXT NOT NULL, artist TEXT NOT NULL, album TEXT NOT NULL,
+            source TEXT NOT NULL, duration INTEGER NOT NULL, available INTEGER NOT NULL,
+            genre TEXT NOT NULL, folder TEXT NOT NULL, tint INTEGER NOT NULL,
+            uri TEXT NOT NULL, root TEXT NOT NULL, size INTEGER NOT NULL, modified INTEGER NOT NULL,
+            artwork TEXT, artwork_checked INTEGER NOT NULL,
+            title_key TEXT NOT NULL, artist_key TEXT NOT NULL, album_key TEXT NOT NULL
+        )""")
+        db.execSQL("""INSERT INTO tracks VALUES
+            ('usb:kept','Старый USB','Исполнитель','Альбом','USB',17,1,
+             'Рок','USB',1,'content://fixture/kept','content://fixture/tree',3,4,
+             NULL,0,'старый usb','исполнитель','альбом')""")
+        db.version = 1
+        db.close()
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        try {
+            val library = SafLibrary(context, scope)
+            withTimeout(10_000) { library.state.first { it.ready } }
+            assertEquals(listOf("usb:kept"), library.orderedTrackIds(Source.USB))
+            assertFalse(library.pageTracks(CatalogFilter()).items.single().available)
+            SQLiteDatabase.openDatabase(context.getDatabasePath("local-catalog.db").path, null,
+                SQLiteDatabase.OPEN_READONLY).use { upgraded ->
+                assertEquals(2, upgraded.version)
+                upgraded.rawQuery("PRAGMA index_list('tracks')", null).use { cursor ->
+                    val names = buildList { while (cursor.moveToNext()) add(cursor.getString(1)) }
+                    assertTrue("tracks_source_order" in names)
+                }
+            }
+        } finally {
+            scope.cancel(); context.deleteDatabase("local-catalog.db")
+        }
+    }
+
     @Test fun groupedPagesKeepFilteredCountsAndDeterministicSamples() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext.createDeviceProtectedStorageContext()
         context.deleteDatabase("local-catalog.db")
@@ -45,6 +87,8 @@ class LocalIndexMigrationTest {
             assertEquals("Группа А", first.items.single().name)
             assertEquals(2, first.items.single().count)
             assertEquals("local:a", first.items.single().sample.id)
+            assertEquals(listOf("local:a", "usb:b", "local:z", "local:c"), library.orderedTrackIds())
+            assertEquals(listOf("local:a", "local:z", "local:c"), library.orderedTrackIds(Source.LOCAL))
             val second = library.pageGroups(CatalogFilter(source = Source.LOCAL), CatalogDimension.ARTISTS, offset = 1, limit = 1)
             assertEquals(2, second.total)
             assertEquals("Группа Б", second.items.single().name)

@@ -37,6 +37,11 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     )
     override fun tracks(profileId: String) = if (profiles.any { it.id == profileId }) state.value.tracks else emptyList()
 
+    override suspend fun orderedTrackIds(source: Source?): List<String> {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.orderedTrackIds(source) }
+    }
+
     override suspend fun tracksByIds(ids: Collection<String>): Map<String, Track> {
         loaded.await()
         return withContext(Dispatchers.IO) { index.tracksByIds(ids) }
@@ -85,7 +90,14 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
         scanAll()
     }
 
-    override suspend fun refresh() = operation { scanAll() }
+    override suspend fun refresh() {
+        val observedRevision = indexRevision
+        operation {
+            // Startup rescan and Activity.onStart can request the same work concurrently.
+            // A completed scan after the request already covers this refresh.
+            if (indexRevision == observedRevision) scanAll()
+        }
+    }
 
     override suspend fun forgetFolder(uri: String) = operation {
         // Only our index and our grant change; no DocumentsContract.deleteDocument call.

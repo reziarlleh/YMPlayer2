@@ -10,7 +10,7 @@ import dev.petrov.ymplayer2.core.*
 
 /** Transactional metadata index. Document URIs point to the original media; audio is never copied. */
 internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkCache) :
-    SQLiteOpenHelper(context, "local-catalog.db", null, 1) {
+    SQLiteOpenHelper(context, "local-catalog.db", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
@@ -24,6 +24,7 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
             title_key TEXT NOT NULL, artist_key TEXT NOT NULL, album_key TEXT NOT NULL
         )""")
         db.execSQL("CREATE INDEX tracks_order ON tracks(title_key, id)")
+        db.execSQL("CREATE INDEX tracks_source_order ON tracks(source, title_key, id)")
         db.execSQL("CREATE INDEX tracks_root ON tracks(root)")
         db.execSQL("CREATE INDEX tracks_album ON tracks(album)")
         db.execSQL("CREATE INDEX tracks_artist ON tracks(artist)")
@@ -32,6 +33,10 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        if (oldVersion == 1 && newVersion == 2) {
+            db.execSQL("CREATE INDEX tracks_source_order ON tracks(source, title_key, id)")
+            return
+        }
         error("Unsupported local catalog schema $oldVersion → $newVersion")
     }
 
@@ -70,6 +75,14 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
 
     /** SAF availability is unknown after process restart until the grant and root are scanned. */
     fun markUnavailable() { writableDatabase.execSQL("UPDATE tracks SET available=0") }
+
+    fun orderedTrackIds(source: Source?): List<String> {
+        val where = if (source == null) "" else " WHERE source=?"
+        val args = if (source == null) null else arrayOf(source.name)
+        return readableDatabase.rawQuery("SELECT id FROM tracks$where ORDER BY title_key,id", args).use { cursor ->
+            buildList { while (cursor.moveToNext()) add(cursor.getString(0)) }
+        }
+    }
 
     fun tracksByIds(ids: Collection<String>): Map<String, Track> {
         if (ids.isEmpty()) return emptyMap()
