@@ -194,7 +194,10 @@ class UpdateClient(
                 connectTimeout = 12_000; readTimeout = 25_000; instanceFollowRedirects = false
                 setRequestProperty("User-Agent", "YMPlayer2-Updater")
             }
-            val code = connection.responseCode
+            val code = try { connection.responseCode } catch (error: Exception) {
+                connection.disconnect()
+                throw error
+            }
             if (code in 200..299) return connection
             if (code in listOf(301, 302, 303, 307, 308) && redirects < MAX_REDIRECTS) {
                 val target = connection.getHeaderField("Location") ?: throw IOException("Редирект без адреса")
