@@ -23,11 +23,19 @@ data class PlaybackState(
     val recommendations: Boolean = false,
 ) {
     val current: Track? get() = queue.getOrNull(index)
+    val queueCount: Int get() = queue.size
     val supportsQueueOrdering: Boolean get() = connected && queue.isNotEmpty() && !wave
 }
 
 interface PlaybackController {
     val state: StateFlow<PlaybackState>
+    /** A page in the current logical order. Implementations may resolve metadata from disk. */
+    suspend fun queuePage(offset: Int, limit: Int = 80): CatalogPage<Track> {
+        require(offset >= 0 && limit in 1..500 && offset <= Int.MAX_VALUE - limit)
+        val queue = state.value.queue
+        val from = offset.coerceAtMost(queue.size)
+        return CatalogPage(queue.subList(from, (from + limit).coerceAtMost(queue.size)), queue.size, offset)
+    }
     fun toggle()
     fun stop()
     fun seek(seconds: Int)

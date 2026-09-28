@@ -22,6 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
+import kotlinx.coroutines.launch
 
 /** Only artwork is flexible. Transport and actions never live in a scroll container. */
 @Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {},
@@ -192,30 +193,46 @@ import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun QueueScreen(state: PlaybackState, player: PlaybackController, taste: MusicTaste? = null, artist: (ArtistRef) -> Unit = {}) {
     var editing by rememberSaveable { mutableStateOf(false) }
+    val pages = remember(state.queue) { mutableStateMapOf<Int, Result<CatalogPage<Track>>>() }
+    val loading = remember(state.queue) { mutableSetOf<Int>() }
+    val scope = rememberCoroutineScope()
+    fun requestPage(number: Int) {
+        if (number in pages || !loading.add(number)) return
+        scope.launch {
+            pages[number] = runCatching { player.queuePage(number * 80, 80) }
+            loading.remove(number)
+            // Scrolling through a long queue must not re-create a full metadata snapshot.
+            pages.keys.sortedBy { kotlin.math.abs(it - number) }.drop(5).forEach(pages::remove)
+        }
+    }
     Column(Modifier.fillMaxSize().padding(horizontal = 8.dp)) {
-        Text("Очередь · ${state.queue.size}", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 12.dp))
+        Text("Очередь · ${state.queueCount}", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 12.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(if (state.shuffle) "Случайный порядок включён" else "Выбор трека запускает его", Modifier.weight(1f), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            ActionIcon(if (editing) UiIcon.CHECK else UiIcon.EDIT, if (editing) "Завершить редактирование" else "Изменить очередь", { editing = !editing }, Modifier.testTag("queue_edit"), enabled = state.queue.isNotEmpty())
+            ActionIcon(if (editing) UiIcon.CHECK else UiIcon.EDIT, if (editing) "Завершить редактирование" else "Изменить очередь", { editing = !editing }, Modifier.testTag("queue_edit"), enabled = state.queueCount > 0)
         }
-        if (editing && state.queue.isNotEmpty()) {
+        if (editing && state.queueCount > 0) {
             Text("Удаление текущего трека ставит воспроизведение на паузу.", style = MaterialTheme.typography.bodySmall)
             TextButton({ player.clearQueue(); editing = false }, Modifier.heightIn(min = 48.dp).prismFocus().testTag("queue_clear")) {
                 SkinIcon(UiIcon.CLEAR_QUEUE, null); Spacer(Modifier.width(8.dp)); Text("Очистить очередь")
             }
         }
-        if (state.queue.isEmpty()) Text("Добавьте треки кнопкой «В очередь» в медиатеке.", Modifier.padding(vertical = 16.dp), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (state.queueCount == 0) Text("Добавьте треки кнопкой «В очередь» в медиатеке.", Modifier.padding(vertical = 16.dp), color = MaterialTheme.colorScheme.onSurfaceVariant)
         LazyColumn(Modifier.fillMaxWidth().weight(1f).testTag("queue_list"), contentPadding = PaddingValues(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            items(state.queue.size, key = { state.queue[it].id }) { index ->
-                val track = state.queue[index]
-                Column {
+            items(state.queueCount, key = { it }) { index ->
+                val number = index / 80
+                LaunchedEffect(number, pages) { requestPage(number) }
+                val result = pages[number]
+                val track = result?.getOrNull()?.items?.getOrNull(index % 80)
+                if (track != null) Column {
                     TrackRow(track, state.current?.id == track.id, { player.select(track.id) }, taste = taste, location = "queue", artist = artist)
                     if (editing) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                         ActionIcon(UiIcon.UP, "Выше: ${track.title}", { player.moveInQueue(track.id, index - 1) }, Modifier.testTag("queue_up_${track.id}"), enabled = index > 0)
-                        ActionIcon(UiIcon.DOWN, "Ниже: ${track.title}", { player.moveInQueue(track.id, index + 1) }, Modifier.testTag("queue_down_${track.id}"), enabled = index < state.queue.lastIndex)
+                        ActionIcon(UiIcon.DOWN, "Ниже: ${track.title}", { player.moveInQueue(track.id, index + 1) }, Modifier.testTag("queue_down_${track.id}"), enabled = index < state.queueCount - 1)
                         ActionIcon(UiIcon.REMOVE, "Удалить из очереди: ${track.title}", { player.removeFromQueue(track.id) }, Modifier.testTag("queue_remove_${track.id}"))
                     }
-                }
+                } else if (result?.isFailure == true) TextButton({ pages.remove(number); requestPage(number) }) { Text("Не удалось загрузить очередь · повторить") }
+                else Text("Загружаем…", Modifier.padding(12.dp))
             }
         }
     }

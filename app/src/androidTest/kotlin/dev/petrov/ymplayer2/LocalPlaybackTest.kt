@@ -313,4 +313,16 @@ class LocalPlaybackTest {
         compose.onNodeWithTag("enqueue_$one").performClick()
         assertEquals(listOf(one), player.state.value.queue.map { it.id }); assertFalse(player.state.value.playing)
     }
+
+    @Test fun queueLoadsFarRowsWithoutLosingDirectSelection() {
+        provider("bulk", "100")
+        runBlocking { library.refresh() }
+        waitFor { player.state.value.queue.size == 102 }
+        val target = player.state.value.queue[95]
+        compose.onNodeWithTag("player_queue").performClick()
+        compose.onNodeWithTag("queue_list").performScrollToIndex(95)
+        waitFor { compose.onAllNodesWithTag("track_card_${target.id}").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("track_${target.id}").performClick()
+        waitFor { player.state.value.current?.id == target.id && player.state.value.playing }
+    }
 }
