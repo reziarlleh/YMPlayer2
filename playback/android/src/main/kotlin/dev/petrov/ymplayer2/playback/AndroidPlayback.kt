@@ -9,6 +9,8 @@ import dev.petrov.ymplayer2.core.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -36,6 +38,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var logicalQueue = emptyList<Track>()
     private data class IndexedOrder(val profile: String, val source: Source?, val revision: Long, val ids: List<String>)
     private var indexedOrder: IndexedOrder? = null
+    private val indexedOrderMutex = Mutex()
     private var waitingId: String? = null
     private var waveBatch: WaveBatch? = null
     private val waveItems = linkedMapOf<String, WaveTrack>()
@@ -61,8 +64,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val profile = state.value.profileId
         val source = prefs.getString("source:$profile", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
         val revision = indexed.indexRevision
-        val cached = indexedOrder?.takeIf { it.profile == profile && it.source == source && it.revision == revision }
-        val ids = cached?.ids ?: indexed.orderedTrackIds(source).also { indexedOrder = IndexedOrder(profile, source, revision, it) }
+        val ids = indexedOrderMutex.withLock {
+            indexedOrder?.takeIf { it.profile == profile && it.source == source && it.revision == revision }?.ids
+                ?: indexed.orderedTrackIds(source).also { indexedOrder = IndexedOrder(profile, source, revision, it) }
+        }
         val selected = ids.subList(offset.coerceAtMost(ids.size), (offset + limit).coerceAtMost(ids.size))
         val rows = indexed.tracksByIds(selected)
         if (indexed.indexRevision != revision || !followLibrary || state.value.profileId != profile ||
