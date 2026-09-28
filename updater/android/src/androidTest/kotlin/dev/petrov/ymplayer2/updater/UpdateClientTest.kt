@@ -17,9 +17,10 @@ import java.security.MessageDigest
 @RunWith(AndroidJUnit4::class)
 class UpdateClientTest {
     private val context: Context get() = InstrumentationRegistry.getInstrumentation().targetContext
-    private fun manifest(packageName: String = context.packageName, primary: String = "https://primary.test/app.apk") = JSONObject()
-        .put("schemaVersion", 1).put("packageName", packageName).put("versionCode", 100)
-        .put("versionName", "2.0.0beta-build100").put("minSdk", 29)
+    private fun manifest(packageName: String = context.packageName, primary: String = "https://primary.test/app.apk",
+        build: Long = 100) = JSONObject()
+        .put("schemaVersion", 1).put("packageName", packageName).put("versionCode", build)
+        .put("versionName", "2.0.0beta-build$build").put("minSdk", 29)
         .put("channel", "beta")
         .put("releaseNotes", "Проверка")
         .put("apk", JSONObject().put("primaryUrl", primary)
@@ -28,16 +29,36 @@ class UpdateClientTest {
             .put("sha256", MessageDigest.getInstance("SHA-256").digest("abc".toByteArray()).joinToString("") { "%02x".format(it) }))
 
     @Test fun manifestFallsBackAndKeepsOrderedApkSources() = runBlocking {
-        val calls = mutableListOf<String>()
+        val calls = java.util.Collections.synchronizedList(mutableListOf<String>())
         val json = manifest().toString().toByteArray()
         val client = UpdateClient(context, UpdateConnectionFactory { url ->
             calls += url.host
             FakeConnection(url, if (url.host == "primary.test") 503 else 200, json)
         }, manifests = listOf("https://primary.test/manifest.json", "https://backup.test/manifest.json"))
         val release = client.check()
-        assertEquals(listOf("primary.test", "backup.test"), calls)
+        assertEquals(setOf("primary.test", "backup.test"), calls.toSet())
         assertEquals("backup.test", URL(release.manifestUrl).host)
         assertEquals(listOf("https://backup.test/app.apk", "https://primary.test/app.apk"), release.sources(true))
+    }
+
+    @Test fun newestValidManifestWinsWhenCdnEdgesDisagree() = runBlocking {
+        val client = UpdateClient(context, UpdateConnectionFactory { url ->
+            val build = when (url.host) { "primary.test" -> 100L; "backup.test" -> 98L; else -> 101L }
+            FakeConnection(url, 200, manifest(build = build).toString().toByteArray())
+        }, manifests = listOf("https://primary.test/manifest.json", "https://backup.test/manifest.json",
+            "https://gcore.test/manifest.json"))
+        val release = client.check()
+        assertEquals(101L, release.versionCode)
+        assertEquals("gcore.test", URL(release.manifestUrl).host)
+    }
+
+    @Test fun pinnedCdnApkCanFallBackToGcoreMirror() {
+        val release = UpdateClient(context).parseManifest(manifest().apply {
+            getJSONObject("apk").put("alternativeUrl", "https://cdn.jsdelivr.net/gh/owner/repo@v2/file.apk")
+        }, "https://gcore.test/manifest.json")
+        assertEquals(listOf("https://cdn.jsdelivr.net/gh/owner/repo@v2/file.apk",
+            "https://gcore.jsdelivr.net/gh/owner/repo@v2/file.apk", "https://primary.test/app.apk"),
+            release.sources(true))
     }
 
     @Test fun wrongPackageHttpAndInvalidDigestAreRejected() {
@@ -46,6 +67,7 @@ class UpdateClientTest {
         assertThrows(IOException::class.java) { client.parseManifest(manifest(primary = "http://primary.test/app.apk"), "https://primary.test/manifest") }
         val bad = manifest().apply { getJSONObject("apk").put("sha256", "bad") }
         assertThrows(IOException::class.java) { client.parseManifest(bad, "https://primary.test/manifest") }
+        assertThrows(IOException::class.java) { client.parseManifest(manifest().put("versionCode", 101), "https://primary.test/manifest") }
         val stable = UpdateClient(context, channel = "stable")
         assertThrows(IOException::class.java) { stable.parseManifest(manifest(), "https://primary.test/manifest") }
     }

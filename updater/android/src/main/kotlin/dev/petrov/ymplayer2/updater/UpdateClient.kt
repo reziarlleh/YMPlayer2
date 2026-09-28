@@ -3,7 +3,11 @@ package dev.petrov.ymplayer2.updater
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.File
@@ -25,9 +29,13 @@ data class UpdateRelease(
     val sha256: String,
     val manifestUrl: String,
 ) {
-    fun sources(preferAlternative: Boolean): List<String> =
-        (if (preferAlternative) listOf(alternativeUrl, primaryUrl) else listOf(primaryUrl, alternativeUrl))
+    fun sources(preferAlternative: Boolean): List<String> {
+        val mirror = alternativeUrl.takeIf { it.startsWith("https://cdn.jsdelivr.net/gh/") }
+            ?.replaceFirst("https://cdn.jsdelivr.net/", "https://gcore.jsdelivr.net/")
+        val alternatives = listOfNotNull(alternativeUrl.takeIf(String::isNotBlank), mirror)
+        return (if (preferAlternative) alternatives + primaryUrl else listOf(primaryUrl) + alternatives)
             .filter(String::isNotBlank).distinct()
+    }
 }
 
 data class DownloadedUpdate(val file: File, val usedAlternative: Boolean)
@@ -44,26 +52,31 @@ class UpdateClient(
     companion object {
         const val PRIMARY_MANIFEST = "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json"
         const val ALTERNATIVE_MANIFEST = "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json"
+        const val GCORE_MANIFEST = "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json"
         fun manifestUrls(channel: String): List<String> = if (channel == "stable") listOf(
             "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
             "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
-        ) else listOf(PRIMARY_MANIFEST, ALTERNATIVE_MANIFEST)
+            "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+        ) else listOf(PRIMARY_MANIFEST, ALTERNATIVE_MANIFEST, GCORE_MANIFEST)
         const val MAX_APK_BYTES = 100L * 1024 * 1024
         private const val MAX_MANIFEST_BYTES = 256 * 1024
         private const val MAX_REDIRECTS = 5
     }
 
-    suspend fun check(): UpdateRelease = withContext(Dispatchers.IO) {
-        val failures = mutableListOf<String>()
-        for (source in manifests) {
+    suspend fun check(): UpdateRelease = supervisorScope {
+        // Dynamic @main URLs can differ for hours across CDN edges. Query them
+        // together and use the newest *validated* Build rather than the first response.
+        val results = manifests.map { source -> async(Dispatchers.IO) {
             try {
                 val bytes = readBounded(source, MAX_MANIFEST_BYTES)
-                return@withContext parseManifest(JSONObject(bytes.toString(Charsets.UTF_8)), source)
-            } catch (error: Exception) {
-                failures += "${host(source)}: ${error.message ?: error.javaClass.simpleName}"
-            }
-        }
-        throw IOException("Источники обновлений недоступны: ${failures.joinToString("; ")}")
+                parseManifest(JSONObject(bytes.toString(Charsets.UTF_8)), source) to null
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (error: Exception) { null to "${host(source)}: ${error.message ?: error.javaClass.simpleName}" }
+        } }.awaitAll()
+        val releases = results.mapNotNull { it.first }
+        releases.fold(null as UpdateRelease?) { best, next ->
+            if (best == null || next.versionCode > best.versionCode) next else best
+        } ?: throw IOException("Источники обновлений недоступны: ${results.mapNotNull { it.second }.joinToString("; ")}")
     }
 
     fun parseManifest(json: JSONObject, source: String): UpdateRelease {
@@ -73,7 +86,8 @@ class UpdateClient(
         val versionName = json.optString("versionName").trim()
         val remoteChannel = json.optString("channel").trim()
         val minSdk = json.optInt("minSdk", 29)
-        if (versionCode <= 0 || !versionName.matches(Regex("[0-9]+\\.[0-9]+\\.[0-9]+(beta)?-build[0-9]+")))
+        if (versionCode <= 0 || !versionName.matches(Regex("[0-9]+\\.[0-9]+\\.[0-9]+(beta)?-build[0-9]+")) ||
+            versionName.substringAfterLast("-build").toLongOrNull() != versionCode)
             throw IOException("Неверная версия обновления")
         if (remoteChannel !in listOf("beta", "stable") || channel == "stable" && remoteChannel != "stable")
             throw IOException("Обновление не относится к выбранному каналу")
@@ -111,7 +125,7 @@ class UpdateClient(
                 if (destination.exists() && !destination.delete()) throw IOException("Не удалось заменить старый APK")
                 if (!partial.renameTo(destination)) throw IOException("Не удалось завершить загрузку")
                 verifyArchive(destination, release)
-                return@withContext DownloadedUpdate(destination, source == release.alternativeUrl)
+                return@withContext DownloadedUpdate(destination, source != release.primaryUrl)
             } catch (error: Exception) {
                 partial.delete()
                 destination.delete()

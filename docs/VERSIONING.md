@@ -58,6 +58,14 @@ Android определяет идентичность приложения че�
 как beta. Каждый APK, выдаваемый владельцу для проверки, собирается release-скриптом
 со сквозным номером. Beta и stable продукта используют `dev.petrov.ymplayer2`.
 
+При публикации резервного APK файл в `releases/` добавляется в Git явно
+(`git add -f releases/<version>/YMPlayer-<version>.apk`): общее правило
+`.gitignore` скрывает случайные сборочные APK. До создания манифеста тег релиза
+должен указывать на коммит, содержащий этот файл; скрипт
+[Prepare-UpdateManifest.ps1](../tools/Prepare-UpdateManifest.ps1) проверяет
+это условие. GitHub Release с APK публикуется до изменения манифеста `main`,
+чтобы обновлятор не получил ссылку на ещё не опубликованный файл.
+
 Android использует числовой versionCode для порядка версий, а versionName — для
 отображения пользователю:
 [Android Developers — Version your app](https://developer.android.com/studio/publish/versioning).

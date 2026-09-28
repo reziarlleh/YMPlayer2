@@ -1,0 +1,4 @@
+versionCode=48 minSdk=29 targetSdk=36
+versionName=2.0.0beta-build48
+lastUpdateTime=2026-09-28 19:17:07
+firstInstallTime=2026-09-09 07:09:25

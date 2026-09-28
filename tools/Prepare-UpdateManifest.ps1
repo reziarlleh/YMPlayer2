@@ -12,6 +12,11 @@ if ($metadata.versionName -ne $Version -or $metadata.applicationId -ne 'dev.petr
     throw 'Release metadata does not match the 2.x product.'
 }
 if (-not (Test-Path -LiteralPath $apk)) { throw 'Signed release APK is missing.' }
+$taggedApk = "releases/$Version/$apkName"
+$inTag = ([string](& git -C $root ls-tree -r --name-only "v$Version" -- $taggedApk)).Trim()
+if ($LASTEXITCODE -ne 0 -or $inTag -ne $taggedApk) {
+    throw 'The tagged source does not contain the APK required by the version-pinned CDN URL. Use git add -f for the ignored APK, then tag and push the resulting commit.'
+}
 $file = Get-Item -LiteralPath $apk
 if ($file.Length -gt 20MB) { throw 'The APK exceeds the jsDelivr GitHub-file limit of 20 MB.' }
 $hash = (Get-FileHash -LiteralPath $apk -Algorithm SHA256).Hash.ToLowerInvariant()
