@@ -75,7 +75,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         check(engine == null)
         engine = player
         player.addListener(object : Player.Listener {
-            override fun onEvents(player: Player, events: Player.Events) { if (!updating && !restoring && ready) { publish(); checkpoint(); maintainWave() } }
+            override fun onEvents(player: Player, events: Player.Events) { if (!updating && !restoring && ready) {
+                publish()
+                if (usesBoundedLocalWindow() && events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) syncQueue(logicalQueue)
+                checkpoint(); maintainWave()
+            } }
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 if (isPlaying && state.value.wave && !updating && !restoring) {
                     val id = player.currentMediaItem?.mediaId
@@ -200,6 +204,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         when {
             direction > 0 && player.hasNextMediaItem() -> player.seekToNextMediaItem()
             direction < 0 && player.hasPreviousMediaItem() -> player.seekToPreviousMediaItem()
+            usesBoundedLocalWindow() && skipOutsideWindow(direction, player) -> return@command
             direction > 0 && state.value.wave -> {
                 feedback(waveStarted, WaveFeedback.SKIP, state.value.positionSeconds); waveStarted = null
                 waveAdvance = true; waveResume = player.playWhenReady
@@ -247,8 +252,16 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         load(queue, queue.indexOfFirst { it.available }.coerceAtLeast(0), 0)
     }
 
-    override fun setRepeatMode(mode: RepeatMode) = command { if (!state.value.wave) { engine?.repeatMode = mode.toPlayerMode(); publish(); checkpoint() } }
-    override fun setShuffle(enabled: Boolean) = command { if (!state.value.wave) { engine?.shuffleModeEnabled = enabled; publish(); checkpoint() } }
+    override fun setRepeatMode(mode: RepeatMode) = command { if (!state.value.wave) {
+        val bounded = usesBoundedLocalWindow()
+        engine?.repeatMode = mode.toPlayerMode()
+        if (bounded != usesBoundedLocalWindow()) syncQueue(logicalQueue) else { publish(); checkpoint() }
+    } }
+    override fun setShuffle(enabled: Boolean) = command { if (!state.value.wave) {
+        val bounded = usesBoundedLocalWindow()
+        engine?.shuffleModeEnabled = enabled
+        if (bounded != usesBoundedLocalWindow()) syncQueue(logicalQueue) else { publish(); checkpoint() }
+    } }
     override fun enqueue(trackId: String) = command {
         val track = knownTracks(state.value.profileId).find { it.id == trackId && it.available } ?: return@command
         if (state.value.queue.any { it.id == trackId }) return@command
@@ -480,6 +493,37 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         return library.tracks(profile).filter { source == null || it.source.name == source }
     }
 
+    // The public queue keeps its full order for editing. Media3 needs only nearby
+    // playable items while sequentially following the local library.
+    private fun usesBoundedLocalWindow() = followLibrary && engine?.shuffleModeEnabled == false &&
+        engine?.repeatMode != Player.REPEAT_MODE_ALL
+
+    private fun playableQueue(queue: List<Track>, index: Int): List<Track> {
+        if (!usesBoundedLocalWindow()) return queue.filterIndexed { i, track ->
+            track.available && (!state.value.wave || i <= index || waveAudio.uri(state.value.profileId, track.id) != null)
+        }
+        val previous = ArrayDeque<Track>()
+        for (i in index - 1 downTo 0) if (queue[i].available) {
+            previous.addFirst(queue[i]); if (previous.size == 4) break
+        }
+        val upcoming = ArrayList<Track>(25)
+        for (i in index.coerceAtLeast(0) until queue.size) if (queue[i].available) {
+            upcoming += queue[i]; if (upcoming.size == 25) break
+        }
+        return previous + upcoming
+    }
+
+    private fun skipOutsideWindow(direction: Int, player: ExoPlayer): Boolean {
+        val range = if (direction > 0) state.value.index + 1 until logicalQueue.size
+            else state.value.index - 1 downTo 0
+        val target = range.firstOrNull { logicalQueue[it].available } ?: return false
+        val resume = player.playWhenReady
+        load(logicalQueue, target, 0)
+        player.prepare()
+        if (resume) player.play()
+        return true
+    }
+
     private fun remoteEnabled(profile: String) = online?.catalog?.value?.let { it.profileId == profile && it.enabled } == true
     private fun knownTracks(profile: String): List<Track> = library.tracks(profile) + if (remoteEnabled(profile))
         (logicalQueue.filter { it.source == Source.YANDEX } + online!!.tracksForPlayback(profile) + offline?.tracks(profile).orEmpty())
@@ -586,7 +630,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
         val player = engine ?: return
         logicalQueue = next
-        val playable = next.filterIndexed { i, track -> track.available && (!state.value.wave || i <= index || waveAudio.uri(state.value.profileId, track.id) != null) }
+        val playable = playableQueue(next, index)
         updating = true
         try {
             val keep = playable.mapTo(hashSetOf(), Track::id)
@@ -611,7 +655,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             logicalQueue = queue
             waitingId = queue.getOrNull(index)?.takeIf { !it.available }?.id
             mutable.value = state.value.copy(queue = queue, index = index, positionSeconds = position.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0), playing = false, connected = true, error = null)
-            val playable = queue.filterIndexed { i, track -> track.available && (!state.value.wave || i <= index || waveAudio.uri(state.value.profileId, track.id) != null) }
+            val playable = playableQueue(queue, index)
             if (waitingId != null || playable.isEmpty()) player.clearMediaItems()
             else player.setMediaItems(playable.map { it.mediaItem(state.value.profileId) }, playable.indexOfFirst { it.id == state.value.current?.id }.coerceAtLeast(0), state.value.positionSeconds.toLong() * 1000)
         } finally { updating = false }

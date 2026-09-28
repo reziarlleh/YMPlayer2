@@ -1,12 +1,15 @@
 package dev.petrov.ymplayer2
 
 import android.content.Intent
+import android.content.ComponentName
 import android.media.AudioAttributes
 import android.media.AudioFocusRequest
 import android.media.AudioManager
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
+import androidx.media3.session.MediaBrowser
+import androidx.media3.session.SessionToken
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dev.petrov.ymplayer2.core.Source
 import dev.petrov.ymplayer2.core.CatalogFilter
@@ -18,6 +21,7 @@ import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.json.JSONObject
+import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
 class LocalPlaybackTest {
@@ -96,6 +100,41 @@ class LocalPlaybackTest {
         assertEquals(selected, player.state.value.current?.id)
         assertTrue(player.state.value.positionSeconds >= 7)
         assertFalse(player.state.value.playing)
+    }
+
+    @Test fun followedLibraryKeepsMedia3WindowBoundedAcrossSelectionsAndModes() {
+        provider("bulk", "60")
+        runBlocking { library.refresh() }
+        waitFor { player.state.value.queue.size == 62 }
+        val order = player.state.value.queue.map { it.id }
+        val browser = MediaBrowser.Builder(compose.activity,
+            SessionToken(compose.activity, ComponentName(compose.activity, AudioService::class.java)))
+            .buildAsync().get(20, TimeUnit.SECONDS)
+        try {
+            assertTrue(compose.runOnIdle { browser.mediaItemCount } <= 29)
+            compose.runOnIdle { player.select(order[24]); player.seek(29) }
+            waitFor { player.state.value.current?.id == order[25] }
+            assertTrue(compose.runOnIdle { browser.mediaItemCount } <= 29)
+            compose.runOnIdle { player.skip(1) }
+            waitFor { player.state.value.current?.id == order[26] }
+            compose.runOnIdle { player.select(order[50]) }
+            waitFor { player.state.value.current?.id == order[50] }
+            assertTrue(compose.runOnIdle { browser.mediaItemCount } <= 29)
+            compose.runOnIdle { player.setRepeatMode(RepeatMode.ONE); player.select(order[24]); player.skip(1) }
+            waitFor { player.state.value.current?.id == order[25] }
+            compose.runOnIdle { player.setRepeatMode(RepeatMode.OFF) }
+            compose.runOnIdle { player.select(order[2]); player.skip(-1) }
+            waitFor { player.state.value.current?.id == order[1] }
+            compose.runOnIdle { player.setShuffle(true) }
+            waitFor { compose.runOnIdle { browser.mediaItemCount } == 62 }
+            compose.runOnIdle { player.setShuffle(false); player.setRepeatMode(RepeatMode.ALL) }
+            waitFor { compose.runOnIdle { browser.mediaItemCount } == 62 }
+            compose.runOnIdle { player.setRepeatMode(RepeatMode.OFF) }
+            waitFor { compose.runOnIdle { browser.mediaItemCount } <= 29 }
+            assertEquals(order, player.state.value.queue.map { it.id })
+        } finally {
+            compose.runOnIdle { browser.release() }
+        }
     }
 
     @Test fun safMetadataAndRealAudioContinueInBackground() {

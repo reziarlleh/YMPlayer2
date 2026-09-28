@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 46,
-  "versionName": "2.0.0beta-build46",
+  "versionCode": 47,
+  "versionName": "2.0.0beta-build47",
   "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-09-28T12:13:04.6906156Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build46",
-  "releaseNotes": "Компактный checkpoint автоматической очереди и меньше дублирования метаданных плеера; ручные очереди и восстановление сохранены.",
+  "publishedAt": "2026-09-28T13:20:53.6191647Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build47",
+  "releaseNotes": "Локальная автоматическая очередь подгружает ближайшие треки в Media3; выбор далёкого трека и переходы сохраняют порядок.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build46/YMPlayer-2.0.0beta-build46.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build46/releases/2.0.0beta-build46/YMPlayer-2.0.0beta-build46.apk",
-    "sizeBytes": 4705546,
-    "sha256": "7e22ac6a84ac94820939acb2f93c803c8ebc334406564ded3e1915fc7d102853"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build47/YMPlayer-2.0.0beta-build47.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build47/releases/2.0.0beta-build47/YMPlayer-2.0.0beta-build47.apk",
+    "sizeBytes": 4705542,
+    "sha256": "8f84293594f846ba380d89246cc3bed8d8eca927be093ac713e4850f8fd52462"
   }
 }
