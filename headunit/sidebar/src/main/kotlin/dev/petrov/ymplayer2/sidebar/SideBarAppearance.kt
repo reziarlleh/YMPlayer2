@@ -15,7 +15,7 @@ internal enum class SideBarEdge { LEFT, RIGHT, BOTTOM }
 /** The built-in PRISM appearance is independent of the overlay's commands and gestures. */
 internal object SideBarAppearance {
     fun panel(edge: SideBarEdge, density: Float): Drawable = AngledDrawable(
-        edge, density, Color.argb(190, 12, 16, 23), Color.argb(220, 255, 255, 255), 20f)
+        edge, density, Color.argb(205, 8, 11, 17), Color.argb(220, 255, 255, 255), 32f)
 
     fun button(density: Float): Drawable = GradientDrawable().apply {
         shape = GradientDrawable.OVAL
@@ -42,26 +42,33 @@ internal object SideBarAppearance {
             val top = bounds.top + inset
             val right = bounds.right - inset
             val bottom = bounds.bottom - inset
-            val cut = min(cutDp * density, min(right - left, bottom - top) / 3f)
+            // Equal horizontal and vertical offsets keep every exposed bevel at 45°.
+            val cut = min(cutDp * density, min(right - left, bottom - top) / 2f)
             path.reset()
             when (edge) {
                 SideBarEdge.LEFT -> {
                     path.moveTo(left, top)
+                    path.lineTo(right - cut, top)
                     path.lineTo(right, top + cut)
                     path.lineTo(right, bottom - cut)
+                    path.lineTo(right - cut, bottom)
                     path.lineTo(left, bottom)
                 }
                 SideBarEdge.RIGHT -> {
-                    path.moveTo(left, top + cut)
+                    path.moveTo(left + cut, top)
                     path.lineTo(right, top)
                     path.lineTo(right, bottom)
+                    path.lineTo(left + cut, bottom)
                     path.lineTo(left, bottom - cut)
+                    path.lineTo(left, top + cut)
                 }
                 SideBarEdge.BOTTOM -> {
                     path.moveTo(left + cut, top)
                     path.lineTo(right - cut, top)
+                    path.lineTo(right, top + cut)
                     path.lineTo(right, bottom)
                     path.lineTo(left, bottom)
+                    path.lineTo(left, top + cut)
                 }
             }
             path.close()

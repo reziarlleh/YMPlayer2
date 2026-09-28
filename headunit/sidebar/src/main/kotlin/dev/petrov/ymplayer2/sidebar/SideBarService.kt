@@ -106,7 +106,7 @@ class SideBarService : Service() {
         val row = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
-            setPadding(dp(10), dp(12), dp(10), dp(12))
+            setPadding(dp(18), dp(22), dp(18), dp(22))
             background = SideBarAppearance.panel(edge, resources.displayMetrics.density)
             setOnTouchListener { _, event ->
                 if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_MOVE) scheduleHide()

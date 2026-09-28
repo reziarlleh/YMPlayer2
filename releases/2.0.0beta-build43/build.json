@@ -1,0 +1,9 @@
+{
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-09-28T08:14:30.1525001Z",
+  "sha256": "8bc6cbe50562559334ac9f32b2d1ed6b70bd08fe61b74649d3e5f6e9aec03566",
+  "versionCode": 43,
+  "runtimeAcceptance": "pending",
+  "versionName": "2.0.0beta-build43",
+  "channel": "beta"
+}

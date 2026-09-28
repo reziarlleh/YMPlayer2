@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 42,
-  "versionName": "2.0.0beta-build42",
+  "versionCode": 43,
+  "versionName": "2.0.0beta-build43",
   "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-09-28T03:37:39.6055016Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build42",
-  "releaseNotes": "Проверка резервной загрузки jsDelivr из приложения; безопасное закрытие соединения при неполном HTTP-редиректе.",
+  "publishedAt": "2026-09-28T08:31:40.7131457Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build43",
+  "releaseNotes": "Сайдбар K4811: скосы внешней панели под 45°, увеличенный отступ вокруг круглых кнопок и чуть более тёмный полупрозрачный фон.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build42/YMPlayer-2.0.0beta-build42.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build42/releases/2.0.0beta-build42/YMPlayer-2.0.0beta-build42.apk",
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build43/YMPlayer-2.0.0beta-build43.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build43/releases/2.0.0beta-build43/YMPlayer-2.0.0beta-build43.apk",
     "sizeBytes": 4672778,
-    "sha256": "fe70edcd7975de397b43982b08ae181dd201d0fa24702cbe27ef81bd83899117"
+    "sha256": "8bc6cbe50562559334ac9f32b2d1ed6b70bd08fe61b74649d3e5f6e9aec03566"
   }
 }
