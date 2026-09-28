@@ -200,8 +200,9 @@ class UpdateClient(
             }
             if (code in 200..299) return connection
             if (code in listOf(301, 302, 303, 307, 308) && redirects < MAX_REDIRECTS) {
-                val target = connection.getHeaderField("Location") ?: throw IOException("Редирект без адреса")
+                val target = connection.getHeaderField("Location")
                 connection.disconnect()
+                if (target == null) throw IOException("Редирект без адреса")
                 url = httpsUrl(URL(url, target).toString())
             } else {
                 connection.disconnect()
