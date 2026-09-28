@@ -76,12 +76,26 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
     /** SAF availability is unknown after process restart until the grant and root are scanned. */
     fun markUnavailable() { writableDatabase.execSQL("UPDATE tracks SET available=0") }
 
-    fun orderedTrackIds(source: Source?): List<String> {
-        val where = if (source == null) "" else " WHERE source=?"
-        val args = if (source == null) null else arrayOf(source.name)
-        return readableDatabase.rawQuery("SELECT id FROM tracks$where ORDER BY title_key,id", args).use { cursor ->
-            buildList { while (cursor.moveToNext()) add(cursor.getString(0)) }
+    fun adjacentTrack(currentId: String?, direction: Int, source: Source?, wrap: Boolean): Track? {
+        require(direction == -1 || direction == 1)
+        val db = readableDatabase
+        val key = currentId?.let { id -> db.rawQuery("SELECT title_key,id FROM tracks WHERE id=?", arrayOf(id)).use { cursor ->
+            if (cursor.moveToFirst()) cursor.getString(0) to cursor.getString(1) else null
+        } }
+        val sourceClause = if (source == null) "" else " AND source=?"
+        val sign = if (direction > 0) ">" else "<"
+        val order = if (direction > 0) "ASC" else "DESC"
+        fun find(after: Pair<String, String>?): Track? {
+            val boundary = if (after == null) "" else " AND (title_key $sign ? OR (title_key=? AND id $sign ?))"
+            val args = buildList {
+                if (source != null) add(source.name)
+                if (after != null) { add(after.first); add(after.first); add(after.second) }
+            }.toTypedArray()
+            return db.rawQuery("SELECT $trackColumns FROM tracks WHERE available=1$sourceClause$boundary ORDER BY title_key $order,id $order LIMIT 1", args).use { cursor ->
+                if (cursor.moveToFirst()) track(cursor) else null
+            }
         }
+        return find(key) ?: if (wrap && key != null) find(null) else null
     }
 
     fun tracksByIds(ids: Collection<String>): Map<String, Track> {

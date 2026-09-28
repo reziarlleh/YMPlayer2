@@ -49,7 +49,7 @@ class LocalIndexMigrationTest {
         try {
             val library = SafLibrary(context, scope)
             withTimeout(10_000) { library.state.first { it.ready } }
-            assertEquals(listOf("usb:kept"), library.orderedTrackIds(Source.USB))
+            assertEquals(listOf("usb:kept"), library.pageTracks(CatalogFilter(source = Source.USB)).items.map { it.id })
             assertFalse(library.pageTracks(CatalogFilter()).items.single().available)
             SQLiteDatabase.openDatabase(context.getDatabasePath("local-catalog.db").path, null,
                 SQLiteDatabase.OPEN_READONLY).use { upgraded ->
@@ -87,8 +87,8 @@ class LocalIndexMigrationTest {
             assertEquals("Группа А", first.items.single().name)
             assertEquals(2, first.items.single().count)
             assertEquals("local:a", first.items.single().sample.id)
-            assertEquals(listOf("local:a", "usb:b", "local:z", "local:c"), library.orderedTrackIds())
-            assertEquals(listOf("local:a", "local:z", "local:c"), library.orderedTrackIds(Source.LOCAL))
+            assertEquals(listOf("local:a", "usb:b", "local:z", "local:c"), library.pageTracks(CatalogFilter()).items.map { it.id })
+            assertEquals(listOf("local:a", "local:z", "local:c"), library.pageTracks(CatalogFilter(source = Source.LOCAL)).items.map { it.id })
             val second = library.pageGroups(CatalogFilter(source = Source.LOCAL), CatalogDimension.ARTISTS, offset = 1, limit = 1)
             assertEquals(2, second.total)
             assertEquals("Группа Б", second.items.single().name)
