@@ -36,6 +36,10 @@
 - `tools/check-boot-recovery.ps1` подтвердил сохранение checkpoint после
   полной перезагрузки эмулятора; этот сценарий проверяет обычную локальную
   очередь, а не большой каталог и не устройство K4811.
+- Дополнительные 44 инструментальных сценария `WaveQueueModeTest`,
+  `OnlinePlaybackTest`, `MyWavePlaybackTest`, `CollectionsPlaybackTest`,
+  `CloudPlaylistPlaybackTest`, `OfflinePlaybackTest` прошли после выпуска:
+  регрессий ручной, облачной и волновой очереди не обнаружено.
 - Подписанный release APK: `versionCode=46`,
   `versionName=2.0.0beta-build46`, `applicationId=dev.petrov.ymplayer2`,
   SHA-256 `7e22ac6a84ac94820939acb2f93c803c8ebc334406564ded3e1915fc7d102853`.
