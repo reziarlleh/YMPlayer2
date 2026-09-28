@@ -111,8 +111,10 @@ class LocalPlaybackTest {
     @Test fun followedLibraryKeepsMedia3WindowBoundedAcrossSelectionsAndModes() {
         provider("bulk", "60")
         runBlocking { library.refresh() }
-        waitFor { player.state.value.queue.size == 62 }
-        val order = player.state.value.queue.map { it.id }
+        waitFor { player.state.value.queueCount == 62 }
+        val order = runBlocking { player.queuePage(0, 62).items.map { it.id } }
+        assertTrue(player.state.value.automaticLocal)
+        assertTrue(player.state.value.queue.size <= 29)
         val browser = MediaBrowser.Builder(compose.activity,
             SessionToken(compose.activity, ComponentName(compose.activity, AudioService::class.java)))
             .buildAsync().get(20, TimeUnit.SECONDS)
@@ -137,7 +139,8 @@ class LocalPlaybackTest {
             waitFor { compose.runOnIdle { browser.mediaItemCount } == 62 }
             compose.runOnIdle { player.setRepeatMode(RepeatMode.OFF) }
             waitFor { compose.runOnIdle { browser.mediaItemCount } <= 29 }
-            assertEquals(order, player.state.value.queue.map { it.id })
+            assertEquals(order, runBlocking { player.queuePage(0, 62).items.map { it.id } })
+            assertTrue(player.state.value.queue.size <= 29)
         } finally {
             compose.runOnIdle { browser.release() }
         }
@@ -323,15 +326,23 @@ class LocalPlaybackTest {
     @Test fun queueLoadsFarRowsWithoutLosingDirectSelection() {
         provider("bulk", "100")
         runBlocking { library.refresh() }
-        waitFor { player.state.value.queue.size == 102 }
-        val target = player.state.value.queue[95]
+        waitFor { player.state.value.queueCount == 102 }
+        assertTrue(player.state.value.automaticLocal)
+        assertTrue(player.state.value.queue.size <= 29)
         val diskPage = runBlocking { player.queuePage(80, 22) }
+        val target = diskPage.items[15]
         assertEquals(102, diskPage.total)
-        assertEquals(player.state.value.queue.subList(80, 102).map { it.id }, diskPage.items.map { it.id })
+        assertEquals(library.state.value.tracks.subList(80, 102).map { it.id }, diskPage.items.map { it.id })
         compose.onNodeWithTag("player_queue").performClick()
         compose.onNodeWithTag("queue_list").performScrollToIndex(95)
         waitFor { compose.onAllNodesWithTag("track_card_${target.id}").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("track_${target.id}").performClick()
         waitFor { player.state.value.current?.id == target.id && player.state.value.playing }
+        assertTrue(player.state.value.queue.size <= 29)
+        assertTrue(player.state.value.index in player.state.value.queueOffset until
+            player.state.value.queueOffset + player.state.value.queue.size)
+        compose.runOnIdle { player.moveInQueue(target.id, 94) }
+        waitFor { !player.state.value.automaticLocal && player.state.value.queue.size == 102 }
+        assertEquals(target.id, player.state.value.current?.id)
     }
 }

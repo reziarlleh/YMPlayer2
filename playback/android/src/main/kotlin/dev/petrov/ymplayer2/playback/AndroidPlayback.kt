@@ -60,9 +60,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val source = prefs.getString("source:$profile", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
         val revision = indexed.indexRevision
         val page = indexed.pageTracks(CatalogFilter(source = source), offset = offset, limit = limit)
-        if (indexed.indexRevision != revision || !followLibrary || state.value.profileId != profile ||
-            prefs.getString("source:$profile", null) != source?.name)
+        if (!followLibrary || state.value.profileId != profile)
             return super<PlaybackController>.queuePage(offset, limit)
+        if (indexed.indexRevision != revision || prefs.getString("source:$profile", null) != source?.name) {
+            val currentSource = prefs.getString("source:$profile", null)
+                ?.let { runCatching { Source.valueOf(it) }.getOrNull() }
+            return indexed.pageTracks(CatalogFilter(source = currentSource), offset = offset, limit = limit)
+        }
         return page
     }
 
@@ -230,8 +234,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         player.prepare(); publish(); checkpoint()
     }
     override fun select(trackId: String) = command {
-        val index = state.value.queue.indexOfFirst { it.id == trackId }
-        if (index >= 0 && !state.value.queue[index].available) return@command
+        val index = logicalQueue.indexOfFirst { it.id == trackId }
+        if (index >= 0 && !logicalQueue[index].available) return@command
         val tracks = if (index < 0) knownTracks(state.value.profileId).filter { it.available } else emptyList()
         if (index < 0 && tracks.none { it.id == trackId }) return@command
         mutable.value = state.value.copy(error = null)
@@ -278,20 +282,20 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     } }
     override fun enqueue(trackId: String) = command {
         val track = knownTracks(state.value.profileId).find { it.id == trackId && it.available } ?: return@command
-        if (state.value.queue.any { it.id == trackId }) return@command
+        if (logicalQueue.any { it.id == trackId }) return@command
         cancelWave()
         followLibrary = false
         syncQueue(logicalQueue + track)
     }
     override fun moveInQueue(trackId: String, toIndex: Int) = command {
-        val from = state.value.queue.indexOfFirst { it.id == trackId }
-        if (from < 0 || toIndex !in state.value.queue.indices || from == toIndex) return@command
+        val from = logicalQueue.indexOfFirst { it.id == trackId }
+        if (from < 0 || toIndex !in logicalQueue.indices || from == toIndex) return@command
         cancelWave()
         followLibrary = false
         syncQueue(logicalQueue.toMutableList().apply { add(toIndex, removeAt(from)) })
     }
     override fun removeFromQueue(trackId: String) = command {
-        val index = state.value.queue.indexOfFirst { it.id == trackId }
+        val index = logicalQueue.indexOfFirst { it.id == trackId }
         if (index < 0) return@command
         cancelWave()
         followLibrary = false
@@ -507,6 +511,20 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         return library.tracks(profile).filter { source == null || it.source.name == source }
     }
 
+    private fun PlaybackState.withQueueView(all: List<Track>, absoluteIndex: Int): PlaybackState {
+        val indexed = library as? IndexedLocalLibrary
+        if (followLibrary && indexed != null) {
+            val from = (absoluteIndex - 4).coerceAtLeast(0)
+            val until = (absoluteIndex + 25).coerceAtMost(all.size).coerceAtLeast(from)
+            val source = prefs.getString("source:$profileId", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
+            return copy(queue = all.subList(from, until).toList(), index = absoluteIndex,
+                queueOffset = from, queueTotal = all.size, currentTrack = all.getOrNull(absoluteIndex),
+                automaticLocal = true, automaticSource = source, queueRevision = indexed.indexRevision)
+        }
+        return copy(queue = all, index = absoluteIndex, queueOffset = 0, queueTotal = null,
+            currentTrack = null, automaticLocal = false, automaticSource = null, queueRevision = 0)
+    }
+
     // The public queue keeps its full order for editing. Media3 needs only nearby
     // playable items while sequentially following the local library.
     private fun usesBoundedLocalWindow() = followLibrary && engine?.shuffleModeEnabled == false &&
@@ -563,7 +581,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         try {
         cancelWave()
         logicalQueue = emptyList()
-        mutable.value = state.value.copy(profileId = validProfile, queue = emptyList(), index = 0, positionSeconds = 0, playing = false, error = null)
+        mutable.value = state.value.copy(profileId = validProfile, queue = emptyList(), index = 0, positionSeconds = 0,
+            playing = false, error = null, queueOffset = 0, queueTotal = null, currentTrack = null,
+            automaticLocal = false, automaticSource = null, queueRevision = 0)
         online?.accounts?.activate(validProfile)
         val ids = json?.optJSONArray("ids")
         followLibrary = json?.optBoolean("followLibrary", ids == null || ids.length() == 0) ?: true
@@ -629,7 +649,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             }
             else tracksById[track.id] ?: track.copy(available = false, uri = null)
         }
-        if (next == state.queue) return
+        if (next == logicalQueue) return
         syncQueue(next)
     }
 
@@ -668,7 +688,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             player.pause()
             logicalQueue = queue
             waitingId = queue.getOrNull(index)?.takeIf { !it.available }?.id
-            mutable.value = state.value.copy(queue = queue, index = index, positionSeconds = position.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0), playing = false, connected = true, error = null)
+            mutable.value = state.value.withQueueView(queue, index).copy(
+                positionSeconds = position.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0),
+                playing = false, connected = true, error = null)
             val playable = playableQueue(queue, index)
             if (waitingId != null || playable.isEmpty()) player.clearMediaItems()
             else player.setMediaItems(playable.map { it.mediaItem(state.value.profileId) }, playable.indexOfFirst { it.id == state.value.current?.id }.coerceAtLeast(0), state.value.positionSeconds.toLong() * 1000)
@@ -679,7 +701,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private fun publish() {
         val player = engine ?: return
         val index = logicalQueue.indexOfFirst { it.id == (waitingId ?: player.currentMediaItem?.mediaId) }.coerceAtLeast(0)
-        mutable.value = state.value.copy(queue = logicalQueue, index = index,
+        mutable.value = state.value.withQueueView(logicalQueue, index).copy(
             positionSeconds = if (waitingId != null) state.value.positionSeconds else (player.currentPosition.coerceAtLeast(0) / 1000).coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
             playing = if (state.value.wave && waveAdvance && state.value.waveLoading) waveResume else waitingId == null &&
                 player.playWhenReady && player.playbackSuppressionReason == Player.PLAYBACK_SUPPRESSION_REASON_NONE &&

@@ -143,7 +143,10 @@ import kotlinx.coroutines.CancellationException
                     if (!grouped) {
                         val shown = page!!
                         item { Text("${shown.total} треков" + if (demo) " · демонстрационный каталог" else "", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                        items(shown.items, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }, enqueue = { player.enqueue(track.id) }, queued = track.id in queuedIds, more = more?.let { action -> { action(track) } }) }
+                        items(shown.items, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }, enqueue = { player.enqueue(track.id) },
+                            queued = track.id in queuedIds || playback.automaticLocal && track.source != Source.YANDEX &&
+                                (playback.automaticSource == null || playback.automaticSource == track.source),
+                            more = more?.let { action -> { action(track) } }) }
                         if (shown.hasMore && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё") } }
                     } else {
                         val shown = groups!!
