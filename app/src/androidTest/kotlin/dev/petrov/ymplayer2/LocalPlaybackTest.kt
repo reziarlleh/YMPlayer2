@@ -17,6 +17,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
+import org.json.JSONObject
 
 @RunWith(AndroidJUnit4::class)
 class LocalPlaybackTest {
@@ -71,6 +72,30 @@ class LocalPlaybackTest {
         waitFor { compose.onAllNodesWithTag("track_$id").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("track_$id").assertIsDisplayed().performClick()
         waitFor { player.state.value.current?.id == id }
+    }
+
+    @Test fun followedLibraryCheckpointIsCompactAndRestoresItsOrder() {
+        provider("extra")
+        runBlocking { library.refresh() }
+        waitFor { player.state.value.queue.size == 4 }
+        val order = player.state.value.queue.map { it.id }
+        val selected = order[1]
+        compose.runOnIdle { player.select(selected); player.seek(7) }
+        val prefs = graph.getSharedPreferences("playback", 0)
+        waitFor { player.state.value.current?.id == selected && player.state.value.positionSeconds >= 7 &&
+            JSONObject(prefs.getString("queue:owner", "{}")!!).optString("current") == selected }
+        val saved = JSONObject(prefs.getString("queue:owner", "{}")!!)
+        assertTrue(saved.getBoolean("followLibrary"))
+        assertEquals(0, saved.getJSONArray("ids").length())
+        assertEquals(1, saved.getJSONArray("tracks").length())
+        assertEquals(selected, saved.getJSONArray("tracks").getJSONObject(0).getString("id"))
+        compose.runOnIdle { compose.activity.stopService(Intent(compose.activity, AudioService::class.java)) }
+        waitFor { !player.state.value.connected }
+        compose.runOnIdle { player.connect() }
+        waitFor { player.state.value.connected && player.state.value.queue.map { it.id } == order }
+        assertEquals(selected, player.state.value.current?.id)
+        assertTrue(player.state.value.positionSeconds >= 7)
+        assertFalse(player.state.value.playing)
     }
 
     @Test fun safMetadataAndRealAudioContinueInBackground() {

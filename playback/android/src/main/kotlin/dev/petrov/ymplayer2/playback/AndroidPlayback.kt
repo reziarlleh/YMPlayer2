@@ -33,7 +33,6 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var pending: (() -> Unit)? = null
     private var ready = false
     private var followLibrary = true
-    private var tracksById = emptyMap<String, Track>()
     private var logicalQueue = emptyList<Track>()
     private var waitingId: String? = null
     private var waveBatch: WaveBatch? = null
@@ -212,9 +211,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         player.prepare(); publish(); checkpoint()
     }
     override fun select(trackId: String) = command {
-        val tracks = knownTracks(state.value.profileId).filter { it.available }
-        if (tracks.none { it.id == trackId }) return@command
         val index = state.value.queue.indexOfFirst { it.id == trackId }
+        if (index >= 0 && !state.value.queue[index].available) return@command
+        val tracks = if (index < 0) knownTracks(state.value.profileId).filter { it.available } else emptyList()
+        if (index < 0 && tracks.none { it.id == trackId }) return@command
         mutable.value = state.value.copy(error = null)
         if (index >= 0) {
             waveAdvance = false
@@ -507,9 +507,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         logicalQueue = emptyList()
         mutable.value = state.value.copy(profileId = validProfile, queue = emptyList(), index = 0, positionSeconds = 0, playing = false, error = null)
         online?.accounts?.activate(validProfile)
-        tracksById = library.tracks(validProfile).associateBy(Track::id)
         val ids = json?.optJSONArray("ids")
         followLibrary = json?.optBoolean("followLibrary", ids == null || ids.length() == 0) ?: true
+        val wanted = if (followLibrary) emptySet() else (0 until (ids?.length() ?: 0)).mapTo(hashSetOf()) { ids!!.optString(it) }
+        val localById = if (wanted.isEmpty()) emptyMap() else library.tracks(validProfile).asSequence()
+            .filter { it.id in wanted }.associateBy(Track::id)
         val references = json?.optJSONArray("tracks")
         val saved = (0 until (references?.length() ?: 0)).mapNotNull { index -> runCatching {
             val item = references!!.getJSONObject(index)
@@ -518,9 +520,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 genre = "", folder = "Яндекс Музыка", artworkUri = item.optString("artwork").takeIf { it.isNotBlank() },
                 artists = item.optJSONArray("artists")?.let { rows -> (0 until rows.length()).map { rows.getJSONObject(it).let { ArtistRef(it.getString("id"), it.getString("name")) } } }.orEmpty(),
                 albumId = item.optString("albumId").takeIf { it.isNotBlank() })
-            else SavedTrack(item.getString("id"), item.getString("title"), item.getString("artist"), Source.valueOf(item.getString("source")), item.getInt("duration"), item.getInt("tint")).resolve(tracksById)
+            else SavedTrack(item.getString("id"), item.getString("title"), item.getString("artist"), Source.valueOf(item.getString("source")), item.getInt("duration"), item.getInt("tint")).resolve(localById)
         }.getOrNull() }.associateBy(Track::id)
-        val queue = if (followLibrary) defaultQueue(validProfile) else (0 until (ids?.length() ?: 0)).mapNotNull { tracksById[ids?.optString(it)] ?: saved[ids?.optString(it)] }.distinctBy(Track::id)
+        val queue = if (followLibrary) defaultQueue(validProfile) else (0 until (ids?.length() ?: 0)).mapNotNull { localById[ids?.optString(it)] ?: saved[ids?.optString(it)] }.distinctBy(Track::id)
         engine?.repeatMode = runCatching { RepeatMode.valueOf(prefs.getString("repeat:$validProfile", "OFF")!!) }.getOrDefault(RepeatMode.OFF).toPlayerMode()
         engine?.shuffleModeEnabled = prefs.getBoolean("shuffle:$validProfile", false)
         val current = json?.optString("current")
@@ -555,7 +557,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun reconcile() {
         val state = state.value
-        tracksById = (library.tracks(state.profileId) + online?.catalog?.value?.takeIf { it.profileId == state.profileId && it.enabled }?.tracks.orEmpty()).associateBy(Track::id)
+        val wanted = if (followLibrary) emptySet() else logicalQueue.mapTo(hashSetOf(), Track::id)
+        val localById = if (wanted.isEmpty()) emptyMap() else library.tracks(state.profileId).asSequence()
+            .filter { it.id in wanted }.associateBy(Track::id)
+        val remoteById = if (wanted.isEmpty()) emptyMap() else online?.catalog?.value
+            ?.takeIf { it.profileId == state.profileId && it.enabled }?.tracks.orEmpty().asSequence()
+            .filter { it.id in wanted }.associateBy(Track::id)
+        val tracksById = localById + remoteById
         val next = if (followLibrary) defaultQueue(state.profileId) else logicalQueue.map { track ->
             if (track.source == Source.YANDEX) (tracksById[track.id] ?: track.copy(available = true, offline = false)).let {
                 val decorated = offline?.decorate(state.profileId, it) ?: it
@@ -624,14 +632,17 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val state = state.value
         val editor = prefs.edit().putString("profile", state.profileId)
             .putString("repeat:${state.profileId}", state.repeatMode.name).putBoolean("shuffle:${state.profileId}", state.shuffle)
-        val json = JSONObject().put("ids", JSONArray(state.queue.map(Track::id)))
+        // An automatically followed library is reconstructed from its index. Save only
+        // the current item's label for media-button resumption before that index loads.
+        val references = if (followLibrary) listOfNotNull(state.current) else state.queue
+        val json = JSONObject().put("ids", JSONArray(if (followLibrary) emptyList<String>() else state.queue.map(Track::id)))
             .put("current", state.current?.id).put("position", state.positionSeconds).put("followLibrary", followLibrary)
-            .put("tracks", JSONArray(state.queue.map { JSONObject().put("id", it.id).put("title", it.title).put("artist", it.artist)
+            .put("tracks", JSONArray(references.map { JSONObject().put("id", it.id).put("title", it.title).put("artist", it.artist)
                 .put("source", it.source.name).put("duration", it.durationSeconds).put("tint", it.tint).put("album", it.album).put("artwork", it.artworkUri)
                 .put("albumId", it.albumId).put("artists", JSONArray(it.artists.map { artist -> JSONObject().put("id", artist.id).put("name", artist.name) })) }))
             .put("wave", state.wave).put("waveSession", waveBatch?.sessionId).put("waveCursor", waveBatch?.cursor)
             .put("recommendations", state.recommendations)
-            .put("waveBatches", JSONObject().apply { state.queue.forEach { track -> put(track.id, waveItems[track.id]?.batchId) } })
+            .put("waveBatches", JSONObject().apply { if (state.wave) state.queue.forEach { track -> put(track.id, waveItems[track.id]?.batchId) } })
         editor.putString("queue:${state.profileId}", json.toString()).apply()
     }
 }
