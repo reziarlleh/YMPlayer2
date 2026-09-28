@@ -319,6 +319,9 @@ class LocalPlaybackTest {
         runBlocking { library.refresh() }
         waitFor { player.state.value.queue.size == 102 }
         val target = player.state.value.queue[95]
+        val diskPage = runBlocking { player.queuePage(80, 22) }
+        assertEquals(102, diskPage.total)
+        assertEquals(player.state.value.queue.subList(80, 102).map { it.id }, diskPage.items.map { it.id })
         compose.onNodeWithTag("player_queue").performClick()
         compose.onNodeWithTag("queue_list").performScrollToIndex(95)
         waitFor { compose.onAllNodesWithTag("track_card_${target.id}").fetchSemanticsNodes().isNotEmpty() }

@@ -34,6 +34,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var ready = false
     private var followLibrary = true
     private var logicalQueue = emptyList<Track>()
+    private data class IndexedOrder(val profile: String, val source: Source?, val revision: Long, val ids: List<String>)
+    private var indexedOrder: IndexedOrder? = null
     private var waitingId: String? = null
     private var waveBatch: WaveBatch? = null
     private val waveItems = linkedMapOf<String, WaveTrack>()
@@ -51,6 +53,23 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
     fun audioSessionId(): Int = engine?.audioSessionId ?: 0
+
+    override suspend fun queuePage(offset: Int, limit: Int): CatalogPage<Track> {
+        require(offset >= 0 && limit in 1..500 && offset <= Int.MAX_VALUE - limit)
+        val indexed = library as? IndexedLocalLibrary ?: return super<PlaybackController>.queuePage(offset, limit)
+        if (!followLibrary) return super<PlaybackController>.queuePage(offset, limit)
+        val profile = state.value.profileId
+        val source = prefs.getString("source:$profile", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
+        val revision = indexed.indexRevision
+        val cached = indexedOrder?.takeIf { it.profile == profile && it.source == source && it.revision == revision }
+        val ids = cached?.ids ?: indexed.orderedTrackIds(source).also { indexedOrder = IndexedOrder(profile, source, revision, it) }
+        val selected = ids.subList(offset.coerceAtMost(ids.size), (offset + limit).coerceAtMost(ids.size))
+        val rows = indexed.tracksByIds(selected)
+        if (indexed.indexRevision != revision || !followLibrary || state.value.profileId != profile ||
+            prefs.getString("source:$profile", null) != source?.name)
+            return super<PlaybackController>.queuePage(offset, limit)
+        return CatalogPage(selected.mapNotNull(rows::get), ids.size, offset)
+    }
 
     /** A media-button receiver may create the service before the local catalog has loaded.
      * Only describe the saved item here; the normal profile-scoped restore resolves its URI. */
@@ -649,6 +668,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun load(queue: List<Track>, index: Int, position: Int) {
         val player = engine ?: return
+        if (!followLibrary) indexedOrder = null
         updating = true
         try {
             player.pause()

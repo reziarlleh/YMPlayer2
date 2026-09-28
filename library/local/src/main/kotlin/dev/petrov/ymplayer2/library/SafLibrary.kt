@@ -141,7 +141,8 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
                 tracks += snapshot.tracks.filter { it.rootId == root.uri }.map { it.copy(available = false) }
             }
         }
-        val next = snapshot.copy(roots = roots, tracks = tracks.distinctBy(Track::id).sortedBy { it.title.lowercase() })
+        val next = snapshot.copy(roots = roots, tracks = tracks.distinctBy(Track::id)
+            .sortedWith(compareBy<Track> { it.title.lowercase() }.thenBy(Track::id)))
         index.replace(next, artworkChecked)
         indexRevision++
         mutable.value = next
