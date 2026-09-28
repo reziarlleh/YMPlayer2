@@ -94,7 +94,7 @@
 [история UI-прототипа M1](docs/M1_VERIFICATION.md).
 
 Последняя beta: [2.0.0beta-build42](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build42).
-[Обновление build40 → build41 через интерфейс](docs/M12_2_VERIFICATION.md) проверено на Android 15; build42 служит проверке загрузки с резервного источника.
+[Обновления build40 → build41 через GitHub и build41 → build42 через jsDelivr](docs/M12_2_VERIFICATION.md) проверены в интерфейсе на Android 15.
 Ранее build39 начал [M11: выдачу медиатеки порциями и фильтр доступности](docs/M11_1_VERIFICATION.md).
 Ранее build38 добавил [«Сон» и подтверждаемую «Перезагрузку»](docs/M10_4_VERIFICATION.md) по рабочей логике 1.x.
 Ранее build37 добавил [невидимые зоны жеста, белые круглые кнопки и команды K4811](docs/M10_3_VERIFICATION.md).
