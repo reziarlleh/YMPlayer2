@@ -9,8 +9,8 @@
 - `:app:lintDebug`, `:core:test` и 16 инструментальных сценариев
   `LocalPlaybackTest`/`LocalIndexMigrationTest` прошли до сборки. Release-скрипт
   собрал подписанный APK и проверил версию, package ID и подпись.
-- SHA-256 локального APK и файлов, полученных по GitHub Release и закреплённому
-  адресу `jsDelivr@v2.0.0beta-build48`, совпал:
+- SHA-256 локального APK и файлов, полученных по GitHub Release и закреплённым
+  адресам `cdn.jsdelivr.net`/`gcore.jsdelivr.net@v2.0.0beta-build48`, совпал:
   `246cdb932d2ee1473c752deac1c4bf66e9a8f05953a52b98558fc08694aa6703`.
   GitHub Release помечен prerelease. Основной манифест `main` показывал build48.
 - На эмуляторе Android 15 был установлен подписанный build47. После очистки
