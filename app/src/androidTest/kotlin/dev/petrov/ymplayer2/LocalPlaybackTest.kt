@@ -54,6 +54,11 @@ class LocalPlaybackTest {
         assertTrue(first.hasMore)
         assertNotEquals(first.items.single().id, second.items.single().id)
         assertEquals(second.items.single().id, library.adjacentTrack(first.items.single().id, 1)?.id)
+        val initialWindow = requireNotNull(library.playbackWindow(first.items.single().id, Source.LOCAL))
+        assertEquals(0, initialWindow.index)
+        assertEquals(2, initialWindow.visible.total)
+        assertEquals(listOf(first.items.single().id, second.items.single().id), initialWindow.media.map { it.id })
+        assertNull(library.playbackWindow(first.items.single().id, Source.USB))
         assertEquals(first.items.single().id, library.adjacentTrack(second.items.single().id, -1)?.id)
         assertNull(library.adjacentTrack(second.items.single().id, 1))
         assertEquals(first.items.single().id, library.adjacentTrack(second.items.single().id, 1, wrap = true)?.id)
@@ -68,6 +73,7 @@ class LocalPlaybackTest {
         val unavailable = library.pageTracks(CatalogFilter())
         assertEquals(first.items.map { it.id }.toSet() + second.items.map { it.id }, unavailable.items.map { it.id }.toSet())
         assertTrue(unavailable.items.none { it.available })
+        assertTrue(requireNotNull(library.playbackWindow(first.items.single().id)).media.isEmpty())
         assertNull(library.adjacentTrack(first.items.single().id, 1))
         assertEquals(0, library.pageTracks(CatalogFilter(availableOnly = true)).total)
         provider("unavailable", "false")
@@ -113,6 +119,12 @@ class LocalPlaybackTest {
         runBlocking { library.refresh() }
         waitFor { player.state.value.queueCount == 62 }
         val order = runBlocking { player.queuePage(0, 62).items.map { it.id } }
+        val indexedWindow = runBlocking { requireNotNull(library.playbackWindow(order[25])) }
+        assertEquals(25, indexedWindow.index)
+        assertEquals(62, indexedWindow.visible.total)
+        assertEquals(21, indexedWindow.visible.offset)
+        assertEquals(order.subList(21, 50), indexedWindow.visible.items.map { it.id })
+        assertEquals(order.subList(21, 50), indexedWindow.media.map { it.id })
         assertTrue(player.state.value.automaticLocal)
         assertTrue(player.state.value.queue.size <= 29)
         val browser = MediaBrowser.Builder(compose.activity,
@@ -121,10 +133,10 @@ class LocalPlaybackTest {
         try {
             assertTrue(compose.runOnIdle { browser.mediaItemCount } <= 29)
             compose.runOnIdle { player.select(order[24]); player.seek(29) }
-            waitFor { player.state.value.current?.id == order[25] }
+            waitFor { player.state.value.current?.id == order[25] && player.state.value.queueOffset == 21 }
             assertTrue(compose.runOnIdle { browser.mediaItemCount } <= 29)
             compose.runOnIdle { player.skip(1) }
-            waitFor { player.state.value.current?.id == order[26] }
+            waitFor { player.state.value.current?.id == order[26] && player.state.value.queueOffset == 22 }
             compose.runOnIdle { player.select(order[50]) }
             waitFor { player.state.value.current?.id == order[50] }
             assertTrue(compose.runOnIdle { browser.mediaItemCount } <= 29)

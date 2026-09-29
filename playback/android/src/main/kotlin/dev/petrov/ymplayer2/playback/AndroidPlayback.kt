@@ -35,6 +35,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var followLibrary = true
     private var logicalQueue = emptyList<Track>()
     private var localMediaEntries = emptyMap<String, Pair<Int, Track>>()
+    private var indexedWindowJob: Job? = null
     private var waitingId: String? = null
     private var waveBatch: WaveBatch? = null
     private val waveItems = linkedMapOf<String, WaveTrack>()
@@ -96,7 +97,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         player.addListener(object : Player.Listener {
             override fun onEvents(player: Player, events: Player.Events) { if (!updating && !restoring && ready) {
                 publish()
-                if (usesBoundedLocalWindow() && events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) syncQueue(activeQueue())
+                if (usesBoundedLocalWindow() && events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) {
+                    if (library is IndexedLocalLibrary) engine?.let(::refreshIndexedWindow)
+                    else syncQueue(activeQueue())
+                }
                 checkpoint(); maintainWave()
             } }
             override fun onIsPlayingChanged(isPlaying: Boolean) {
@@ -154,6 +158,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     internal fun detach() {
         if (ready) { publish(); checkpoint() }
+        indexedWindowJob?.cancel(); indexedWindowJob = null
         cancelWave()
         job?.cancel(); job = null; engine = null; ready = false
         mutable.value = state.value.copy(playing = false, buffering = false, connected = false)
@@ -520,8 +525,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         return if (source == null) tracks else tracks.filter { it.source.name == source }
     }
 
-    // Until the indexed cursor replaces the library snapshot, resolve automatic
-    // order on demand rather than retaining a second full Track list in playback.
+    // Synchronous queue edits still use the library snapshot; natural Media3
+    // transitions use playbackWindow() and no longer enumerate it.
     private fun activeQueue(): List<Track> = if (followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow())
         defaultQueue(state.value.profileId) else logicalQueue
 
@@ -557,6 +562,49 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             upcoming += i to queue[i]; if (upcoming.size == 25) break
         }
         return previous + upcoming
+    }
+
+    private fun refreshIndexedWindow(player: ExoPlayer) {
+        val indexed = library as? IndexedLocalLibrary ?: return
+        val id = player.currentMediaItem?.mediaId ?: return
+        val profile = state.value.profileId
+        val source = prefs.getString("source:$profile", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
+        val revision = indexed.indexRevision
+        indexedWindowJob?.cancel()
+        indexedWindowJob = scope.launch {
+            val window = indexed.playbackWindow(id, source) ?: return@launch
+            if (engine !== player || !ready || !usesBoundedLocalWindow() || state.value.profileId != profile ||
+                indexed.indexRevision != revision || player.currentMediaItem?.mediaId != id ||
+                prefs.getString("source:$profile", null) != source?.name || !window.current.available) return@launch
+            val positions = window.visible.items.mapIndexed { offset, track ->
+                track.id to window.visible.offset + offset
+            }.toMap()
+            val playable = window.media.map { (positions[it.id] ?: -1) to it }
+            val before = state.value
+            updating = true
+            try {
+                localMediaEntries = playable.associate { it.second.id to it }
+                mutable.value = before.copy(queue = window.visible.items, index = window.index,
+                    queueOffset = window.visible.offset, queueTotal = window.visible.total,
+                    currentTrack = window.current, automaticLocal = true, automaticSource = source,
+                    queueRevision = revision)
+                syncPlayerItems(player, playable)
+            } finally { updating = false }
+            publish(); checkpoint()
+        }
+    }
+
+    private fun syncPlayerItems(player: ExoPlayer, playable: List<Pair<Int, Track>>) {
+        val keep = playable.mapTo(hashSetOf()) { it.second.id }
+        for (i in player.mediaItemCount - 1 downTo 0) if (player.getMediaItemAt(i).mediaId !in keep) player.removeMediaItem(i)
+        playable.forEachIndexed { index, (_, track) ->
+            val from = (index until player.mediaItemCount).firstOrNull { player.getMediaItemAt(it).mediaId == track.id }
+            if (from == null) player.addMediaItem(index, track.mediaItem(state.value.profileId))
+            else {
+                if (from != index) player.moveMediaItem(from, index)
+                if (player.getMediaItemAt(index) != track.mediaItem(state.value.profileId)) player.replaceMediaItem(index, track.mediaItem(state.value.profileId))
+            }
+        }
     }
 
     private fun skipOutsideWindow(direction: Int, player: ExoPlayer): Boolean {
@@ -694,16 +742,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         updating = true
         try {
             mutable.value = before.withQueueView(next, index)
-            val keep = playable.mapTo(hashSetOf()) { it.second.id }
-            for (i in player.mediaItemCount - 1 downTo 0) if (player.getMediaItemAt(i).mediaId !in keep) player.removeMediaItem(i)
-            playable.forEachIndexed { index, (_, track) ->
-                val from = (index until player.mediaItemCount).firstOrNull { player.getMediaItemAt(it).mediaId == track.id }
-                if (from == null) player.addMediaItem(index, track.mediaItem(state.value.profileId))
-                else {
-                    if (from != index) player.moveMediaItem(from, index)
-                    if (player.getMediaItemAt(index) != track.mediaItem(state.value.profileId)) player.replaceMediaItem(index, track.mediaItem(state.value.profileId))
-                }
-            }
+            syncPlayerItems(player, playable)
         } finally { updating = false }
         publish(); checkpoint()
     }
@@ -734,7 +773,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val before = state.value
         val base = if (followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow()) {
             val entry = localMediaEntries[id]
-            before.copy(index = entry?.first ?: before.index, currentTrack = entry?.second ?: before.current)
+            before.copy(index = entry?.first?.takeIf { it >= 0 } ?: before.index,
+                currentTrack = entry?.second ?: before.current)
         } else {
             val index = logicalQueue.indexOfFirst { it.id == id }.coerceAtLeast(0)
             before.withQueueView(logicalQueue, index)

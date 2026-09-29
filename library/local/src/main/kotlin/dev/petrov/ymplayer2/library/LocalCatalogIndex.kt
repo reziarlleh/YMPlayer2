@@ -98,6 +98,52 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
         return find(key) ?: if (wrap && key != null) find(null) else null
     }
 
+    fun playbackWindow(currentId: String?, source: Source?): LocalPlaybackWindow? {
+        val db = readableDatabase
+        val sourceArgs = if (source == null) emptyArray() else arrayOf(source.name)
+        val sourceWhere = if (source == null) "" else " WHERE source=?"
+        val sourceAnd = if (source == null) "" else " AND source=?"
+        fun anchor(sql: String, args: Array<String>): Pair<Track, String>? = db.rawQuery(sql, args).use { cursor ->
+            if (cursor.moveToFirst()) track(cursor) to cursor.getString(16) else null
+        }
+        fun rows(sql: String, args: Array<String>): List<Track> = db.rawQuery(sql, args).use { cursor ->
+            buildList { while (cursor.moveToNext()) add(track(cursor)) }
+        }
+
+        // These reads describe one catalog revision even if a SAF scan commits concurrently.
+        db.beginTransactionNonExclusive()
+        try {
+            val selected = (if (currentId != null) anchor(
+                "SELECT $trackColumns,title_key FROM tracks WHERE id=?$sourceAnd", arrayOf(currentId) + sourceArgs,
+            ) else anchor(
+                "SELECT $trackColumns,title_key FROM tracks WHERE available=1$sourceAnd ORDER BY title_key,id LIMIT 1", sourceArgs,
+            ) ?: anchor(
+                "SELECT $trackColumns,title_key FROM tracks$sourceWhere ORDER BY title_key,id LIMIT 1", sourceArgs,
+            )) ?: return null
+            val (current, key) = selected
+            val boundary = arrayOf(key, key, current.id)
+            val rank = db.rawQuery("SELECT COUNT(*) FROM tracks WHERE ${if (source == null) "" else "source=? AND "}" +
+                "(title_key<? OR (title_key=? AND id<?))", sourceArgs + boundary).use {
+                it.moveToFirst(); it.getInt(0)
+            }
+            val total = db.rawQuery("SELECT COUNT(*) FROM tracks$sourceWhere", sourceArgs).use {
+                it.moveToFirst(); it.getInt(0)
+            }
+            val offset = (rank - 4).coerceAtLeast(0)
+            val visible = rows("SELECT $trackColumns FROM tracks$sourceWhere ORDER BY title_key,id LIMIT 29 OFFSET ?",
+                sourceArgs + arrayOf(offset.toString()))
+            val previous = rows("SELECT $trackColumns FROM tracks WHERE available=1$sourceAnd AND " +
+                "(title_key<? OR (title_key=? AND id<?)) ORDER BY title_key DESC,id DESC LIMIT 4",
+                sourceArgs + boundary).asReversed()
+            val upcoming = rows("SELECT $trackColumns FROM tracks WHERE available=1$sourceAnd AND " +
+                "(title_key>? OR (title_key=? AND id>?)) ORDER BY title_key,id LIMIT ?",
+                sourceArgs + boundary + arrayOf(if (current.available) "24" else "25"))
+            db.setTransactionSuccessful()
+            return LocalPlaybackWindow(current, rank, CatalogPage(visible, total, offset),
+                previous + listOfNotNull(current.takeIf(Track::available)) + upcoming)
+        } finally { db.endTransaction() }
+    }
+
     fun tracksByIds(ids: Collection<String>): Map<String, Track> {
         if (ids.isEmpty()) return emptyMap()
         val db = readableDatabase

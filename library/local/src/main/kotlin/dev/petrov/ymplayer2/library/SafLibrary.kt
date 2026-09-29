@@ -42,6 +42,11 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
         return withContext(Dispatchers.IO) { index.adjacentTrack(currentId, direction, source, wrap) }
     }
 
+    override suspend fun playbackWindow(currentId: String?, source: Source?): LocalPlaybackWindow? {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.playbackWindow(currentId, source) }
+    }
+
     override suspend fun tracksByIds(ids: Collection<String>): Map<String, Track> {
         loaded.await()
         return withContext(Dispatchers.IO) { index.tracksByIds(ids) }

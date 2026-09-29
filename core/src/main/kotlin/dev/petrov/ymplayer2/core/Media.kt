@@ -41,12 +41,18 @@ interface IndexedLocalLibrary : LocalLibrary {
     val indexRevision: Long
     /** Resolve one playable neighbour without materializing the catalog as a queue. */
     suspend fun adjacentTrack(currentId: String?, direction: Int, source: Source? = null, wrap: Boolean = false): Track?
+    /** Current catalog position and only nearby items required by the UI and Media3. */
+    suspend fun playbackWindow(currentId: String?, source: Source? = null): LocalPlaybackWindow?
     suspend fun tracksByIds(ids: Collection<String>): Map<String, Track>
     suspend fun pageTracks(filter: CatalogFilter, descending: Boolean = false, group: String? = null,
         dimension: CatalogDimension = CatalogDimension.TRACKS, offset: Int = 0, limit: Int = 80): CatalogPage<Track>
     suspend fun pageGroups(filter: CatalogFilter, dimension: CatalogDimension,
         descending: Boolean = false, offset: Int = 0, limit: Int = 80): CatalogPage<CatalogGroup>
 }
+
+data class LocalPlaybackWindow(
+    val current: Track, val index: Int, val visible: CatalogPage<Track>, val media: List<Track>,
+)
 
 enum class CatalogDimension { TRACKS, ALBUMS, ARTISTS, GENRES, FOLDERS }
 
