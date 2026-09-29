@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="19" failures="0" errors="0" skipped="0" time="121.935" timestamp="2026-09-29T02:59:01" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.MyWavePlaybackTest" tests="12" failures="0" errors="0" skipped="0" time="87.338" timestamp="2026-09-29T02:59:01" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="banningArtistAlsoRemovesUpcomingTracksFromRecommendedPlaylist" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="6.476" />
+    <testcase name="nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="8.182" />
+    <testcase name="endWaitsForExistingAudioPrefetchAndPauseStillWins" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="6.653" />
+    <testcase name="systemPauseDuringNextRequestCannotRestartAudioOnLateReply" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="6.873" />
+    <testcase name="fastStartPrefetchAutomaticContinuationAndPausedRestore" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="7.577" />
+    <testcase name="lateWaveCannotReplaceManualQueueOrNewProfile" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="5.25" />
+    <testcase name="restoredUpcomingTrackCanBeSelectedBeforeItsBufferExists" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="4.884" />
+    <testcase name="failureCanRetryAndUiTargetsTrackArtistAndAlbumIndividually" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="4.072" />
+    <testcase name="badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="6.278" />
+    <testcase name="transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="17.174" />
+    <testcase name="artistBanDropsPrefetchAndCurrentTrackBanSkipsWithoutBanningArtist" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="4.228" />
+    <testcase name="accessFailureDoesNotRetryAutomaticallyAtStartOrAtEnd" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="9.691" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.WaveQueueModeTest" tests="3" failures="0" errors="0" skipped="0" time="14.973" timestamp="2026-09-29T02:59:01" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="externalControllerCannotEnableOrderingForPlayingPausedOrStoppedWave" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="3.138" />
+    <testcase name="stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="7.362" />
+    <testcase name="stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="4.473" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.AudioQualityPlaybackTest" tests="4" failures="0" errors="0" skipped="0" time="18.348" timestamp="2026-09-29T02:59:01" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="offlineQualityIsIndependentAndHealthyFilesAreKeptUntilExplicitRemoval" classname="dev.petrov.ymplayer2.AudioQualityPlaybackTest" time="3.407" />
+    <testcase name="waveKeepsAlreadyPreparedAudioAndUsesStreamQualityForFutureFiles" classname="dev.petrov.ymplayer2.AudioQualityPlaybackTest" time="5.737" />
+    <testcase name="settingsPersistBothChoicesAndLeavePlayingAudioAlone" classname="dev.petrov.ymplayer2.AudioQualityPlaybackTest" time="5.829" />
+    <testcase name="onlineRequestCapturesSelectedQualityAndNextRequestUsesNewChoice" classname="dev.petrov.ymplayer2.AudioQualityPlaybackTest" time="3.375" />
+  </testsuite>
+</testsuites>

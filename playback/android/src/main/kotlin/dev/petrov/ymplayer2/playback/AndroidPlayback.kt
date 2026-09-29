@@ -473,8 +473,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 val before = state.value.current?.id
                 val resume = waveResume
                 val advance = waveAdvance
-                // Keep a small playback history; the dedup history is capped separately below.
-                val next = (logicalQueue + batch.tracks.map(WaveTrack::track)).distinctBy(Track::id)
+                // Keep only what Media3 can use now: one previous, current, prepared next.
+                val keepFrom = (state.value.index - if (advance) 0 else 1).coerceAtLeast(0)
+                val next = (logicalQueue.drop(keepFrom) + batch.tracks.map(WaveTrack::track)).distinctBy(Track::id)
                 syncQueue(next)
                 if (advance) {
                     val target = if (before == null) 0 else next.indexOfFirst { it.id == before } + 1
@@ -482,7 +483,6 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                     load(next, target.coerceAtMost(next.lastIndex), 0)
                     engine?.prepare(); if (resume) engine?.play()
                 }
-                if (state.value.index > 30) syncQueue(logicalQueue.drop(state.value.index - 10))
                 while (waveItems.size > 4000) waveItems.remove(waveItems.keys.first())
                 mutable.value = state.value.copy(waveLoading = false, waveIssue = null)
                 waveRecovery.reset()
@@ -633,7 +633,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             mutable.value = state.value.copy(wave = true)
             engine?.repeatMode = Player.REPEAT_MODE_OFF; engine?.shuffleModeEnabled = false
         }
-        load(queue, index, position)
+        val restoredQueue = if (state.value.wave) {
+            val from = (index - 1).coerceAtLeast(0)
+            queue.subList(from, (index + 2).coerceAtMost(queue.size)).toList()
+        } else queue
+        load(restoredQueue, if (state.value.wave) index - (index - 1).coerceAtLeast(0) else index, position)
         } finally { restoring = false }
         reconcileOnline()
     }

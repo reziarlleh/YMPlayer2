@@ -66,7 +66,7 @@ class MyWavePlaybackTest {
         compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
         waitFor { player.state.value.current?.id == "yandex:3:7" && player.state.value.positionSeconds >= 1 }
         for (id in 4..7) {
-            waitFor { player.state.value.queue.size - player.state.value.index == 2 }
+            waitFor { player.state.value.queue.size - player.state.value.index == 2 && player.state.value.queue.size <= 3 }
             compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
             waitFor { player.state.value.current?.id == "yandex:$id:7" && player.state.value.positionSeconds >= 1 }
         }
