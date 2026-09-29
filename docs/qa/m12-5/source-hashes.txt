@@ -1,0 +1,7 @@
+Checked 2026-09-28 UTC / 2026-09-29 Asia/Qyzylorda.
+2.0.0beta-build49 APK size: 4721930 bytes.
+Local:   1880a913785a171b457c9ebc23d72c966daaddeb547a39dd72ec985604bd2de6
+GitHub:  1880a913785a171b457c9ebc23d72c966daaddeb547a39dd72ec985604bd2de6
+jsDelivr:1880a913785a171b457c9ebc23d72c966daaddeb547a39dd72ec985604bd2de6
+Gcore:  1880a913785a171b457c9ebc23d72c966daaddeb547a39dd72ec985604bd2de6
+Manifests @main at check: GitHub 49, jsDelivr 49, Gcore 48.

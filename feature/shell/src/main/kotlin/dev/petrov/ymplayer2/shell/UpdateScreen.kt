@@ -66,7 +66,7 @@ interface UpdateAccess {
                 if (offer.hasAlternative) item { OutlinedButton({ update.download(true) }, Modifier.fillMaxWidth().prismFocus().testTag("updates_alternative"), enabled = !state.downloading) { Text("Скачать через резервный источник") } }
             } else item { Button(update::install, Modifier.fillMaxWidth().prismFocus().testTag("updates_install")) { Text("Открыть установку") } }
         }
-        item { Text("Источники: GitHub и jsDelivr. APK проверяется по размеру, SHA-256, имени пакета, версии и подписи. Android попросит подтвердить установку.",
+        item { Text("Источники: GitHub, jsDelivr и Gcore. APK проверяется по размеру, SHA-256, имени пакета, версии и подписи. Android попросит подтвердить установку.",
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
 }
