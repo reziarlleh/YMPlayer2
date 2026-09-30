@@ -148,6 +148,8 @@ class LocalPlaybackTest {
             waitFor { cursor.state.value.connected && cursor.state.value.current?.id == order[50].id }
             assertEquals(7, cursor.state.value.positionSeconds)
             assertFalse(cursor.state.value.playing)
+            compose.runOnIdle { engine.clearMediaItems(); cursor.setRepeatMode(RepeatMode.ALL) }
+            waitFor { compose.runOnIdle { engine.mediaItemCount > 0 } && cursor.state.value.current?.id == order[50].id }
             compose.runOnIdle { cursor.setRepeatMode(RepeatMode.ONE); cursor.setRepeatMode(RepeatMode.OFF) }
             provider("unavailable", "true"); runBlocking { library.refresh() }
             waitFor { cursor.state.value.current?.available == false }
@@ -166,6 +168,23 @@ class LocalPlaybackTest {
             compose.runOnIdle { cursor.switchProfile("guest"); cursor.chooseSource(Source.LOCAL) }
             waitFor { cursor.state.value.profileId == "guest" && cursor.state.value.queueCount == 62 }
             assertFalse(cursor.state.value.playing)
+            compose.runOnIdle { cursor.setRepeatMode(RepeatMode.ALL); cursor.select(order.last().id); cursor.seek(29) }
+            waitFor { cursor.state.value.current?.id == order.first().id }
+            assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 29)
+            compose.runOnIdle { cursor.setShuffle(true); cursor.toggle() }
+            waitFor { cursor.state.value.shuffle && !cursor.state.value.playing &&
+                compose.runOnIdle { engine.mediaItemCount <= 3 } }
+            val shuffledCurrent = cursor.state.value.current!!.id
+            compose.runOnIdle { cursor.skip(1) }
+            waitFor { cursor.state.value.current?.id != shuffledCurrent }
+            val restoredId = cursor.state.value.current!!.id
+            compose.runOnIdle { cursor.detach(); engine.release() }
+            compose.waitForIdle()
+            compose.runOnIdle { engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
+            waitFor { cursor.state.value.connected && cursor.state.value.current?.id == restoredId &&
+                cursor.state.value.shuffle && cursor.state.value.repeatMode == RepeatMode.ALL }
+            assertFalse(cursor.state.value.playing)
+            assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 3)
         } finally {
             compose.runOnIdle { cursor.detach(); engine.release(); scope.cancel() }
         }
@@ -227,9 +246,9 @@ class LocalPlaybackTest {
             compose.runOnIdle { player.select(order[2]); player.skip(-1) }
             waitFor { player.state.value.current?.id == order[1] }
             compose.runOnIdle { player.setShuffle(true) }
-            waitFor { compose.runOnIdle { browser.mediaItemCount } == 62 }
+            waitFor { compose.runOnIdle { browser.shuffleModeEnabled && browser.mediaItemCount <= 3 } }
             compose.runOnIdle { player.setShuffle(false); player.setRepeatMode(RepeatMode.ALL) }
-            waitFor { compose.runOnIdle { browser.mediaItemCount } == 62 }
+            waitFor { compose.runOnIdle { !browser.shuffleModeEnabled && browser.repeatMode == androidx.media3.common.Player.REPEAT_MODE_ALL && browser.mediaItemCount <= 29 } }
             compose.runOnIdle { player.setRepeatMode(RepeatMode.OFF) }
             waitFor { compose.runOnIdle { browser.mediaItemCount } <= 29 }
             assertEquals(order, runBlocking { player.queuePage(0, 62).items.map { it.id } })
@@ -237,6 +256,39 @@ class LocalPlaybackTest {
         } finally {
             compose.runOnIdle { browser.release() }
         }
+    }
+
+    @Test fun automaticShuffleVisitsAllIdsAndRepeatsWithoutFullMetadataQueue() {
+        provider("bulk", "60"); runBlocking { library.refresh() }
+        waitFor { player.state.value.queueCount == 62 }
+        val ids = runBlocking { library.playableTrackIds(Source.LOCAL) }.toSet()
+        val browser = MediaBrowser.Builder(compose.activity,
+            SessionToken(compose.activity, ComponentName(compose.activity, AudioService::class.java)))
+            .buildAsync().get(20, TimeUnit.SECONDS)
+        try {
+            compose.runOnIdle { browser.repeatMode = androidx.media3.common.Player.REPEAT_MODE_ALL; browser.shuffleModeEnabled = true }
+            waitFor { player.state.value.shuffle && player.state.value.repeatMode == RepeatMode.ALL &&
+                compose.runOnIdle { browser.mediaItemCount <= 3 && browser.shuffleModeEnabled } }
+            val first = player.state.value.current!!.id
+            val visited = mutableSetOf<String>()
+            repeat(ids.size) {
+                val current = player.state.value.current!!.id
+                assertTrue("Repeated ID before completing shuffle pass", visited.add(current))
+                compose.runOnIdle { browser.seekToNextMediaItem() }
+                waitFor { player.state.value.current?.id != current }
+                assertTrue(compose.runOnIdle { browser.mediaItemCount } <= 3)
+            }
+            assertEquals(ids, visited)
+            assertEquals(first, player.state.value.current?.id)
+            compose.runOnIdle { browser.seekToPreviousMediaItem() }
+            waitFor { player.state.value.current?.id != first }
+            val previous = player.state.value.current!!.id
+            compose.runOnIdle { browser.seekToNextMediaItem() }
+            waitFor { player.state.value.current?.id == first }
+            assertNotEquals(previous, first)
+            compose.runOnIdle { browser.shuffleModeEnabled = false; browser.repeatMode = androidx.media3.common.Player.REPEAT_MODE_OFF }
+            waitFor { !player.state.value.shuffle && player.state.value.repeatMode == RepeatMode.OFF }
+        } finally { compose.runOnIdle { browser.release() } }
     }
 
     @Test fun safMetadataAndRealAudioContinueInBackground() {
@@ -285,8 +337,10 @@ class LocalPlaybackTest {
         waitFor { player.state.value.profileId == "guest" }
         assertFalse(player.state.value.playing)
         compose.runOnIdle { player.seek(12); player.switchProfile("owner") }
+        waitFor { player.state.value.profileId == "owner" && player.state.value.positionSeconds == 7 }
         assertEquals(7, player.state.value.positionSeconds)
         compose.activityRule.scenario.recreate()
+        waitFor { player.state.value.positionSeconds == 7 }
         assertEquals(7, player.state.value.positionSeconds)
         compose.runOnIdle { compose.activity.stopService(Intent(compose.activity, AudioService::class.java)) }
         waitFor { !player.state.value.connected }

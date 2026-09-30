@@ -39,6 +39,8 @@ interface LocalLibrary : Catalog {
 /** Optional disk-backed metadata queries; playback may still use [LocalLibrary.state]. */
 interface IndexedLocalLibrary : LocalLibrary {
     val indexRevision: Long
+    /** Lightweight ID order for shuffle; never a second catalog of track metadata. */
+    suspend fun playableTrackIds(source: Source? = null): List<String>
     /** Resolve one playable neighbour without materializing the catalog as a queue. */
     suspend fun adjacentTrack(currentId: String?, direction: Int, source: Source? = null, wrap: Boolean = false): Track?
     /** Current catalog position and only nearby items required by the UI and Media3. */

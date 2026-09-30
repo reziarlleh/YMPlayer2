@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="44" failures="0" errors="0" skipped="0" time="203.51" timestamp="2026-09-30T03:13:30" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.LocalPlaybackTest" tests="15" failures="0" errors="0" skipped="0" time="65.572" timestamp="2026-09-30T03:13:30" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="transientExternalAudioFocusPausesAndRestoresPlayback" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="4.821" />
+    <testcase name="followedLibraryCheckpointIsCompactAndRestoresItsOrder" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.738" />
+    <testcase name="automaticShuffleVisitsAllIdsAndRepeatsWithoutFullMetadataQueue" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="10.613" />
+    <testcase name="diskIndexPaginatesGroupsAndRetainsUnavailableDocuments" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.245" />
+    <testcase name="profileCheckpointsAndServiceRestartStayPaused" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.549" />
+    <testcase name="indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="2.766" />
+    <testcase name="followedLibraryKeepsMedia3WindowBoundedAcrossSelectionsAndModes" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="4.848" />
+    <testcase name="queueLoadsFarRowsWithoutLosingDirectSelection" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="4.393" />
+    <testcase name="safMetadataAndRealAudioContinueInBackground" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="7.579" />
+    <testcase name="missingRootKeepsIndexAndForgetLeavesOriginalReadable" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.682" />
+    <testcase name="nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="7.546" />
+    <testcase name="modeAndQueueControlsOperateTheRealPlayer" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.096" />
+    <testcase name="localSearchReadsDiskIndexAndOpensSelectedTrack" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="2.859" />
+    <testcase name="brokenAudioReportsErrorAndNextTrackStillPlays" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.476" />
+    <testcase name="queueEditsKeepAudioClockAndPersistIntentionalEmptyQueue" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="5.361" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.StorageRecoveryTest" tests="4" failures="0" errors="0" skipped="0" time="18.777" timestamp="2026-09-30T03:13:30" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="disconnectNotificationPreservesManualOrderPositionAndModesAcrossRestart" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="5.716" />
+    <testcase name="missingCurrentCanBeSkippedWithoutStartingItsSuccessor" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="6.031" />
+    <testcase name="partiallyMissingQueueDoesNotInterruptPresentTrackAndEditsRemainDurable" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="4.951" />
+    <testcase name="embeddedArtworkIsBoundedRenderedAndRebuiltAfterCacheEviction" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="2.079" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.CollectionsPlaybackTest" tests="6" failures="0" errors="0" skipped="0" time="21.349" timestamp="2026-09-30T03:13:30" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="failedWriteAndUnknownSchemaDoNotOverwriteSavedCollections" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="1.396" />
+    <testcase name="favoriteMenuPersistsAndProfilesRemainSeparate" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="3.1" />
+    <testcase name="backClosesDialogThenAscendsPlaylistAndResetsUnrelatedCatalogDetail" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="3.802" />
+    <testcase name="editsResolveOnlyRequestedIdsWithoutEnumeratingLibrary" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="1.561" />
+    <testcase name="metadataEditsDoNotInterruptAudioAndUnavailableReferencesRecover" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="4.395" />
+    <testcase name="nativeUiCreatesEditsAndPlaysOnlyTheChosenPlaylist" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="7.095" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.SystemBrowserTest" tests="4" failures="0" errors="0" skipped="0" time="3.677" timestamp="2026-09-30T03:13:30" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="mediaButtonRestartsStoppedServiceAndResumesSavedLocalTrack" classname="dev.petrov.ymplayer2.SystemBrowserTest" time="1.019" />
+    <testcase name="selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue" classname="dev.petrov.ymplayer2.SystemBrowserTest" time="2.384" />
+    <testcase name="platformBrowserCanBrowseSameRootWithoutStartingPlayback" classname="dev.petrov.ymplayer2.SystemBrowserTest" time="0.163" />
+    <testcase name="media3BrowserPublishesOnlyLegacySourcesAndRejectsInjectedMedia" classname="dev.petrov.ymplayer2.SystemBrowserTest" time="0.111" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.WaveQueueModeTest" tests="3" failures="0" errors="0" skipped="0" time="13.855" timestamp="2026-09-30T03:13:30" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="externalControllerCannotEnableOrderingForPlayingPausedOrStoppedWave" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="2.883" />
+    <testcase name="stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="6.755" />
+    <testcase name="stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="4.217" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.MyWavePlaybackTest" tests="12" failures="0" errors="0" skipped="0" time="78.833" timestamp="2026-09-30T03:13:30" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="banningArtistAlsoRemovesUpcomingTracksFromRecommendedPlaylist" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="3.165" />
+    <testcase name="nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="7.103" />
+    <testcase name="endWaitsForExistingAudioPrefetchAndPauseStillWins" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="5.954" />
+    <testcase name="systemPauseDuringNextRequestCannotRestartAudioOnLateReply" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="6.527" />
+    <testcase name="fastStartPrefetchAutomaticContinuationAndPausedRestore" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="6.753" />
+    <testcase name="lateWaveCannotReplaceManualQueueOrNewProfile" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="5.216" />
+    <testcase name="restoredUpcomingTrackCanBeSelectedBeforeItsBufferExists" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="4.167" />
+    <testcase name="failureCanRetryAndUiTargetsTrackArtistAndAlbumIndividually" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="4.095" />
+    <testcase name="badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="5.392" />
+    <testcase name="transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="17.278" />
+    <testcase name="artistBanDropsPrefetchAndCurrentTrackBanSkipsWithoutBanningArtist" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="4.167" />
+    <testcase name="accessFailureDoesNotRetryAutomaticallyAtStartOrAtEnd" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="9.016" />
+  </testsuite>
+</testsuites>

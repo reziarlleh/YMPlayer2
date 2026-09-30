@@ -7,6 +7,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.ForwardingPlayer
+import androidx.media3.common.FlagSet
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.DefaultHttpDataSource
@@ -120,6 +121,25 @@ private fun browserCallback(playback: AndroidPlayback, diagnostic: (AudioService
  * are used by notification/headset controllers and by the on-screen transport. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = object : ForwardingPlayer(player) {
+    private val modeCallbacks = mutableMapOf<Player.Listener, () -> Unit>()
+    override fun addListener(listener: Player.Listener) {
+        super.addListener(listener)
+        if (listener in modeCallbacks) return
+        val callback = {
+            listener.onRepeatModeChanged(repeatMode)
+            listener.onShuffleModeEnabledChanged(shuffleModeEnabled)
+            listener.onEvents(this, Player.Events(FlagSet.Builder().add(Player.EVENT_REPEAT_MODE_CHANGED)
+                .add(Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED).build()))
+        }
+        modeCallbacks[listener] = callback
+        playback.addModeListener(callback)
+    }
+    override fun removeListener(listener: Player.Listener) {
+        super.removeListener(listener)
+        modeCallbacks.remove(listener)?.let(playback::removeModeListener)
+    }
+    override fun getRepeatMode() = playback.sessionRepeatMode()
+    override fun getShuffleModeEnabled() = playback.sessionShuffle()
     private var selectedSource: String? = null
     private fun select(items: List<MediaItem>) {
         selectedSource = items.singleOrNull()?.mediaId?.takeIf { it == BrowserSources.RESUME || BrowserSources.launchItem(it) != null }
@@ -138,12 +158,15 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
     override fun getAvailableCommands(): Player.Commands {
         val commands = super.getAvailableCommands().buildUpon()
             .add(Player.COMMAND_SEEK_TO_NEXT).add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+            .add(Player.COMMAND_SEEK_TO_PREVIOUS).add(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
         if (!playback.state.value.supportsQueueOrdering) commands.remove(Player.COMMAND_SET_REPEAT_MODE).remove(Player.COMMAND_SET_SHUFFLE_MODE)
         return commands.build()
     }
     override fun isCommandAvailable(command: Int) = availableCommands.contains(command)
     override fun seekToNext() { playback.skip(1) }
     override fun seekToNextMediaItem() { playback.skip(1) }
+    override fun seekToPrevious() { playback.skip(-1) }
+    override fun seekToPreviousMediaItem() { playback.skip(-1) }
     override fun play() {
         when (selectedSource.also { selectedSource = null }) {
             BrowserSources.WAVE -> playback.playMyWave()

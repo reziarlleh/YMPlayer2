@@ -76,6 +76,11 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
     /** SAF availability is unknown after process restart until the grant and root are scanned. */
     fun markUnavailable() { writableDatabase.execSQL("UPDATE tracks SET available=0") }
 
+    fun playableTrackIds(source: Source?): List<String> = readableDatabase.rawQuery(
+        "SELECT id FROM tracks WHERE available=1${if (source == null) "" else " AND source=?"} ORDER BY title_key,id",
+        if (source == null) emptyArray() else arrayOf(source.name),
+    ).use { cursor -> buildList { while (cursor.moveToNext()) add(cursor.getString(0)) } }
+
     fun adjacentTrack(currentId: String?, direction: Int, source: Source?, wrap: Boolean): Track? {
         require(direction == -1 || direction == 1)
         val db = readableDatabase

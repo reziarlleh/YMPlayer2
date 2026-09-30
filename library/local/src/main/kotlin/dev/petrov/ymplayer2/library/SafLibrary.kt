@@ -37,6 +37,11 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     )
     override fun tracks(profileId: String) = if (profiles.any { it.id == profileId }) state.value.tracks else emptyList()
 
+    override suspend fun playableTrackIds(source: Source?): List<String> {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.playableTrackIds(source) }
+    }
+
     override suspend fun adjacentTrack(currentId: String?, direction: Int, source: Source?, wrap: Boolean): Track? {
         loaded.await()
         return withContext(Dispatchers.IO) { index.adjacentTrack(currentId, direction, source, wrap) }
