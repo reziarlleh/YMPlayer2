@@ -66,6 +66,8 @@ ID движка до и после запроса; запрещающий пол
 в [signature](../releases/2.0.0beta-build52/signature.txt). Размер APK —
 4 738 310 байт, SHA-256 —
 `a3ad05294e8b6d694a529762d3e940650c6f6970c4920c662d68c934faf427f2`.
+Опубликованные GitHub, jsDelivr и Gcore отдали файл с этим размером и хешем:
+[проверка источников](qa/m11-9/build52-source-hashes.txt).
 
 На Android 15 выполнена установка поверх build51 через `adb install -r`:
 [до](qa/m11-9/before-build52-package.txt),

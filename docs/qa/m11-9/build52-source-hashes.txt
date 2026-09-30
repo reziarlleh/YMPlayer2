@@ -1,0 +1,8 @@
+https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build52/YMPlayer-2.0.0beta-build52.apk
+4738310 bytes SHA256 a3ad05294e8b6d694a529762d3e940650c6f6970c4920c662d68c934faf427f2
+
+https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build52/releases/2.0.0beta-build52/YMPlayer-2.0.0beta-build52.apk
+4738310 bytes SHA256 a3ad05294e8b6d694a529762d3e940650c6f6970c4920c662d68c934faf427f2
+
+https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build52/releases/2.0.0beta-build52/YMPlayer-2.0.0beta-build52.apk
+4738310 bytes SHA256 a3ad05294e8b6d694a529762d3e940650c6f6970c4920c662d68c934faf427f2
