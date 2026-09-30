@@ -1,0 +1,4 @@
+Signer #1 certificate DN: CN=YMPlayer 2, OU=Android, O=YMPlayer 2
+Signer #1 certificate SHA-256 digest: fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec
+Signer #1 certificate SHA-1 digest: 8a2a6e66d797b303b6f7aa8b7c31e696f9c78dd5
+Signer #1 certificate MD5 digest: ac291803d85ab0f6aafb4b24e1dd5ab9

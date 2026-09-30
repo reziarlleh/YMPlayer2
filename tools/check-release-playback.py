@@ -75,7 +75,17 @@ try:
     assert paused['position_ms'] >= 1000
     time.sleep(1)  # Let asynchronous preference writes finish.
     adb('shell', 'am', 'force-stop', package)
-    adb('shell', 'am', 'start', '-W', '-n', package + '/.MainActivity')
+    # force-stop returns before ActivityTaskManager has removed the old record.
+    # Starting immediately can deliver the intent to that dying Activity (result=2)
+    # without starting a new process. Wait for authoritative record removal.
+    deadline = time.monotonic() + 15
+    activity = re.compile(r'ActivityRecord[^\n]*' + re.escape(package + '/.MainActivity'))
+    while activity.search(adb('shell', 'dumpsys', 'activity', 'activities')):
+        if time.monotonic() >= deadline:
+            raise AssertionError('Stopped Activity record was not removed')
+        time.sleep(.2)
+    results['restart_launch'] = adb('shell', 'am', 'start', '-W', '-n', package + '/.MainActivity')
+    assert 'Status: ok' in results['restart_launch'], results['restart_launch']
     restored = wait_for(lambda s: '02 - City lights' in s['metadata'])
     assert restored['state'] not in ('PLAYING', 'BUFFERING'), restored
     assert abs(restored['position_ms'] - paused['position_ms']) < 2000, restored

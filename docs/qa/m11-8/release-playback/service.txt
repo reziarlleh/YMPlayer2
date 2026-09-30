@@ -1,0 +1,41 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 0 active services:
+  * ServiceRecord{b8b7bdd u0 dev.petrov.ymplayer2/.playback.AudioService c:dev.petrov.ymplayer2}
+    intent={cmp=dev.petrov.ymplayer2/.playback.AudioService}
+    packageName=dev.petrov.ymplayer2
+    processName=dev.petrov.ymplayer2
+    targetSdkVersion=36
+    baseDir=/data/app/~~ewVBOpZ3NAanDjDSLKMy6Q==/dev.petrov.ymplayer2-rXKm5ACs6NZ7hqvu50TRsA==/base.apk
+    dataDir=/data/user/0/dev.petrov.ymplayer2
+    app=ProcessRecord{b1328c0 4795:dev.petrov.ymplayer2/u0a150}
+    useNewWiuLogic_forCapabilities()=true
+    useNewWiuLogic_forStart()=true
+    useNewBfslLogic()=true
+    mAllowWiu_noBinding=PROC_STATE_TOP
+    mAllowWiu_inBindService=PROC_STATE_PERSISTENT
+    mAllowWiu_byBindings=DENIED
+    getFgsAllowWiu_legacy=PROC_STATE_TOP
+    getFgsAllowWiu_new=PROC_STATE_TOP
+    getFgsAllowWiu_forStart=PROC_STATE_TOP
+    getFgsAllowWiu_forCapabilities=PROC_STATE_TOP
+    allowUiJobScheduling=true
+    recentCallingPackage=dev.petrov.ymplayer2
+    recentCallingUid=10150
+    mAllowStart_noBinding=PROC_STATE_TOP
+    mAllowStart_inBindService=PROC_STATE_PERSISTENT
+    mAllowStart_byBindings=DENIED
+    getFgsAllowStart_legacy=PROC_STATE_TOP
+    getFgsAllowStart_new=PROC_STATE_TOP
+    getFgsAllowStart=PROC_STATE_TOP
+    startForegroundCount=1
+    infoAllowStartForeground=[callingPackage: com.android.systemui; callingUid: 10122; uidState: PER ; uidBFSL: [BFSL]; intent: Intent { act=android.media.browse.MediaBrowserService cmp=dev.petrov.ymplayer2/.playback.AudioService }; code:PROC_STATE_PERSISTENT; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:35; startForegroundCount:1; bindFromPackage:null: isBindService:true]
+    isForeground=true foregroundId=1001 types=0x00000002 foregroundNoti=Notification(channel=default_channel_id shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONLY_ALERT_ONCE|NO_CLEAR|FOREGROUND_SERVICE color=0x00000000 category=transport groupKey=media3_group_key actions=3 vis=PUBLIC)
+    createTime=-1m14s352ms startingBgTimeout=--
+    lastActivity=-167ms restartTime=-1m14s352ms createdFromFg=true
+    startRequested=true delayedStop=false stopIfKilled=false callStart=true lastStartId=6
+ startCommandResult=1
+    Bindings:
+    * IntentBindRecord{2c8f032}:
+      intent={act=android.media.browse.MediaBrowserService cmp=dev.petrov.ymplayer2/.playback.AudioService}
+      binder=android.os.BinderProxy@169b183
+      requested=true received=true hasBound=false doRebind=false
