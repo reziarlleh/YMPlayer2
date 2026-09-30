@@ -92,7 +92,9 @@ K4811/HyperOS и аппаратная скорость USB этим отчёто
 собран `Build-Release.ps1`. Package/versionCode и отсутствие debuggable проверены
 в [badging](../releases/2.0.0beta-build53/badging.txt), прежняя подпись —
 в [signature](../releases/2.0.0beta-build53/signature.txt). Размер APK —
-4 738 314 байт, SHA-256 —
+GitHub, jsDelivr и Gcore отдали APK с совпадающим размером и хешем:
+[проверка источников](qa/m11-10/build53-source-hashes.txt). Основной опубликованный
+манифест указывает build53 и тот же хеш. Размер APK — 4 738 314 байт, SHA-256 —
 `ef9e2d749b7a3f52ae7e88c9e422f363d84f729c3052f3f55989210393362423`.
 
 На Android 15 выполнена установка поверх build52 через `adb install -r`:
