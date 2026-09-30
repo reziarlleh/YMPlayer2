@@ -1,7 +1,10 @@
+@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 package dev.petrov.ymplayer2
 
 import android.content.Intent
 import android.content.ComponentName
+import android.content.Context
+import android.content.ContextWrapper
 import android.media.AudioAttributes
 import android.media.AudioFocusRequest
 import android.media.AudioManager
@@ -10,13 +13,19 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
 import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
+import androidx.media3.exoplayer.ExoPlayer
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dev.petrov.ymplayer2.core.Source
 import dev.petrov.ymplayer2.core.CatalogFilter
 import dev.petrov.ymplayer2.core.CatalogDimension
 import dev.petrov.ymplayer2.core.RepeatMode
+import dev.petrov.ymplayer2.core.IndexedLocalLibrary
+import dev.petrov.ymplayer2.core.Track
+import dev.petrov.ymplayer2.core.LocalPlaybackWindow
+import dev.petrov.ymplayer2.playback.AndroidPlayback
 import dev.petrov.ymplayer2.playback.AudioService
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
@@ -88,6 +97,78 @@ class LocalPlaybackTest {
         waitFor { compose.onAllNodesWithTag("track_$id").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("track_$id").assertIsDisplayed().performClick()
         waitFor { player.state.value.current?.id == id }
+    }
+
+    @Test fun indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot() {
+        provider("bulk", "60")
+        runBlocking { library.refresh() }
+        val order = runBlocking { library.pageTracks(CatalogFilter(), limit = 100).items }
+        val context = object : ContextWrapper(compose.activity) {
+            override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("cursor-test-$name", mode)
+        }
+        context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit()
+        var gate: CompletableDeferred<Unit>? = null
+        val indexed = object : IndexedLocalLibrary by library {
+            override fun tracks(profileId: String): List<Track> = error("Full catalog snapshot must not be enumerated")
+            override suspend fun playbackWindow(currentId: String?, source: Source?): LocalPlaybackWindow? {
+                gate?.await()
+                return library.playbackWindow(currentId, source)
+            }
+        }
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        lateinit var cursor: AndroidPlayback
+        lateinit var engine: ExoPlayer
+        compose.runOnIdle {
+            cursor = AndroidPlayback(context, indexed, scope)
+            engine = ExoPlayer.Builder(context).build()
+            cursor.attach(engine)
+        }
+        try {
+            waitFor { cursor.state.value.connected && cursor.state.value.queueCount == 62 }
+            assertEquals(order.first().id, cursor.state.value.current?.id)
+            gate = CompletableDeferred()
+            compose.runOnIdle { cursor.select(order[50].id); cursor.seek(7); cursor.toggle() }
+            assertFalse(cursor.state.value.playing)
+            gate.complete(Unit); gate = null
+            waitFor { cursor.state.value.current?.id == order[50].id && cursor.state.value.positionSeconds == 7 && !cursor.state.value.playing }
+            assertFalse(cursor.state.value.playing)
+            assertFalse(compose.runOnIdle { engine.playWhenReady })
+            assertEquals(46, cursor.state.value.queueOffset)
+            assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 29)
+            compose.runOnIdle {
+                engine.setMediaItems(listOf(engine.currentMediaItem!!), 0, 7_000)
+                cursor.skip(1)
+            }
+            waitFor { cursor.state.value.current?.id == order[51].id && !cursor.state.value.playing }
+            compose.runOnIdle { cursor.select(order[50].id); cursor.seek(7); cursor.toggle() }
+            waitFor { cursor.state.value.current?.id == order[50].id && cursor.state.value.positionSeconds == 7 && !cursor.state.value.playing }
+            compose.runOnIdle { cursor.detach(); engine.release() }
+            compose.waitForIdle()
+            compose.runOnIdle { engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
+            waitFor { cursor.state.value.connected && cursor.state.value.current?.id == order[50].id }
+            assertEquals(7, cursor.state.value.positionSeconds)
+            assertFalse(cursor.state.value.playing)
+            compose.runOnIdle { cursor.setRepeatMode(RepeatMode.ONE); cursor.setRepeatMode(RepeatMode.OFF) }
+            provider("unavailable", "true"); runBlocking { library.refresh() }
+            waitFor { cursor.state.value.current?.available == false }
+            assertEquals(7, cursor.state.value.positionSeconds)
+            provider("unavailable", "false"); runBlocking { library.refresh() }
+            waitFor { cursor.state.value.current?.available == true }
+            assertEquals(7, cursor.state.value.positionSeconds)
+            assertFalse(cursor.state.value.playing)
+            compose.runOnIdle { cursor.chooseSource(Source.USB) }
+            waitFor { cursor.state.value.queueCount == 0 }
+            compose.runOnIdle { cursor.select(order[50].id); cursor.toggle() }
+            waitFor { cursor.state.value.current?.id == order[50].id && !cursor.state.value.playing }
+            assertNull(cursor.state.value.automaticSource)
+            compose.runOnIdle { cursor.chooseSource(Source.LOCAL) }
+            waitFor { cursor.state.value.current?.id == order.first().id }
+            compose.runOnIdle { cursor.switchProfile("guest"); cursor.chooseSource(Source.LOCAL) }
+            waitFor { cursor.state.value.profileId == "guest" && cursor.state.value.queueCount == 62 }
+            assertFalse(cursor.state.value.playing)
+        } finally {
+            compose.runOnIdle { cursor.detach(); engine.release(); scope.cancel() }
+        }
     }
 
     @Test fun followedLibraryCheckpointIsCompactAndRestoresItsOrder() {
