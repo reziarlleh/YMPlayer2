@@ -1,0 +1,3 @@
+    versionName=2.0.0-build57
+    lastUpdateTime=2026-09-30 17:02:41
+      firstInstallTime=2026-09-09 07:09:25

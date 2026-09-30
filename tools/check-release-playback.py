@@ -84,8 +84,12 @@ try:
         if time.monotonic() >= deadline:
             raise AssertionError('Stopped Activity record was not removed')
         time.sleep(.2)
-    results['restart_launch'] = adb('shell', 'am', 'start', '-W', '-n', package + '/.MainActivity')
+    # After an in-app update the task can still contain PackageInstaller's
+    # DeleteStagedFileOnResult activity. Clear that task, without clearing app
+    # data, so the check actually launches MainActivity in a fresh process.
+    results['restart_launch'] = adb('shell', 'am', 'start', '-W', '-f', '0x10008000', '-n', package + '/.MainActivity')
     assert 'Status: ok' in results['restart_launch'], results['restart_launch']
+    assert 'Activity: ' + package + '/.MainActivity' in results['restart_launch'], results['restart_launch']
     restored = wait_for(lambda s: '02 - City lights' in s['metadata'])
     assert restored['state'] not in ('PLAYING', 'BUFFERING'), restored
     assert abs(restored['position_ms'] - paused['position_ms']) < 2000, restored

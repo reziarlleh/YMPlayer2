@@ -1,0 +1,27 @@
+{
+  "reports": {
+    "docs/qa/m12-7/final-full-android15.xml": {
+      "tests": 191,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "docs/qa/m12-7/updater-android15.xml": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "docs/qa/m12-8/shell-android15.xml": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "apkSha256": "d2b10f8c4a0401942bbdd0c33557e489f58274369d0e96a197949bae0ddf0f2b",
+  "sizeBytes": 4771074,
+  "mainEqualsStable": true,
+  "signedRuntimePassed": true,
+  "documentLinksValid": true
+}

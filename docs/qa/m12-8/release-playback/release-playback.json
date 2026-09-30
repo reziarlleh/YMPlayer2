@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0-build57",
+  "playing": {
+    "state": "PLAYING",
+    "position_ms": 0,
+    "metadata": "size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{743ac5f: PendingIntentRecord{c765992 dev.petrov.ymplayer2 startActivity (allowlist: 1f75c69:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=MBR {pi=null, componentName=ComponentInfo{dev.petrov.ymplayer2/androidx.media3.session.MediaButtonReceiver}, type=1, pkg=dev.petrov.ymplayer2}\n      active=true\n      flags=7\n      rating type=0\n      controllers: 7\n      state=PlaybackState {state=PLAYING(3), position=0, buffered position=45000, speed=1.0, updated=2560619, actions=7340027, custom actions=[], active item id=0, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=2"
+  },
+  "system_pause_background": {
+    "state": "PAUSED",
+    "position_ms": 2557,
+    "metadata": "size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{743ac5f: PendingIntentRecord{c765992 dev.petrov.ymplayer2 startActivity (allowlist: 1f75c69:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=MBR {pi=null, componentName=ComponentInfo{dev.petrov.ymplayer2/androidx.media3.session.MediaButtonReceiver}, type=1, pkg=dev.petrov.ymplayer2}\n      active=true\n      flags=7\n      rating type=0\n      controllers: 8\n      state=PlaybackState {state=PAUSED(2), position=2557, buffered position=45000, speed=0.0, updated=2563379, actions=7340029, custom actions=[], active item id=0, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=2"
+  },
+  "system_play": {
+    "state": "PLAYING",
+    "position_ms": 2649,
+    "metadata": "size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{743ac5f: PendingIntentRecord{c765992 dev.petrov.ymplayer2 startActivity (allowlist: 1f75c69:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=MBR {pi=null, componentName=ComponentInfo{dev.petrov.ymplayer2/androidx.media3.session.MediaButtonReceiver}, type=1, pkg=dev.petrov.ymplayer2}\n      active=true\n      flags=7\n      rating type=0\n      controllers: 8\n      state=PlaybackState {state=PLAYING(3), position=2649, buffered position=45000, speed=1.0, updated=2563623, actions=7340027, custom actions=[], active item id=0, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=01 - Evening route, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=2"
+  },
+  "system_next": {
+    "state": "PLAYING",
+    "position_ms": 0,
+    "metadata": "size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{743ac5f: PendingIntentRecord{c765992 dev.petrov.ymplayer2 startActivity (allowlist: 1f75c69:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=MBR {pi=null, componentName=ComponentInfo{dev.petrov.ymplayer2/androidx.media3.session.MediaButtonReceiver}, type=1, pkg=dev.petrov.ymplayer2}\n      active=true\n      flags=7\n      rating type=0\n      controllers: 8\n      state=PlaybackState {state=PLAYING(3), position=0, buffered position=32700, speed=1.0, updated=2563961, actions=7340027, custom actions=[], active item id=1, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "before_restart": {
+    "state": "PAUSED",
+    "position_ms": 3302,
+    "metadata": "size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{743ac5f: PendingIntentRecord{c765992 dev.petrov.ymplayer2 startActivity (allowlist: 1f75c69:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=MBR {pi=null, componentName=ComponentInfo{dev.petrov.ymplayer2/androidx.media3.session.MediaButtonReceiver}, type=1, pkg=dev.petrov.ymplayer2}\n      active=true\n      flags=7\n      rating type=0\n      controllers: 8\n      state=PlaybackState {state=PAUSED(2), position=3302, buffered position=45000, speed=0.0, updated=2567469, actions=7340029, custom actions=[], active item id=1, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "restart_launch": "Starting: Intent { flg=0x10008000 cmp=dev.petrov.ymplayer2/.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: dev.petrov.ymplayer2/.MainActivity\nTotalTime: 994\nWaitTime: 998\nComplete\n",
+  "restored_paused": {
+    "state": "PAUSED",
+    "position_ms": 3000,
+    "metadata": "size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома",
+    "dump": "launchIntent=PendingIntent{26bb83a: PendingIntentRecord{dd572e dev.petrov.ymplayer2 startActivity (allowlist: 1f75c69:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}\n      mediaButtonReceiver=MBR {pi=null, componentName=ComponentInfo{dev.petrov.ymplayer2/androidx.media3.session.MediaButtonReceiver}, type=1, pkg=dev.petrov.ymplayer2}\n      active=true\n      flags=7\n      rating type=0\n      controllers: 3\n      state=PlaybackState {state=PAUSED(2), position=3000, buffered position=3000, speed=0.0, updated=2570218, actions=7339701, custom actions=[], active item id=1, error=null}\n      audioAttrs=AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null\n      volumeType=LOCAL, controlType=ABSOLUTE, max=0, current=0, volumeControlId=null\n      metadata: size=5, description=02 - City lights, Неизвестный исполнитель, Без альбома\n      queueTitle=null, size=3"
+  },
+  "passed": true
+}

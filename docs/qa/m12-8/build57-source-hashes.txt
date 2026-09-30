@@ -1,0 +1,11 @@
+GitHub: 4771074 bytes SHA256=d2b10f8c4a0401942bbdd0c33557e489f58274369d0e96a197949bae0ddf0f2b
+https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0-build57/YMPlayer-2.0.0-build57.apk
+
+jsDelivr: 4771074 bytes SHA256=d2b10f8c4a0401942bbdd0c33557e489f58274369d0e96a197949bae0ddf0f2b
+https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0-build57/releases/2.0.0-build57/YMPlayer-2.0.0-build57.apk
+
+Gcore: 4771074 bytes SHA256=d2b10f8c4a0401942bbdd0c33557e489f58274369d0e96a197949bae0ddf0f2b
+https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0-build57/releases/2.0.0-build57/YMPlayer-2.0.0-build57.apk
+
+Raw main manifest: versionCode=57, versionName=2.0.0-build57, matching APK SHA256 and size
+Raw stable manifest: identical to main manifest, stable channel, build57.
