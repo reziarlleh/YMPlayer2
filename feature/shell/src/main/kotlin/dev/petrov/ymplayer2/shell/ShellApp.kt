@@ -130,7 +130,7 @@ private val destinations = listOf(
                         if (route != "player") ActionIcon(UiIcon.BACK, "Назад", { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))
                         Column(Modifier.weight(1f).padding(vertical = 6.dp)) {
                             Text("YMPlayer 2", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                            if (route != "player") Text(if (demo) "Прототип · Без звука" else "Музыка рядом · Beta", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            if (route != "player") Text(if (demo) "Прототип · Без звука" else if (version.contains("beta", ignoreCase = true)) "Музыка рядом · Beta" else "Музыка рядом", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         }
                         ActionIcon(UiIcon.PROFILE, "Профили", { navigate("profiles") }, Modifier.testTag("profiles"))
                         ActionIcon(UiIcon.SETTINGS, "Настройки", { navigate("settings") }, Modifier.testTag("settings"))
