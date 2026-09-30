@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 53,
-  "versionName": "2.0.0beta-build53",
+  "versionCode": 54,
+  "versionName": "2.0.0beta-build54",
   "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-09-30T04:25:26.6600760Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build53",
-  "releaseNotes": "Каталог локальной музыки и USB хранится на диске. Приложение больше не держит его полный список метаданных в состоянии библиотеки; папки показывают отдельные счётчики.\n\nЗапуск и восстановление ручного списка читают только его ссылки. Команды выбора, перемотки, паузы и редактирования сохраняют порядок во время чтения. Исправлен выход из Яндекса во время добавления локального трека: онлайн-треки удаляются, локальные остаются.\n\nСканирование сохраняет каждую папку после завершённого обхода. Недоступная папка сохраняет прежние записи, удаление её из медиатеки не затрагивает остальные папки и исходные файлы.\n\nПроверен SAF-каталог из 5 002 документов на Android 15: дальний выбор, страницы, shuffle/repeat и восстановление. Это промежуточная beta: ограничение метаданных ручных списков и объединение каталога с Яндексом ещё входят в M11. Проверка разных физических USB и K4811/HyperOS остаётся отдельной.\r\n",
+  "publishedAt": "2026-09-30T13:48:05.0673441Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build54",
+  "releaseNotes": "Ручные очереди сохраняют порядок ссылок и короткие подписи. Плеер читает выбранный и соседние треки; Media3 получает максимум три элемента независимо от длины списка. Рандом и повтор проходят весь ручной порядок.\r\n\r\nРедактирование далёких строк сохраняет текущий файл и позицию. Недоступные ссылки и их названия остаются в списке. Отметка добавления в очередь учитывает все ссылки, включая строки за пределами короткого списка плеера.\r\n\r\nПорядок сохраняется при редактировании; периодический checkpoint содержит только текущий трек, позицию и режимы. Старый формат ручного checkpoint переносится автоматически. Исправлена потеря запроса обновления, поступившего во время более старого обхода носителя.\r\n\r\nПроверены миграция, все ID ручного shuffle/ALL и большой SAF-каталог. Это beta: объединение локального/USB и Яндекс-каталога ещё входит в M11. Физическая приёмка K4811/HyperOS выполняется отдельно.\r\n",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build53/YMPlayer-2.0.0beta-build53.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build53/releases/2.0.0beta-build53/YMPlayer-2.0.0beta-build53.apk",
-    "sizeBytes": 4738314,
-    "sha256": "ef9e2d749b7a3f52ae7e88c9e422f363d84f729c3052f3f55989210393362423"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build54/YMPlayer-2.0.0beta-build54.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build54/releases/2.0.0beta-build54/YMPlayer-2.0.0beta-build54.apk",
+    "sizeBytes": 4754694,
+    "sha256": "149446d8a7e08759a0b2cdcc0df4f03fb9a022d9266faf290adcee95b821db01"
   }
 }
