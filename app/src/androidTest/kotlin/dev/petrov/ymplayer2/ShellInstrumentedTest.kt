@@ -65,10 +65,10 @@ class ShellInstrumentedTest {
     @Test fun profilesStopAndRetainSeparatePositions() {
         compose.runOnIdle { model().player.toggle(); model().player.seek(54) }
         compose.onNodeWithTag("profiles").performClick()
-        compose.onNodeWithTag("profile_guest").performScrollTo().performClick()
+        scrollTag("profile_guest", "profiles_list").performClick()
         compose.runOnIdle { assertEquals("guest", state().profileId); assertFalse(state().playing) }
         compose.onNodeWithTag("profiles").performClick()
-        compose.onNodeWithTag("profile_owner").performScrollTo().performClick()
+        scrollTag("profile_owner", "profiles_list").performClick()
         compose.runOnIdle { assertEquals(54, state().positionSeconds); assertFalse(state().playing) }
     }
 
@@ -81,7 +81,7 @@ class ShellInstrumentedTest {
         compose.onNodeWithContentDescription("К списку").performScrollTo().performClick()
         compose.onNodeWithTag("category_ALBUMS").assertIsDisplayed()
         compose.onNodeWithContentDescription("Очередь").performClick()
-        compose.onNodeWithTag("track_usb:3").performScrollTo().performClick()
+        scrollTag("track_usb:3", "queue_list").performClick()
         compose.runOnIdle { assertEquals("usb:3", state().current?.id) }
         scrollTag("track_usb:6", "queue_list").assertIsNotEnabled()
     }

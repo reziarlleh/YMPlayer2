@@ -29,7 +29,9 @@ import kotlinx.coroutines.CancellationException
     demo: Boolean = true, folders: () -> Unit = {}, scanning: Boolean = false, issue: String? = null,
     collections: Boolean = false, playlists: () -> Unit = {}, favorites: () -> Unit = {}, more: ((Track) -> Unit)? = null, upRequest: Int = 0,
     indexed: IndexedLocalLibrary? = null, indexedSources: Set<Source> = emptySet(), noLocalRoots: Boolean = false,
-    retry: () -> Unit) {
+    music: OnlineMusic? = null, taste: MusicTaste? = null, cached: List<Track> = emptyList(),
+    artist: (ArtistRef) -> Unit = {}, cloudPlaylists: CloudPlaylists? = null, signIn: () -> Unit = {},
+    onlineHome: () -> Unit = {}, waveStarted: () -> Unit = {}, retry: () -> Unit) {
     var query by rememberSaveable { mutableStateOf("") }
     var source by rememberSaveable { mutableStateOf<Source?>(null) }
     var offline by rememberSaveable { mutableStateOf(false) }
@@ -42,14 +44,51 @@ import kotlinx.coroutines.CancellationException
     val holder = rememberSaveableStateHolder()
     val keyboard = LocalSoftwareKeyboardController.current
     val playback by player.state.collectAsState()
+    val online = music?.state?.collectAsState()?.value?.takeIf { it.profileId == playback.profileId }
+    var trackActions by remember(playback.profileId) { mutableStateOf<Track?>(null) }
+    if (taste != null) trackActions?.let { track -> TrackTasteDialog(track, taste, artist = artist,
+        extra = { cloudPlaylists?.let { AddToCloudPlaylist(track, it) { trackActions = null } } }) { trackActions = null } }
+    if (online?.request?.entity != null) {
+        OnlineScreen(music, player, search, signIn, taste, waveStarted, artist, playlists = cloudPlaylists)
+        return
+    }
     val queuedIds = playback.explicitQueueIds ?: remember(playback.queue) { playback.queue.mapTo(hashSetOf(), Track::id) }
     BackHandler(detail != null) { detail = null }
-    val sources = if (indexed != null) indexedSources else remember(tracks) { tracks.mapTo(linkedSetOf(), Track::source) }
+    val sources = (if (indexed != null) indexedSources else remember(tracks) { tracks.mapTo(linkedSetOf(), Track::source) }) +
+        if (music != null) setOf(Source.YANDEX) else emptySet()
     val filter = CatalogFilter(source, offline || state == CatalogState.OFFLINE, availableOnly, if (search) query else "")
     val currentDetail = detail
     val currentCategory = category
-    val grouped = currentDetail == null && currentCategory != Category.TRACKS && !search
+    val grouped = currentDetail == null && currentCategory != Category.TRACKS && (!search || music != null)
     val dimension = currentCategory.dimension()
+    val remoteKind = when (currentCategory) {
+        Category.TRACKS -> MusicKind.TRACKS
+        Category.ALBUMS -> MusicKind.ALBUMS
+        Category.ARTISTS -> MusicKind.ARTISTS
+        else -> null
+    }
+    val remoteRequested = music != null && currentDetail == null && !offline && remoteKind != null &&
+        (source == null || source == Source.YANDEX)
+    val remoteRequest = remoteKind?.let { MusicRequest(if (search) query.take(200) else "", it, collection = !search) }
+    LaunchedEffect(remoteRequested, remoteRequest, online?.profileId, online?.signedIn) {
+        if (remoteRequested && remoteRequest != null && online != null) {
+            val unchanged = online.request == remoteRequest && (online.loaded || online.loading || online.issue != null)
+            if (!unchanged) {
+                if (search) music.search(remoteRequest.query, remoteRequest.kind)
+                else if (online.signedIn) music.collection(remoteRequest.kind)
+            }
+        }
+    }
+    val remote = online?.takeIf { remoteRequested && it.request == remoteRequest }
+    // Only already downloaded likes join the offline view. No collection-wide audio transfer.
+    val cachedById = remember(cached) { cached.associateBy(Track::id) }
+    val remoteTracks = if (!grouped && currentDetail == null && (source == null || source == Source.YANDEX)) {
+        (remote?.entries?.mapNotNull(MusicEntry::track).orEmpty() + cached.filter { track ->
+            !search || query.isBlank() || track.title.contains(query, true) || track.artist.contains(query, true) || track.album.contains(query, true) })
+            .distinctBy(Track::id).map { track -> cachedById[track.id] ?: track }
+            .filter { track -> (!offline || track.offline && track.available) && (!availableOnly || track.available) }
+    } else emptyList()
+    val remoteEntities = if (grouped) remote?.entries?.filter { it.entity != null }.orEmpty() else emptyList()
     var visibleCount by rememberSaveable(filter, currentCategory, currentDetail, descending, search) { mutableIntStateOf(80) }
     val groupBatches = remember(indexed, indexed?.indexRevision, filter, dimension, descending) {
         mutableMapOf<Int, CatalogPage<CatalogGroup>>()
@@ -86,6 +125,11 @@ import kotlinx.coroutines.CancellationException
     val indexLoading = indexed != null && (if (grouped) diskGroups == null else diskPage == null)
     val indexFailed = indexed != null && (if (grouped) diskGroups?.isFailure == true else diskPage?.isFailure == true)
     val resultCount = groups?.total ?: page?.total ?: 0
+    val shownTracks = (page?.items.orEmpty() + remoteTracks).sortedWith(
+        compareBy<Track> { it.title.lowercase() }.thenBy(Track::id).let { if (descending) it.reversed() else it })
+    val shownGroups = (groups?.items.orEmpty().map { CatalogGroupRow(local = it) } +
+        remoteEntities.map { CatalogGroupRow(remote = it) }).sortedWith(
+        compareBy<CatalogGroupRow> { it.title.lowercase() }.thenBy { it.key }.let { if (descending) it.reversed() else it })
     val loadMore = { visibleCount = if (indexed == null) (visibleCount + 80).coerceAtMost(50_000) else visibleCount + 80 }
     holder.SaveableStateProvider(currentDetail ?: "root") {
         LazyColumn(Modifier.fillMaxSize().imePadding().testTag("catalog_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -96,7 +140,13 @@ import kotlinx.coroutines.CancellationException
                 }
             }
             if (!demo && !search && currentDetail == null) item {
+                Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { SkinIcon(UiIcon.FOLDER, null); Spacer(Modifier.width(8.dp)); Text("Папки с музыкой") }
+                if (music != null) {
+                    OutlinedButton(onlineHome, Modifier.prismFocus().testTag("online_home")) { Text("Моя музыка и рекомендации Яндекса") }
+                    if (taste != null) WaveButton(player, online?.signedIn == true, signIn, waveStarted)
+                }
+                }
             }
             if (scanning) item { LinearProgressIndicator(Modifier.fillMaxWidth()); Text("Обновляем каталог…") }
             if (issue != null) item { Text(issue, color = MaterialTheme.colorScheme.error) }
@@ -109,7 +159,7 @@ import kotlinx.coroutines.CancellationException
                         leadingIcon = { SkinIcon(UiIcon.SEARCH, null) },
                         trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { query = "" }) })
                 }
-                if (!search) item {
+                if (!search || music != null) item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Category.entries.filter { demo || collections || it != Category.PLAYLISTS }.forEach { item ->
                             FilterChip(currentCategory == item, { if (item == Category.PLAYLISTS && collections) playlists() else category = item }, { Text(item.label) }, Modifier.prismFocus().testTag("category_${item.name}"))
@@ -119,11 +169,13 @@ import kotlinx.coroutines.CancellationException
                 }
                 item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(source == null, { source = null }, { Text("Все источники") }, Modifier.prismFocus())
+                        FilterChip(source == null, { source = null }, { Text("Все источники") }, Modifier.prismFocus().testTag("filter_all"))
                         Source.entries.filter { it in sources }.forEach { item ->
                             FilterChip(source == item, { source = item }, { Text(item.label) }, Modifier.prismFocus().testTag("filter_${item.name}"))
                         }
                     }
+                }
+                item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FilterChip(offline, { offline = !offline }, { Text("Доступно офлайн") }, Modifier.prismFocus().testTag("filter_offline"))
                         FilterChip(availableOnly, { availableOnly = !availableOnly }, { Text("Доступные сейчас") }, Modifier.prismFocus().testTag("filter_available"))
@@ -131,43 +183,78 @@ import kotlinx.coroutines.CancellationException
                     }
                 }
             }
+            if (remoteRequested && online?.signedIn == false) item {
+                Text("Музыка устройства доступна без входа. Для Яндекса войдите в этом профиле.")
+                OutlinedButton(signIn, Modifier.prismFocus().testTag("catalog_sign_in")) { Text("Открыть аккаунт") }
+            }
+            if (remote?.loading == true) item { LinearProgressIndicator(Modifier.fillMaxWidth().testTag("catalog_online_loading")) }
+            if (remote?.issue != null) item {
+                Text(remote.issue!!, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("catalog_online_issue"))
+                OutlinedButton({ music.retry() }, Modifier.prismFocus().testTag("catalog_online_retry"), enabled = !remote.loading) { Text("Повторить запрос Яндекса") }
+            }
+            if (music != null && currentDetail == null && offline && grouped && source != Source.LOCAL && source != Source.USB) item {
+                Text("Скачанные «Мне нравится» доступны в разделе «Треки». Альбомы и исполнители целиком не скачиваются.")
+            }
+            if (music != null && currentDetail == null && remoteKind == null) item {
+                Text("Жанры и папки относятся к файлам устройства и USB.")
+            }
+            if (indexLoading) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
+            if (indexFailed) item { CatalogMessage("Не удалось прочитать индекс", "Повторите обновление каталога.", retry, "Обновить") }
             when {
-                !demo && noLocalRoots && !search && !indexLoading && resultCount == 0 -> item { CatalogMessage("Медиатека пока пуста", "Выберите папку с аудиофайлами на устройстве или USB.", folders, "Добавить музыку") }
+                !demo && noLocalRoots && !search && !indexLoading && resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true -> item { CatalogMessage("Медиатека пока пуста", "Выберите папку с аудиофайлами на устройстве или USB.", folders, "Добавить музыку") }
                 state == CatalogState.ERROR -> item { CatalogMessage("Не удалось загрузить медиатеку", "Демонстрация ошибки. Текущая очередь сохранена.", retry, "Повторить") }
                 state == CatalogState.EMPTY -> item { CatalogMessage("Медиатека пока пуста", "Демонстрация первого запуска.", retry, "Показать демоданные") }
-                indexLoading -> item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
-                indexFailed -> item { CatalogMessage("Не удалось прочитать индекс", "Повторите обновление каталога.", retry, "Обновить") }
-                resultCount == 0 -> item { CatalogMessage("Ничего не найдено", "Попробуйте другой запрос или сбросьте фильтры.", { query = ""; source = null; offline = false; availableOnly = false }, "Сбросить") }
+                resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true && !indexLoading && !indexFailed -> item { CatalogMessage("Ничего не найдено", "Попробуйте другой запрос или сбросьте фильтры.", { query = ""; source = null; offline = false; availableOnly = false }, "Сбросить") }
                 else -> {
                     if (state == CatalogState.OFFLINE) item { Text("Нет сети · показаны доступные офлайн треки", color = MaterialTheme.colorScheme.primary) }
                     if (!grouped) {
-                        val shown = page!!
-                        item { Text("${shown.total} треков" + if (demo) " · демонстрационный каталог" else "", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                        items(shown.items, key = Track::id) { track -> TrackRow(track, play = { player.select(track.id) }, enqueue = { player.enqueue(track.id) },
+                        val shown = page
+                        item {
+                            Column {
+                            Text(if (music != null) "Устройство / USB: ${shown?.total ?: 0} · Яндекс: ${remoteTracks.size} показано"
+                                else "${shown?.total ?: 0} треков" + if (demo) " · демонстрационный каталог" else "",
+                                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            if (music != null && shownTracks.any { it.available }) OutlinedButton({ player.playQueue(shownTracks.map(Track::id)); keyboard?.hide() }, Modifier.prismFocus().testTag("catalog_play_all")) { Text("Слушать показанные треки") }
+                            }
+                        }
+                        items(shownTracks, key = Track::id) { track -> TrackRow(track, play = {
+                            if (music != null && track.source == Source.YANDEX) player.playQueue(shownTracks.map(Track::id), track.id) else player.select(track.id)
+                            keyboard?.hide()
+                        }, enqueue = { player.enqueue(track.id) },
                             queued = track.id in queuedIds || playback.automaticLocal && track.source != Source.YANDEX &&
                                 (playback.automaticSource == null || playback.automaticSource == track.source),
-                            more = more?.let { action -> { action(track) } }) }
-                        if (shown.hasMore && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё") } }
+                            more = if (track.source == Source.YANDEX && taste != null) ({ trackActions = track }) else more?.let { action -> { action(track) } },
+                            taste = taste?.takeIf { track.source == Source.YANDEX }, artist = artist) }
+                        if (shown?.hasMore == true && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё с устройства / USB") } }
                     } else {
-                        val shown = groups!!
-                        items(shown.items, key = CatalogGroup::name) { group ->
-                            Surface(onClick = { detail = group.name }, modifier = Modifier.fillMaxWidth().prismFocus(), shape = MaterialTheme.shapes.medium) {
+                        val shown = groups
+                        items(shownGroups, key = CatalogGroupRow::key) { row ->
+                            Surface(onClick = { if (row.local != null) detail = row.local.name else { keyboard?.hide(); row.remote?.entity?.let { music?.open(it) } } },
+                                modifier = Modifier.fillMaxWidth().prismFocus().then(row.remote?.let { Modifier.testTag("catalog_entity_${it.id}") } ?: Modifier), shape = MaterialTheme.shapes.medium) {
                                 Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                                    TrackArtwork(group.sample, Modifier.size(64.dp))
+                                    row.local?.let { TrackArtwork(it.sample, Modifier.size(64.dp)) }
                                     Column(Modifier.weight(1f)) {
-                                        Text(group.name, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                                        Text("${group.count} треков", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                        Text(row.title, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                        Text(row.local?.let { "Устройство / USB · ${it.count} треков" } ?: "Яндекс · ${row.remote?.subtitle.orEmpty()}", color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
                                     SkinIcon(UiIcon.FORWARD, "Открыть")
                                 }
                             }
                         }
-                        if (shown.hasMore && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё") } }
+                        if (shown?.hasMore == true && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё с устройства / USB") } }
                     }
                 }
             }
+            if (remote?.nextPage != null && remote.issue == null) item {
+                OutlinedButton({ music.more() }, Modifier.fillMaxWidth().prismFocus().testTag("catalog_online_more"), enabled = !remote.loading) { Text("Показать ещё из Яндекса") }
+            }
         }
     }
+}
+
+private data class CatalogGroupRow(val local: CatalogGroup? = null, val remote: MusicEntry? = null) {
+    val title get() = local?.name ?: remote!!.title
+    val key get() = local?.let { "local:${it.name}" } ?: "yandex:${remote!!.id}"
 }
 
 private suspend fun <T> catalogResult(block: suspend () -> T): Result<T> = try {

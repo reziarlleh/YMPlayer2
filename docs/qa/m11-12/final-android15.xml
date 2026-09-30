@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="16" failures="0" errors="0" skipped="0" time="101.287" timestamp="2026-09-30T14:24:19" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.CatalogSourcesTest" tests="5" failures="0" errors="0" skipped="0" time="34.531" timestamp="2026-09-30T14:24:19" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="offlineFilterUsesOnlyDownloadedLikesAndStartsNoOnlineRequest" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="11.66" />
+    <testcase name="sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="8.069" />
+    <testcase name="localGenreAndUsbFolderDoNotRequestInventedRemoteSections" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="3.37" />
+    <testcase name="commonSearchAndOnlineFailureKeepLocalResultsUsable" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="7.609" />
+    <testcase name="albumDetailsReturnToSharedCatalogAndGuestCannotSeeAccountRows" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="3.823" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.CollectionsPlaybackTest" tests="6" failures="0" errors="0" skipped="0" time="29.308" timestamp="2026-09-30T14:24:19" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="failedWriteAndUnknownSchemaDoNotOverwriteSavedCollections" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="2.469" />
+    <testcase name="favoriteMenuPersistsAndProfilesRemainSeparate" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="4.501" />
+    <testcase name="backClosesDialogThenAscendsPlaylistAndResetsUnrelatedCatalogDetail" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="5.777" />
+    <testcase name="editsResolveOnlyRequestedIdsWithoutEnumeratingLibrary" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="1.988" />
+    <testcase name="metadataEditsDoNotInterruptAudioAndUnavailableReferencesRecover" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="4.95" />
+    <testcase name="nativeUiCreatesEditsAndPlaysOnlyTheChosenPlaylist" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="9.623" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.OnlinePlaybackTest" tests="5" failures="0" errors="0" skipped="0" time="35.932" timestamp="2026-09-30T14:24:19" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="detailsBackAndRetryLeaveExistingAudioAlone" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="6.144" />
+    <testcase name="lateStreamCannotStartAfterProfileSwitch" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="5.871" />
+    <testcase name="logoutRemovesOnlineQueueButRetainsLocalTracks" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="5.178" />
+    <testcase name="unavailableStreamShowsRetryableErrorAndNextAttemptPlays" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="7.964" />
+    <testcase name="onlineQueueStreamsLazilyAndRecoversPausedWithoutSignedUrls" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="10.775" />
+  </testsuite>
+</testsuites>

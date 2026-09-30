@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="1" failures="1" errors="0" skipped="0" time="15.357" timestamp="2026-09-30T14:36:26" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.CatalogSourcesTest" tests="1" failures="1" errors="0" skipped="0" time="14.386" timestamp="2026-09-30T14:36:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="14.386">
+      <failure>java.lang.AssertionError: Online=OnlineMusicState(profileId=owner, signedIn=true, request=MusicRequest(query=, kind=TRACKS, collection=true, entity=null, recommended=false), entries=[MusicEntry(id=yandex:1:7, title=Онлайн: трек 1, subtitle=Неизвестный исполнитель, track=Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1790778974940, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), entity=null), MusicEntry(id=yandex:2:7, title=Онлайн: трек 2, subtitle=Неизвестный исполнитель, track=Track(id=yandex:2:7, title=Онлайн: трек 2, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1790778975000, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7), entity=null)], loading=false, loaded=true, nextPage=null, failedPage=null, issue=null); playback=PlaybackState(profileId=owner, queue=[Track(id=local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c, title=two, artist=Неизвестный исполнитель, album=Без альбома, source=USB, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=secondary, tint=5, uri=content://dev.petrov.ymplayer2.test.music/tree/secondary/document/two.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/secondary, sizeBytes=960044, modifiedMillis=1790778975000, artworkUri=null, artists=[], albumId=null), Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1790778974940, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), Track(id=yandex:2:7, title=Онлайн: трек 2, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1790778975000, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7)], index=3, positionSeconds=2, playing=true, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=false, waveLoading=false, waveIssue=null, recommendations=false, queueOffset=2, queueTotal=5, currentTrack=Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1790778974940, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), automaticLocal=false, automaticSource=null, queueRevision=6, referenceQueue=true, explicitQueueIds=[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c, yandex:1:7, yandex:2:7]); UI=Printing with useUnmergedTree = 'false'
+Node #1 at (l=0.0, t=0.0, r=1080.0, b=1920.0)px
+|-Node #2 at (l=0.0, t=0.0, r=1080.0, b=1920.0)px
+IsContainer = 'true'
+Shape = 'RectangleShape'
+|-Node #3 at (l=0.0, t=63.0, r=1080.0, b=1794.0)px
+Shape = 'RectangleShape'
+|-Node #102 at (l=32.0, t=114.0, r=158.0, b=240.0)px, Tag: 'navigate_up'
+| ContentDescription = '[Назад]'
+| Focused = 'false'
+| Role = 'Button'
+| Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+| Actions = [OnClick, RequestFocus]
+| MergeDescendants = 'true'
+|-Node #9 at (l=158.0, t=79.0, r=545.0, b=190.0)px
+| Text = '[YMPlayer 2]'
+| Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+|-Node #104 at (l=158.0, t=190.0, r=771.0, b=274.0)px
+| Text = '[Музыка рядом · Beta]'
+| Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+|-Node #10 at (l=796.0, t=114.0, r=922.0, b=240.0)px, Tag: 'profiles'
+| ContentDescription = '[Профили]'
+| Focused = 'false'
+| Role = 'Button'
+| Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+| Actions = [OnClick, RequestFocus]
+| MergeDescendants = 'true'
+|-Node #12 at (l=922.0, t=114.0, r=1048.0, b=240.0)px, Tag: 'settings'
+| ContentDescription = '[Настройки]'
+| Focused = 'false'
+| Role = 'Button'
+| Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+| Actions = [OnClick, RequestFocus]
+| MergeDescendants = 'true'
+|-Node #106 at (l=0.0, t=290.0, r=1080.0, b=416.0)px
+| HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=565.0, reverseScrolling=false)'
+| IsTraversalGroup = 'true'
+| Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape&#64;d226295'
+| Actions = [ScrollBy, ScrollByOffset]
+|  |-Node #107 at (l=42.0, t=304.0, r=624.0, b=402.0)px, Tag: 'source_local'
+|  | Focused = 'false'
+|  | Role = 'Checkbox'
+|  | Selected = 'true'
+|  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  | Text = '[Общий каталог]'
+|  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  | MergeDescendants = 'true'
+|  |-Node #111 at (l=645.0, t=304.0, r=1243.0, b=402.0)px, Tag: 'source_yandex'
+|  | Focused = 'false'
+|  | Role = 'Checkbox'
+|  | Selected = 'false'
+|  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  | Text = '[Яндекс Музыка]'
+|  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  | MergeDescendants = 'true'
+|  |-Node #115 at (l=1264.0, t=304.0, r=1603.0, b=402.0)px, Tag: 'open_offline'
+|    Focused = 'false'
+|    Role = 'Checkbox'
+|    Selected = 'false'
+|    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|    Text = '[Офлайн]'
+|    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|    MergeDescendants = 'true'
+|-Node #119 at (l=0.0, t=416.0, r=1080.0, b=1360.0)px, Tag: 'catalog_list'
+| CollectionInfo = 'CollectionInfo(rowCount=6, columnCount=1)'
+| IsTraversalGroup = 'true'
+| Shape = 'androidx.compose.foundation.VerticalScrollableClipShape&#64;cdf36d4'
+| VerticalScrollAxisRange = 'ScrollAxisRange(value=1734.0, maxValue=1734.0, reverseScrolling=false)'
+| Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+|  |-Node #586 at (l=42.0, t=224.0, r=1038.0, b=350.0)px
+|  | HorizontalScrollAxisRange = 'ScrollAxisRange(value=584.0, maxValue=632.0, reverseScrolling=false)'
+|  | IsTraversalGroup = 'true'
+|  | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape&#64;d226295'
+|  | Actions = [ScrollBy, ScrollByOffset]
+|  |  |-Node #587 at (l=-542.0, t=238.0, r=21.0, b=336.0)px, Tag: 'filter_all'
+|  |  | Focused = 'false'
+|  |  | Role = 'Checkbox'
+|  |  | Selected = 'false'
+|  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  |  | Text = '[Все источники]'
+|  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  |  | MergeDescendants = 'true'
+|  |  |-Node #591 at (l=42.0, t=238.0, r=363.0, b=336.0)px, Tag: 'filter_YANDEX'
+|  |  | Focused = 'false'
+|  |  | Role = 'Checkbox'
+|  |  | Selected = 'false'
+|  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  |  | Text = '[Яндекс]'
+|  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  |  | MergeDescendants = 'true'
+|  |  |-Node #595 at (l=384.0, t=238.0, r=849.0, b=336.0)px, Tag: 'filter_LOCAL'
+|  |  | Focused = 'false'
+|  |  | Role = 'Checkbox'
+|  |  | Selected = 'false'
+|  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  |  | Text = '[Устройство]'
+|  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  |  | MergeDescendants = 'true'
+|  |  |-Node #599 at (l=870.0, t=238.0, r=1086.0, b=336.0)px, Tag: 'filter_USB'
+|  |    Focused = 'false'
+|  |    Role = 'Checkbox'
+|  |    Selected = 'true'
+|  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  |    Text = '[USB]'
+|  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  |    MergeDescendants = 'true'
+|  |-Node #603 at (l=42.0, t=350.0, r=1038.0, b=476.0)px
+|  | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=854.0, reverseScrolling=false)'
+|  | IsTraversalGroup = 'true'
+|  | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape&#64;d226295'
+|  | Actions = [ScrollBy, ScrollByOffset]
+|  |  |-Node #604 at (l=42.0, t=364.0, r=705.0, b=462.0)px, Tag: 'filter_offline'
+|  |  | Focused = 'false'
+|  |  | Role = 'Checkbox'
+|  |  | Selected = 'false'
+|  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  |  | Text = '[Доступно офлайн]'
+|  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  |  | MergeDescendants = 'true'
+|  |  |-Node #608 at (l=726.0, t=364.0, r=1420.0, b=462.0)px, Tag: 'filter_available'
+|  |  | Focused = 'false'
+|  |  | Role = 'Checkbox'
+|  |  | Selected = 'false'
+|  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  |  | Text = '[Доступные сейчас]'
+|  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  |  | MergeDescendants = 'true'
+|  |  |-Node #612 at (l=1441.0, t=364.0, r=1892.0, b=462.0)px
+|  |    Focused = 'false'
+|  |    Role = 'Button'
+|  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  |    Text = '[Название ↑]'
+|  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  |    MergeDescendants = 'true'
+|  |-Node #637 at (l=42.0, t=508.0, r=1038.0, b=676.0)px
+|  | Text = '[Устройство / USB: 1 · Яндекс: 0 показано]'
+|  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+|  |-Node #638 at (l=42.0, t=676.0, r=1038.0, b=914.0)px, Tag: 'catalog_play_all'
+|  | Focused = 'false'
+|  | Role = 'Button'
+|  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  | Text = '[Слушать показанные треки]'
+|  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  | MergeDescendants = 'true'
+|  |-Node #691 at (l=42.0, t=946.0, r=1038.0, b=1318.0)px, Tag: 'track_card_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+|    IsContainer = 'true'
+|    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|     |-Node #693 at (l=42.0, t=946.0, r=1038.0, b=1181.0)px, Tag: 'track_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+|     | ContentDescription = '[Воспроизвести трек]'
+|     | Focused = 'false'
+|     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|     | Text = '[two, Неизвестный исполнитель]'
+|     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|     | MergeDescendants = 'true'
+|     |-Node #701 at (l=63.0, t=1202.0, r=901.0, b=1286.0)px, Tag: 'track_meta_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+|     | Text = '[USB · 0:30]'
+|     | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+|     |-Node #702 at (l=901.0, t=1181.0, r=1027.0, b=1307.0)px, Tag: 'enqueue_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+|       ContentDescription = '[Уже в очереди: two]'
+|       Role = 'Button'
+|       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|       [Disabled]
+|       Actions = [OnClick]
+|       MergeDescendants = 'true'
+|-Node #120 at (l=0.0, t=1360.0, r=1080.0, b=1584.0)px
+| IsContainer = 'true'
+| Shape = 'RectangleShape'
+|  |-Node #122 at (l=21.0, t=1360.0, r=807.0, b=1584.0)px, Tag: 'mini_open'
+|  | Focused = 'false'
+|  | Role = 'Button'
+|  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  | Text = '[Онлайн: трек 1, Неизвестный исполнитель · 0:02]'
+|  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+|  | MergeDescendants = 'true'
+|  |-Node #127 at (l=807.0, t=1409.0, r=933.0, b=1535.0)px, Tag: 'mini_play'
+|  | ContentDescription = '[Пауза]'
+|  | Focused = 'false'
+|  | Role = 'Button'
+|  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|  | Actions = [OnClick, RequestFocus]
+|  | MergeDescendants = 'true'
+|  |-Node #129 at (l=933.0, t=1409.0, r=1059.0, b=1535.0)px
+|    ContentDescription = '[Очередь]'
+|    Focused = 'false'
+|    Role = 'Button'
+|    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+|    Actions = [OnClick, RequestFocus]
+|    MergeDescendants = 'true'
+|-Node #16 at (l=0.0, t=1584.0, r=1080.0, b=1794.0)px
+IsContainer = 'true'
+Shape = 'RectangleShape'
+|-Node #17 at (l=0.0, t=1584.0, r=1080.0, b=1794.0)px
+[SelectableGroup]
+|-Node #18 at (l=0.0, t=1584.0, r=255.0, b=1794.0)px, Tag: 'nav_player'
+| Focused = 'false'
+| Role = 'Tab'
+| Selected = 'false'
+| Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+| Text = '[Плеер]'
+| Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+| MergeDescendants = 'true'
+|-Node #27 at (l=276.0, t=1584.0, r=530.0, b=1794.0)px, Tag: 'nav_library'
+| Focused = 'false'
+| Role = 'Tab'
+| Selected = 'true'
+| Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+| Text = '[Медиатека]'
+| Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+| MergeDescendants = 'true'
+|-Node #36 at (l=551.0, t=1584.0, r=805.0, b=1794.0)px, Tag: 'nav_search'
+| Focused = 'false'
+| Role = 'Tab'
+| Selected = 'false'
+| Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+| Text = '[Поиск]'
+| Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+| MergeDescendants = 'true'
+|-Node #45 at (l=826.0, t=1584.0, r=1080.0, b=1794.0)px, Tag: 'nav_clips'
+Focused = 'false'
+Role = 'Tab'
+Selected = 'false'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Клипы]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:34)
+at dev.petrov.ymplayer2.CatalogSourcesTest.sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences(CatalogSourcesTest.kt:82)
+... 67 trimmed
+Caused by: java.lang.AssertionError: No node found that matches TestTag = 'track_yandex:1:7' in scrollable container
+Semantics of the node:
+Node #119 at (l=0.0, t=416.0, r=1080.0, b=1360.0)px, Tag: 'catalog_list'
+CollectionInfo = 'CollectionInfo(rowCount=6, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape&#64;cdf36d4'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=1734.0, maxValue=1734.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 5 children, 8 siblings
+Selector used: (TestTag = 'catalog_list')
+
+at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:258)
+at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:28)
+... 69 more
+</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

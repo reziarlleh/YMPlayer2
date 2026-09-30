@@ -19,7 +19,7 @@ import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun ProfilesScreen(profiles: List<Profile>, current: String, account: (() -> Unit)? = null, select: (String) -> Unit) {
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    LazyColumn(Modifier.fillMaxSize().testTag("profiles_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         item { Text("Профили", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
         item { Text("У каждого профиля своя очередь. При переключении плеер остаётся на паузе.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         if (account != null) item {

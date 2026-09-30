@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="2" failures="0" errors="0" skipped="0" time="18.779" timestamp="2026-09-30T14:45:03" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.CatalogSourcesTest" tests="1" failures="0" errors="0" skipped="0" time="14.749" timestamp="2026-09-30T14:45:03" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="14.749" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.ShellInstrumentedTest" tests="1" failures="0" errors="0" skipped="0" time="2.925" timestamp="2026-09-30T14:45:03" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="categoryDetailsBackAndQueueSelectionWork" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="2.925" />
+  </testsuite>
+</testsuites>

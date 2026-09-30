@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="16" failures="0" errors="0" skipped="0" time="84.322" timestamp="2026-09-30T14:48:26" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.CatalogSourcesTest" tests="6" failures="0" errors="0" skipped="0" time="42.35" timestamp="2026-09-30T14:48:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="offlineFilterUsesOnlyDownloadedLikesAndStartsNoOnlineRequest" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="11.411" />
+    <testcase name="sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="8.486" />
+    <testcase name="localGenreAndUsbFolderDoNotRequestInventedRemoteSections" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="3.599" />
+    <testcase name="commonSearchAndOnlineFailureKeepLocalResultsUsable" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="8.955" />
+    <testcase name="tvDpadChoosesOnlineSourceAndStartsShownTrack" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="2.515" />
+    <testcase name="albumDetailsReturnToSharedCatalogAndGuestCannotSeeAccountRows" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="7.384" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.NavigationTest" tests="3" failures="0" errors="0" skipped="0" time="15.309" timestamp="2026-09-30T14:48:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="exitPromptExpiresAndNavigationRecreationAndBackgroundResetIt" classname="dev.petrov.ymplayer2.NavigationTest" time="5.286" />
+    <testcase name="twoRootBackPressesFinishTheActivity" classname="dev.petrov.ymplayer2.NavigationTest" time="2.507" />
+    <testcase name="upUsesHierarchyAndToolbarHonorsCatalogDetail" classname="dev.petrov.ymplayer2.NavigationTest" time="7.516" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.ShellInstrumentedTest" tests="7" failures="0" errors="0" skipped="0" time="24.703" timestamp="2026-09-30T14:48:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="searchAndFiltersDoNotChangePlaybackOrLeakIntoLibrary" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="4.793" />
+    <testcase name="errorCanBeRetriedAndThemeSurvivesRecreation" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="7.625" />
+    <testcase name="profilesStopAndRetainSeparatePositions" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="4.137" />
+    <testcase name="categoryDetailsBackAndQueueSelectionWork" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="2.848" />
+    <testcase name="availableFilterHidesDisconnectedUsbWithoutChangingQueue" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="2.03" />
+    <testcase name="tvDpadFirstPressPlaysAndRightMovesToNext" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="0.861" />
+    <testcase name="firstPlayAndMiniPlayerShareStateAcrossNavigationAndRecreation" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="2.409" />
+  </testsuite>
+</testsuites>

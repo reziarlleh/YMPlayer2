@@ -42,6 +42,8 @@ private val destinations = listOf(
 @Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val library by model.library.collectAsStateWithLifecycle()
+    val offlineState = model.offline?.state?.collectAsStateWithLifecycle()?.value
+    val cachedTracks = offlineState?.takeIf { it.owner?.profileId == playback.profileId }?.tracks.orEmpty()
     val demo = model.local == null
     var route by rememberSaveable { mutableStateOf("player") }
     var artistFrom by rememberSaveable { mutableStateOf("player") }
@@ -142,7 +144,7 @@ private val destinations = listOf(
                                 "library", "search" -> Column(Modifier.fillMaxSize()) {
                                     model.online?.let {
                                         if (!typingInShortWindow) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                            FilterChip(!onlineSource, { onlineSource = false }, { Text("Устройство / USB") }, Modifier.prismFocus().testTag("source_local"))
+                                            FilterChip(!onlineSource, { onlineSource = false }, { Text("Общий каталог") }, Modifier.prismFocus().testTag("source_local"))
                                             FilterChip(onlineSource, { onlineSource = true }, { Text("Яндекс Музыка") }, Modifier.prismFocus().testTag("source_yandex"))
                                             if (model.offline != null) FilterChip(false, { navigate("offline") }, { Text("Офлайн") }, Modifier.prismFocus().testTag("open_offline"))
                                         }
@@ -156,6 +158,9 @@ private val destinations = listOf(
                                     indexed = model.local as? IndexedLocalLibrary,
                                     indexedSources = library.roots.mapTo(linkedSetOf(), LibraryRoot::source),
                                     noLocalRoots = library.roots.isEmpty(),
+                                    music = model.online, taste = model.taste, cached = cachedTracks,
+                                    artist = openArtist, cloudPlaylists = model.cloudPlaylists, signIn = { navigate("account") },
+                                    onlineHome = { onlineSource = true }, waveStarted = { navigate("player") },
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 }
                                 "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, if (demo) library.tracks else emptyList(), model.player, route == "favorites", model.local as? IndexedLocalLibrary) }

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="16" failures="2" errors="0" skipped="0" time="66.395" timestamp="2026-09-30T14:31:41" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.CatalogSourcesTest" tests="6" failures="1" errors="0" skipped="0" time="37.316" timestamp="2026-09-30T14:31:41" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="offlineFilterUsesOnlyDownloadedLikesAndStartsNoOnlineRequest" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="10.832" />
+    <testcase name="sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="8.349">
+      <failure>java.lang.AssertionError: No node found that matches TestTag = 'track_yandex:1:7' in scrollable container
+Semantics of the node:
+Node #643 at (l=0.0, t=416.0, r=1080.0, b=1360.0)px, Tag: 'catalog_list'
+CollectionInfo = 'CollectionInfo(rowCount=6, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape&#64;b5f00e9'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=1734.0, maxValue=1734.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 5 children, 8 siblings
+Selector used: (TestTag = 'catalog_list')
+
+at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:258)
+at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:28)
+at dev.petrov.ymplayer2.CatalogSourcesTest.sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences(CatalogSourcesTest.kt:74)
+</failure>
+    </testcase>
+    <testcase name="localGenreAndUsbFolderDoNotRequestInventedRemoteSections" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="3.425" />
+    <testcase name="commonSearchAndOnlineFailureKeepLocalResultsUsable" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="8.124" />
+    <testcase name="tvDpadChoosesOnlineSourceAndStartsShownTrack" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="1.752" />
+    <testcase name="albumDetailsReturnToSharedCatalogAndGuestCannotSeeAccountRows" classname="dev.petrov.ymplayer2.CatalogSourcesTest" time="4.834" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.NavigationTest" tests="3" failures="0" errors="0" skipped="0" time="9.287" timestamp="2026-09-30T14:31:41" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="exitPromptExpiresAndNavigationRecreationAndBackgroundResetIt" classname="dev.petrov.ymplayer2.NavigationTest" time="2.385" />
+    <testcase name="twoRootBackPressesFinishTheActivity" classname="dev.petrov.ymplayer2.NavigationTest" time="2.667" />
+    <testcase name="upUsesHierarchyAndToolbarHonorsCatalogDetail" classname="dev.petrov.ymplayer2.NavigationTest" time="4.235" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.ShellInstrumentedTest" tests="7" failures="1" errors="0" skipped="0" time="18.287" timestamp="2026-09-30T14:31:41" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="searchAndFiltersDoNotChangePlaybackOrLeakIntoLibrary" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="3.236" />
+    <testcase name="errorCanBeRetriedAndThemeSurvivesRecreation" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="3.211" />
+    <testcase name="profilesStopAndRetainSeparatePositions" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="2.158" />
+    <testcase name="categoryDetailsBackAndQueueSelectionWork" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="2.678">
+      <failure>java.lang.AssertionError: No node found that matches TestTag = 'track_usb:3' in scrollable container
+Semantics of the node:
+Node #5470 at (l=21.0, t=565.0, r=1059.0, b=1360.0)px, Tag: 'queue_list'
+CollectionInfo = 'CollectionInfo(rowCount=2, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape&#64;b5f00e9'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 2 children, 10 siblings
+Selector used: (TestTag = 'queue_list')
+
+at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:258)
+at dev.petrov.ymplayer2.ShellInstrumentedTest.scrollTag(ShellInstrumentedTest.kt:22)
+at dev.petrov.ymplayer2.ShellInstrumentedTest.categoryDetailsBackAndQueueSelectionWork(ShellInstrumentedTest.kt:84)
+</failure>
+    </testcase>
+    <testcase name="availableFilterHidesDisconnectedUsbWithoutChangingQueue" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="2.652" />
+    <testcase name="tvDpadFirstPressPlaysAndRightMovesToNext" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="1.564" />
+    <testcase name="firstPlayAndMiniPlayerShareStateAcrossNavigationAndRecreation" classname="dev.petrov.ymplayer2.ShellInstrumentedTest" time="2.788" />
+  </testsuite>
+</testsuites>

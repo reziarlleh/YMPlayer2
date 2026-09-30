@@ -60,6 +60,7 @@ class CollectionsPlaybackTest {
         compose.onNodeWithTag("playlist_create").assertExists()
         compose.onNodeWithTag("navigate_up").performClick()
         compose.onNodeWithTag("category_ALBUMS").performScrollTo().performClick()
+        compose.onNodeWithTag("catalog_list").performScrollToNode(hasText("Без альбома"))
         compose.onNodeWithText("Без альбома").performScrollTo().performClick()
         compose.onNodeWithTag("settings").performClick()
         compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("manage_folders"))
