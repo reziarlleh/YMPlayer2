@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 55,
-  "versionName": "2.0.0beta-build55",
+  "versionCode": 56,
+  "versionName": "2.0.0beta-build56",
   "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-09-30T15:39:20.0656688Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build55",
-  "releaseNotes": "Общий каталог локальных/USB и Яндекс-треков, альбомов и исполнителей: поиск, фильтры источника, детали и загрузка следующих результатов. Ошибка Яндекса сохраняет доступность локальных треков. Офлайн показывает только уже скачанные «Мне нравится».\r\n\r\nВоспроизведение сохраняет порядок ссылок и максимум три соседних трека Media3; страницы каталога не становятся очередью плеера. Волна заранее готовит следующий трек.\r\n\r\nПроверено: 17 сценариев Android 15, 16 при шрифте 200%, шесть Android TV с D-pad. Подписанный APK обновлён 54→55 с сохранением данных; фоновый WAV, системные кнопки и холодное восстановление на паузе прошли.\r\n\r\nBeta: далее длительные переходы клипов, миграции и полная выпускная регрессия. Приёмка K4811 и сети владельца выполняется независимо; скины запланированы для 2.1.\r\n",
+  "publishedAt": "2026-09-30T16:45:29.4291273Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build56",
+  "releaseNotes": "Исправлено сохранение трека и позиции при медленном восстановлении профиля. Смена профиля больше не публикует старый трек в новом; незавершённое чтение не перезаписывает чужой checkpoint. Повтор и случайный порядок сохраняются сразу.\r\n\r\nПроверено: 190 native-сценариев прошли, один reboot-сценарий отдельно прошёл на Android 15 и TV; 86 JVM и пять updater-проверок, lint. Подписанный APK сохранил данные при обновлении 55→56, прошёл фоновый WAV, системные кнопки и холодное восстановление на паузе.\r\n\r\nДополнительно проверены настоящие HLS/DASH-сегменты собственной фикстуры и 60 автоматических окончаний клипа с возобновлением пустых сессий и правильным feedback. Это проверка Media3 и логики, не новая личная live-приёмка Яндекса.\r\n\r\nДалее — аудит обязательного объёма и переход beta→stable. Приёмка K4811/HyperOS выполняется независимо; скины остаются в 2.1.\r\n",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build55/YMPlayer-2.0.0beta-build55.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build55/releases/2.0.0beta-build55/YMPlayer-2.0.0beta-build55.apk",
-    "sizeBytes": 4771078,
-    "sha256": "4783d05212d35762e15be9ff3af1050a8ddfe5f088e50c73590c53b748f15882"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build56/YMPlayer-2.0.0beta-build56.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build56/releases/2.0.0beta-build56/YMPlayer-2.0.0beta-build56.apk",
+    "sizeBytes": 4771082,
+    "sha256": "be1bf944f9bafcce38cfc9c489a4f348190bdf6e094203bbb2e5219f42b979e2"
   }
 }
