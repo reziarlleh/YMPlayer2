@@ -1,0 +1,90 @@
+--------- beginning of system
+09-30 02:02:57.208   610  1388 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+--------- beginning of main
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: No service published for: persistent_data_block
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: persistent_data_block
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:203)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$81.createService(SystemServiceRegistry.java:1071)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$81.createService(SystemServiceRegistry.java:1068)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$StaticServiceFetcher.getService(SystemServiceRegistry.java:2293)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1812)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2241)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.content.Context.getSystemService(Context.java:4503)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at com.android.server.pm.PackageInstallerSession.markAsSealed(PackageInstallerSession.java:2394)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at com.android.server.pm.PackageInstallerSession.commit(PackageInstallerSession.java:2143)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.content.pm.IPackageInstallerSession$Stub.onTransact(IPackageInstallerSession.java:462)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.os.Binder.execTransactInternal(Binder.java:1500)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: 	at android.os.Binder.execTransact(Binder.java:1444)
+09-30 02:03:21.151   610   686 E SystemServiceRegistry: Manager wrapper not available: persistent_data_block
+09-30 02:03:21.186   610   731 E PackageManager: No required verifiers
+09-30 02:03:21.402   610  1049 E IPCThreadState: Binder transaction failure. id: 72209, BR_*: 29189, error: -22 (Invalid argument)
+09-30 02:03:21.480   443   443 E BpTransactionCompletedListener: Failed to transact (-32)
+09-30 02:03:21.740   610   822 E AppOps  : attributionTag VCN not declared in manifest of android
+09-30 02:03:21.751  1051  1051 E SmsApplication: com.android.messaging lost android:receive_wap_push:  (fixing)
+09-30 02:03:21.757   610   822 E AppOps  : attributionTag VCN not declared in manifest of android
+09-30 02:03:21.757  1051  1051 E SmsApplication: com.android.messaging lost android:read_cell_broadcasts:  (fixing)
+09-30 02:03:21.770  1051  1051 E CellBroadcastUtils: getDefaultCellBroadcastReceiverPackageName: no package found
+09-30 02:03:21.816   610   822 E AppOps  : attributionTag VCN not declared in manifest of android
+09-30 02:03:21.825   610   739 E AtomicFile: Failed to rename /data/system/install_sessions.xml.new to /data/system/install_sessions.xml
+09-30 02:03:21.888   610  2352 E RoleControllerServiceImpl: Default/fallback role holder package doesn't qualify for the role, package: com.android.devicelockcontroller, role: android.app.role.SYSTEM_FINANCED_DEVICE_CONTROLLER
+09-30 02:03:21.919  1051  1051 E SmsApplication: com.android.messaging lost android:receive_wap_push:  (fixing)
+09-30 02:03:21.932  1051  1051 E SmsApplication: com.android.messaging lost android:read_cell_broadcasts:  (fixing)
+09-30 02:03:21.976  1051  1051 E CellBroadcastUtils: getDefaultCellBroadcastReceiverPackageName: no package found
+09-30 02:03:21.996  1051  1051 E SmsApplication: com.android.messaging lost android:receive_wap_push:  (fixing)
+09-30 02:03:21.996  1051  1051 E SmsApplication: com.android.messaging lost android:read_cell_broadcasts:  (fixing)
+09-30 02:03:21.999  1051  1051 E CellBroadcastUtils: getDefaultCellBroadcastReceiverPackageName: no package found
+09-30 02:03:24.326   610  1388 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+09-30 02:04:18.867  2416  2416 E etrov.ymplayer2: Not starting debugger since process cannot load the jdwp agent.
+09-30 02:04:19.182  2416  2440 E ActivityThread: Failed to find provider info for androidx.car.app.connection
+09-30 02:04:19.879  1874  1874 E WindowManager: android.view.WindowLeaked: Activity com.android.packageinstaller.InstallSuccess has leaked window com.android.internal.policy.DecorView{52154c4 V.E...... R.....ID 0,0-1024,520}[InstallSuccess] that was originally added here
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.view.ViewRootImpl.<init>(ViewRootImpl.java:1246)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.view.ViewRootImpl.<init>(ViewRootImpl.java:1232)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:428)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:158)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.Dialog.show(Dialog.java:352)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at com.android.packageinstaller.InstallSuccess.bindUi(InstallSuccess.java:109)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at com.android.packageinstaller.InstallSuccess.onCreate(InstallSuccess.java:75)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.Activity.performCreate(Activity.java:9002)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.Activity.performCreate(Activity.java:8980)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1526)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:4030)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:4235)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:112)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.servertransaction.TransactionExecutor.executeNonLifecycleItem(TransactionExecutor.java:174)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.servertransaction.TransactionExecutor.executeTransactionItems(TransactionExecutor.java:109)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:81)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2636)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:107)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.os.Looper.loopOnce(Looper.java:232)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.os.Looper.loop(Looper.java:317)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at android.app.ActivityThread.main(ActivityThread.java:8705)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+09-30 02:04:19.879  1874  1874 E WindowManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:886)
+09-30 02:04:19.885  1874  1874 E WindowManager: android.view.WindowLeaked: Activity com.android.packageinstaller.InstallSuccess has leaked window com.android.internal.policy.DecorView{78dc2e2 V.E...... R.....ID 0,0-1024,520}[InstallSuccess] that was originally added here
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.view.ViewRootImpl.<init>(ViewRootImpl.java:1246)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.view.ViewRootImpl.<init>(ViewRootImpl.java:1232)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:428)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:158)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.Dialog.show(Dialog.java:352)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at com.android.packageinstaller.InstallSuccess.bindUi(InstallSuccess.java:109)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at com.android.packageinstaller.InstallSuccess.onResume(InstallSuccess.java:82)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.Instrumentation.callActivityOnResume(Instrumentation.java:1722)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.Activity.performResume(Activity.java:9160)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.ActivityThread.performResumeActivity(ActivityThread.java:5299)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.ActivityThread.handleResumeActivity(ActivityThread.java:5342)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.servertransaction.ResumeActivityItem.execute(ResumeActivityItem.java:57)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.servertransaction.ActivityTransactionItem.execute(ActivityTransactionItem.java:60)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.servertransaction.TransactionExecutor.executeLifecycleItem(TransactionExecutor.java:225)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.servertransaction.TransactionExecutor.executeTransactionItems(TransactionExecutor.java:107)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:81)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2636)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:107)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.os.Looper.loopOnce(Looper.java:232)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.os.Looper.loop(Looper.java:317)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at android.app.ActivityThread.main(ActivityThread.java:8705)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at java.lang.reflect.Method.invoke(Native Method)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+09-30 02:04:19.885  1874  1874 E WindowManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:886)
+09-30 02:04:22.300   610  1388 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+09-30 02:04:42.543   610  2477 E GnssPsdsDownloader: No Long-Term PSDS servers were specified in the GnssConfiguration

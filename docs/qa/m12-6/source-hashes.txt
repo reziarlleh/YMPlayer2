@@ -1,0 +1,7 @@
+Observed UTC: 2026-09-30T02:05:14.2517782Z
+https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build50/YMPlayer-2.0.0beta-build50.apk bytes=4721926 sha256=e8cc62dd34035ac39c7b030aeabea08e290a05e4721419049b8c90f5dc32912e
+https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build50/releases/2.0.0beta-build50/YMPlayer-2.0.0beta-build50.apk bytes=4721926 sha256=e8cc62dd34035ac39c7b030aeabea08e290a05e4721419049b8c90f5dc32912e
+https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build50/releases/2.0.0beta-build50/YMPlayer-2.0.0beta-build50.apk bytes=4721926 sha256=e8cc62dd34035ac39c7b030aeabea08e290a05e4721419049b8c90f5dc32912e
+https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json versionCode=50
+https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json versionCode=50
+https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json versionCode=50
