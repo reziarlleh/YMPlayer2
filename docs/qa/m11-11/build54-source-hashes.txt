@@ -1,0 +1,10 @@
+GitHub: 4754694 bytes SHA256=149446d8a7e08759a0b2cdcc0df4f03fb9a022d9266faf290adcee95b821db01
+https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build54/YMPlayer-2.0.0beta-build54.apk
+
+jsDelivr: 4754694 bytes SHA256=149446d8a7e08759a0b2cdcc0df4f03fb9a022d9266faf290adcee95b821db01
+https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build54/releases/2.0.0beta-build54/YMPlayer-2.0.0beta-build54.apk
+
+Gcore: 4754694 bytes SHA256=149446d8a7e08759a0b2cdcc0df4f03fb9a022d9266faf290adcee95b821db01
+https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build54/releases/2.0.0beta-build54/YMPlayer-2.0.0beta-build54.apk
+
+Raw main manifest: versionCode=54, versionName=2.0.0beta-build54, matching APK SHA256 and size
