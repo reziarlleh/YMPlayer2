@@ -43,10 +43,12 @@ class BootCheckpointTest {
             }
             awaitState { app.library.testTracks.size == 2 }
             val first = app.library.testTracks.first().id
-            main { app.playback.playQueue(listOf(first)); app.playback.seek(9) }
-            awaitState { app.playback.state.value.current?.id == first && app.playback.state.value.positionSeconds >= 9 }
-            main { if (app.playback.state.value.playing) app.playback.toggle() }
-            awaitState { !app.playback.state.value.playing }
+            main { app.playback.chooseSource(Source.LOCAL) }
+            awaitState { app.playback.state.value.profileId == "road" && app.playback.state.value.automaticLocal && app.playback.state.value.queueCount == 2 }
+            main { app.playback.clearQueue() }
+            awaitState { app.playback.state.value.queueCount == 0 && app.playback.state.value.current == null }
+            main { app.playback.playQueue(listOf(first)); app.playback.seek(9); app.playback.toggle() }
+            awaitState { app.playback.state.value.current?.id == first && app.playback.state.value.positionSeconds >= 9 && !app.playback.state.value.playing }
             assertEquals("road", app.playback.state.value.profileId)
             instrument.targetContext.getSharedPreferences("boot-checkpoint-test", 0)
                 .edit().putString("expected", first).commit()

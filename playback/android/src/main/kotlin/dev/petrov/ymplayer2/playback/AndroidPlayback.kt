@@ -34,6 +34,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var ready = false
     private var followLibrary = true
     private var logicalQueue = emptyList<Track>()
+    private var referenceOrder: ReferencePlaybackOrder? = null
+    private var persistedReferenceOrder: ReferencePlaybackOrder? = null
+    private var persistedReferenceRevision = -1L
     private var localMediaEntries = emptyMap<String, Pair<Int, Track>>()
     private var indexedWindowJob: Job? = null
     private var indexedSelectionGeneration = 0L
@@ -62,6 +65,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     override suspend fun queuePage(offset: Int, limit: Int): CatalogPage<Track> {
         require(offset >= 0 && limit in 1..500 && offset <= Int.MAX_VALUE - limit)
+        referenceOrder?.let { order ->
+            val snapshot = order.references
+            val from = offset.coerceAtMost(snapshot.size)
+            val selected = snapshot.subList(from, (from + limit).coerceAtMost(snapshot.size))
+            return CatalogPage(resolveReferences(selected), snapshot.size, offset)
+        }
         val indexed = library as? IndexedLocalLibrary ?: return super<PlaybackController>.queuePage(offset, limit)
         if (!followLibrary) return super<PlaybackController>.queuePage(offset, limit)
         val profile = state.value.profileId
@@ -103,6 +112,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         player.addListener(object : Player.Listener {
             override fun onEvents(player: Player, events: Player.Events) { if (!updating && !restoring && ready) {
                 publish()
+                if (referenceOrder != null && events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) {
+                    startDiskWork { refreshReferenceWindow(preserveCurrent = true) }
+                }
                 if (usesBoundedLocalWindow() && events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) {
                     if (library is IndexedLocalLibrary) engine?.let(::refreshIndexedWindow)
                     else syncQueue(activeQueue())
@@ -213,6 +225,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             reconcileOnline()
             if (!restoring) reconcile()
         } else completed?.invoke()
+        if (!restoring) filterWave()
         drainPending()
     }
 
@@ -230,19 +243,92 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
 
     private suspend fun editableQueue(): List<Track> {
+        return activeQueue()
+    }
+
+    private suspend fun referencesFor(ids: Collection<String>): List<PlaybackReference> {
+        val indexed = library as? IndexedLocalLibrary ?: return ids.distinct().mapNotNull { id ->
+            knownTracks(state.value.profileId).find { it.id == id }?.let(PlaybackReference::from)
+        }
+        val local = indexed.referencesByIds(ids)
+        val remote = knownTracks(state.value.profileId).associateBy(Track::id)
+        return ids.distinct().mapNotNull { id -> local[id]?.let(::PlaybackReference)
+            ?: remote[id]?.let(PlaybackReference::from) }
+    }
+
+    private suspend fun editableReferences(): List<PlaybackReference> {
+        referenceOrder?.let { return it.references }
         val indexed = library as? IndexedLocalLibrary
-        if (!followLibrary || indexed == null) return activeQueue()
+        if (!followLibrary || indexed == null) return logicalQueue.map(PlaybackReference::from)
+        val source = prefs.getString("source:${state.value.profileId}", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
+        return referencesFor(indexed.catalogTrackIds(source))
+    }
+
+    private suspend fun resolveReferences(refs: List<PlaybackReference>): List<Track> {
         val profile = state.value.profileId
-        val source = prefs.getString("source:$profile", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
-        var revision: Long
-        var ids: List<String>
-        var tracks: Map<String, Track>
-        do {
-            revision = indexed.indexRevision
-            ids = indexed.catalogTrackIds(source)
-            tracks = localTracksByIds(profile, ids)
-        } while (indexed.indexRevision != revision)
-        return ids.mapNotNull(tracks::get)
+        val local = localTracksByIds(profile, refs.filter { it.saved.source != Source.YANDEX }.map(PlaybackReference::id))
+        val remote = knownTracks(profile).associateBy(Track::id)
+        return refs.map { ref -> if (ref.saved.source != Source.YANDEX) ref.saved.resolve(local)
+            else (remote[ref.id] ?: ref.remoteTrack(remoteEnabled(profile))).let {
+                (offline?.decorate(profile, it) ?: it).let { track -> track.copy(available = track.available && remoteEnabled(profile)) }
+            }
+        }
+    }
+
+    private suspend fun resolveReference(ref: PlaybackReference) = resolveReferences(listOf(ref)).single()
+
+    private suspend fun setReferences(refs: List<PlaybackReference>, preferred: String? = state.value.current?.id,
+        position: Int = state.value.positionSeconds, resume: Boolean = state.value.playing, preserveCurrent: Boolean = true) {
+        val order = referenceOrder ?: ReferencePlaybackOrder()
+        order.replace(refs)
+        referenceOrder = order
+        followLibrary = false
+        logicalQueue = emptyList()
+        refreshReferenceWindow(preferred, position, resume, preserveCurrent)
+    }
+
+    private suspend fun refreshReferenceWindow(id: String? = engine?.currentMediaItem?.mediaId ?: state.value.current?.id,
+        position: Int = state.value.positionSeconds, resume: Boolean = state.value.playing, preserveCurrent: Boolean = true) {
+        val order = referenceOrder ?: return
+        val player = engine ?: return
+        val selected = order.reference(id) ?: order.references.getOrNull(state.value.index.coerceAtMost((order.references.size - 1).coerceAtLeast(0)))
+        val current = selected?.let { resolveReference(it) }
+        val index = order.index(current?.id).coerceAtLeast(0)
+        val from = (index - 1).coerceIn(0, (order.references.size - 3).coerceAtLeast(0))
+        val visible = resolveReferences(order.references.drop(from).take(3))
+        val previous = current?.takeIf(Track::available)?.let { order.adjacent(it.id, -1, state.value.shuffle, state.value.repeatMode, ::resolveReference) }
+        val next = current?.takeIf(Track::available)?.let { order.adjacent(it.id, 1, state.value.shuffle, state.value.repeatMode, ::resolveReference) }
+        val media = (if (previous?.id == next?.id) listOfNotNull(current, next) else listOfNotNull(previous, current, next))
+            .filter(Track::available).distinctBy(Track::id).map { order.index(it.id) to it }
+        val keepAudio = preserveCurrent && current?.available == true && player.currentMediaItem?.mediaId == current.id
+        updating = true
+        try {
+            applyOrderingModes()
+            localMediaEntries = media.associate { it.second.id to it }
+            waitingId = current?.takeIf { !it.available }?.id
+            mutable.value = state.value.copy(queue = visible, index = index, queueOffset = from,
+                queueTotal = order.references.size, currentTrack = current, automaticLocal = false,
+                automaticSource = null, referenceQueue = true, explicitQueueIds = order.ids,
+                queueRevision = order.revision + ((library as? IndexedLocalLibrary)?.indexRevision ?: 0),
+                positionSeconds = if (keepAudio) (player.currentPosition / 1000).toInt() else position.coerceIn(0, current?.durationSeconds ?: 0),
+                playing = resume && current?.available == true, connected = true, error = null)
+            if (keepAudio) syncPlayerItems(player, media)
+            else {
+                player.pause()
+                if (waitingId != null || media.isEmpty()) player.clearMediaItems()
+                else player.setMediaItems(media.map { it.second.mediaItem(state.value.profileId) },
+                    media.indexOfFirst { it.second.id == current?.id }.coerceAtLeast(0), state.value.positionSeconds.toLong() * 1000)
+                if (current?.available == true) { player.prepare(); if (resume) player.play() }
+            }
+        } finally { updating = false }
+        publish(); checkpoint()
+    }
+
+    private suspend fun skipReference(direction: Int, resume: Boolean = engine?.playWhenReady == true) {
+        val order = referenceOrder ?: return
+        val next = order.adjacent(state.value.current?.id, direction, state.value.shuffle, state.value.repeatMode, ::resolveReference)
+        if (next == null) { engine?.pause(); publish(); checkpoint(); return }
+        refreshReferenceWindow(next.id, 0, resume, preserveCurrent = false)
     }
 
     override fun toggle() = command {
@@ -294,6 +380,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val player = engine ?: return@command
         if (direction == 0) return@command
         mutable.value = state.value.copy(error = null)
+        if (referenceOrder != null) {
+            startDiskWork { skipReference(if (direction > 0) 1 else -1) }
+            return@command
+        }
         if (waitingId != null) {
             if (library is IndexedLocalLibrary && usesBoundedLocalWindow()) {
                 loadIndexedSelection(waitingId, 0, resume = false, direction = if (direction > 0) 1 else -1)
@@ -321,6 +411,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         player.prepare(); publish(); checkpoint()
     }
     override fun select(trackId: String) = command {
+        if (referenceOrder?.ids?.contains(trackId) == true) {
+            startDiskWork {
+                val ref = referenceOrder?.reference(trackId) ?: return@startDiskWork
+                if (resolveReference(ref).available) refreshReferenceWindow(trackId, 0, resume = true, preserveCurrent = false)
+            }
+            return@command
+        }
         if (library is IndexedLocalLibrary && trackId.startsWith("local:") &&
             (followLibrary || logicalQueue.none { it.id == trackId })) {
             cancelWave()
@@ -348,6 +445,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             followLibrary = tracks.first { it.id == trackId }.source != Source.YANDEX
             prefs.edit().remove("source:${state.value.profileId}").apply()
             val next = if (followLibrary) tracks.filter { it.source != Source.YANDEX } else tracks.filter { it.source == Source.YANDEX }
+            if (library is IndexedLocalLibrary) {
+                startDiskWork { setReferences(next.map(PlaybackReference::from), trackId, 0, resume = true, preserveCurrent = false) }
+                return@command
+            }
             load(next, next.indexOfFirst { it.id == trackId }, 0)
         }
         engine?.prepare(); engine?.play()
@@ -360,6 +461,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
     override fun chooseSource(source: Source?) = command {
         cancelWave()
+        referenceOrder = null
         prefs.edit().putString("source:${state.value.profileId}", source?.name).apply()
         followLibrary = true
         indexedOrder?.reset()
@@ -373,6 +475,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
 
     override fun setRepeatMode(mode: RepeatMode) = command { if (!state.value.wave) {
+        if (referenceOrder != null) {
+            mutable.value = state.value.copy(repeatMode = mode)
+            applyOrderingModes()
+            startDiskWork { refreshReferenceWindow() }
+            return@command
+        }
         if (followLibrary && indexedOrder != null) {
             mutable.value = state.value.copy(repeatMode = mode)
             applyOrderingModes()
@@ -387,6 +495,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (bounded != usesBoundedLocalWindow()) syncQueue(queue) else { publish(); checkpoint() }
     } }
     override fun setShuffle(enabled: Boolean) = command { if (!state.value.wave) {
+        if (referenceOrder != null) {
+            if (enabled != state.value.shuffle) referenceOrder?.resetShuffle()
+            mutable.value = state.value.copy(shuffle = enabled)
+            applyOrderingModes()
+            startDiskWork { refreshReferenceWindow() }
+            return@command
+        }
         if (followLibrary && indexedOrder != null) {
             if (enabled != state.value.shuffle) indexedOrder.reset()
             mutable.value = state.value.copy(shuffle = enabled)
@@ -404,6 +519,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     override fun enqueue(trackId: String) = diskCommand {
         val track = (localTracksByIds(state.value.profileId, listOf(trackId))[trackId]
             ?: knownTracks(state.value.profileId).find { it.id == trackId })?.takeIf(Track::available) ?: return@diskCommand
+        if (library is IndexedLocalLibrary) {
+            val refs = editableReferences()
+            if (refs.any { it.id == trackId }) return@diskCommand
+            cancelWave()
+            setReferences(refs + PlaybackReference.from(track))
+            return@diskCommand
+        }
         val queue = editableQueue()
         if (queue.any { it.id == trackId }) return@diskCommand
         cancelWave()
@@ -411,6 +533,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         syncQueue(queue + track)
     }
     override fun moveInQueue(trackId: String, toIndex: Int) = diskCommand {
+        if (library is IndexedLocalLibrary) {
+            val refs = editableReferences()
+            val from = refs.indexOfFirst { it.id == trackId }
+            if (from < 0 || toIndex !in refs.indices || from == toIndex) return@diskCommand
+            cancelWave()
+            setReferences(refs.toMutableList().apply { add(toIndex, removeAt(from)) })
+            return@diskCommand
+        }
         val queue = editableQueue()
         val from = queue.indexOfFirst { it.id == trackId }
         if (from < 0 || toIndex !in queue.indices || from == toIndex) return@diskCommand
@@ -419,6 +549,17 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         syncQueue(queue.toMutableList().apply { add(toIndex, removeAt(from)) })
     }
     override fun removeFromQueue(trackId: String) = diskCommand {
+        if (library is IndexedLocalLibrary) {
+            val refs = editableReferences()
+            if (refs.none { it.id == trackId }) return@diskCommand
+            val before = state.value
+            val removingCurrent = before.current?.id == trackId
+            cancelWave()
+            if (removingCurrent) engine?.pause()
+            setReferences(refs.filterNot { it.id == trackId }, if (removingCurrent) null else before.current?.id,
+                if (removingCurrent) 0 else before.positionSeconds, before.playing && !removingCurrent)
+            return@diskCommand
+        }
         val queue = editableQueue()
         val index = queue.indexOfFirst { it.id == trackId }
         if (index < 0) return@diskCommand
@@ -438,6 +579,17 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         playResolvedQueue(trackIds, startId)
     }
     private suspend fun playResolvedQueue(trackIds: List<String>, startId: String?): Boolean {
+        if (library is IndexedLocalLibrary) {
+            val refs = referencesFor(trackIds)
+            if (refs.isEmpty()) return false
+            val order = ReferencePlaybackOrder().apply { replace(refs) }
+            val selected = order.reference(startId)?.let { resolveReference(it).takeIf(Track::available) }
+                ?: order.adjacent(null, 1, state.value.shuffle, RepeatMode.OFF, ::resolveReference) ?: return false
+            cancelWave()
+            referenceOrder = order
+            setReferences(refs, selected.id, 0, resume = true, preserveCurrent = false)
+            return true
+        }
         val known = knownTracks(state.value.profileId).associateBy(Track::id) + localTracksByIds(state.value.profileId, trackIds)
         val queue = trackIds.distinct().mapNotNull { known[it]?.takeIf(Track::available) }
         if (queue.isEmpty()) return false
@@ -458,11 +610,15 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         waveAdvance = true; waveResume = true
         fetchWave()
     }
-    internal fun playOfflineLikes() = command {
+    internal fun playOfflineLikes() = diskCommand {
         val profile = state.value.profileId
         val tracks = offline?.tracks(profile)?.filter { it.available && it.offline }.orEmpty()
-        if (tracks.isEmpty()) return@command
+        if (tracks.isEmpty()) return@diskCommand
         cancelWave(); followLibrary = false
+        if (library is IndexedLocalLibrary) {
+            setReferences(tracks.map(PlaybackReference::from), tracks.first().id, 0, resume = true, preserveCurrent = false)
+            return@diskCommand
+        }
         load(tracks, 0, 0)
         engine?.prepare(); engine?.play()
     }
@@ -494,7 +650,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun applyOrderingModes() {
         val player = engine ?: return
-        if (followLibrary && indexedOrder != null) {
+        if (referenceOrder != null || followLibrary && indexedOrder != null) {
             // ALL follows the catalog boundary rather than looping this small engine window.
             player.repeatMode = if (state.value.repeatMode == RepeatMode.ONE) Player.REPEAT_MODE_ONE else Player.REPEAT_MODE_OFF
             player.shuffleModeEnabled = false
@@ -510,6 +666,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun maintainIndexedOrder() {
         val player = engine ?: return
+        if (referenceOrder != null) {
+            if (ready && !restoring && !updating && player.playbackState == Player.STATE_ENDED &&
+                player.playWhenReady && state.value.repeatMode == RepeatMode.ALL)
+                startDiskWork { skipReference(1, resume = true) }
+            return
+        }
         if (!ready || restoring || updating || indexedOrder == null || !followLibrary || indexedWindowJob?.isActive == true) return
         if (player.playbackState == Player.STATE_ENDED && player.playWhenReady &&
             (state.value.repeatMode == RepeatMode.ALL || state.value.shuffle))
@@ -650,6 +812,16 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private fun filterWave() {
         val preferences = taste?.state?.value ?: return
         if (!ready || restoring || !(state.value.wave || state.value.recommendations) || preferences.profileId != state.value.profileId || !preferences.signedIn) return
+        referenceOrder?.let { order ->
+            val next = order.references.filter { preferences.allows(if (it.saved.source == Source.YANDEX) it.remoteTrack(true) else it.saved.resolve(emptyMap())) }
+            if (next == order.references) return
+            val before = state.value
+            val blocked = before.current?.let { !preferences.allows(it) } == true
+            val successor = order.references.drop(before.index + 1).firstOrNull { it in next }
+            startDiskWork { setReferences(next, if (blocked) successor?.id else before.current?.id,
+                if (blocked) 0 else before.positionSeconds, before.playing && (!blocked || successor != null), preserveCurrent = !blocked) }
+            return
+        }
         val next = logicalQueue.filter(preferences::allows)
         if (next == logicalQueue) return
         val blockedCurrent = state.value.current?.let { !preferences.allows(it) } == true
@@ -669,7 +841,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         return if (source == null) tracks else tracks.filter { it.source.name == source }
     }
 
-    // Indexed commands use editableQueue(); this fallback serves in-memory libraries.
+    // Indexed commands use editableReferences(); this fallback serves in-memory libraries.
     private fun activeQueue(): List<Track> = if (followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow())
         defaultQueue(state.value.profileId) else logicalQueue
 
@@ -681,10 +853,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             val source = prefs.getString("source:$profileId", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
             return copy(queue = all.subList(from, until).toList(), index = absoluteIndex,
                 queueOffset = from, queueTotal = all.size, currentTrack = all.getOrNull(absoluteIndex),
-                automaticLocal = true, automaticSource = source, queueRevision = indexed.indexRevision)
+                automaticLocal = true, automaticSource = source, queueRevision = indexed.indexRevision,
+                referenceQueue = false, explicitQueueIds = null)
         }
         return copy(queue = all, index = absoluteIndex, queueOffset = 0, queueTotal = null,
-            currentTrack = null, automaticLocal = false, automaticSource = null, queueRevision = 0)
+            currentTrack = null, automaticLocal = false, automaticSource = null, queueRevision = 0,
+            referenceQueue = false, explicitQueueIds = null)
     }
 
     // Indexed automatic playback gives Media3 nearby items, independently of ordering modes.
@@ -756,6 +930,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         fallbackFirst: Boolean = false, allowSourceChange: Boolean = false, direction: Int? = null,
         preserveCurrent: Boolean = false, rejectUnavailable: Boolean = false) {
         val indexed = library as? IndexedLocalLibrary ?: return
+        referenceOrder = null
         val player = engine ?: return
         val profile = state.value.profileId
         val source = prefs.getString("source:$profile", null)?.let { runCatching { Source.valueOf(it) }.getOrNull() }
@@ -811,7 +986,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                     mutable.value = state.value.copy(queue = window?.visible?.items.orEmpty(), index = window?.index ?: 0,
                         queueOffset = window?.visible?.offset ?: 0, queueTotal = window?.visible?.total ?: 0,
                         currentTrack = window?.current, automaticLocal = true, automaticSource = selectedSource,
-                        queueRevision = revision, positionSeconds = seconds, playing = false, connected = true, error = null)
+                        queueRevision = revision, positionSeconds = seconds, playing = false, connected = true, error = null,
+                        referenceQueue = false, explicitQueueIds = null)
                     if (waitingId != null || playable.isEmpty()) { player.pause(); player.clearMediaItems() }
                     else if (preserve) syncPlayerItems(player, playable)
                     else player.setMediaItems(playable.map { it.second.mediaItem(profile) },
@@ -851,7 +1027,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun remoteEnabled(profile: String) = online?.catalog?.value?.let { it.profileId == profile && it.enabled } == true
     private fun knownTracks(profile: String): List<Track> = (if (library is IndexedLocalLibrary) emptyList() else library.tracks(profile)) + if (remoteEnabled(profile))
-        (logicalQueue.filter { it.source == Source.YANDEX } + online!!.tracksForPlayback(profile) + offline?.tracks(profile).orEmpty())
+        (logicalQueue.filter { it.source == Source.YANDEX } + state.value.queue.filter { it.source == Source.YANDEX } + online!!.tracksForPlayback(profile) + offline?.tracks(profile).orEmpty())
             .associateBy(Track::id).values.map { offline?.decorate(profile, it) ?: it } else emptyList()
 
     /** Called on the Media3 loader thread, never the main thread. No token or signed URI enters a MediaItem. */
@@ -875,10 +1051,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         try {
         cancelWave()
         indexedOrder?.reset()
+        referenceOrder = null
         logicalQueue = emptyList()
         mutable.value = state.value.copy(profileId = validProfile, queue = emptyList(), index = 0, positionSeconds = 0,
             playing = false, error = null, queueOffset = 0, queueTotal = null, currentTrack = null,
-            automaticLocal = false, automaticSource = null, queueRevision = 0)
+            automaticLocal = false, automaticSource = null, queueRevision = 0, referenceQueue = false, explicitQueueIds = null)
         online?.accounts?.activate(validProfile)
         val ids = json?.optJSONArray("ids")
         followLibrary = json?.optBoolean("followLibrary", ids == null || ids.length() == 0) ?: true
@@ -894,6 +1071,19 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val wanted = if (followLibrary) emptySet() else (0 until (ids?.length() ?: 0)).mapTo(hashSetOf()) { ids!!.optString(it) }
         if (library is IndexedLocalLibrary) {
             indexedRestore = true
+            if (json?.optBoolean("wave", false) != true) {
+                val rows = if (json?.optBoolean("referenceOrder", false) == true)
+                    runCatching { JSONArray(prefs.getString("references:$validProfile", "[]")) }.getOrNull()
+                    else json?.optJSONArray("tracks")
+                val saved = (0 until (rows?.length() ?: 0)).mapNotNull { i -> runCatching { PlaybackReference.read(rows!!.getJSONObject(i)) }.getOrNull() }.associateBy(PlaybackReference::id)
+                val refs = if (json?.optBoolean("referenceOrder", false) == true) saved.values.toList()
+                    else (0 until (ids?.length() ?: 0)).mapNotNull { saved[ids!!.optString(it)] }
+                startDiskWork(::reconcileOnline) {
+                    mutable.value = state.value.copy(recommendations = json?.optBoolean("recommendations", false) == true)
+                    setReferences(refs, json?.optString("current"), json?.optInt("position", 0) ?: 0, resume = false, preserveCurrent = false)
+                }
+                return
+            }
             startDiskWork(::reconcileOnline) { finishReferenceRestore(validProfile, json, localTracksByIds(validProfile, wanted)) }
             return
         }
@@ -945,6 +1135,16 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (restoring) { deferredReconcile = true; return }
         if (remote.phase in setOf(AuthPhase.SIGNED_OUT, AuthPhase.GUEST, AuthPhase.UNCONFIGURED, AuthPhase.ERROR)) {
             cancelWave()
+            referenceOrder?.let { order ->
+                val keep = order.references.filter { it.saved.source != Source.YANDEX }
+                if (keep != order.references) {
+                    val before = state.value
+                    val retained = before.current?.id in keep.map(PlaybackReference::id)
+                    startDiskWork { setReferences(keep, if (retained) before.current?.id else null,
+                        if (retained) before.positionSeconds else 0, before.playing && retained) }
+                }
+                return
+            }
             val keep = logicalQueue.filter { it.source != Source.YANDEX }
             if (keep != logicalQueue) syncQueue(keep)
         } else reconcile()
@@ -954,6 +1154,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (!ready) return
         if (restoring) { deferredReconcile = true; return }
         val state = state.value
+        if (referenceOrder != null) {
+            startDiskWork { refreshReferenceWindow(id = state.current?.id, position = state.positionSeconds, resume = state.playing) }
+            return
+        }
         if (followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow()) {
             val source = prefs.getString("source:${state.profileId}", null)
                 ?.let { runCatching { Source.valueOf(it) }.getOrNull() }
@@ -1014,6 +1218,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun load(queue: List<Track>, index: Int, position: Int) {
         val player = engine ?: return
+        referenceOrder = null
         applyOrderingModes()
         updating = true
         try {
@@ -1037,7 +1242,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val player = engine ?: return
         val id = waitingId ?: player.currentMediaItem?.mediaId
         val before = state.value
-        val base = if (followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow()) {
+        val base = if (referenceOrder != null || followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow()) {
             val entry = localMediaEntries[id]
             before.copy(index = entry?.first?.takeIf { it >= 0 } ?: before.index,
                 currentTrack = entry?.second ?: before.current)
@@ -1051,8 +1256,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 player.playWhenReady && player.playbackSuppressionReason == Player.PLAYBACK_SUPPRESSION_REASON_NONE &&
                 player.playbackState != Player.STATE_ENDED && player.playerError == null,
             buffering = waitingId == null && player.playbackState == Player.STATE_BUFFERING,
-            repeatMode = if (followLibrary && indexedOrder != null) before.repeatMode else player.repeatMode.toRepeatMode(),
-            shuffle = if (followLibrary && indexedOrder != null) before.shuffle else player.shuffleModeEnabled)
+            repeatMode = if (referenceOrder != null || followLibrary && indexedOrder != null) before.repeatMode else player.repeatMode.toRepeatMode(),
+            shuffle = if (referenceOrder != null || followLibrary && indexedOrder != null) before.shuffle else player.shuffleModeEnabled)
     }
     private fun checkpoint() {
         val state = state.value
@@ -1060,8 +1265,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             .putString("repeat:${state.profileId}", state.repeatMode.name).putBoolean("shuffle:${state.profileId}", state.shuffle)
         // An automatically followed library is reconstructed from its index. Save only
         // the current item's label for media-button resumption before that index loads.
-        val references = if (followLibrary) listOfNotNull(state.current) else state.queue
-        val json = JSONObject().put("ids", JSONArray(if (followLibrary) emptyList<String>() else state.queue.map(Track::id)))
+        val references = if (followLibrary || referenceOrder != null) listOfNotNull(state.current) else state.queue
+        val json = JSONObject().put("ids", JSONArray(if (followLibrary || referenceOrder != null) emptyList<String>() else state.queue.map(Track::id)))
             .put("current", state.current?.id).put("position", state.positionSeconds).put("followLibrary", followLibrary)
             .put("tracks", JSONArray(references.map { JSONObject().put("id", it.id).put("title", it.title).put("artist", it.artist)
                 .put("source", it.source.name).put("duration", it.durationSeconds).put("tint", it.tint).put("album", it.album).put("artwork", it.artworkUri)
@@ -1069,6 +1274,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             .put("wave", state.wave).put("waveSession", waveBatch?.sessionId).put("waveCursor", waveBatch?.cursor)
             .put("recommendations", state.recommendations)
             .put("waveBatches", JSONObject().apply { if (state.wave) state.queue.forEach { track -> put(track.id, waveItems[track.id]?.batchId) } })
+        json.put("referenceOrder", referenceOrder != null)
+        referenceOrder?.let { order ->
+            if (persistedReferenceOrder !== order || persistedReferenceRevision != order.revision) {
+                editor.putString("references:${state.profileId}", JSONArray(order.references.map(PlaybackReference::json)).toString())
+                persistedReferenceOrder = order; persistedReferenceRevision = order.revision
+            }
+        }
         editor.putString("queue:${state.profileId}", json.toString()).apply()
     }
 }

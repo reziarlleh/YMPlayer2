@@ -17,12 +17,18 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /** Platform-only: provider runs in the test APK process, without target Kotlin dependencies. */
 public class TestMusicProvider extends DocumentsProvider {
     public static final Uri tree = DocumentsContract.buildTreeDocumentUri("dev.petrov.ymplayer2.test.music", "music");
     public static final Uri secondaryTree = DocumentsContract.buildTreeDocumentUri("dev.petrov.ymplayer2.test.music", "secondary");
-    private boolean unavailable;
+    private volatile boolean unavailable;
+    private final AtomicBoolean holdScan = new AtomicBoolean();
+    private volatile CountDownLatch scanEntered = new CountDownLatch(0);
+    private volatile CountDownLatch scanReleased = new CountDownLatch(0);
     private boolean secondaryUnavailable;
     private boolean duplicateFirst;
     private boolean corrupt;
@@ -39,7 +45,13 @@ public class TestMusicProvider extends DocumentsProvider {
     }
     @Override public MatrixCursor queryDocument(String id, String[] projection) { MatrixCursor cursor = cursor(projection); addDocument(cursor, id); return cursor; }
     @Override public MatrixCursor queryChildDocuments(String parent, String[] projection, String sortOrder) throws FileNotFoundException {
-        if (unavailable) throw new FileNotFoundException("Fixture storage disconnected");
+        boolean disconnectedAtStart = unavailable;
+        if (holdScan.compareAndSet(true, false)) {
+            scanEntered.countDown();
+            try { if (!scanReleased.await(15, TimeUnit.SECONDS)) throw new FileNotFoundException("Fixture scan gate timed out"); }
+            catch (InterruptedException e) { Thread.currentThread().interrupt(); throw new FileNotFoundException("Fixture scan interrupted"); }
+        }
+        if (disconnectedAtStart) throw new FileNotFoundException("Fixture storage disconnected");
         if (parent.equals("secondary") && secondaryUnavailable) throw new FileNotFoundException("Secondary fixture disconnected");
         MatrixCursor cursor = cursor(projection);
         if (parent.equals("music")) { addDocument(cursor, "one.wav"); if (duplicateFirst) addDocument(cursor, "one.wav"); addDocument(cursor, "nested"); if (artwork) addDocument(cursor, "cover.mp3"); if (corrupt) addDocument(cursor, "broken.wav"); if (extra) { addDocument(cursor, "three.wav"); addDocument(cursor, "four.wav"); } for (int i = 0; i < bulkCount; i++) addDocument(cursor, String.format(java.util.Locale.ROOT, "bulk-%03d.wav", i)); }
@@ -55,6 +67,7 @@ public class TestMusicProvider extends DocumentsProvider {
     }
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("fixtures")) {
+            holdScan.set(false); scanReleased.countDown();
             unavailable = false; corrupt = false; extra = false; artwork = false; missingSecond = false; bulkCount = 0;
             secondaryUnavailable = false;
             duplicateFirst = false;
@@ -73,6 +86,14 @@ public class TestMusicProvider extends DocumentsProvider {
         if (method.equals("secondaryUnavailable")) { secondaryUnavailable = "true".equals(arg); return Bundle.EMPTY; }
         if (method.equals("duplicateFirst")) { duplicateFirst = "true".equals(arg); return Bundle.EMPTY; }
         if (method.equals("unavailable")) { unavailable = "true".equals(arg); return Bundle.EMPTY; }
+        if (method.equals("holdScan")) { scanEntered = new CountDownLatch(1); scanReleased = new CountDownLatch(1); holdScan.set(true); return Bundle.EMPTY; }
+        if (method.equals("waitScan")) {
+            Bundle result = new Bundle();
+            try { result.putBoolean("entered", scanEntered.await(10, TimeUnit.SECONDS)); }
+            catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+            return result;
+        }
+        if (method.equals("releaseScan")) { scanReleased.countDown(); return Bundle.EMPTY; }
         if (method.equals("corrupt")) { corrupt = true; return Bundle.EMPTY; }
         if (method.equals("extra")) { extra = true; return Bundle.EMPTY; }
         if (method.equals("bulk")) { bulkCount = Math.max(0, Math.min(5000, Integer.parseInt(arg))); return Bundle.EMPTY; }

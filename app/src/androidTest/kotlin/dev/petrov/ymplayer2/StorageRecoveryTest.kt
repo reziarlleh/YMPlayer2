@@ -96,6 +96,7 @@ class StorageRecoveryTest {
         assertTrue(file.isFile)
         assertEquals(originalSize, library.testTracks.single { it.id == coverTrack.id }.sizeBytes)
         compose.runOnIdle { player.select(id("one")) }
+        waitFor { player.state.value.current?.id == id("one") }
         compose.onNodeWithTag("artwork_placeholder").assertIsDisplayed()
         assertNull(player.state.value.error)
     }
@@ -106,6 +107,7 @@ class StorageRecoveryTest {
         provider("missingSecond", "true"); runBlocking { library.refresh() }
         waitFor { player.state.value.current?.available == false }
         compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id == one }
         assertEquals(one, player.state.value.current?.id); assertFalse(player.state.value.playing)
         compose.runOnIdle { player.toggle() }
         waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }

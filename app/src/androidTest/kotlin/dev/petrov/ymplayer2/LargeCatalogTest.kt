@@ -60,12 +60,27 @@ class LargeCatalogTest {
             val saved = JSONObject(graph.getSharedPreferences("playback", 0).getString("queue:owner", "{}")!!)
             assertEquals(0, saved.getJSONArray("ids").length())
             assertEquals(1, saved.getJSONArray("tracks").length())
+            val ids = runBlocking { library.catalogTrackIds(Source.LOCAL) }
+            compose.runOnIdle { player.playQueue(ids, selected); player.seek(7); player.toggle() }
+            waitFor { player.state.value.referenceQueue && player.state.value.current?.id == selected &&
+                player.state.value.positionSeconds == 7 && !player.state.value.playing }
+            assertEquals(5002, player.state.value.queueCount)
+            assertTrue(player.state.value.queue.size <= 3)
+            assertTrue(compose.runOnIdle { controller.mediaItemCount } <= 3)
+            assertEquals(ids.subList(4480, 4560), runBlocking { player.queuePage(4480, 80).items.map(Track::id) })
+            val manualSaved = JSONObject(graph.getSharedPreferences("playback", 0).getString("queue:owner", "{}")!!)
+            assertTrue(manualSaved.getBoolean("referenceOrder"))
+            assertEquals(0, manualSaved.getJSONArray("ids").length())
+            assertEquals(1, manualSaved.getJSONArray("tracks").length())
+            assertEquals(5002, org.json.JSONArray(graph.getSharedPreferences("playback", 0).getString("references:owner", "[]")!!).length())
             compose.runOnIdle { controller.release() }
             browser = null
             compose.runOnIdle { compose.activity.stopService(android.content.Intent(compose.activity, dev.petrov.ymplayer2.playback.AudioService::class.java)) }
             waitFor { !player.state.value.connected }
             compose.runOnIdle { player.connect() }
-            waitFor { player.state.value.connected && player.state.value.current?.id == shuffled }
+            waitFor { player.state.value.connected && player.state.value.current?.id == selected && player.state.value.queueCount == 5002 }
+            assertEquals(7, player.state.value.positionSeconds)
+            assertTrue(player.state.value.referenceQueue)
             assertFalse(player.state.value.playing)
             assertTrue(player.state.value.shuffle)
             assertTrue(library.state.value.tracks.isEmpty())

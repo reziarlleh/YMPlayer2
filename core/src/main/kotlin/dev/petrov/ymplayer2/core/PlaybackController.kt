@@ -21,9 +21,10 @@ data class PlaybackState(
     val shuffle: Boolean = false,
     val wave: Boolean = false, val waveLoading: Boolean = false, val waveIssue: String? = null,
     val recommendations: Boolean = false,
-    /** Automatic local playback exposes only nearby metadata; index remains absolute. */
+    /** Disk-backed playback exposes only nearby metadata; index remains absolute. */
     val queueOffset: Int = 0, val queueTotal: Int? = null, val currentTrack: Track? = null,
     val automaticLocal: Boolean = false, val automaticSource: Source? = null, val queueRevision: Long = 0,
+    val referenceQueue: Boolean = false, val explicitQueueIds: Set<String>? = null,
 ) {
     val current: Track? get() = currentTrack ?: queue.getOrNull(index - queueOffset)
     val queueCount: Int get() = queueTotal ?: queue.size

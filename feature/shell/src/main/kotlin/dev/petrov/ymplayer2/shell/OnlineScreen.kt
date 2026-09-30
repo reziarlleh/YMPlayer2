@@ -49,7 +49,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         if (request.recommended) player.playRecommendedQueue(shownTracks.map(Track::id), trackId) else player.playQueue(shownTracks.map(Track::id), trackId)
         keyboard?.hide()
     }
-    val queued = playback.queue.mapTo(hashSetOf(), Track::id)
+    val queued = playback.explicitQueueIds ?: playback.queue.mapTo(hashSetOf(), Track::id)
     LazyColumn(Modifier.fillMaxSize().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         item {
             if (detail != null) TextButton({ up() }, Modifier.prismFocus().testTag("online_up")) { Text("На уровень выше") }

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="24" failures="10" errors="0" skipped="0" time="237.319" timestamp="2026-09-30T04:46:01" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.LocalPlaybackTest" tests="17" failures="3" errors="0" skipped="0" time="117.663" timestamp="2026-09-30T04:46:01" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="transientExternalAudioFocusPausesAndRestoresPlayback" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="5.461" />
+    <testcase name="independentRootsKeepTheirRowsAndCountsWhenOneScanFailsOrIsForgotten" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.935" />
+    <testcase name="followedLibraryCheckpointIsCompactAndRestoresItsOrder" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.714" />
+    <testcase name="manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="18.02">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:42)
+at dev.petrov.ymplayer2.LocalPlaybackTest.manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo(LocalPlaybackTest.kt:259)
+</failure>
+    </testcase>
+    <testcase name="automaticShuffleVisitsAllIdsAndRepeatsWithoutFullMetadataQueue" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="12.267" />
+    <testcase name="diskIndexPaginatesGroupsAndRetainsUnavailableDocuments" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.085" />
+    <testcase name="profileCheckpointsAndServiceRestartStayPaused" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.631" />
+    <testcase name="indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="2.707" />
+    <testcase name="followedLibraryKeepsMedia3WindowBoundedAcrossSelectionsAndModes" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="5.591" />
+    <testcase name="queueLoadsFarRowsWithoutLosingDirectSelection" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="18.867">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:42)
+at dev.petrov.ymplayer2.LocalPlaybackTest.queueLoadsFarRowsWithoutLosingDirectSelection(LocalPlaybackTest.kt:576)
+</failure>
+    </testcase>
+    <testcase name="safMetadataAndRealAudioContinueInBackground" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="8.044" />
+    <testcase name="missingRootKeepsIndexAndForgetLeavesOriginalReadable" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.337" />
+    <testcase name="nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="7.012" />
+    <testcase name="modeAndQueueControlsOperateTheRealPlayer" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.141" />
+    <testcase name="localSearchReadsDiskIndexAndOpensSelectedTrack" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.133" />
+    <testcase name="brokenAudioReportsErrorAndNextTrackStillPlays" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.638" />
+    <testcase name="queueEditsKeepAudioClockAndPersistIntentionalEmptyQueue" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="20.08">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:42)
+at dev.petrov.ymplayer2.LocalPlaybackTest.queueEditsKeepAudioClockAndPersistIntentionalEmptyQueue(LocalPlaybackTest.kt:496)
+</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.CollectionsPlaybackTest" tests="6" failures="6" errors="0" skipped="0" time="97.058" timestamp="2026-09-30T04:46:01" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="failedWriteAndUnknownSchemaDoNotOverwriteSavedCollections" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="16.068">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.waitFor(CollectionsPlaybackTest.kt:22)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.fixtures(CollectionsPlaybackTest.kt:35)
+</failure>
+    </testcase>
+    <testcase name="favoriteMenuPersistsAndProfilesRemainSeparate" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="16.316">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.waitFor(CollectionsPlaybackTest.kt:22)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.fixtures(CollectionsPlaybackTest.kt:35)
+</failure>
+    </testcase>
+    <testcase name="backClosesDialogThenAscendsPlaylistAndResetsUnrelatedCatalogDetail" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="16.261">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.waitFor(CollectionsPlaybackTest.kt:22)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.fixtures(CollectionsPlaybackTest.kt:35)
+</failure>
+    </testcase>
+    <testcase name="editsResolveOnlyRequestedIdsWithoutEnumeratingLibrary" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="16.134">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.waitFor(CollectionsPlaybackTest.kt:22)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.fixtures(CollectionsPlaybackTest.kt:35)
+</failure>
+    </testcase>
+    <testcase name="metadataEditsDoNotInterruptAudioAndUnavailableReferencesRecover" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="16.184">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.waitFor(CollectionsPlaybackTest.kt:22)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.fixtures(CollectionsPlaybackTest.kt:35)
+</failure>
+    </testcase>
+    <testcase name="nativeUiCreatesEditsAndPlaysOnlyTheChosenPlaylist" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="16.095">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.waitFor(CollectionsPlaybackTest.kt:22)
+at dev.petrov.ymplayer2.CollectionsPlaybackTest.fixtures(CollectionsPlaybackTest.kt:35)
+</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.StorageRecoveryTest" tests="1" failures="1" errors="0" skipped="0" time="10.724" timestamp="2026-09-30T04:46:01" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="disconnectNotificationPreservesManualOrderPositionAndModesAcrossRestart" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="10.724">
+      <failure></failure>
+    </testcase>
+  </testsuite>
+  <system-err>Test run failed to complete. Instrumentation run failed due to Process crashed.
+</system-err>
+</testsuites>

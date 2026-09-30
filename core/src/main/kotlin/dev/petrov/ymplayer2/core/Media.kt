@@ -48,6 +48,8 @@ interface IndexedLocalLibrary : LocalLibrary {
     /** Current catalog position and only nearby items required by the UI and Media3. */
     suspend fun playbackWindow(currentId: String?, source: Source? = null): LocalPlaybackWindow?
     suspend fun tracksByIds(ids: Collection<String>): Map<String, Track>
+    /** Short playlist labels; deliberately excludes audio URI and catalog metadata. */
+    suspend fun referencesByIds(ids: Collection<String>): Map<String, SavedTrack>
     suspend fun pageTracks(filter: CatalogFilter, descending: Boolean = false, group: String? = null,
         dimension: CatalogDimension = CatalogDimension.TRACKS, offset: Int = 0, limit: Int = 80): CatalogPage<Track>
     suspend fun pageGroups(filter: CatalogFilter, dimension: CatalogDimension,

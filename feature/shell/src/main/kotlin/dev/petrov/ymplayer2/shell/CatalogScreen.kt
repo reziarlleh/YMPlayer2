@@ -42,7 +42,7 @@ import kotlinx.coroutines.CancellationException
     val holder = rememberSaveableStateHolder()
     val keyboard = LocalSoftwareKeyboardController.current
     val playback by player.state.collectAsState()
-    val queuedIds = remember(playback.queue) { playback.queue.mapTo(hashSetOf(), Track::id) }
+    val queuedIds = playback.explicitQueueIds ?: remember(playback.queue) { playback.queue.mapTo(hashSetOf(), Track::id) }
     BackHandler(detail != null) { detail = null }
     val sources = if (indexed != null) indexedSources else remember(tracks) { tracks.mapTo(linkedSetOf(), Track::source) }
     val filter = CatalogFilter(source, offline || state == CatalogState.OFFLINE, availableOnly, if (search) query else "")

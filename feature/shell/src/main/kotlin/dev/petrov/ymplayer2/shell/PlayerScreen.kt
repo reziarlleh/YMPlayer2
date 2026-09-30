@@ -193,7 +193,7 @@ import kotlinx.coroutines.launch
 
 @Composable internal fun QueueScreen(state: PlaybackState, player: PlaybackController, taste: MusicTaste? = null, artist: (ArtistRef) -> Unit = {}) {
     var editing by rememberSaveable { mutableStateOf(false) }
-    val pageKey = if (state.automaticLocal) listOf(state.profileId, state.automaticSource, state.queueRevision, state.queueCount)
+    val pageKey = if (state.automaticLocal || state.referenceQueue) listOf(state.profileId, state.automaticSource, state.queueRevision, state.queueCount)
         else state.queue
     val pages = remember(pageKey) { mutableStateMapOf<Int, Result<CatalogPage<Track>>>() }
     val loading = remember(pageKey) { mutableSetOf<Int>() }

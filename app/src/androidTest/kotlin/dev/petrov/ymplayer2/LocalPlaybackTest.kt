@@ -264,11 +264,137 @@ class LocalPlaybackTest {
             waitFor { cursor.state.value.current?.available == false }
             assertEquals(7, cursor.state.value.positionSeconds)
             provider("unavailable", "false"); runBlocking { library.refresh() }
-            waitFor { cursor.state.value.current?.available == true }
+            try { waitFor { cursor.state.value.current?.available == true } }
+            catch (e: Exception) { throw AssertionError("Manual recovery: ${cursor.state.value}; catalog=${library.state.value}; requested=${requested.size}", e) }
             assertEquals(edited, cursor.state.value.queue.map(Track::id))
             assertFalse(cursor.state.value.playing)
             assertTrue(requested.isNotEmpty() && requested.all { it.size <= 3 })
         } finally { compose.runOnIdle { cursor.detach(); engine.release(); scope.cancel() } }
+    }
+
+    @Test fun largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences() {
+        provider("bulk", "60"); runBlocking { library.refresh() }
+        waitFor { player.state.value.queueCount == 62 }
+        val rows = library.testTracks.reversed()
+        val ids = rows.map(Track::id)
+        val context = object : ContextWrapper(compose.activity) {
+            override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("large-references-test-$name", mode)
+        }
+        context.getSharedPreferences("playback", 0).edit().clear().commit()
+        val requested = mutableListOf<Int>()
+        val indexed = object : IndexedLocalLibrary by library {
+            override fun tracks(profileId: String): List<Track> = error("No full metadata snapshot")
+            override suspend fun tracksByIds(ids: Collection<String>): Map<String, Track> {
+                requested += ids.size
+                return library.tracksByIds(ids)
+            }
+        }
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        lateinit var cursor: AndroidPlayback
+        lateinit var engine: ExoPlayer
+        compose.runOnIdle { cursor = AndroidPlayback(context, indexed, scope); engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
+        try {
+            waitFor { cursor.state.value.connected }
+            compose.runOnIdle { cursor.playQueue(ids, ids[10]); cursor.seek(7); cursor.toggle() }
+            waitFor { cursor.state.value.referenceQueue && cursor.state.value.current?.id == ids[10] && !cursor.state.value.playing && cursor.state.value.positionSeconds == 7 }
+            assertEquals(62, cursor.state.value.queueCount)
+            assertTrue(cursor.state.value.queue.size <= 3)
+            assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 3)
+            assertTrue(requested.all { it <= 3 })
+            assertTrue(ids[55] in cursor.state.value.explicitQueueIds.orEmpty())
+            compose.runOnIdle { cursor.moveInQueue(ids[55], 0); cursor.removeFromQueue(ids[45]) }
+            val edited = ids.toMutableList().apply { add(0, removeAt(55)); remove(ids[45]) }
+            waitFor { cursor.state.value.queueCount == 61 && cursor.state.value.index == edited.indexOf(ids[10]) }
+            assertEquals(7, cursor.state.value.positionSeconds)
+            assertEquals(edited.subList(50, 57), runBlocking { cursor.queuePage(50, 7).items.map(Track::id) })
+            requested.clear()
+            compose.runOnIdle { cursor.enqueue(ids[45]); cursor.setRepeatMode(RepeatMode.ALL); cursor.setShuffle(true) }
+            waitFor { cursor.state.value.queueCount == 62 && cursor.state.value.shuffle && cursor.state.value.repeatMode == RepeatMode.ALL }
+            val first = cursor.state.value.current!!.id
+            val visited = mutableSetOf<String>()
+            repeat(62) {
+                val current = cursor.state.value.current!!.id
+                assertTrue("Repeated manual shuffle ID", visited.add(current))
+                compose.runOnIdle { cursor.skip(1) }
+                waitFor { cursor.state.value.current?.id != current }
+                assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 3)
+            }
+            assertEquals(ids.toSet(), visited)
+            assertEquals(first, cursor.state.value.current?.id)
+            assertTrue(requested.all { it <= 3 })
+            compose.runOnIdle { cursor.seek(7); cursor.detach(); engine.release() }
+            val saved = JSONObject(context.getSharedPreferences("playback", 0).getString("queue:owner", "{}")!!)
+            assertTrue(saved.getBoolean("referenceOrder"))
+            assertEquals(0, saved.getJSONArray("ids").length())
+            assertEquals(1, saved.getJSONArray("tracks").length())
+            assertEquals(62, org.json.JSONArray(context.getSharedPreferences("playback", 0).getString("references:owner", "[]")!!).length())
+            assertFalse(saved.getJSONArray("tracks").getJSONObject(0).has("uri"))
+            compose.runOnIdle { engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
+            waitFor { cursor.state.value.connected && cursor.state.value.current?.id == first && cursor.state.value.queueCount == 62 }
+            assertEquals(7, cursor.state.value.positionSeconds)
+            assertFalse(cursor.state.value.playing)
+            assertTrue(cursor.state.value.shuffle)
+            assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 3)
+            runBlocking { library.forgetFolder(TestMusicProvider.tree.toString()) }
+            waitFor { cursor.state.value.current?.available == false }
+            assertEquals(62, cursor.state.value.queueCount)
+            val missing = runBlocking { cursor.queuePage(50, 3) }
+            assertTrue(missing.items.none(Track::available))
+            assertTrue(missing.items.all { it.title in rows.map(Track::title) })
+            runBlocking { library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+            waitFor { cursor.state.value.current?.available == true }
+            assertFalse(cursor.state.value.playing)
+            assertEquals(7, cursor.state.value.positionSeconds)
+        } finally { compose.runOnIdle { cursor.detach(); engine.release(); scope.cancel() } }
+    }
+
+    @Test fun legacyManualCheckpointMigratesWithoutChangingOrderOrPosition() {
+        val tracks = library.testTracks.reversed()
+        val context = object : ContextWrapper(compose.activity) {
+            override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("legacy-references-test-$name", mode)
+        }
+        val old = JSONObject().put("ids", org.json.JSONArray(tracks.map(Track::id)))
+            .put("tracks", org.json.JSONArray(tracks.map { JSONObject().put("id", it.id).put("title", it.title)
+                .put("artist", it.artist).put("source", it.source.name).put("duration", it.durationSeconds).put("tint", it.tint) }))
+            .put("current", tracks.first().id).put("position", 9).put("followLibrary", false)
+        val prefs = context.getSharedPreferences("playback", 0)
+        prefs.edit().clear().putString("profile", "owner").putString("queue:owner", old.toString())
+            .putString("repeat:owner", "ALL").putBoolean("shuffle:owner", true).commit()
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        lateinit var cursor: AndroidPlayback
+        lateinit var engine: ExoPlayer
+        compose.runOnIdle { cursor = AndroidPlayback(context, library, scope); engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
+        try {
+            waitFor { cursor.state.value.connected && cursor.state.value.current?.id == tracks.first().id }
+            assertEquals(9, cursor.state.value.positionSeconds)
+            assertFalse(cursor.state.value.playing)
+            assertTrue(cursor.state.value.shuffle); assertEquals(RepeatMode.ALL, cursor.state.value.repeatMode)
+            assertEquals(tracks.map(Track::id), runBlocking { cursor.queuePage(0, 3).items.map(Track::id) })
+            val converted = JSONObject(prefs.getString("queue:owner", "{}")!!)
+            assertTrue(converted.getBoolean("referenceOrder"))
+            assertEquals(0, converted.getJSONArray("ids").length())
+            assertEquals(tracks.map(Track::id), org.json.JSONArray(prefs.getString("references:owner", "[]")!!).let { rows ->
+                (0 until rows.length()).map { rows.getJSONObject(it).getString("id") }
+            })
+            assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 3)
+        } finally { compose.runOnIdle { cursor.detach(); engine.release(); scope.cancel() } }
+    }
+
+    @Test fun refreshRequestedDuringOldScanRechecksNewlyAvailableStorage() = runBlocking {
+        provider("unavailable", "true"); provider("holdScan")
+        try {
+            val old = async(Dispatchers.IO) { library.refresh() }
+            assertTrue(withContext(Dispatchers.IO) { provider("waitScan")?.getBoolean("entered") == true })
+            provider("unavailable", "false")
+            // UNDISTPATCHED records this request before releasing the older scan's query.
+            val current = async(start = CoroutineStart.UNDISPATCHED) { library.refresh() }
+            provider("releaseScan")
+            old.await(); current.await()
+            val rows = library.pageTracks(CatalogFilter()).items
+            assertEquals(2, rows.size)
+            assertTrue(rows.all(Track::available))
+            assertNull(library.state.value.roots.single().issue)
+        } finally { provider("unavailable", "false"); provider("releaseScan") }
     }
 
     @Test fun followedLibraryCheckpointIsCompactAndRestoresItsOrder() {
@@ -573,7 +699,8 @@ class LocalPlaybackTest {
         assertTrue(player.state.value.index in player.state.value.queueOffset until
             player.state.value.queueOffset + player.state.value.queue.size)
         compose.runOnIdle { player.moveInQueue(target.id, 94) }
-        waitFor { !player.state.value.automaticLocal && player.state.value.queue.size == 102 }
+        waitFor { player.state.value.referenceQueue && player.state.value.queueCount == 102 }
+        assertTrue(player.state.value.queue.size <= 3)
         assertEquals(target.id, player.state.value.current?.id)
     }
 }

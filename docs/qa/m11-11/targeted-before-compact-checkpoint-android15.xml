@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="12" failures="0" errors="0" skipped="0" time="72.434" timestamp="2026-09-30T04:48:22" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.LocalPlaybackTest" tests="4" failures="0" errors="0" skipped="0" time="22.604" timestamp="2026-09-30T04:48:22" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="4.935" />
+    <testcase name="queueLoadsFarRowsWithoutLosingDirectSelection" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="4.875" />
+    <testcase name="largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="8.165" />
+    <testcase name="queueEditsKeepAudioClockAndPersistIntentionalEmptyQueue" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="4.629" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.OnlinePlaybackTest" tests="5" failures="0" errors="0" skipped="0" time="33.096" timestamp="2026-09-30T04:48:22" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="detailsBackAndRetryLeaveExistingAudioAlone" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="6.325" />
+    <testcase name="lateStreamCannotStartAfterProfileSwitch" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="5.266" />
+    <testcase name="logoutRemovesOnlineQueueButRetainsLocalTracks" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="4.231" />
+    <testcase name="unavailableStreamShowsRetryableErrorAndNextAttemptPlays" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="7.738" />
+    <testcase name="onlineQueueStreamsLazilyAndRecoversPausedWithoutSignedUrls" classname="dev.petrov.ymplayer2.OnlinePlaybackTest" time="9.536" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.WaveQueueModeTest" tests="3" failures="0" errors="0" skipped="0" time="15.786" timestamp="2026-09-30T04:48:22" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="externalControllerCannotEnableOrderingForPlayingPausedOrStoppedWave" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="3.717" />
+    <testcase name="stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="7.18" />
+    <testcase name="stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="4.889" />
+  </testsuite>
+</testsuites>

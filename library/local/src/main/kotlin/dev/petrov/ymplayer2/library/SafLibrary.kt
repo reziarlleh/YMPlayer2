@@ -16,6 +16,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.security.MessageDigest
+import java.util.concurrent.atomic.AtomicLong
 
 /** Read-only SAF index. A failed root scan never replaces its last complete snapshot. */
 class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary {
@@ -26,6 +27,8 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     private val artworkChecked = mutableSetOf<String>()
     private val mutex = Mutex()
     private val loaded = CompletableDeferred<Unit>()
+    private val refreshRequests = AtomicLong()
+    private var coveredRefresh = 0L
     private val mutable = MutableStateFlow(LibrarySnapshot())
     @Volatile override var indexRevision: Long = 0
         private set
@@ -60,6 +63,11 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     override suspend fun tracksByIds(ids: Collection<String>): Map<String, Track> {
         loaded.await()
         return withContext(Dispatchers.IO) { index.tracksByIds(ids) }
+    }
+
+    override suspend fun referencesByIds(ids: Collection<String>): Map<String, SavedTrack> {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.referencesByIds(ids) }
     }
 
     override suspend fun pageTracks(filter: CatalogFilter, descending: Boolean, group: String?,
@@ -106,11 +114,11 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     }
 
     override suspend fun refresh() {
-        val observedRevision = indexRevision
+        val request = refreshRequests.incrementAndGet()
         operation {
-            // Startup rescan and Activity.onStart can request the same work concurrently.
-            // A completed scan after the request already covers this refresh.
-            if (indexRevision == observedRevision) scanAll()
+            // Coalesce only requests already present when that scan STARTED. A request
+            // during an older scan may describe newly connected storage and must run.
+            if (request > coveredRefresh) scanAll()
         }
     }
 
@@ -141,6 +149,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     }
 
     private suspend fun scanAll() {
+        val coveringRequest = refreshRequests.get()
         val snapshot = state.value
         val updated = mutableMapOf<String, LibraryRoot>()
         for (root in snapshot.roots) {
@@ -159,6 +168,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
             mutable.value = state.value.copy(roots = snapshot.roots.map { updated[it.uri] ?: it }, tracks = emptyList())
         }
         artwork.trim()
+        coveredRefresh = coveringRequest
     }
 
     private suspend fun scan(root: LibraryRoot): List<Track> {

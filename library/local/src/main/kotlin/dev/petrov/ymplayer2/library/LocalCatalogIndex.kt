@@ -207,6 +207,19 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
         } finally { db.endTransaction() }
     }
 
+    fun referencesByIds(ids: Collection<String>): Map<String, SavedTrack> = buildMap {
+        ids.distinct().chunked(400).forEach { batch ->
+            val placeholders = List(batch.size) { "?" }.joinToString(",")
+            readableDatabase.rawQuery("SELECT id,title,artist,source,duration,tint FROM tracks WHERE id IN ($placeholders)", batch.toTypedArray()).use { cursor ->
+                while (cursor.moveToNext()) {
+                    val ref = SavedTrack(cursor.getString(0), cursor.getString(1), cursor.getString(2),
+                        Source.valueOf(cursor.getString(3)), cursor.getInt(4), cursor.getInt(5))
+                    put(ref.id, ref)
+                }
+            }
+        }
+    }
+
     fun tracksByIds(ids: Collection<String>): Map<String, Track> {
         if (ids.isEmpty()) return emptyMap()
         val db = readableDatabase
