@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 54,
-  "versionName": "2.0.0beta-build54",
+  "versionCode": 55,
+  "versionName": "2.0.0beta-build55",
   "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-09-30T13:48:05.0673441Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build54",
-  "releaseNotes": "Ручные очереди сохраняют порядок ссылок и короткие подписи. Плеер читает выбранный и соседние треки; Media3 получает максимум три элемента независимо от длины списка. Рандом и повтор проходят весь ручной порядок.\r\n\r\nРедактирование далёких строк сохраняет текущий файл и позицию. Недоступные ссылки и их названия остаются в списке. Отметка добавления в очередь учитывает все ссылки, включая строки за пределами короткого списка плеера.\r\n\r\nПорядок сохраняется при редактировании; периодический checkpoint содержит только текущий трек, позицию и режимы. Старый формат ручного checkpoint переносится автоматически. Исправлена потеря запроса обновления, поступившего во время более старого обхода носителя.\r\n\r\nПроверены миграция, все ID ручного shuffle/ALL и большой SAF-каталог. Это beta: объединение локального/USB и Яндекс-каталога ещё входит в M11. Физическая приёмка K4811/HyperOS выполняется отдельно.\r\n",
+  "publishedAt": "2026-09-30T15:39:20.0656688Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build55",
+  "releaseNotes": "Общий каталог локальных/USB и Яндекс-треков, альбомов и исполнителей: поиск, фильтры источника, детали и загрузка следующих результатов. Ошибка Яндекса сохраняет доступность локальных треков. Офлайн показывает только уже скачанные «Мне нравится».\r\n\r\nВоспроизведение сохраняет порядок ссылок и максимум три соседних трека Media3; страницы каталога не становятся очередью плеера. Волна заранее готовит следующий трек.\r\n\r\nПроверено: 17 сценариев Android 15, 16 при шрифте 200%, шесть Android TV с D-pad. Подписанный APK обновлён 54→55 с сохранением данных; фоновый WAV, системные кнопки и холодное восстановление на паузе прошли.\r\n\r\nBeta: далее длительные переходы клипов, миграции и полная выпускная регрессия. Приёмка K4811 и сети владельца выполняется независимо; скины запланированы для 2.1.\r\n",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build54/YMPlayer-2.0.0beta-build54.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build54/releases/2.0.0beta-build54/YMPlayer-2.0.0beta-build54.apk",
-    "sizeBytes": 4754694,
-    "sha256": "149446d8a7e08759a0b2cdcc0df4f03fb9a022d9266faf290adcee95b821db01"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0beta-build55/YMPlayer-2.0.0beta-build55.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0beta-build55/releases/2.0.0beta-build55/YMPlayer-2.0.0beta-build55.apk",
+    "sizeBytes": 4771078,
+    "sha256": "4783d05212d35762e15be9ff3af1050a8ddfe5f088e50c73590c53b748f15882"
   }
 }
