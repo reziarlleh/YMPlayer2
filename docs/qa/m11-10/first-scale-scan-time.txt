@@ -1,0 +1,1 @@
+09-30 04:01:24.738 10917 10931 I System.out: M11 SAF scan: 5002 documents in 81899 ms

@@ -28,7 +28,7 @@ class CloudPlaylistPlaybackTest {
         runBlocking { h.library.state.value.roots.forEach { h.library.forgetFolder(it.uri) } }
         compose.activity.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { h.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { h.library.state.value.tracks.size == 2 && h.cloudPlaylists.state.value.owner == PlaylistOwner("owner", "1") }
+        waitFor { h.library.testTracks.size == 2 && h.cloudPlaylists.state.value.owner == PlaylistOwner("owner", "1") }
     }
     @After fun stop() { compose.runOnIdle { h.cloudGate?.complete(Unit); player.setRepeatMode(RepeatMode.OFF); player.stop() } }
     private fun click(tag: String, list: String = "cloud_dialog_list") {

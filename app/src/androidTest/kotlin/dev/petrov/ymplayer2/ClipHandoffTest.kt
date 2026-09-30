@@ -20,8 +20,8 @@ class ClipHandoffTest {
         instrument.runOnMainSync { app.playback.connect(); app.playback.switchProfile("owner") }
         waitFor { app.playback.state.value.connected && app.playback.state.value.profileId == "owner" && app.library.state.value.ready }
         runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { app.library.state.value.tracks.size == 2 }
-        val id = app.library.state.value.tracks.first().id
+        waitFor { app.library.testTracks.size == 2 }
+        val id = app.library.testTracks.first().id
         val deadline = System.currentTimeMillis() + 15_000
         while (!app.playback.state.value.playing && System.currentTimeMillis() < deadline) {
             instrument.runOnMainSync { app.playback.playQueue(listOf(id)) }

@@ -23,7 +23,7 @@ class CollectionsPlaybackTest {
     private fun provider(method: String, arg: String? = null) = graph.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), method, arg, null)
     private fun edit(change: CollectionEdit, profile: String = "owner") { assertTrue(runBlocking { store.edit(profile, change) }) }
     private fun data(profile: String = "owner") = store.state.value.profile(profile)
-    private fun id(title: String) = library.state.value.tracks.single { it.title == title }.id
+    private fun id(title: String) = library.testTracks.single { it.title == title }.id
     private fun goCollections(favorites: Boolean = false) {
         compose.onNodeWithTag("nav_library").performClick()
         val tag = if (favorites) "category_FAVORITES" else "category_PLAYLISTS"
@@ -105,7 +105,7 @@ class CollectionsPlaybackTest {
         compose.onNodeWithTag("playlist_delete_confirm").performClick()
         waitFor { data().playlists.isEmpty() }
         assertEquals(two, player.state.value.current?.id); assertTrue(player.state.value.playing)
-        assertEquals(2, library.state.value.tracks.size)
+        assertEquals(2, library.testTracks.size)
     }
     @Test fun favoriteMenuPersistsAndProfilesRemainSeparate() {
         val one = id("one")
@@ -167,13 +167,13 @@ class CollectionsPlaybackTest {
         assertTrue(player.state.value.playing); assertEquals(queue, player.state.value.queue)
         provider("unavailable", "true"); runBlocking { library.refresh() }
         assertEquals(2, data().playlists.single().tracks.size)
-        assertFalse(data().favorites.single().resolve(library.state.value.tracks.associateBy(Track::id)).available)
+        assertFalse(data().favorites.single().resolve(library.testTracks.associateBy(Track::id)).available)
         runBlocking { library.forgetFolder(TestMusicProvider.tree.toString()) }
         assertEquals("one", data().favorites.single().resolve(emptyMap()).title)
         provider("unavailable", "false"); provider("grant")
         runBlocking { library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        assertTrue(data().favorites.single().resolve(library.state.value.tracks.associateBy(Track::id)).available)
-        assertEquals(2, library.state.value.tracks.size)
+        assertTrue(data().favorites.single().resolve(library.testTracks.associateBy(Track::id)).available)
+        assertEquals(2, library.testTracks.size)
     }
     @Test fun failedWriteAndUnknownSchemaDoNotOverwriteSavedCollections() {
         edit(CollectionEdit.Create("Сохранённый", id("one")))

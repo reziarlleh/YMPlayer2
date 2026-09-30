@@ -109,9 +109,9 @@ class SystemBrowserTest {
         runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
         val browser = MediaBrowser.Builder(context, SessionToken(context, service)).buildAsync().get(20, TimeUnit.SECONDS)
         try {
-            awaitState { app.playback.state.value.connected && app.library.state.value.tracks.isNotEmpty() }
+            awaitState { app.playback.state.value.connected && app.library.testTracks.isNotEmpty() }
             assertTrue("Fixture expects no signed-in offline cache", app.offline.state.value.tracks.isEmpty())
-            val id = app.library.state.value.tracks.first().id
+            val id = app.library.testTracks.first().id
             main { app.playback.playQueue(listOf(id)) }
             awaitState { app.playback.state.value.current?.id == id && app.playback.state.value.playing }
             main { browser.pause() }
@@ -150,8 +150,8 @@ class SystemBrowserTest {
         runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
         try {
             main { app.playback.connect() }
-            awaitState { app.playback.state.value.connected && app.library.state.value.tracks.size >= 2 }
-            val tracks = app.library.state.value.tracks.take(2).map { it.id }
+            awaitState { app.playback.state.value.connected && app.library.testTracks.size >= 2 }
+            val tracks = app.library.testTracks.take(2).map { it.id }
             val track = tracks.first()
             main { app.playback.playQueue(tracks) }
             awaitState { app.playback.state.value.current?.id == track && app.playback.state.value.playing }

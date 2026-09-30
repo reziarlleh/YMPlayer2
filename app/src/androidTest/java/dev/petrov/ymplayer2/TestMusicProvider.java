@@ -21,7 +21,10 @@ import java.util.Arrays;
 /** Platform-only: provider runs in the test APK process, without target Kotlin dependencies. */
 public class TestMusicProvider extends DocumentsProvider {
     public static final Uri tree = DocumentsContract.buildTreeDocumentUri("dev.petrov.ymplayer2.test.music", "music");
+    public static final Uri secondaryTree = DocumentsContract.buildTreeDocumentUri("dev.petrov.ymplayer2.test.music", "secondary");
     private boolean unavailable;
+    private boolean secondaryUnavailable;
+    private boolean duplicateFirst;
     private boolean corrupt;
     private boolean extra;
     private boolean artwork;
@@ -37,20 +40,24 @@ public class TestMusicProvider extends DocumentsProvider {
     @Override public MatrixCursor queryDocument(String id, String[] projection) { MatrixCursor cursor = cursor(projection); addDocument(cursor, id); return cursor; }
     @Override public MatrixCursor queryChildDocuments(String parent, String[] projection, String sortOrder) throws FileNotFoundException {
         if (unavailable) throw new FileNotFoundException("Fixture storage disconnected");
+        if (parent.equals("secondary") && secondaryUnavailable) throw new FileNotFoundException("Secondary fixture disconnected");
         MatrixCursor cursor = cursor(projection);
-        if (parent.equals("music")) { addDocument(cursor, "one.wav"); addDocument(cursor, "nested"); if (artwork) addDocument(cursor, "cover.mp3"); if (corrupt) addDocument(cursor, "broken.wav"); if (extra) { addDocument(cursor, "three.wav"); addDocument(cursor, "four.wav"); } for (int i = 0; i < bulkCount; i++) addDocument(cursor, String.format(java.util.Locale.ROOT, "bulk-%03d.wav", i)); }
+        if (parent.equals("music")) { addDocument(cursor, "one.wav"); if (duplicateFirst) addDocument(cursor, "one.wav"); addDocument(cursor, "nested"); if (artwork) addDocument(cursor, "cover.mp3"); if (corrupt) addDocument(cursor, "broken.wav"); if (extra) { addDocument(cursor, "three.wav"); addDocument(cursor, "four.wav"); } for (int i = 0; i < bulkCount; i++) addDocument(cursor, String.format(java.util.Locale.ROOT, "bulk-%03d.wav", i)); }
         else if (parent.equals("nested") && !missingSecond) addDocument(cursor, "two.wav");
+        else if (parent.equals("secondary")) addDocument(cursor, "two.wav");
         return cursor;
     }
-    @Override public boolean isChildDocument(String parent, String id) { return parent.equals("music") || parent.equals("nested") && id.equals("two.wav"); }
+    @Override public boolean isChildDocument(String parent, String id) { return parent.equals("music") || (parent.equals("nested") || parent.equals("secondary")) && id.equals("two.wav"); }
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal) throws FileNotFoundException {
-        boolean bulk = id.matches("bulk-\\d{3}\\.wav") && Integer.parseInt(id.substring(5, 8)) < bulkCount;
+        boolean bulk = id.matches("bulk-\\d{3,4}\\.wav") && Integer.parseInt(id.substring(5, id.length() - 4)) < bulkCount;
         if (unavailable || missingSecond && id.equals("two.wav") || !mode.equals("r") || !bulk && !Arrays.asList("one.wav", "two.wav", "three.wav", "four.wav", "broken.wav", "cover.mp3").contains(id)) throw new FileNotFoundException();
         return ParcelFileDescriptor.open(new File(directory(), bulk ? "one.wav" : id), ParcelFileDescriptor.MODE_READ_ONLY);
     }
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("fixtures")) {
             unavailable = false; corrupt = false; extra = false; artwork = false; missingSecond = false; bulkCount = 0;
+            secondaryUnavailable = false;
+            duplicateFirst = false;
             try {
                 wave(new File(directory(), "one.wav"), 440);
                 wave(new File(directory(), "two.wav"), 660);
@@ -61,10 +68,14 @@ public class TestMusicProvider extends DocumentsProvider {
             grant(); return Bundle.EMPTY;
         }
         if (method.equals("grant")) { grant(); return Bundle.EMPTY; }
+        if (method.equals("grantSecondary")) { getContext().grantUriPermission("dev.petrov.ymplayer2.dev", secondaryTree,
+            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION); return Bundle.EMPTY; }
+        if (method.equals("secondaryUnavailable")) { secondaryUnavailable = "true".equals(arg); return Bundle.EMPTY; }
+        if (method.equals("duplicateFirst")) { duplicateFirst = "true".equals(arg); return Bundle.EMPTY; }
         if (method.equals("unavailable")) { unavailable = "true".equals(arg); return Bundle.EMPTY; }
         if (method.equals("corrupt")) { corrupt = true; return Bundle.EMPTY; }
         if (method.equals("extra")) { extra = true; return Bundle.EMPTY; }
-        if (method.equals("bulk")) { bulkCount = Math.max(0, Math.min(200, Integer.parseInt(arg))); return Bundle.EMPTY; }
+        if (method.equals("bulk")) { bulkCount = Math.max(0, Math.min(5000, Integer.parseInt(arg))); return Bundle.EMPTY; }
         if (method.equals("missingSecond")) { missingSecond = "true".equals(arg); return Bundle.EMPTY; }
         if (method.equals("notify")) { getContext().getContentResolver().notifyChange(DocumentsContract.buildChildDocumentsUriUsingTree(tree, "music"), null); return Bundle.EMPTY; }
         if (method.equals("artwork")) {
@@ -83,7 +94,7 @@ public class TestMusicProvider extends DocumentsProvider {
         return new MatrixCursor(projection != null ? projection : new String[]{Document.COLUMN_DOCUMENT_ID, Document.COLUMN_DISPLAY_NAME, Document.COLUMN_MIME_TYPE, Document.COLUMN_SIZE, Document.COLUMN_LAST_MODIFIED, Document.COLUMN_FLAGS});
     }
     private void addDocument(MatrixCursor cursor, String id) {
-        boolean folder = id.equals("music") || id.equals("nested");
+        boolean folder = id.equals("music") || id.equals("nested") || id.equals("secondary");
         File file = new File(directory(), id.startsWith("bulk-") ? "one.wav" : id);
         cursor.newRow().add(Document.COLUMN_DOCUMENT_ID, id).add(Document.COLUMN_DISPLAY_NAME, id.equals("music") ? "Test Music" : id)
             .add(Document.COLUMN_MIME_TYPE, folder ? Document.MIME_TYPE_DIR : id.endsWith("mp3") ? "audio/mpeg" : "audio/wav").add(Document.COLUMN_SIZE, folder ? 0L : file.length())

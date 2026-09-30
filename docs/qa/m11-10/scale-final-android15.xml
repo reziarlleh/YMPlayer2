@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="1" failures="0" errors="0" skipped="0" time="102.043" timestamp="2026-09-30T04:18:44" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.LargeCatalogTest" tests="1" failures="0" errors="0" skipped="0" time="100.954" timestamp="2026-09-30T04:18:44" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="fiveThousandSafDocumentsStayOnDiskAndFarSelectionsRestorePaused" classname="dev.petrov.ymplayer2.LargeCatalogTest" time="100.954" />
+  </testsuite>
+</testsuites>

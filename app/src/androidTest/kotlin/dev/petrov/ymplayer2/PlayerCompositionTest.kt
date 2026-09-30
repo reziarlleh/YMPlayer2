@@ -24,7 +24,7 @@ class PlayerCompositionTest {
         runBlocking { fixture.library.state.value.roots.forEach { fixture.library.forgetFolder(it.uri) } }
         compose.activity.contentResolver.call(android.net.Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { fixture.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { fixture.library.state.value.tracks.size == 2 && fixture.taste.state.value.shelf(TasteKind.ARTIST).ready }
+        waitFor { fixture.library.testTracks.size == 2 && fixture.taste.state.value.shelf(TasteKind.ARTIST).ready }
         compose.runOnIdle { fixture.collaborators = true; fixture.longLabels = true; fixture.online.collection() }
         waitFor { fixture.online.state.value.loaded }
         compose.runOnIdle { player.playQueue(fixture.online.state.value.entries.map { it.id }) }

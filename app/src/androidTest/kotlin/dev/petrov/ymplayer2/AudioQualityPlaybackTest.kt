@@ -29,7 +29,7 @@ class AudioQualityPlaybackTest {
         runBlocking { h.library.state.value.roots.forEach { h.library.forgetFolder(it.uri) } }
         compose.activity.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { h.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { h.library.state.value.tracks.size == 2 && h.taste.state.value.shelf(TasteKind.ARTIST).ready }
+        waitFor { h.library.testTracks.size == 2 && h.taste.state.value.shelf(TasteKind.ARTIST).ready }
         h.resolvedQualities.clear()
     }
     @After fun stop() { compose.runOnIdle { h.offline.cancel(); player.stop(); h.audioQuality.setStream(AudioQuality.AUTO); h.audioQuality.setCache(AudioQuality.AUTO) } }
@@ -59,7 +59,7 @@ class AudioQualityPlaybackTest {
     private fun file(id: String) = File(Uri.parse(h.offline.state.value.tracks.first { it.tasteTarget().key == id }.uri).path!!)
     private fun hash(file: File) = MessageDigest.getInstance("SHA-256").digest(file.readBytes()).toList()
     @Test fun settingsPersistBothChoicesAndLeavePlayingAudioAlone() {
-        val local = h.library.state.value.tracks.first().id
+        val local = h.library.testTracks.first().id
         compose.runOnIdle { player.playQueue(listOf(local)) }; waitFor { player.state.value.positionSeconds >= 1 }
         val before = player.state.value.positionSeconds
         openSettings(); choose(false, AudioQuality.ECONOMY); choose(true, AudioQuality.HIGH)

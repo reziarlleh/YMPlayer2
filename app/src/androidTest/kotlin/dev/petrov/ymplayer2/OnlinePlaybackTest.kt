@@ -25,7 +25,7 @@ class OnlinePlaybackTest {
         runBlocking { fixture.library.state.value.roots.forEach { fixture.library.forgetFolder(it.uri) } }
         compose.activity.contentResolver.call(android.net.Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { fixture.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { fixture.library.state.value.tracks.size == 2 && fixture.online.state.value.signedIn }
+        waitFor { fixture.library.testTracks.size == 2 && fixture.online.state.value.signedIn }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
     private fun search() {
@@ -66,7 +66,7 @@ class OnlinePlaybackTest {
     }
     @Test fun logoutRemovesOnlineQueueButRetainsLocalTracks() {
         search(); action("online_play_all"); waitFor { player.state.value.positionSeconds >= 1 }
-        val local = fixture.library.state.value.tracks.first().id
+        val local = fixture.library.testTracks.first().id
         compose.runOnIdle { player.enqueue(local); fixture.auth.signOut() }
         waitFor { !fixture.online.state.value.signedIn && player.state.value.queue.none { it.source == Source.YANDEX } }
         assertEquals(listOf(local), player.state.value.queue.map { it.id }); assertFalse(player.state.value.playing)
@@ -90,7 +90,7 @@ class OnlinePlaybackTest {
         assertNull(player.state.value.error)
     }
     @Test fun detailsBackAndRetryLeaveExistingAudioAlone() {
-        val local = fixture.library.state.value.tracks.first().id
+        val local = fixture.library.testTracks.first().id
         compose.runOnIdle { player.playQueue(listOf(local)) }; waitFor { player.state.value.positionSeconds >= 1 }
         search(); action("online_kind_ALBUMS"); waitFor { fixture.online.state.value.entries.firstOrNull()?.entity != null }
         action("online_entity_7"); waitFor { fixture.online.state.value.request.entity != null }

@@ -32,7 +32,7 @@ class OfflinePlaybackTest {
         runBlocking { h.library.state.value.roots.forEach { h.library.forgetFolder(it.uri) } }
         compose.activity.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { h.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { h.library.state.value.tracks.size == 2 }
+        waitFor { h.library.testTracks.size == 2 }
         sourceCover = File(compose.activity.filesDir, "offline-source.png")
         val bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888).apply { eraseColor(android.graphics.Color.CYAN) }
         sourceCover.outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }; bitmap.recycle()
@@ -157,7 +157,7 @@ class OfflinePlaybackTest {
         val gate = CompletableDeferred<Unit>()
         val intent = android.content.Intent(compose.activity, OfflineSyncTestService::class.java)
         compose.runOnIdle {
-            h.player.playQueue(h.library.state.value.tracks.map(Track::id))
+            h.player.playQueue(h.library.testTracks.map(Track::id))
             h.streamGates = mapOf("yandex:2:7" to gate)
             OfflineSyncTestService.controller = cache
             compose.activity.startForegroundService(intent)

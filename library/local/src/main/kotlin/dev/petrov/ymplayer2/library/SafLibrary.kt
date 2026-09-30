@@ -35,11 +35,16 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
         Profile("road", "В дороге", "Своя очередь и позиция"),
         Profile("guest", "Гость", "Общий локальный каталог · без аккаунта", true),
     )
-    override fun tracks(profileId: String) = if (profiles.any { it.id == profileId }) state.value.tracks else emptyList()
+    override fun tracks(profileId: String): List<Track> = error("Use indexed queries for the SAF catalog")
 
     override suspend fun playableTrackIds(source: Source?): List<String> {
         loaded.await()
         return withContext(Dispatchers.IO) { index.playableTrackIds(source) }
+    }
+
+    override suspend fun catalogTrackIds(source: Source?): List<String> {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.catalogTrackIds(source) }
     }
 
     override suspend fun adjacentTrack(currentId: String?, direction: Int, source: Source?, wrap: Boolean): Track? {
@@ -76,7 +81,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
                 if (!index.initialized()) index.replace(readLegacyIndex(), artworkChecked)
                 index.markUnavailable()
                 indexRevision++
-                index.read(artworkChecked)
+                index.readSummary()
             }
             catch (_: Exception) { LibrarySnapshot(ready = true, issue = "Не удалось прочитать индекс. Добавьте папку заново.") }
             loaded.complete(Unit)
@@ -113,9 +118,9 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
         // Only our index and our grant change; no DocumentsContract.deleteDocument call.
         val next = state.value.copy(
             roots = state.value.roots.filterNot { it.uri == uri },
-            tracks = state.value.tracks.filterNot { it.rootId == uri }, issue = null,
+            tracks = emptyList(), issue = null,
         )
-        index.replace(next, artworkChecked)
+        index.forgetRoot(uri)
         indexRevision++
         mutable.value = next
         runCatching { resolver.releasePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION) }
@@ -137,33 +142,29 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
 
     private suspend fun scanAll() {
         val snapshot = state.value
-        val roots = mutableListOf<LibraryRoot>()
-        val tracks = mutableListOf<Track>()
+        val updated = mutableMapOf<String, LibraryRoot>()
         for (root in snapshot.roots) {
             currentCoroutineContext().ensureActive()
-            try {
-                val found = scan(root, snapshot.tracks.filter { it.rootId == root.uri })
-                tracks += found
-                roots += root.copy(issue = null)
+            val result = try {
+                val found = scan(root)
+                index.replaceRoot(root, found, artworkChecked)
+                root.copy(issue = null, trackCount = found.size)
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
-                roots += root.copy(issue = "Папка недоступна или обход не завершён. Подключите носитель и обновите.")
-                tracks += snapshot.tracks.filter { it.rootId == root.uri }.map { it.copy(available = false) }
+                index.markRootUnavailable(root)
+                root.copy(issue = "Папка недоступна или обход не завершён. Подключите носитель и обновите.")
             }
+            updated[root.uri] = result
+            indexRevision++
+            mutable.value = state.value.copy(roots = snapshot.roots.map { updated[it.uri] ?: it }, tracks = emptyList())
         }
-        val next = snapshot.copy(roots = roots, tracks = tracks.distinctBy(Track::id)
-            .sortedWith(compareBy<Track> { it.title.lowercase() }.thenBy(Track::id)))
-        index.replace(next, artworkChecked)
-        indexRevision++
-        mutable.value = next
         artwork.trim()
     }
 
-    private suspend fun scan(root: LibraryRoot, previous: List<Track>): List<Track> {
+    private suspend fun scan(root: LibraryRoot): List<Track> {
         val tree = Uri.parse(root.uri)
         check(resolver.persistedUriPermissions.any { it.uri == tree && it.isReadPermission })
-        val result = mutableListOf<Track>()
-        val old = previous.associateBy(Track::id)
+        val result = linkedMapOf<String, Track>()
         val pending = ArrayDeque<Pair<String, String>>()
         val seen = mutableSetOf<String>()
         pending.add(Documents.getTreeDocumentId(tree) to root.name)
@@ -191,16 +192,17 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
                     if (!mime.startsWith("audio/") && name.substringAfterLast('.', "").lowercase() !in extensions) continue
                     val uri = Documents.buildDocumentUriUsingTree(tree, documentId)
                     val id = "local:" + MessageDigest.getInstance("SHA-256").digest(uri.toString().toByteArray()).joinToString("") { byte -> "%02x".format(byte) }
+                    if (id in result) continue
                     val size = it.getLong(3)
                     val modified = it.getLong(4)
-                    val cached = old[id]?.takeIf { track -> modified > 0 && track.modifiedMillis == modified && track.sizeBytes == size && id in artworkChecked && artwork.present(track.artworkUri) }
-                    result += cached?.copy(available = true, folder = folder, source = root.source)
+                    val cached = index.cachedTrack(id, artworkChecked)?.takeIf { track -> modified > 0 && track.modifiedMillis == modified && track.sizeBytes == size && id in artworkChecked && artwork.present(track.artworkUri) }
+                    result[id] = cached?.copy(available = true, folder = folder, source = root.source)
                         ?: metadata(uri, id, root, name, folder, size, modified)
                 }
                 check(!it.extras.getBoolean(Documents.EXTRA_LOADING, false)) { "Incomplete provider listing" }
             }
         }
-        return result
+        return result.values.toList()
     }
 
     private fun metadata(uri: Uri, id: String, root: LibraryRoot, name: String, folder: String, size: Long, modified: Long): Track {

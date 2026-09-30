@@ -41,8 +41,8 @@ class BootCheckpointTest {
                 app.library.state.value.roots.forEach { app.library.forgetFolder(it.uri) }
                 app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL)
             }
-            awaitState { app.library.state.value.tracks.size == 2 }
-            val first = app.library.state.value.tracks.first().id
+            awaitState { app.library.testTracks.size == 2 }
+            val first = app.library.testTracks.first().id
             main { app.playback.playQueue(listOf(first)); app.playback.seek(9) }
             awaitState { app.playback.state.value.current?.id == first && app.playback.state.value.positionSeconds >= 9 }
             main { if (app.playback.state.value.playing) app.playback.toggle() }

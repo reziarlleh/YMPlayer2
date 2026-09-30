@@ -22,7 +22,7 @@ class StorageRecoveryTest {
     private val library get() = graph.library
     private fun waitFor(condition: () -> Boolean) = compose.waitUntil(15000, condition)
     private fun provider(method: String, arg: String? = null) = graph.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), method, arg, null)
-    private fun id(title: String) = library.state.value.tracks.single { it.title == title }.id
+    private fun id(title: String) = library.testTracks.single { it.title == title }.id
     private fun restartService() {
         compose.runOnIdle { compose.activity.stopService(Intent(compose.activity, AudioService::class.java)) }
         waitFor { !player.state.value.connected }
@@ -79,7 +79,7 @@ class StorageRecoveryTest {
     }
     @Test fun embeddedArtworkIsBoundedRenderedAndRebuiltAfterCacheEviction() {
         provider("artwork"); runBlocking { library.refresh() }
-        val coverTrack = library.state.value.tracks.single { it.title == "Cover fixture" }
+        val coverTrack = library.testTracks.single { it.title == "Cover fixture" }
         val originalSize = coverTrack.sizeBytes
         val file = File(Uri.parse(coverTrack.artworkUri!!).path!!)
         assertTrue(file.isFile)
@@ -94,7 +94,7 @@ class StorageRecoveryTest {
         assertTrue(file.delete())
         runBlocking { library.refresh() }
         assertTrue(file.isFile)
-        assertEquals(originalSize, library.state.value.tracks.single { it.id == coverTrack.id }.sizeBytes)
+        assertEquals(originalSize, library.testTracks.single { it.id == coverTrack.id }.sizeBytes)
         compose.runOnIdle { player.select(id("one")) }
         compose.onNodeWithTag("artwork_placeholder").assertIsDisplayed()
         assertNull(player.state.value.error)

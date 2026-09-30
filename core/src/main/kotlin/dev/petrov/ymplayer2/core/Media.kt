@@ -24,7 +24,7 @@ interface Catalog {
     fun tracks(profileId: String): List<Track>
 }
 
-data class LibraryRoot(val uri: String, val name: String, val source: Source, val issue: String? = null)
+data class LibraryRoot(val uri: String, val name: String, val source: Source, val issue: String? = null, val trackCount: Int = 0)
 data class LibrarySnapshot(
     val roots: List<LibraryRoot> = emptyList(), val tracks: List<Track> = emptyList(),
     val scanning: Boolean = false, val ready: Boolean = false, val issue: String? = null,
@@ -36,11 +36,13 @@ interface LocalLibrary : Catalog {
     suspend fun forgetFolder(uri: String)
 }
 
-/** Optional disk-backed metadata queries; playback may still use [LocalLibrary.state]. */
+/** Disk-backed metadata queries. State describes roots/loading; tracks are read by ID or page. */
 interface IndexedLocalLibrary : LocalLibrary {
     val indexRevision: Long
     /** Lightweight ID order for shuffle; never a second catalog of track metadata. */
     suspend fun playableTrackIds(source: Source? = null): List<String>
+    /** Explicit order when converting the automatic catalog selection to a manual list. */
+    suspend fun catalogTrackIds(source: Source? = null): List<String>
     /** Resolve one playable neighbour without materializing the catalog as a queue. */
     suspend fun adjacentTrack(currentId: String?, direction: Int, source: Source? = null, wrap: Boolean = false): Track?
     /** Current catalog position and only nearby items required by the UI and Media3. */

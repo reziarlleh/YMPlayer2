@@ -1,0 +1,3 @@
+versionName=2.0.0beta-build52
+lastUpdateTime=2026-09-30 03:16:06
+firstInstallTime=2026-09-09 07:09:25

@@ -51,7 +51,7 @@ class LocalPlaybackTest {
         runBlocking { library.state.value.roots.forEach { library.forgetFolder(it.uri) } }
         provider("fixtures")
         runBlocking { library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { library.state.value.tracks.size == 2 && player.state.value.queue.size == 2 }
+        waitFor { library.testTracks.size == 2 && player.state.value.queue.size == 2 }
     }
     @After fun stop() { compose.runOnIdle { player.stop() }; provider("unavailable", "false") }
 
@@ -91,7 +91,7 @@ class LocalPlaybackTest {
     }
 
     @Test fun localSearchReadsDiskIndexAndOpensSelectedTrack() {
-        val id = library.state.value.tracks.single { it.title == "one" }.id
+        val id = library.testTracks.single { it.title == "one" }.id
         compose.onNodeWithTag("nav_search").performClick()
         compose.onNodeWithTag("search_input").performTextInput("one")
         waitFor { compose.onAllNodesWithTag("track_$id").fetchSemanticsNodes().isNotEmpty() }
@@ -188,6 +188,87 @@ class LocalPlaybackTest {
         } finally {
             compose.runOnIdle { cursor.detach(); engine.release(); scope.cancel() }
         }
+    }
+
+    @Test fun independentRootsKeepTheirRowsAndCountsWhenOneScanFailsOrIsForgotten() {
+        provider("duplicateFirst", "true")
+        provider("grantSecondary")
+        runBlocking { library.addFolder(TestMusicProvider.secondaryTree.toString(), Source.USB) }
+        assertEquals(listOf(2, 1), library.state.value.roots.map { it.trackCount })
+        assertEquals(3, library.testTracks.size)
+        assertTrue(library.state.value.tracks.isEmpty())
+        provider("secondaryUnavailable", "true"); runBlocking { library.refresh() }
+        assertEquals(2, library.testTracks.count { it.available })
+        assertFalse(library.testTracks.single { it.source == Source.USB }.available)
+        assertNotNull(library.state.value.roots.last().issue)
+        assertEquals(listOf(2, 1), library.state.value.roots.map { it.trackCount })
+        runBlocking { library.forgetFolder(TestMusicProvider.tree.toString()) }
+        assertEquals(1, library.testTracks.size)
+        assertEquals(TestMusicProvider.secondaryTree.toString(), library.state.value.roots.single().uri)
+        provider("secondaryUnavailable", "false"); runBlocking { library.refresh() }
+        assertTrue(library.testTracks.single().available)
+        runBlocking { library.forgetFolder(TestMusicProvider.secondaryTree.toString()) }
+        assertTrue(library.testTracks.isEmpty())
+        assertTrue(library.state.value.roots.isEmpty())
+        provider("grant")
+        compose.activity.contentResolver.openFileDescriptor(android.provider.DocumentsContract.buildDocumentUriUsingTree(TestMusicProvider.tree, "one.wav"), "r")!!.use {
+            assertTrue(it.statSize > 0)
+        }
+    }
+
+    @Test fun manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo() {
+        provider("bulk", "60"); runBlocking { library.refresh() }
+        val order = library.testTracks
+        assertEquals(62, library.state.value.roots.single().trackCount)
+        assertTrue(library.state.value.tracks.isEmpty())
+        val context = object : ContextWrapper(compose.activity) {
+            override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("references-test-$name", mode)
+        }
+        context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit()
+        val requested = mutableListOf<Set<String>>()
+        var gate: CompletableDeferred<Unit>? = null
+        val indexed = object : IndexedLocalLibrary by library {
+            override fun tracks(profileId: String): List<Track> = error("A manual list must not read the entire catalog")
+            override suspend fun tracksByIds(ids: Collection<String>): Map<String, Track> {
+                requested += ids.toSet()
+                gate?.await()
+                return library.tracksByIds(ids)
+            }
+        }
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        lateinit var cursor: AndroidPlayback
+        lateinit var engine: ExoPlayer
+        compose.runOnIdle { cursor = AndroidPlayback(context, indexed, scope); engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
+        try {
+            waitFor { cursor.state.value.connected && cursor.state.value.queueCount == 62 }
+            val selected = listOf(order[50].id, order[4].id, order[20].id)
+            gate = CompletableDeferred()
+            compose.runOnIdle { cursor.playQueue(selected, order[4].id); cursor.seek(7); cursor.toggle() }
+            assertFalse(cursor.state.value.playing)
+            gate.complete(Unit); gate = null
+            waitFor { cursor.state.value.current?.id == order[4].id && cursor.state.value.positionSeconds == 7 && !cursor.state.value.playing }
+            assertEquals(selected, cursor.state.value.queue.map(Track::id))
+            compose.runOnIdle { cursor.moveInQueue(order[20].id, 0); cursor.removeFromQueue(order[50].id); cursor.enqueue(order[33].id) }
+            val edited = listOf(order[20].id, order[4].id, order[33].id)
+            waitFor { cursor.state.value.queue.map(Track::id) == edited }
+            assertEquals(order[4].id, cursor.state.value.current?.id)
+            assertEquals(7, cursor.state.value.positionSeconds)
+            compose.runOnIdle { cursor.setRepeatMode(RepeatMode.ALL); cursor.setShuffle(true); cursor.detach(); engine.release() }
+            compose.waitForIdle()
+            compose.runOnIdle { engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
+            waitFor { cursor.state.value.connected && cursor.state.value.queue.map(Track::id) == edited }
+            assertEquals(7, cursor.state.value.positionSeconds)
+            assertTrue(cursor.state.value.shuffle); assertEquals(RepeatMode.ALL, cursor.state.value.repeatMode)
+            assertFalse(cursor.state.value.playing)
+            provider("unavailable", "true"); runBlocking { library.refresh() }
+            waitFor { cursor.state.value.current?.available == false }
+            assertEquals(7, cursor.state.value.positionSeconds)
+            provider("unavailable", "false"); runBlocking { library.refresh() }
+            waitFor { cursor.state.value.current?.available == true }
+            assertEquals(edited, cursor.state.value.queue.map(Track::id))
+            assertFalse(cursor.state.value.playing)
+            assertTrue(requested.isNotEmpty() && requested.all { it.size <= 3 })
+        } finally { compose.runOnIdle { cursor.detach(); engine.release(); scope.cancel() } }
     }
 
     @Test fun followedLibraryCheckpointIsCompactAndRestoresItsOrder() {
@@ -292,9 +373,9 @@ class LocalPlaybackTest {
     }
 
     @Test fun safMetadataAndRealAudioContinueInBackground() {
-        assertEquals(setOf("one", "two"), library.state.value.tracks.map { it.title }.toSet())
-        assertTrue(library.state.value.tracks.all { it.durationSeconds == 30 && it.sizeBytes > 900000 })
-        assertTrue(library.state.value.tracks.any { it.folder.contains("nested") })
+        assertEquals(setOf("one", "two"), library.testTracks.map { it.title }.toSet())
+        assertTrue(library.testTracks.all { it.durationSeconds == 30 && it.sizeBytes > 900000 })
+        assertTrue(library.testTracks.any { it.folder.contains("nested") })
         compose.onNodeWithTag("player_play").performClick()
         waitFor { player.state.value.positionSeconds >= 2 && player.state.value.playing && !player.state.value.buffering }
         waitFor {
@@ -321,7 +402,7 @@ class LocalPlaybackTest {
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
             .setOnAudioFocusChangeListener { }
             .build()
-        compose.runOnIdle { player.select(library.state.value.tracks.first().id) }
+        compose.runOnIdle { player.select(library.testTracks.first().id) }
         waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
         try {
             assertEquals(AudioManager.AUDIOFOCUS_REQUEST_GRANTED, manager.requestAudioFocus(request))
@@ -353,46 +434,47 @@ class LocalPlaybackTest {
     }
 
     @Test fun missingRootKeepsIndexAndForgetLeavesOriginalReadable() {
-        val tracks = library.state.value.tracks
+        val tracks = library.testTracks
         compose.runOnIdle { player.toggle() }
         waitFor { player.state.value.positionSeconds >= 1 }
         provider("unavailable", "true")
         runBlocking { library.refresh() }
         waitFor { !player.state.value.playing }
-        assertEquals(tracks.map { it.id }, library.state.value.tracks.map { it.id })
-        assertTrue(library.state.value.tracks.none { it.available })
+        assertEquals(tracks.map { it.id }, library.testTracks.map { it.id })
+        assertTrue(library.testTracks.none { it.available })
         assertNotNull(library.state.value.roots.single().issue)
         provider("unavailable", "false")
         runBlocking { library.refresh() }
         waitFor { player.state.value.queue.size == 2 }
-        assertTrue(library.state.value.tracks.all { it.available })
+        assertTrue(library.testTracks.all { it.available })
         runBlocking { library.forgetFolder(TestMusicProvider.tree.toString()) }
         waitFor { player.state.value.queue.isEmpty() }
         provider("grant")
         runBlocking { library.addFolder(TestMusicProvider.tree.toString(), Source.USB) }
-        assertEquals(2, library.state.value.tracks.size)
-        assertTrue(library.state.value.tracks.all { it.source == Source.USB })
+        assertEquals(2, library.testTracks.size)
+        assertTrue(library.testTracks.all { it.source == Source.USB })
     }
 
     @Test fun brokenAudioReportsErrorAndNextTrackStillPlays() {
         provider("corrupt")
         runBlocking { library.refresh() }
-        val broken = library.state.value.tracks.single { it.title == "broken" }
+        val broken = library.testTracks.single { it.title == "broken" }
         compose.runOnIdle { player.select(broken.id) }
         waitFor { player.state.value.error != null }
         assertFalse(player.state.value.playing)
-        compose.runOnIdle { player.select(library.state.value.tracks.single { it.title == "one" }.id) }
+        compose.runOnIdle { player.select(library.testTracks.single { it.title == "one" }.id) }
         waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
         assertNull(player.state.value.error)
         compose.runOnIdle { player.select(broken.id) }
         waitFor { player.state.value.error != null }
         compose.runOnIdle { player.removeFromQueue(broken.id) }
+        waitFor { player.state.value.queue.none { it.id == broken.id } && player.state.value.error == null }
         assertNull(player.state.value.error)
         assertFalse(player.state.value.playing)
     }
     @Test fun queueEditsKeepAudioClockAndPersistIntentionalEmptyQueue() {
-        val one = library.state.value.tracks.single { it.title == "one" }.id
-        val two = library.state.value.tracks.single { it.title == "two" }.id
+        val one = library.testTracks.single { it.title == "one" }.id
+        val two = library.testTracks.single { it.title == "two" }.id
         compose.runOnIdle { player.select(one); player.seek(7) }
         waitFor { player.state.value.positionSeconds >= 8 }
         compose.runOnIdle { player.moveInQueue(one, 1); player.removeFromQueue(two) }
@@ -400,6 +482,7 @@ class LocalPlaybackTest {
         assertEquals(one, player.state.value.current?.id)
         assertTrue(player.state.value.playing)
         compose.runOnIdle { player.enqueue(two); player.enqueue(two); player.moveInQueue(two, -1) }
+        waitFor { player.state.value.queue.map(Track::id) == listOf(one, two) }
         assertEquals(listOf(one, two), player.state.value.queue.map { it.id })
         assertTrue(player.state.value.positionSeconds >= 9)
         compose.runOnIdle { player.removeFromQueue(one) }
@@ -413,6 +496,7 @@ class LocalPlaybackTest {
         waitFor { player.state.value.connected }
         assertTrue(player.state.value.queue.isEmpty())
         compose.runOnIdle { player.enqueue(two) }
+        waitFor { player.state.value.current?.id == two }
         assertEquals(two, player.state.value.current?.id)
         assertFalse(player.state.value.playing)
     }
@@ -451,8 +535,8 @@ class LocalPlaybackTest {
         assertFalse(player.state.value.playing)
     }
     @Test fun modeAndQueueControlsOperateTheRealPlayer() {
-        val one = library.state.value.tracks.single { it.title == "one" }.id
-        val two = library.state.value.tracks.single { it.title == "two" }.id
+        val one = library.testTracks.single { it.title == "one" }.id
+        val two = library.testTracks.single { it.title == "two" }.id
         compose.onNodeWithTag("repeat_mode").performClick()
         compose.onNodeWithTag("shuffle_mode").performClick()
         assertEquals(RepeatMode.ALL, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
@@ -479,7 +563,7 @@ class LocalPlaybackTest {
         val diskPage = runBlocking { player.queuePage(80, 22) }
         val target = diskPage.items[15]
         assertEquals(102, diskPage.total)
-        assertEquals(library.state.value.tracks.subList(80, 102).map { it.id }, diskPage.items.map { it.id })
+        assertEquals(library.testTracks.subList(80, 102).map { it.id }, diskPage.items.map { it.id })
         compose.onNodeWithTag("player_queue").performClick()
         compose.onNodeWithTag("queue_list").performScrollToIndex(95)
         waitFor { compose.onAllNodesWithTag("track_card_${target.id}").fetchSemanticsNodes().isNotEmpty() }

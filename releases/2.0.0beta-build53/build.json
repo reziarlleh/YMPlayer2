@@ -1,0 +1,9 @@
+{
+  "runtimeAcceptance": "pending",
+  "sha256": "ef9e2d749b7a3f52ae7e88c9e422f363d84f729c3052f3f55989210393362423",
+  "builtAtUtc": "2026-09-30T04:21:03.7648697Z",
+  "versionCode": 53,
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "beta",
+  "versionName": "2.0.0beta-build53"
+}

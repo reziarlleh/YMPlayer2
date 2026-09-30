@@ -16,7 +16,14 @@ class WaveQueueModeTest {
     @get:Rule val compose = createAndroidComposeRule<OnlineTestActivity>()
     private val fixture get() = compose.activity.harness
     private val player get() = fixture.player
-    private fun waitFor(condition: () -> Boolean) = compose.waitUntil(25000, condition)
+    private fun waitFor(condition: () -> Boolean) {
+        try { compose.waitUntil(25000, condition) }
+        catch (failure: Throwable) {
+            val state = player.state.value
+            throw AssertionError("Wave state: current=${state.current?.id}, count=${state.queueCount}, position=${state.positionSeconds}, " +
+                "playing=${state.playing}, wave=${state.wave}, loading=${state.waveLoading}, issue=${state.waveIssue}, error=${state.error}", failure)
+        }
+    }
     @Before fun prepare() {
         waitFor { fixture.library.state.value.ready && player.state.value.connected }
         compose.runOnIdle { player.stop(); player.switchProfile("owner"); player.clearQueue() }
@@ -25,7 +32,7 @@ class WaveQueueModeTest {
         runBlocking { fixture.library.state.value.roots.forEach { fixture.library.forgetFolder(it.uri) } }
         compose.activity.contentResolver.call(android.net.Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { fixture.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { fixture.library.state.value.tracks.size == 2 && fixture.taste.state.value.shelf(TasteKind.ARTIST).ready }
+        waitFor { fixture.library.testTracks.size == 2 && fixture.taste.state.value.shelf(TasteKind.ARTIST).ready }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
     private fun start() {
@@ -40,7 +47,7 @@ class WaveQueueModeTest {
         assertFalse(player.state.value.shuffle)
     }
     @Test fun stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls() {
-        val local = fixture.library.state.value.tracks.first().id
+        val local = fixture.library.testTracks.first().id
         compose.runOnIdle { player.playQueue(listOf(local)); player.setRepeatMode(RepeatMode.ALL); player.setShuffle(true) }
         start(); waveControls()
         compose.onNodeWithTag("player_stop").performClick()
@@ -56,6 +63,7 @@ class WaveQueueModeTest {
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 }
         waveControls()
         compose.runOnIdle { player.playQueue(listOf(local)); player.toggle() }
+        waitFor { !player.state.value.wave && player.state.value.current?.id == local }
         compose.onNodeWithTag("repeat_mode").assertIsDisplayed().performClick()
         compose.onNodeWithTag("shuffle_mode").assertIsDisplayed().performClick()
         assertEquals(RepeatMode.ALL, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
@@ -78,10 +86,11 @@ class WaveQueueModeTest {
             waveControls()
         }
         compose.runOnIdle {
-            player.playQueue(listOf(fixture.library.state.value.tracks.first().id))
+            player.playQueue(listOf(fixture.library.testTracks.first().id))
             fixture.systemPlayer.repeatMode = Player.REPEAT_MODE_ONE
             fixture.systemPlayer.shuffleModeEnabled = true
         }
+        waitFor { !player.state.value.wave && player.state.value.repeatMode == RepeatMode.ONE && player.state.value.shuffle }
         assertEquals(RepeatMode.ONE, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
     }
     @Test fun stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay() {

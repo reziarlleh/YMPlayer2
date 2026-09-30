@@ -25,7 +25,7 @@ import dev.petrov.ymplayer2.designsystem.prismFocus
             Surface(shape = MaterialTheme.shapes.medium) {
                 Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(root.name, fontWeight = FontWeight.Bold)
-                    Text("${root.source.label} · ${state.tracks.count { it.rootId == root.uri }} треков", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("${root.source.label} · ${if (state.tracks.isEmpty()) root.trackCount else state.tracks.count { it.rootId == root.uri }} треков", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     root.issue?.let { Text(it, color = MaterialTheme.colorScheme.error) }
                     TextButton({ forget(root.uri) }, Modifier.prismFocus(), enabled = !state.scanning) { Text("Убрать из медиатеки") }
                 }

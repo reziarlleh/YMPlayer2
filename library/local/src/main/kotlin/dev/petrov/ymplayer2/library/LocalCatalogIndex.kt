@@ -49,32 +49,90 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
         try {
             db.delete("tracks", null, null)
             db.delete("roots", null, null)
-            snapshot.roots.forEach { root ->
-                db.insertOrThrow("roots", null, ContentValues().apply {
-                    put("uri", root.uri); put("name", root.name); put("source", root.source.name)
-                })
-            }
-            snapshot.tracks.forEach { track ->
-                db.insertOrThrow("tracks", null, ContentValues().apply {
-                    put("id", track.id); put("title", track.title); put("artist", track.artist); put("album", track.album)
-                    put("source", track.source.name); put("duration", track.durationSeconds)
-                    put("available", if (track.available) 1 else 0)
-                    put("genre", track.genre); put("folder", track.folder); put("tint", track.tint)
-                    put("uri", requireNotNull(track.uri)); put("root", requireNotNull(track.rootId))
-                    put("size", track.sizeBytes); put("modified", track.modifiedMillis)
-                    put("artwork", track.artworkUri?.let { Uri.parse(it).lastPathSegment })
-                    put("artwork_checked", if (track.id in artworkChecked) 1 else 0)
-                    put("title_key", track.title.lowercase()); put("artist_key", track.artist.lowercase())
-                    put("album_key", track.album.lowercase())
-                })
-            }
+            insertRows(db, snapshot, artworkChecked)
             db.execSQL("INSERT OR REPLACE INTO meta(key,value) VALUES('initialized','1')")
             db.setTransactionSuccessful()
         } finally { db.endTransaction() }
     }
 
+    private fun insertRows(db: SQLiteDatabase, snapshot: LibrarySnapshot, artworkChecked: Set<String>) {
+        snapshot.roots.forEach { insertRoot(db, it) }
+        snapshot.tracks.forEach { track ->
+            db.insertOrThrow("tracks", null, ContentValues().apply {
+                put("id", track.id); put("title", track.title); put("artist", track.artist); put("album", track.album)
+                put("source", track.source.name); put("duration", track.durationSeconds)
+                put("available", if (track.available) 1 else 0)
+                put("genre", track.genre); put("folder", track.folder); put("tint", track.tint)
+                put("uri", requireNotNull(track.uri)); put("root", requireNotNull(track.rootId))
+                put("size", track.sizeBytes); put("modified", track.modifiedMillis)
+                put("artwork", track.artworkUri?.let { Uri.parse(it).lastPathSegment })
+                put("artwork_checked", if (track.id in artworkChecked) 1 else 0)
+                put("title_key", track.title.lowercase()); put("artist_key", track.artist.lowercase())
+                put("album_key", track.album.lowercase())
+            })
+        }
+    }
+
+
+    private fun insertRoot(db: SQLiteDatabase, root: LibraryRoot) {
+        val values = ContentValues().apply {
+            put("uri", root.uri); put("name", root.name); put("source", root.source.name)
+        }
+        db.insertWithOnConflict("roots", null, values, SQLiteDatabase.CONFLICT_IGNORE)
+        db.update("roots", values, "uri=?", arrayOf(root.uri))
+    }
+
     /** SAF availability is unknown after process restart until the grant and root are scanned. */
     fun markUnavailable() { writableDatabase.execSQL("UPDATE tracks SET available=0") }
+
+    fun cachedTrack(id: String, artworkChecked: MutableSet<String>): Track? = readableDatabase.rawQuery(
+        "SELECT $trackColumns FROM tracks WHERE id=?", arrayOf(id),
+    ).use { if (it.moveToFirst()) track(it, artworkChecked) else null }
+
+    /** Scan one root completely before replacing its last complete rows. */
+    fun replaceRoot(root: LibraryRoot, tracks: List<Track>, artworkChecked: Set<String>) {
+        val db = writableDatabase
+        db.beginTransaction()
+        try {
+            db.delete("tracks", "root=?", arrayOf(root.uri))
+            insertRows(db, LibrarySnapshot(listOf(root), tracks), artworkChecked)
+            db.setTransactionSuccessful()
+        } finally { db.endTransaction() }
+    }
+
+    fun markRootUnavailable(root: LibraryRoot) {
+        val db = writableDatabase
+        db.beginTransaction()
+        try {
+            insertRoot(db, root)
+            db.execSQL("UPDATE tracks SET available=0 WHERE root=?", arrayOf(root.uri))
+            db.setTransactionSuccessful()
+        } finally { db.endTransaction() }
+    }
+
+    fun forgetRoot(uri: String) {
+        val db = writableDatabase
+        db.beginTransaction()
+        try {
+            db.delete("tracks", "root=?", arrayOf(uri))
+            db.delete("roots", "uri=?", arrayOf(uri))
+            db.setTransactionSuccessful()
+        } finally { db.endTransaction() }
+    }
+
+    fun readSummary(): LibrarySnapshot {
+        val roots = readableDatabase.rawQuery("SELECT roots.uri,roots.name,roots.source,COUNT(tracks.id) " +
+            "FROM roots LEFT JOIN tracks ON tracks.root=roots.uri GROUP BY roots.uri ORDER BY roots.rowid", null).use { cursor ->
+            buildList { while (cursor.moveToNext()) add(LibraryRoot(cursor.getString(0), cursor.getString(1),
+                Source.valueOf(cursor.getString(2)), trackCount = cursor.getInt(3))) }
+        }
+        return LibrarySnapshot(roots = roots)
+    }
+
+    fun catalogTrackIds(source: Source?): List<String> = readableDatabase.rawQuery(
+        "SELECT id FROM tracks${if (source == null) "" else " WHERE source=?"} ORDER BY title_key,id",
+        source?.let { arrayOf(it.name) },
+    ).use { cursor -> buildList { while (cursor.moveToNext()) add(cursor.getString(0)) } }
 
     fun playableTrackIds(source: Source?): List<String> = readableDatabase.rawQuery(
         "SELECT id FROM tracks WHERE available=1${if (source == null) "" else " AND source=?"} ORDER BY title_key,id",
@@ -160,17 +218,6 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
                 }
             }
         }
-    }
-
-    fun read(artworkChecked: MutableSet<String>): LibrarySnapshot {
-        val db = readableDatabase
-        val roots = db.rawQuery("SELECT uri,name,source FROM roots ORDER BY rowid", null).use { cursor ->
-            buildList { while (cursor.moveToNext()) add(LibraryRoot(cursor.getString(0), cursor.getString(1), Source.valueOf(cursor.getString(2)))) }
-        }
-        val tracks = db.rawQuery("SELECT $trackColumns FROM tracks ORDER BY title_key,id", null).use { cursor ->
-            buildList { while (cursor.moveToNext()) add(track(cursor, artworkChecked)) }
-        }
-        return LibrarySnapshot(roots, tracks)
     }
 
     fun pageTracks(filter: CatalogFilter, descending: Boolean, group: String?, dimension: CatalogDimension,

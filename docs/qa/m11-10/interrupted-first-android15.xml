@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="42" failures="13" errors="0" skipped="0" time="397.335" timestamp="2026-09-30T03:49:26" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.LocalPlaybackTest" tests="16" failures="2" errors="0" skipped="0" time="68.566" timestamp="2026-09-30T03:49:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="transientExternalAudioFocusPausesAndRestoresPlayback" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="5.076" />
+    <testcase name="followedLibraryCheckpointIsCompactAndRestoresItsOrder" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="2.358" />
+    <testcase name="manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.068" />
+    <testcase name="automaticShuffleVisitsAllIdsAndRepeatsWithoutFullMetadataQueue" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="11.941" />
+    <testcase name="diskIndexPaginatesGroupsAndRetainsUnavailableDocuments" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.244" />
+    <testcase name="profileCheckpointsAndServiceRestartStayPaused" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="1.532" />
+    <testcase name="indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="2.559" />
+    <testcase name="followedLibraryKeepsMedia3WindowBoundedAcrossSelectionsAndModes" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="5.031" />
+    <testcase name="queueLoadsFarRowsWithoutLosingDirectSelection" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.99" />
+    <testcase name="safMetadataAndRealAudioContinueInBackground" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="8.374" />
+    <testcase name="missingRootKeepsIndexAndForgetLeavesOriginalReadable" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.638" />
+    <testcase name="nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="7.611" />
+    <testcase name="modeAndQueueControlsOperateTheRealPlayer" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="2.12" />
+    <testcase name="localSearchReadsDiskIndexAndOpensSelectedTrack" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="2.46" />
+    <testcase name="brokenAudioReportsErrorAndNextTrackStillPlays" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.211">
+      <failure>java.lang.AssertionError: expected null, but was:&lt;Не удалось воспроизвести файл. Проверьте носитель или выберите другой трек.&gt;
+at org.junit.Assert.fail(Assert.java:89)
+at org.junit.Assert.failNotNull(Assert.java:756)
+at org.junit.Assert.assertNull(Assert.java:738)
+at org.junit.Assert.assertNull(Assert.java:748)
+at dev.petrov.ymplayer2.LocalPlaybackTest.brokenAudioReportsErrorAndNextTrackStillPlays(LocalPlaybackTest.kt:445)
+</failure>
+    </testcase>
+    <testcase name="queueEditsKeepAudioClockAndPersistIntentionalEmptyQueue" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="4.353">
+      <failure>java.lang.AssertionError: expected:&lt;local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef&gt; but was:&lt;null&gt;
+at org.junit.Assert.fail(Assert.java:89)
+at org.junit.Assert.failNotEquals(Assert.java:835)
+at org.junit.Assert.assertEquals(Assert.java:120)
+at org.junit.Assert.assertEquals(Assert.java:146)
+at dev.petrov.ymplayer2.LocalPlaybackTest.queueEditsKeepAudioClockAndPersistIntentionalEmptyQueue(LocalPlaybackTest.kt:471)
+</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.StorageRecoveryTest" tests="4" failures="0" errors="0" skipped="0" time="16.093" timestamp="2026-09-30T03:49:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="disconnectNotificationPreservesManualOrderPositionAndModesAcrossRestart" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="5.658" />
+    <testcase name="missingCurrentCanBeSkippedWithoutStartingItsSuccessor" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="4.525" />
+    <testcase name="partiallyMissingQueueDoesNotInterruptPresentTrackAndEditsRemainDurable" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="4.348" />
+    <testcase name="embeddedArtworkIsBoundedRenderedAndRebuiltAfterCacheEviction" classname="dev.petrov.ymplayer2.StorageRecoveryTest" time="1.562" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.CollectionsPlaybackTest" tests="6" failures="0" errors="0" skipped="0" time="18.476" timestamp="2026-09-30T03:49:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="failedWriteAndUnknownSchemaDoNotOverwriteSavedCollections" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="1.033" />
+    <testcase name="favoriteMenuPersistsAndProfilesRemainSeparate" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="2.917" />
+    <testcase name="backClosesDialogThenAscendsPlaylistAndResetsUnrelatedCatalogDetail" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="3.53" />
+    <testcase name="editsResolveOnlyRequestedIdsWithoutEnumeratingLibrary" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="1.113" />
+    <testcase name="metadataEditsDoNotInterruptAudioAndUnavailableReferencesRecover" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="3.725" />
+    <testcase name="nativeUiCreatesEditsAndPlaysOnlyTheChosenPlaylist" classname="dev.petrov.ymplayer2.CollectionsPlaybackTest" time="6.158" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.SystemBrowserTest" tests="4" failures="0" errors="0" skipped="0" time="3.422" timestamp="2026-09-30T03:49:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="mediaButtonRestartsStoppedServiceAndResumesSavedLocalTrack" classname="dev.petrov.ymplayer2.SystemBrowserTest" time="0.877" />
+    <testcase name="selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue" classname="dev.petrov.ymplayer2.SystemBrowserTest" time="2.438" />
+    <testcase name="platformBrowserCanBrowseSameRootWithoutStartingPlayback" classname="dev.petrov.ymplayer2.SystemBrowserTest" time="0.079" />
+    <testcase name="media3BrowserPublishesOnlyLegacySourcesAndRejectsInjectedMedia" classname="dev.petrov.ymplayer2.SystemBrowserTest" time="0.028" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.WaveQueueModeTest" tests="3" failures="3" errors="0" skipped="0" time="78.848" timestamp="2026-09-30T03:49:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="externalControllerCannotEnableOrderingForPlayingPausedOrStoppedWave" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="26.082">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.WaveQueueModeTest.waitFor(WaveQueueModeTest.kt:19)
+at dev.petrov.ymplayer2.WaveQueueModeTest.start(WaveQueueModeTest.kt:33)
+at dev.petrov.ymplayer2.WaveQueueModeTest.externalControllerCannotEnableOrderingForPlayingPausedOrStoppedWave(WaveQueueModeTest.kt:64)
+</failure>
+    </testcase>
+    <testcase name="stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="26.234">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.WaveQueueModeTest.waitFor(WaveQueueModeTest.kt:19)
+at dev.petrov.ymplayer2.WaveQueueModeTest.start(WaveQueueModeTest.kt:33)
+at dev.petrov.ymplayer2.WaveQueueModeTest.stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls(WaveQueueModeTest.kt:45)
+</failure>
+    </testcase>
+    <testcase name="stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay" classname="dev.petrov.ymplayer2.WaveQueueModeTest" time="26.532">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.WaveQueueModeTest.waitFor(WaveQueueModeTest.kt:19)
+at dev.petrov.ymplayer2.WaveQueueModeTest.stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay(WaveQueueModeTest.kt:97)
+</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.MyWavePlaybackTest" tests="9" failures="8" errors="0" skipped="0" time="200.247" timestamp="2026-09-30T03:49:26" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="banningArtistAlsoRemovesUpcomingTracksFromRecommendedPlaylist" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="26.245">
+      <failure>java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=false, waveLoading=false, waveIssue=null, recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0); requests=[]; resolved=[]; buffered=[]
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.banningArtistAlsoRemovesUpcomingTracksFromRecommendedPlaylist(MyWavePlaybackTest.kt:159)
+... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:20)
+... 69 more
+</failure>
+    </testcase>
+    <testcase name="nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="26.316">
+      <failure>java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Не удалось прочитать ответ Яндекса. Повторите запрос., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0); requests=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; resolved=[]; buffered=[]
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.start(MyWavePlaybackTest.kt:34)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution(MyWavePlaybackTest.kt:78)
+... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:20)
+... 70 more
+</failure>
+    </testcase>
+    <testcase name="endWaitsForExistingAudioPrefetchAndPauseStillWins" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="26.422">
+      <failure>java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Не удалось прочитать ответ Яндекса. Повторите запрос., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0); requests=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; resolved=[]; buffered=[]
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.endWaitsForExistingAudioPrefetchAndPauseStillWins(MyWavePlaybackTest.kt:103)
+... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:20)
+... 69 more
+</failure>
+    </testcase>
+    <testcase name="systemPauseDuringNextRequestCannotRestartAudioOnLateReply" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="26.161">
+      <failure>java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=true, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=true, waveIssue=null, recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0); requests=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; resolved=[]; buffered=[]
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.systemPauseDuringNextRequestCannotRestartAudioOnLateReply(MyWavePlaybackTest.kt:124)
+... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:20)
+... 69 more
+</failure>
+    </testcase>
+    <testcase name="fastStartPrefetchAutomaticContinuationAndPausedRestore" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="26.096">
+      <failure>java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Не удалось прочитать ответ Яндекса. Повторите запрос., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0); requests=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; resolved=[]; buffered=[]
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.start(MyWavePlaybackTest.kt:34)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.fastStartPrefetchAutomaticContinuationAndPausedRestore(MyWavePlaybackTest.kt:37)
+... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:20)
+... 70 more
+</failure>
+    </testcase>
+    <testcase name="lateWaveCannotReplaceManualQueueOrNewProfile" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="5.029" />
+    <testcase name="restoredUpcomingTrackCanBeSelectedBeforeItsBufferExists" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="26.214">
+      <failure>java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Не удалось прочитать ответ Яндекса. Повторите запрос., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0); requests=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; resolved=[]; buffered=[]
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.start(MyWavePlaybackTest.kt:34)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.restoredUpcomingTrackCanBeSelectedBeforeItsBufferExists(MyWavePlaybackTest.kt:52)
+... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:20)
+... 70 more
+</failure>
+    </testcase>
+    <testcase name="failureCanRetryAndUiTargetsTrackArtistAndAlbumIndividually" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="26.557">
+      <failure>java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Не удалось прочитать ответ Яндекса. Повторите запрос., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0); requests=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; resolved=[]; buffered=[]
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.failureCanRetryAndUiTargetsTrackArtistAndAlbumIndividually(MyWavePlaybackTest.kt:190)
+... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:20)
+... 69 more
+</failure>
+    </testcase>
+    <testcase name="badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack" classname="dev.petrov.ymplayer2.MyWavePlaybackTest" time="11.207">
+      <failure></failure>
+    </testcase>
+  </testsuite>
+  <system-err>Test run failed to complete. Instrumentation run failed due to Process crashed.
+</system-err>
+</testsuites>
