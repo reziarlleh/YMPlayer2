@@ -82,28 +82,28 @@ Libraries loaded:
 XML effect configuration loaded successfully.
 Client Allocators:
 Client: 610
-Primary: 
+Primary:
 Dedicated Pool Allocator Dump:
   HeapID    Size  Offset   Order   Name
       16    4096       0       1   Track ID: 81
       11    4096       0       0   Track ID: 55
-Secondary: 
-Primary: 
+Secondary:
+Primary:
 Large Shared Allocator Dump:
   HeapID    Size  Offset   Order   Name
-Secondary: 
+Secondary:
 Small Shared Allocator Dump:
   HeapID    Size  Offset   Order   Name
 Client: 4795
-Primary: 
+Primary:
 Dedicated Pool Allocator Dump:
   HeapID    Size  Offset   Order   Name
        8   20480       0       0   Track ID: 147
-Secondary: 
-Primary: 
+Secondary:
+Primary:
 Large Shared Allocator Dump:
   HeapID    Size  Offset   Order   Name
-Secondary: 
+Secondary:
 Small Shared Allocator Dump:
   HeapID    Size  Offset   Order   Name
 Notification Clients:
@@ -215,7 +215,7 @@ Output thread 0x7643c4fd48e0, name AudioOut_D, tid 534, type 0 (MIXER):
 
 
   Thread throttle time (msecs): 1482
-  AudioMixer tracks: 55 81 147 
+  AudioMixer tracks: 55 81 147
   Master mono: off
   Master balance: 0.000000 (balance 0 channelCount 2 volumes: 1 1)
   No FastMixer
@@ -306,7 +306,7 @@ Output thread 0x7643c4f158e0, name AudioOut_15, tid 551, type 0 (MIXER):
       Signal power history: (none)
       Signal power history: (none)
   Thread throttle time (msecs): 0
-  AudioMixer tracks: 
+  AudioMixer tracks:
   Master mono: off
   Master balance: 0.000000 (balance 0 channelCount 2 volumes: 1 1)
   No FastMixer
