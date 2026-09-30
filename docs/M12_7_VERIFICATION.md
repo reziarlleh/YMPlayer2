@@ -80,3 +80,11 @@ Build56: 4 771 082 байта, SHA-256
 ([XML](qa/m12-7/release56-restored.xml)). Signed-APK прошёл реальное WAV-аудио
 в фоне, foreground-service, системные Pause/Play/Next и холодное восстановление
 на паузе ([JSON](qa/m12-7/release-playback/release-playback.json)).
+
+## Публикация
+
+Исходники/APK: `131e31b`, tag `v2.0.0beta-build56`;
+[release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build56).
+Манифест build56 опубликован в `3d0f9cb`. GitHub, jsDelivr и Gcore вернули
+одинаковые 4 771 082 байта с указанным SHA-256; raw main-манифест соответствует
+APK ([проверка](qa/m12-7/build56-source-hashes.txt)).
