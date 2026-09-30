@@ -89,3 +89,14 @@ foreground-service, системные Pause/Play/Next и холодное во�
 ([JSON](qa/m11-12/release-playback-final/release-playback.json)).
 Полный выпускной прогон относится к M12. Личная серверная запись, разные USB
 и физические кнопки остаются отдельной приёмкой, не выдаются за результаты фикстур.
+
+## Публикация
+
+Исходники и подписанный APK: commit `9bf0831`, tag `v2.0.0beta-build55`.
+[Выпуск](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0beta-build55)
+опубликован как prerelease; манифест build55 — commit `c568a34`.
+APK скачан заново с GitHub, jsDelivr и Gcore: все три файла имеют размер
+4 771 078 и SHA-256, указанный выше. `main/update/manifest.json` содержит build55,
+тот же размер и hash ([проверка](qa/m11-12/build55-source-hashes.txt)).
+Индекс RepoWise обновляется после значимого изменения через CLI; MCP context
+зависал при инициализации, поэтому ожидание не использовалось как проверка кода.
