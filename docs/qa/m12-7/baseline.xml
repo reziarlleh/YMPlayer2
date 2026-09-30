@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="2" failures="2" errors="0" skipped="0" time="9.293" timestamp="2026-09-30T15:44:22" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.ProfileRestoreTest" tests="2" failures="2" errors="0" skipped="0" time="8.539" timestamp="2026-09-30T15:44:22" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="detachDuringProfileReadPreservesIncomingCheckpointForNextProcess" classname="dev.petrov.ymplayer2.ProfileRestoreTest" time="5.662">
+      <failure>org.junit.ComparisonFailure: Interrupted restore must not overwrite the saved guest track expected:&lt;{"[followLibrary":true,"current":"local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef","position":12]}&gt; but was:&lt;{"[ids":[],"current":"local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8","position":3,"followLibrary":true,"tracks":[{"id":"local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8","title":"one","artist":"Неизвестный исполнитель","source":"LOCAL","duration":30,"tint":2,"album":"Без альбома","artists":[]}],"wave":false,"recommendations":false,"waveBatches":{},"referenceOrder":false]}&gt;
+at org.junit.Assert.assertEquals(Assert.java:117)
+at dev.petrov.ymplayer2.ProfileRestoreTest.delayedRestore(ProfileRestoreTest.kt:78)
+at dev.petrov.ymplayer2.ProfileRestoreTest.detachDuringProfileReadPreservesIncomingCheckpointForNextProcess(ProfileRestoreTest.kt:36)
+</failure>
+    </testcase>
+    <testcase name="slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile" classname="dev.petrov.ymplayer2.ProfileRestoreTest" time="2.877">
+      <failure>java.lang.AssertionError: Outgoing track must not appear in the guest while its metadata is pending expected null, but was:&lt;Track(id=local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, title=one, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/one.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1790783058859, artworkUri=null, artists=[], albumId=null)&gt;
+at org.junit.Assert.fail(Assert.java:89)
+at org.junit.Assert.failNotNull(Assert.java:756)
+at org.junit.Assert.assertNull(Assert.java:738)
+at dev.petrov.ymplayer2.ProfileRestoreTest.delayedRestore(ProfileRestoreTest.kt:87)
+at dev.petrov.ymplayer2.ProfileRestoreTest.slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile(ProfileRestoreTest.kt:35)
+</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

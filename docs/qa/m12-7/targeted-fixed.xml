@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="2" failures="0" errors="0" skipped="0" time="9.485" timestamp="2026-09-30T15:46:07" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.ProfileRestoreTest" tests="2" failures="0" errors="0" skipped="0" time="8.065" timestamp="2026-09-30T15:46:07" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="detachDuringProfileReadPreservesIncomingCheckpointForNextProcess" classname="dev.petrov.ymplayer2.ProfileRestoreTest" time="5.439" />
+    <testcase name="slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile" classname="dev.petrov.ymplayer2.ProfileRestoreTest" time="2.626" />
+  </testsuite>
+</testsuites>

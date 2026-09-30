@@ -170,12 +170,19 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                     } else reconcile()
                 }
             }
-            while (isActive) { delay(500); if (ready) { publish(); maintainWave(); maintainIndexedOrder() }; if (state.value.playing && state.value.positionSeconds % 5 == 0) checkpoint() }
+            while (isActive) {
+                delay(500)
+                // Until metadata arrives the engine may still describe the outgoing profile.
+                if (ready && !restoring) {
+                    publish(); maintainWave(); maintainIndexedOrder()
+                    if (state.value.playing && state.value.positionSeconds % 5 == 0) checkpoint()
+                }
+            }
         }
     }
 
     internal fun detach() {
-        if (ready) { publish(); checkpoint() }
+        if (ready && !restoring) { publish(); checkpoint() }
         indexedSelectionGeneration++
         indexedWindowJob?.cancel(); indexedWindowJob = null; restoring = false
         cancelWave()
@@ -478,12 +485,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (referenceOrder != null) {
             mutable.value = state.value.copy(repeatMode = mode)
             applyOrderingModes()
+            checkpoint()
             startDiskWork { refreshReferenceWindow() }
             return@command
         }
         if (followLibrary && indexedOrder != null) {
             mutable.value = state.value.copy(repeatMode = mode)
             applyOrderingModes()
+            checkpoint()
             loadIndexedSelection(state.value.current?.id, state.value.positionSeconds, state.value.playing, preserveCurrent = true)
             return@command
         }
@@ -499,6 +508,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             if (enabled != state.value.shuffle) referenceOrder?.resetShuffle()
             mutable.value = state.value.copy(shuffle = enabled)
             applyOrderingModes()
+            checkpoint()
             startDiskWork { refreshReferenceWindow() }
             return@command
         }
@@ -506,6 +516,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             if (enabled != state.value.shuffle) indexedOrder.reset()
             mutable.value = state.value.copy(shuffle = enabled)
             applyOrderingModes()
+            checkpoint()
             loadIndexedSelection(state.value.current?.id, state.value.positionSeconds, state.value.playing, preserveCurrent = true)
             return@command
         }
@@ -1046,6 +1057,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         // Main.immediate collectors may run inside StateFlow.value assignment. Read the target
         // checkpoint before notifying them, and do not reconcile an outgoing queue into that profile.
         val json = runCatching { JSONObject(prefs.getString("queue:$validProfile", "")!!) }.getOrNull()
+        // Persist the chosen profile even if its asynchronous restore is interrupted.
+        // Its saved track/position stay untouched until that restore finishes.
+        prefs.edit().putString("profile", validProfile).apply()
         restoring = true
         var indexedRestore = false
         try {

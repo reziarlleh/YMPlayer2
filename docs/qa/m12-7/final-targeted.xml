@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="8" failures="0" errors="0" skipped="0" time="39.346" timestamp="2026-09-30T16:01:25" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.ProfileRestoreTest" tests="2" failures="0" errors="0" skipped="0" time="7.992" timestamp="2026-09-30T16:01:25" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="detachDuringProfileReadPreservesIncomingCheckpointForNextProcess" classname="dev.petrov.ymplayer2.ProfileRestoreTest" time="5.04" />
+    <testcase name="slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile" classname="dev.petrov.ymplayer2.ProfileRestoreTest" time="2.952" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.ClipHandoffTest" tests="1" failures="0" errors="0" skipped="0" time="1.891" timestamp="2026-09-30T16:01:25" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="openingAndClosingVideoLeavesAudioPaused" classname="dev.petrov.ymplayer2.ClipHandoffTest" time="1.891" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.CloudPlaylistPlaybackTest" tests="1" failures="0" errors="0" skipped="0" time="3.363" timestamp="2026-09-30T16:01:25" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="playlistTrackKeepsItsActionsInsideOneCard" classname="dev.petrov.ymplayer2.CloudPlaylistPlaybackTest" time="3.363" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.LocalPlaybackTest" tests="2" failures="0" errors="0" skipped="0" time="12.183" timestamp="2026-09-30T16:01:25" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="8.872" />
+    <testcase name="localSearchReadsDiskIndexAndOpensSelectedTrack" classname="dev.petrov.ymplayer2.LocalPlaybackTest" time="3.311" />
+  </testsuite>
+  <testsuite name="dev.petrov.ymplayer2.ClipTransportPlaybackTest" tests="2" failures="0" errors="0" skipped="0" time="12.406" timestamp="2026-09-30T16:01:25" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="dashPreloadsSamplesThenPlaysAcrossSegmentBoundary" classname="dev.petrov.ymplayer2.ClipTransportPlaybackTest" time="6.184" />
+    <testcase name="hlsPreloadsSamplesThenPlaysAcrossSegmentBoundary" classname="dev.petrov.ymplayer2.ClipTransportPlaybackTest" time="6.222" />
+  </testsuite>
+</testsuites>

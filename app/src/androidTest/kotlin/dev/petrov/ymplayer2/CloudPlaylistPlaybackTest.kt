@@ -128,9 +128,9 @@ class CloudPlaylistPlaybackTest {
     }
     private fun awaitEditor() = waitFor { h.cloudPlaylists.state.value.dialog == PlaylistDialog.EDIT && !h.cloudPlaylists.state.value.busy && h.cloudPlaylists.state.value.loaded }
     @Test fun playlistTrackKeepsItsActionsInsideOneCard() {
-        compose.runOnIdle { h.online.collection(MusicKind.PLAYLISTS) }
         compose.onNodeWithTag("nav_library").performClick()
         compose.onNodeWithTag("source_yandex").performClick()
+        compose.runOnIdle { h.online.collection(MusicKind.PLAYLISTS) }
         waitFor { h.online.state.value.entries.any { it.entity?.id == "77" } }
         click("online_entity_77", "online_list")
         waitFor { h.online.state.value.entries.any { it.track?.id == "yandex:1:7" } }

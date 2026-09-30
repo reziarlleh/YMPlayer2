@@ -94,7 +94,7 @@ class LocalPlaybackTest {
         val id = library.testTracks.single { it.title == "one" }.id
         compose.onNodeWithTag("nav_search").performClick()
         compose.onNodeWithTag("search_input").performTextInput("one")
-        waitFor { compose.onAllNodesWithTag("track_$id").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("track_$id"))
         compose.onNodeWithTag("track_$id").assertIsDisplayed().performClick()
         waitFor { player.state.value.current?.id == id }
     }

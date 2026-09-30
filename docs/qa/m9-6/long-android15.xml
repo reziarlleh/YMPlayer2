@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="1" failures="0" errors="0" skipped="0" time="51.691" timestamp="2026-09-30T16:05:00" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.ClipLongSessionTest" tests="1" failures="0" errors="0" skipped="0" time="50.52" timestamp="2026-09-30T16:05:00" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="sixtyNaturalEndsSurviveEmptyBatchesAndKeepOnlyFortyBackSteps" classname="dev.petrov.ymplayer2.ClipLongSessionTest" time="50.52" />
+  </testsuite>
+</testsuites>

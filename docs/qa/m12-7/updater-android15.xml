@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="5" failures="0" errors="0" skipped="0" time="1.334" timestamp="2026-09-30T16:37:50" hostname="localhost">
+  <testsuite name="dev.petrov.ymplayer2.updater.UpdateClientTest" tests="5" failures="0" errors="0" skipped="0" time="0.248" timestamp="2026-09-30T16:37:50" hostname="localhost">
+    <properties>
+      <property name="device" value="YM2_M1_Phone(AVD) - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":updater:android" />
+    </properties>
+    <testcase name="manifestFallsBackAndKeepsOrderedApkSources" classname="dev.petrov.ymplayer2.updater.UpdateClientTest" time="0.211" />
+    <testcase name="newestValidManifestWinsWhenCdnEdgesDisagree" classname="dev.petrov.ymplayer2.updater.UpdateClientTest" time="0.003" />
+    <testcase name="wrongPackageHttpAndInvalidDigestAreRejected" classname="dev.petrov.ymplayer2.updater.UpdateClientTest" time="0.002" />
+    <testcase name="corruptDownloadFailsBothSourcesAndRemovesPartialFile" classname="dev.petrov.ymplayer2.updater.UpdateClientTest" time="0.029" />
+    <testcase name="pinnedCdnApkCanFallBackToGcoreMirror" classname="dev.petrov.ymplayer2.updater.UpdateClientTest" time="0.003" />
+  </testsuite>
+</testsuites>

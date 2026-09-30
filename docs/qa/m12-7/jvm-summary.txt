@@ -1,0 +1,11 @@
+JVM: 86 tests, 0 failures/errors. Gradle test succeeded; unchanged tasks may be UP-TO-DATE.
+dev.petrov.ymplayer2.core.AccountAuthTest: tests=17, failures=0, errors=0
+dev.petrov.ymplayer2.core.AudioQualityTest: tests=2, failures=0, errors=0
+dev.petrov.ymplayer2.core.CatalogQueryTest: tests=3, failures=0, errors=0
+dev.petrov.ymplayer2.core.CloudPlaylistsTest: tests=13, failures=0, errors=0
+dev.petrov.ymplayer2.core.CollectionsTest: tests=5, failures=0, errors=0
+dev.petrov.ymplayer2.core.DemoPlaybackControllerTest: tests=11, failures=0, errors=0
+dev.petrov.ymplayer2.core.MusicTasteTest: tests=6, failures=0, errors=0
+dev.petrov.ymplayer2.core.MyWaveTest: tests=7, failures=0, errors=0
+dev.petrov.ymplayer2.core.OfflineMusicTest: tests=9, failures=0, errors=0
+dev.petrov.ymplayer2.core.OnlineMusicTest: tests=13, failures=0, errors=0

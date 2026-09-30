@@ -19,7 +19,10 @@ class ClipHandoffTest {
         context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         instrument.runOnMainSync { app.playback.connect(); app.playback.switchProfile("owner") }
         waitFor { app.playback.state.value.connected && app.playback.state.value.profileId == "owner" && app.library.state.value.ready }
-        runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+        runBlocking {
+            app.library.state.value.roots.forEach { app.library.forgetFolder(it.uri) }
+            app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL)
+        }
         waitFor { app.library.testTracks.size == 2 }
         val id = app.library.testTracks.first().id
         val deadline = System.currentTimeMillis() + 15_000

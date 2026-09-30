@@ -5,6 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import dev.petrov.ymplayer2.core.Source
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 import org.junit.Assert.*
 import org.junit.Assume.assumeTrue
 import org.junit.Test
@@ -32,13 +33,14 @@ class BootCheckpointTest {
     @Test fun checkpointAcrossEmulatorBoot() {
         val phase = InstrumentationRegistry.getArguments().getString("bootPhase")
         assumeTrue("Run only through tools/check-boot-recovery.ps1", phase == "seed" || phase == "verify")
-        fixtures()
         if (phase == "seed") {
             main { app.playback.connect() }
             awaitState { app.playback.state.value.connected && app.library.state.value.ready }
             main { app.playback.stop(); app.playback.switchProfile("road") }
             runBlocking {
                 app.library.state.value.roots.forEach { app.library.forgetFolder(it.uri) }
+                // Forgetting the old root releases its SAF grant. Grant the fixture afterwards.
+                fixtures()
                 app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL)
             }
             awaitState { app.library.testTracks.size == 2 }
@@ -54,7 +56,13 @@ class BootCheckpointTest {
                 .edit().putString("expected", first).commit()
             assertTrue(instrument.targetContext.getSharedPreferences("playback", 0)
                 .getString("queue:road", "").orEmpty().contains(first))
+            val preferences = instrument.targetContext.getSharedPreferences("playback", 0)
+            assertTrue(JSONObject(preferences.getString("queue:road", "{}")).optInt("position") >= 9)
+            // Instrumentation teardown can kill its process before asynchronous apply reaches disk.
+            // Fence seed writes so this test measures reboot recovery of a saved checkpoint.
+            assertTrue(preferences.edit().commit())
         } else {
+            fixtures()
             main { app.playback.connect() }
             awaitState { app.playback.state.value.connected && app.playback.state.value.current != null &&
                 app.library.state.value.ready && !app.library.state.value.scanning }
