@@ -46,4 +46,13 @@ Signed68 установлен поверх67 на обоих проектных 
 Первый uiautomator dump после запуска TV вернул null root; повтор после появления
 окна успешен. Это не падение приложения; production-снимок получен нормально.
 
-Публикация выполняется; HTTP-сверка будет внесена до завершения работы.
+[GitHub Release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.4-build68)
+опубликован как latest stable, не draft/prerelease, с APK, SHA256, build.json
+и signature.txt. Тег содержит резервный APK. GitHub/jsDelivr/Gcore APK68
+отдали HTTP200, размер и SHA-256 совпали с подписанным артефактом.
+Raw stable/manifest уже68. CDN @main ещё отдаёт64 (jsDelivr) и62 (Gcore),
+поэтому резервное обнаружение версии может запаздывать; прямые APK68 работают.
+[HTTP-сверка](qa/patch-2-1-4/publication.json).
+
+RepoWise обновлён после изменения исходников: 77 страниц, без модельного анализа,
+индекс без degraded-статусов. Документация и инструкция актуализированы.
