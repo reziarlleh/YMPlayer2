@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 64,
-  "versionName": "2.1.0-build64",
+  "versionCode": 65,
+  "versionName": "2.1.1-build65",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-01T08:18:46.7168407Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.0-build64",
-  "releaseNotes": "Пользовательские скины без пересборки приложения: импорт .ymskin через файловый\r\nменеджер, тёмный/светлый предпросмотр, явное применение, сохранение после\r\nперезапуска и возврат к «Оксиду». Некорректный пакет отклоняется с сообщением.\r\n\r\nДобавлены темы «Гавань», «Олива» и «Серебро», редактируемый шаблон «Оксида»,\r\nупаковщик и подробное руководство по цветам и векторным значкам.\r\nВыбранная палитра применяется и к диагональной панели клипов.\r\n\r\nИсправлено пересоздание видеоплеера при повороте на Android TV, когда меняется\r\nscreenLayout. Команды плеера, профили, авторизация и правила кеша сохранены.\r\n\r\nПроверены импорт/сохранение/откат, touch и D-pad, 200% текст, непрерывное\r\nWAV/HLS/DASH-воспроизведение и выбранная регрессия на Android 15/TV29.\r\nПодписанный кандидат прошёл настоящий SAF-импорт; аппаратная и личная\r\nсетевая приёмка учитываются отдельно.\r\n",
+  "publishedAt": "2026-10-01T14:16:31.3581551Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.1-build65",
+  "releaseNotes": "Выключатель офлайн-кэша для устройства, исправленное управление клипами с TV-пульта и прогресс затемнением фона текущего видео. Ранее скачанные файлы можно удалить отдельно; онлайн-музыка и предзагрузка волны работают при выключенном кэше.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.1.0-build64/YMPlayer-2.1.0-build64.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.0-build64/releases/2.1.0-build64/YMPlayer-2.1.0-build64.apk",
-    "sizeBytes": 4870013,
-    "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.1.1-build65/YMPlayer-2.1.1-build65.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.1-build65/releases/2.1.1-build65/YMPlayer-2.1.1-build65.apk",
+    "sizeBytes": 4870009,
+    "sha256": "d42fd4d4a77a8f8ba4c9f137a738a4d0d69e2751548524067e6fc8a4b92fbc33"
   }
 }
