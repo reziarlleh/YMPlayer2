@@ -16,6 +16,8 @@
 [Текущий статус](docs/PROJECT_STATUS.md) · [Порядок](docs/ROADMAP.md) ·
 [Проверка выпуска](docs/M13_VERIFICATION.md).
 
+[Тема на 4PDA — описание, APK и обсуждение](https://4pda.to/forum/index.php?showtopic=1127108).
+
 <p align="center">
   <img src="docs/design/brand/tv-banner.png" width="640" alt="YMPlayer 2: утверждённая монограмма и палитра Оксид, плитка Android TV">
 </p>
