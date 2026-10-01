@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-01T08:25:02.637208+00:00",
+  "localHead": "27066593fb31198bc810fb4395746e4b6d644dc7",
+  "remoteTree": "27066593fb31198bc810fb4395746e4b6d644dc7",
+  "documentsChecked": 132,
+  "matching": true,
+  "mismatches": [],
+  "method": "Compare committed Markdown blob IDs with recursive GitHub main tree; QA JSON is excluded from document comparison."
+}
