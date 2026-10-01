@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 65,
-  "versionName": "2.1.1-build65",
+  "versionCode": 66,
+  "versionName": "2.1.2-build66",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-01T14:16:31.3581551Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.1-build65",
-  "releaseNotes": "Выключатель офлайн-кэша для устройства, исправленное управление клипами с TV-пульта и прогресс затемнением фона текущего видео. Ранее скачанные файлы можно удалить отдельно; онлайн-музыка и предзагрузка волны работают при выключенном кэше.",
+  "publishedAt": "2026-10-01T17:07:24.6180904Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.2-build66",
+  "releaseNotes": "Исправлена навигация пультом: на прогрессбаре вверх/вниз переводят фокус, влево/вправо перематывают. Выбранные пункты строк медиатеки и поиска доступны для фокуса; наведение не меняет выбор и не запускает музыку.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.1.1-build65/YMPlayer-2.1.1-build65.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.1-build65/releases/2.1.1-build65/YMPlayer-2.1.1-build65.apk",
-    "sizeBytes": 4870009,
-    "sha256": "d42fd4d4a77a8f8ba4c9f137a738a4d0d69e2751548524067e6fc8a4b92fbc33"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.1.2-build66/YMPlayer-2.1.2-build66.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.2-build66/releases/2.1.2-build66/YMPlayer-2.1.2-build66.apk",
+    "sizeBytes": 4886397,
+    "sha256": "ef0a4720c9f5374c36aa6859ac8639e10a4363815728fea8421959b7032fe85f"
   }
 }
