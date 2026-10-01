@@ -48,5 +48,11 @@ stable, 4 833 622 байта. SHA-256:
 `assembleRelease`/lintVital прошли; badging и подпись проверены release-скриптом,
 сертификат прежний: `fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
 [Артефакт](../releases/2.0.2-build62/build.json) · [подпись](../releases/2.0.2-build62/signature.txt).
-Результат публикации фиксируется после завершения выпуска.
+APK установлен поверх stable61 на Android 15. В релизном UI выбран
+«Поиск → Офлайн»: поле поиска и активная вкладка остаются, данные локального
+каталога не показаны. [Снимок](qa/offline-search62/release-search.png).
+
+[Stable release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.2-build62)
+опубликован без draft/prerelease и помечен latest. Оба манифеста обновлены до 62.
+[HTTP/hash-проверка источников](qa/offline-search62/publication.json).
 Аппаратная/личная приёмка владельца не объявляется выполненной этими тестами.

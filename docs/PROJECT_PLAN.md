@@ -13,7 +13,7 @@
 
 ## Зафиксированные результаты первых этапов
 
-Текущий stable — [2.0.1-build61](WIDE_BRAND_2_0_1_VERIFICATION.md),
+Текущий stable — [2.0.2-build62](OFFLINE_SEARCH_VERIFICATION.md),
 репозиторий публичный. Ниже сохранена история начального плана.
 [Контрольная сверка](DOCUMENTATION_AUDIT_2026-10-01.md).
 
