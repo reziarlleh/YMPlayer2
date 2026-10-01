@@ -1,0 +1,125 @@
+{
+  "checkedAt": "2026-10-01T08:23:58.937448+00:00",
+  "sourceHead": "9651a03496ffc3d4e6a94c5ebb59f0a7bca72371",
+  "repository": {
+    "full_name": "reziarlleh/YMPlayer2",
+    "private": false,
+    "description": "Самостоятельный плеер Android 10+: Яндекс Музыка, Моя волна, local/USB, офлайн Мне нравится, клипы, Android TV и пользовательские скины.",
+    "homepage": "https://github.com/reziarlleh/YMPlayer2/releases/latest",
+    "topics": [
+      "android",
+      "android-tv",
+      "jetpack-compose",
+      "kotlin",
+      "music-player",
+      "skins",
+      "yandex-music"
+    ],
+    "default_branch": "main"
+  },
+  "release": {
+    "tag": "v2.1.0-build64",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.0-build64",
+    "draft": false,
+    "prerelease": false,
+    "notesMatch": true,
+    "assets": [
+      {
+        "name": "build.json",
+        "size": 295,
+        "digest": "sha256:a2af94cba372f680807b15365da3e513674354c71675a8791f56f04cb71a9938"
+      },
+      {
+        "name": "harbor.ymskin",
+        "size": 1295,
+        "digest": "sha256:d6cdb82bedcd027f9112449260d7295b83c26436a228790e7cfd3c9ba4621682"
+      },
+      {
+        "name": "olive.ymskin",
+        "size": 1279,
+        "digest": "sha256:0055ce60e833cf9ba31ff0cc4a813ec7d0af8473c2580db32c25855f1da6b759"
+      },
+      {
+        "name": "oxide-template.ymskin",
+        "size": 1325,
+        "digest": "sha256:00d668bb48a9cfe2adfdfba93ebce863532f1cb3e7e4a26d1325b898702f642a"
+      },
+      {
+        "name": "SHA256.txt",
+        "size": 93,
+        "digest": "sha256:47d19303cb4a54e7b894200bcb320754df9804fc320f2215fa95942dd31ef210"
+      },
+      {
+        "name": "signature.txt",
+        "size": 978,
+        "digest": "sha256:54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1"
+      },
+      {
+        "name": "silver.ymskin",
+        "size": 1293,
+        "digest": "sha256:36a47cfccccf548f5d10ff646d0902df7a079330a866cbcde842483446c5a608"
+      },
+      {
+        "name": "YMPlayer-2.1.0-build64.apk",
+        "size": 4870013,
+        "digest": "sha256:dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889"
+      }
+    ]
+  },
+  "http": [
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.1.0-build64/YMPlayer-2.1.0-build64.apk",
+      "sizeBytes": 4870013,
+      "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.0-build64/releases/2.1.0-build64/YMPlayer-2.1.0-build64.apk",
+      "sizeBytes": 4870013,
+      "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889",
+      "matches": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.0-build64/releases/2.1.0-build64/YMPlayer-2.1.0-build64.apk",
+      "sizeBytes": 4870013,
+      "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889",
+      "matches": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "versionCode": 64,
+      "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889",
+      "matches": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "versionCode": 64,
+      "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "versionCode": 64,
+      "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "versionCode": 64,
+      "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889",
+      "matches": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "versionCode": 62,
+      "sha256": "5e388c307f975f170fa37d264c8af915511f73fccb9259d907bdf9022b95a58f",
+      "matches": false
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "versionCode": 61,
+      "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+      "matches": false
+    }
+  ]
+}
