@@ -10,7 +10,7 @@
         <intent><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent>
         <intent><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LEANBACK_LAUNCHER" /></intent>
     </queries>
-    <application android:name=".PlayerApplication" android:label="YMPlayer 2" android:icon="@drawable/ic_launcher"
+    <application android:name=".PlayerApplication" android:label="YMPlayer 2" android:icon="@mipmap/ic_launcher"
         android:banner="@drawable/tv_banner" android:theme="@style/AppTheme"
         android:allowBackup="false" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true">
         <service android:name=".OfflineSyncService" android:exported="false" android:foregroundServiceType="dataSync" />

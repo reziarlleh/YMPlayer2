@@ -1,0 +1,7 @@
+{
+  "reference": "04-logo.svg r5",
+  "candidate": "brand/ym-logo.svg",
+  "resolution": 1000,
+  "alphaMeanAbsoluteError": 5.4e-06,
+  "passed": true
+}

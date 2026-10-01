@@ -1,0 +1,16 @@
+{
+  "phone": {
+    "before": "2.0.0-build57",
+    "after": "2.0.1-build59",
+    "firstInstallTimePreserved": "2026-09-09 07:09:25",
+    "pausedCheckpoint": {
+      "title": "02 - City lights",
+      "position": "0:03"
+    }
+  },
+  "tv": {
+    "before": "2.0.0-build57",
+    "after": "2.0.1-build59",
+    "firstInstallTimePreserved": "2026-09-09 07:08:27"
+  }
+}

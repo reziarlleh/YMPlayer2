@@ -1,0 +1,134 @@
+[
+  {
+    "id": "01",
+    "name": "Оксид",
+    "mark": "Стык",
+    "note": "Плотный знак с общей диагональю и срезанными окончаниями.",
+    "bg": "#191715",
+    "surface": "#282420",
+    "raised": "#36302A",
+    "text": "#EFE5D7",
+    "muted": "#B6AA9A",
+    "accent": "#D77A50",
+    "onAccent": "#191715",
+    "secondary": "#B6B19A",
+    "paper": "#EEE6DA",
+    "contrast": {
+      "text/bg": 14.35,
+      "text/surface": 12.37,
+      "muted/bg": 7.84,
+      "accent/bg": 5.78,
+      "button": 5.78
+    }
+  },
+  {
+    "id": "02",
+    "name": "Лесная бумага",
+    "mark": "Лигатура",
+    "note": "Буквы связаны общим штрихом; мягкость без пузырчатых форм.",
+    "bg": "#1C2420",
+    "surface": "#29332C",
+    "raised": "#364339",
+    "text": "#F1EADC",
+    "muted": "#ADB8A6",
+    "accent": "#B6C489",
+    "onAccent": "#1C2420",
+    "secondary": "#C99673",
+    "paper": "#E8EADF",
+    "contrast": {
+      "text/bg": 13.26,
+      "text/surface": 10.94,
+      "muted/bg": 7.7,
+      "accent/bg": 8.5,
+      "button": 8.5
+    }
+  },
+  {
+    "id": "03",
+    "name": "Редакционный",
+    "mark": "Клеймо",
+    "note": "Узкая монограмма с засечками, как на корешке пластинки.",
+    "bg": "#F0ECE2",
+    "surface": "#E3DDD0",
+    "raised": "#D5CEC0",
+    "text": "#242926",
+    "muted": "#625D58",
+    "accent": "#8B3547",
+    "onAccent": "#FFFFFF",
+    "secondary": "#69785A",
+    "paper": "#F4F0E7",
+    "contrast": {
+      "text/bg": 12.53,
+      "text/surface": 10.93,
+      "muted/bg": 5.52,
+      "accent/bg": 6.6,
+      "button": 7.78
+    }
+  },
+  {
+    "id": "04",
+    "name": "Ночной эфир",
+    "mark": "Разрез",
+    "note": "Левая прорезь через угол YM; правая — только в верхней части.",
+    "bg": "#151C29",
+    "surface": "#232D3C",
+    "raised": "#313E50",
+    "text": "#EBE4D6",
+    "muted": "#A3AFBE",
+    "accent": "#DBB561",
+    "onAccent": "#151C29",
+    "secondary": "#91A1B1",
+    "paper": "#E8E6DE",
+    "contrast": {
+      "text/bg": 13.5,
+      "text/surface": 10.98,
+      "muted/bg": 7.67,
+      "accent/bg": 8.78,
+      "button": 8.78
+    }
+  },
+  {
+    "id": "05",
+    "name": "Сигнал",
+    "mark": "Модуль",
+    "note": "Ступенчатая сетка, плотная масса, выразительная маленькая иконка.",
+    "bg": "#F7F5EF",
+    "surface": "#E7E3DA",
+    "raised": "#D9D4CA",
+    "text": "#222321",
+    "muted": "#696660",
+    "accent": "#B93229",
+    "onAccent": "#FFFFFF",
+    "secondary": "#666C61",
+    "paper": "#EFEDE6",
+    "contrast": {
+      "text/bg": 14.48,
+      "text/surface": 12.33,
+      "muted/bg": 5.25,
+      "accent/bg": 5.42,
+      "button": 5.91
+    }
+  },
+  {
+    "id": "06",
+    "name": "Глина",
+    "mark": "Петля",
+    "note": "Один пластичный штрих: связь букв видна в нижней петле.",
+    "bg": "#292326",
+    "surface": "#383034",
+    "raised": "#483E43",
+    "text": "#F2E8E4",
+    "muted": "#BEAFB5",
+    "accent": "#D5B5A0",
+    "onAccent": "#292326",
+    "secondary": "#A5B7AE",
+    "paper": "#EEE4DD",
+    "contrast": {
+      "text/bg": 12.8,
+      "text/surface": 10.63,
+      "muted/bg": 7.33,
+      "accent/bg": 8.03,
+      "button": 8.03
+    }
+  }
+]

@@ -14,14 +14,14 @@ enum class UiIcon {
     CLOSE, CHECK, CHOICE_ON, CHOICE_OFF, REPEAT, REPEAT_ONE, SHUFFLE,
     EDIT, UP, DOWN, REMOVE, DRAG_HANDLE, ADD_QUEUE, CLEAR_QUEUE, ARTWORK,
     FAVORITE, FAVORITE_OFF, MORE, PLAYLIST, ADD, BLOCK, WAVE,
-    DISLIKE, DISLIKE_OFF, UNKNOWN, REFRESH, EQUALIZER,
+    DISLIKE, DISLIKE_OFF, UNKNOWN, REFRESH, EQUALIZER, BRAND,
 }
 
 data class ArtworkPalette(val backgrounds: List<Color>, val end: Color) {
     init { require(backgrounds.isNotEmpty()) }
 }
 
-/** Built-in data contract. External package parsing/validation belongs to M11. */
+/** Built-in data contract. External package parsing/validation belongs to M13 (2.1). */
 data class AppSkin(
     val id: String,
     val name: String,

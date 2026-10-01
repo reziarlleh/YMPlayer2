@@ -1,7 +1,7 @@
 package dev.petrov.ymplayer2.sidebar
 
 import android.graphics.Canvas
-import android.graphics.Color
+import dev.petrov.ymplayer2.designsystem.skin.PrismSideBarPalette
 import android.graphics.ColorFilter
 import android.graphics.Paint
 import android.graphics.Path
@@ -12,15 +12,16 @@ import kotlin.math.min
 
 internal enum class SideBarEdge { LEFT, RIGHT, BOTTOM }
 
-/** The built-in PRISM appearance is independent of the overlay's commands and gestures. */
+/** The built-in skin appearance is independent of the overlay's commands and gestures. */
 internal object SideBarAppearance {
+    val iconColor: Int get() = PrismSideBarPalette.icon
     fun panel(edge: SideBarEdge, density: Float): Drawable = AngledDrawable(
-        edge, density, Color.argb(205, 8, 11, 17), Color.argb(220, 255, 255, 255), 32f)
+        edge, density, PrismSideBarPalette.background, PrismSideBarPalette.outline, 32f)
 
     fun button(density: Float): Drawable = GradientDrawable().apply {
         shape = GradientDrawable.OVAL
-        setColor(Color.argb(48, 255, 255, 255))
-        setStroke(density.coerceAtLeast(1f).toInt(), Color.argb(190, 255, 255, 255))
+        setColor(PrismSideBarPalette.buttonFill)
+        setStroke(density.coerceAtLeast(1f).toInt(), PrismSideBarPalette.buttonOutline)
     }
 
     private class AngledDrawable(

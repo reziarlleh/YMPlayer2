@@ -114,7 +114,7 @@ private val destinations = listOf(
                     containerColor = MaterialTheme.colorScheme.background) {
                     if (!compactRail) {
                         Spacer(Modifier.height(12.dp))
-                        Text("YM", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Black)
+                        SkinIcon(UiIcon.BRAND, null, Modifier.size(40.dp), tint = MaterialTheme.colorScheme.primary)
                         Spacer(Modifier.height(if (short) 12.dp else 24.dp))
                     }
                     destinations.forEach { item ->

@@ -6,6 +6,7 @@ android {
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
 dependencies {
+    implementation(project(":designsystem"))
     implementation(project(":core"))
     implementation(project(":provider:yandex"))
     implementation(libs.media3.exoplayer)

@@ -40,7 +40,7 @@ class ClipActivity : ComponentActivity() {
         val root = FrameLayout(this).apply { setBackgroundColor(android.graphics.Color.BLACK) }
         root.addView(clipVideoView(this, player), FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-        val controls = ClipControlsView(this, clips!!, ::finish)
+        val controls = ClipControlsView(this, clips!!, close = ::finish)
         root.addView(controls, FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         root.getChildAt(0).setOnClickListener { controls.toggleVisibility() }

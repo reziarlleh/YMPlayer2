@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ShellInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.ShellInstrumentedTest:
+INSTRUMENTATION_STATUS: test=tvDpadFirstPressPlaysAndRightMovesToNext
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ShellInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #94 at (l=1143.0, t=786.0, r=1335.0, b=978.0)px, Tag: 'player_play'
+ContentDescription = '[Воспроизвести]'
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Actions = [OnClick, RequestFocus]
+MergeDescendants = 'true'
+Has 16 siblings
+Selector used: (TestTag = 'player_play')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.ShellInstrumentedTest.tvDpadFirstPressPlaysAndRightMovesToNext(ShellInstrumentedTest.kt:106)
+
+INSTRUMENTATION_STATUS: stream=
+Error in tvDpadFirstPressPlaysAndRightMovesToNext(dev.petrov.ymplayer2.ShellInstrumentedTest):
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #94 at (l=1143.0, t=786.0, r=1335.0, b=978.0)px, Tag: 'player_play'
+ContentDescription = '[Воспроизвести]'
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Actions = [OnClick, RequestFocus]
+MergeDescendants = 'true'
+Has 16 siblings
+Selector used: (TestTag = 'player_play')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.ShellInstrumentedTest.tvDpadFirstPressPlaysAndRightMovesToNext(ShellInstrumentedTest.kt:106)
+
+INSTRUMENTATION_STATUS: test=tvDpadFirstPressPlaysAndRightMovesToNext
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 1.785
+There was 1 failure:
+1) tvDpadFirstPressPlaysAndRightMovesToNext(dev.petrov.ymplayer2.ShellInstrumentedTest)
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #94 at (l=1143.0, t=786.0, r=1335.0, b=978.0)px, Tag: 'player_play'
+ContentDescription = '[Воспроизвести]'
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Actions = [OnClick, RequestFocus]
+MergeDescendants = 'true'
+Has 16 siblings
+Selector used: (TestTag = 'player_play')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.ShellInstrumentedTest.tvDpadFirstPressPlaysAndRightMovesToNext(ShellInstrumentedTest.kt:106)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

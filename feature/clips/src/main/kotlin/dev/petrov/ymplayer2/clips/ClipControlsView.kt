@@ -2,7 +2,9 @@ package dev.petrov.ymplayer2.clips
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
+import dev.petrov.ymplayer2.designsystem.skin.ClipPalette
+import dev.petrov.ymplayer2.designsystem.skin.PrismSkin
+import dev.petrov.ymplayer2.designsystem.skin.clipPalette
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Typeface
@@ -17,7 +19,7 @@ import android.widget.TextView
 import android.text.TextUtils
 
 /** Native overlay stays above the video surface on Android 15 release builds. */
-class ClipControlsView(context: Context, private val controller: ClipWaveController, close: () -> Unit) : FrameLayout(context) {
+class ClipControlsView(context: Context, private val controller: ClipWaveController, private val palette: ClipPalette = PrismSkin.clipPalette(), close: () -> Unit) : FrameLayout(context) {
     private val handler = Handler(Looper.getMainLooper())
     private val hide = Runnable { if (latest.playing) { shown = false; display() } }
     private var latest = ClipWaveState()
@@ -27,7 +29,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private val back = button("← Назад", close)
     private val heading = label("Клипы · Яндекс Музыка", 18f, true)
     private val status = label("", 16f)
-    private val infoBand = DiagonalClipInfoBand(context)
+    private val infoBand = DiagonalClipInfoBand(context, palette)
     private val title = label("", 22f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val artist = label("", 16f).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val nextTitle = label("", 18f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
@@ -44,7 +46,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         next.contentDescription = "Следующий клип"
         top.setPadding(dp(12), dp(12), dp(12), dp(8))
         top.background = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-            intArrayOf(0xcc11151e.toInt(), 0x0011151e))
+            intArrayOf(palette.topShade, palette.clearShade))
         top.addView(back, LinearLayout.LayoutParams(-2, dp(52)))
         top.addView(heading, LinearLayout.LayoutParams(0, -2, 1f))
         heading.gravity = Gravity.END or Gravity.CENTER_VERTICAL
@@ -52,20 +54,20 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
 
         bottom.setPadding(dp(20), dp(14), dp(20), dp(16))
         bottom.background = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
-            intArrayOf(0xe611151e.toInt(), 0x0011151e))
+            intArrayOf(palette.bottomShade, palette.clearShade))
         bottom.addView(status)
         val infoRow = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL }
         val currentColumn = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(16), dp(12), dp(12), dp(12))
-            addView(infoLabel("СЕЙЧАС", 0xff73dff2.toInt()))
+            addView(infoLabel("СЕЙЧАС", palette.accent))
             addView(title)
             addView(artist)
         }
         val nextColumn = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(28), dp(12), dp(12), dp(12))
-            addView(infoLabel("ДАЛЕЕ", 0xffe3a1d6.toInt()))
+            addView(infoLabel("ДАЛЕЕ", palette.secondary))
             addView(nextTitle)
             addView(nextArtist)
         }
@@ -127,7 +129,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     override fun onDetachedFromWindow() { handler.removeCallbacks(hide); super.onDetachedFromWindow() }
 
     private fun label(value: String, sp: Float, bold: Boolean = false) = TextView(context).apply {
-        text = value; textSize = sp; setTextColor(Color.WHITE)
+        text = value; textSize = sp; setTextColor(palette.text)
         if (bold) typeface = Typeface.DEFAULT_BOLD
         maxLines = 2
         setPadding(dp(6), dp(4), dp(6), dp(4))
@@ -141,9 +143,9 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         isClickable = true; isFocusable = true
         contentDescription = value
         fun paint(focused: Boolean) {
-            setTextColor(if (focused) 0xff142029.toInt() else Color.WHITE)
+            setTextColor(if (focused) palette.onAccent else palette.text)
             background = GradientDrawable().apply {
-                setColor(if (focused) 0xff74def1.toInt() else 0x99343a46.toInt())
+                setColor(if (focused) palette.accent else palette.controlSurface)
                 cornerRadius = dp(28).toFloat()
             }
         }
@@ -155,7 +157,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
 }
 
 /** Two translucent panels share a diagonal edge; the video remains visible underneath. */
-private class DiagonalClipInfoBand(context: Context) : FrameLayout(context) {
+private class DiagonalClipInfoBand(context: Context, private val palette: ClipPalette) : FrameLayout(context) {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val shape = Path()
 
@@ -172,7 +174,7 @@ private class DiagonalClipInfoBand(context: Context) : FrameLayout(context) {
         shape.lineTo(seamBottom, h)
         shape.lineTo(0f, h)
         shape.close()
-        paint.color = 0xdd102b38.toInt()
+        paint.color = palette.currentPanel
         canvas.drawPath(shape, paint)
         shape.reset()
         shape.moveTo(seamTop, 0f)
@@ -180,9 +182,9 @@ private class DiagonalClipInfoBand(context: Context) : FrameLayout(context) {
         shape.lineTo(w, h)
         shape.lineTo(seamBottom, h)
         shape.close()
-        paint.color = 0xdd211b2c.toInt()
+        paint.color = palette.nextPanel
         canvas.drawPath(shape, paint)
-        paint.color = 0xff62dbf1.toInt()
+        paint.color = palette.accent
         canvas.drawRect(0f, 0f, resources.displayMetrics.density * 4f, h, paint)
     }
 }

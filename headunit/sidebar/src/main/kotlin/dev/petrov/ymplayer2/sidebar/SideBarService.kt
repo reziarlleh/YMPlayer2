@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.content.res.Configuration
-import android.graphics.Color
 import android.graphics.PixelFormat
 import android.media.AudioManager
 import android.os.Build
@@ -134,7 +133,7 @@ class SideBarService : Service() {
     private fun button(glyph: String, label: String, click: () -> Unit) = TextView(this).apply {
         text = glyph
         textSize = 24f
-        setTextColor(Color.WHITE)
+        setTextColor(SideBarAppearance.iconColor)
         gravity = Gravity.CENTER
         contentDescription = label
         isClickable = true

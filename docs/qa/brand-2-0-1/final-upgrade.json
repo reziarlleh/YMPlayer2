@@ -1,0 +1,13 @@
+{
+  "phone": {
+    "from": "2.0.0-build57 via candidate59",
+    "to": "2.0.1-build60",
+    "firstInstallTimePreserved": "2026-09-09 07:09:25",
+    "restoredPaused": "02 - City lights / 0:03"
+  },
+  "tv": {
+    "from": "2.0.0-build57 via candidate59",
+    "to": "2.0.1-build60",
+    "firstInstallTimePreserved": "2026-09-09 07:08:27"
+  }
+}

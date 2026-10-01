@@ -4,13 +4,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.QueueMusic
 import androidx.compose.material.icons.filled.*
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.path
-import androidx.compose.ui.unit.dp
 
 /** Edit/replace vectors here; feature screens use roles, never these assets. */
 val PrismIcons: Map<UiIcon, ImageVector> = mapOf(
@@ -58,12 +53,6 @@ val PrismIcons: Map<UiIcon, ImageVector> = mapOf(
     UiIcon.MORE to Icons.Default.MoreVert,
     UiIcon.PLAYLIST to Icons.AutoMirrored.Filled.QueueMusic,
     UiIcon.ADD to Icons.Default.Add,
-    UiIcon.ARTWORK to ImageVector.Builder("Prism artwork", 100.dp, 100.dp, 100f, 100f).apply {
-        path(stroke = Brush.linearGradient(listOf(Color(0xFF67DCF5), Color(0xFFEA94E0)), Offset.Zero, Offset(100f, 100f)), strokeLineWidth = 2.6f) {
-            moveTo(18f, 75f); lineTo(48f, 18f); lineTo(80f, 75f); close()
-        }
-        path(stroke = SolidColor(Color.White.copy(alpha = .25f)), strokeLineWidth = 1.6f) {
-            moveTo(0f, 78f); lineTo(100f, 38f)
-        }
-    }.build(),
+    UiIcon.BRAND to ymBrandLogo(Color.White),
+    UiIcon.ARTWORK to ymBrandLogo(Color(0xFFD77A50)),
 )

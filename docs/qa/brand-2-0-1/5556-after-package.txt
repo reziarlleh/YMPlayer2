@@ -1,0 +1,192 @@
+Activity Resolver Table:
+  Full MIME Types:
+      audio/*:
+        206c112 dev.petrov.ymplayer2/androidx.media3.session.BluetoothValidationActivity filter aed1125
+          Action: "android.intent.action.VIEW"
+          Scheme: "content"
+          Authority: "media": -1
+          Path: "PatternMatcher{PREFIX: /internal/audio/media/}"
+          Type: "audio"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Wild MIME Types:
+      audio:
+        206c112 dev.petrov.ymplayer2/androidx.media3.session.BluetoothValidationActivity filter aed1125
+          Action: "android.intent.action.VIEW"
+          Scheme: "content"
+          Authority: "media": -1
+          Path: "PatternMatcher{PREFIX: /internal/audio/media/}"
+          Type: "audio"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Schemes:
+      content:
+        206c112 dev.petrov.ymplayer2/androidx.media3.session.BluetoothValidationActivity filter aed1125
+          Action: "android.intent.action.VIEW"
+          Scheme: "content"
+          Authority: "media": -1
+          Path: "PatternMatcher{PREFIX: /internal/audio/media/}"
+          Type: "audio"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        19fe0e3 dev.petrov.ymplayer2/.MainActivity filter 479611c
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.LEANBACK_LAUNCHER"
+
+  MIME Typed Actions:
+      android.intent.action.VIEW:
+        206c112 dev.petrov.ymplayer2/androidx.media3.session.BluetoothValidationActivity filter aed1125
+          Action: "android.intent.action.VIEW"
+          Scheme: "content"
+          Authority: "media": -1
+          Path: "PatternMatcher{PREFIX: /internal/audio/media/}"
+          Type: "audio"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        a2a1ae0 dev.petrov.ymplayer2/androidx.profileinstaller.ProfileInstallReceiver filter 8829aa1
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        a2a1ae0 dev.petrov.ymplayer2/androidx.profileinstaller.ProfileInstallReceiver filter ed260ab
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        a2a1ae0 dev.petrov.ymplayer2/androidx.profileinstaller.ProfileInstallReceiver filter 8497308
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        a2a1ae0 dev.petrov.ymplayer2/androidx.profileinstaller.ProfileInstallReceiver filter 43f14c6
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.MEDIA_BUTTON:
+        15de199 dev.petrov.ymplayer2/androidx.media3.session.MediaButtonReceiver filter 9c7c2fa
+          Action: "android.intent.action.MEDIA_BUTTON"
+
+Service Resolver Table:
+  Non-Data Actions:
+      androidx.media3.session.MediaSessionService:
+        50bdc5e dev.petrov.ymplayer2/.playback.AudioService filter e545c87
+          Action: "androidx.media3.session.MediaSessionService"
+          Action: "androidx.media3.session.MediaLibraryService"
+          Action: "android.media.browse.MediaBrowserService"
+      androidx.media3.session.MediaLibraryService:
+        50bdc5e dev.petrov.ymplayer2/.playback.AudioService filter e545c87
+          Action: "androidx.media3.session.MediaSessionService"
+          Action: "androidx.media3.session.MediaLibraryService"
+          Action: "android.media.browse.MediaBrowserService"
+      android.media.browse.MediaBrowserService:
+        50bdc5e dev.petrov.ymplayer2/.playback.AudioService filter e545c87
+          Action: "androidx.media3.session.MediaSessionService"
+          Action: "androidx.media3.session.MediaLibraryService"
+          Action: "android.media.browse.MediaBrowserService"
+
+Permissions:
+  Permission [dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (8640a8c):
+    sourcePackage=dev.petrov.ymplayer2
+    uid=10053 gids=null type=0 prot=signature
+    perm=Permission{1e5a83f dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{7d4a1ea dev.petrov.ymplayer2/10053}
+
+Registered ContentProviders:
+  dev.petrov.ymplayer2/androidx.core.content.FileProvider:
+    Provider{7c6050c dev.petrov.ymplayer2/androidx.core.content.FileProvider}
+  dev.petrov.ymplayer2/androidx.startup.InitializationProvider:
+    Provider{821fe55 dev.petrov.ymplayer2/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [dev.petrov.ymplayer2.update_files]:
+    Provider{7c6050c dev.petrov.ymplayer2/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{cb5606a dev.petrov.ymplayer2}
+  [dev.petrov.ymplayer2.androidx-startup]:
+    Provider{821fe55 dev.petrov.ymplayer2/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{cb5606a dev.petrov.ymplayer2}
+
+Key Set Manager:
+  [dev.petrov.ymplayer2]
+      Signing KeySets: 21
+
+Packages:
+  Package [dev.petrov.ymplayer2] (7d4a1ea):
+    userId=10053
+    pkg=Package{896895b dev.petrov.ymplayer2}
+    codePath=/data/app/dev.petrov.ymplayer2-f-GcFsgXujz6w81I2Hn0oA==
+    resourcePath=/data/app/dev.petrov.ymplayer2-f-GcFsgXujz6w81I2Hn0oA==
+    legacyNativeLibraryDir=/data/app/dev.petrov.ymplayer2-f-GcFsgXujz6w81I2Hn0oA==/lib
+    primaryCpuAbi=x86
+    secondaryCpuAbi=null
+    versionCode=59 minSdk=29 targetSdk=36
+    versionName=2.0.1-build59
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{cb5606a dev.petrov.ymplayer2}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE ]
+    dataDir=/data/user/0/dev.petrov.ymplayer2
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2026-10-01 04:02:01
+    firstInstallTime=2026-09-09 07:08:27
+    lastUpdateTime=2026-10-01 04:02:01
+    signatures=PackageSignatures{f52f2b6 version:2, signatures:[e3918f96], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    declared permissions:
+      dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.FOREGROUND_SERVICE
+      android.permission.FOREGROUND_SERVICE_DATA_SYNC
+      android.permission.POST_NOTIFICATIONS
+      android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK
+      android.permission.WAKE_LOCK
+      android.permission.INTERNET
+      android.permission.REQUEST_INSTALL_PACKAGES
+      dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.FOREGROUND_SERVICE_SPECIAL_USE
+      android.permission.MODIFY_AUDIO_SETTINGS
+    install permissions:
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.INTERNET: granted=true
+      dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=-4294843739 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+
+Package Changes:
+  Sequence number=10
+  User 0:
+    seq=1, package=com.google.android.tvrecommendations
+    seq=3, package=com.google.android.gms
+    seq=6, package=dev.petrov.ymplayer2.dev.test
+    seq=8, package=dev.petrov.ymplayer2.dev
+    seq=9, package=dev.petrov.ymplayer2
+
+
+Dexopt state:
+  [dev.petrov.ymplayer2]
+    path: /data/app/dev.petrov.ymplayer2-f-GcFsgXujz6w81I2Hn0oA==/base.apk
+      x86: [status=speed-profile] [reason=install]
+
+
+Compiler stats:
+  [dev.petrov.ymplayer2]
+     base.apk - 1270
+
+Active APEX packages:
+
+
+Inactive APEX packages:
+
+
+Factory APEX packages:
+
+
+  APEX session state:
