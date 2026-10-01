@@ -1,0 +1,20 @@
+[
+  {
+    "device": "tv",
+    "logo_bounds": [
+      "[24,12][400,72]"
+    ],
+    "signed_version": "2.1.4-build68",
+    "installed_over": 67,
+    "clear_data": false
+  },
+  {
+    "device": "phone",
+    "logo_bounds": [
+      "[32,79][526,158]"
+    ],
+    "signed_version": "2.1.4-build68",
+    "installed_over": 67,
+    "clear_data": false
+  }
+]

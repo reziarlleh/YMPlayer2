@@ -1,0 +1,9 @@
+{
+  "channel": "stable",
+  "sha256": "f0cd817e4b142668bf3c76045e6c88859b7876df5dc6b711407b62673498f9f5",
+  "runtimeAcceptance": "Signed68 installed over signed67 on YM2_M1_Phone/Android 15 and YM2_M1_TV/Android 10 without data clearing; production header inspected. AboutTest 4/4 on each; extra landscape geometry scenario 1/1. Playback unchanged; no physical-device testing claimed.",
+  "versionCode": 68,
+  "builtAtUtc": "2026-10-01T18:20:43.7321921Z",
+  "versionName": "2.1.4-build68",
+  "applicationId": "dev.petrov.ymplayer2"
+}
