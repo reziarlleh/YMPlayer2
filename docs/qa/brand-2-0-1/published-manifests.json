@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+    "versionCode": 60,
+    "sha256": "f7b6fdaa920a6c66b9ee70bf0e780cee070c05f3a0620223b1839d07d4df7f99"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "versionCode": 60,
+    "sha256": "f7b6fdaa920a6c66b9ee70bf0e780cee070c05f3a0620223b1839d07d4df7f99"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "versionCode": 60,
+    "sha256": "f7b6fdaa920a6c66b9ee70bf0e780cee070c05f3a0620223b1839d07d4df7f99"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "versionCode": 60,
+    "sha256": "f7b6fdaa920a6c66b9ee70bf0e780cee070c05f3a0620223b1839d07d4df7f99"
+  }
+]

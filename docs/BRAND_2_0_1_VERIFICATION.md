@@ -55,7 +55,9 @@ Playback/provider/updater-контракты, ключ и данные не из
 `runtimeAcceptance=pending` относится к независимой аппаратной приёмке.
 
 Source/artifact-коммит: `d3df384`. Stable60 опубликован без draft/prerelease;
-общий и stable-манифесты обновлены. Живые источники APK сверяются с SHA-256.
+общий и stable-манифесты обновлены. [Три живых источника APK](qa/brand-2-0-1/published-sources.json)
+вернули размер и SHA-256 финального60. [GitHub/CDN-манифесты](qa/brand-2-0-1/published-manifests.json)
+совпали с60. CDN stable сначала возвращал57; после purge проверен60.
 
 ## Финал build60
 
