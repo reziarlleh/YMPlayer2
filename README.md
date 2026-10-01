@@ -6,14 +6,14 @@
 медиатекой и отдельными профилями. YMPlayer 2 устанавливается рядом с
 [YMPlayer 1.x](https://github.com/reziarlleh/YMPlayer) и использует собственные данные.
 
-**Стабильный выпуск — [2.0.1-build60](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build60).**
+**Стабильный выпуск — [2.0.1-build61](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build61).**
 Локальная/USB и Яндекс-музыка, профили, «Моя волна», плейлисты, офлайн
 «Мне нравится», клипы, системные медиакоманды и обновлятор с резервной загрузкой.
 Проверены Android 15/TV 29, крупный шрифт, подписанное аудио и переход beta→stable
 с сохранением данных. Аппаратная приёмка K4811/CWG и личные серверные сценарии
 учитываются отдельно. Пользовательские скины и руководство — в 2.1.0.
 [Текущий статус](docs/PROJECT_STATUS.md) · [Порядок](docs/ROADMAP.md) ·
-[Проверка выпуска](docs/BRAND_2_0_1_VERIFICATION.md).
+[Проверка выпуска](docs/WIDE_BRAND_2_0_1_VERIFICATION.md).
 
 <p align="center">
   <img src="docs/design/brand/tv-banner.png" width="640" alt="YMPlayer 2: утверждённая монограмма и палитра Оксид, плитка Android TV">
@@ -96,7 +96,7 @@ adaptive launcher и плитка Android TV входят в финальный 
 [отчёт M3.1](docs/M3_VERIFICATION.md), [отчёт M2](docs/M2_VERIFICATION.md),
 [история UI-прототипа M1](docs/M1_VERIFICATION.md).
 
-Последний stable: [2.0.1-build60](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build60).
+Последний stable: [2.0.1-build61](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build61).
 [Финальная айдентика и проверки](docs/BRAND_2_0_1_VERIFICATION.md). Первый stable 2.0.0 — build57.
 [M12.8](docs/M12_8_VERIFICATION.md): настоящая установка из beta56 через резервный источник, сохранение каталога/позиции, stable-канал и signed WAV/фон/системные кнопки/холодный запуск.
 Предыдущая beta — build56.

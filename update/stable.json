@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 60,
-  "versionName": "2.0.1-build60",
+  "versionCode": 61,
+  "versionName": "2.0.1-build61",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-01T04:17:21.176193+00:00",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build60",
-  "releaseNotes": "Финальный 2.0.1: утверждённая монограмма YM с двумя параллельными прорезями и палитра №1 «Оксид». Медный акцент, тёплый графит, согласованная светлая тема. Новый adaptive launcher, плитка Android TV с полным названием, логотипы в интерфейсе и заглушках обложек; диагональная панель клипов использует те же цвета.\n\nPackage, ключ подписи, данные и канал обновлений сохранены. Проверочный build59: Android 15 и TV 29: интерфейс, тема после перезапуска, 200% шрифт, D-pad, смена оформления во время аудио, установка поверх 2.0.0-build57 и сохранение паузы 0:03. Подписанный APK проверен с настоящими WAV, фоновой службой, системными Pause/Play/Next и холодным восстановлением.\n\nBuild58 был проверочным кандидатом; в build59 повышен контраст вторичного текста Light. Пользовательские скины, импорт, готовые темы и руководство — следующий этап 2.1.0.\n\nФинальный build60 объединяет Compose и native-палитры в designsystem: цвета клипов и SideBar больше не зашиты в функциональные UI-модули. Скин меняет визуальные роли; данные и функции плеера остаются независимыми.\n",
+  "publishedAt": "2026-10-01T04:41:50.117344+00:00",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build61",
+  "releaseNotes": "Утверждённый широкий логотип: монограмма YM + Player2. Arial Black с наклоном 7°, медный знак и белая или чёрная надпись по фону. Новая плитка Android TV использует эту же композицию.\n\nИзменены только брендовые изображения. Компактный логотип, палитры и функции плеера сохранены. Проверены совпадение с утверждённым эскизом, пять плотностей TV banner, сборка/подпись и отображение на Android TV.\n\nПользовательские скины — следующий этап 2.1.0.\n",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.1-build60/YMPlayer-2.0.1-build60.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.1-build60/releases/2.0.1-build60/YMPlayer-2.0.1-build60.apk",
-    "sizeBytes": 4816434,
-    "sha256": "f7b6fdaa920a6c66b9ee70bf0e780cee070c05f3a0620223b1839d07d4df7f99"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.1-build61/YMPlayer-2.0.1-build61.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.1-build61/releases/2.0.1-build61/YMPlayer-2.0.1-build61.apk",
+    "sizeBytes": 4817238,
+    "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e"
   }
 }
