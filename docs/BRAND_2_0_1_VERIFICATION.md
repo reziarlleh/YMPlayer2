@@ -4,6 +4,9 @@
 [Release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build60).
 [Исходники и генерация](design/brand/README.md). [Следующий этап M13](M13_SKINS_PLAN.md).
 
+Отчёт сохраняет доказательства build58–60. Текущая широкая композиция
+и TV-плитка выпущены позже в [build61](WIDE_BRAND_2_0_1_VERIFICATION.md).
+
 ## Изменения
 
 - Утверждённая геометрия перенесена в прозрачные контуры SVG, Compose и adaptive

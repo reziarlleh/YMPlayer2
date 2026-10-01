@@ -15,10 +15,31 @@
 | playback | Queue engine, coordinator, checkpoint use cases | Core; backend/session/storage interfaces |
 | library | Запросы каталога, indexing policy, playlist use cases | Core и storage/source interfaces |
 | provider:yandex | API mapping, auth flow, wave protocol, capabilities | Core + network adapter; никакого UI |
-| infrastructure:android | Media3/session, SAF, Room, settings, secrets, diagnostics | Core, соответствующие Android libraries |
+| infrastructure:android | Media3/session, SAF, SQLite, settings, secrets, diagnostics | Core, соответствующие Android libraries |
 | feature:clips | Видео UI и clip use cases | Core + clip provider/playback contracts |
 | integration:headunit/sidebar | Overlay, команды устройства, optional capability | Android; публичные playback/settings contracts |
 | distribution:update | Манифест/артефакт своего продукта, версия, проверка | Network, package identity, storage; без legacy feed |
+
+## Фактические Gradle-модули на 2026-10-01
+
+Состав подтверждён `settings.gradle.kts` и зависимостями модулей:
+
+| Модуль | Реализация |
+| --- | --- |
+| `:app` | Composition root, Activity/services, координаторы профилей/обновлений, диагностика |
+| `:core` | Чистые модели, контракты, контроллеры каталога/волны/коллекций |
+| `:designsystem` | AppSkin, «Оксид», семантические векторы, Compose и native-палитры |
+| `:feature:shell` | Маршруты и экраны музыкального UI |
+| `:feature:clips` | Видеоплеер, rotor-сессия, preload и диагональная панель |
+| `:library:local` | SAF, SQLiteOpenHelper-каталог, плейлисты и обложки |
+| `:library:offline` | Постоянный кэш только понравившихся треков Яндекса |
+| `:playback:android` | Media3, библиотечная сессия, engine window и checkpoints |
+| `:provider:yandex` | OAuth и музыкальные API |
+| `:headunit:sidebar` | Overlay, жесты и команды K4811; цвета получает из designsystem |
+| `:updater:android` | Манифесты, загрузка/проверка APK и Android installer |
+
+Исторические части ниже показывают последовательность переноса, а не полный
+текущий состав. [Текущая сверка](DOCUMENTATION_AUDIT_2026-10-01.md).
 
 ## Физический старт для первого beta-прототипа
 

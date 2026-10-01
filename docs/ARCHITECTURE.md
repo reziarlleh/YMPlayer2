@@ -11,6 +11,12 @@
 как независимый слой со скинами:
 [ADR-004](DECISIONS/ADR-004-skins.md), [SKINS.md](SKINS.md).
 
+К stable build61 фактически созданы 11 Gradle-модулей (см. MODULES).
+LocalCatalogIndex использует SQLiteOpenHelper, а не предложенный ниже Room;
+каталог читает страницы для UI, playback — курсор и три соседних трека.
+Клипы, K4811 SideBar и независимый updater выделены отдельно. Цвета Compose
+и native-панелей находятся в designsystem; внешний импорт скинов — M13.
+
 ## Стек и границы
 
 Предлагается Android/Kotlin, Jetpack Compose для нового UI, coroutines/Flow

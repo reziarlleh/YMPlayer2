@@ -1,7 +1,8 @@
 # Сборка YMPlayer 2
 
-2026-09-09. Модули: app, core, designsystem, feature:shell, library:local,
-playback:android, provider:yandex. Аудиодвижок Media3 1.11.0.
+Актуализировано 2026-10-01 для stable 2.0.1-build61. Фактические 11 модулей:
+app, core, designsystem, feature:shell, feature:clips, library:local, library:offline,
+playback:android, provider:yandex, headunit:sidebar, updater:android. Аудиодвижок Media3 1.11.0.
 AGP 9.3.2 с built-in Kotlin, Kotlin/Compose compiler 2.3.21, Compose BOM
 2026.08.00, Gradle wrapper 9.5.0, JDK 17. SDK: compile 37, target 36, min 29;
 Build Tools 36.0.0. Значения закреплены в version catalog и Gradle.
@@ -15,7 +16,7 @@ Build Tools 36.0.0. Значения закреплены в version catalog и 
 ```
 
 Внутренний debug APK имеет applicationId `dev.petrov.ymplayer2.dev` и versionName
-`2.0.0-internal`. Он используется только локальной автоматикой, не передаётся
+`<baseVersion>-internal` (сейчас `2.0.1-internal`). Он используется только локальной автоматикой, не передаётся
 как нумерованный beta APK и не расходует Build. Для передачи владельцу — команда ниже.
 
 ```powershell
@@ -54,7 +55,8 @@ python tools/check-emulator.py --adb C:/Android/sdk/platform-tools/adb.exe --ser
 check-emulator.py принимает только emulator-*; меняет размер/DPI/fontScale тестового
 эмулятора, сохраняет настоящие screenshots и возвращает исходные настройки через finally.
 TV-проверка выполняется на образе android-29;android-tv;x86, а не на телефонном
-образе с названием TV. Итоги конкретной сборки записываются в M1_VERIFICATION.md.
+образе с названием TV. История первого прототипа — в M1_VERIFICATION.md; результаты следующих
+сборок — в соответствующих Mx_VERIFICATION и актуальном PROJECT_STATUS.md.
 
 ## Пределы сохранения M1
 
