@@ -28,7 +28,7 @@
 | --- | --- |
 | `:app` | Composition root, Activity/services, координаторы профилей/обновлений, диагностика |
 | `:core` | Чистые модели, контракты, контроллеры каталога/волны/коллекций |
-| `:designsystem` | AppSkin, «Оксид», семантические векторы, Compose и native-палитры |
+| `:designsystem` | AppSkin, «Оксид», семантические векторы, Compose/native-палитры; в M13 парсер пакетов и локальное хранилище только оформления |
 | `:feature:shell` | Маршруты и экраны музыкального UI |
 | `:feature:clips` | Видеоплеер, rotor-сессия, preload и диагональная панель |
 | `:library:local` | SAF, SQLiteOpenHelper-каталог, плейлисты и обложки |

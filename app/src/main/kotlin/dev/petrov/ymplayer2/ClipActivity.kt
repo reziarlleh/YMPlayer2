@@ -19,6 +19,7 @@ import dev.petrov.ymplayer2.clips.ClipMediaPreloader
 import dev.petrov.ymplayer2.clips.ClipControlsView
 import dev.petrov.ymplayer2.clips.clipVideoView
 import dev.petrov.ymplayer2.yandex.YandexClipApi
+import dev.petrov.ymplayer2.designsystem.skin.clipPalette
 import kotlinx.coroutines.launch
 
 /** Video owns its player and stops audio on entry; closing never resumes audio automatically. */
@@ -40,13 +41,16 @@ class ClipActivity : ComponentActivity() {
         val root = FrameLayout(this).apply { setBackgroundColor(android.graphics.Color.BLACK) }
         root.addView(clipVideoView(this, player), FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-        val controls = ClipControlsView(this, clips!!, close = ::finish)
+        val controls = ClipControlsView(this, clips!!, graph.skins.state.value.active.clipPalette(), close = ::finish)
         root.addView(controls, FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         root.getChildAt(0).setOnClickListener { controls.toggleVisibility() }
         setContentView(root)
         lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
             clips?.state?.collect(controls::render)
+        } }
+        lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
+            graph.skins.state.collect { controls.updatePalette(it.active.clipPalette()) }
         } }
         clips?.start()
     }

@@ -22,6 +22,7 @@ import kotlinx.coroutines.*
 class PlayerApplication : Application(), PlaybackHost {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     internal val diagnostics by lazy { DiagnosticsJournal(this) }
+    val skins by lazy { dev.petrov.ymplayer2.designsystem.skin.SkinRepository(this, scope) }
     override fun onAudioServiceEvent(event: AudioServiceEvent) {
         diagnostics.record(when (event) {
             AudioServiceEvent.CREATED -> DiagnosticEvent.AUDIO_SERVICE_CREATED

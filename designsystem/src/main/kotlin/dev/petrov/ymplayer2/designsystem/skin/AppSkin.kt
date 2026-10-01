@@ -21,7 +21,7 @@ data class ArtworkPalette(val backgrounds: List<Color>, val end: Color) {
     init { require(backgrounds.isNotEmpty()) }
 }
 
-/** Built-in data contract. External package parsing/validation belongs to M13 (2.1). */
+/** Visual data shared by built-in and validated external packages. */
 data class AppSkin(
     val id: String,
     val name: String,

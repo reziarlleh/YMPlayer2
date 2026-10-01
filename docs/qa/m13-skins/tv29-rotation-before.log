@@ -1,0 +1,86 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipRotationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.ClipRotationTest:
+INSTRUMENTATION_STATUS: test=turningTheScreenKeepsTheVideoSession
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipRotationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Configuration diff: 0x20000580 expected same:<dev.petrov.ymplayer2.ClipActivity@a7d196a> was not:<dev.petrov.ymplayer2.ClipActivity@2c1e9fd>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotSame(Assert.java:829)
+	at org.junit.Assert.assertSame(Assert.java:772)
+	at dev.petrov.ymplayer2.ClipRotationTest.turningTheScreenKeepsTheVideoSession$lambda$0$5(ClipRotationTest.kt:38)
+	at dev.petrov.ymplayer2.ClipRotationTest.$r8$lambda$4EhuFOTbHNv7l7uuL8IL4GuD4xk(Unknown Source:0)
+	at dev.petrov.ymplayer2.ClipRotationTest$$ExternalSyntheticLambda4.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:462)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2214)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+INSTRUMENTATION_STATUS: stream=
+Error in turningTheScreenKeepsTheVideoSession(dev.petrov.ymplayer2.ClipRotationTest):
+java.lang.AssertionError: Configuration diff: 0x20000580 expected same:<dev.petrov.ymplayer2.ClipActivity@a7d196a> was not:<dev.petrov.ymplayer2.ClipActivity@2c1e9fd>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotSame(Assert.java:829)
+	at org.junit.Assert.assertSame(Assert.java:772)
+	at dev.petrov.ymplayer2.ClipRotationTest.turningTheScreenKeepsTheVideoSession$lambda$0$5(ClipRotationTest.kt:38)
+	at dev.petrov.ymplayer2.ClipRotationTest.$r8$lambda$4EhuFOTbHNv7l7uuL8IL4GuD4xk(Unknown Source:0)
+	at dev.petrov.ymplayer2.ClipRotationTest$$ExternalSyntheticLambda4.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:462)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2214)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+INSTRUMENTATION_STATUS: test=turningTheScreenKeepsTheVideoSession
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 1.311
+There was 1 failure:
+1) turningTheScreenKeepsTheVideoSession(dev.petrov.ymplayer2.ClipRotationTest)
+java.lang.AssertionError: Configuration diff: 0x20000580 expected same:<dev.petrov.ymplayer2.ClipActivity@a7d196a> was not:<dev.petrov.ymplayer2.ClipActivity@2c1e9fd>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotSame(Assert.java:829)
+	at org.junit.Assert.assertSame(Assert.java:772)
+	at dev.petrov.ymplayer2.ClipRotationTest.turningTheScreenKeepsTheVideoSession$lambda$0$5(ClipRotationTest.kt:38)
+	at dev.petrov.ymplayer2.ClipRotationTest.$r8$lambda$4EhuFOTbHNv7l7uuL8IL4GuD4xk(Unknown Source:0)
+	at dev.petrov.ymplayer2.ClipRotationTest$$ExternalSyntheticLambda4.perform(D8$$SyntheticClass:0)
+	at androidx.test.core.app.ActivityScenario.lambda$onActivity$2$androidx-test-core-app-ActivityScenario(ActivityScenario.java:794)
+	at androidx.test.core.app.ActivityScenario$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:462)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2214)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

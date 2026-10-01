@@ -42,11 +42,12 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, folders: () -> Unit = {}, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null) {
+@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, folders: () -> Unit = {}, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null, skins: (() -> Unit)? = null) {
     LazyColumn(Modifier.fillMaxSize().testTag("settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text("Настройки", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
         if (quality != null) item { OutlinedButton(quality, Modifier.fillMaxWidth().prismFocus().testTag("settings_quality")) { Text("Качество звука") } }
         item { Text("Оформление", style = MaterialTheme.typography.titleMedium) }
+        if (skins != null) item { OutlinedButton(skins, Modifier.fillMaxWidth().prismFocus().testTag("settings_skins")) { Text("Скины") } }
         items(listOf("dark" to "Тёмная", "light" to "Светлая", "system" to "Как в системе")) { (id, label) ->
             Choice(label, theme == id, "theme_$id") { setTheme(id) }
         }

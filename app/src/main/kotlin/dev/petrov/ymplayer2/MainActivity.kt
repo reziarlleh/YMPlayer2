@@ -15,6 +15,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -95,7 +96,14 @@ class MainActivity : ComponentActivity() {
             val picker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
                 if (uri != null) model.addFolder(uri.toString(), source)
             }
-            ShellApp(model, BuildConfig.VERSION_NAME, diagnostics = journal, sideBar = sideBar, updates = updates, openClips = {
+            val skinState by graph.skins.state.collectAsStateWithLifecycle()
+            val skinPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+                if (uri != null) graph.skins.inspect(uri)
+            }
+            ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins, importSkin = {
+                try { skinPicker.launch(arrayOf("*/*")) }
+                catch (_: ActivityNotFoundException) { graph.skins.report("На устройстве нет системного выбора файла. Нужен файловый менеджер с поддержкой Storage Access Framework.") }
+            }, diagnostics = journal, sideBar = sideBar, updates = updates, openClips = {
                 startActivity(Intent(this, ClipActivity::class.java))
             }, addFolder = {
                 source = it; pickerIssue = null

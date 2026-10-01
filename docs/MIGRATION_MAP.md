@@ -1,5 +1,11 @@
 # Карта миграции
 
+M13 / 2.1.0: новый формат скинов в designsystem, SkinRepository, SAF в app,
+preview в shell и recolor существующего native ClipControlsView. [ADR-032](DECISIONS/ADR-032-skin-packages.md).
+Это развитие контракта оформления 2.x, не перенос очередей или плеера 1.x.
+Реализовано и проверено на Android 15/TV29; подписанный stable64 готовится
+к публикации. [Результаты](M13_VERIFICATION.md).
+
 Build62: исправлен новый общий поиск 2.x — выбор «Офлайн» фильтрует только
 кэш профиля и сохраняет маршрут/запрос. Алгоритмы 1.x и синхронизация кэша
 не менялись. [Проверка](OFFLINE_SEARCH_VERIFICATION.md).

@@ -19,10 +19,12 @@ class ClipRotationTest {
         ActivityScenario.launch<ClipActivity>(intent).use { scenario ->
             lateinit var activity: ClipActivity
             lateinit var controller: Any
+            lateinit var initialConfiguration: Configuration
             val controllerField = ClipActivity::class.java.getDeclaredField("clips").apply { isAccessible = true }
             scenario.onActivity {
                 activity = it
                 controller = controllerField.get(it)
+                initialConfiguration = Configuration(it.resources.configuration)
                 it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             }
             waitFor { activity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE }
@@ -33,7 +35,7 @@ class ClipRotationTest {
             }
             waitFor { activity.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT }
             scenario.onActivity {
-                assertSame(activity, it)
+                assertSame("Configuration diff: 0x${initialConfiguration.diff(Configuration(it.resources.configuration)).toString(16)}", activity, it)
                 assertSame(controller, controllerField.get(it))
             }
         }

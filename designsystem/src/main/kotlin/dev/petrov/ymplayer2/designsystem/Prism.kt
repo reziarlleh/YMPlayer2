@@ -17,11 +17,11 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import android.app.Activity
 
-@Composable fun PrismTheme(mode: String = "system", skin: AppSkin = PrismSkin, content: @Composable () -> Unit) {
+@Composable fun PrismTheme(mode: String = "system", skin: AppSkin = PrismSkin, systemBars: Boolean = true, content: @Composable () -> Unit) {
     val dark = when (mode) { "dark" -> true; "light" -> false; else -> isSystemInDarkTheme() }
     val view = LocalView.current
     SideEffect {
-        (view.context as? Activity)?.window?.let { window ->
+        (view.context as? Activity)?.window?.takeIf { systemBars }?.let { window ->
             WindowCompat.getInsetsController(window, view).apply {
                 isAppearanceLightStatusBars = !dark
                 isAppearanceLightNavigationBars = !dark

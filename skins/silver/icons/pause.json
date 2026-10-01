@@ -1,0 +1,10 @@
+{
+  "width": 24,
+  "height": 24,
+  "paths": [
+    {
+      "data": "M 5 4 H 9 V 20 H 5 Z M 15 4 H 19 V 20 H 15 Z",
+      "fillType": "nonZero"
+    }
+  ]
+}

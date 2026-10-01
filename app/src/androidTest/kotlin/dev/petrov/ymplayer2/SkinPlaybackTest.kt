@@ -13,6 +13,9 @@ import kotlinx.coroutines.runBlocking
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
+import java.io.ByteArrayOutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 @RunWith(AndroidJUnit4::class)
 class SkinPlaybackTest {
@@ -31,8 +34,16 @@ class SkinPlaybackTest {
         compose.waitUntil(15000) { player.state.value.positionSeconds >= 2 }
         val before = player.state.value
         val accent = Color(0xFFAA33EE)
-        val custom = PrismSkin.copy(id = "instrumentation", dark = PrismSkin.dark.copy(primary = accent), light = PrismSkin.light.copy(primary = accent),
-            icons = mapOf(UiIcon.PAUSE to PrismIcons.getValue(UiIcon.STOP)))
+        val bytes = ByteArrayOutputStream().apply {
+            ZipOutputStream(this).use { zip ->
+                val manifest = """{"schemaVersion":1,"id":"instrumentation","name":"Test","author":"Test","dark":{"primary":"#AA33EE"},"light":{"primary":"#AA33EE"},"icons":{"PAUSE":"stop.json"}}"""
+                val vector = """{"width":24,"height":24,"paths":[{"data":"M 6 6 H 18 V 18 H 6 Z"}]}"""
+                for ((name, text) in mapOf("manifest.json" to manifest, "stop.json" to vector)) {
+                    zip.putNextEntry(ZipEntry(name)); zip.write(text.toByteArray()); zip.closeEntry()
+                }
+            }
+        }.toByteArray()
+        val custom = SkinPackageReader.readBytes(bytes).skin
         assertEquals(UiIcon.entries.toSet(), PrismIcons.keys)
         assertSame(PrismIcons.getValue(UiIcon.PLAY), custom.icon(UiIcon.PLAY))
         compose.runOnIdle { compose.activity.skin = custom }

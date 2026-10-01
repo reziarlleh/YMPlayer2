@@ -12,4 +12,5 @@ dependencies {
     api(libs.compose.material3)
     implementation(libs.compose.icons)
     implementation(libs.compose.foundation)
+    implementation(libs.coroutines.android)
 }

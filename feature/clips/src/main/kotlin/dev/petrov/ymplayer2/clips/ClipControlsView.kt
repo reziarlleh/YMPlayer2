@@ -19,7 +19,7 @@ import android.widget.TextView
 import android.text.TextUtils
 
 /** Native overlay stays above the video surface on Android 15 release builds. */
-class ClipControlsView(context: Context, private val controller: ClipWaveController, private val palette: ClipPalette = PrismSkin.clipPalette(), close: () -> Unit) : FrameLayout(context) {
+class ClipControlsView(context: Context, private val controller: ClipWaveController, private var palette: ClipPalette = PrismSkin.clipPalette(), close: () -> Unit) : FrameLayout(context) {
     private val handler = Handler(Looper.getMainLooper())
     private val hide = Runnable { if (latest.playing) { shown = false; display() } }
     private var latest = ClipWaveState()
@@ -34,6 +34,8 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private val artist = label("", 16f).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val nextTitle = label("", 18f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val nextArtist = label("", 14f).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
+    private val currentCaption = infoLabel("СЕЙЧАС", palette.accent)
+    private val nextCaption = infoLabel("ДАЛЕЕ", palette.secondary)
     private val preview = label("Предпросмотр", 14f)
     private val retry = button("Повторить", controller::retry)
     private val previous = button("◀", controller::previous)
@@ -60,14 +62,14 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         val currentColumn = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(16), dp(12), dp(12), dp(12))
-            addView(infoLabel("СЕЙЧАС", palette.accent))
+            addView(currentCaption)
             addView(title)
             addView(artist)
         }
         val nextColumn = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(28), dp(12), dp(12), dp(12))
-            addView(infoLabel("ДАЛЕЕ", palette.secondary))
+            addView(nextCaption)
             addView(nextTitle)
             addView(nextArtist)
         }
@@ -142,26 +144,39 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         gravity = Gravity.CENTER
         isClickable = true; isFocusable = true
         contentDescription = value
-        fun paint(focused: Boolean) {
-            setTextColor(if (focused) palette.onAccent else palette.text)
-            background = GradientDrawable().apply {
-                setColor(if (focused) palette.accent else palette.controlSurface)
-                cornerRadius = dp(28).toFloat()
-            }
-        }
-        paint(false)
-        onFocusChangeListener = OnFocusChangeListener { _, focused -> paint(focused) }
+        paintButton(this, false)
+        onFocusChangeListener = OnFocusChangeListener { _, focused -> paintButton(this, focused) }
         setOnClickListener { action() }
+    }
+    /** Recolors existing views without touching controller, focus or video position. */
+    fun updatePalette(value: ClipPalette) {
+        if (palette == value) return
+        palette = value
+        top.background = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(palette.topShade, palette.clearShade))
+        bottom.background = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, intArrayOf(palette.bottomShade, palette.clearShade))
+        listOf(heading, status, title, artist, nextTitle, nextArtist, preview).forEach { it.setTextColor(palette.text) }
+        currentCaption.setTextColor(palette.accent)
+        nextCaption.setTextColor(palette.secondary)
+        listOf(back, retry, previous, play, next).forEach { paintButton(it, it.hasFocus()) }
+        infoBand.updatePalette(value)
+    }
+    private fun paintButton(view: TextView, focused: Boolean) {
+        view.setTextColor(if (focused) palette.onAccent else palette.text)
+        view.background = GradientDrawable().apply {
+            setColor(if (focused) palette.accent else palette.controlSurface)
+            cornerRadius = dp(28).toFloat()
+        }
     }
     private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()
 }
 
 /** Two translucent panels share a diagonal edge; the video remains visible underneath. */
-private class DiagonalClipInfoBand(context: Context, private val palette: ClipPalette) : FrameLayout(context) {
+private class DiagonalClipInfoBand(context: Context, private var palette: ClipPalette) : FrameLayout(context) {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val shape = Path()
 
     init { setWillNotDraw(false) }
+    fun updatePalette(value: ClipPalette) { palette = value; invalidate() }
 
     override fun onDraw(canvas: Canvas) {
         val w = width.toFloat()
