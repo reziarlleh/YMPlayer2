@@ -13,6 +13,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
 import android.view.View
+import android.view.KeyEvent
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -24,12 +25,13 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private val hide = Runnable { if (latest.playing) { shown = false; display() } }
     private var latest = ClipWaveState()
     private var shown = true
+    private var revealKey: Int? = null
     private val top = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
     private val bottom = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
     private val back = button("← Назад", close)
     private val heading = label("Клипы · Яндекс Музыка", 18f, true)
     private val status = label("", 16f)
-    private val infoBand = DiagonalClipInfoBand(context, palette)
+    private val infoBand = DiagonalClipInfoBand(context, palette).apply { tag = "clip_info_band" }
     private val title = label("", 22f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val artist = label("", 16f).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val nextTitle = label("", 18f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
@@ -84,6 +86,14 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         actions.addView(previous, LinearLayout.LayoutParams(dp(76), dp(56)))
         actions.addView(play, LinearLayout.LayoutParams(dp(96), dp(64)))
         actions.addView(next, LinearLayout.LayoutParams(dp(76), dp(56)))
+        listOf(back, previous, play, next, retry).forEach { it.id = View.generateViewId() }
+        previous.nextFocusRightId = play.id
+        play.nextFocusLeftId = previous.id
+        play.nextFocusRightId = next.id
+        next.nextFocusLeftId = play.id
+        listOf(previous, play, next).forEach { it.nextFocusUpId = back.id }
+        back.nextFocusDownId = play.id
+        retry.nextFocusDownId = play.id
         bottom.addView(actions, LinearLayout.LayoutParams(-1, -2))
         addView(bottom, LayoutParams(-1, -2, Gravity.BOTTOM))
         setOnApplyWindowInsetsListener { _, insets ->
@@ -95,6 +105,8 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     }
 
     fun render(state: ClipWaveState) {
+        val firstClip = latest.clip == null && state.clip != null
+        if (latest.clip?.id != state.clip?.id || state.loading) infoBand.setProgress(0L, 0L)
         latest = state
         status.text = state.issue ?: if (state.loading) "Загрузка клипов…" else ""
         status.visibility = if (status.text.isNotEmpty()) VISIBLE else GONE
@@ -114,6 +126,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         for (control in listOf(previous, play, next)) control.alpha = if (control.isEnabled) 1f else .42f
         if (!state.playing || state.issue != null) shown = true
         display()
+        if (firstClip && shown && !isInTouchMode) play.requestFocus()
         handler.removeCallbacks(hide)
         if (shown && state.playing) handler.postDelayed(hide, 5000)
     }
@@ -124,9 +137,60 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         handler.removeCallbacks(hide)
         if (shown) handler.postDelayed(hide, 5000)
     }
+    /** The first navigation press restores a hidden panel; its matching release must not click it. */
+    fun handleRemoteKey(event: KeyEvent): Boolean {
+        val code = event.keyCode
+        if (code == revealKey) {
+            if (event.action == KeyEvent.ACTION_UP) revealKey = null
+            return true
+        }
+        val mediaAction: (() -> Unit)? = when (code) {
+            KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> controller::toggle
+            KeyEvent.KEYCODE_MEDIA_PLAY -> ({ if (!latest.playing) controller.toggle() })
+            KeyEvent.KEYCODE_MEDIA_PAUSE -> controller::pause
+            KeyEvent.KEYCODE_MEDIA_NEXT -> controller::next
+            KeyEvent.KEYCODE_MEDIA_PREVIOUS -> controller::previous
+            else -> null
+        }
+        if (mediaAction != null) {
+            if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) {
+                mediaAction(); showControls(focus = false)
+            }
+            return true
+        }
+        if (code !in setOf(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT,
+                KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_DPAD_CENTER,
+                KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER)) return false
+        if (event.action == KeyEvent.ACTION_DOWN) {
+            if (!shown || !hasFocus()) {
+                revealKey = code
+                showControls(focus = true)
+                return true
+            }
+            scheduleHide()
+        }
+        return false
+    }
+    fun showControls(focus: Boolean = true) {
+        val restoreFocus = focus && (!shown || !hasFocus())
+        shown = true; display()
+        if (restoreFocus) {
+            listOf(play, retry, next, previous, back).firstOrNull { it.isEnabled && it.visibility == VISIBLE }?.requestFocus()
+        }
+        scheduleHide()
+    }
+    private fun scheduleHide() {
+        handler.removeCallbacks(hide)
+        if (shown && latest.playing) handler.postDelayed(hide, 5000)
+    }
+    /** Position polling never reschedules auto-hide or moves D-pad focus. */
+    fun updateProgress(positionMs: Long, durationMs: Long) {
+        infoBand.setProgress(if (latest.loading || latest.clip == null) 0L else positionMs, durationMs)
+    }
     private fun display() {
         top.visibility = if (shown) VISIBLE else GONE
         bottom.visibility = if (shown) VISIBLE else GONE
+        if (!shown) (parent as? View)?.requestFocus()
     }
     override fun onDetachedFromWindow() { handler.removeCallbacks(hide); super.onDetachedFromWindow() }
 
@@ -142,10 +206,13 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     }
     private fun button(value: String, action: () -> Unit) = label(value, 18f, true).apply {
         gravity = Gravity.CENTER
-        isClickable = true; isFocusable = true
+        isClickable = true; isFocusable = true; isFocusableInTouchMode = true
         contentDescription = value
         paintButton(this, false)
-        onFocusChangeListener = OnFocusChangeListener { _, focused -> paintButton(this, focused) }
+        onFocusChangeListener = OnFocusChangeListener { _, focused ->
+            paintButton(this, focused)
+            if (focused) scheduleHide()
+        }
         setOnClickListener { action() }
     }
     /** Recolors existing views without touching controller, focus or video position. */
@@ -174,9 +241,14 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
 private class DiagonalClipInfoBand(context: Context, private var palette: ClipPalette) : FrameLayout(context) {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val shape = Path()
+    private var progress = 0f
 
     init { setWillNotDraw(false) }
     fun updatePalette(value: ClipPalette) { palette = value; invalidate() }
+    fun setProgress(positionMs: Long, durationMs: Long) {
+        val next = if (durationMs > 0L) (positionMs.toDouble() / durationMs).coerceIn(0.0, 1.0).toFloat() else 0f
+        if (progress != next) { progress = next; invalidate() }
+    }
 
     override fun onDraw(canvas: Canvas) {
         val w = width.toFloat()
@@ -191,6 +263,14 @@ private class DiagonalClipInfoBand(context: Context, private var palette: ClipPa
         shape.close()
         paint.color = palette.currentPanel
         canvas.drawPath(shape, paint)
+        // The diagonal current panel clips the shade, keeping the next title's background untouched.
+        if (progress > 0f) {
+            val saved = canvas.save()
+            canvas.clipPath(shape)
+            paint.color = 0x66000000
+            canvas.drawRect(0f, 0f, seamTop * progress, h, paint)
+            canvas.restoreToCount(saved)
+        }
         shape.reset()
         shape.moveTo(seamTop, 0f)
         shape.lineTo(w, 0f)

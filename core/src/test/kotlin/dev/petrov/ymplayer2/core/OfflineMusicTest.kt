@@ -13,7 +13,9 @@ class OfflineMusicTest {
         var beforeSave: suspend () -> Unit = {}
         var beforeRetain: suspend () -> Unit = {}
         val downloaded = mutableListOf<Pair<OfflineOwner, String>>()
-        override suspend fun load(owner: OfflineOwner) = files[owner]?.values?.toList().orEmpty()
+        var loads = 0
+        var audioReads = 0
+        override suspend fun load(owner: OfflineOwner): List<Track> { loads++; return files[owner]?.values?.toList().orEmpty() }
         override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem {
             transfer(); beforeSave()
             if (!allowed()) return OfflineItem(null, false, false, false)
@@ -23,10 +25,10 @@ class OfflineMusicTest {
             return OfflineItem(ready, false, false, true)
         }
         override suspend fun retain(owner: OfflineOwner, keys: Set<String>, allowed: () -> Boolean) { beforeRetain(); if (allowed()) files[owner]?.keys?.retainAll(keys) }
-        override suspend fun audio(owner: OfflineOwner, trackId: String) = files[owner]?.get(trackId.removePrefix("yandex:").substringBefore(':'))?.let { "file:///fixture" }
+        override suspend fun audio(owner: OfflineOwner, trackId: String): String? { audioReads++; return files[owner]?.get(trackId.removePrefix("yandex:").substringBefore(':'))?.let { "file:///fixture" } }
         override suspend fun clear(owner: OfflineOwner) { files.remove(owner) }
     }
-    private inner class Harness(val scope: TestScope) {
+    private inner class Harness(val scope: TestScope, enabled: Boolean = true) {
         val owner = OfflineOwner("owner", "A")
         val sessions = mutableMapOf("owner" to AccountSession(YandexAccount("A", "A"), OAuthCredentials("fixture", null, null)),
             "road" to AccountSession(YandexAccount("A", "A"), OAuthCredentials("fixture", null, null)))
@@ -41,6 +43,8 @@ class OfflineMusicTest {
         }, scope.backgroundScope)
         var liked = setOf("1", "2")
         var failedSnapshot = false
+        var snapshots = 0
+        var savedEnabled = enabled
         var gate: suspend () -> Unit = {}
         var finalKeys: Set<String>? = null
         val kinds = mutableListOf<TasteKind>()
@@ -53,6 +57,7 @@ class OfflineMusicTest {
         }, scope.backgroundScope)
         val api = object : LikedMusicApi {
             override suspend fun snapshot(profileId: String): LikedSnapshot {
+                snapshots++
                 val captured = liked
                 gate()
                 if (failedSnapshot) throw MusicException(MusicFailure.NETWORK)
@@ -66,7 +71,8 @@ class OfflineMusicTest {
         }
         val store = Store()
         var network = true
-        val offline = OfflineMusic(auth, taste, api, online, store, scope.backgroundScope, network = { network })
+        val offline = OfflineMusic(auth, taste, api, online, store, scope.backgroundScope, network = { network },
+            enabled = enabled, saveEnabled = { savedEnabled = it })
         init { auth.activate("owner"); scope.runCurrent() }
     }
     @Test fun onlyTrackLikesAreDownloadedAndMissingCoversDoNotBlockAudio() = runTest {
@@ -138,5 +144,43 @@ class OfflineMusicTest {
         h.offline.cancel(); advanceTimeBy(2000); runCurrent()
         assertEquals(setOf("2"), h.store.files[h.owner]?.keys)
         assertNull(h.offline.audio("owner", "yandex:1:7"))
+    }
+    @Test fun disabledCacheDoesNotReadDiskOrStartTransfersAndSurvivesRecreation() = runTest {
+        val h = Harness(this, enabled = false)
+        h.offline.sync(); runCurrent()
+        assertEquals(0, h.snapshots); assertEquals(0, h.store.loads)
+        assertNull(h.offline.audio("owner", "yandex:1:7")); assertEquals(0, h.store.audioReads)
+        h.offline.setEnabled(true); runCurrent(); h.offline.sync(); runCurrent()
+        assertEquals(2, h.offline.tracks("owner").size)
+        h.offline.setEnabled(false); runCurrent()
+        assertFalse(h.savedEnabled)
+        val restored = OfflineMusic(h.auth, h.taste, h.api, h.online, h.store, backgroundScope, enabled = h.savedEnabled)
+        val loads = h.store.loads
+        runCurrent(); restored.sync(); runCurrent()
+        assertFalse(restored.state.value.enabled); assertEquals(loads, h.store.loads)
+        assertTrue(restored.tracks("owner").isEmpty())
+        assertEquals(2, h.store.files[h.owner]?.size)
+    }
+    @Test fun disablingDuringLateDownloadRejectsPublicationAndReenableAllowsANewPass() = runTest {
+        val h = Harness(this)
+        h.store.beforeSave = { withContext(NonCancellable) { delay(1000) } }
+        h.offline.sync(); runCurrent(); h.offline.setEnabled(false)
+        advanceTimeBy(2000); runCurrent()
+        assertFalse(h.offline.state.value.running); assertTrue(h.store.downloaded.isEmpty())
+        assertTrue(h.offline.tracks("owner").isEmpty())
+        h.store.beforeSave = {}
+        h.offline.setEnabled(true); runCurrent(); h.offline.sync(); runCurrent()
+        assertEquals(2, h.offline.tracks("owner").size)
+    }
+    @Test fun disabledCachePreservesFilesUntilExplicitClearAndCannotDecorateTracks() = runTest {
+        val h = Harness(this); h.offline.sync(); runCurrent()
+        h.offline.setEnabled(false); runCurrent()
+        h.liked = setOf("2"); h.taste.refresh(TasteKind.TRACK); runCurrent()
+        assertEquals(2, h.store.files[h.owner]?.size)
+        assertFalse(h.offline.decorate("owner", track("1")).offline)
+        assertNull(h.offline.audio("owner", "yandex:1:7"))
+        h.offline.clear(); runCurrent()
+        assertTrue(h.store.files[h.owner].isNullOrEmpty())
+        assertFalse(h.offline.state.value.enabled); assertTrue(h.offline.state.value.ready)
     }
 }

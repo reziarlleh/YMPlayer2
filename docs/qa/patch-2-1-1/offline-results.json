@@ -1,0 +1,34 @@
+{
+  "5554": {
+    "offlinePassed": [
+      "badAudioDoesNotDeleteHealthyCoverAndRetryRepairsOnlyAudio",
+      "missingCoverKeepsAudioAndNeverStoresPlaceholderArt",
+      "clearOfflineFilesLeavesServerLikesUntouched",
+      "unlikeInFlightCannotLeaveAnyFilesForRemovedTrack",
+      "disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled",
+      "foregroundSyncCancelsWithoutStoppingTheAudioPlayer",
+      "profileSwitchCancelsDownloadAndHidesOutgoingCache",
+      "damagedAudioAndCoverAreRepairedIndependently",
+      "syncScreenThenPlayWithNetworkDisabledAndRestorePaused",
+      "checksumlessValidFilesAreVerifiedWithoutDownloadingAgain",
+      "cancelKeepsCompletedFileAndNextSyncContinues"
+    ],
+    "combinedInitialRun": "18 tests; 1 clip failure; clip suite fixed and rerun separately"
+  },
+  "5556": {
+    "offlinePassed": [
+      "badAudioDoesNotDeleteHealthyCoverAndRetryRepairsOnlyAudio",
+      "missingCoverKeepsAudioAndNeverStoresPlaceholderArt",
+      "clearOfflineFilesLeavesServerLikesUntouched",
+      "unlikeInFlightCannotLeaveAnyFilesForRemovedTrack",
+      "disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled",
+      "foregroundSyncCancelsWithoutStoppingTheAudioPlayer",
+      "profileSwitchCancelsDownloadAndHidesOutgoingCache",
+      "damagedAudioAndCoverAreRepairedIndependently",
+      "syncScreenThenPlayWithNetworkDisabledAndRestorePaused",
+      "checksumlessValidFilesAreVerifiedWithoutDownloadingAgain",
+      "cancelKeepsCompletedFileAndNextSyncContinues"
+    ],
+    "combinedInitialRun": "18 tests; 1 clip failure; clip suite fixed and rerun separately"
+  }
+}

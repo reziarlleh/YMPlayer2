@@ -22,7 +22,7 @@ data class OfflineState(
     val owner: OfflineOwner? = null, val ready: Boolean = false, val running: Boolean = false,
     val tracks: List<Track> = emptyList(), val total: Int = 0, val checked: Int = 0,
     val audioFailures: Int = 0, val coverFailures: Int = 0, val noCover: Int = 0,
-    val message: String? = null, val wifiOnly: Boolean = true,
+    val message: String? = null, val wifiOnly: Boolean = true, val enabled: Boolean = true,
 ) {
     val bytes get() = tracks.sumOf(Track::sizeBytes)
 }
@@ -32,8 +32,9 @@ data class OfflineState(
 class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTaste, private val api: LikedMusicApi,
     private val online: OnlineMusicApi, private val store: OfflineStore, private val scope: CoroutineScope,
     wifiOnly: Boolean = true, private val saveWifi: (Boolean) -> Unit = {},
-    private val network: (Boolean) -> Boolean = { true }, private val cacheQuality: () -> AudioQuality = { AudioQuality.AUTO }) {
-    private val mutable = MutableStateFlow(OfflineState(wifiOnly = wifiOnly))
+    private val network: (Boolean) -> Boolean = { true }, private val cacheQuality: () -> AudioQuality = { AudioQuality.AUTO },
+    enabled: Boolean = true, private val saveEnabled: (Boolean) -> Unit = {}) {
+    private val mutable = MutableStateFlow(OfflineState(wifiOnly = wifiOnly, enabled = enabled))
     val state = mutable.asStateFlow()
     @Volatile private var generation = 0L
     @Volatile private var excluded = emptySet<String>()
@@ -48,21 +49,14 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
             accounts.state.map { auth -> auth.takeIf { it.phase == AuthPhase.SIGNED_IN }?.account?.id
                 ?.let { OfflineOwner(auth.profileId, it) } }.distinctUntilChanged().collect { owner ->
                 generation++; job?.cancel(); excluded = emptySet(); passKeys = null; membership = null; seenTaste = null
-                mutable.value = OfflineState(owner = owner, wifiOnly = state.value.wifiOnly)
-                if (owner != null) {
-                    val ticket = generation
-                    launch {
-                        try {
-                            val tracks = store.load(owner)
-                            if (valid(owner, ticket)) mutable.value = state.value.copy(ready = true, tracks = permitted(owner, tracks))
-                        } catch (e: CancellationException) { throw e }
-                        catch (_: Exception) { if (valid(owner, ticket)) mutable.value = state.value.copy(ready = true, message = "Не удалось прочитать офлайн-коллекцию. Повторите синхронизацию.") }
-                    }
-                }
+                mutable.value = OfflineState(owner = owner, wifiOnly = state.value.wifiOnly,
+                    enabled = state.value.enabled, ready = owner != null && !state.value.enabled)
+                if (owner != null && state.value.enabled) load(owner)
             }
         }
         scope.launch {
-            combine(accounts.state, taste.state) { _, preferences -> preferences }.collect { preferences ->
+            combine(accounts.state, taste.state, state.map { it.enabled }.distinctUntilChanged()) { _, preferences, _ -> preferences }.collect { preferences ->
+                if (!state.value.enabled) return@collect
                 val owner = state.value.owner ?: return@collect
                 val shelf = preferences.shelf(TasteKind.TRACK)
                 if (preferences.profileId != owner.profileId || preferences.accountId != owner.accountId || !preferences.signedIn || !shelf.ready || shelf.busy) return@collect
@@ -75,6 +69,28 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         }
     }
 
+    private fun load(owner: OfflineOwner) {
+        val ticket = generation
+        scope.launch {
+            try {
+                val tracks = store.load(owner)
+                if (valid(owner, ticket) && state.value.enabled) mutable.value = state.value.copy(ready = true, tracks = permitted(owner, tracks))
+            } catch (e: CancellationException) { throw e }
+            catch (_: Exception) { if (valid(owner, ticket) && state.value.enabled) mutable.value = state.value.copy(ready = true, message = "Не удалось прочитать офлайн-коллекцию. Повторите синхронизацию.") }
+        }
+    }
+
+    /** Device-wide opt-out. In-flight writes lose their generation; existing files require explicit clear. */
+    fun setEnabled(value: Boolean) {
+        if (state.value.enabled == value) return
+        generation++; membershipRevision++; job?.cancel(); job = null; passKeys = null; seenTaste = null
+        mutable.value = state.value.copy(enabled = value, ready = state.value.owner != null && !value,
+            running = false, tracks = emptyList(), total = 0, checked = 0, audioFailures = 0, coverFailures = 0, noCover = 0,
+            message = if (value) null else "Офлайн-кэш выключен. Для освобождения места удалите ранее сохранённые файлы.")
+        saveEnabled(value)
+        if (value) state.value.owner?.let(::load)
+    }
+
     private fun owns(owner: OfflineOwner) = state.value.owner == owner &&
         accounts.state.value.let { it.phase == AuthPhase.SIGNED_IN && it.profileId == owner.profileId && it.account?.id == owner.accountId }
     private fun valid(owner: OfflineOwner, ticket: Long) = ticket == generation && owns(owner)
@@ -84,7 +100,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         mutable.value = state.value.copy(tracks = state.value.tracks.filter { it.tasteTarget().key in keys })
         // A confirmed unlike belongs to the account, not to the cancellable download pass.
         scope.launch {
-            try { store.retain(owner, keys) { owns(owner) && revision == membershipRevision } }
+            try { store.retain(owner, keys) { state.value.enabled && owns(owner) && revision == membershipRevision } }
             catch (e: CancellationException) { throw e }
             catch (_: Exception) { if (owns(owner) && revision == membershipRevision) report("Не удалось удалить файлы снятых лайков. Повторите синхронизацию.") }
         }
@@ -100,7 +116,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     }
     fun sync() {
         val owner = state.value.owner ?: return
-        if (!state.value.ready || state.value.running) return
+        if (!state.value.enabled || !state.value.ready || state.value.running) return
         val ticket = ++generation; val revision = membershipRevision
         excluded = emptySet(); passKeys = null
         mutable.value = state.value.copy(running = true, total = 0, checked = 0, audioFailures = 0, coverFailures = 0, noCover = 0, message = "Получаем «Мне нравится»…")
@@ -168,16 +184,17 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
             catch (_: Exception) { if (valid(owner, ticket)) mutable.value = state.value.copy(ready = true, message = "Не удалось очистить офлайн-файлы.") }
         }
     }
-    fun tracks(profile: String) = state.value.takeIf { it.owner?.profileId == profile }?.tracks.orEmpty()
+    fun tracks(profile: String) = state.value.takeIf { it.enabled && it.owner?.profileId == profile }?.tracks.orEmpty()
     fun decorate(profile: String, track: Track): Track {
         val cached = tracks(profile).firstOrNull { it.tasteTarget().key == track.tasteTarget().key } ?: return track
         return track.copy(offline = true, available = true, artworkUri = cached.artworkUri ?: track.artworkUri)
     }
     suspend fun audio(profile: String, trackId: String): String? {
+        if (!state.value.enabled) return null
         val owner = state.value.owner?.takeIf { it.profileId == profile } ?: return null
         if (membership?.takeIf { it.first == owner }?.second?.contains(trackId.removePrefix("yandex:").substringBefore(':')) == false) return null
         val ticket = generation
         val uri = store.audio(owner, trackId)
-        return uri?.takeIf { valid(owner, ticket) }
+        return uri?.takeIf { state.value.enabled && valid(owner, ticket) }
     }
 }

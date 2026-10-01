@@ -25,7 +25,7 @@ class OfflinePlaybackTest {
     private lateinit var sourceCover: File
     @Before fun setup() {
         waitFor { h.library.state.value.ready && h.player.state.value.connected }
-        compose.runOnIdle { h.player.stop(); h.player.switchProfile("owner"); h.player.clearQueue() }
+        compose.runOnIdle { h.player.stop(); h.player.switchProfile("owner"); h.player.clearQueue(); cache.setEnabled(true) }
         waitFor { cache.state.value.owner == owner && cache.state.value.ready }
         compose.runOnIdle { cache.clear() }
         waitFor { cache.state.value.ready && cache.state.value.tracks.isEmpty() }
@@ -56,6 +56,20 @@ class OfflinePlaybackTest {
     private fun clickOffline(tag: String) {
         compose.onNodeWithTag("offline_list").performScrollToNode(hasTestTag(tag))
         compose.onNodeWithTag(tag).performClick()
+    }
+    @Test fun disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled() {
+        sync(); assertEquals(2, cache.state.value.tracks.size)
+        val savedAudio = audio("1")
+        openScreen(); clickOffline("offline_enabled")
+        waitFor { !cache.state.value.enabled }
+        compose.onNodeWithTag("offline_list").performScrollToNode(hasTestTag("offline_sync"))
+        compose.onNodeWithTag("offline_sync").assertIsNotEnabled()
+        assertTrue(savedAudio.isFile)
+        assertTrue(cache.tracks("owner").isEmpty())
+        assertNull(runBlocking { cache.audio("owner", "yandex:1:10") })
+        clickOffline("offline_enabled")
+        waitFor { cache.state.value.ready && cache.state.value.tracks.size == 2 }
+        assertTrue(savedAudio.isFile)
     }
     @Test fun syncScreenThenPlayWithNetworkDisabledAndRestorePaused() {
         openScreen(); clickOffline("offline_sync")

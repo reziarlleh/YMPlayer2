@@ -1,0 +1,10 @@
+{
+  "core": {
+    "tests": 89,
+    "failures": 0,
+    "errors": 0
+  },
+  "lintDebug": {
+    "Warning": 31
+  }
+}

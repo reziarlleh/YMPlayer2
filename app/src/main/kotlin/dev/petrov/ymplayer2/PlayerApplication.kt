@@ -46,7 +46,9 @@ class PlayerApplication : Application(), PlaybackHost {
             val caps = manager.getNetworkCapabilities(manager.activeNetwork)
             caps != null && caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
                 (!wifi || caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI))
-        }, cacheQuality = { audioQuality.state.value.cache }) }
+        }, cacheQuality = { audioQuality.state.value.cache },
+        enabled = offlinePrefs.getBoolean("enabled", true),
+        saveEnabled = { offlinePrefs.edit().putBoolean("enabled", it).apply() }) }
     override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi), offline,
         streamQuality = { audioQuality.state.value.stream }) }
     val accounts by lazy { AccountAuth(library.profiles,

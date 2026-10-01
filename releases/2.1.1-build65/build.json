@@ -1,0 +1,9 @@
+{
+  "versionCode": 65,
+  "channel": "stable",
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-10-01T13:59:09.2059362Z",
+  "runtimeAcceptance": "Project Android 15 and TV29: signed65 installed over64; device-wide offline opt-out survives force-stop. Debug native regression passed; physical TV acceptance remains separate.",
+  "sha256": "d42fd4d4a77a8f8ba4c9f137a738a4d0d69e2751548524067e6fc8a4b92fbc33",
+  "versionName": "2.1.1-build65"
+}
