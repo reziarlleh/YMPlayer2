@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-01T04:42:17.316436+00:00",
+  "apk": [
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.1-build61/YMPlayer-2.0.1-build61.apk",
+      "sizeBytes": 4817238,
+      "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.1-build61/releases/2.0.1-build61/YMPlayer-2.0.1-build61.apk",
+      "sizeBytes": 4817238,
+      "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+      "matches": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.1-build61/releases/2.0.1-build61/YMPlayer-2.0.1-build61.apk",
+      "sizeBytes": 4817238,
+      "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+      "matches": true
+    }
+  ]
+}

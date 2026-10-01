@@ -1,0 +1,44 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+    "versionCode": 61,
+    "versionName": "2.0.1-build61",
+    "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+    "matches": true
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "versionCode": 61,
+    "versionName": "2.0.1-build61",
+    "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+    "matches": true
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "versionCode": 61,
+    "versionName": "2.0.1-build61",
+    "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+    "matches": true
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "versionCode": 61,
+    "versionName": "2.0.1-build61",
+    "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+    "matches": true
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "versionCode": 57,
+    "versionName": "2.0.0-build57",
+    "sha256": "d2b10f8c4a0401942bbdd0c33557e489f58274369d0e96a197949bae0ddf0f2b",
+    "matches": false
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "versionCode": 61,
+    "versionName": "2.0.1-build61",
+    "sha256": "f2256a491f3919b14d4f7622a042e3995c407cf1af9f02c0766946eac2db283e",
+    "matches": true
+  }
+]
