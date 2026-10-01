@@ -1,0 +1,9 @@
+{
+  "versionName": "2.1.3-build67",
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-10-01T17:55:09.3554530Z",
+  "sha256": "3768802fe4363fc8af91340622213f971350966316847fc3af7e31062c32f1d1",
+  "runtimeAcceptance": "Project Android 15/TV29: signed67 installed over66 without clearing data; production About version and QR verified on both. AboutTest final 3/3 on each (touch, light/dark, exact links, missing browser, D-pad). QR decoded from six screenshots and signed APK. Playback code unchanged; physical-device acceptance of this new window remains separate.",
+  "versionCode": 67,
+  "channel": "stable"
+}

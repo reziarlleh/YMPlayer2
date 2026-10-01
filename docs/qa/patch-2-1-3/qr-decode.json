@@ -1,0 +1,30 @@
+[
+  {
+    "screenshot": "about-phone-dark.png",
+    "decoded": "https://donate.stream/donate_6a60559cd9e35"
+  },
+  {
+    "screenshot": "about-phone-light.png",
+    "decoded": "https://donate.stream/donate_6a60559cd9e35"
+  },
+  {
+    "screenshot": "about-phone-release.png",
+    "decoded": "https://donate.stream/donate_6a60559cd9e35"
+  },
+  {
+    "screenshot": "about-tv-dark.png",
+    "decoded": "https://donate.stream/donate_6a60559cd9e35"
+  },
+  {
+    "screenshot": "about-tv-light.png",
+    "decoded": "https://donate.stream/donate_6a60559cd9e35"
+  },
+  {
+    "screenshot": "about-tv-release.png",
+    "decoded": "https://donate.stream/donate_6a60559cd9e35"
+  },
+  {
+    "signed_apk_qr": "res/NL.png",
+    "decoded": "https://donate.stream/donate_6a60559cd9e35"
+  }
+]

@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import android.os.SystemClock
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.semantics.Role
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
@@ -47,6 +49,7 @@ private val destinations = listOf(
     val cachedTracks = profileOfflineState?.tracks.orEmpty()
     val demo = model.local == null
     var route by rememberSaveable { mutableStateOf("player") }
+    var aboutOpen by rememberSaveable { mutableStateOf(false) }
     var artistFrom by rememberSaveable { mutableStateOf("player") }
     var exitAt by remember { mutableStateOf<Long?>(null) }
     var libraryUpRequest by rememberSaveable { mutableIntStateOf(0) }
@@ -131,8 +134,8 @@ private val destinations = listOf(
                 Column(Modifier.weight(1f).fillMaxHeight()) {
                     if (!typingInShortWindow) Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                         if (route != "player") ActionIcon(UiIcon.BACK, "Назад", { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))
-                        Column(Modifier.weight(1f).padding(vertical = 6.dp)) {
-                            Text("YMPlayer 2", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        Column(Modifier.weight(1f).heightIn(min = 48.dp).prismFocus().clickable(onClickLabel = "О приложении", role = Role.Button) { aboutOpen = true }.testTag("about_logo").padding(vertical = 6.dp)) {
+                            WideBrandLogo(Modifier.widthIn(max = 188.dp).fillMaxWidth().height(30.dp), "YMPlayer2")
                             if (route != "player") Text(if (demo) "Прототип · Без звука" else if (version.contains("beta", ignoreCase = true)) "Музыка рядом · Beta" else "Музыка рядом", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         }
                         ActionIcon(UiIcon.PROFILE, "Профили", { navigate("profiles") }, Modifier.testTag("profiles"))
@@ -180,7 +183,7 @@ private val destinations = listOf(
                                 }
                                 "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                 "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
-                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } })
+                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true })
                                 "skins" -> skins?.let { SkinsScreen(it, importSkin) }
                                 "diagnostics" -> diagnostics?.let { DiagnosticsScreen(it) }
                                 "sidebar" -> sideBar?.let { SideBarScreen(it) }
@@ -209,6 +212,7 @@ private val destinations = listOf(
                 Text("Нажмите «Назад» ещё раз для выхода")
             }
         }
+        if (aboutOpen) AboutDialog(version) { aboutOpen = false }
         if (updates != null) {
             val updateState by updates.state.collectAsStateWithLifecycle()
             val offer = updateState.offer
