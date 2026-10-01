@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 68,
-  "versionName": "2.1.4-build68",
+  "versionCode": 69,
+  "versionName": "2.1.5-build69",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-01T18:25:43.9442250Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.4-build68",
-  "releaseNotes": "Единая верхняя строка на всю ширину, левое меню под ней, без дублирования логотипа. О приложении и управление пультом сохранены.",
+  "publishedAt": "2026-10-01T19:07:04.6988397Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.5-build69",
+  "releaseNotes": "Настройки офлайн-кэша отделены от списка медиатеки. Полноширинная кнопка, параметры и синхронизация в настройках; сохранённые треки в Медиатека → Офлайн. Папки с музыкой остаются в общем каталоге.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.1.4-build68/YMPlayer-2.1.4-build68.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.4-build68/releases/2.1.4-build68/YMPlayer-2.1.4-build68.apk",
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.1.5-build69/YMPlayer-2.1.5-build69.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.5-build69/releases/2.1.5-build69/YMPlayer-2.1.5-build69.apk",
     "sizeBytes": 4896621,
-    "sha256": "f0cd817e4b142668bf3c76045e6c88859b7876df5dc6b711407b62673498f9f5"
+    "sha256": "5de944b07e7f6046a24a26235448a2b683ac26494967ab73128fdf1a26df9b9d"
   }
 }
