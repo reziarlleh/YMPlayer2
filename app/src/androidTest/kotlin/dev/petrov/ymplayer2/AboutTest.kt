@@ -61,6 +61,30 @@ class AboutTest {
         }
         bitmap.recycle()
     }
+    @Test fun commonHeaderSpansTheScreenAndMenuStartsBelowIt() {
+        fun check(section: String) {
+            val root = compose.onNodeWithTag("shell_layout").fetchSemanticsNode().boundsInRoot
+            val header = compose.onNodeWithTag("shell_header").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+            assertEquals(root.left, header.left, 1f)
+            assertEquals(root.right, header.right, 1f)
+            compose.onAllNodesWithContentDescription("YMPlayer2").assertCountEquals(1)
+            if (compose.onAllNodesWithTag("shell_rail").fetchSemanticsNodes().isNotEmpty()) {
+                val rail = compose.onNodeWithTag("shell_rail").fetchSemanticsNode().boundsInRoot
+                assertTrue("Menu overlaps header in $section", rail.top >= header.bottom - 1)
+                for (route in listOf("player", "library", "search", "clips")) {
+                    val button = compose.onNodeWithTag("nav_$route").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                    assertTrue("$route clipped in $section", button.top >= rail.top - 1 && button.bottom <= rail.bottom + 1)
+                }
+            }
+            screenshot("shell-$section")
+        }
+        check("player")
+        compose.onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsActions.ScrollBy)).assertCountEquals(0)
+        compose.onNodeWithTag("nav_library").performClick(); check("library")
+        compose.onNodeWithTag("nav_search").performClick(); check("search")
+        compose.onNodeWithTag("settings").performClick(); check("settings")
+        compose.onNodeWithTag("profiles").performClick(); check("profiles")
+    }
     @Test fun headerAndSettingsUseSameWindowInDarkAndLightThemes() {
         compose.onNodeWithTag("about_logo").assertIsDisplayed().performClick()
         assertAbout(); screenshot("dark")

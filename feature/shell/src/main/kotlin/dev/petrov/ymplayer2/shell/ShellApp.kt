@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -109,102 +108,101 @@ private val destinations = listOf(
             val rail = maxWidth >= 600.dp
             val widePlayer = maxWidth >= 960.dp && maxHeight >= 500.dp
             val short = maxHeight < 480.dp
-            // Keep destinations readable at large text sizes without using a tall icon-only rail.
-            val compactRail = maxHeight < 380.dp || density.fontScale > 1.3f
-            val tinyRail = maxHeight < 320.dp
             // Give text entry room on short windows; playback continues while its bar is hidden.
             val typingInShortWindow = short && WindowInsets.ime.getBottom(density) > 0
-            Row(Modifier.fillMaxSize()) {
-                if (rail) NavigationRail(Modifier.fillMaxHeight().then(if (compactRail && !tinyRail) Modifier.width(112.dp) else Modifier)
-                    .then(if (route != "player") Modifier.verticalScroll(rememberScrollState()) else Modifier),
-                    containerColor = MaterialTheme.colorScheme.background) {
-                    if (!compactRail) {
-                        Spacer(Modifier.height(12.dp))
-                        SkinIcon(UiIcon.BRAND, null, Modifier.size(40.dp), tint = MaterialTheme.colorScheme.primary)
-                        Spacer(Modifier.height(if (short) 12.dp else 24.dp))
+            Column(Modifier.fillMaxSize().testTag("shell_layout")) {
+                if (!typingInShortWindow) Row(Modifier.fillMaxWidth().testTag("shell_header").padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+                    if (route != "player") ActionIcon(UiIcon.BACK, "Назад", { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))
+                    Column(Modifier.weight(1f).heightIn(min = 48.dp).prismFocus().clickable(onClickLabel = "О приложении", role = Role.Button) { aboutOpen = true }.testTag("about_logo").padding(vertical = 6.dp)) {
+                        WideBrandLogo(Modifier.widthIn(max = 188.dp).fillMaxWidth().height(30.dp), "YMPlayer2")
+                        if (route != "player") Text(if (demo) "Прототип · Без звука" else if (version.contains("beta", ignoreCase = true)) "Музыка рядом · Beta" else "Музыка рядом", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
-                    destinations.forEach { item ->
-                        NavigationRailItem(navigationRoute == item.route, { navigate(item.route) },
-                            { SkinIcon(item.icon, item.label) }, Modifier.height(if (tinyRail) 56.dp else if (compactRail) 76.dp else if (short) 72.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
-                            label = if (tinyRail) null else ({ Text(item.label,
-                                fontSize = if (compactRail) 10.sp else 12.sp,
-                                maxLines = 2, textAlign = TextAlign.Center) }))
-                    }
+                    ActionIcon(UiIcon.PROFILE, "Профили", { navigate("profiles") }, Modifier.testTag("profiles"))
+                    ActionIcon(UiIcon.SETTINGS, "Настройки", { navigate("settings") }, Modifier.testTag("settings"))
                 }
-                Column(Modifier.weight(1f).fillMaxHeight()) {
-                    if (!typingInShortWindow) Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                        if (route != "player") ActionIcon(UiIcon.BACK, "Назад", { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))
-                        Column(Modifier.weight(1f).heightIn(min = 48.dp).prismFocus().clickable(onClickLabel = "О приложении", role = Role.Button) { aboutOpen = true }.testTag("about_logo").padding(vertical = 6.dp)) {
-                            WideBrandLogo(Modifier.widthIn(max = 188.dp).fillMaxWidth().height(30.dp), "YMPlayer2")
-                            if (route != "player") Text(if (demo) "Прототип · Без звука" else if (version.contains("beta", ignoreCase = true)) "Музыка рядом · Beta" else "Музыка рядом", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        }
-                        ActionIcon(UiIcon.PROFILE, "Профили", { navigate("profiles") }, Modifier.testTag("profiles"))
-                        ActionIcon(UiIcon.SETTINGS, "Настройки", { navigate("settings") }, Modifier.testTag("settings"))
-                    }
-                    Box(Modifier.weight(1f).fillMaxWidth()) {
-                        // Each route/profile owns its scroll, filters, detail and text field state.
-                        holder.SaveableStateProvider("${playback.profileId}:$route") {
-                            when (route) {
-                                "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists)
-                                "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists) }
-                                "library", "search" -> Column(Modifier.fillMaxSize()) {
-                                    model.online?.let {
-                                        if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (route == "search" && offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
-                                            FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text("Общий каталог") }, choice("local").prismFocus().testTag("source_local"))
-                                            FilterChip(onlineSource, { onlineSource = true; offlineSearch = false }, { Text("Яндекс Музыка") }, choice("yandex").prismFocus().testTag("source_yandex"))
-                                            if (model.offline != null) FilterChip(route == "search" && offlineSearch, {
-                                                if (route == "search") { onlineSource = false; offlineSearch = true }
-                                                else navigate("offline")
-                                            }, { Text("Офлайн") }, choice("offline").prismFocus().testTag("open_offline"))
-                                        }
-                                    }
-                                    val cacheOnly = route == "search" && offlineSearch
-                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist, playlists = model.cloudPlaylists,
-                                        searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it })
-                                    else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else emptyList(), model.player, route == "search", if (demo) catalogState else CatalogState.READY,
-                                    demo = demo, folders = { navigate("folders") }, scanning = if (cacheOnly) profileOfflineState?.ready == false else library.scanning, issue = if (cacheOnly) profileOfflineState?.message else library.issue,
-                                    collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
-                                    upRequest = if (route == "library") libraryUpRequest else 0,
-                                    more = model.collections?.let { { track -> collectionTrack = track } },
-                                    indexed = if (cacheOnly) null else model.local as? IndexedLocalLibrary,
-                                    indexedSources = library.roots.mapTo(linkedSetOf(), LibraryRoot::source),
-                                    noLocalRoots = library.roots.isEmpty(),
-                                    music = model.online, taste = model.taste, cached = cachedTracks,
-                                    artist = openArtist, cloudPlaylists = model.cloudPlaylists, signIn = { navigate("account") },
-                                    onlineHome = { onlineSource = true }, waveStarted = { navigate("player") },
-                                    cacheOnly = cacheOnly, searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it },
-                                    retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
-                                }
-                                "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, if (demo) library.tracks else emptyList(), model.player, route == "favorites", model.local as? IndexedLocalLibrary) }
-                                "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
-                                "offline" -> model.offline?.let { OfflineScreen(it, model.player, syncOffline, { navigate("account") }) }
-                                "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
-                                    model.player.switchProfile(it); navigate("player")
-                                }
-                                "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
-                                "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
-                                "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true })
-                                "skins" -> skins?.let { SkinsScreen(it, importSkin) }
-                                "diagnostics" -> diagnostics?.let { DiagnosticsScreen(it) }
-                                "sidebar" -> sideBar?.let { SideBarScreen(it) }
-                                "updates" -> updates?.let { UpdateScreen(version, it) }
-                                "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
-                                "clips" -> MessageScreen("Клипы", "Видеомодуль ещё разрабатывается", "Аудиоплеер продолжает работать при переходе между разделами.", UiIcon.CLIPS)
+                BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+                    // Rail sizing uses the space remaining below the common header.
+                    val compactRail = maxHeight < 380.dp || density.fontScale > 1.3f
+                    val tinyRail = maxHeight < 320.dp
+                    Row(Modifier.fillMaxSize()) {
+                        if (rail) NavigationRail(Modifier.fillMaxHeight().testTag("shell_rail").then(if (compactRail && !tinyRail) Modifier.width(112.dp) else Modifier)
+                            .then(if (route != "player") Modifier.verticalScroll(rememberScrollState()) else Modifier),
+                            containerColor = MaterialTheme.colorScheme.background) {
+                            destinations.forEach { item ->
+                                NavigationRailItem(navigationRoute == item.route, { navigate(item.route) },
+                                    { SkinIcon(item.icon, item.label) }, Modifier.height(if (tinyRail) 56.dp else if (compactRail) 76.dp else if (short) 72.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
+                                    label = if (tinyRail) null else ({ Text(item.label,
+                                        fontSize = if (compactRail) 10.sp else 12.sp,
+                                        maxLines = 2, textAlign = TextAlign.Center) }))
                             }
                         }
-                    }
-                    if (route != "player" && !typingInShortWindow) MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
-                    if (!rail && !typingInShortWindow) NavigationBar(Modifier.onSizeChanged { bottomBarHeight = it.height }, containerColor = MaterialTheme.colorScheme.background) {
-                        destinations.forEach { item ->
-                            NavigationBarItem(navigationRoute == item.route, { navigate(item.route) },
-                                { SkinIcon(item.icon, item.label) }, Modifier.testTag("nav_${item.route}").prismFocus(),
-                                label = { Text(item.label, maxLines = 1, overflow = TextOverflow.Ellipsis) })
+                        Column(Modifier.weight(1f).fillMaxHeight()) {
+                            Box(Modifier.weight(1f).fillMaxWidth()) {
+                                // Each route/profile owns its scroll, filters, detail and text field state.
+                                holder.SaveableStateProvider("${playback.profileId}:$route") {
+                                    when (route) {
+                                        "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists)
+                                        "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists) }
+                                        "library", "search" -> Column(Modifier.fillMaxSize()) {
+                                            model.online?.let {
+                                                if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (route == "search" && offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
+                                                    FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text("Общий каталог") }, choice("local").prismFocus().testTag("source_local"))
+                                                    FilterChip(onlineSource, { onlineSource = true; offlineSearch = false }, { Text("Яндекс Музыка") }, choice("yandex").prismFocus().testTag("source_yandex"))
+                                                    if (model.offline != null) FilterChip(route == "search" && offlineSearch, {
+                                                        if (route == "search") { onlineSource = false; offlineSearch = true }
+                                                        else navigate("offline")
+                                                    }, { Text("Офлайн") }, choice("offline").prismFocus().testTag("open_offline"))
+                                                }
+                                            }
+                                            val cacheOnly = route == "search" && offlineSearch
+                                            if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist, playlists = model.cloudPlaylists,
+                                                searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it })
+                                            else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else emptyList(), model.player, route == "search", if (demo) catalogState else CatalogState.READY,
+                                            demo = demo, folders = { navigate("folders") }, scanning = if (cacheOnly) profileOfflineState?.ready == false else library.scanning, issue = if (cacheOnly) profileOfflineState?.message else library.issue,
+                                            collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
+                                            upRequest = if (route == "library") libraryUpRequest else 0,
+                                            more = model.collections?.let { { track -> collectionTrack = track } },
+                                            indexed = if (cacheOnly) null else model.local as? IndexedLocalLibrary,
+                                            indexedSources = library.roots.mapTo(linkedSetOf(), LibraryRoot::source),
+                                            noLocalRoots = library.roots.isEmpty(),
+                                            music = model.online, taste = model.taste, cached = cachedTracks,
+                                            artist = openArtist, cloudPlaylists = model.cloudPlaylists, signIn = { navigate("account") },
+                                            onlineHome = { onlineSource = true }, waveStarted = { navigate("player") },
+                                            cacheOnly = cacheOnly, searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it },
+                                            retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
+                                        }
+                                        "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, if (demo) library.tracks else emptyList(), model.player, route == "favorites", model.local as? IndexedLocalLibrary) }
+                                        "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
+                                        "offline" -> model.offline?.let { OfflineScreen(it, model.player, syncOffline, { navigate("account") }) }
+                                        "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
+                                            model.player.switchProfile(it); navigate("player")
+                                        }
+                                        "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
+                                        "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
+                                        "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true })
+                                        "skins" -> skins?.let { SkinsScreen(it, importSkin) }
+                                        "diagnostics" -> diagnostics?.let { DiagnosticsScreen(it) }
+                                        "sidebar" -> sideBar?.let { SideBarScreen(it) }
+                                        "updates" -> updates?.let { UpdateScreen(version, it) }
+                                        "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
+                                        "clips" -> MessageScreen("Клипы", "Видеомодуль ещё разрабатывается", "Аудиоплеер продолжает работать при переходе между разделами.", UiIcon.CLIPS)
+                                    }
+                                }
+                            }
+                            if (route != "player" && !typingInShortWindow) MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
+                            if (!rail && !typingInShortWindow) NavigationBar(Modifier.onSizeChanged { bottomBarHeight = it.height }, containerColor = MaterialTheme.colorScheme.background) {
+                                destinations.forEach { item ->
+                                    NavigationBarItem(navigationRoute == item.route, { navigate(item.route) },
+                                        { SkinIcon(item.icon, item.label) }, Modifier.testTag("nav_${item.route}").prismFocus(),
+                                        label = { Text(item.label, maxLines = 1, overflow = TextOverflow.Ellipsis) })
+                                }
+                            }
+                            collectionTrack?.let { track -> model.collections?.let { store ->
+                                TrackCollectionDialog(track, store, playback.profileId, demo || model.local is IndexedLocalLibrary || library.tracks.any { it.id == track.id }, { collectionTrack = null })
+                            } }
+                            BackHandler(collectionTrack != null) { collectionTrack = null }
                         }
                     }
-                    collectionTrack?.let { track -> model.collections?.let { store ->
-                        TrackCollectionDialog(track, store, playback.profileId, demo || model.local is IndexedLocalLibrary || library.tracks.any { it.id == track.id }, { collectionTrack = null })
-                    } }
-                    BackHandler(collectionTrack != null) { collectionTrack = null }
                 }
             }
             model.cloudPlaylists?.let { CloudPlaylistDialog(it) }
