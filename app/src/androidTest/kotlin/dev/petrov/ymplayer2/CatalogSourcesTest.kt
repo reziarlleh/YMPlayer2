@@ -1,5 +1,6 @@
 package dev.petrov.ymplayer2
 
+
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.graphics.asAndroidBitmap
@@ -66,6 +67,79 @@ class CatalogSourcesTest {
         await { fixture.offline.state.value.ready && fixture.offline.state.value.tracks.isEmpty() }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
+    @Test fun selectedOnlineSectionCanReceiveVerticalFocusFromBothSides() {
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
+        await { fixture.online.state.value.loaded && fixture.taste.state.value.shelf(TasteKind.TRACK).ready }
+        val section = compose.onNodeWithTag("online_kind_TRACKS")
+        section.assertIsSelected()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.waitForIdle()
+        section.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+        section.assertIsFocused()
+        section.performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionRight) }
+        compose.onNodeWithTag("online_kind_ALBUMS").assertIsFocused()
+        section.assertIsSelected()
+        assertEquals(MusicKind.TRACKS, fixture.online.state.value.request.kind)
+        val wave = compose.onNodeWithTag("my_wave")
+        wave.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+        wave.assertIsFocused()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.waitForIdle()
+        section.assertIsFocused()
+        val play = compose.onNodeWithTag("online_play_all")
+        play.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+        play.assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionUp) }
+        section.assertIsFocused()
+        assertEquals(MusicKind.TRACKS, fixture.online.state.value.request.kind)
+        assertFalse(player.state.value.playing)
+    }
+
+    @Test fun selectedCatalogRowsRemainReachableAndFocusDoesNotChangeFilters() {
+        compose.onNodeWithTag("nav_library").performClick()
+        await { fixture.online.state.value.loaded }
+        compose.onNodeWithTag("filter_available").performClick()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.waitForIdle()
+        fun fromTo(from: String, direction: androidx.compose.ui.input.key.Key, to: String) {
+            compose.onNodeWithTag(from).performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+            compose.onNodeWithTag(from).assertIsFocused().performKeyInput { pressKey(direction) }
+            compose.onNodeWithTag(to).assertIsFocused()
+        }
+        val down = androidx.compose.ui.input.key.Key.DirectionDown
+        val up = androidx.compose.ui.input.key.Key.DirectionUp
+        compose.onNodeWithTag("category_TRACKS").assertIsSelected()
+        compose.onNodeWithTag("filter_all").assertIsSelected()
+        compose.onNodeWithTag("filter_available").assertIsSelected()
+        fromTo("manage_folders", down, "category_TRACKS")
+        fromTo("category_TRACKS", down, "filter_all")
+        fromTo("filter_all", down, "filter_available")
+        fromTo("filter_available", up, "filter_all")
+        fromTo("filter_all", up, "category_TRACKS")
+        fromTo("category_TRACKS", up, "manage_folders")
+        fromTo("manage_folders", up, "source_local")
+        fromTo("source_local", androidx.compose.ui.input.key.Key.DirectionRight, "source_yandex")
+        compose.onNodeWithTag("source_local").assertIsSelected()
+        compose.onNodeWithTag("source_yandex").assertIsNotSelected()
+        assertFalse(player.state.value.playing)
+    }
+
+    @Test fun verticalEntryReachesSelectedSectionAtEitherEndOfWideRow() {
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.waitForIdle()
+        for (kind in listOf(MusicKind.TRACKS, MusicKind.ALBUMS, MusicKind.ARTISTS, MusicKind.PLAYLISTS)) {
+            compose.runOnIdle { fixture.online.collection(kind) }
+            await { fixture.online.state.value.loaded && fixture.online.state.value.request.kind == kind }
+            val wave = compose.onNodeWithTag("my_wave")
+            wave.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+            wave.assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionDown) }
+            compose.onNodeWithTag("online_kind_${kind.name}").assertIsFocused().assertIsSelected()
+            assertEquals(kind, fixture.online.state.value.request.kind)
+        }
+        assertFalse(player.state.value.playing)
+    }
 
     @Test fun sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences() {
         compose.onNodeWithTag("nav_library").performClick()

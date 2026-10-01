@@ -1,0 +1,16 @@
+{
+  "emulator-5554": {
+    "avd": "YM2_M1_Phone",
+    "before": "2.1.1-build65",
+    "after": "2.1.2-build66",
+    "installedWithoutClearingData": true
+  },
+  "emulator-5556": {
+    "avd": "YM2_M1_TV",
+    "before": "2.1.1-build65",
+    "after": "2.1.2-build66",
+    "installedWithoutClearingData": true,
+    "beforeCacheEnabled": false,
+    "afterCacheEnabled": false
+  }
+}

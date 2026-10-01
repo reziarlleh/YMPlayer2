@@ -113,14 +113,19 @@ import kotlinx.coroutines.launch
 }
 
 @Composable private fun PlayerProgress(state: PlaybackState, player: PlaybackController, inlineTime: Boolean = false) {
+    val duration = (state.current?.durationSeconds ?: 1).coerceAtLeast(1)
+    val navigation = Modifier.prismFocus().horizontalSliderNavigation { direction ->
+        // Slider's fractional 1% step would otherwise round to zero on short tracks.
+        player.seek((state.positionSeconds + direction * (duration / 100).coerceAtLeast(1)).coerceIn(0, duration))
+    }
     if (inlineTime) Row(Modifier.fillMaxWidth().height(48.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(secondsLabel(state.positionSeconds), style = MaterialTheme.typography.labelMedium, modifier = Modifier.testTag("position"))
-        Slider(state.positionSeconds.toFloat(), { player.seek(it.toInt()) }, Modifier.weight(1f).height(40.dp).testTag("progress"), enabled = state.current != null,
+        Slider(state.positionSeconds.toFloat(), { player.seek(it.toInt()) }, Modifier.weight(1f).height(40.dp).testTag("progress").then(navigation), enabled = state.current != null,
             valueRange = 0f..(state.current?.durationSeconds ?: 1).coerceAtLeast(1).toFloat())
         Text(secondsLabel(state.current?.durationSeconds ?: 0), style = MaterialTheme.typography.labelMedium)
     } else
     Column(Modifier.fillMaxWidth()) {
-        Slider(state.positionSeconds.toFloat(), { player.seek(it.toInt()) }, Modifier.fillMaxWidth().height(40.dp).testTag("progress"), enabled = state.current != null,
+        Slider(state.positionSeconds.toFloat(), { player.seek(it.toInt()) }, Modifier.fillMaxWidth().height(40.dp).testTag("progress").then(navigation), enabled = state.current != null,
             valueRange = 0f..(state.current?.durationSeconds ?: 1).coerceAtLeast(1).toFloat())
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(secondsLabel(state.positionSeconds), style = MaterialTheme.typography.labelMedium, modifier = Modifier.testTag("position"))

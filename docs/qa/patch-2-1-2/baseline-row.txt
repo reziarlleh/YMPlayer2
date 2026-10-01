@@ -1,0 +1,80 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.CatalogSourcesTest:
+INSTRUMENTATION_STATUS: test=selectedOnlineSectionCanReceiveVerticalFocusFromBothSides
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #250 at (l=192.0, t=388.0, r=443.0, b=452.0)px, Tag: 'online_kind_TRACKS'
+Focused = 'false'
+Role = 'Checkbox'
+Selected = 'true'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Мне нравится]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (TestTag = 'online_kind_TRACKS')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(CatalogSourcesTest.kt:80)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(dev.petrov.ymplayer2.CatalogSourcesTest):
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #250 at (l=192.0, t=388.0, r=443.0, b=452.0)px, Tag: 'online_kind_TRACKS'
+Focused = 'false'
+Role = 'Checkbox'
+Selected = 'true'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Мне нравится]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (TestTag = 'online_kind_TRACKS')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(CatalogSourcesTest.kt:80)
+
+INSTRUMENTATION_STATUS: test=selectedOnlineSectionCanReceiveVerticalFocusFromBothSides
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.05
+There was 1 failure:
+1) selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(dev.petrov.ymplayer2.CatalogSourcesTest)
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #250 at (l=192.0, t=388.0, r=443.0, b=452.0)px, Tag: 'online_kind_TRACKS'
+Focused = 'false'
+Role = 'Checkbox'
+Selected = 'true'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Мне нравится]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+Selector used: (TestTag = 'online_kind_TRACKS')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(CatalogSourcesTest.kt:80)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

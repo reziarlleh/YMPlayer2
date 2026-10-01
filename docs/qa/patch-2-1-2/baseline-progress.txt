@@ -1,0 +1,141 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.PlayerCompositionTest:
+INSTRUMENTATION_STATUS: test=progressUsesHorizontalSeekAndVerticalFocusNavigation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Focused = 'false')
+Semantics of the node:
+Node #82 at (l=797.0, t=579.0, r=1908.0, b=659.0)px, Tag: 'progress'
+Focused = 'true'
+ProgressBarRangeInfo = 'ProgressBarRangeInfo(current=0.0, range=0.0..30.0, steps=0)'
+StateDescription = '0.0'
+Actions = [RequestFocus, SetProgress]
+MergeDescendants = 'true'
+Has 20 siblings
+Selector used: (TestTag = 'progress')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotFocused(Assertions.kt:124)
+	at dev.petrov.ymplayer2.PlayerCompositionTest.progressUsesHorizontalSeekAndVerticalFocusNavigation(PlayerCompositionTest.kt:41)
+
+INSTRUMENTATION_STATUS: stream=
+Error in progressUsesHorizontalSeekAndVerticalFocusNavigation(dev.petrov.ymplayer2.PlayerCompositionTest):
+java.lang.AssertionError: Failed to assert the following: (Focused = 'false')
+Semantics of the node:
+Node #82 at (l=797.0, t=579.0, r=1908.0, b=659.0)px, Tag: 'progress'
+Focused = 'true'
+ProgressBarRangeInfo = 'ProgressBarRangeInfo(current=0.0, range=0.0..30.0, steps=0)'
+StateDescription = '0.0'
+Actions = [RequestFocus, SetProgress]
+MergeDescendants = 'true'
+Has 20 siblings
+Selector used: (TestTag = 'progress')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotFocused(Assertions.kt:124)
+	at dev.petrov.ymplayer2.PlayerCompositionTest.progressUsesHorizontalSeekAndVerticalFocusNavigation(PlayerCompositionTest.kt:41)
+
+INSTRUMENTATION_STATUS: test=progressUsesHorizontalSeekAndVerticalFocusNavigation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.CatalogSourcesTest:
+INSTRUMENTATION_STATUS: test=selectedOnlineSectionCanReceiveVerticalFocusFromBothSides
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #375 at (l=192.0, t=320.0, r=496.0, b=400.0)px, Tag: 'my_wave'
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Моя волна]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+Selector used: (TestTag = 'my_wave')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(CatalogSourcesTest.kt:77)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(dev.petrov.ymplayer2.CatalogSourcesTest):
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #375 at (l=192.0, t=320.0, r=496.0, b=400.0)px, Tag: 'my_wave'
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Моя волна]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+Selector used: (TestTag = 'my_wave')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(CatalogSourcesTest.kt:77)
+
+INSTRUMENTATION_STATUS: test=selectedOnlineSectionCanReceiveVerticalFocusFromBothSides
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 9.887
+There were 2 failures:
+1) progressUsesHorizontalSeekAndVerticalFocusNavigation(dev.petrov.ymplayer2.PlayerCompositionTest)
+java.lang.AssertionError: Failed to assert the following: (Focused = 'false')
+Semantics of the node:
+Node #82 at (l=797.0, t=579.0, r=1908.0, b=659.0)px, Tag: 'progress'
+Focused = 'true'
+ProgressBarRangeInfo = 'ProgressBarRangeInfo(current=0.0, range=0.0..30.0, steps=0)'
+StateDescription = '0.0'
+Actions = [RequestFocus, SetProgress]
+MergeDescendants = 'true'
+Has 20 siblings
+Selector used: (TestTag = 'progress')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotFocused(Assertions.kt:124)
+	at dev.petrov.ymplayer2.PlayerCompositionTest.progressUsesHorizontalSeekAndVerticalFocusNavigation(PlayerCompositionTest.kt:41)
+2) selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(dev.petrov.ymplayer2.CatalogSourcesTest)
+java.lang.AssertionError: Failed to assert the following: (Focused = 'true')
+Semantics of the node:
+Node #375 at (l=192.0, t=320.0, r=496.0, b=400.0)px, Tag: 'my_wave'
+Focused = 'false'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Моя волна]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+Selector used: (TestTag = 'my_wave')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertIsFocused(Assertions.kt:117)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.selectedOnlineSectionCanReceiveVerticalFocusFromBothSides(CatalogSourcesTest.kt:77)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

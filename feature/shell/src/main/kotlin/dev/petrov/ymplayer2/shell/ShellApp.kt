@@ -146,13 +146,13 @@ private val destinations = listOf(
                                 "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists) }
                                 "library", "search" -> Column(Modifier.fillMaxSize()) {
                                     model.online?.let {
-                                        if (!typingInShortWindow) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                            FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text("Общий каталог") }, Modifier.prismFocus().testTag("source_local"))
-                                            FilterChip(onlineSource, { onlineSource = true; offlineSearch = false }, { Text("Яндекс Музыка") }, Modifier.prismFocus().testTag("source_yandex"))
+                                        if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (route == "search" && offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
+                                            FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text("Общий каталог") }, choice("local").prismFocus().testTag("source_local"))
+                                            FilterChip(onlineSource, { onlineSource = true; offlineSearch = false }, { Text("Яндекс Музыка") }, choice("yandex").prismFocus().testTag("source_yandex"))
                                             if (model.offline != null) FilterChip(route == "search" && offlineSearch, {
                                                 if (route == "search") { onlineSource = false; offlineSearch = true }
                                                 else navigate("offline")
-                                            }, { Text("Офлайн") }, Modifier.prismFocus().testTag("open_offline"))
+                                            }, { Text("Офлайн") }, choice("offline").prismFocus().testTag("open_offline"))
                                         }
                                     }
                                     val cacheOnly = route == "search" && offlineSearch

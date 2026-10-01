@@ -71,9 +71,9 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 OutlinedButton({ playlists.askDelete(detail) }, Modifier.prismFocus().testTag("cloud_delete")) { Text("Удалить плейлист Яндекса") }
             }
             if (detail?.kind == MusicKind.ARTISTS) item {
-                Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ChoiceRow(request.kind.name, Modifier.fillMaxWidth()) { choice ->
                     listOf(MusicKind.TRACKS to "Популярные треки", MusicKind.ALBUMS to "Альбомы").forEach { (kind, label) ->
-                        FilterChip(request.kind == kind, { music.artistSection(kind) }, { Text(label) }, Modifier.prismFocus().testTag("artist_section_${kind.name}"))
+                        FilterChip(request.kind == kind, { music.artistSection(kind) }, { Text(label) }, choice(kind.name).prismFocus().testTag("artist_section_${kind.name}"))
                     }
                 }
             }
@@ -87,7 +87,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                         trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { changeQuery("") }) })
                 }
                 item {
-                    Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    ChoiceRow(if (request.recommended) "recommended" else request.kind.name, Modifier.fillMaxWidth()) { choice ->
                         MusicKind.entries.forEach { kind ->
                             FilterChip(request.kind == kind && !request.recommended, { if (search) music.search(query, kind, false) else music.collection(kind) },
                                 { Text(if (search) kind.label else when (kind) {
@@ -95,9 +95,9 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                                     MusicKind.ARTISTS -> "Любимые исполнители"
                                     MusicKind.ALBUMS -> "Любимые альбомы"
                                     MusicKind.PLAYLISTS -> "Мои плейлисты"
-                                }) }, Modifier.prismFocus().testTag("online_kind_${kind.name}"))
+                                }) }, choice(kind.name).prismFocus().testTag("online_kind_${kind.name}"))
                         }
-                        if (!search) FilterChip(request.recommended, music::recommendations, { Text("Рекомендации") }, Modifier.prismFocus().testTag("online_recommendations"))
+                        if (!search) FilterChip(request.recommended, music::recommendations, { Text("Рекомендации") }, choice("recommended").prismFocus().testTag("online_recommendations"))
                     }
                 }
                 if (!search && request.recommended) item { Text("Плейлисты, подобранные Яндексом для вашего аккаунта.") }

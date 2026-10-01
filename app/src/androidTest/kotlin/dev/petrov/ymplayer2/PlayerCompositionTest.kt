@@ -32,6 +32,29 @@ class PlayerCompositionTest {
         compose.runOnIdle { player.toggle() }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
+    @Test fun progressUsesHorizontalSeekAndVerticalFocusNavigation() {
+        // A real remote event switches Android out of touch mode before directional navigation.
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.waitForIdle()
+        val progress = compose.onNodeWithTag("progress")
+        fun focusProgress() { progress.performSemanticsAction(SemanticsActions.RequestFocus) { it() }; progress.assertIsFocused() }
+        val position = player.state.value.positionSeconds
+        focusProgress()
+        progress.performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionDown) }
+        progress.assertIsNotFocused()
+        assertEquals(position, player.state.value.positionSeconds)
+        focusProgress()
+        progress.performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionUp) }
+        progress.assertIsNotFocused()
+        assertEquals(position, player.state.value.positionSeconds)
+        focusProgress()
+        progress.performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionRight) }
+        waitFor { player.state.value.positionSeconds > position }
+        val later = player.state.value.positionSeconds
+        progress.assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionLeft) }
+        waitFor { player.state.value.positionSeconds < later }
+        assertFalse(player.state.value.playing)
+    }
     private fun fixedControls(wave: Boolean = false) {
         compose.onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsActions.ScrollBy)).assertCountEquals(0)
         val viewport = compose.onNodeWithTag("player_viewport").fetchSemanticsNode().boundsInRoot

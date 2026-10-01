@@ -164,26 +164,26 @@ import kotlinx.coroutines.CancellationException
                         trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { changeQuery("") }) })
                 }
                 if (!cacheOnly && (!search || music != null)) item {
-                    Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    ChoiceRow(currentCategory.name, Modifier.fillMaxWidth()) { choice ->
                         Category.entries.filter { demo || collections || it != Category.PLAYLISTS }.forEach { item ->
-                            FilterChip(currentCategory == item, { if (item == Category.PLAYLISTS && collections) playlists() else category = item }, { Text(item.label) }, Modifier.prismFocus().testTag("category_${item.name}"))
+                            FilterChip(currentCategory == item, { if (item == Category.PLAYLISTS && collections) playlists() else category = item }, { Text(item.label) }, choice(item.name).prismFocus().testTag("category_${item.name}"))
                         }
-                        if (collections) AssistChip(favorites, { Text("Избранное") }, Modifier.prismFocus().testTag("category_FAVORITES"), leadingIcon = { SkinIcon(UiIcon.FAVORITE, null) })
+                        if (collections) AssistChip(favorites, { Text("Избранное") }, choice("FAVORITES").prismFocus().testTag("category_FAVORITES"), leadingIcon = { SkinIcon(UiIcon.FAVORITE, null) })
                     }
                 }
                 if (!cacheOnly) item {
-                    Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(source == null, { source = null }, { Text("Все источники") }, Modifier.prismFocus().testTag("filter_all"))
+                    ChoiceRow(source?.name ?: "ALL", Modifier.fillMaxWidth()) { choice ->
+                        FilterChip(source == null, { source = null }, { Text("Все источники") }, choice("ALL").prismFocus().testTag("filter_all"))
                         Source.entries.filter { it in sources }.forEach { item ->
-                            FilterChip(source == item, { source = item }, { Text(item.label) }, Modifier.prismFocus().testTag("filter_${item.name}"))
+                            FilterChip(source == item, { source = item }, { Text(item.label) }, choice(item.name).prismFocus().testTag("filter_${item.name}"))
                         }
                     }
                 }
                 if (!cacheOnly) item {
-                    Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(offline, { offline = !offline }, { Text("Доступно офлайн") }, Modifier.prismFocus().testTag("filter_offline"))
-                        FilterChip(availableOnly, { availableOnly = !availableOnly }, { Text("Доступные сейчас") }, Modifier.prismFocus().testTag("filter_available"))
-                        AssistChip({ descending = !descending }, { Text(if (descending) "Название ↓" else "Название ↑") }, Modifier.prismFocus())
+                    ChoiceRow(if (offline) "offline" else if (availableOnly) "available" else "offline", Modifier.fillMaxWidth()) { choice ->
+                        FilterChip(offline, { offline = !offline }, { Text("Доступно офлайн") }, choice("offline").prismFocus().testTag("filter_offline"))
+                        FilterChip(availableOnly, { availableOnly = !availableOnly }, { Text("Доступные сейчас") }, choice("available").prismFocus().testTag("filter_available"))
+                        AssistChip({ descending = !descending }, { Text(if (descending) "Название ↓" else "Название ↑") }, choice("sort").prismFocus())
                     }
                 }
             }

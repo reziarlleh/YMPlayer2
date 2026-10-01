@@ -9,6 +9,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.input.key.*
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import dev.petrov.ymplayer2.designsystem.skin.*
@@ -42,6 +45,24 @@ import android.app.Activity
     return onFocusChanged { focused = it.hasFocus }.border(
         2.dp, if (focused) MaterialTheme.colorScheme.primary else Color.Transparent, MaterialTheme.shapes.medium,
     )
+}
+
+/** Horizontal sliders adjust with Left/Right; Up/Down leave the slider, even at a boundary. */
+@Composable fun Modifier.horizontalSliderNavigation(onStep: (Int) -> Unit): Modifier {
+    val focus = LocalFocusManager.current
+    return onPreviewKeyEvent { event ->
+        when (event.key) {
+            Key.DirectionUp, Key.DirectionDown -> if (event.type == KeyEventType.KeyDown) {
+                focus.moveFocus(if (event.key == Key.DirectionUp) FocusDirection.Up else FocusDirection.Down)
+            }
+            Key.DirectionLeft, Key.DirectionRight -> if (event.type == KeyEventType.KeyDown) {
+                onStep(if (event.key == Key.DirectionLeft) -1 else 1)
+            }
+            else -> return@onPreviewKeyEvent false
+        }
+        // Consume KeyUp too: Material Slider also handles vertical arrows on release.
+        true
+    }
 }
 
 @Composable fun ActionIcon(

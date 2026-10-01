@@ -1,0 +1,48 @@
+--------- beginning of main
+--------- beginning of system
+10-01 16:42:11.914  8957  8957 I System.out: SECTION RECT=Rect.fromLTRB(192.0, 433.0, 443.0, 497.0)
+10-01 16:42:11.996  8957  8957 I System.out: WAVE RECT=Rect.fromLTRB(192.0, 320.0, 496.0, 400.0)
+10-01 16:42:12.014  8957  8957 I System.out: FOUND=Rect.fromLTRB(192.0, 544.0, 657.0, 624.0)
+10-01 16:42:12.014  8957  8957 I System.out: SEARCH RESULT=true
+10-01 16:42:12.029  8957  8957 I System.out: FOCUS NODE 0 ActiveParent false Rect.fromLTRB(0.0, 0.0, 1920.0, 1080.0)
+10-01 16:42:12.029  8957  8957 I System.out: FOCUS NODE 1 Inactive false Rect.fromLTRB(0.0, 0.0, 160.0, 1080.0)
+10-01 16:42:12.029  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(0.0, 184.0, 160.0, 344.0)
+10-01 16:42:12.029  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(0.0, 352.0, 160.0, 512.0)
+10-01 16:42:12.030  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(0.0, 520.0, 160.0, 680.0)
+10-01 16:42:12.030  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(0.0, 688.0, 160.0, 848.0)
+10-01 16:42:12.030  8957  8957 I System.out: FOCUS NODE 1 Inactive true Rect.fromLTRB(184.0, 4.0, 280.0, 100.0)
+10-01 16:42:12.030  8957  8957 I System.out: FOCUS NODE 1 Inactive true Rect.fromLTRB(1704.0, 4.0, 1800.0, 100.0)
+10-01 16:42:12.030  8957  8957 I System.out: FOCUS NODE 1 Inactive true Rect.fromLTRB(1800.0, 4.0, 1896.0, 100.0)
+10-01 16:42:12.030  8957  8957 I System.out: FOCUS NODE 1 Inactive false Rect.fromLTRB(160.0, 104.0, 1920.0, 200.0)
+10-01 16:42:12.031  8957  8957 I System.out: FOCUS NODE 2 Inactive false Rect.fromLTRB(160.0, 104.0, 1920.0, 200.0)
+10-01 16:42:12.031  8957  8957 I System.out: FOCUS NODE 3 Inactive true Rect.fromLTRB(192.0, 120.0, 459.0, 184.0)
+10-01 16:42:12.031  8957  8957 I System.out: FOCUS NODE 3 Inactive true Rect.fromLTRB(475.0, 120.0, 750.0, 184.0)
+10-01 16:42:12.031  8957  8957 I System.out: FOCUS NODE 3 Inactive true Rect.fromLTRB(766.0, 120.0, 933.0, 184.0)
+10-01 16:42:12.031  8957  8957 I System.out: FOCUS NODE 1 ActiveParent false Rect.fromLTRB(160.0, 200.0, 1920.0, 976.0)
+10-01 16:42:12.032  8957  8957 I System.out: FOCUS NODE 2 Active true Rect.fromLTRB(192.0, 320.0, 496.0, 400.0)
+10-01 16:42:12.032  8957  8957 I System.out: FOCUS NODE 2 Inactive false Rect.fromLTRB(192.0, 424.0, 1888.0, 520.0)
+10-01 16:42:12.032  8957  8957 I System.out: FOCUS NODE 3 Inactive false Rect.fromLTRB(192.0, 424.0, 1888.0, 520.0)
+10-01 16:42:12.032  8957  8957 I System.out: FOCUS NODE 4 Inactive true Rect.fromLTRB(192.0, 440.0, 443.0, 504.0)
+10-01 16:42:12.032  8957  8957 I System.out: FOCUS NODE 4 Inactive true Rect.fromLTRB(459.0, 440.0, 787.0, 504.0)
+10-01 16:42:12.033  8957  8957 I System.out: FOCUS NODE 4 Inactive true Rect.fromLTRB(803.0, 440.0, 1180.0, 504.0)
+10-01 16:42:12.033  8957  8957 I System.out: FOCUS NODE 4 Inactive true Rect.fromLTRB(1196.0, 440.0, 1472.0, 504.0)
+10-01 16:42:12.033  8957  8957 I System.out: FOCUS NODE 4 Inactive true Rect.fromLTRB(1488.0, 440.0, 1750.0, 504.0)
+10-01 16:42:12.033  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(192.0, 544.0, 657.0, 624.0)
+10-01 16:42:12.033  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(192.0, 648.0, 1888.0, 780.0)
+10-01 16:42:12.034  8957  8957 I System.out: FOCUS NODE 3 Inactive true Rect.fromLTRB(324.0, 712.0, 587.0, 776.0)
+10-01 16:42:12.034  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(208.0, 780.0, 304.0, 876.0)
+10-01 16:42:12.034  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(304.0, 780.0, 400.0, 876.0)
+10-01 16:42:12.035  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(1688.0, 780.0, 1784.0, 876.0)
+10-01 16:42:12.035  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(1784.0, 780.0, 1880.0, 876.0)
+10-01 16:42:12.036  8957  8957 I System.out: FOCUS NODE 2 Inactive true Rect.fromLTRB(192.0, 908.0, 483.0, 988.0)
+10-01 16:42:12.036  8957  8957 I System.out: FOCUS NODE 1 Inactive true Rect.fromLTRB(176.0, 976.0, 1712.0, 1080.0)
+10-01 16:42:12.036  8957  8957 I System.out: FOCUS NODE 1 Inactive true Rect.fromLTRB(1808.0, 980.0, 1904.0, 1076.0)
+10-01 16:42:12.146  8957  8978 I System.out: Vertical entry focused: Printing with useUnmergedTree = 'false'
+10-01 16:42:12.147  8957  8978 I System.out: Node #271 at (l=192.0, t=492.0, r=657.0, b=572.0)px, Tag: 'online_play_all'
+10-01 16:42:12.147  8957  8978 I System.out: Focused = 'true'
+10-01 16:42:12.147  8957  8978 I System.out: Role = 'Button'
+10-01 16:42:12.147  8957  8978 I System.out: Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+10-01 16:42:12.147  8957  8978 I System.out: Text = '[Слушать показанные треки]'
+10-01 16:42:12.147  8957  8978 I System.out: Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+10-01 16:42:12.147  8957  8978 I System.out: MergeDescendants = 'true'
+10-01 16:42:12.147  8957  8978 I System.out: Has 5 siblings
