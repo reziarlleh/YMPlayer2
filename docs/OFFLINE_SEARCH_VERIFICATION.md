@@ -55,4 +55,8 @@ APK установлен поверх stable61 на Android 15. В релизн�
 [Stable release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.2-build62)
 опубликован без draft/prerelease и помечен latest. Оба манифеста обновлены до 62.
 [HTTP/hash-проверка источников](qa/offline-search62/publication.json).
+GitHub raw, jsDelivr и Gcore stable.json фактически отдают 62. Общий Gcore
+manifest.json на момент проверки ещё отдаёт 61; остальные общие адреса — 62.
+Приёмка полного обновления через системный installer заново не выполнялась:
+код updater не менялся. [Проверка локальных ссылок](qa/offline-search62/links.json).
 Аппаратная/личная приёмка владельца не объявляется выполненной этими тестами.
