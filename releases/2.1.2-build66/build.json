@@ -1,6 +1,6 @@
 {
   "sha256": "ef0a4720c9f5374c36aa6859ac8639e10a4363815728fea8421959b7032fe85f",
-  "runtimeAcceptance": "Project Android 15/TV29: installed over signed65 without clearing data; TV offline cache remains disabled. Debug native UI regressions: 14 unique successful cases on each emulator, including reruns correcting test setup. Physical remote acceptance remains separate.",
+  "runtimeAcceptance": "Project Android 15/TV29: installed over signed65 without clearing data; TV offline cache remains disabled. Debug native UI regression: 14 JUnit methods per emulator, including corrected test setup reruns; one TV-only method does no work on phone. Physical remote acceptance remains separate.",
   "versionName": "2.1.2-build66",
   "versionCode": 66,
   "channel": "stable",
