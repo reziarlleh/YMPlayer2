@@ -1,6 +1,6 @@
 """Export the approved r5 mark without masks, for SVG, Compose and Android.
 
-Run with Python + shapely + fonttools; render PNGs with render-brand.cjs + sharp.
+Run with Python + shapely; render PNGs with render-brand.cjs + sharp.
 The historical approved SVG remains in docs/design/2026-10-01-brand-directions.
 """
 from pathlib import Path
@@ -8,13 +8,11 @@ import math
 from shapely.geometry import Polygon, LineString
 from shapely.ops import unary_union
 from shapely.affinity import affine_transform
-from fontTools.ttLib import TTFont
-from fontTools.pens.svgPathPen import SVGPathPen
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'docs/design/brand'
 OUT.mkdir(parents=True, exist_ok=True)
-COPPER, BG, INK = '#D77A50', '#191715', '#EFE5D7'
+COPPER, BG = '#D77A50', '#191715'
 y = Polygon([(5,18),(23,18),(40,42),(58,18),(75,18),(48,54),(48,84),(31,84),(31,54)])
 m = Polygon([(48,54),(75,18),(95,18),(95,84),(78,84),(78,42),(63,62)])
 cuts = unary_union([LineString([(5.5,110),(95.5,-10)]).buffer(1.4, cap_style='flat'),
@@ -27,21 +25,11 @@ def svg(body, w, h): return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}
 def glyph(color): return f'<path fill="{color}" fill-rule="evenodd" d="{path}"/>'
 (OUT / 'ym-logo.svg').write_text(svg(glyph(COPPER),100,100), encoding='utf-8')
 (OUT / 'ym-logo-mono.svg').write_text(svg(glyph('white'),100,100), encoding='utf-8')
-# Banner lettering is outlined, so installed TV fonts cannot change its layout.
-font = TTFont('C:/Windows/Fonts/bahnschrift.ttf')
-glyphs, cmap = font.getGlyphSet(), font.getBestCmap()
-pen = SVGPathPen(glyphs)
-cursor = 0
-from fontTools.pens.transformPen import TransformPen
-for char in 'YMPlayer 2':
-    name = cmap[ord(char)]
-    glyphs[name].draw(TransformPen(pen, (1,0,0,1,cursor,0)))
-    cursor += glyphs[name].width
-scale = 31 / font['head'].unitsPerEm
-banner = f'<rect width="640" height="360" fill="{BG}"/>'
-banner += f'<g transform="translate(54 72) scale(2.16)">{glyph(COPPER)}</g>'
-banner += f'<path fill="{INK}" transform="translate(294 198) scale({scale*2} {-scale*2})" d="{pen.getCommands()}"/>'
-(OUT / 'tv-banner.svg').write_text(svg(banner,640,360), encoding='utf-8')
+# Approved wide logos and TV banners are canonical outlined SVG sources.
+# Preserve their exact geometry; rendering needs no installed system font.
+for name in ['ym-wordmark-white.svg', 'ym-wordmark-black.svg', 'tv-banner.svg', 'tv-banner-light.svg']:
+    if not (OUT / name).is_file():
+        raise FileNotFoundError(f'Missing approved brand source: {name}')
 (OUT / 'launcher-preview.svg').write_text(svg(f'<rect width="108" height="108" rx="24" fill="{BG}"/><g transform="translate(20 18) scale(.72)">{glyph(COPPER)}</g>',108,108),encoding='utf-8')
 
 res = ROOT / 'app/src/main/res'
@@ -74,4 +62,4 @@ internal fun ymBrandLogo(color: Color): ImageVector =
             fill = SolidColor(color), pathFillType = PathFillType.EvenOdd)
     }.build()
 ''',encoding='utf-8')
-print('Generated approved r5 negative-space contours and outlined TV banner')
+print('Generated approved r5 contours; approved wide SVG sources preserved')

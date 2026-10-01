@@ -1,0 +1,26 @@
+{
+  "approvedSvgExactMatch": true,
+  "approvedRenderedPixelsExactMatch": true,
+  "bannerDimensions": {
+    "mdpi": [
+      160,
+      90
+    ],
+    "hdpi": [
+      240,
+      135
+    ],
+    "xhdpi": [
+      320,
+      180
+    ],
+    "xxhdpi": [
+      480,
+      270
+    ],
+    "xxxhdpi": [
+      640,
+      360
+    ]
+  }
+}

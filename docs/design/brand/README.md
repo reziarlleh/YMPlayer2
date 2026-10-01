@@ -8,16 +8,19 @@
 `ym-logo.svg` и `ym-logo-mono.svg` — настоящие контуры с прозрачными прорезями,
 без фонового перекрытия или масок. Compose и Android используют ту же геометрию.
 `launcher-preview` показывает adaptive foreground на графитовом фоне;
-системный launcher выбирает внешний контур. TV `tv-banner` — 16:9 с названием
-в векторных контурах Bahnschrift; файл шрифта не входит в проект.
+системный launcher выбирает внешний контур.
+Широкий вариант — YM + `Player2`, без повторного YM и без пробела перед цифрой.
+`ym-wordmark-white.svg` и `ym-wordmark-black.svg` содержат медную монограмму
+и белую/чёрную надпись по фону. Оба широких варианта утверждены владельцем.
+`tv-banner-light.svg` сохраняет тот же знак для светлого фона. TV `tv-banner` — 16:9 с названием
+в векторных контурах Arial Black с наклоном 7°; файл шрифта не входит в проект.
 
 Production banner: mdpi 160×90, hdpi 240×135, xhdpi 320×180,
 xxhdpi 480×270, xxxhdpi 640×360. Icon + text и безопасные поля проверяются
 на настоящем TV launcher. [Android TV guidelines](https://developer.android.com/design/ui/tv/guides/system/tv-app-icon-guidelines).
 
-Генерация: `python tools/build-brand.py` (shapely, fonttools, системный
-Bahnschrift), затем `node tools/render-brand.cjs` (sharp). Генератор сохраняет
-исторически одобренные параметры; исторические варианты не перезаписывает.
+Генерация: `python tools/build-brand.py` (shapely), затем `node tools/render-brand.cjs` (sharp). Широкие SVG уже содержат контуры букв и не требуют установленного шрифта.
+Генератор сохраняет исторически одобренные параметры; исторические варианты не перезаписывает.
 Встроенное оформление имеет исторический id `prism` и имя «Оксид».
 Все UI-палитры живут в designsystem/skin: `PrismSkin.kt` задаёт семантические
 Light/Dark-токены, `NativeSkin.kt` передаёт их в native-панель клипов и хранит
