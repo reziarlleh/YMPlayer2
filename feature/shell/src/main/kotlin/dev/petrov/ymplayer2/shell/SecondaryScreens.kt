@@ -42,7 +42,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, folders: () -> Unit = {}, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null, skins: (() -> Unit)? = null, about: () -> Unit = {}) {
+@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null, skins: (() -> Unit)? = null, about: () -> Unit = {}) {
     LazyColumn(Modifier.fillMaxSize().testTag("settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text("Настройки", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
         if (quality != null) item { OutlinedButton(quality, Modifier.fillMaxWidth().prismFocus().testTag("settings_quality")) { Text("Качество звука") } }
@@ -54,8 +54,8 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         if (demo) {
             item { HorizontalDivider(); Text("Состояние демокаталога", style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 16.dp)) }
             items(CatalogState.entries) { item -> Choice(item.label, catalog == item, "state_${item.name}") { setCatalog(item) } }
-        } else item { OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { Text("Папки с музыкой") } }
-        if (offline != null) item { OutlinedButton(offline, Modifier.prismFocus().testTag("settings_offline")) { Text("«Мне нравится» офлайн") } }
+        }
+        if (offline != null) item { OutlinedButton(offline, Modifier.fillMaxWidth().prismFocus().testTag("settings_offline")) { Text("Настройки офлайн-кэша") } }
         if (diagnostics != null) item { OutlinedButton(diagnostics, Modifier.fillMaxWidth().prismFocus().testTag("settings_diagnostics")) { Text("Диагностика") } }
         if (sideBar != null) item { OutlinedButton(sideBar, Modifier.fillMaxWidth().prismFocus().testTag("settings_sidebar")) { Text("Боковая панель") } }
         if (updates != null) item { OutlinedButton(updates, Modifier.fillMaxWidth().prismFocus().testTag("settings_updates")) { Text("Обновление приложения") } }

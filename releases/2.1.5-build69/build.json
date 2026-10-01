@@ -1,0 +1,9 @@
+{
+  "applicationId": "dev.petrov.ymplayer2",
+  "sha256": "5de944b07e7f6046a24a26235448a2b683ac26494967ab73128fdf1a26df9b9d",
+  "runtimeAcceptance": "Signed69 installed over signed68 without clearing data on YM2_M1_Phone/Android 15 and YM2_M1_TV/Android 10; production cache screens and parent navigation inspected; TV disabled cache retained. Seven targeted instrumentation scenarios passed on each emulator, including D-pad, sync, enable/disable, clear and cached WAV playback without network. No physical-device or personal Yandex acceptance claimed.",
+  "versionName": "2.1.5-build69",
+  "versionCode": 69,
+  "channel": "stable",
+  "builtAtUtc": "2026-10-01T19:01:58.6382123Z"
+}

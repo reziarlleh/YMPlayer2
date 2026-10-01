@@ -54,19 +54,116 @@ class OfflinePlaybackTest {
         compose.onNodeWithTag("settings_offline").performClick()
     }
     private fun clickOffline(tag: String) {
-        compose.onNodeWithTag("offline_list").performScrollToNode(hasTestTag(tag))
+        compose.onNodeWithTag("offline_settings_list").performScrollToNode(hasTestTag(tag))
         compose.onNodeWithTag(tag).performClick()
+    }
+    private fun openCollection() {
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("open_offline").performClick()
+        compose.onNodeWithTag("offline_list").assertIsDisplayed()
+    }
+    private fun capture(label: String) {
+        val instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+        if (androidx.test.platform.app.InstrumentationRegistry.getArguments().getString("offlineSplitScreenshots") != "true") return
+        compose.waitForIdle()
+        instrumentation.uiAutomation.takeScreenshot()?.let { bitmap ->
+            File(compose.activity.getExternalFilesDir(null), "offline-split-$label.png").outputStream().use {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+            }
+            bitmap.recycle()
+        }
+    }
+    @Test fun settingsAndCollectionAreSeparateAndReturnToTheirOwnParents() {
+        sync()
+        val first = cache.state.value.tracks.first().id
+        compose.onNodeWithTag("settings").performClick()
+        compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("settings_offline"))
+        compose.onNodeWithTag("settings_offline").assertTextEquals("Настройки офлайн-кэша")
+        val row = compose.onNodeWithTag("settings_offline").fetchSemanticsNode().boundsInRoot
+        val list = compose.onNodeWithTag("settings_list").fetchSemanticsNode().boundsInRoot
+        assertEquals(list.width - 32 * compose.activity.resources.displayMetrics.density, row.width, 1f)
+        compose.onNodeWithTag("manage_folders").assertDoesNotExist()
+        capture("settings")
+        compose.onNodeWithTag("settings_offline").performClick()
+        compose.onNodeWithTag("offline_settings_list").assertIsDisplayed()
+        compose.onNodeWithTag("nav_library").assertIsNotSelected()
+        compose.onNodeWithTag("offline_list").assertDoesNotExist()
+        compose.onNodeWithTag("offline_track_$first").assertDoesNotExist()
+        compose.onNodeWithTag("offline_play_all").assertDoesNotExist()
+        capture("preferences")
+        clickOffline("offline_wifi")
+        assertFalse(cache.state.value.wifiOnly)
+        compose.onNodeWithTag("navigate_up").performClick()
+        compose.onNodeWithTag("settings_list").assertIsDisplayed()
+        compose.onNodeWithTag("catalog_list").assertDoesNotExist()
+        openCollection()
+        compose.onNodeWithTag("nav_library").assertIsSelected()
+        for (tag in listOf("offline_settings_list", "offline_enabled", "offline_wifi", "offline_sync", "offline_cancel", "offline_clear"))
+            compose.onNodeWithTag(tag).assertDoesNotExist()
+        compose.onNodeWithTag("offline_list").performScrollToNode(hasTestTag("offline_track_$first"))
+        compose.onNodeWithTag("offline_track_$first").assertIsDisplayed()
+        capture("collection")
+        compose.onNodeWithTag("navigate_up").performClick()
+        compose.onNodeWithTag("catalog_list").assertIsDisplayed()
+        compose.onNodeWithTag("settings_list").assertDoesNotExist()
+    }
+    @Test fun guestHasAnEmptyReadOnlyListAndIndependentDeviceSettings() {
+        sync()
+        val guest = h.library.profiles.first { it.guest }.id
+        compose.runOnIdle { h.player.switchProfile(guest) }
+        waitFor { cache.state.value.owner == null }
+        openCollection()
+        compose.onNodeWithTag("offline_empty").assertIsDisplayed()
+        compose.onNodeWithTag("offline_play_all").assertDoesNotExist()
+        compose.onNodeWithTag("offline_enabled").assertDoesNotExist()
+        assertTrue(cache.state.value.tracks.isEmpty())
+        openScreen()
+        clickOffline("offline_enabled")
+        waitFor { !cache.state.value.enabled }
+        compose.onNodeWithTag("offline_list").assertDoesNotExist()
+        compose.onNodeWithTag("navigate_up").performClick()
+        compose.onNodeWithTag("settings_list").assertIsDisplayed()
+    }
+    @Test fun remoteCanOpenCacheSettingsAndChooseCachedTrackFromLibrary() {
+        sync()
+        val first = cache.state.value.tracks.first().id
+        compose.onNodeWithTag("settings").performClick()
+        compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("settings_offline"))
+        val instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+        instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        fun activate(tag: String) {
+            val node = compose.onNodeWithTag(tag)
+            node.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+            node.assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
+        }
+        activate("settings_offline")
+        compose.onNodeWithTag("offline_settings_list").assertIsDisplayed()
+        activate("offline_enabled")
+        waitFor { !cache.state.value.enabled }
+        activate("offline_enabled")
+        waitFor { cache.state.value.ready && cache.state.value.tracks.size == 2 }
+        instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
+        compose.onNodeWithTag("settings_list").assertIsDisplayed()
+        activate("nav_library"); activate("open_offline")
+        compose.onNodeWithTag("offline_list").performScrollToNode(hasTestTag("offline_track_$first"))
+        instrumentation.sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        activate("offline_track_$first")
+        waitFor { h.player.state.value.current?.id == first }
     }
     @Test fun disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled() {
         sync(); assertEquals(2, cache.state.value.tracks.size)
         val savedAudio = audio("1")
         openScreen(); clickOffline("offline_enabled")
         waitFor { !cache.state.value.enabled }
-        compose.onNodeWithTag("offline_list").performScrollToNode(hasTestTag("offline_sync"))
+        compose.onNodeWithTag("offline_settings_list").performScrollToNode(hasTestTag("offline_sync"))
         compose.onNodeWithTag("offline_sync").assertIsNotEnabled()
         assertTrue(savedAudio.isFile)
         assertTrue(cache.tracks("owner").isEmpty())
         assertNull(runBlocking { cache.audio("owner", "yandex:1:10") })
+        openCollection()
+        compose.onNodeWithTag("offline_empty").assertIsDisplayed()
+        compose.onNodeWithTag("offline_enabled").assertDoesNotExist()
+        openScreen()
         clickOffline("offline_enabled")
         waitFor { cache.state.value.ready && cache.state.value.tracks.size == 2 }
         assertTrue(savedAudio.isFile)
@@ -82,7 +179,9 @@ class OfflinePlaybackTest {
         assertTrue(cache.state.value.tracks.all { it.offline && File(Uri.parse(it.uri).path!!).isFile && File(Uri.parse(it.artworkUri).path!!).isFile })
         val resolved = h.resolved.size
         compose.runOnIdle { h.streamFailure = MusicFailure.NETWORK; h.failure = MusicFailure.NETWORK; h.offlineNetwork = false }
-        clickOffline("offline_play_all")
+        openCollection()
+        compose.onNodeWithTag("offline_list").performScrollToNode(hasTestTag("offline_play_all"))
+        compose.onNodeWithTag("offline_play_all").performClick()
         waitFor { h.player.state.value.positionSeconds >= 1 }
         compose.runOnIdle { h.player.skip(1) }
         waitFor { h.player.state.value.current?.id == "yandex:2:7" && h.player.state.value.positionSeconds >= 1 }

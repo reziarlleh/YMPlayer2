@@ -1,0 +1,18 @@
+[
+  {
+    "device": "YM2_M1_Phone",
+    "androidApi": 35,
+    "signedVersion": "2.1.5-build69",
+    "installedOver": 68,
+    "clearData": false,
+    "verified": ["settings-only screen", "empty offline list", "Back to settings", "Back to library", "local paused checkpoint retained"]
+  },
+  {
+    "device": "YM2_M1_TV",
+    "androidApi": 29,
+    "signedVersion": "2.1.5-build69",
+    "installedOver": 68,
+    "clearData": false,
+    "verified": ["settings-only screen", "empty offline list", "Back to settings", "Back to library", "disabled cache retained", "skin retained"]
+  }
+]

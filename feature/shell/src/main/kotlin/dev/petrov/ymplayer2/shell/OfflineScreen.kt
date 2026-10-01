@@ -14,57 +14,32 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.prismFocus
 
-@Composable internal fun OfflineScreen(offline: OfflineMusic, player: PlaybackController, start: () -> Unit, account: () -> Unit) {
+@Composable internal fun OfflineScreen(offline: OfflineMusic, player: PlaybackController) {
     val state by offline.state.collectAsStateWithLifecycle()
-    var confirmClear by remember(state.owner) { mutableStateOf(false) }
     LazyColumn(Modifier.fillMaxSize().testTag("offline_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text("Мне нравится · офлайн", style = MaterialTheme.typography.headlineSmall) }
-        item { Text("Сохраняются только понравившиеся треки и их обложки. Любимые исполнители и альбомы целиком не загружаются.") }
-        item { Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("Включить офлайн-кэш", Modifier.weight(1f))
-            Switch(state.enabled, offline::setEnabled, Modifier.prismFocus().testTag("offline_enabled"))
-        } }
-        item { Text("Настройка общая для устройства. При выключении синхронизация останавливается, сохранённая музыка не используется. Онлайн-музыка и предзагрузка волны продолжают работать.",
-            style = MaterialTheme.typography.bodySmall) }
-        if (state.owner == null) {
-            item { Text("Войдите в Яндекс в этом профиле. Если вход уже сохранён, обновите сведения об аккаунте.") }
-            item { Button(account, Modifier.prismFocus()) { Text("Открыть аккаунт") } }
-        } else {
-            if (state.enabled) item { Text("Сохранено: ${state.tracks.size} · ${state.bytes / (1024 * 1024)} МБ", Modifier.testTag("offline_summary")) }
-            item { Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text("Загружать только по Wi-Fi", Modifier.weight(1f))
-                Switch(state.wifiOnly, offline::setWifiOnly, Modifier.prismFocus().testTag("offline_wifi"), enabled = state.enabled)
-            } }
-            item {
-                if (state.running) OutlinedButton(offline::cancel, Modifier.fillMaxWidth().prismFocus().testTag("offline_cancel")) { Text("Остановить синхронизацию") }
-                else Button(start, Modifier.fillMaxWidth().prismFocus().testTag("offline_sync"), enabled = state.enabled && state.ready) { Text("Синхронизировать «Мне нравится»") }
-            }
-            if (state.enabled && (!state.ready || state.running)) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
-            if (!state.enabled) item { Text("Офлайн-кэш выключен. Ранее скачанные файлы остаются до удаления кнопкой ниже.", Modifier.testTag("offline_disabled")) }
-            state.message?.let { message -> item { Text(message, Modifier.testTag("offline_status")) } }
-            if (state.audioFailures + state.coverFailures + state.noCover > 0) item {
-                Text("Не загружено аудио: ${state.audioFailures}. Ошибки обложек: ${state.coverFailures}. Без обложки у источника: ${state.noCover}. Повторная синхронизация проверит и восстановит недостающее.")
-            }
-            item { TextButton({ confirmClear = true }, Modifier.prismFocus().testTag("offline_clear"), enabled = state.ready) { Text("Удалить офлайн-файлы") } }
-            if (state.tracks.isNotEmpty()) {
-                item { OutlinedButton({ player.playQueue(state.tracks.map(Track::id)) }, Modifier.prismFocus().testTag("offline_play_all")) { Text("Слушать сохранённое") } }
-                items(state.tracks, key = Track::id) { track ->
-                    Surface(onClick = { player.playQueue(state.tracks.map(Track::id), track.id) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("offline_track_${track.id}"), shape = MaterialTheme.shapes.medium) {
-                        Row(Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                            TrackArtwork(track, Modifier.size(56.dp))
-                            Column(Modifier.weight(1f)) {
-                                Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                                Text(track.artist, style = MaterialTheme.typography.bodySmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                            }
-                            Text(secondsLabel(track.durationSeconds), style = MaterialTheme.typography.labelSmall)
+        if (state.tracks.isNotEmpty()) {
+            item { Text("Сохранено: ${state.tracks.size} · ${state.bytes / (1024 * 1024)} МБ", Modifier.testTag("offline_summary")) }
+            item { OutlinedButton({ player.playQueue(state.tracks.map(Track::id)) }, Modifier.fillMaxWidth().prismFocus().testTag("offline_play_all")) { Text("Слушать сохранённое") } }
+            items(state.tracks, key = Track::id) { track ->
+                Surface(onClick = { player.playQueue(state.tracks.map(Track::id), track.id) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("offline_track_${track.id}"), shape = MaterialTheme.shapes.medium) {
+                    Row(Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                        TrackArtwork(track, Modifier.size(56.dp))
+                        Column(Modifier.weight(1f)) {
+                            Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                            Text(track.artist, style = MaterialTheme.typography.bodySmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
                         }
+                        Text(secondsLabel(track.durationSeconds), style = MaterialTheme.typography.labelSmall)
                     }
                 }
-            } else if (state.enabled && state.ready && !state.running) item { Text("Сохранённых треков пока нет. Запустите синхронизацию при доступной сети.") }
+            }
+        } else item {
+            Text(when {
+                !state.enabled -> "Офлайн-кэш выключен. Его можно включить в настройках приложения."
+                state.owner == null -> "В этом профиле нет сохранённой музыки. Для синхронизации нужен вход в Яндекс."
+                !state.ready || state.running -> "Сохранённая музыка загружается…"
+                else -> "Сохранённых треков пока нет. Синхронизация доступна в настройках офлайн-кэша."
+            }, Modifier.testTag("offline_empty"))
         }
     }
-    if (confirmClear) AlertDialog(onDismissRequest = { confirmClear = false }, title = { Text("Удалить офлайн-файлы?") },
-        text = { Text("Будут удалены аудио и обложки этого аккаунта в текущем профиле. Лайки в Яндексе сохранятся.") },
-        confirmButton = { TextButton({ confirmClear = false; offline.clear() }, Modifier.testTag("offline_clear_confirm")) { Text("Удалить файлы") } },
-        dismissButton = { TextButton({ confirmClear = false }) { Text("Отмена") } })
 }

@@ -92,7 +92,7 @@ private val destinations = listOf(
     LaunchedEffect(exitAt) { if (exitAt != null) { delay(2000); exitAt = null } }
     BackHandler {
         when (route) {
-            "quality", "diagnostics", "sidebar", "updates", "skins" -> navigate("settings")
+            "quality", "diagnostics", "sidebar", "updates", "skins", "offline_settings" -> navigate("settings")
             "account" -> navigate("profiles")
             "playlists", "favorites", "folders", "offline" -> { libraryUpRequest++; navigate("library") }
             "player" -> {
@@ -173,13 +173,14 @@ private val destinations = listOf(
                                         }
                                         "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, if (demo) library.tracks else emptyList(), model.player, route == "favorites", model.local as? IndexedLocalLibrary) }
                                         "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
-                                        "offline" -> model.offline?.let { OfflineScreen(it, model.player, syncOffline, { navigate("account") }) }
+                                        "offline" -> model.offline?.let { OfflineScreen(it, model.player) }
                                         "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
                                             model.player.switchProfile(it); navigate("player")
                                         }
                                         "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                         "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
-                                        "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, { navigate("folders") }, model.offline?.let { { navigate("offline") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true })
+                                        "offline_settings" -> model.offline?.let { OfflineSettingsScreen(it, syncOffline, { navigate("account") }) }
+                                        "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true })
                                         "skins" -> skins?.let { SkinsScreen(it, importSkin) }
                                         "diagnostics" -> diagnostics?.let { DiagnosticsScreen(it) }
                                         "sidebar" -> sideBar?.let { SideBarScreen(it) }
