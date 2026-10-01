@@ -22,18 +22,21 @@ import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit, taste: MusicTaste? = null, waveStarted: () -> Unit = {},
-    artist: (ArtistRef) -> Unit = { music.open(MusicEntity(it.id, it.name, MusicKind.ARTISTS)) }, standalone: Boolean = false, closeArtist: () -> Unit = {}, playlists: CloudPlaylists? = null) {
+    artist: (ArtistRef) -> Unit = { music.open(MusicEntity(it.id, it.name, MusicKind.ARTISTS)) }, standalone: Boolean = false, closeArtist: () -> Unit = {}, playlists: CloudPlaylists? = null,
+    searchQuery: String? = null, onSearchQueryChange: (String) -> Unit = {}) {
     val state by music.state.collectAsStateWithLifecycle()
     val playback by player.state.collectAsStateWithLifecycle()
     val cloudState = playlists?.state?.collectAsStateWithLifecycle()?.value
     val keyboard = LocalSoftwareKeyboardController.current
     val request = state.request
+    val query = searchQuery ?: request.query
+    fun changeQuery(value: String) { onSearchQueryChange(value); music.search(value) }
     val detail = request.entity
     fun up() { if (standalone && detail?.kind == MusicKind.ARTISTS) closeArtist() else music.up() }
     BackHandler(detail != null) { up() }
-    LaunchedEffect(search, state.profileId, state.signedIn) {
+    LaunchedEffect(search, searchQuery, state.profileId, state.signedIn) {
         if (!standalone && detail == null) {
-            if (search && request.collection) music.search("")
+            if (search && (request.collection || request.query != query)) music.search(query, if (request.collection) MusicKind.TRACKS else request.kind)
             if (!search && state.signedIn && (!request.collection || !state.loaded && !state.loading && state.issue == null)) music.collection()
         }
     }
@@ -77,16 +80,16 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             if (detail == null) {
                 if (!search && taste != null) item { WaveButton(player, state.signedIn, signIn, waveStarted) }
                 if (search) item {
-                    OutlinedTextField(request.query, { music.search(it) }, Modifier.fillMaxWidth().prismFocus().testTag("online_query"),
+                    OutlinedTextField(query, ::changeQuery, Modifier.fillMaxWidth().prismFocus().testTag("online_query"),
                         label = { Text("Название") }, singleLine = true,
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                         keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                        trailingIcon = { if (request.query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { music.search("") }) })
+                        trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { changeQuery("") }) })
                 }
                 item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         MusicKind.entries.forEach { kind ->
-                            FilterChip(request.kind == kind && !request.recommended, { if (search) music.search(request.query, kind, false) else music.collection(kind) },
+                            FilterChip(request.kind == kind && !request.recommended, { if (search) music.search(query, kind, false) else music.collection(kind) },
                                 { Text(if (search) kind.label else when (kind) {
                                     MusicKind.TRACKS -> "Мне нравится"
                                     MusicKind.ARTISTS -> "Любимые исполнители"

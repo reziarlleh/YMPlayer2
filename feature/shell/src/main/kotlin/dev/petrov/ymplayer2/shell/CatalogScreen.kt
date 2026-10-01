@@ -31,8 +31,11 @@ import kotlinx.coroutines.CancellationException
     indexed: IndexedLocalLibrary? = null, indexedSources: Set<Source> = emptySet(), noLocalRoots: Boolean = false,
     music: OnlineMusic? = null, taste: MusicTaste? = null, cached: List<Track> = emptyList(),
     artist: (ArtistRef) -> Unit = {}, cloudPlaylists: CloudPlaylists? = null, signIn: () -> Unit = {},
-    onlineHome: () -> Unit = {}, waveStarted: () -> Unit = {}, retry: () -> Unit) {
-    var query by rememberSaveable { mutableStateOf("") }
+    onlineHome: () -> Unit = {}, waveStarted: () -> Unit = {}, cacheOnly: Boolean = false,
+    searchQuery: String? = null, onSearchQueryChange: (String) -> Unit = {}, retry: () -> Unit) {
+    var localQuery by rememberSaveable { mutableStateOf("") }
+    val query = searchQuery ?: localQuery
+    val changeQuery: (String) -> Unit = { localQuery = it; onSearchQueryChange(it) }
     var source by rememberSaveable { mutableStateOf<Source?>(null) }
     var offline by rememberSaveable { mutableStateOf(false) }
     var availableOnly by rememberSaveable { mutableStateOf(false) }
@@ -48,17 +51,18 @@ import kotlinx.coroutines.CancellationException
     var trackActions by remember(playback.profileId) { mutableStateOf<Track?>(null) }
     if (taste != null) trackActions?.let { track -> TrackTasteDialog(track, taste, artist = artist,
         extra = { cloudPlaylists?.let { AddToCloudPlaylist(track, it) { trackActions = null } } }) { trackActions = null } }
-    if (online?.request?.entity != null) {
-        OnlineScreen(music, player, search, signIn, taste, waveStarted, artist, playlists = cloudPlaylists)
+    if (!cacheOnly && online?.request?.entity != null) {
+        OnlineScreen(music, player, search, signIn, taste, waveStarted, artist, playlists = cloudPlaylists,
+            searchQuery = searchQuery, onSearchQueryChange = changeQuery)
         return
     }
     val queuedIds = playback.explicitQueueIds ?: remember(playback.queue) { playback.queue.mapTo(hashSetOf(), Track::id) }
-    BackHandler(detail != null) { detail = null }
+    BackHandler(!cacheOnly && detail != null) { detail = null }
     val sources = (if (indexed != null) indexedSources else remember(tracks) { tracks.mapTo(linkedSetOf(), Track::source) }) +
         if (music != null) setOf(Source.YANDEX) else emptySet()
-    val filter = CatalogFilter(source, offline || state == CatalogState.OFFLINE, availableOnly, if (search) query else "")
-    val currentDetail = detail
-    val currentCategory = category
+    val filter = CatalogFilter(if (cacheOnly) Source.YANDEX else source, cacheOnly || offline || state == CatalogState.OFFLINE, availableOnly, if (search) query else "")
+    val currentDetail = if (cacheOnly) null else detail
+    val currentCategory = if (cacheOnly) Category.TRACKS else category
     val grouped = currentDetail == null && currentCategory != Category.TRACKS && (!search || music != null)
     val dimension = currentCategory.dimension()
     val remoteKind = when (currentCategory) {
@@ -67,7 +71,7 @@ import kotlinx.coroutines.CancellationException
         Category.ARTISTS -> MusicKind.ARTISTS
         else -> null
     }
-    val remoteRequested = music != null && currentDetail == null && !offline && remoteKind != null &&
+    val remoteRequested = music != null && currentDetail == null && !cacheOnly && !offline && remoteKind != null &&
         (source == null || source == Source.YANDEX)
     val remoteRequest = remoteKind?.let { MusicRequest(if (search) query.take(200) else "", it, collection = !search) }
     LaunchedEffect(remoteRequested, remoteRequest, online?.profileId, online?.signedIn) {
@@ -82,11 +86,11 @@ import kotlinx.coroutines.CancellationException
     val remote = online?.takeIf { remoteRequested && it.request == remoteRequest }
     // Only already downloaded likes join the offline view. No collection-wide audio transfer.
     val cachedById = remember(cached) { cached.associateBy(Track::id) }
-    val remoteTracks = if (!grouped && currentDetail == null && (source == null || source == Source.YANDEX)) {
+    val remoteTracks = if (!grouped && currentDetail == null && (cacheOnly || source == null || source == Source.YANDEX)) {
         (remote?.entries?.mapNotNull(MusicEntry::track).orEmpty() + cached.filter { track ->
             !search || query.isBlank() || track.title.contains(query, true) || track.artist.contains(query, true) || track.album.contains(query, true) })
             .distinctBy(Track::id).map { track -> cachedById[track.id] ?: track }
-            .filter { track -> (!offline || track.offline && track.available) && (!availableOnly || track.available) }
+            .filter { track -> (!(cacheOnly || offline) || track.offline && track.available) && (!availableOnly || track.available) }
     } else emptyList()
     val remoteEntities = if (grouped) remote?.entries?.filter { it.entity != null }.orEmpty() else emptyList()
     var visibleCount by rememberSaveable(filter, currentCategory, currentDetail, descending, search) { mutableIntStateOf(80) }
@@ -152,14 +156,14 @@ import kotlinx.coroutines.CancellationException
             if (issue != null) item { Text(issue, color = MaterialTheme.colorScheme.error) }
             if (currentDetail == null) {
                 if (search) item {
-                    OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth().testTag("search_input").prismFocus(),
+                    OutlinedTextField(query, changeQuery, Modifier.fillMaxWidth().testTag("search_input").prismFocus(),
                         label = { Text("Трек, исполнитель или альбом") }, singleLine = true,
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                         keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
                         leadingIcon = { SkinIcon(UiIcon.SEARCH, null) },
-                        trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { query = "" }) })
+                        trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { changeQuery("") }) })
                 }
-                if (!search || music != null) item {
+                if (!cacheOnly && (!search || music != null)) item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Category.entries.filter { demo || collections || it != Category.PLAYLISTS }.forEach { item ->
                             FilterChip(currentCategory == item, { if (item == Category.PLAYLISTS && collections) playlists() else category = item }, { Text(item.label) }, Modifier.prismFocus().testTag("category_${item.name}"))
@@ -167,7 +171,7 @@ import kotlinx.coroutines.CancellationException
                         if (collections) AssistChip(favorites, { Text("Избранное") }, Modifier.prismFocus().testTag("category_FAVORITES"), leadingIcon = { SkinIcon(UiIcon.FAVORITE, null) })
                     }
                 }
-                item {
+                if (!cacheOnly) item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FilterChip(source == null, { source = null }, { Text("Все источники") }, Modifier.prismFocus().testTag("filter_all"))
                         Source.entries.filter { it in sources }.forEach { item ->
@@ -175,7 +179,7 @@ import kotlinx.coroutines.CancellationException
                         }
                     }
                 }
-                item {
+                if (!cacheOnly) item {
                     Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FilterChip(offline, { offline = !offline }, { Text("Доступно офлайн") }, Modifier.prismFocus().testTag("filter_offline"))
                         FilterChip(availableOnly, { availableOnly = !availableOnly }, { Text("Доступные сейчас") }, Modifier.prismFocus().testTag("filter_available"))
@@ -204,14 +208,14 @@ import kotlinx.coroutines.CancellationException
                 !demo && noLocalRoots && !search && !indexLoading && resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true -> item { CatalogMessage("Медиатека пока пуста", "Выберите папку с аудиофайлами на устройстве или USB.", folders, "Добавить музыку") }
                 state == CatalogState.ERROR -> item { CatalogMessage("Не удалось загрузить медиатеку", "Демонстрация ошибки. Текущая очередь сохранена.", retry, "Повторить") }
                 state == CatalogState.EMPTY -> item { CatalogMessage("Медиатека пока пуста", "Демонстрация первого запуска.", retry, "Показать демоданные") }
-                resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true && !indexLoading && !indexFailed -> item { CatalogMessage("Ничего не найдено", "Попробуйте другой запрос или сбросьте фильтры.", { query = ""; source = null; offline = false; availableOnly = false }, "Сбросить") }
+                resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true && !indexLoading && !indexFailed -> item { CatalogMessage("Ничего не найдено", "Попробуйте другой запрос или сбросьте фильтры.", { changeQuery(""); source = null; offline = false; availableOnly = false }, "Сбросить") }
                 else -> {
                     if (state == CatalogState.OFFLINE) item { Text("Нет сети · показаны доступные офлайн треки", color = MaterialTheme.colorScheme.primary) }
                     if (!grouped) {
                         val shown = page
                         item {
                             Column {
-                            Text(if (music != null) "Устройство / USB: ${shown?.total ?: 0} · Яндекс: ${remoteTracks.size} показано"
+                            Text(if (cacheOnly) "В офлайн-кэше: ${remoteTracks.size} найдено" else if (music != null) "Устройство / USB: ${shown?.total ?: 0} · Яндекс: ${remoteTracks.size} показано"
                                 else "${shown?.total ?: 0} треков" + if (demo) " · демонстрационный каталог" else "",
                                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             if (music != null && shownTracks.any { it.available }) OutlinedButton({ player.playQueue(shownTracks.map(Track::id)); keyboard?.hide() }, Modifier.prismFocus().testTag("catalog_play_all")) { Text("Слушать показанные треки") }

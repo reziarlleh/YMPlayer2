@@ -168,6 +168,55 @@ class CatalogSourcesTest {
         assertEquals(resolved, fixture.resolved.size)
     }
 
+    @Test fun offlineSourceSearchStaysInSearchAndFiltersOnlyProfileCache() {
+        fun query(value: String) {
+            action("search_input")
+            compose.onNodeWithTag("search_input").performTextReplacement(value)
+            compose.onNodeWithTag("search_input").performImeAction()
+        }
+        compose.runOnIdle {
+            fixture.tasteLists["owner" to TasteKind.TRACK] = TasteList(setOf("1"))
+            fixture.taste.refresh(TasteKind.TRACK)
+        }
+        await { fixture.taste.state.value.shelf(TasteKind.TRACK).list.liked == setOf("1") }
+        compose.runOnIdle { fixture.offline.sync() }
+        await { !fixture.offline.state.value.running && fixture.offline.state.value.tracks.size == 1 }
+        val cached = fixture.offline.state.value.tracks.single()
+        compose.onNodeWithTag("nav_search").performClick()
+        query("Онлайн")
+        await { fixture.online.state.value.loaded && fixture.online.state.value.request.query == "Онлайн" }
+        compose.onNodeWithTag("open_offline").performClick()
+        compose.onNodeWithTag("open_offline").assertIsSelected()
+        compose.onNodeWithTag("nav_search").assertIsSelected()
+        compose.onNodeWithTag("offline_list").assertDoesNotExist()
+        compose.onNodeWithTag("search_input").assertTextContains("Онлайн")
+        val requests = fixture.requests
+        for (query in listOf(cached.title, cached.artist, cached.album).filter(String::isNotBlank)) {
+            query(query.uppercase())
+            showTrack(cached.id)
+            compose.onNodeWithTag("track_yandex:2:7").assertDoesNotExist()
+            fixture.library.testTracks.forEach { compose.onNodeWithTag("track_${it.id}").assertDoesNotExist() }
+        }
+        query("нет такого трека в кэше")
+        compose.onNodeWithTag("track_${cached.id}").assertDoesNotExist()
+        assertEquals("Offline search must not start provider requests", requests, fixture.requests)
+        compose.onNodeWithTag("source_yandex").performClick()
+        await { fixture.online.state.value.request.query == "нет такого трека в кэше" && fixture.online.state.value.loaded }
+        compose.onNodeWithTag("online_query").assertTextContains("нет такого трека в кэше")
+        compose.onNodeWithTag("source_local").performClick()
+        compose.onNodeWithTag("search_input").assertTextContains("нет такого трека в кэше")
+        compose.onNodeWithTag("open_offline").performClick()
+        query("")
+        showTrack(cached.id)
+        compose.runOnIdle { player.switchProfile("guest") }
+        await { fixture.offline.state.value.owner == null && player.state.value.profileId == "guest" }
+        compose.onNodeWithTag("open_offline").performClick()
+        compose.onNodeWithTag("track_${cached.id}").assertDoesNotExist()
+        compose.onNodeWithTag("nav_search").assertIsSelected()
+        compose.onNodeWithTag("offline_list").assertDoesNotExist()
+        capture("offline-search")
+    }
+
     @Test fun localGenreAndUsbFolderDoNotRequestInventedRemoteSections() {
         compose.onNodeWithTag("nav_library").performClick()
         await { fixture.online.state.value.loaded }

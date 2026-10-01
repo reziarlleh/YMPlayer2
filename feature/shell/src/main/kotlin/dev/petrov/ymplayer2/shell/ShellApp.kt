@@ -43,7 +43,8 @@ private val destinations = listOf(
     val playback by model.player.state.collectAsStateWithLifecycle()
     val library by model.library.collectAsStateWithLifecycle()
     val offlineState = model.offline?.state?.collectAsStateWithLifecycle()?.value
-    val cachedTracks = offlineState?.takeIf { it.owner?.profileId == playback.profileId }?.tracks.orEmpty()
+    val profileOfflineState = offlineState?.takeIf { it.owner?.profileId == playback.profileId }
+    val cachedTracks = profileOfflineState?.tracks.orEmpty()
     val demo = model.local == null
     var route by rememberSaveable { mutableStateOf("player") }
     var artistFrom by rememberSaveable { mutableStateOf("player") }
@@ -55,6 +56,8 @@ private val destinations = listOf(
     var catalogState by rememberSaveable { mutableStateOf(CatalogState.READY) }
     var collectionTrack by remember(playback.profileId) { mutableStateOf<Track?>(null) }
     var onlineSource by rememberSaveable(playback.profileId) { mutableStateOf(false) }
+    var offlineSearch by rememberSaveable(playback.profileId) { mutableStateOf(false) }
+    var searchQuery by rememberSaveable(playback.profileId) { mutableStateOf("") }
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline")) "library" else route
     val navigate: (String) -> Unit = {
@@ -144,23 +147,29 @@ private val destinations = listOf(
                                 "library", "search" -> Column(Modifier.fillMaxSize()) {
                                     model.online?.let {
                                         if (!typingInShortWindow) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                            FilterChip(!onlineSource, { onlineSource = false }, { Text("Общий каталог") }, Modifier.prismFocus().testTag("source_local"))
-                                            FilterChip(onlineSource, { onlineSource = true }, { Text("Яндекс Музыка") }, Modifier.prismFocus().testTag("source_yandex"))
-                                            if (model.offline != null) FilterChip(false, { navigate("offline") }, { Text("Офлайн") }, Modifier.prismFocus().testTag("open_offline"))
+                                            FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text("Общий каталог") }, Modifier.prismFocus().testTag("source_local"))
+                                            FilterChip(onlineSource, { onlineSource = true; offlineSearch = false }, { Text("Яндекс Музыка") }, Modifier.prismFocus().testTag("source_yandex"))
+                                            if (model.offline != null) FilterChip(route == "search" && offlineSearch, {
+                                                if (route == "search") { onlineSource = false; offlineSearch = true }
+                                                else navigate("offline")
+                                            }, { Text("Офлайн") }, Modifier.prismFocus().testTag("open_offline"))
                                         }
                                     }
-                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist, playlists = model.cloudPlaylists)
+                                    val cacheOnly = route == "search" && offlineSearch
+                                    if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist, playlists = model.cloudPlaylists,
+                                        searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it })
                                     else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else emptyList(), model.player, route == "search", if (demo) catalogState else CatalogState.READY,
-                                    demo = demo, folders = { navigate("folders") }, scanning = library.scanning, issue = library.issue,
+                                    demo = demo, folders = { navigate("folders") }, scanning = if (cacheOnly) profileOfflineState?.ready == false else library.scanning, issue = if (cacheOnly) profileOfflineState?.message else library.issue,
                                     collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
                                     upRequest = if (route == "library") libraryUpRequest else 0,
                                     more = model.collections?.let { { track -> collectionTrack = track } },
-                                    indexed = model.local as? IndexedLocalLibrary,
+                                    indexed = if (cacheOnly) null else model.local as? IndexedLocalLibrary,
                                     indexedSources = library.roots.mapTo(linkedSetOf(), LibraryRoot::source),
                                     noLocalRoots = library.roots.isEmpty(),
                                     music = model.online, taste = model.taste, cached = cachedTracks,
                                     artist = openArtist, cloudPlaylists = model.cloudPlaylists, signIn = { navigate("account") },
                                     onlineHome = { onlineSource = true }, waveStarted = { navigate("player") },
+                                    cacheOnly = cacheOnly, searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it },
                                     retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                 }
                                 "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, if (demo) library.tracks else emptyList(), model.player, route == "favorites", model.local as? IndexedLocalLibrary) }
