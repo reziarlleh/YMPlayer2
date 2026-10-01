@@ -54,7 +54,8 @@ SHA-256 `5c9d45cb0a2ee4face7bfca9723445b42bd752c805362e2cedde9c3923860204`.
 Playback/provider/updater-контракты, ключ и данные не изменены.
 `runtimeAcceptance=pending` относится к независимой аппаратной приёмке.
 
-Публикация и живые источники APK проверяются перед закрытием выпуска.
+Source/artifact-коммит: `d3df384`. Stable60 опубликован без draft/prerelease;
+общий и stable-манифесты обновлены. Живые источники APK сверяются с SHA-256.
 
 ## Финал build60
 

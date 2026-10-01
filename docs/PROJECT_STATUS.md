@@ -1,6 +1,6 @@
 # Текущий статус YMPlayer 2
 
-Обновлено: 2026-10-01. Подготовлен финальный [2.0.1-build60](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build60).
+Обновлено: 2026-10-01. Опубликован финальный [2.0.1-build60](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build60).
 Первый stable 2.0.0 — build57; проверка новой айдентики — [отчёт](BRAND_2_0_1_VERIFICATION.md).
 Обязательный программный объём M1–M12 завершён и проверен в своих границах.
 [Аудит критериев](STABLE_RELEASE_AUDIT.md) · [M12.8](M12_8_VERIFICATION.md) · [Порядок](ROADMAP.md).

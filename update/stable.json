@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 57,
-  "versionName": "2.0.0-build57",
+  "versionCode": 60,
+  "versionName": "2.0.1-build60",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-09-30T16:57:47.5244614Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.0-build57",
-  "releaseNotes": "Первый самостоятельный YMPlayer 2.0.0: локальная/USB и Яндекс-музыка, общий каталог и поиск, профили с отдельным входом, «Моя волна», реакции треков/исполнителей/альбомов, офлайн только «Мне нравится», плейлисты, качество сети/кэша и системные медиакоманды.\n\nКлипы с диагональной панелью, сохранением при повороте, подготовкой следующего потока и продолжением пустой rotor-сессии. Встроенный SideBar для K4811. Независимый обновлятор с GitHub и двумя резервными CDN, проверкой размера, SHA-256 и подписи.\n\nПроверено: 190 app-native + отдельный reboot телефона/TV, 86 JVM, пять updater-проверок; новый shell — ещё семь сценариев и lint. Signed APK и реальные WAV-сценарии; HLS/DASH собственной фикстуры и 60 автоматических окончаний клипа на Android/TV.\n\nАппаратная приёмка K4811/CWG и личные сетевые/серверные сценарии HyperOS остаются отдельными; они не объявляются выполненными по результатам фикстур. Внешние скины, дополнительные темы и руководство запланированы для 2.1.0.\n",
+  "publishedAt": "2026-10-01T04:17:21.176193+00:00",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.0.1-build60",
+  "releaseNotes": "Финальный 2.0.1: утверждённая монограмма YM с двумя параллельными прорезями и палитра №1 «Оксид». Медный акцент, тёплый графит, согласованная светлая тема. Новый adaptive launcher, плитка Android TV с полным названием, логотипы в интерфейсе и заглушках обложек; диагональная панель клипов использует те же цвета.\n\nPackage, ключ подписи, данные и канал обновлений сохранены. Проверочный build59: Android 15 и TV 29: интерфейс, тема после перезапуска, 200% шрифт, D-pad, смена оформления во время аудио, установка поверх 2.0.0-build57 и сохранение паузы 0:03. Подписанный APK проверен с настоящими WAV, фоновой службой, системными Pause/Play/Next и холодным восстановлением.\n\nBuild58 был проверочным кандидатом; в build59 повышен контраст вторичного текста Light. Пользовательские скины, импорт, готовые темы и руководство — следующий этап 2.1.0.\n\nФинальный build60 объединяет Compose и native-палитры в designsystem: цвета клипов и SideBar больше не зашиты в функциональные UI-модули. Скин меняет визуальные роли; данные и функции плеера остаются независимыми.\n",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.0-build57/YMPlayer-2.0.0-build57.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.0-build57/releases/2.0.0-build57/YMPlayer-2.0.0-build57.apk",
-    "sizeBytes": 4771074,
-    "sha256": "d2b10f8c4a0401942bbdd0c33557e489f58274369d0e96a197949bae0ddf0f2b"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.0.1-build60/YMPlayer-2.0.1-build60.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.0.1-build60/releases/2.0.1-build60/YMPlayer-2.0.1-build60.apk",
+    "sizeBytes": 4816434,
+    "sha256": "f7b6fdaa920a6c66b9ee70bf0e780cee070c05f3a0620223b1839d07d4df7f99"
   }
 }
