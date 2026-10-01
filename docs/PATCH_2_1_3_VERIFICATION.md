@@ -58,4 +58,13 @@ QR идентичен файлу в README и успешно декодиров�
 [Android 15](qa/patch-2-1-3/about-phone-release.png), [TV29](qa/patch-2-1-3/about-tv-release.png).
 Проверки не требуют реального платежа или повторного тестирования аудио.
 
-Публикация GitHub и HTTP-сверка выполняются; итог будет внесён до завершения работы.
+[GitHub Release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.3-build67)
+опубликован как latest stable, не draft/prerelease, с четырьмя файлами:
+APK, SHA256, build.json и signature.txt. Тег содержит резервный APK.
+GitHub, jsDelivr и Gcore отдали HTTP200; размер и SHA-256 совпали с signed67.
+Raw stable/manifest — build67. CDN @main всё ещё отдаёт build64 (jsDelivr)
+и62 (Gcore); резервное обнаружение новой версии может запаздывать, но прямые
+версионные APK67 доступны. [HTTP-сверка](qa/patch-2-1-3/publication.json).
+
+RepoWise обновлён после изменений исходников: структурный индекс и 86 страниц
+обновлены, без модельного анализа. Результаты индекса не заменяют проверки выше.
