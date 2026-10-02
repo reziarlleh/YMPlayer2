@@ -576,5 +576,9 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     msg_fed5c913384a("Результат перезагрузки неизвестен. Повторный запрос не отправляется.", "The restart result is unknown. The request will not be sent again.", R.string.msg_fed5c913384a),
     msg_fede8859c53f("Поиск в Яндекс Музыке", "Search Yandex Music", R.string.msg_fede8859c53f),
     msg_ff5436e417d8("В скине слишком много файлов", "The skin contains too many files", R.string.msg_ff5436e417d8),
-    msg_ffdf574befa9("По порядку", "In order", R.string.msg_ffdf574befa9);
+    msg_ffdf574befa9("По порядку", "In order", R.string.msg_ffdf574befa9),
+    msg_6d41ea47365d("Никогда не предлагать этот трек", "Never recommend this track", R.string.msg_6d41ea47365d),
+    msg_c0c419b5947a("Никогда не предлагать этого исполнителя", "Never recommend this artist", R.string.msg_c0c419b5947a),
+    msg_3605c85705cf("Снова предлагать этот трек", "Recommend this track again", R.string.msg_3605c85705cf),
+    msg_d8462717244f("Снова предлагать этого исполнителя", "Recommend this artist again", R.string.msg_d8462717244f);
 }

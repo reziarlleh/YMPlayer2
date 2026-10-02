@@ -1,0 +1,17 @@
+
+dev.petrov.ymplayer2.LocalizationTest:......
+Error in liveAudioProfileAndSettingsSurviveLanguageSwitch(dev.petrov.ymplayer2.LocalizationTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Язык приложения' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.petrov.ymplayer2.LocalizationTest.liveAudioProfileAndSettingsSurviveLanguageSwitch(LocalizationTest.kt:121)
+
+
+Time: 51.083
+There was 1 failure:
+1) liveAudioProfileAndSettingsSurviveLanguageSwitch(dev.petrov.ymplayer2.LocalizationTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Язык приложения' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at dev.petrov.ymplayer2.LocalizationTest.liveAudioProfileAndSettingsSurviveLanguageSwitch(LocalizationTest.kt:121)
+
+FAILURES!!!
+Tests run: 7,  Failures: 1

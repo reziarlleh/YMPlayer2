@@ -20,31 +20,50 @@ object UiStrings {
     // observe AppLanguages.state instead. No engine restart or route reset is needed.
     private data class Table(val language: String, val resources: Resources)
     private val table = mutableStateOf<Table?>(null)
-    private val exact by lazy { buildMap {
-        val fixed = Msg.entries.filter { !it.source.contains(Regex("@\\d+@")) }
-        fixed.forEach { key -> put(key.source, key) }
-        // Never guess which Russian action an ambiguous English label came from.
-        fixed.groupBy(Msg::english).filterValues { it.size == 1 }.forEach { (english, keys) -> put(english, keys.single()) }
-    } }
     private val parameter = Regex("@(\\d+)(?:\\|(track))?@")
-    private data class Template(val key: Msg, val regex: Regex, val indexes: List<Int>)
-    private val templates by lazy {
-        Msg.entries.filter { it.source.contains(Regex("@\\d+@")) }
-            .flatMap { key -> listOf(key to key.source, key to key.english) }
-            .sortedByDescending { it.second.replace(parameter, "").length }
-            .map { (key, source) ->
-                var offset = 0
-                val indexes = mutableListOf<Int>()
-                val pattern = StringBuilder("^")
-                parameter.findAll(source).forEach { match ->
-                    pattern.append(Regex.escape(source.substring(offset, match.range.first)))
-                        .append(if (match.groupValues[2] == "track") "(\\d+) tracks?" else "(.*?)")
-                    indexes.add(match.groupValues[1].toInt()); offset = match.range.last + 1
+    private val exact by lazy { buildMap {
+        val fixed = Msg.entries.filter { !parameter.containsMatchIn(it.source) }
+        fixed.forEach { key -> put(key.source, key) }
+        // An identical label can represent different actions. Do not guess its key.
+        messagePatterns.filter { !parameter.containsMatchIn(it.source) }
+            .groupBy(MessagePattern::source).forEach { (source, variants) ->
+                variants.map(MessagePattern::key).distinct().singleOrNull()?.let { key ->
+                    if (!containsKey(source)) put(source, key)
                 }
-                pattern.append(Regex.escape(source.substring(offset))).append('$')
-                Template(key, Regex(pattern.toString(), RegexOption.DOT_MATCHES_ALL), indexes)
+            }
+    } }
+    private data class Template(val key: Msg, val regex: Regex, val indexes: List<Int>)
+    private val trackRegexes by lazy { trackCountForms.mapValues { (_, forms) ->
+        "(\\d+)(?:" + forms.map { Regex.escape(it.removePrefix("%d")) }.distinct().joinToString("|") + ")"
+    } }
+    private fun template(variant: MessagePattern): Template {
+        var offset = 0
+        val indexes = mutableListOf<Int>()
+        val pattern = StringBuilder("^")
+        parameter.findAll(variant.source).forEach { match ->
+            pattern.append(Regex.escape(variant.source.substring(offset, match.range.first)))
+                .append(if (match.groupValues[2] == "track") trackRegexes.getValue(variant.language) else "(.*?)")
+            indexes.add(match.groupValues[1].toInt()); offset = match.range.last + 1
+        }
+        pattern.append(Regex.escape(variant.source.substring(offset))).append('$')
+        return Template(variant.key, Regex(pattern.toString(), RegexOption.DOT_MATCHES_ALL), indexes)
+    }
+    private val templates by lazy {
+        messagePatterns.filter { parameter.containsMatchIn(it.source) }
+            .sortedByDescending { it.source.replace(parameter, "").length }
+            .map(::template).groupBy { it.regex.pattern }.values.mapNotNull { variants ->
+                variants.first().takeIf { variants.map(Template::key).distinct().size == 1 }
             }
     }
+    private val waveKey by lazy { Msg.entries.first { it.source == "Моя волна: " } }
+    private val retryKey by lazy { Msg.entries.first { it.source == " Повторим автоматически (@0@/3)." } }
+    private val uncertainKey by lazy { Msg.entries.first { it.source == " Результат изменения не подтверждён. Проверьте плейлисты перед повтором." } }
+    private val retrySuffixes by lazy { templates.filter { it.key == retryKey }.map {
+        it.copy(regex = Regex(it.regex.pattern.removePrefix("^"), RegexOption.DOT_MATCHES_ALL))
+    } }
+    private val issuePrefixes by lazy { messagePatterns.filter {
+        it.key == waveKey || it.key.source.startsWith("Не удалось") && it.key.source.endsWith(' ')
+    }.distinctBy(MessagePattern::source).sortedByDescending { it.source.length } }
 
     internal fun configure(context: Context, language: String) {
         val config = Configuration(context.resources.configuration).apply {
@@ -77,13 +96,16 @@ object UiStrings {
 
     fun issue(source: String, depth: Int = 0): String {
         if (depth > 4) return source
-        if (source.startsWith("Моя волна: ")) return message("Моя волна: ") + issue(source.removePrefix("Моя волна: "), depth + 1)
-        val retry = Regex(" Повторим автоматически \\(\\d+/3\\)\\.$").find(source)
-        if (retry != null) return issue(source.substring(0, retry.range.first), depth + 1) + message(retry.value)
-        val uncertain = " Результат изменения не подтверждён. Проверьте плейлисты перед повтором."
-        if (source.endsWith(uncertain)) return issue(source.removeSuffix(uncertain), depth + 1) + message(uncertain)
-        val prefix = exact.keys.filter { it.endsWith(' ') && it.startsWith("Не удалось") && source.startsWith(it) }.maxByOrNull(String::length)
-        if (prefix != null) return message(prefix) + issue(source.removePrefix(prefix), depth + 1)
+        for (prefix in issuePrefixes) if (source.startsWith(prefix.source)) {
+            return text(prefix.key) + issue(source.removePrefix(prefix.source), depth + 1)
+        }
+        for (suffix in retrySuffixes) {
+            val retry = suffix.regex.find(source) ?: continue
+            return issue(source.substring(0, retry.range.first), depth + 1) + text(retryKey, retry.groupValues[1])
+        }
+        for (suffix in messagePatterns.filter { it.key == uncertainKey }) if (source.endsWith(suffix.source)) {
+            return issue(source.removeSuffix(suffix.source), depth + 1) + text(uncertainKey)
+        }
         return message(source)
     }
 }

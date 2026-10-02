@@ -1,0 +1,9 @@
+{
+  "versionCode": 72,
+  "builtAtUtc": "2026-10-02T04:46:50.9375122Z",
+  "channel": "stable",
+  "runtimeAcceptance": "signed-upgrade-71-to-72-and-all-eight-languages-passed-on-project-tv; language-and-regression-tests-passed-on-project-phone-and-tv; owner-language-review-pending",
+  "applicationId": "dev.petrov.ymplayer2",
+  "sha256": "b9fd6d4c51a6ebdc0f6ba641f27093be9ee11cf3f37a0e6090f49a2d23d5146b",
+  "versionName": "2.2.1-build72"
+}

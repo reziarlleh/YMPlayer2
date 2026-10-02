@@ -1,0 +1,44 @@
+{
+  "messages": 579,
+  "languages": [
+    "be",
+    "en",
+    "fr",
+    "de",
+    "kk",
+    "ru",
+    "es",
+    "uk"
+  ],
+  "valid_generation_and_check": true,
+  "negative_checks": [
+    {
+      "case": "missing translation",
+      "rejected": true
+    },
+    {
+      "case": "repeated argument",
+      "rejected": true
+    },
+    {
+      "case": "missing plural modifier",
+      "rejected": true
+    },
+    {
+      "case": "malformed marker",
+      "rejected": true
+    },
+    {
+      "case": "lost envelope space",
+      "rejected": true
+    },
+    {
+      "case": "invalid plural category",
+      "rejected": true
+    },
+    {
+      "case": "changed generated file",
+      "rejected": true
+    }
+  ]
+}

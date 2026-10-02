@@ -40,7 +40,7 @@
     <string name="msg_122f71765026" formatted="false">"Меню"</string>
     <string name="msg_126edfaa6bc7" formatted="false">"Название трека · Исполнитель"</string>
     <string name="msg_1298b5e04346" formatted="false">"Радио Яндекс Музыки"</string>
-    <string name="msg_12e3d1e9d948" formatted="false">"@0@ треков"</string>
+    <string name="msg_12e3d1e9d948" formatted="false">"@0|track@"</string>
     <string name="msg_141e133edf3b" formatted="false">"Загрузка: @0@% · @1@"</string>
     <string name="msg_1478970270d1" formatted="false">"На уровень выше"</string>
     <string name="msg_1484585c1931" formatted="false">"Один из сохранённых скинов повреждён. Его можно импортировать заново."</string>
@@ -88,7 +88,7 @@
     <string name="msg_298252296d09" formatted="false">"Введите название и выберите тип результатов."</string>
     <string name="msg_2991be238f39" formatted="false">"Значок должен ссылаться на JSON-вектор"</string>
     <string name="msg_29a33ded420d" formatted="false">"источник"</string>
-    <string name="msg_29c90888994f" formatted="false">"Устройство / USB · @0@ треков"</string>
+    <string name="msg_29c90888994f" formatted="false">"Устройство / USB · @0|track@"</string>
     <string name="msg_29e4a4bd7a17" formatted="false">"Как в системе"</string>
     <string name="msg_29f6f8d9dd3e" formatted="false">"Вход по коду без ввода пароля в плеере. Аккаунты разных профилей не смешиваются."</string>
     <string name="msg_29ff5117d5b1" formatted="false">"Жанры и папки относятся к файлам устройства и USB."</string>
@@ -223,7 +223,7 @@
     <string name="msg_5fbef357e55e" formatted="false">"Моя музыка в Яндексе"</string>
     <string name="msg_601de107e288" formatted="false">"Новая позиция: 1–@0@"</string>
     <string name="msg_603e460bf59c" formatted="false">"Обновить"</string>
-    <string name="msg_60bbcc5198aa" formatted="false">"@0@ · @1@ треков"</string>
+    <string name="msg_60bbcc5198aa" formatted="false">"@0@ · @1|track@"</string>
     <string name="msg_612f724ec00f" formatted="false">"Открыть аккаунт"</string>
     <string name="msg_61ab32792577" formatted="false">"Служба перезагрузки K4811 недоступна. Запрос не отправлен."</string>
     <string name="msg_61b578bca0ca" formatted="false">"Подготовка аудио"</string>
@@ -430,7 +430,7 @@
     <string name="msg_be83518bd33a" formatted="false">"Скачать и установить"</string>
     <string name="msg_be8789acfb99" formatted="false">"Нужен вход в Яндекс"</string>
     <string name="msg_be99b1361201" formatted="false">"Удалить"</string>
-    <string name="msg_bf6c36d1e481" formatted="false">"@0@ треков · @1@ доступно"</string>
+    <string name="msg_bf6c36d1e481" formatted="false">"@0|track@ · @1@ доступно"</string>
     <string name="msg_c011a7b7c5c5" formatted="false">"Убрать трек?"</string>
     <string name="msg_c05d6b17ae05" formatted="false">"Предпросмотр: @0@"</string>
     <string name="msg_c06f71ebf142" formatted="false">"Браузер недоступен. Откройте указанный адрес на телефоне и введите код."</string>
@@ -575,5 +575,9 @@
     <string name="msg_fede8859c53f" formatted="false">"Поиск в Яндекс Музыке"</string>
     <string name="msg_ff5436e417d8" formatted="false">"В скине слишком много файлов"</string>
     <string name="msg_ffdf574befa9" formatted="false">"По порядку"</string>
+    <string name="msg_6d41ea47365d" formatted="false">"Никогда не предлагать этот трек"</string>
+    <string name="msg_c0c419b5947a" formatted="false">"Никогда не предлагать этого исполнителя"</string>
+    <string name="msg_3605c85705cf" formatted="false">"Снова предлагать этот трек"</string>
+    <string name="msg_d8462717244f" formatted="false">"Снова предлагать этого исполнителя"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

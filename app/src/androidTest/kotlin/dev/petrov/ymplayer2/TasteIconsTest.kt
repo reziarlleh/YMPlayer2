@@ -61,13 +61,13 @@ class TasteIconsTest {
         icon(TasteKind.ARTIST, "5", "block").assertDoesNotExist()
         screenshot("player")
         compose.onNodeWithTag("player_more").performClick()
-        compose.onNodeWithTag("taste_ARTIST_5_block").performScrollTo().assertTextContains("Снова предлагать исполнителя")
+        compose.onNodeWithTag("taste_ARTIST_5_block").performScrollTo().assertTextContains("Снова предлагать этого исполнителя")
         compose.onNodeWithTag("taste_ARTIST_8_like").performScrollTo().performClick()
         waitFor { "8" in fixture.taste.state.value.shelf(TasteKind.ARTIST).list.liked }
         compose.onNodeWithTag("taste_ARTIST_8_like").assertTextContains("Убрать из любимых исполнителей")
         compose.onNodeWithTag("taste_ARTIST_5_block").performScrollTo().performClick()
         waitFor { fixture.taste.state.value.shelf(TasteKind.ARTIST).list.blocked.isEmpty() }
-        compose.onNodeWithTag("taste_ARTIST_5_block").assertTextContains("Никогда не предлагать исполнителя")
+        compose.onNodeWithTag("taste_ARTIST_5_block").assertTextContains("Никогда не предлагать этого исполнителя")
         assertEquals(setOf("1"), fixture.taste.state.value.shelf(TasteKind.TRACK).list.liked)
         assertEquals(listOf("8" to TasteAction.LIKE, "5" to TasteAction.UNBLOCK), fixture.tasteWrites.map { it.first.id to it.second })
         assertFalse(fixture.player.state.value.playing)
@@ -130,7 +130,7 @@ class TasteIconsTest {
         icon(TasteKind.TRACK, "1").assertIsOn()
         icon(TasteKind.ARTIST, "5", "block").assertDoesNotExist()
         compose.onNodeWithTag("player_more").performClick()
-        compose.onNodeWithTag("taste_ARTIST_5_block").performScrollTo().assertTextContains("Снова предлагать исполнителя")
+        compose.onNodeWithTag("taste_ARTIST_5_block").performScrollTo().assertTextContains("Снова предлагать этого исполнителя")
         assertTrue(harness.tasteWrites.isEmpty())
     }
 }

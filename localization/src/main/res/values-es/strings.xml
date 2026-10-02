@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="msg_001dda282241" formatted="false">"Inicia sesión en Yandex en este perfil. Si ya has iniciado sesión, actualiza los datos de la cuenta."</string>
+    <string name="msg_00231affc201" formatted="false">"Toda la música"</string>
+    <string name="msg_003022fabb87" formatted="false">"Siguiente videoclip"</string>
+    <string name="msg_004778f850b1" formatted="false">"Apunta el código antes de abrir el navegador: la página de Yandex no siempre permite pegarlo desde el portapapeles."</string>
+    <string name="msg_01fc82460086" formatted="false">"Reproducción en línea"</string>
+    <string name="msg_026baad87300" formatted="false">"No se ha podido abrir el archivo del tema"</string>
+    <string name="msg_031396ebc4da" formatted="false">"Perfil: @0@"</string>
+    <string name="msg_03222b95f9b4" formatted="false">"Me gusta y bloqueos"</string>
+    <string name="msg_037174d58809" formatted="false">"Artista"</string>
+    <string name="msg_04080c05e46f" formatted="false">"Área de dibujo del icono no válida"</string>
+    <string name="msg_042185cacc93" formatted="false">"Canciones"</string>
+    <string name="msg_05f7734c7fbc" formatted="false">"Añadir a favoritos"</string>
+    <string name="msg_066903b7f6fa" formatted="false">"El servicio K4811 está listo. ¿Reiniciar el dispositivo?"</string>
+    <string name="msg_06a1b25395b9" formatted="false">"Quitar de álbumes favoritos"</string>
+    <string name="msg_06da64ed2827" formatted="false">"No se ha podido comprobar el Me gusta o el bloqueo. Actualiza su estado. "</string>
+    <string name="msg_074cc2ac4332" formatted="false">"Activar la caché sin conexión"</string>
+    <string name="msg_0761f7d17c1f" formatted="false">"No se ha podido abrir el ecualizador. Elige otra aplicación."</string>
+    <string name="msg_0796e8248aae" formatted="false">"Campo desconocido: @0@"</string>
+    <string name="msg_08cec0f555fe" formatted="false">"Formato de manifiesto no compatible"</string>
+    <string name="msg_09008d3dafef" formatted="false">"No está en favoritos"</string>
+    <string name="msg_0918b4ba9268" formatted="false">"Nombre"</string>
+    <string name="msg_0928b8d4c742" formatted="false">"Álbum"</string>
+    <string name="msg_0a0ebb200d14" formatted="false">"La música sigue sonando al cambiar de sección."</string>
+    <string name="msg_0a17ec91a15b" formatted="false">"Artistas y álbum"</string>
+    <string name="msg_0a20ddc9928f" formatted="false">"Biblioteca"</string>
+    <string name="msg_0a813814f149" formatted="false">"Obtener código de acceso"</string>
+    <string name="msg_0b9e2aeefccd" formatted="false">"La caché sin conexión está desactivada. Puedes activarla en los ajustes de la aplicación."</string>
+    <string name="msg_0c581306a3c6" formatted="false">"Selecciona una canción para reproducirla"</string>
+    <string name="msg_0c985ad12096" formatted="false">"Un reproductor de música para Android, Android TV y equipos de audio del coche."</string>
+    <string name="msg_0d19ca3fd269" formatted="false">"El APK pendiente no ha superado la verificación: @0@"</string>
+    <string name="msg_0df38a907fd2" formatted="false">"Abrir: @0@"</string>
+    <string name="msg_0e04e96eb049" formatted="false">"Se borrarán el audio y las carátulas de esta cuenta en el perfil actual. Tus Me gusta en Yandex se conservarán."</string>
+    <string name="msg_0f0e734fb752" formatted="false">"Añadir a la cola: @0@"</string>
+    <string name="msg_0fad384ca45b" formatted="false">"No se puede mover"</string>
+    <string name="msg_0fd3fe573609" formatted="false">"En favoritos"</string>
+    <string name="msg_100f3d517847" formatted="false">"El paquete pertenece a otra aplicación"</string>
+    <string name="msg_103bc2f65ee8" formatted="false">"Comprobar al iniciar"</string>
+    <string name="msg_122f71765026" formatted="false">"Menú"</string>
+    <string name="msg_126edfaa6bc7" formatted="false">"Canción · Artista"</string>
+    <string name="msg_1298b5e04346" formatted="false">"Radio de Yandex Music"</string>
+    <string name="msg_12e3d1e9d948" formatted="false">"@0|track@"</string>
+    <string name="msg_141e133edf3b" formatted="false">"Descarga: @0@ % · @1@"</string>
+    <string name="msg_1478970270d1" formatted="false">"Subir un nivel"</string>
+    <string name="msg_1484585c1931" formatted="false">"Uno de los temas guardados está dañado. Puedes volver a importarlo."</string>
+    <string name="msg_14b10e3e0473" formatted="false">"Crear lista de Yandex"</string>
+    <string name="msg_16e5a7c68a87" formatted="false">"Ocultar panel lateral"</string>
+    <string name="msg_1718e90d59c5" formatted="false">"Audio"</string>
+    <string name="msg_1731619efa3a" formatted="false">"Apariencia"</string>
+    <string name="msg_173c0a00334a" formatted="false">"La vista previa no cambia la apariencia de la aplicación."</string>
+    <string name="msg_17b7c023b762" formatted="false">"Este ajuste se aplica a todos los perfiles del dispositivo. Al desactivarlo, se detiene la sincronización y no se usa la música descargada. La reproducción en línea y la precarga de Mi mix siguen funcionando."</string>
+    <string name="msg_17f63d0c483b" formatted="false">"Valor fillType desconocido"</string>
+    <string name="msg_180f58ab9753" formatted="false">"Buscar"</string>
+    <string name="msg_194306e20807" formatted="false">"Renombrar"</string>
+    <string name="msg_1a25b02eecdb" formatted="false">"Nombre guardado."</string>
+    <string name="msg_1a5f7efbec65" formatted="false">"Registro actualizado."</string>
+    <string name="msg_1a9fb1f3cf8e" formatted="false">"Atrás"</string>
+    <string name="msg_1c4b50127e94" formatted="false">"La canción no está en la biblioteca local"</string>
+    <string name="msg_1c947e774ae7" formatted="false">"Suspender"</string>
+    <string name="msg_1d16c7d5c800" formatted="false">"El canal no coincide con la versión"</string>
+    <string name="msg_1d74ce16d44e" formatted="false">"Canción, artista o álbum"</string>
+    <string name="msg_1dd7755458c1" formatted="false">"Eliminar lista"</string>
+    <string name="msg_1e5e88ef7525" formatted="false">"Canción"</string>
+    <string name="msg_1eecfcaa7bdb" formatted="false">"Oscura"</string>
+    <string name="msg_1f0f3db2bd8d" formatted="false">"Primero permite mostrar contenido sobre otras aplicaciones."</string>
+    <string name="msg_203dc0ea9f7d" formatted="false">"No se ha podido vaciar el registro."</string>
+    <string name="msg_20c3a85f6767" formatted="false">"Disponibles ahora"</string>
+    <string name="msg_21943a44634e" formatted="false">"Oscuro"</string>
+    <string name="msg_21c6b248c7e7" formatted="false">"No se ha podido abrir la carpeta Downloads."</string>
+    <string name="msg_22324e61bdfe" formatted="false">"Música sin conexión"</string>
+    <string name="msg_22a5d9112486" formatted="false">"Cargando…"</string>
+    <string name="msg_231ddb86ef9f" formatted="false">"HTTP @0@ de @1@"</string>
+    <string name="msg_23ae5f29feed" formatted="false">"Activa al menos un botón. El panel vacío queda desactivado."</string>
+    <string name="msg_23d5ec1e3849" formatted="false">"Ecualizador del sistema"</string>
+    <string name="msg_24ae31c96ef8" formatted="false">"Esta versión del formato de tema no es compatible"</string>
+    <string name="msg_254732178a10" formatted="false">"Borrar archivos"</string>
+    <string name="msg_25a86516eb0c" formatted="false">"Estado de la biblioteca de demostración"</string>
+    <string name="msg_25dc72086a44" formatted="false">"Botones del panel"</string>
+    <string name="msg_263e20096cc0" formatted="false">"Artistas favoritos"</string>
+    <string name="msg_26d99df6eab5" formatted="false">"Música"</string>
+    <string name="msg_26e8236c8e38" formatted="false">"El archivo del tema supera el tamaño permitido"</string>
+    <string name="msg_2718e917ffb3" formatted="false">"Calidad de descarga sin conexión"</string>
+    <string name="msg_272bf8adef84" formatted="false">"Todavía no hay listas."</string>
+    <string name="msg_27681b730821" formatted="false">"Cargando videoclips…"</string>
+    <string name="msg_2922b43474e0" formatted="false">"Reproducir canción"</string>
+    <string name="msg_293a0bf80248" formatted="false">"No se ha podido leer el índice de la biblioteca"</string>
+    <string name="msg_298252296d09" formatted="false">"Introduce un nombre y elige el tipo de resultados."</string>
+    <string name="msg_2991be238f39" formatted="false">"El icono debe hacer referencia a un vector JSON"</string>
+    <string name="msg_29a33ded420d" formatted="false">"fuente"</string>
+    <string name="msg_29c90888994f" formatted="false">"Dispositivo / USB · @0|track@"</string>
+    <string name="msg_29e4a4bd7a17" formatted="false">"Según el sistema"</string>
+    <string name="msg_29f6f8d9dd3e" formatted="false">"Inicia sesión con un código, sin introducir la contraseña en el reproductor. Cada perfil mantiene su propia cuenta."</string>
+    <string name="msg_29ff5117d5b1" formatted="false">"Los géneros y las carpetas corresponden a los archivos del dispositivo y de las unidades USB."</string>
+    <string name="msg_2a6b5f7278c0" formatted="false">"Añadir a favoritos"</string>
+    <string name="msg_2afb36246c80" formatted="false">"Ruta del icono no válida"</string>
+    <string name="msg_2b7d2f3f797d" formatted="false">"La aplicación está actualizada."</string>
+    <string name="msg_2c38faa8cf7e" formatted="false">"Biblioteca local compartida · sin cuenta"</string>
+    <string name="msg_2cea82c66c45" formatted="false">"El manifiesto es demasiado grande"</string>
+    <string name="msg_2d6b68932448" formatted="false">"La sesión está guardada para este perfil. La música de Yandex está disponible en la biblioteca y en la búsqueda."</string>
+    <string name="msg_2dc14ee8f6a2" formatted="false">"No se ha podido leer el registro."</string>
+    <string name="msg_2efea0f8794f" formatted="false">"Listas"</string>
+    <string name="msg_2f4f45e427e6" formatted="false">"Preparando audio…"</string>
+    <string name="msg_2f8a1650c543" formatted="false">"No se ha podido completar la descarga"</string>
+    <string name="msg_2f9654f4d1a1" formatted="false">"No hay nada por aquí. Prueba otra búsqueda o sección."</string>
+    <string name="msg_3048598439e0" formatted="false">"Añadir música"</string>
+    <string name="msg_306af95e29b6" formatted="false">"Esperando confirmación…"</string>
+    <string name="msg_307c435478f4" formatted="false">"Videoclips · Yandex Music"</string>
+    <string name="msg_30c61037264b" formatted="false">"Perfiles"</string>
+    <string name="msg_32060a34f5be" formatted="false">"Vista previa"</string>
+    <string name="msg_33073b976515" formatted="false">"Cola · @0@"</string>
+    <string name="msg_3315af3b27b8" formatted="false">"Crear lista"</string>
+    <string name="msg_334c3299a899" formatted="false">"Quitar de favoritos"</string>
+    <string name="msg_3364af49d2ba" formatted="false">"Cerrar sesión"</string>
+    <string name="msg_3396400da0c4" formatted="false">"Detener"</string>
+    <string name="msg_341bfc88e988" formatted="false">"El manifiesto de actualización es demasiado grande"</string>
+    <string name="msg_346750dab787" formatted="false">"No recomendar nunca @0@"</string>
+    <string name="msg_34faf1c2240d" formatted="false">"No se ha podido leer el tema guardado. Se usa Oxide."</string>
+    <string name="msg_350675f4e001" formatted="false">"¿Cerrar sesión en Yandex?"</string>
+    <string name="msg_350c510572ad" formatted="false">"Dispositivo / USB: @0@ · Yandex: @1@ mostrados"</string>
+    <string name="msg_35619086cdfe" formatted="false">"Crea tu primera lista con el botón +."</string>
+    <string name="msg_35864bdf26cb" formatted="false">"Canciones favoritas · sin conexión"</string>
+    <string name="msg_3628da5ba5a2" formatted="false">"Eliminar la sesión guardada"</string>
+    <string name="msg_36cf98277e5f" formatted="false">"Para nuevas reproducciones en línea y la precarga de Mi mix."</string>
+    <string name="msg_372ccd2e8254" formatted="false">"; actualizando…"</string>
+    <string name="msg_379116d4b4d4" formatted="false">"El paquete del tema contiene archivos sin usar"</string>
+    <string name="msg_38aa13198a8b" formatted="false">"Nueva lista"</string>
+    <string name="msg_392a2bb860f8" formatted="false">"Este ID pertenece a un tema integrado. Cambia id en el manifiesto."</string>
+    <string name="msg_39bbc8689a90" formatted="false">"No se ha autorizado el acceso. Puedes intentarlo de nuevo."</string>
+    <string name="msg_39c3c9622cdc" formatted="false">"La cola está vacía"</string>
+    <string name="msg_39cef1f5fa63" formatted="false">"Elige una sección."</string>
+    <string name="msg_3b024cce3b59" formatted="false">"Apoyar el desarrollo"</string>
+    <string name="msg_3b840443abf7" formatted="false">"No recomendar nunca"</string>
+    <string name="msg_3c959ac71187" formatted="false">"Añadir a artistas favoritos"</string>
+    <string name="msg_3c99d6538c1d" formatted="false">"Canciones populares"</string>
+    <string name="msg_3cc455cf86cf" formatted="false">"Yandex ha rechazado el acceso para esta compilación."</string>
+    <string name="msg_3d04145a8633" formatted="false">"Ruta duplicada en el paquete del tema"</string>
+    <string name="msg_3d275a76f737" formatted="false">"La biblioteca contiene datos"</string>
+    <string name="msg_3d7762ba837e" formatted="false">"Las canciones favoritas descargadas están en Canciones. No se descargan álbumes ni discografías enteras."</string>
+    <string name="msg_3e123a8bc43d" formatted="false">"Archivos sin conexión borrados. Tus Me gusta en Yandex se conservan."</string>
+    <string name="msg_3e1506ad1141" formatted="false">"Me gusta"</string>
+    <string name="msg_3e38544b4537" formatted="false">"Estos ajustes se aplican a todos los perfiles del dispositivo."</string>
+    <string name="msg_3f8a4e233c3e" formatted="false">"Actualizar datos de la cuenta"</string>
+    <string name="msg_3fbf9e4ea1c1" formatted="false">"Canción anterior"</string>
+    <string name="msg_407f871778d3" formatted="false">"Restablecer"</string>
+    <string name="msg_414209446572" formatted="false">"Quitar canción"</string>
+    <string name="msg_414a326c7fbe" formatted="false">"Mi mix · cargando…"</string>
+    <string name="msg_417875482e57" formatted="false">"Editar lista"</string>
+    <string name="msg_4195b215e9f0" formatted="false">"Exportar a Downloads"</string>
+    <string name="msg_422f550c9cff" formatted="false">"Principal"</string>
+    <string name="msg_430c6faef007" formatted="false">"No hay música descargada en este perfil. Inicia sesión en Yandex para sincronizar tus canciones favoritas."</string>
+    <string name="msg_433852b8fe49" formatted="false">"El perfil Invitado reproduce música local sin cuenta. Elige otro perfil para iniciar sesión."</string>
+    <string name="msg_4378c674b4d7" formatted="false">"La confirmación de reinicio no está disponible en este dispositivo."</string>
+    <string name="msg_4382a728852f" formatted="false">"Cada perfil tiene su propia cola. Al cambiar de perfil, la reproducción queda en pausa."</string>
+    <string name="msg_43b07d243705" formatted="false">"Yandex · @0@"</string>
+    <string name="msg_43bd202954d8" formatted="false">"Invitado"</string>
+    <string name="msg_43c191115b55" formatted="false">"La suma de comprobación del APK no coincide"</string>
+    <string name="msg_43fb606c5b6f" formatted="false">"Panel lateral"</string>
+    <string name="msg_442f1380374f" formatted="false">"Actualizar lista"</string>
+    <string name="msg_44d4090ae9e4" formatted="false">"error"</string>
+    <string name="msg_44d8126b8321" formatted="false">"Mis listas"</string>
+    <string name="msg_44f6f4d66ea4" formatted="false">"Perfil de demostración"</string>
+    <string name="msg_460213556ee1" formatted="false">"APK verificado@0@."</string>
+    <string name="msg_467a1857a936" formatted="false">"Tamaño o SHA-256 del APK no válido"</string>
+    <string name="msg_468ba659166c" formatted="false">"Todos los botones están desactivados: el panel lateral está desactivado."</string>
+    <string name="msg_46da7285528f" formatted="false">"Siguiente canción"</string>
+    <string name="msg_480fae1c4bc9" formatted="false">"Sin resultados"</string>
+    <string name="msg_48b5898b7140" formatted="false">"Eliminar lista de Yandex"</string>
+    <string name="msg_48f1c04f18bc" formatted="false">"Bajar: @0@"</string>
+    <string name="msg_4a1236b53aa7" formatted="false">"Registro vaciado."</string>
+    <string name="msg_4a59253d0fb2" formatted="false">"Si la aplicación te resulta útil, puedes apoyar su desarrollo."</string>
+    <string name="msg_4a87a9c8e472" formatted="false">"Actualizando biblioteca…"</string>
+    <string name="msg_4b39689e6190" formatted="false">"El idioma se aplica a todos los perfiles del dispositivo. Los nombres de la música, las listas y los temas no se traducen."</string>
+    <string name="msg_4cffda4eecf8" formatted="false">"El acceso a Yandex no está disponible en esta compilación. La música local sigue funcionando."</string>
+    <string name="msg_4e50f6bdc764" formatted="false">"¿Quitar «@0@» (posición @1@) de «@2@»? Se conservarán las demás apariciones de esta canción."</string>
+    <string name="msg_4e882842072f" formatted="false">"La sesión guardada se eliminará solo del perfil «@0@» de este dispositivo. Se conservarán los archivos locales, la cola y las listas."</string>
+    <string name="msg_4f41558e776b" formatted="false">"¿Eliminar la lista?"</string>
+    <string name="msg_4f5782c26416" formatted="false">"No se puede leer el APK"</string>
+    <string name="msg_501cfd0b1690" formatted="false">"Error / advertencia"</string>
+    <string name="msg_502d3a6bd090" formatted="false">"No se ha podido leer el catálogo. Repite la búsqueda."</string>
+    <string name="msg_50730177421a" formatted="false">"Faltan datos del APK"</string>
+    <string name="msg_50825290b460" formatted="false">"Se necesita un paquete ZIP .ymskin"</string>
+    <string name="msg_5189135a6110" formatted="false">"Reintentar"</string>
+    <string name="msg_5277d2953e7b" formatted="false">"Borrar archivos sin conexión"</string>
+    <string name="msg_535119bf3cc5" formatted="false">"Descargar"</string>
+    <string name="msg_53aacea33082" formatted="false">"Lista «@0@» creada."</string>
+    <string name="msg_53ba89acf405" formatted="false">"No disponible"</string>
+    <string name="msg_53c57c59cc24" formatted="false">"Añade canciones desde «…». Para cambiar el orden, arrastra el asa o pulsa Posición. Los cambios se guardan en Yandex."</string>
+    <string name="msg_53ee3b3a9092" formatted="false">"Al quitar la canción actual, la reproducción se pausa."</string>
+    <string name="msg_5405eb821e3a" formatted="false">"Claro"</string>
+    <string name="msg_541f8f8b8a8f" formatted="false">"Ya existe una lista con ese nombre"</string>
+    <string name="msg_54b80039a9ec" formatted="false">"Tema activo"</string>
+    <string name="msg_556fab910a7b" formatted="false">"Nueva lista de Yandex"</string>
+    <string name="msg_55870b7a873d" formatted="false">"Esta lista todavía no tiene canciones."</string>
+    <string name="msg_55d6dc96a9df" formatted="false">"Elige una carpeta con archivos de audio del dispositivo o de una unidad USB."</string>
+    <string name="msg_55e08786c6c9" formatted="false">"La lista ha cambiado en Yandex. Actualízala y revisa su contenido antes de reintentar."</string>
+    <string name="msg_5651a421a70e" formatted="false">"Procesando…"</string>
+    <string name="msg_5690c2e63b9d" formatted="false">"Cerrar sesión"</string>
+    <string name="msg_56f5278a2acc" formatted="false">"No se puede conectar con Yandex Music. Comprueba la conexión e inténtalo de nuevo."</string>
+    <string name="msg_5710ad29b999" formatted="false">"Crear nueva lista"</string>
+    <string name="msg_574d24b24ab4" formatted="false">"Disponible: @0@"</string>
+    <string name="msg_57691b646726" formatted="false">"Alta · 320 kbps"</string>
+    <string name="msg_5779b6589ef5" formatted="false">"Pulsa Atrás otra vez para salir"</string>
+    <string name="msg_57816af2d9ca" formatted="false">"Desliza desde el borde para abrir el panel de YMPlayer 2"</string>
+    <string name="msg_57d8de34aad1" formatted="false">"Quitar de artistas favoritos"</string>
+    <string name="msg_58995881a188" formatted="false">"Esta actualización no corresponde al canal seleccionado"</string>
+    <string name="msg_589983337a78" formatted="false">"La lista «@0@» se eliminará de tu cuenta de Yandex en todos los dispositivos. La cola actual y tus canciones favoritas se conservarán."</string>
+    <string name="msg_58cb4ee024d5" formatted="false">"Aleatorio"</string>
+    <string name="msg_58efe74ebc48" formatted="false">"Archivo del icono no encontrado: @0@"</string>
+    <string name="msg_59134fd3fbf7" formatted="false">"Menú solo está disponible en K4811."</string>
+    <string name="msg_59eedda3d148" formatted="false">"No se ha podido mostrar el panel."</string>
+    <string name="msg_5c7cfc9e8bc2" formatted="false">"Reproducción"</string>
+    <string name="msg_5c7d98906b6b" formatted="false">"El número debe ser finito"</string>
+    <string name="msg_5d5f78c5790d" formatted="false">"Caché sin conexión: @0@ encontrados"</string>
+    <string name="msg_5d99a4bce5b6" formatted="false">"Solo se permite HTTPS"</string>
+    <string name="msg_5dc56b8cf0e0" formatted="false">"Atrás solo está disponible en K4811."</string>
+    <string name="msg_5e1e0ac2d35b" formatted="false">"Todavía no hay entradas."</string>
+    <string name="msg_5e3e47e18b27" formatted="false">"Se necesitan entre 1 y 12 colores para las carátulas por defecto"</string>
+    <string name="msg_5e4ea237ce6b" formatted="false">"Guardados: @0@ · @1@ MB"</string>
+    <string name="msg_5e66b30bc941" formatted="false">"La música va contigo · Beta"</string>
+    <string name="msg_5e9967fcef8f" formatted="false">"El dispositivo no tiene selector de carpetas del sistema. Necesitas un gestor de archivos compatible con Storage Access Framework."</string>
+    <string name="msg_5ed92773c808" formatted="false">"Yandex"</string>
+    <string name="msg_5fbef357e55e" formatted="false">"Mi música de Yandex"</string>
+    <string name="msg_601de107e288" formatted="false">"Nueva posición: 1–@0@"</string>
+    <string name="msg_603e460bf59c" formatted="false">"Actualizar"</string>
+    <string name="msg_60bbcc5198aa" formatted="false">"@0@ · @1|track@"</string>
+    <string name="msg_612f724ec00f" formatted="false">"Abrir cuenta"</string>
+    <string name="msg_61ab32792577" formatted="false">"El servicio de reinicio K4811 no está disponible. No se ha enviado ninguna solicitud."</string>
+    <string name="msg_61b578bca0ca" formatted="false">"Preparando audio"</string>
+    <string name="msg_61c83c0e0569" formatted="false">"Mostrar más de Yandex"</string>
+    <string name="msg_620bc932f669" formatted="false">"Guardar nombre"</string>
+    <string name="msg_62243b1fd0d8" formatted="false">"No se han podido actualizar los Me gusta y bloqueos. Reintentar"</string>
+    <string name="msg_6276f8c77c1b" formatted="false">"No se ha encontrado un ecualizador o DSP compatible. Instala una aplicación de procesamiento de audio. Si hay un panel del sistema, inicia la reproducción y ábrelo aquí."</string>
+    <string name="msg_62984b2595bb" formatted="false">"Obteniendo código…"</string>
+    <string name="msg_62ed32eb225c" formatted="false">"Comprobando…"</string>
+    <string name="msg_6518414d5226" formatted="false">"Canción quitada de la lista."</string>
+    <string name="msg_653f03c94726" formatted="false">"Canción actual"</string>
+    <string name="msg_65530fd463ea" formatted="false">"Pausa"</string>
+    <string name="msg_655f2cc9a551" formatted="false">"Sincronización completada."</string>
+    <string name="msg_659afa619e2b" formatted="false">"El tamaño o el SHA-256 del APK no coincide"</string>
+    <string name="msg_65a38f8bcb09" formatted="false">"No se ha podido leer o guardar la sesión en el dispositivo."</string>
+    <string name="msg_65e00ce0d8d2" formatted="false">"Repetir cola"</string>
+    <string name="msg_66474d591df2" formatted="false">"La sesión está guardada, pero los datos de la cuenta de Music aún no están disponibles. Podrás actualizarlos después sin introducir otro código."</string>
+    <string name="msg_66c5d76f8451" formatted="false">"Restaurar Oxide"</string>
+    <string name="msg_6713f0c31917" formatted="false">"Se necesita un número: @0@"</string>
+    <string name="msg_673b49c1255b" formatted="false">"No se ha podido leer la respuesta de Yandex. Repite la solicitud."</string>
+    <string name="msg_674a4f596d66" formatted="false">" No se ha podido confirmar el cambio. Revisa tus listas antes de reintentar."</string>
+    <string name="msg_67abbabca722" formatted="false">"Orden de las canciones guardado."</string>
+    <string name="msg_6807424b3688" formatted="false">"Activar panel"</string>
+    <string name="msg_6841e1070158" formatted="false">"No se ha encontrado la pantalla de permisos del sistema."</string>
+    <string name="msg_68cc12d616b8" formatted="false">"Actualizar Me gusta y bloqueos"</string>
+    <string name="msg_68eab87f63c4" formatted="false">"Yandex ha denegado el acceso. Comprueba la cuenta y la suscripción a Music."</string>
+    <string name="msg_69294d8ce6a4" formatted="false">"Yandex puede ofrecer otra tasa de bits: se elige la mejor disponible hasta el límite indicado o, si no hay ninguna, la más cercana por encima. Auto y Máxima eligen la tasa disponible más alta."</string>
+    <string name="msg_6aadca8eb39a" formatted="false">"Crear y añadir canción"</string>
+    <string name="msg_6b5623eafb06" formatted="false">"Editar lista"</string>
+    <string name="msg_6bd804f5b776" formatted="false">"Canción: @0@"</string>
+    <string name="msg_6bf215b8f901" formatted="false">"No se ha podido sustituir el APK anterior"</string>
+    <string name="msg_6c2b14d954bb" formatted="false">"Elegir ecualizador / DSP"</string>
+    <string name="msg_6c32e04d2392" formatted="false">"Aún no se ha elegido el siguiente videoclip"</string>
+    <string name="msg_6cbc48f41e6f" formatted="false">"No se ha podido leer la música sin conexión. Repite la sincronización."</string>
+    <string name="msg_6d6a9bb2179b" formatted="false">"Mi música y recomendaciones de Yandex"</string>
+    <string name="msg_6daecbeea4b6" formatted="false">"Videoclips"</string>
+    <string name="msg_6dccc4a3f564" formatted="false">"No se ha podido descargar la actualización: @0@"</string>
+    <string name="msg_6dd43bf971fd" formatted="false">"Temas"</string>
+    <string name="msg_6e1f7baa472f" formatted="false">"Borrar búsqueda"</string>
+    <string name="msg_6edaf3285434" formatted="false">"Quitar de la cola: @0@"</string>
+    <string name="msg_6f1566c263c4" formatted="false">"Cobre, grafito y papel en tonos cálidos"</string>
+    <string name="msg_6fb373108517" formatted="false">"No se ha podido leer o guardar el tema. Selecciona el archivo de nuevo."</string>
+    <string name="msg_7003237eb243" formatted="false">"Descargas de audio fallidas: @0@. Errores de carátulas: @1@. Sin carátula en la fuente: @2@. Repite la sincronización para comprobar y recuperar lo que falta."</string>
+    <string name="msg_7075085d9334" formatted="false">"Más acciones"</string>
+    <string name="msg_70c88673f5a8" formatted="false">"Quitar una carpeta de la biblioteca no borra sus archivos. Todos los perfiles pueden acceder a la biblioteca local."</string>
+    <string name="msg_70daf92e717a" formatted="false">"Carátula: @0@"</string>
+    <string name="msg_71038c53bbc4" formatted="false">"Añadir"</string>
+    <string name="msg_717012565e0a" formatted="false">"Nombre de la lista"</string>
+    <string name="msg_71c815fdaf60" formatted="false">"No se ha podido iniciar el panel en este dispositivo."</string>
+    <string name="msg_71e214e1477f" formatted="false">"Todas las fuentes"</string>
+    <string name="msg_71ff8690cd03" formatted="false">"Guardando sesión…"</string>
+    <string name="msg_723b195d5744" formatted="false">"La firma del APK no coincide con la aplicación instalada"</string>
+    <string name="msg_729dc1568fdf" formatted="false">"Descargar solo por Wi-Fi"</string>
+    <string name="msg_73cec4b1fa25" formatted="false">"No se ha podido abrir el instalador: @0@"</string>
+    <string name="msg_73e0d3beed31" formatted="false">" · biblioteca de demostración"</string>
+    <string name="msg_73f6917759ca" formatted="false">"La carpeta no está disponible o el análisis no ha terminado. Conecta la unidad y actualiza."</string>
+    <string name="msg_741ca2439e4d" formatted="false">"Inicia sesión en Yandex en este perfil para escuchar música en línea. La música local no requiere iniciar sesión."</string>
+    <string name="msg_7435626dd379" formatted="false">"Ocultar tras 8 segundos"</string>
+    <string name="msg_7493e161cb03" formatted="false">"Sin álbum"</string>
+    <string name="msg_749a9ca9d90f" formatted="false">"No se han podido borrar los archivos sin conexión."</string>
+    <string name="msg_758aa155871b" formatted="false">"Añadida"</string>
+    <string name="msg_760c9665ad62" formatted="false">"Estándar · 192 kbps"</string>
+    <string name="msg_767475640343" formatted="false">"Añadir a lista de Yandex"</string>
+    <string name="msg_778b704b5c1e" formatted="false">"No se ha podido abrir o guardar la carpeta. Comprueba los permisos e inténtalo de nuevo."</string>
+    <string name="msg_7796e6a8c011" formatted="false">"error de red"</string>
+    <string name="msg_77f1e6d43b19" formatted="false">"No se ha podido crear la carpeta de actualizaciones"</string>
+    <string name="msg_78b7fcee0a88" formatted="false">"El instalador del sistema está abierto. Confirma la actualización."</string>
+    <string name="msg_78ca838c8f88" formatted="false">"Código de error: @0@"</string>
+    <string name="msg_78cdeec91c73" formatted="false">"Añadir canciones"</string>
+    <string name="msg_7996f711496a" formatted="false">"Más tarde"</string>
+    <string name="msg_79a58b43db6d" formatted="false">"El color debe tener el formato #RRGGBB"</string>
+    <string name="msg_79e35d4d8b5b" formatted="false">"Comprobar Me gusta y bloqueos"</string>
+    <string name="msg_7aa5b98239e2" formatted="false">"Añadir a «@0@»"</string>
+    <string name="msg_7ad2cca22536" formatted="false">"No se ha podido cargar la cola · reintentar"</string>
+    <string name="msg_7b4f20da2143" formatted="false">"Ruta del icono vacía"</string>
+    <string name="msg_7cd2f0ff4082" formatted="false">"Buscando actualizaciones…"</string>
+    <string name="msg_7e0c5e62a006" formatted="false">"Actualizaciones de la aplicación"</string>
+    <string name="msg_7e257dbdd7a9" formatted="false">" Se reintentará automáticamente (@0@/3)."</string>
+    <string name="msg_7e57673a5d4c" formatted="false">"Demostración del primer inicio."</string>
+    <string name="msg_7e59467db9e7" formatted="false">"← Atrás"</string>
+    <string name="msg_7e6258d504ba" formatted="false">"Artistas y álbum: @0@"</string>
+    <string name="msg_7f89cdaad39e" formatted="false">"Ahorro de datos · 128 kbps"</string>
+    <string name="msg_8086aac760a1" formatted="false">"No se ha podido reproducir el archivo. Comprueba la unidad o elige otra canción."</string>
+    <string name="msg_80cedf587a28" formatted="false">"El dispositivo no tiene selector de archivos del sistema. Necesitas un gestor de archivos compatible con Storage Access Framework."</string>
+    <string name="msg_8208dc91519d" formatted="false">"Menú abre la lista de aplicaciones K4811. Reproducir / pausa controla el reproductor activo. Suspender pone el equipo en reposo. Reiniciar pide confirmación primero."</string>
+    <string name="msg_834ec28c8644" formatted="false">"Tema no encontrado"</string>
+    <string name="msg_83cc61451837" formatted="false">"Descargar desde fuente alternativa"</string>
+    <string name="msg_840370e3fad2" formatted="false">"Canciones favoritas"</string>
+    <string name="msg_8491940b48e2" formatted="false">"Canciones favoritas descargadas"</string>
+    <string name="msg_84a795ddbe75" formatted="false">"Tienes 16 temas guardados. Elimina uno antes de importar otro."</string>
+    <string name="msg_8514965e4ae0" formatted="false">"Disponible sin conexión"</string>
+    <string name="msg_857db5eccf13" formatted="false">"Añade canciones con Añadir a la cola en la biblioteca."</string>
+    <string name="msg_85a21c8d0f56" formatted="false">"Actualizar listas"</string>
+    <string name="msg_85dd88927aea" formatted="false">"Lista «@0@» eliminada."</string>
+    <string name="msg_8727c0e6695b" formatted="false">"No se ha podido confirmar el acceso a la cuenta de Yandex Music."</string>
+    <string name="msg_88d4beca1549" formatted="false">"El APK es demasiado grande"</string>
+    <string name="msg_895c5b8f961d" formatted="false">"Instalada: @0@"</string>
+    <string name="msg_8965271d3c97" formatted="false">"Vaciar"</string>
+    <string name="msg_8cd421f138ac" formatted="false">"Añade música con el botón Añadir canciones."</string>
+    <string name="msg_8dca2f783130" formatted="false">"Auto"</string>
+    <string name="msg_8f458964546a" formatted="false">"Carpetas de música"</string>
+    <string name="msg_8f88b95463e2" formatted="false">"Aleatorio"</string>
+    <string name="msg_8f88e588534f" formatted="false">"Disponible: @0@."</string>
+    <string name="msg_8fbe9b75cbdf" formatted="false">"Cancelar"</string>
+    <string name="msg_9065b44df928" formatted="false">"Importar .ymskin"</string>
+    <string name="msg_90c141192bd7" formatted="false">"Álbumes"</string>
+    <string name="msg_916d4505c137" formatted="false">"Borrando archivos sin conexión de esta cuenta…"</string>
+    <string name="msg_91cf8019c9e4" formatted="false">"No se ha podido iniciar la sincronización en segundo plano. Reintenta con la aplicación abierta."</string>
+    <string name="msg_91cf891549ab" formatted="false">"Canción no disponible"</string>
+    <string name="msg_920c04770d7a" formatted="false">"No se ha podido exportar el registro."</string>
+    <string name="msg_9216ace8c045" formatted="false">"Actualizar biblioteca"</string>
+    <string name="msg_9220082bb4ab" formatted="false">"La sesión ha caducado. Inicia sesión de nuevo."</string>
+    <string name="msg_922c5fae2ec8" formatted="false">"Estado no cargado"</string>
+    <string name="msg_931fb11514ad" formatted="false">"Canción no disponible: @0@"</string>
+    <string name="msg_93b08f7b1465" formatted="false">"Buscar actualizaciones"</string>
+    <string name="msg_94117e81a588" formatted="false">"La caché sin conexión está desactivada. Las descargas anteriores se conservan hasta que las borres con el botón de abajo."</string>
+    <string name="msg_954fea171639" formatted="false">"Seleccionado"</string>
+    <string name="msg_95a0b91751fc" formatted="false">"Buscar canciones"</string>
+    <string name="msg_9641a49f03aa" formatted="false">"Mantén pulsado y arrastra para reordenar: @0@"</string>
+    <string name="msg_968d76f0f95f" formatted="false">"El tema guardado no está disponible. Se ha restaurado Oxide."</string>
+    <string name="msg_97635a1a0f91" formatted="false">"La caché sin conexión está desactivada. Borra las descargas anteriores para liberar espacio."</string>
+    <string name="msg_982867f75b81" formatted="false">"¿Borrar los archivos sin conexión?"</string>
+    <string name="msg_985b5e0f2ccf" formatted="false">"Ajustes"</string>
+    <string name="msg_98699315d011" formatted="false">"Mover canción"</string>
+    <string name="msg_9887b0bfa666" formatted="false">"Para nuevas descargas al sincronizar canciones favoritas."</string>
+    <string name="msg_9895eb01a837" formatted="false">"Esta canción o lista no está disponible ahora."</string>
+    <string name="msg_98ae0216b918" formatted="false">"Fuentes de actualización no disponibles: @0@"</string>
+    <string name="msg_995011f87d4b" formatted="false">"Calidad de audio"</string>
+    <string name="msg_9969d130536f" formatted="false">"A CONTINUACIÓN"</string>
+    <string name="msg_999770a38a9d" formatted="false">"Listas que Yandex recomienda para tu cuenta."</string>
+    <string name="msg_99a6eae9f974" formatted="false">"Yandex ha devuelto una respuesta no válida. Intenta iniciar sesión de nuevo."</string>
+    <string name="msg_9a3adc7135e4" formatted="false">"Yandex · posición @0@"</string>
+    <string name="msg_9a529d376ca3" formatted="false">"Añadir a lista"</string>
+    <string name="msg_9c1888610d6f" formatted="false">"Desliza desde el borde de la pantalla para abrir"</string>
+    <string name="msg_9cbbe230cb66" formatted="false">"Reproducir canciones mostradas"</string>
+    <string name="msg_9debd4812638" formatted="false">"No se ha podido abrir el navegador. Usa el código QR o la dirección de arriba."</string>
+    <string name="msg_9e0859f700e2" formatted="false">"No se ha podido comprobar la confirmación. El código está guardado y repetimos la solicitud. Vuelve a la aplicación tras confirmar el acceso."</string>
+    <string name="msg_9fcd67f23799" formatted="false">"Subir: @0@"</string>
+    <string name="msg_9fe9ae8fbc17" formatted="false">"Volver a recomendar @0@"</string>
+    <string name="msg_a033d47afec5" formatted="false">"Reproducir lista"</string>
+    <string name="msg_a0e71ef0091b" formatted="false">"En ruta"</string>
+    <string name="msg_a0fa051b4a5b" formatted="false">"Se necesita Wi-Fi para sincronizar."</string>
+    <string name="msg_a137dd0ef761" formatted="false">"Cargar más"</string>
+    <string name="msg_a1f4f5cf6b22" formatted="false">"Demasiadas redirecciones"</string>
+    <string name="msg_a25031f2dbc6" formatted="false">"No hay conexión para sincronizar."</string>
+    <string name="msg_a2c053c748d0" formatted="false">"Editar cola"</string>
+    <string name="msg_a3e2c7d263a6" formatted="false">"Antes de iniciar las recomendaciones hay que comprobar las canciones y los artistas bloqueados."</string>
+    <string name="msg_a41905aacd11" formatted="false">"La biblioteca local es compartida. La sesión de Yandex, la cola y las listas pertenecen al perfil seleccionado. Invitado funciona sin cuenta."</string>
+    <string name="msg_a4e0d6a1b648" formatted="false">"Biblioteca local compartida · cola propia"</string>
+    <string name="msg_a4ee02a4c189" formatted="false">"Cancelar acceso"</string>
+    <string name="msg_a55d09b73e40" formatted="false">"ID del tema no válido"</string>
+    <string name="msg_a55fc5d0f320" formatted="false">"La música del dispositivo no requiere iniciar sesión. Para Yandex, inicia sesión en este perfil."</string>
+    <string name="msg_a5e1aeda4ccc" formatted="false">"Calidad de streaming"</string>
+    <string name="msg_a5f630df4494" formatted="false">"Vaciar cola"</string>
+    <string name="msg_a6d6c9941570" formatted="false">"Solo este perfil"</string>
+    <string name="msg_a75ec8e3fe3a" formatted="false">"Modo demo M1 · sin audio"</string>
+    <string name="msg_a79a4eaec9fc" formatted="false">"No se han podido guardar las listas. El cambio no se ha aplicado; inténtalo de nuevo."</string>
+    <string name="msg_a7a4033657e8" formatted="false">"Cerrar"</string>
+    <string name="msg_a7d8adab451a" formatted="false">"Artista desconocido"</string>
+    <string name="msg_a94943f157d5" formatted="false">"Reproduciendo"</string>
+    <string name="msg_a94f8a5da271" formatted="false">"Reiniciar"</string>
+    <string name="msg_a9bb9fcb7d94" formatted="false">"Comprobando Me gusta y bloqueos…"</string>
+    <string name="msg_a9ec4c4c914a" formatted="false">"No se puede conectar con Yandex. Comprueba la conexión e inicia sesión de nuevo."</string>
+    <string name="msg_aa07f084155c" formatted="false">"Sin conexión"</string>
+    <string name="msg_aa59e4f43e97" formatted="false">"Faltan los identificadores de los artistas. Abre la canción otra vez desde la búsqueda o la biblioteca."</string>
+    <string name="msg_aa782acc1382" formatted="false">"La comprobación automática se realiza como máximo una vez al día. La descarga y la instalación de una nueva versión requieren tu confirmación."</string>
+    <string name="msg_ab78a1119f41" formatted="false">"Ya está en la cola: @0@"</string>
+    <string name="msg_aba2a8a3d61d" formatted="false">"Quitar de la biblioteca"</string>
+    <string name="msg_abf18a196671" formatted="false">"Coordenada del icono no válida"</string>
+    <string name="msg_ad0502838af2" formatted="false">"El archivo comprimido del tema es demasiado grande"</string>
+    <string name="msg_ad6a1e7e39d2" formatted="false">" · fuente alternativa"</string>
+    <string name="msg_ae407aec2e14" formatted="false">"Añadir desde el dispositivo"</string>
+    <string name="msg_aed87524dfde" formatted="false">"Cargando registro…"</string>
+    <string name="msg_af45ec8c56b7" formatted="false">"Mover"</string>
+    <string name="msg_af72c5eb8791" formatted="false">"En K4811, abre el panel con un deslizamiento corto desde el centro del borde izquierdo o derecho, o del borde inferior. La zona del gesto es invisible y solo ocupa una pequeña parte del borde."</string>
+    <string name="msg_af9d1711a669" formatted="false">"Elige una carpeta en el selector del sistema. La música permanece donde está; la aplicación solo obtiene acceso de lectura."</string>
+    <string name="msg_b011fc656a0f" formatted="false">"Añadir a álbumes favoritos"</string>
+    <string name="msg_b095f9e901e7" formatted="false">"La lista ya se ha eliminado"</string>
+    <string name="msg_b0acd0c9bfb1" formatted="false">"Volver a recomendar"</string>
+    <string name="msg_b0ad5bf65466" formatted="false">"Editar lista"</string>
+    <string name="msg_b0dc6691dc09" formatted="false">"El modo de suspensión solo está disponible en K4811."</string>
+    <string name="msg_b0f0ab86be80" formatted="false">"Volver a la lista"</string>
+    <string name="msg_b1c53cf90f0a" formatted="false">"Abrir instalador"</string>
+    <string name="msg_b2cbccffb035" formatted="false">"Descargando @0@…"</string>
+    <string name="msg_b3b927fb4c1f" formatted="false">"Mi mix: "</string>
+    <string name="msg_b3be276ac9d7" formatted="false">"Permitir mostrar sobre otras aplicaciones"</string>
+    <string name="msg_b46a526e0340" formatted="false">"Sincronización detenida. Se conservan los archivos ya descargados."</string>
+    <string name="msg_b4d30cae5289" formatted="false">"Guardar"</string>
+    <string name="msg_b50aa55c0b78" formatted="false">"Silenciar"</string>
+    <string name="msg_b583c0b5f77e" formatted="false">"Añadir desde USB / SD"</string>
+    <string name="msg_b5c15a505a62" formatted="false">"No se pudieron leer los metadatos. Actualiza el catálogo de carpetas."</string>
+    <string name="msg_b86ab3d74350" formatted="false">"Álbumes favoritos"</string>
+    <string name="msg_b8ad90801037" formatted="false">"Añade canciones desde «…». Usa «Posición» para cambiar el orden. Los cambios se guardan en Yandex."</string>
+    <string name="msg_ba700b6d4845" formatted="false">"Reiniciar K4811"</string>
+    <string name="msg_bb35de568dc0" formatted="false">"Cargando música descargada…"</string>
+    <string name="msg_bb7c04530661" formatted="false">"Sesión iniciada"</string>
+    <string name="msg_bbb42f6a25b6" formatted="false">"Prototipo · sin audio"</string>
+    <string name="msg_bc622d6b13a3" formatted="false">"Máxima"</string>
+    <string name="msg_bcdc88d10948" formatted="false">"Renombrar: @0@"</string>
+    <string name="msg_bd5f65f27353" formatted="false">"Música sin conexión"</string>
+    <string name="msg_bdd37eb21746" formatted="false">"Reproducir"</string>
+    <string name="msg_be28ea14a37e" formatted="false">"Reintentar solicitud a Yandex"</string>
+    <string name="msg_be65ad9b7c99" formatted="false">"Guardado en Downloads: @0@"</string>
+    <string name="msg_be83518bd33a" formatted="false">"Descargar e instalar"</string>
+    <string name="msg_be8789acfb99" formatted="false">"Inicia sesión en Yandex"</string>
+    <string name="msg_be99b1361201" formatted="false">"Eliminar"</string>
+    <string name="msg_bf6c36d1e481" formatted="false">"@0|track@ · disponibles: @1@"</string>
+    <string name="msg_c011a7b7c5c5" formatted="false">"¿Quitar la canción?"</string>
+    <string name="msg_c05d6b17ae05" formatted="false">"Vista previa: @0@"</string>
+    <string name="msg_c06f71ebf142" formatted="false">"No hay un navegador disponible. Abre la dirección indicada en el teléfono e introduce el código."</string>
+    <string name="msg_c09a1e9f0c59" formatted="false">"Campo no válido: @0@"</string>
+    <string name="msg_c25691d01a87" formatted="false">"Añade canciones a favoritos desde el menú junto a cada canción."</string>
+    <string name="msg_c39959813ccd" formatted="false">"Yandex Music"</string>
+    <string name="msg_c40f97ca1831" formatted="false">"Conectando con el servicio K4811…"</string>
+    <string name="msg_c46e9d43cea9" formatted="false">"No se pudo completar la sincronización. Se conservan los archivos ya descargados. Vuelve a intentarlo."</string>
+    <string name="msg_c57bc34167f4" formatted="false">"Enviando solicitud de reinicio…"</string>
+    <string name="msg_c59e474ea979" formatted="false">"No se pudieron leer las listas. Los datos siguen guardados en el disco, pero la edición no está disponible temporalmente. Vuelve a cargarlas."</string>
+    <string name="msg_c6087f7e1289" formatted="false">"Vuelve a actualizar la biblioteca."</string>
+    <string name="msg_c61eb3c4706a" formatted="false">"ecualizador"</string>
+    <string name="msg_c6504f6cb73b" formatted="false">"Oxide"</string>
+    <string name="msg_c6826c783794" formatted="false">"Mostrar más"</string>
+    <string name="msg_c69f42036602" formatted="false">"Si no hay traducción, se usa el inglés."</string>
+    <string name="msg_c6e3a313babd" formatted="false">"Los perfiles locales comparten una biblioteca. En este modo no hay cuentas conectadas."</string>
+    <string name="msg_c722f8b4c671" formatted="false">"Leyendo archivos de audio…"</string>
+    <string name="msg_c78b1aee4241" formatted="false">"Se creará una lista privada en tu cuenta actual de Yandex."</string>
+    <string name="msg_c7dab06bf537" formatted="false">"SONANDO AHORA"</string>
+    <string name="msg_c85975db07b1" formatted="false">"Versión de actualización no válida"</string>
+    <string name="msg_c8c0e3b9e7a0" formatted="false">"Cargando canciones favoritas…"</string>
+    <string name="msg_c8dbba7583c2" formatted="false">"Fuente de reproducción"</string>
+    <string name="msg_c90dd531a092" formatted="false">"La canción actual, las canciones de Mi mix ya precargadas y los archivos descargados mantienen su calidad. Para volver a descargar toda la colección sin conexión, borra sus archivos en los ajustes de la caché sin conexión y sincroniza de nuevo. Se conservan tus Me gusta en Yandex."</string>
+    <string name="msg_c90ea6df373e" formatted="false">"actualización pendiente"</string>
+    <string name="msg_c989e98d6470" formatted="false">"Buscando la siguiente canción…"</string>
+    <string name="msg_ca3bbeeee26d" formatted="false">"Android detuvo la sincronización prolongada. Se conservan los archivos ya descargados."</string>
+    <string name="msg_ca48a1a553cc" formatted="false">"Sincronizar canciones favoritas"</string>
+    <string name="msg_cb297d129add" formatted="false">"Cola"</string>
+    <string name="msg_cb3d171cdbfd" formatted="false">"Nombre ↓"</string>
+    <string name="msg_cb4cd68cb5f3" formatted="false">"Detener sincronización"</string>
+    <string name="msg_cbf686a2b04b" formatted="false">"No se puede eliminar el tema activo, los temas integrados ni los desconocidos"</string>
+    <string name="msg_cd40e18eeede" formatted="false">"Canción añadida a «@0@»."</string>
+    <string name="msg_cd70228cba41" formatted="false">"canción"</string>
+    <string name="msg_cdb3ca001d96" formatted="false">"Sin bloquear"</string>
+    <string name="msg_ce1456ccd84b" formatted="false">"Quitar de la lista: @0@"</string>
+    <string name="msg_ce1e647fd722" formatted="false">"Repetición desactivada"</string>
+    <string name="msg_cfdce86cac0a" formatted="false">"El sistema no permitió abrir los ajustes de superposición."</string>
+    <string name="msg_cfde40242cd9" formatted="false">"Listas de Yandex"</string>
+    <string name="msg_d18c1c114691" formatted="false">"No se pudo leer el tema. Revisa sus archivos ZIP y JSON"</string>
+    <string name="msg_d1df132336f2" formatted="false">"Clip anterior"</string>
+    <string name="msg_d1edd7d2a9e2" formatted="false">"La redirección no tiene dirección de destino"</string>
+    <string name="msg_d32a29ef600e" formatted="false">"Subir volumen"</string>
+    <string name="msg_d3dacfa5bb27" formatted="false">"La versión @0@ está disponible."</string>
+    <string name="msg_d4998bc84141" formatted="false">"Vista previa"</string>
+    <string name="msg_d555eba48a2d" formatted="false">"Prueba otra búsqueda o restablece los filtros."</string>
+    <string name="msg_d585770173b3" formatted="false">"Me gusta y bloqueos de Yandex Music"</string>
+    <string name="msg_d58f70dd1811" formatted="false">"Género desconocido"</string>
+    <string name="msg_d60fd3858f8f" formatted="false">"El servicio aceptó la solicitud. Espera a que K4811 se reinicie."</string>
+    <string name="msg_d65fb9be6155" formatted="false">"Solo se descargan las canciones favoritas y sus portadas. No se descargan todos los temas de los artistas ni los álbumes favoritos completos."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"El registro solo contiene códigos de eventos. No se guardan tokens, códigos de acceso, títulos de canciones ni direcciones de solicitudes."</string>
+    <string name="msg_d73874ba53a6" formatted="false">"Se conserva el archivo original. Puedes importarlo de nuevo."</string>
+    <string name="msg_d7ad8e4ee48a" formatted="false">"Auto — idioma del sistema"</string>
+    <string name="msg_d7b587c84b68" formatted="false">"Panel lateral desactivado."</string>
+    <string name="msg_d7c74665073a" formatted="false">"Solo se eliminará la lista. Se conservan los archivos y la cola actual."</string>
+    <string name="msg_d8987908d58b" formatted="false">"Fuentes y carpetas"</string>
+    <string name="msg_d8cafee5a654" formatted="false">"Permite las instalaciones desde YMPlayer 2. Al volver se abrirá el instalador del sistema."</string>
+    <string name="msg_d96f9192c384" formatted="false">"Canciones favoritas sin conexión"</string>
+    <string name="msg_d9b2fa928b6a" formatted="false">"El código ha caducado. Solicita uno nuevo."</string>
+    <string name="msg_da28911d8b6d" formatted="false">"Reiniciar"</string>
+    <string name="msg_da4da4e3527c" formatted="false">"Diagnóstico"</string>
+    <string name="msg_db66cedc69fc" formatted="false">"Toda la colección"</string>
+    <string name="msg_dba20ab53801" formatted="false">"Dispositivo"</string>
+    <string name="msg_dbfc1e54cdd9" formatted="false">"Reproducción aleatoria activada"</string>
+    <string name="msg_dc2b5a858155" formatted="false">"Mostrar / ocultar panel"</string>
+    <string name="msg_dc9712a122a9" formatted="false">"Reproducir descargas"</string>
+    <string name="msg_dca2da414320" formatted="false">"Este APK no puede actualizar esta instalación de YMPlayer 2"</string>
+    <string name="msg_dcc07d613ee2" formatted="false">"Introduce el código en otro dispositivo o abre aquí la página de acceso a Yandex."</string>
+    <string name="msg_dcd18c67df6b" formatted="false">"Fuentes: GitHub, jsDelivr y Gcore. Se comprueban el tamaño, SHA-256, nombre del paquete, versión y firma del APK. Android te pedirá confirmar la instalación."</string>
+    <string name="msg_dcd5dbe4d9d2" formatted="false">"No se pudo reproducir música de Yandex. Comprueba la conexión y el acceso a la canción. Pulsa Reproducir para reintentarlo."</string>
+    <string name="msg_dce76ccbc542" formatted="false">"El nombre debe tener entre 1 y 80 caracteres"</string>
+    <string name="msg_dcefc460162c" formatted="false">"Demasiados datos descomprimidos"</string>
+    <string name="msg_de042c2d1c9a" formatted="false">"Actualización de YMPlayer 2"</string>
+    <string name="msg_de13383c3766" formatted="false">"Ahora: @0@"</string>
+    <string name="msg_de1ea8c09caa" formatted="false">"Mi mix"</string>
+    <string name="msg_de2242264b20" formatted="false">"Un icono debe contener entre 1 y 64 trazados"</string>
+    <string name="msg_ded8b330175a" formatted="false">"Sin conexión · se muestran las canciones descargadas disponibles"</string>
+    <string name="msg_defc1856ad78" formatted="false">"No se pudo leer la biblioteca. Actualiza las carpetas de música y vuelve a seleccionar."</string>
+    <string name="msg_df19962e1865" formatted="false">"Idioma de la aplicación"</string>
+    <string name="msg_df3940f679cf" formatted="false">"Tamaño de APK inesperado"</string>
+    <string name="msg_dff16f6f70a1" formatted="false">"Reproductor"</string>
+    <string name="msg_e059e8f90790" formatted="false">"No se pudo guardar el tema elegido"</string>
+    <string name="msg_e088cb84f420" formatted="false">"El inicio de sesión se ha guardado para este perfil. El catálogo y la reproducción de Yandex se añadirán en la siguiente etapa."</string>
+    <string name="msg_e09846033f94" formatted="false">"Posición"</string>
+    <string name="msg_e15f960d93eb" formatted="false">"Aplicar"</string>
+    <string name="msg_e199c10f2526" formatted="false">"Bajar volumen"</string>
+    <string name="msg_e2151143d516" formatted="false">"No se pudo leer el índice de la biblioteca. Añade la carpeta de nuevo."</string>
+    <string name="msg_e21e6ad5c123" formatted="false">"Actualizando datos de la cuenta…"</string>
+    <string name="msg_e25ae5e8d071" formatted="false">"Abrir Yandex"</string>
+    <string name="msg_e261fc0388e8" formatted="false">"Preparando…"</string>
+    <string name="msg_e2be34974ae4" formatted="false">"Crear"</string>
+    <string name="msg_e2e513b12b0d" formatted="false">"Aún no hay canciones descargadas. Sincroniza tu música en los ajustes de la caché sin conexión."</string>
+    <string name="msg_e30fc8a5eb01" formatted="false">"Caché de canciones favoritas sin conexión"</string>
+    <string name="msg_e349032e2682" formatted="false">"Cola y posición independientes"</string>
+    <string name="msg_e3c30e30adb9" formatted="false">"Error de demostración. Se conserva la cola actual."</string>
+    <string name="msg_e4c1d01c5c8f" formatted="false">"Favoritos"</string>
+    <string name="msg_e4e4b9b0d2df" formatted="false">"Quitar de canciones favoritas"</string>
+    <string name="msg_e6b3d4be516a" formatted="false">"@0@: no disponible"</string>
+    <string name="msg_e85848addc52" formatted="false">"Falta la dirección del APK"</string>
+    <string name="msg_e8c693109156" formatted="false">"Panel lateral de YMPlayer 2"</string>
+    <string name="msg_e92912b778ee" formatted="false">"En el dispositivo"</string>
+    <string name="msg_ea16ed0e182d" formatted="false">"Eliminar lista: @0@"</string>
+    <string name="msg_ea172f78eb4c" formatted="false">"Ruta no válida en el tema"</string>
+    <string name="msg_ea183e546bb0" formatted="false">"Código QR para apoyar el desarrollo"</string>
+    <string name="msg_ea1f40824607" formatted="false">"Abrir"</string>
+    <string name="msg_eabc559b5eaa" formatted="false">"Elige música en la biblioteca"</string>
+    <string name="msg_eb2c88237bfa" formatted="false">"Música local y en línea. Inicia sesión en Yandex desde Perfiles. Las canciones favoritas descargadas están en «Sin conexión»."</string>
+    <string name="msg_eb9946b15efd" formatted="false">"Volver a cargar"</string>
+    <string name="msg_ebc4254ed734" formatted="false">"No se pudieron borrar los archivos de canciones que ya no te gustan. Sincroniza de nuevo."</string>
+    <string name="msg_eca626bab07b" formatted="false">"Acerca de"</string>
+    <string name="msg_ecb4e3f4230f" formatted="false">"Restaurando sesión…"</string>
+    <string name="msg_edcf9d24ba56" formatted="false">"Artistas"</string>
+    <string name="msg_ee19d8c20fcb" formatted="false">"El código caduca en @0@"</string>
+    <string name="msg_ee9181d5fe7d" formatted="false">"Mostrar datos de demostración"</string>
+    <string name="msg_eef33a4ed08b" formatted="false">"ID de Yandex @0@"</string>
+    <string name="msg_ef05d57959cf" formatted="false">"Listo"</string>
+    <string name="msg_ef5631741cc5" formatted="false">"Actualizando Me gusta y bloqueos…"</string>
+    <string name="msg_efb640146dae" formatted="false">"Volver a las listas"</string>
+    <string name="msg_f0a7fd0c1884" formatted="false">"Repetir canción"</string>
+    <string name="msg_f0cd3a603372" formatted="false">"Clara"</string>
+    <string name="msg_f1d8f4cb696f" formatted="false">"Inicia sesión en Yandex en este perfil."</string>
+    <string name="msg_f413b50444c7" formatted="false">"artista"</string>
+    <string name="msg_f434aef91735" formatted="false">"No se pudieron buscar actualizaciones: @0@"</string>
+    <string name="msg_f4d6290e6f4b" formatted="false">"La música te acompaña"</string>
+    <string name="msg_f4e26aa3eef6" formatted="false">"Reproducir / pausar"</string>
+    <string name="msg_f5a7276edc18" formatted="false">"Falta manifest.json en la raíz del paquete"</string>
+    <string name="msg_f6e01d413ff6" formatted="false">"Inicio"</string>
+    <string name="msg_f77ad0247092" formatted="false">"Panel lateral activado."</string>
+    <string name="msg_f7be0cbd0b8a" formatted="false">"No se pudo cargar la biblioteca"</string>
+    <string name="msg_f8480d481387" formatted="false">"La biblioteca está vacía"</string>
+    <string name="msg_f8ac3be6be11" formatted="false">"El módulo de vídeo sigue en desarrollo"</string>
+    <string name="msg_f8ddc90b1078" formatted="false">"«Ocultar panel lateral» siempre es el último botón y no se puede desactivar. Si todos los demás botones están desactivados, el panel lateral se desactiva."</string>
+    <string name="msg_f91135efb9aa" formatted="false">"¿Eliminar «@0@»?"</string>
+    <string name="msg_f9b80bf69b7f" formatted="false">"Requiere Android API @0@"</string>
+    <string name="msg_fa58ba03d4c5" formatted="false">"Nombre ↑"</string>
+    <string name="msg_fb7d156c5bfe" formatted="false">"Recomendaciones"</string>
+    <string name="msg_fc0f3616f567" formatted="false">"Mostrar más del dispositivo / USB"</string>
+    <string name="msg_fcd7691c84b2" formatted="false">"Terminar edición"</string>
+    <string name="msg_fd21b337444d" formatted="false">"Actualizar Me gusta y bloqueos de la canción"</string>
+    <string name="msg_fd6e72f72d55" formatted="false">"Ajustes de la caché sin conexión"</string>
+    <string name="msg_fdc54db3a2b0" formatted="false">"Ecualizador / DSP"</string>
+    <string name="msg_fed5c913384a" formatted="false">"Se desconoce el resultado del reinicio. No se volverá a enviar la solicitud."</string>
+    <string name="msg_fede8859c53f" formatted="false">"Buscar en Yandex Music"</string>
+    <string name="msg_ff5436e417d8" formatted="false">"El tema contiene demasiados archivos"</string>
+    <string name="msg_ffdf574befa9" formatted="false">"En orden"</string>
+    <string name="msg_6d41ea47365d" formatted="false">"No recomendar nunca esta canción"</string>
+    <string name="msg_c0c419b5947a" formatted="false">"No recomendar nunca este artista"</string>
+    <string name="msg_3605c85705cf" formatted="false">"Volver a recomendar esta canción"</string>
+    <string name="msg_d8462717244f" formatted="false">"Volver a recomendar este artista"</string>
+    <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
+</resources>

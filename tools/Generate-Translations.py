@@ -7,6 +7,7 @@ from pathlib import Path
 import argparse
 import json
 import re
+from collections import Counter
 from xml.sax.saxutils import escape
 
 root = Path(__file__).resolve().parent.parent
@@ -19,7 +20,7 @@ assert len({e['key'] for e in entries}) == len(entries), 'Duplicate text key'
 assert len({e['source'] for e in entries}) == len(entries), 'Duplicate source template'
 assert {l['tag'] for l in languages} >= {'en', 'ru'}
 assert len({l['tag'] for l in languages}) == len(languages)
-placeholder = re.compile(r'@(\d+)(?:\|track)?@')
+placeholder = re.compile(r'@(\d+)(?:\|(track))?@')
 output = {}
 
 def resource_text(value):
@@ -28,17 +29,29 @@ def resource_text(value):
 def runtime_source(value):
     return value.replace('\\n', '\n').replace('\\"', '"')
 
+def translated(entry, tag):
+    return entry.get('translations', {}).get(tag, entry['english'] if tag == 'en' else entry['source'] if tag == 'ru' else None)
+
+def kotlin(value):
+    return json.dumps(runtime_source(value), ensure_ascii=False).replace('$', '\\$')
+
 for language in languages:
     tag = language['tag']
     assert re.fullmatch('[a-z]{2,3}', tag), 'Language tag must match an Android values qualifier'
     lines = ['<?xml version="1.0" encoding="utf-8"?>', '<resources>']
     for entry in entries:
-        value = entry['english'] if tag == 'en' else entry['source'] if tag == 'ru' else entry.get('translations', {}).get(tag)
+        value = translated(entry, tag)
         assert value, (tag, entry['key'], 'Missing translation')
-        assert set(placeholder.findall(value)) == set(placeholder.findall(entry['source'])), (entry['key'], 'Changed placeholder')
+        assert Counter(m[0] for m in placeholder.findall(value)) == Counter(m[0] for m in placeholder.findall(entry['source'])), (tag, entry['key'], 'Changed placeholder')
+        assert not re.findall(r'@\d[^@]*@', placeholder.sub('', value)), (tag, entry['key'], 'Malformed placeholder')
+        if tag != 'ru' or tag in entry.get('translations', {}):
+            assert Counter(placeholder.findall(value)) == Counter(placeholder.findall(entry['english'])), (tag, entry['key'], 'Changed count formatting')
+        assert value.startswith(' ') == entry['source'].startswith(' ') and value.endswith(' ') == entry['source'].endswith(' '), (tag, entry['key'], 'Changed envelope spacing')
         lines.append(f'    <string name="{entry["key"]}" formatted="false">"{resource_text(value)}"</string>')
     quantities = language['trackCount']
     assert 'other' in quantities
+    assert set(quantities) <= {'zero', 'one', 'two', 'few', 'many', 'other'}
+    assert all(text.startswith('%d ') and text.count('%d') == 1 for text in quantities.values()), (tag, 'Track count requires one leading number')
     lines.append('    <plurals name="track_count">' + ''.join(f'<item quantity="{quantity}">{escape(text)}</item>' for quantity, text in quantities.items()) + '</plurals>')
     lines.append('</resources>')
     folder = 'values' if tag == 'en' else f'values-{tag}'
@@ -58,6 +71,32 @@ for language in sorted(languages,key=lambda l:l['englishName']):
     lines.append(f'    AppLanguage({fields}),')
 lines.append(')')
 output['localization/src/main/kotlin/dev/petrov/ymplayer2/localization/SupportedLanguages.kt'] = '\n'.join(lines)+'\n'
+
+# Explicit app-owned variants let a cached status follow the next language choice.
+# Split initializers to stay below the JVM method-size limit as packs grow.
+patterns = []
+for entry in entries:
+    variants = [(language['tag'], translated(entry, language['tag'])) for language in languages]
+    if ('ru', entry['source']) not in variants:
+        variants.append(('ru', entry['source']))
+    patterns.extend((entry['key'], tag, value) for tag, value in variants)
+chunks = [patterns[offset:offset+80] for offset in range(0, len(patterns), 80)]
+lines = ['package dev.petrov.ymplayer2.localization', '',
+         '/** Generated, reviewed app text only; not a translation dictionary for user data. */',
+         'internal data class MessagePattern(val key: Msg, val language: String, val source: String)',
+         'internal val trackCountForms = mapOf(']
+for language in languages:
+    forms = ', '.join(kotlin(form) for form in dict.fromkeys(language['trackCount'].values()))
+    lines.append(f'    {kotlin(language["tag"])} to listOf({forms}),')
+lines.extend([')', '', 'internal val messagePatterns = buildList {'])
+for index in range(len(chunks)):
+    lines.append(f'    addAll(patterns{index}())')
+lines.append('}')
+for index, chunk in enumerate(chunks):
+    lines.extend(['', f'private fun patterns{index}() = listOf('])
+    lines.extend(f'    MessagePattern(Msg.{key}, {kotlin(tag)}, {kotlin(value)}),' for key, tag, value in chunk)
+    lines.append(')')
+output['localization/src/main/kotlin/dev/petrov/ymplayer2/localization/MessagePatterns.kt'] = '\n'.join(lines)+'\n'
 
 for name, contents in output.items():
     p = root/name

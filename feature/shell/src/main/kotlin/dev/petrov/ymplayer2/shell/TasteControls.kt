@@ -116,8 +116,12 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         if (target.kind != TasteKind.ALBUM) OutlinedButton({ taste.react(target, if (blocked) TasteAction.UNBLOCK else TasteAction.BLOCK) },
             Modifier.prismFocus().testTag("${tag}_block"), enabled = enabled) {
             SkinIcon(if (blocked) UiIcon.DISLIKE else UiIcon.DISLIKE_OFF, null); Spacer(Modifier.width(8.dp))
-            Text(if (blocked) tr(Msg.msg_9fe9ae8fbc17, if (target.kind == TasteKind.TRACK) tr(Msg.msg_cd70228cba41) else tr(Msg.msg_f413b50444c7))
-                else tr(Msg.msg_346750dab787, if (target.kind == TasteKind.TRACK) tr(Msg.msg_cd70228cba41) else tr(Msg.msg_f413b50444c7)))
+            Text(tr(when {
+                blocked && target.kind == TasteKind.TRACK -> Msg.msg_3605c85705cf
+                blocked -> Msg.msg_d8462717244f
+                target.kind == TasteKind.TRACK -> Msg.msg_6d41ea47365d
+                else -> Msg.msg_c0c419b5947a
+            }))
         }
         if (shelf.busy) Text(tr(Msg.msg_ef5631741cc5), style = MaterialTheme.typography.bodySmall)
         shelf.issue?.let {

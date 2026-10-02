@@ -1,4 +1,82 @@
 [
-  {"tag":"en","englishName":"English","nativeName":"English","trackCount":{"one":"%d track","other":"%d tracks"}},
-  {"tag":"ru","englishName":"Russian","nativeName":"Русский","trackCount":{"one":"%d трек","few":"%d трека","many":"%d треков","other":"%d трека"}}
+  {
+    "tag": "be",
+    "englishName": "Belarusian",
+    "nativeName": "Беларуская",
+    "trackCount": {
+      "one": "%d трэк",
+      "few": "%d трэкі",
+      "many": "%d трэкаў",
+      "other": "%d трэка"
+    }
+  },
+  {
+    "tag": "en",
+    "englishName": "English",
+    "nativeName": "English",
+    "trackCount": {
+      "one": "%d track",
+      "other": "%d tracks"
+    }
+  },
+  {
+    "tag": "fr",
+    "englishName": "French",
+    "nativeName": "Français",
+    "trackCount": {
+      "one": "%d titre",
+      "many": "%d titres",
+      "other": "%d titres"
+    }
+  },
+  {
+    "tag": "de",
+    "englishName": "German",
+    "nativeName": "Deutsch",
+    "trackCount": {
+      "one": "%d Titel",
+      "other": "%d Titel"
+    }
+  },
+  {
+    "tag": "kk",
+    "englishName": "Kazakh",
+    "nativeName": "Қазақша",
+    "trackCount": {
+      "one": "%d трек",
+      "other": "%d трек"
+    }
+  },
+  {
+    "tag": "ru",
+    "englishName": "Russian",
+    "nativeName": "Русский",
+    "trackCount": {
+      "one": "%d трек",
+      "few": "%d трека",
+      "many": "%d треков",
+      "other": "%d трека"
+    }
+  },
+  {
+    "tag": "es",
+    "englishName": "Spanish",
+    "nativeName": "Español",
+    "trackCount": {
+      "one": "%d canción",
+      "many": "%d canciones",
+      "other": "%d canciones"
+    }
+  },
+  {
+    "tag": "uk",
+    "englishName": "Ukrainian",
+    "nativeName": "Українська",
+    "trackCount": {
+      "one": "%d трек",
+      "few": "%d треки",
+      "many": "%d треків",
+      "other": "%d треку"
+    }
+  }
 ]

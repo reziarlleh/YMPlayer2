@@ -575,5 +575,9 @@
     <string name="msg_fede8859c53f" formatted="false">"Search Yandex Music"</string>
     <string name="msg_ff5436e417d8" formatted="false">"The skin contains too many files"</string>
     <string name="msg_ffdf574befa9" formatted="false">"In order"</string>
+    <string name="msg_6d41ea47365d" formatted="false">"Never recommend this track"</string>
+    <string name="msg_c0c419b5947a" formatted="false">"Never recommend this artist"</string>
+    <string name="msg_3605c85705cf" formatted="false">"Recommend this track again"</string>
+    <string name="msg_d8462717244f" formatted="false">"Recommend this artist again"</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

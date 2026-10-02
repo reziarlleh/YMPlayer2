@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="msg_001dda282241" formatted="false">"Увайдзіце ў Яндэкс у гэтым профілі. Калі ўваход ужо захаваны, абнавіце звесткі пра акаўнт."</string>
+    <string name="msg_00231affc201" formatted="false">"Уся музыка"</string>
+    <string name="msg_003022fabb87" formatted="false">"Наступны кліп"</string>
+    <string name="msg_004778f850b1" formatted="false">"Запішыце код перад пераходам у браўзер: на старонцы Яндэкса не заўсёды можна ўставіць яго з буфера абмену."</string>
+    <string name="msg_01fc82460086" formatted="false">"Прайграванне анлайн"</string>
+    <string name="msg_026baad87300" formatted="false">"Не ўдалося адкрыць файл скіна"</string>
+    <string name="msg_031396ebc4da" formatted="false">"Профіль: @0@"</string>
+    <string name="msg_03222b95f9b4" formatted="false">"Падабаецца і заблакавана"</string>
+    <string name="msg_037174d58809" formatted="false">"Выканаўца"</string>
+    <string name="msg_04080c05e46f" formatted="false">"Недапушчальны viewport значка"</string>
+    <string name="msg_042185cacc93" formatted="false">"Трэкі"</string>
+    <string name="msg_05f7734c7fbc" formatted="false">"У абранае"</string>
+    <string name="msg_066903b7f6fa" formatted="false">"Служба K4811 гатовая. Перазагрузіць прыладу?"</string>
+    <string name="msg_06a1b25395b9" formatted="false">"Прыбраць з любімых альбомаў"</string>
+    <string name="msg_06da64ed2827" formatted="false">"Не ўдалося праверыць адзнаку. Абнавіце яе стан. "</string>
+    <string name="msg_074cc2ac4332" formatted="false">"Уключыць афлайн-кэш"</string>
+    <string name="msg_0761f7d17c1f" formatted="false">"Не ўдалося адкрыць эквалайзер. Выберыце іншую праграму."</string>
+    <string name="msg_0796e8248aae" formatted="false">"Невядомае поле: @0@"</string>
+    <string name="msg_08cec0f555fe" formatted="false">"Фармат маніфеста не падтрымліваецца"</string>
+    <string name="msg_09008d3dafef" formatted="false">"Не ў абраным"</string>
+    <string name="msg_0918b4ba9268" formatted="false">"Назва"</string>
+    <string name="msg_0928b8d4c742" formatted="false">"Альбом"</string>
+    <string name="msg_0a0ebb200d14" formatted="false">"Аўдыя працягвае прайгравацца пры пераходзе паміж раздзеламі."</string>
+    <string name="msg_0a17ec91a15b" formatted="false">"Выканаўцы і альбом"</string>
+    <string name="msg_0a20ddc9928f" formatted="false">"Медыятэка"</string>
+    <string name="msg_0a813814f149" formatted="false">"Атрымаць код уваходу"</string>
+    <string name="msg_0b9e2aeefccd" formatted="false">"Афлайн-кэш выключаны. Яго можна ўключыць у наладах праграмы."</string>
+    <string name="msg_0c581306a3c6" formatted="false">"Выберыце трэк, каб прайграць яго"</string>
+    <string name="msg_0c985ad12096" formatted="false">"Музычны плэер для Android, Android TV і аўтамагнітол."</string>
+    <string name="msg_0d19ca3fd269" formatted="false">"APK, які чакае ўстаноўкі, не прайшоў праверку: @0@"</string>
+    <string name="msg_0df38a907fd2" formatted="false">"Адкрыць: @0@"</string>
+    <string name="msg_0e04e96eb049" formatted="false">"Будуць выдалены аўдыя і вокладкі гэтага акаўнта ў бягучым профілі. Упадабаныя трэкі ў Яндэксе застануцца."</string>
+    <string name="msg_0f0e734fb752" formatted="false">"У чаргу: @0@"</string>
+    <string name="msg_0fad384ca45b" formatted="false">"Нельга перамясціць"</string>
+    <string name="msg_0fd3fe573609" formatted="false">"У абраным"</string>
+    <string name="msg_100f3d517847" formatted="false">"Іншы пакет праграмы"</string>
+    <string name="msg_103bc2f65ee8" formatted="false">"Правяраць пры запуску"</string>
+    <string name="msg_122f71765026" formatted="false">"Меню"</string>
+    <string name="msg_126edfaa6bc7" formatted="false">"Назва трэка · Выканаўца"</string>
+    <string name="msg_1298b5e04346" formatted="false">"Радыё Яндэкс Музыкі"</string>
+    <string name="msg_12e3d1e9d948" formatted="false">"@0|track@"</string>
+    <string name="msg_141e133edf3b" formatted="false">"Спампоўванне: @0@% · @1@"</string>
+    <string name="msg_1478970270d1" formatted="false">"На ўзровень вышэй"</string>
+    <string name="msg_1484585c1931" formatted="false">"Адзін з захаваных скінаў пашкоджаны. Яго можна імпартаваць нанова."</string>
+    <string name="msg_14b10e3e0473" formatted="false">"Стварыць плэйліст Яндэкса"</string>
+    <string name="msg_16e5a7c68a87" formatted="false">"Схаваць бакавую панэль"</string>
+    <string name="msg_1718e90d59c5" formatted="false">"Аўдыя"</string>
+    <string name="msg_1731619efa3a" formatted="false">"Афармленне"</string>
+    <string name="msg_173c0a00334a" formatted="false">"Папярэдні прагляд не змяняе афармленне праграмы."</string>
+    <string name="msg_17b7c023b762" formatted="false">"Налада агульная для прылады. Пры выключэнні сінхранізацыя спыняецца, захаваная музыка не выкарыстоўваецца. Прайграванне анлайн і падрыхтоўка наступнага трэка хвалі працягваюць працаваць."</string>
+    <string name="msg_17f63d0c483b" formatted="false">"Невядомы fillType"</string>
+    <string name="msg_180f58ab9753" formatted="false">"Пошук"</string>
+    <string name="msg_194306e20807" formatted="false">"Перайменаваць"</string>
+    <string name="msg_1a25b02eecdb" formatted="false">"Назва захавана."</string>
+    <string name="msg_1a5f7efbec65" formatted="false">"Журнал абноўлены."</string>
+    <string name="msg_1a9fb1f3cf8e" formatted="false">"Назад"</string>
+    <string name="msg_1c4b50127e94" formatted="false">"Трэка няма ў лакальным каталогу"</string>
+    <string name="msg_1c947e774ae7" formatted="false">"Сон"</string>
+    <string name="msg_1d16c7d5c800" formatted="false">"Канал і версія не супадаюць"</string>
+    <string name="msg_1d74ce16d44e" formatted="false">"Трэк, выканаўца або альбом"</string>
+    <string name="msg_1dd7755458c1" formatted="false">"Выдаліць плэйліст"</string>
+    <string name="msg_1e5e88ef7525" formatted="false">"Трэк"</string>
+    <string name="msg_1eecfcaa7bdb" formatted="false">"Цёмная"</string>
+    <string name="msg_1f0f3db2bd8d" formatted="false">"Спачатку дазвольце паказ па-над іншымі праграмамі."</string>
+    <string name="msg_203dc0ea9f7d" formatted="false">"Не ўдалося ачысціць журнал."</string>
+    <string name="msg_20c3a85f6767" formatted="false">"Даступныя цяпер"</string>
+    <string name="msg_21943a44634e" formatted="false">"Цёмны"</string>
+    <string name="msg_21c6b248c7e7" formatted="false">"Не ўдалося адкрыць папку Downloads."</string>
+    <string name="msg_22324e61bdfe" formatted="false">"Афлайн-музыка"</string>
+    <string name="msg_22a5d9112486" formatted="false">"Загрузка…"</string>
+    <string name="msg_231ddb86ef9f" formatted="false">"HTTP @0@ ад @1@"</string>
+    <string name="msg_23ae5f29feed" formatted="false">"Уключыце хаця б адну кнопку. Пустая панэль адключана."</string>
+    <string name="msg_23d5ec1e3849" formatted="false">"Сістэмны эквалайзер"</string>
+    <string name="msg_24ae31c96ef8" formatted="false">"Версія фармату скіна не падтрымліваецца"</string>
+    <string name="msg_254732178a10" formatted="false">"Выдаліць файлы"</string>
+    <string name="msg_25a86516eb0c" formatted="false">"Стан дэмакаталога"</string>
+    <string name="msg_25dc72086a44" formatted="false">"Кнопкі панэлі"</string>
+    <string name="msg_263e20096cc0" formatted="false">"Любімыя выканаўцы"</string>
+    <string name="msg_26d99df6eab5" formatted="false">"Музыка"</string>
+    <string name="msg_26e8236c8e38" formatted="false">"Файл скіна перавышае дапушчальны памер"</string>
+    <string name="msg_2718e917ffb3" formatted="false">"Якасць афлайн-кэша"</string>
+    <string name="msg_272bf8adef84" formatted="false">"Плэйлістаў пакуль няма."</string>
+    <string name="msg_27681b730821" formatted="false">"Загрузка кліпаў…"</string>
+    <string name="msg_2922b43474e0" formatted="false">"Прайграць трэк"</string>
+    <string name="msg_293a0bf80248" formatted="false">"Не ўдалося прачытаць індэкс"</string>
+    <string name="msg_298252296d09" formatted="false">"Увядзіце назву і выберыце тып вынікаў."</string>
+    <string name="msg_2991be238f39" formatted="false">"Значок павінен спасылацца на JSON-вектар"</string>
+    <string name="msg_29a33ded420d" formatted="false">"крыніца"</string>
+    <string name="msg_29c90888994f" formatted="false">"Прылада / USB · @0|track@"</string>
+    <string name="msg_29e4a4bd7a17" formatted="false">"Як у сістэме"</string>
+    <string name="msg_29f6f8d9dd3e" formatted="false">"Уваход па кодзе без уводу пароля ў плэеры. Акаўнты розных профіляў захоўваюцца асобна."</string>
+    <string name="msg_29ff5117d5b1" formatted="false">"Жанры і папкі адносяцца да файлаў прылады і USB."</string>
+    <string name="msg_2a6b5f7278c0" formatted="false">"Дадаць у абранае"</string>
+    <string name="msg_2afb36246c80" formatted="false">"Недапушчальны шлях значка"</string>
+    <string name="msg_2b7d2f3f797d" formatted="false">"Усталявана актуальная версія."</string>
+    <string name="msg_2c38faa8cf7e" formatted="false">"Агульны лакальны каталог · без акаўнта"</string>
+    <string name="msg_2cea82c66c45" formatted="false">"Маніфест занадта вялікі"</string>
+    <string name="msg_2d6b68932448" formatted="false">"Уваход захаваны для гэтага профілю. Музыка Яндэкса даступная ў медыятэцы і пошуку."</string>
+    <string name="msg_2dc14ee8f6a2" formatted="false">"Не ўдалося прачытаць журнал."</string>
+    <string name="msg_2efea0f8794f" formatted="false">"Плэйлісты"</string>
+    <string name="msg_2f4f45e427e6" formatted="false">"Падрыхтоўка аўдыя…"</string>
+    <string name="msg_2f8a1650c543" formatted="false">"Не ўдалося завяршыць спампоўванне"</string>
+    <string name="msg_2f9654f4d1a1" formatted="false">"Тут пакуль нічога няма. Паспрабуйце іншы запыт або раздзел."</string>
+    <string name="msg_3048598439e0" formatted="false">"Дадаць музыку"</string>
+    <string name="msg_306af95e29b6" formatted="false">"Чакаем пацвярджэння…"</string>
+    <string name="msg_307c435478f4" formatted="false">"Кліпы · Яндэкс Музыка"</string>
+    <string name="msg_30c61037264b" formatted="false">"Профілі"</string>
+    <string name="msg_32060a34f5be" formatted="false">"Папярэдні прагляд"</string>
+    <string name="msg_33073b976515" formatted="false">"Чарга · @0@"</string>
+    <string name="msg_3315af3b27b8" formatted="false">"Стварыць плэйліст"</string>
+    <string name="msg_334c3299a899" formatted="false">"Прыбраць з абранага"</string>
+    <string name="msg_3364af49d2ba" formatted="false">"Выйсці з акаўнта"</string>
+    <string name="msg_3396400da0c4" formatted="false">"Спыніць"</string>
+    <string name="msg_341bfc88e988" formatted="false">"Маніфест абнаўлення занадта вялікі"</string>
+    <string name="msg_346750dab787" formatted="false">"Ніколі не прапаноўваць @0@"</string>
+    <string name="msg_34faf1c2240d" formatted="false">"Не ўдалося прачытаць захаванае афармленне. Выкарыстоўваецца «Оксид»."</string>
+    <string name="msg_350675f4e001" formatted="false">"Выйсці з Яндэкса?"</string>
+    <string name="msg_350c510572ad" formatted="false">"Прылада / USB: @0@ · Яндэкс: паказана @1@"</string>
+    <string name="msg_35619086cdfe" formatted="false">"Стварыце першы плэйліст кнопкай «+»."</string>
+    <string name="msg_35864bdf26cb" formatted="false">"Мне падабаецца · афлайн"</string>
+    <string name="msg_3628da5ba5a2" formatted="false">"Выдаліць захаваны ўваход"</string>
+    <string name="msg_36cf98277e5f" formatted="false">"Новыя патокі і падрыхтоўка наступных трэкаў «Маёй хвалі»."</string>
+    <string name="msg_372ccd2e8254" formatted="false">"; абнаўляем…"</string>
+    <string name="msg_379116d4b4d4" formatted="false">"У пакеце ёсць файлы, якія не выкарыстоўваюцца"</string>
+    <string name="msg_38aa13198a8b" formatted="false">"Новы плэйліст"</string>
+    <string name="msg_392a2bb860f8" formatted="false">"Гэты ID належыць убудаванаму скіну. Змяніце id у маніфесце."</string>
+    <string name="msg_39bbc8689a90" formatted="false">"Уваход не дазволены. Можна паспрабаваць яшчэ раз."</string>
+    <string name="msg_39c3c9622cdc" formatted="false">"Чарга пустая"</string>
+    <string name="msg_39cef1f5fa63" formatted="false">"Выберыце раздзел."</string>
+    <string name="msg_3b024cce3b59" formatted="false">"Падтрымаць распрацоўку"</string>
+    <string name="msg_3b840443abf7" formatted="false">"Ніколі не прапаноўваць"</string>
+    <string name="msg_3c959ac71187" formatted="false">"Дадаць у любімыя выканаўцы"</string>
+    <string name="msg_3c99d6538c1d" formatted="false">"Папулярныя трэкі"</string>
+    <string name="msg_3cc455cf86cf" formatted="false">"Яндэкс адхіліў уваход для гэтай зборкі."</string>
+    <string name="msg_3d04145a8633" formatted="false">"Шлях у пакеце скіна паўтараецца"</string>
+    <string name="msg_3d275a76f737" formatted="false">"У каталогу ёсць даныя"</string>
+    <string name="msg_3d7762ba837e" formatted="false">"Спампаваныя ўпадабаныя трэкі даступныя ў раздзеле «Трэкі». Альбомы і музыка выканаўцаў цалкам не спампоўваюцца."</string>
+    <string name="msg_3e123a8bc43d" formatted="false">"Афлайн-файлы выдалены. Упадабаныя трэкі ў Яндэксе захаваны."</string>
+    <string name="msg_3e1506ad1141" formatted="false">"Падабаецца"</string>
+    <string name="msg_3e38544b4537" formatted="false">"Налады агульныя для гэтай прылады."</string>
+    <string name="msg_3f8a4e233c3e" formatted="false">"Абнавіць звесткі пра акаўнт"</string>
+    <string name="msg_3fbf9e4ea1c1" formatted="false">"Папярэдні трэк"</string>
+    <string name="msg_407f871778d3" formatted="false">"Скінуць"</string>
+    <string name="msg_414209446572" formatted="false">"Прыбраць трэк"</string>
+    <string name="msg_414a326c7fbe" formatted="false">"Мая хваля · загрузка…"</string>
+    <string name="msg_417875482e57" formatted="false">"Рэдагаванне плэйліста"</string>
+    <string name="msg_4195b215e9f0" formatted="false">"Экспарт у Downloads"</string>
+    <string name="msg_422f550c9cff" formatted="false">"Асноўны"</string>
+    <string name="msg_430c6faef007" formatted="false">"У гэтым профілі няма захаванай музыкі. Для сінхранізацыі ўвайдзіце ў Яндэкс."</string>
+    <string name="msg_433852b8fe49" formatted="false">"Госць слухае лакальную музыку без акаўнта. Для ўваходу выберыце іншы профіль."</string>
+    <string name="msg_4378c674b4d7" formatted="false">"На гэтай прыладзе пацвярджэнне перазагрузкі недаступнае."</string>
+    <string name="msg_4382a728852f" formatted="false">"У кожнага профілю свая чарга. Пасля пераключэння плэер застаецца на паўзе."</string>
+    <string name="msg_43b07d243705" formatted="false">"Яндэкс · @0@"</string>
+    <string name="msg_43bd202954d8" formatted="false">"Госць"</string>
+    <string name="msg_43c191115b55" formatted="false">"Кантрольная сума APK не супадае"</string>
+    <string name="msg_43fb606c5b6f" formatted="false">"Бакавая панэль"</string>
+    <string name="msg_442f1380374f" formatted="false">"Абнавіць плэйліст"</string>
+    <string name="msg_44d4090ae9e4" formatted="false">"памылка"</string>
+    <string name="msg_44d8126b8321" formatted="false">"Мае плэйлісты"</string>
+    <string name="msg_44f6f4d66ea4" formatted="false">"Дэманстрацыйны профіль"</string>
+    <string name="msg_460213556ee1" formatted="false">"APK правераны@0@."</string>
+    <string name="msg_467a1857a936" formatted="false">"Няправільны памер або SHA-256 APK"</string>
+    <string name="msg_468ba659166c" formatted="false">"Усе кнопкі выключаны — бакавая панэль адключана."</string>
+    <string name="msg_46da7285528f" formatted="false">"Наступны трэк"</string>
+    <string name="msg_480fae1c4bc9" formatted="false">"Нічога не знойдзена"</string>
+    <string name="msg_48b5898b7140" formatted="false">"Выдаліць плэйліст Яндэкса"</string>
+    <string name="msg_48f1c04f18bc" formatted="false">"Ніжэй: @0@"</string>
+    <string name="msg_4a1236b53aa7" formatted="false">"Журнал ачышчаны."</string>
+    <string name="msg_4a59253d0fb2" formatted="false">"Калі праграма стала карыснай, можна падтрымаць яе распрацоўку."</string>
+    <string name="msg_4a87a9c8e472" formatted="false">"Абнаўленне каталога…"</string>
+    <string name="msg_4b39689e6190" formatted="false">"Мова агульная для ўсіх профіляў гэтай прылады. Назвы музыкі, плэйлістаў і скінаў не перакладаюцца."</string>
+    <string name="msg_4cffda4eecf8" formatted="false">"Уваход у Яндэкс недаступны ў гэтай зборцы. Лакальная музыка працягвае працаваць."</string>
+    <string name="msg_4e50f6bdc764" formatted="false">"Прыбраць «@0@» (пазіцыя @1@) з «@2@»? Іншыя ўваходжанні гэтага трэка застануцца."</string>
+    <string name="msg_4e882842072f" formatted="false">"Захаваны ўваход будзе выдалены толькі з профілю «@0@» на гэтай прыладзе. Лакальныя файлы, чарга і плэйлісты застануцца."</string>
+    <string name="msg_4f41558e776b" formatted="false">"Выдаліць плэйліст?"</string>
+    <string name="msg_4f5782c26416" formatted="false">"Не ўдаецца прачытаць APK"</string>
+    <string name="msg_501cfd0b1690" formatted="false">"Памылка / папярэджанне"</string>
+    <string name="msg_502d3a6bd090" formatted="false">"Не ўдалося прачытаць каталог. Паўтарыце пошук."</string>
+    <string name="msg_50730177421a" formatted="false">"Няма звестак пра APK"</string>
+    <string name="msg_50825290b460" formatted="false">"Патрэбны ZIP-пакет .ymskin"</string>
+    <string name="msg_5189135a6110" formatted="false">"Паўтарыць"</string>
+    <string name="msg_5277d2953e7b" formatted="false">"Выдаліць афлайн-файлы"</string>
+    <string name="msg_535119bf3cc5" formatted="false">"Спампаваць"</string>
+    <string name="msg_53aacea33082" formatted="false">"Плэйліст «@0@» створаны."</string>
+    <string name="msg_53ba89acf405" formatted="false">"Недаступны"</string>
+    <string name="msg_53c57c59cc24" formatted="false">"Дадавайце трэкі праз «…». Для перастаноўкі ўтрымлівайце значок з палоскамі і перацягвайце трэк або націсніце «Пазіцыя». Змены захоўваюцца ў Яндэксе."</string>
+    <string name="msg_53ee3b3a9092" formatted="false">"Калі прыбраць бягучы трэк, прайграванне стане на паўзу."</string>
+    <string name="msg_5405eb821e3a" formatted="false">"Светлы"</string>
+    <string name="msg_541f8f8b8a8f" formatted="false">"Плэйліст з такой назвай ужо ёсць"</string>
+    <string name="msg_54b80039a9ec" formatted="false">"Актыўны скін"</string>
+    <string name="msg_556fab910a7b" formatted="false">"Новы плэйліст Яндэкса"</string>
+    <string name="msg_55870b7a873d" formatted="false">"У плэйлісце пакуль няма трэкаў."</string>
+    <string name="msg_55d6dc96a9df" formatted="false">"Выберыце папку з аўдыяфайламі на прыладзе або USB."</string>
+    <string name="msg_55e08786c6c9" formatted="false">"Плэйліст змяніўся ў Яндэксе. Абнавіце яго і праверце склад перад паўторам."</string>
+    <string name="msg_5651a421a70e" formatted="false">"Выконваем…"</string>
+    <string name="msg_5690c2e63b9d" formatted="false">"Выйсці"</string>
+    <string name="msg_56f5278a2acc" formatted="false">"Няма сувязі з Яндэкс Музыкай. Праверце сетку і паўтарыце."</string>
+    <string name="msg_5710ad29b999" formatted="false">"Стварыць новы плэйліст"</string>
+    <string name="msg_574d24b24ab4" formatted="false">"Даступная @0@"</string>
+    <string name="msg_57691b646726" formatted="false">"Высокая · 320 кбіт/с"</string>
+    <string name="msg_5779b6589ef5" formatted="false">"Націсніце «Назад» яшчэ раз, каб выйсці"</string>
+    <string name="msg_57816af2d9ca" formatted="false">"Правядзіце ад краю, каб адкрыць бакавую панэль YMPlayer 2"</string>
+    <string name="msg_57d8de34aad1" formatted="false">"Прыбраць з любімых выканаўцаў"</string>
+    <string name="msg_58995881a188" formatted="false">"Абнаўленне не належыць да выбранага канала"</string>
+    <string name="msg_589983337a78" formatted="false">"Плэйліст «@0@» будзе выдалены з вашага акаўнта Яндэкса на ўсіх прыладах. Бягучая чарга і ўпадабаныя трэкі застануцца."</string>
+    <string name="msg_58cb4ee024d5" formatted="false">"У выпадковым парадку"</string>
+    <string name="msg_58efe74ebc48" formatted="false">"Файл значка не знойдзены: @0@"</string>
+    <string name="msg_59134fd3fbf7" formatted="false">"«Меню» даступнае толькі на K4811."</string>
+    <string name="msg_59eedda3d148" formatted="false">"Не ўдалося паказаць панэль."</string>
+    <string name="msg_5c7cfc9e8bc2" formatted="false">"Прайграванне"</string>
+    <string name="msg_5c7d98906b6b" formatted="false">"Лік павінен быць канечным"</string>
+    <string name="msg_5d5f78c5790d" formatted="false">"У афлайн-кэшы: знойдзена @0@"</string>
+    <string name="msg_5d99a4bce5b6" formatted="false">"Дазволены толькі HTTPS"</string>
+    <string name="msg_5dc56b8cf0e0" formatted="false">"«Назад» даступнае толькі на K4811."</string>
+    <string name="msg_5e1e0ac2d35b" formatted="false">"Запісаў пакуль няма."</string>
+    <string name="msg_5e3e47e18b27" formatted="false">"Патрэбна 1–12 колераў для заглушак"</string>
+    <string name="msg_5e4ea237ce6b" formatted="false">"Захавана: @0@ · @1@ МБ"</string>
+    <string name="msg_5e66b30bc941" formatted="false">"Музыка побач · Beta"</string>
+    <string name="msg_5e9967fcef8f" formatted="false">"На прыладзе няма сістэмнага выбару папкі. Патрэбны файлавы менеджар з падтрымкай Storage Access Framework."</string>
+    <string name="msg_5ed92773c808" formatted="false">"Яндэкс"</string>
+    <string name="msg_5fbef357e55e" formatted="false">"Мая музыка ў Яндэксе"</string>
+    <string name="msg_601de107e288" formatted="false">"Новая пазіцыя: 1–@0@"</string>
+    <string name="msg_603e460bf59c" formatted="false">"Абнавіць"</string>
+    <string name="msg_60bbcc5198aa" formatted="false">"@0@ · @1|track@"</string>
+    <string name="msg_612f724ec00f" formatted="false">"Адкрыць акаўнт"</string>
+    <string name="msg_61ab32792577" formatted="false">"Служба перазагрузкі K4811 недаступная. Запыт не адпраўлены."</string>
+    <string name="msg_61b578bca0ca" formatted="false">"Падрыхтоўка аўдыя"</string>
+    <string name="msg_61c83c0e0569" formatted="false">"Паказаць яшчэ з Яндэкса"</string>
+    <string name="msg_620bc932f669" formatted="false">"Захаваць назву"</string>
+    <string name="msg_62243b1fd0d8" formatted="false">"Не ўдалося абнавіць адзнакі. Паўтарыць"</string>
+    <string name="msg_6276f8c77c1b" formatted="false">"Сумяшчальны эквалайзер або DSP не знойдзены. Усталюйце праграму апрацоўкі гуку. Калі сістэмная панэль даступная, пачніце прайграванне і адкрыйце яе тут."</string>
+    <string name="msg_62984b2595bb" formatted="false">"Атрымліваем код…"</string>
+    <string name="msg_62ed32eb225c" formatted="false">"Правяраем…"</string>
+    <string name="msg_6518414d5226" formatted="false">"Трэк прыбраны з плэйліста."</string>
+    <string name="msg_653f03c94726" formatted="false">"Бягучы трэк"</string>
+    <string name="msg_65530fd463ea" formatted="false">"Паўза"</string>
+    <string name="msg_655f2cc9a551" formatted="false">"Сінхранізацыя завершана."</string>
+    <string name="msg_659afa619e2b" formatted="false">"Памер або SHA-256 APK не супадае"</string>
+    <string name="msg_65a38f8bcb09" formatted="false">"Не ўдалося прачытаць або захаваць уваход на прыладзе."</string>
+    <string name="msg_65e00ce0d8d2" formatted="false">"Паўтор чаргі"</string>
+    <string name="msg_66474d591df2" formatted="false">"Уваход захаваны. Звесткі пра акаўнт Музыкі пакуль недаступныя. Іх можна абнавіць пазней без паўторнага ўводу кода."</string>
+    <string name="msg_66c5d76f8451" formatted="false">"Вярнуць «Оксид»"</string>
+    <string name="msg_6713f0c31917" formatted="false">"Патрэбны лік: @0@"</string>
+    <string name="msg_673b49c1255b" formatted="false">"Не ўдалося прачытаць адказ Яндэкса. Паўтарыце запыт."</string>
+    <string name="msg_674a4f596d66" formatted="false">" Вынік змены не пацверджаны. Праверце плэйлісты перад паўторам."</string>
+    <string name="msg_67abbabca722" formatted="false">"Парадак трэкаў захаваны."</string>
+    <string name="msg_6807424b3688" formatted="false">"Уключыць панэль"</string>
+    <string name="msg_6841e1070158" formatted="false">"Сістэмны экран дазволу не знойдзены."</string>
+    <string name="msg_68cc12d616b8" formatted="false">"Абнавіць адзнакі"</string>
+    <string name="msg_68eab87f63c4" formatted="false">"Яндэкс не дазволіў доступ. Праверце акаўнт і падпіску на Музыку."</string>
+    <string name="msg_69294d8ce6a4" formatted="false">"Яндэкс можа вярнуць іншы бітрэйт: выбіраецца найлепшы даступны да зададзенага значэння, а калі такога няма — найбліжэйшы вышэйшы. «Аўта» і «Максімальная» выбіраюць найбольшы даступны бітрэйт."</string>
+    <string name="msg_6aadca8eb39a" formatted="false">"Стварыць і дадаць трэк"</string>
+    <string name="msg_6b5623eafb06" formatted="false">"Рэдагаваць плэйліст"</string>
+    <string name="msg_6bd804f5b776" formatted="false">"Трэк: @0@"</string>
+    <string name="msg_6bf215b8f901" formatted="false">"Не ўдалося замяніць стары APK"</string>
+    <string name="msg_6c2b14d954bb" formatted="false">"Выбраць эквалайзер / DSP"</string>
+    <string name="msg_6c32e04d2392" formatted="false">"Наступны кліп яшчэ не выбраны"</string>
+    <string name="msg_6cbc48f41e6f" formatted="false">"Не ўдалося прачытаць афлайн-музыку. Паўтарыце сінхранізацыю."</string>
+    <string name="msg_6d6a9bb2179b" formatted="false">"Мая музыка і рэкамендацыі Яндэкса"</string>
+    <string name="msg_6daecbeea4b6" formatted="false">"Кліпы"</string>
+    <string name="msg_6dccc4a3f564" formatted="false">"Не ўдалося спампаваць абнаўленне: @0@"</string>
+    <string name="msg_6dd43bf971fd" formatted="false">"Скіны"</string>
+    <string name="msg_6e1f7baa472f" formatted="false">"Ачысціць пошук"</string>
+    <string name="msg_6edaf3285434" formatted="false">"Прыбраць з чаргі: @0@"</string>
+    <string name="msg_6f1566c263c4" formatted="false">"Медзь, графіт і цёплая папера"</string>
+    <string name="msg_6fb373108517" formatted="false">"Не ўдалося захаваць або прачытаць скін. Выберыце файл яшчэ раз."</string>
+    <string name="msg_7003237eb243" formatted="false">"Не спампавана аўдыя: @0@. Памылкі вокладак: @1@. Без вокладкі ў крыніцы: @2@. Паўторная сінхранізацыя праверыць і адновіць тое, чаго не хапае."</string>
+    <string name="msg_7075085d9334" formatted="false">"Дадатковыя дзеянні"</string>
+    <string name="msg_70c88673f5a8" formatted="false">"Выдаленне папкі з медыятэкі не выдаляе файлы. Лакальны каталог даступны ўсім профілям."</string>
+    <string name="msg_70daf92e717a" formatted="false">"Вокладка: @0@"</string>
+    <string name="msg_71038c53bbc4" formatted="false">"Дадаць"</string>
+    <string name="msg_717012565e0a" formatted="false">"Назва плэйліста"</string>
+    <string name="msg_71c815fdaf60" formatted="false">"Не ўдалося запусціць панэль на гэтай прыладзе."</string>
+    <string name="msg_71e214e1477f" formatted="false">"Усе крыніцы"</string>
+    <string name="msg_71ff8690cd03" formatted="false">"Захоўваем уваход…"</string>
+    <string name="msg_723b195d5744" formatted="false">"Подпіс APK не супадае з усталяванай праграмай"</string>
+    <string name="msg_729dc1568fdf" formatted="false">"Спампоўваць толькі праз Wi-Fi"</string>
+    <string name="msg_73cec4b1fa25" formatted="false">"Не ўдалося адкрыць усталёўшчык: @0@"</string>
+    <string name="msg_73e0d3beed31" formatted="false">" · дэманстрацыйны каталог"</string>
+    <string name="msg_73f6917759ca" formatted="false">"Папка недаступная або сканаванне не завершана. Падключыце носьбіт і абнавіце."</string>
+    <string name="msg_741ca2439e4d" formatted="false">"Для музыкі анлайн увайдзіце ў Яндэкс у гэтым профілі. Лакальная музыка даступная без уваходу."</string>
+    <string name="msg_7435626dd379" formatted="false">"Хаваць праз 8 секунд"</string>
+    <string name="msg_7493e161cb03" formatted="false">"Без альбома"</string>
+    <string name="msg_749a9ca9d90f" formatted="false">"Не ўдалося выдаліць афлайн-файлы."</string>
+    <string name="msg_758aa155871b" formatted="false">"Дададзены"</string>
+    <string name="msg_760c9665ad62" formatted="false">"Стандартная · 192 кбіт/с"</string>
+    <string name="msg_767475640343" formatted="false">"Дадаць у плэйліст Яндэкса"</string>
+    <string name="msg_778b704b5c1e" formatted="false">"Не ўдалося адкрыць або захаваць папку. Праверце доступ і паўтарыце."</string>
+    <string name="msg_7796e6a8c011" formatted="false">"памылка сеткі"</string>
+    <string name="msg_77f1e6d43b19" formatted="false">"Не ўдалося стварыць папку абнаўленняў"</string>
+    <string name="msg_78b7fcee0a88" formatted="false">"Адкрыты сістэмны ўсталёўшчык. Пацвердзіце абнаўленне."</string>
+    <string name="msg_78ca838c8f88" formatted="false">"Код памылкі: @0@"</string>
+    <string name="msg_78cdeec91c73" formatted="false">"Дадаць трэкі"</string>
+    <string name="msg_7996f711496a" formatted="false">"Пазней"</string>
+    <string name="msg_79a58b43db6d" formatted="false">"Колер павінен мець фармат #RRGGBB"</string>
+    <string name="msg_79e35d4d8b5b" formatted="false">"Праверыць адзнакі"</string>
+    <string name="msg_7aa5b98239e2" formatted="false">"Дадаць у «@0@»"</string>
+    <string name="msg_7ad2cca22536" formatted="false">"Не ўдалося загрузіць чаргу · паўтарыць"</string>
+    <string name="msg_7b4f20da2143" formatted="false">"Пусты шлях значка"</string>
+    <string name="msg_7cd2f0ff4082" formatted="false">"Правяраем абнаўленні…"</string>
+    <string name="msg_7e0c5e62a006" formatted="false">"Абнаўленне праграмы"</string>
+    <string name="msg_7e257dbdd7a9" formatted="false">" Паўторым аўтаматычна (@0@/3)."</string>
+    <string name="msg_7e57673a5d4c" formatted="false">"Дэманстрацыя першага запуску."</string>
+    <string name="msg_7e59467db9e7" formatted="false">"← Назад"</string>
+    <string name="msg_7e6258d504ba" formatted="false">"Выканаўцы і альбом: @0@"</string>
+    <string name="msg_7f89cdaad39e" formatted="false">"Эканомная · 128 кбіт/с"</string>
+    <string name="msg_8086aac760a1" formatted="false">"Не ўдалося прайграць файл. Праверце носьбіт або выберыце іншы трэк."</string>
+    <string name="msg_80cedf587a28" formatted="false">"На прыладзе няма сістэмнага выбару файла. Патрэбны файлавы менеджар з падтрымкай Storage Access Framework."</string>
+    <string name="msg_8208dc91519d" formatted="false">"«Меню» адкрывае спіс праграм K4811. «Прайграць / паўза» кіруе актыўным плэерам. «Сон» пераводзіць магнітолу ў рэжым сну, «Перазагрузка» спачатку запытвае пацвярджэнне."</string>
+    <string name="msg_834ec28c8644" formatted="false">"Скін не знойдзены"</string>
+    <string name="msg_83cc61451837" formatted="false">"Спампаваць з рэзервовай крыніцы"</string>
+    <string name="msg_840370e3fad2" formatted="false">"Мне падабаецца"</string>
+    <string name="msg_8491940b48e2" formatted="false">"Спампаваныя ўпадабаныя трэкі"</string>
+    <string name="msg_84a795ddbe75" formatted="false">"Захавана 16 скінаў. Выдаліце непатрэбны перад імпартам."</string>
+    <string name="msg_8514965e4ae0" formatted="false">"Даступна афлайн"</string>
+    <string name="msg_857db5eccf13" formatted="false">"Дадавайце трэкі кнопкай «У чаргу» ў медыятэцы."</string>
+    <string name="msg_85a21c8d0f56" formatted="false">"Абнавіць плэйлісты"</string>
+    <string name="msg_85dd88927aea" formatted="false">"Плэйліст «@0@» выдалены."</string>
+    <string name="msg_8727c0e6695b" formatted="false">"Не ўдалося пацвердзіць доступ да акаўнта Яндэкс Музыкі."</string>
+    <string name="msg_88d4beca1549" formatted="false">"APK занадта вялікі"</string>
+    <string name="msg_895c5b8f961d" formatted="false">"Усталявана: @0@"</string>
+    <string name="msg_8965271d3c97" formatted="false">"Ачысціць"</string>
+    <string name="msg_8cd421f138ac" formatted="false">"Дадавайце музыку кнопкай «Дадаць трэкі»."</string>
+    <string name="msg_8dca2f783130" formatted="false">"Аўта"</string>
+    <string name="msg_8f458964546a" formatted="false">"Папкі з музыкай"</string>
+    <string name="msg_8f88b95463e2" formatted="false">"Выпадковы парадак"</string>
+    <string name="msg_8f88e588534f" formatted="false">"Даступная @0@."</string>
+    <string name="msg_8fbe9b75cbdf" formatted="false">"Адмена"</string>
+    <string name="msg_9065b44df928" formatted="false">"Імпартаваць .ymskin"</string>
+    <string name="msg_90c141192bd7" formatted="false">"Альбомы"</string>
+    <string name="msg_916d4505c137" formatted="false">"Выдаляем афлайн-файлы гэтага акаўнта…"</string>
+    <string name="msg_91cf8019c9e4" formatted="false">"Не ўдалося запусціць фонавую сінхранізацыю. Паўтарыце з адкрытай праграмы."</string>
+    <string name="msg_91cf891549ab" formatted="false">"Трэк недаступны"</string>
+    <string name="msg_920c04770d7a" formatted="false">"Не ўдалося экспартаваць журнал."</string>
+    <string name="msg_9216ace8c045" formatted="false">"Абнавіць каталог"</string>
+    <string name="msg_9220082bb4ab" formatted="false">"Тэрмін уваходу скончыўся. Увайдзіце нанова."</string>
+    <string name="msg_922c5fae2ec8" formatted="false">"Стан не атрыманы"</string>
+    <string name="msg_931fb11514ad" formatted="false">"Недаступны трэк @0@"</string>
+    <string name="msg_93b08f7b1465" formatted="false">"Праверыць абнаўленні"</string>
+    <string name="msg_94117e81a588" formatted="false">"Афлайн-кэш выключаны. Раней спампаваныя файлы застаюцца, пакуль вы не выдаліце іх кнопкай ніжэй."</string>
+    <string name="msg_954fea171639" formatted="false">"Выбраны"</string>
+    <string name="msg_95a0b91751fc" formatted="false">"Пошук трэкаў"</string>
+    <string name="msg_9641a49f03aa" formatted="false">"Утрымлівайце і перацягвайце для змены парадку: @0@"</string>
+    <string name="msg_968d76f0f95f" formatted="false">"Захаваны скін недаступны. Адноўлены «Оксид»."</string>
+    <string name="msg_97635a1a0f91" formatted="false">"Афлайн-кэш выключаны. Каб вызваліць месца, выдаліце раней захаваныя файлы."</string>
+    <string name="msg_982867f75b81" formatted="false">"Выдаліць афлайн-файлы?"</string>
+    <string name="msg_985b5e0f2ccf" formatted="false">"Налады"</string>
+    <string name="msg_98699315d011" formatted="false">"Перамясціць трэк"</string>
+    <string name="msg_9887b0bfa666" formatted="false">"Новыя спампоўванні пры сінхранізацыі ўпадабаных трэкаў."</string>
+    <string name="msg_9895eb01a837" formatted="false">"Гэты трэк або спіс цяпер недаступны."</string>
+    <string name="msg_98ae0216b918" formatted="false">"Крыніцы абнаўленняў недаступныя: @0@"</string>
+    <string name="msg_995011f87d4b" formatted="false">"Якасць гуку"</string>
+    <string name="msg_9969d130536f" formatted="false">"ДАЛЕЙ"</string>
+    <string name="msg_999770a38a9d" formatted="false">"Плэйлісты, падабраныя Яндэксам для вашага акаўнта."</string>
+    <string name="msg_99a6eae9f974" formatted="false">"Атрыманы няправільны адказ Яндэкса. Паўтарыце ўваход."</string>
+    <string name="msg_9a3adc7135e4" formatted="false">"Яндэкс · пазіцыя @0@"</string>
+    <string name="msg_9a529d376ca3" formatted="false">"У плэйліст"</string>
+    <string name="msg_9c1888610d6f" formatted="false">"Правядзіце ад краю экрана, каб адкрыць"</string>
+    <string name="msg_9cbbe230cb66" formatted="false">"Слухаць паказаныя трэкі"</string>
+    <string name="msg_9debd4812638" formatted="false">"Не ўдалося адкрыць браўзер. Выкарыстайце QR-код або адрас вышэй."</string>
+    <string name="msg_9e0859f700e2" formatted="false">"Не ўдалося праверыць пацвярджэнне. Код захаваны, паўтараем запыт. Пасля пацвярджэння вярніцеся ў праграму."</string>
+    <string name="msg_9fcd67f23799" formatted="false">"Вышэй: @0@"</string>
+    <string name="msg_9fe9ae8fbc17" formatted="false">"Зноў прапаноўваць @0@"</string>
+    <string name="msg_a033d47afec5" formatted="false">"Прайграць спіс"</string>
+    <string name="msg_a0e71ef0091b" formatted="false">"У дарозе"</string>
+    <string name="msg_a0fa051b4a5b" formatted="false">"Для сінхранізацыі патрэбны Wi-Fi."</string>
+    <string name="msg_a137dd0ef761" formatted="false">"Загрузіць яшчэ"</string>
+    <string name="msg_a1f4f5cf6b22" formatted="false">"Занадта шмат перанакіраванняў"</string>
+    <string name="msg_a25031f2dbc6" formatted="false">"Няма сеткі для сінхранізацыі."</string>
+    <string name="msg_a2c053c748d0" formatted="false">"Рэдагаваць чаргу"</string>
+    <string name="msg_a3e2c7d263a6" formatted="false">"Перад рэкамендацыямі трэба праверыць заблакаваныя трэкі і выканаўцаў."</string>
+    <string name="msg_a41905aacd11" formatted="false">"Лакальны каталог агульны. Уваход у Яндэкс, чарга і плэйлісты належаць выбранаму профілю. Госць працуе без акаўнта."</string>
+    <string name="msg_a4e0d6a1b648" formatted="false">"Агульны лакальны каталог · асобная чарга"</string>
+    <string name="msg_a4ee02a4c189" formatted="false">"Скасаваць уваход"</string>
+    <string name="msg_a55d09b73e40" formatted="false">"Недапушчальны ID скіна"</string>
+    <string name="msg_a55fc5d0f320" formatted="false">"Музыка прылады даступная без уваходу. Для Яндэкса ўвайдзіце ў гэтым профілі."</string>
+    <string name="msg_a5e1aeda4ccc" formatted="false">"Якасць музыкі анлайн"</string>
+    <string name="msg_a5f630df4494" formatted="false">"Ачысціць чаргу"</string>
+    <string name="msg_a6d6c9941570" formatted="false">"Толькі для бягучага профілю"</string>
+    <string name="msg_a75ec8e3fe3a" formatted="false">"Дэмарэжым M1 · без гуку"</string>
+    <string name="msg_a79a4eaec9fc" formatted="false">"Не ўдалося захаваць плэйлісты. Змена не ўжытая; паўтарыце спробу."</string>
+    <string name="msg_a7a4033657e8" formatted="false">"Закрыць"</string>
+    <string name="msg_a7d8adab451a" formatted="false">"Невядомы выканаўца"</string>
+    <string name="msg_a94943f157d5" formatted="false">"Зараз грае"</string>
+    <string name="msg_a94f8a5da271" formatted="false">"Перазагрузка"</string>
+    <string name="msg_a9bb9fcb7d94" formatted="false">"Правяраем адзнакі…"</string>
+    <string name="msg_a9ec4c4c914a" formatted="false">"Няма сувязі з Яндэксам. Праверце сетку і паўтарыце ўваход."</string>
+    <string name="msg_aa07f084155c" formatted="false">"Афлайн"</string>
+    <string name="msg_aa59e4f43e97" formatted="false">"Ідэнтыфікатары выканаўцаў адсутнічаюць. Адкрыйце трэк нанова з пошуку або медыятэкі."</string>
+    <string name="msg_aa782acc1382" formatted="false">"Аўтаматычная праверка выконваецца не часцей за раз на суткі. Для спампоўвання і сістэмнай устаноўкі новай версіі патрэбнае ваша пацвярджэнне."</string>
+    <string name="msg_ab78a1119f41" formatted="false">"Ужо ў чарзе: @0@"</string>
+    <string name="msg_aba2a8a3d61d" formatted="false">"Прыбраць з медыятэкі"</string>
+    <string name="msg_abf18a196671" formatted="false">"Недапушчальная каардыната значка"</string>
+    <string name="msg_ad0502838af2" formatted="false">"Архіў скіна занадта вялікі"</string>
+    <string name="msg_ad6a1e7e39d2" formatted="false">" · рэзервовая крыніца"</string>
+    <string name="msg_ae407aec2e14" formatted="false">"Дадаць з прылады"</string>
+    <string name="msg_aed87524dfde" formatted="false">"Загрузка журнала…"</string>
+    <string name="msg_af45ec8c56b7" formatted="false">"Перамясціць"</string>
+    <string name="msg_af72c5eb8791" formatted="false">"На K4811 адкрывайце панэль кароткім свайпам ад сярэдзіны левага або правага краю ці ад цэнтра ніжняга краю. Зона жэста нябачная і займае толькі невялікую частку краю."</string>
+    <string name="msg_af9d1711a669" formatted="false">"Выберыце папку ў сістэмным акне. Музыка застаецца на сваім месцы, праграма атрымлівае толькі доступ для чытання."</string>
+    <string name="msg_b011fc656a0f" formatted="false">"У любімыя альбомы"</string>
+    <string name="msg_b095f9e901e7" formatted="false">"Плэйліст ужо выдалены"</string>
+    <string name="msg_b0acd0c9bfb1" formatted="false">"Зноў прапаноўваць"</string>
+    <string name="msg_b0ad5bf65466" formatted="false">"Рэдагаваць плэйліст"</string>
+    <string name="msg_b0dc6691dc09" formatted="false">"«Сон» даступны толькі на K4811."</string>
+    <string name="msg_b0f0ab86be80" formatted="false">"Да спіса"</string>
+    <string name="msg_b1c53cf90f0a" formatted="false">"Адкрыць усталёўшчык"</string>
+    <string name="msg_b2cbccffb035" formatted="false">"Спампоўваем @0@…"</string>
+    <string name="msg_b3b927fb4c1f" formatted="false">"Мая хваля: "</string>
+    <string name="msg_b3be276ac9d7" formatted="false">"Дазволіць паказ паверх іншых праграм"</string>
+    <string name="msg_b46a526e0340" formatted="false">"Сінхранізацыя спынена. Гатовыя файлы захаваны."</string>
+    <string name="msg_b4d30cae5289" formatted="false">"Захаваць"</string>
+    <string name="msg_b50aa55c0b78" formatted="false">"Без гуку"</string>
+    <string name="msg_b583c0b5f77e" formatted="false">"Дадаць з USB / SD"</string>
+    <string name="msg_b5c15a505a62" formatted="false">"Не ўдалося прачытаць метаданыя. Абнавіце каталог папак."</string>
+    <string name="msg_b86ab3d74350" formatted="false">"Любімыя альбомы"</string>
+    <string name="msg_b8ad90801037" formatted="false">"Дадавайце трэкі праз «…». Змяняйце парадак кнопкай «Пазіцыя». Змены захоўваюцца ў Яндэксе."</string>
+    <string name="msg_ba700b6d4845" formatted="false">"Перазагрузка K4811"</string>
+    <string name="msg_bb35de568dc0" formatted="false">"Загружаем захаваную музыку…"</string>
+    <string name="msg_bb7c04530661" formatted="false">"Уваход выкананы"</string>
+    <string name="msg_bbb42f6a25b6" formatted="false">"Прататып · Без гуку"</string>
+    <string name="msg_bc622d6b13a3" formatted="false">"Максімальная"</string>
+    <string name="msg_bcdc88d10948" formatted="false">"Перайменаваць: @0@"</string>
+    <string name="msg_bd5f65f27353" formatted="false">"Афлайн-музыка"</string>
+    <string name="msg_bdd37eb21746" formatted="false">"Прайграць"</string>
+    <string name="msg_be28ea14a37e" formatted="false">"Паўтарыць запыт Яндэкса"</string>
+    <string name="msg_be65ad9b7c99" formatted="false">"Захавана ў Downloads: @0@"</string>
+    <string name="msg_be83518bd33a" formatted="false">"Спампаваць і ўсталяваць"</string>
+    <string name="msg_be8789acfb99" formatted="false">"Патрэбны ўваход у Яндэкс"</string>
+    <string name="msg_be99b1361201" formatted="false">"Выдаліць"</string>
+    <string name="msg_bf6c36d1e481" formatted="false">"@0|track@ · даступна: @1@"</string>
+    <string name="msg_c011a7b7c5c5" formatted="false">"Прыбраць трэк?"</string>
+    <string name="msg_c05d6b17ae05" formatted="false">"Перадпрагляд: @0@"</string>
+    <string name="msg_c06f71ebf142" formatted="false">"Браўзер недаступны. Адкрыйце пазначаны адрас на тэлефоне і ўвядзіце код."</string>
+    <string name="msg_c09a1e9f0c59" formatted="false">"Няправільнае поле: @0@"</string>
+    <string name="msg_c25691d01a87" formatted="false">"Дадавайце трэкі ў абранае праз меню побач з трэкам."</string>
+    <string name="msg_c39959813ccd" formatted="false">"Яндэкс Музыка"</string>
+    <string name="msg_c40f97ca1831" formatted="false">"Падключаемся да службы K4811…"</string>
+    <string name="msg_c46e9d43cea9" formatted="false">"Не ўдалося завяршыць сінхранізацыю. Гатовыя файлы захаваны; паспрабуйце яшчэ раз."</string>
+    <string name="msg_c57bc34167f4" formatted="false">"Адпраўляем запыт перазагрузкі…"</string>
+    <string name="msg_c59e474ea979" formatted="false">"Не ўдалося прачытаць плэйлісты. Даныя захаваны на дыску; рэдагаванне часова недаступнае. Паўтарыце чытанне."</string>
+    <string name="msg_c6087f7e1289" formatted="false">"Паўтарыце абнаўленне каталога."</string>
+    <string name="msg_c61eb3c4706a" formatted="false">"эквалайзер"</string>
+    <string name="msg_c6504f6cb73b" formatted="false">"Оксид"</string>
+    <string name="msg_c6826c783794" formatted="false">"Паказаць яшчэ"</string>
+    <string name="msg_c69f42036602" formatted="false">"Калі перакладу няма, выкарыстоўваецца англійская мова."</string>
+    <string name="msg_c6e3a313babd" formatted="false">"Лакальныя профілі выкарыстоўваюць агульны каталог. У гэтым рэжыме акаўнты не падключаны."</string>
+    <string name="msg_c722f8b4c671" formatted="false">"Чытаем аўдыяфайлы…"</string>
+    <string name="msg_c78b1aee4241" formatted="false">"У бягучым акаўнце Яндэкса будзе створаны прыватны плэйліст."</string>
+    <string name="msg_c7dab06bf537" formatted="false">"ЗАРАЗ"</string>
+    <string name="msg_c85975db07b1" formatted="false">"Няправільная версія абнаўлення"</string>
+    <string name="msg_c8c0e3b9e7a0" formatted="false">"Атрымліваем «Мне падабаецца»…"</string>
+    <string name="msg_c8dbba7583c2" formatted="false">"Крыніца прайгравання"</string>
+    <string name="msg_c90dd531a092" formatted="false">"Бягучы трэк, ужо падрыхтаваныя трэкі хвалі і захаваныя файлы захоўваюць сваю якасць. Каб зноў спампаваць усю афлайн-калекцыю, выдаліце яе файлы ў наладах афлайн-кэша і запусціце сінхранізацыю. Лайкі застануцца ў Яндэксе."</string>
+    <string name="msg_c90ea6df373e" formatted="false">"чаканае абнаўленне"</string>
+    <string name="msg_c989e98d6470" formatted="false">"Падбіраем наступны трэк…"</string>
+    <string name="msg_ca3bbeeee26d" formatted="false">"Android спыніў працяглую сінхранізацыю. Гатовыя файлы захаваны."</string>
+    <string name="msg_ca48a1a553cc" formatted="false">"Сінхранізаваць «Мне падабаецца»"</string>
+    <string name="msg_cb297d129add" formatted="false">"Чарга"</string>
+    <string name="msg_cb3d171cdbfd" formatted="false">"Назва ↓"</string>
+    <string name="msg_cb4cd68cb5f3" formatted="false">"Спыніць сінхранізацыю"</string>
+    <string name="msg_cbf686a2b04b" formatted="false">"Актыўны, убудаваны або невядомы скін нельга выдаліць"</string>
+    <string name="msg_cd40e18eeede" formatted="false">"Трэк дададзены ў «@0@»."</string>
+    <string name="msg_cd70228cba41" formatted="false">"трэк"</string>
+    <string name="msg_cdb3ca001d96" formatted="false">"Забарона не ўсталявана"</string>
+    <string name="msg_ce1456ccd84b" formatted="false">"Прыбраць з плэйліста: @0@"</string>
+    <string name="msg_ce1e647fd722" formatted="false">"Паўтор выключаны"</string>
+    <string name="msg_cfdce86cac0a" formatted="false">"Сістэма не дазволіла адкрыць налады накладання."</string>
+    <string name="msg_cfde40242cd9" formatted="false">"Плэйлісты Яндэкса"</string>
+    <string name="msg_d18c1c114691" formatted="false">"Не ўдалося прачытаць пакет скіна: праверце ZIP і JSON"</string>
+    <string name="msg_d1df132336f2" formatted="false">"Папярэдні кліп"</string>
+    <string name="msg_d1edd7d2a9e2" formatted="false">"Перанакіраванне без адраса"</string>
+    <string name="msg_d32a29ef600e" formatted="false">"Гучней"</string>
+    <string name="msg_d3dacfa5bb27" formatted="false">"Даступная версія @0@."</string>
+    <string name="msg_d4998bc84141" formatted="false">"Паглядзець"</string>
+    <string name="msg_d555eba48a2d" formatted="false">"Паспрабуйце іншы запыт або скіньце фільтры."</string>
+    <string name="msg_d585770173b3" formatted="false">"Адзнакі ў Яндэкс Музыцы"</string>
+    <string name="msg_d58f70dd1811" formatted="false">"Без жанру"</string>
+    <string name="msg_d60fd3858f8f" formatted="false">"Служба прыняла запыт. Чакайце перазагрузкі K4811."</string>
+    <string name="msg_d65fb9be6155" formatted="false">"Захоўваюцца толькі ўпадабаныя трэкі і іх вокладкі. Любімыя выканаўцы і альбомы цалкам не спампоўваюцца."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"У журнале толькі коды падзей. Токены, коды ўваходу, назвы трэкаў і адрасы запытаў не запісваюцца."</string>
+    <string name="msg_d73874ba53a6" formatted="false">"Зыходны файл застаецца ў вас. Яго можна імпартаваць зноў."</string>
+    <string name="msg_d7ad8e4ee48a" formatted="false">"Аўта — мова сістэмы"</string>
+    <string name="msg_d7b587c84b68" formatted="false">"Панэль выключана."</string>
+    <string name="msg_d7c74665073a" formatted="false">"Выдаліцца толькі плэйліст. Файлы і бягучая чарга застануцца."</string>
+    <string name="msg_d8987908d58b" formatted="false">"Крыніцы і папкі"</string>
+    <string name="msg_d8cafee5a654" formatted="false">"Дазвольце ўсталёўку з YMPlayer 2. Пасля вяртання адкрыецца сістэмны ўсталёўшчык."</string>
+    <string name="msg_d96f9192c384" formatted="false">"«Мне падабаецца» афлайн"</string>
+    <string name="msg_d9b2fa928b6a" formatted="false">"Тэрмін дзеяння кода скончыўся. Атрымайце новы код."</string>
+    <string name="msg_da28911d8b6d" formatted="false">"Перазагрузіць"</string>
+    <string name="msg_da4da4e3527c" formatted="false">"Дыягностыка"</string>
+    <string name="msg_db66cedc69fc" formatted="false">"Уся калекцыя"</string>
+    <string name="msg_dba20ab53801" formatted="false">"Прылада"</string>
+    <string name="msg_dbfc1e54cdd9" formatted="false">"Выпадковы парадак уключаны"</string>
+    <string name="msg_dc2b5a858155" formatted="false">"Паказаць / схаваць панэль"</string>
+    <string name="msg_dc9712a122a9" formatted="false">"Слухаць захаванае"</string>
+    <string name="msg_dca2da414320" formatted="false">"Гэты APK не абнаўляе ўсталяваны YMPlayer 2"</string>
+    <string name="msg_dcc07d613ee2" formatted="false">"Увядзіце код на іншай прыладзе або адкрыйце старонку Яндэкса тут."</string>
+    <string name="msg_dcd18c67df6b" formatted="false">"Крыніцы: GitHub, jsDelivr і Gcore. APK правяраецца па памеры, SHA-256, назве пакета, версіі і подпісе. Android папросіць пацвердзіць усталёўку."</string>
+    <string name="msg_dcd5dbe4d9d2" formatted="false">"Не ўдалося прайграць музыку Яндэкса. Праверце сетку і доступ да трэка; націсніце прайграванне, каб паўтарыць."</string>
+    <string name="msg_dce76ccbc542" formatted="false">"Назва павінна змяшчаць ад 1 да 80 сімвалаў"</string>
+    <string name="msg_dcefc460162c" formatted="false">"Занадта шмат распакаваных даных"</string>
+    <string name="msg_de042c2d1c9a" formatted="false">"Абнаўленне YMPlayer 2"</string>
+    <string name="msg_de13383c3766" formatted="false">"Зараз: @0@"</string>
+    <string name="msg_de1ea8c09caa" formatted="false">"Мая хваля"</string>
+    <string name="msg_de2242264b20" formatted="false">"Значок павінен змяшчаць 1–64 контуры"</string>
+    <string name="msg_ded8b330175a" formatted="false">"Няма сеткі · паказаны даступныя афлайн-трэкі"</string>
+    <string name="msg_defc1856ad78" formatted="false">"Не ўдалося прачытаць медыятэку. Абнавіце папкі з музыкай і паўтарыце выбар."</string>
+    <string name="msg_df19962e1865" formatted="false">"Мова праграмы"</string>
+    <string name="msg_df3940f679cf" formatted="false">"Нечаканы памер APK"</string>
+    <string name="msg_dff16f6f70a1" formatted="false">"Плеер"</string>
+    <string name="msg_e059e8f90790" formatted="false">"Не ўдалося захаваць выбар афармлення"</string>
+    <string name="msg_e088cb84f420" formatted="false">"Уваход захаваны для гэтага профілю. Анлайн-каталог і прайграванне Яндэкса з’явяцца на наступным этапе."</string>
+    <string name="msg_e09846033f94" formatted="false">"Пазіцыя"</string>
+    <string name="msg_e15f960d93eb" formatted="false">"Ужыць"</string>
+    <string name="msg_e199c10f2526" formatted="false">"Цішэй"</string>
+    <string name="msg_e2151143d516" formatted="false">"Не ўдалося прачытаць індэкс. Дадайце папку зноў."</string>
+    <string name="msg_e21e6ad5c123" formatted="false">"Абнаўляем звесткі пра акаўнт…"</string>
+    <string name="msg_e25ae5e8d071" formatted="false">"Адкрыць Яндэкс"</string>
+    <string name="msg_e261fc0388e8" formatted="false">"Падрыхтоўка…"</string>
+    <string name="msg_e2be34974ae4" formatted="false">"Стварыць"</string>
+    <string name="msg_e2e513b12b0d" formatted="false">"Захаваных трэкаў пакуль няма. Сінхранізацыя даступная ў наладах афлайн-кэша."</string>
+    <string name="msg_e30fc8a5eb01" formatted="false">"Афлайн-кэш «Мне падабаецца»"</string>
+    <string name="msg_e349032e2682" formatted="false">"Свая чарга і пазіцыя"</string>
+    <string name="msg_e3c30e30adb9" formatted="false">"Дэманстрацыя памылкі. Бягучая чарга захавана."</string>
+    <string name="msg_e4c1d01c5c8f" formatted="false">"Абранае"</string>
+    <string name="msg_e4e4b9b0d2df" formatted="false">"Прыбраць з «Мне падабаецца»"</string>
+    <string name="msg_e6b3d4be516a" formatted="false">"@0@: дзеянне недаступнае"</string>
+    <string name="msg_e85848addc52" formatted="false">"Няма адраса APK"</string>
+    <string name="msg_e8c693109156" formatted="false">"Панэль YMPlayer 2"</string>
+    <string name="msg_e92912b778ee" formatted="false">"На прыладзе"</string>
+    <string name="msg_ea16ed0e182d" formatted="false">"Выдаліць плэйліст: @0@"</string>
+    <string name="msg_ea172f78eb4c" formatted="false">"Недапушчальны шлях у пакеце скіна"</string>
+    <string name="msg_ea183e546bb0" formatted="false">"QR-код для падтрымкі распрацоўкі"</string>
+    <string name="msg_ea1f40824607" formatted="false">"Адкрыць"</string>
+    <string name="msg_eabc559b5eaa" formatted="false">"Выберыце музыку ў медыятэцы"</string>
+    <string name="msg_eb2c88237bfa" formatted="false">"Лакальная і анлайн-музыка. Уваход у Яндэкс — у профілях. Захаваныя ўпадабаныя трэкі — у раздзеле «Афлайн»."</string>
+    <string name="msg_eb9946b15efd" formatted="false">"Паўтарыць чытанне"</string>
+    <string name="msg_ebc4254ed734" formatted="false">"Не ўдалося выдаліць файлы трэкаў са знятымі лайкамі. Паўтарыце сінхранізацыю."</string>
+    <string name="msg_eca626bab07b" formatted="false">"Пра праграму"</string>
+    <string name="msg_ecb4e3f4230f" formatted="false">"Аднаўляем уваход…"</string>
+    <string name="msg_edcf9d24ba56" formatted="false">"Выканаўцы"</string>
+    <string name="msg_ee19d8c20fcb" formatted="false">"Код дзейнічае яшчэ @0@"</string>
+    <string name="msg_ee9181d5fe7d" formatted="false">"Паказаць дэманстрацыйныя даныя"</string>
+    <string name="msg_eef33a4ed08b" formatted="false">"Яндэкс ID @0@"</string>
+    <string name="msg_ef05d57959cf" formatted="false">"Гатова"</string>
+    <string name="msg_ef5631741cc5" formatted="false">"Абнаўляем адзнакі…"</string>
+    <string name="msg_efb640146dae" formatted="false">"Да плэйлістаў"</string>
+    <string name="msg_f0a7fd0c1884" formatted="false">"Паўтор трэка"</string>
+    <string name="msg_f0cd3a603372" formatted="false">"Светлая"</string>
+    <string name="msg_f1d8f4cb696f" formatted="false">"Увайдзіце ў Яндэкс у гэтым профілі."</string>
+    <string name="msg_f413b50444c7" formatted="false">"выканаўцы"</string>
+    <string name="msg_f434aef91735" formatted="false">"Не ўдалося праверыць абнаўленні: @0@"</string>
+    <string name="msg_f4d6290e6f4b" formatted="false">"Музыка побач"</string>
+    <string name="msg_f4e26aa3eef6" formatted="false">"Прайграванне / паўза"</string>
+    <string name="msg_f5a7276edc18" formatted="false">"У корані пакета няма manifest.json"</string>
+    <string name="msg_f6e01d413ff6" formatted="false">"Дадому"</string>
+    <string name="msg_f77ad0247092" formatted="false">"Панэль уключана."</string>
+    <string name="msg_f7be0cbd0b8a" formatted="false">"Не ўдалося загрузіць медыятэку"</string>
+    <string name="msg_f8480d481387" formatted="false">"Медыятэка пакуль пустая"</string>
+    <string name="msg_f8ac3be6be11" formatted="false">"Відэамодуль яшчэ распрацоўваецца"</string>
+    <string name="msg_f8ddc90b1078" formatted="false">"«Схаваць бакавую панэль» — заўсёды апошняя кнопка, яе нельга выключыць. Калі ўсе астатнія кнопкі выключаны, сайдбар адключаецца."</string>
+    <string name="msg_f91135efb9aa" formatted="false">"Выдаліць «@0@»?"</string>
+    <string name="msg_f9b80bf69b7f" formatted="false">"Патрэбны Android API @0@"</string>
+    <string name="msg_fa58ba03d4c5" formatted="false">"Назва ↑"</string>
+    <string name="msg_fb7d156c5bfe" formatted="false">"Рэкамендацыі"</string>
+    <string name="msg_fc0f3616f567" formatted="false">"Паказаць яшчэ з прылады / USB"</string>
+    <string name="msg_fcd7691c84b2" formatted="false">"Завяршыць рэдагаванне"</string>
+    <string name="msg_fd21b337444d" formatted="false">"Абнавіць адзнакі трэка"</string>
+    <string name="msg_fd6e72f72d55" formatted="false">"Налады афлайн-кэша"</string>
+    <string name="msg_fdc54db3a2b0" formatted="false">"Эквалайзер / DSP"</string>
+    <string name="msg_fed5c913384a" formatted="false">"Вынік перазагрузкі невядомы. Паўторны запыт не адпраўляецца."</string>
+    <string name="msg_fede8859c53f" formatted="false">"Пошук у Яндэкс Музыцы"</string>
+    <string name="msg_ff5436e417d8" formatted="false">"У скіне занадта шмат файлаў"</string>
+    <string name="msg_ffdf574befa9" formatted="false">"Па парадку"</string>
+    <string name="msg_6d41ea47365d" formatted="false">"Ніколі не прапаноўваць гэты трэк"</string>
+    <string name="msg_c0c419b5947a" formatted="false">"Ніколі не прапаноўваць гэтага выканаўцу"</string>
+    <string name="msg_3605c85705cf" formatted="false">"Зноў прапаноўваць гэты трэк"</string>
+    <string name="msg_d8462717244f" formatted="false">"Зноў прапаноўваць гэтага выканаўцу"</string>
+    <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
+</resources>
