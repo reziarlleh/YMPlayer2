@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 69,
-  "versionName": "2.1.5-build69",
-  "channel": "stable",
+  "versionCode": 70,
+  "versionName": "2.2.0beta-build70",
+  "channel": "beta",
   "minSdk": 29,
-  "publishedAt": "2026-10-01T19:07:04.6988397Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.1.5-build69",
-  "releaseNotes": "Настройки офлайн-кэша отделены от списка медиатеки. Полноширинная кнопка, параметры и синхронизация в настройках; сохранённые треки в Медиатека → Офлайн. Папки с музыкой остаются в общем каталоге.",
+  "publishedAt": "2026-10-02T02:08:02.1266867Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.0beta-build70",
+  "releaseNotes": "English/Russian и сохраняемый выбор Auto. Свежая база 2.1.5, исправления пульта, заголовка и офлайн-кэша сохранены. Beta для проверки английского интерфейса.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.1.5-build69/YMPlayer-2.1.5-build69.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.1.5-build69/releases/2.1.5-build69/YMPlayer-2.1.5-build69.apk",
-    "sizeBytes": 4896621,
-    "sha256": "5de944b07e7f6046a24a26235448a2b683ac26494967ab73128fdf1a26df9b9d"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.0beta-build70/YMPlayer-2.2.0beta-build70.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.0beta-build70/releases/2.2.0beta-build70/YMPlayer-2.2.0beta-build70.apk",
+    "sizeBytes": 5285329,
+    "sha256": "b4655174c1be8e22dfd7aadc2280a9c50d80a7df4081596eb389fd87e297c83d"
   }
 }
