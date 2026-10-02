@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 70,
-  "versionName": "2.2.0beta-build70",
-  "channel": "beta",
+  "versionCode": 71,
+  "versionName": "2.2.0-build71",
+  "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-02T02:08:02.1266867Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.0beta-build70",
-  "releaseNotes": "English/Russian и сохраняемый выбор Auto. Свежая база 2.1.5, исправления пульта, заголовка и офлайн-кэша сохранены. Beta для проверки английского интерфейса.",
+  "publishedAt": "2026-10-02T03:40:05.3531503Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.0-build71",
+  "releaseNotes": "English/Russian, сохраняемый выбор Auto. Обычное обновление из 2.1.5 без beta, прежние пакет и подпись. Исправления пульта, заголовка и разделения офлайн-кэша сохранены.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.0beta-build70/YMPlayer-2.2.0beta-build70.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.0beta-build70/releases/2.2.0beta-build70/YMPlayer-2.2.0beta-build70.apk",
-    "sizeBytes": 5285329,
-    "sha256": "b4655174c1be8e22dfd7aadc2280a9c50d80a7df4081596eb389fd87e297c83d"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.0-build71/YMPlayer-2.2.0-build71.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.0-build71/releases/2.2.0-build71/YMPlayer-2.2.0-build71.apk",
+    "sizeBytes": 5285325,
+    "sha256": "d4bdf6af2bc537ab5de1d7cfbca2a13a8148ea651a11791203914d00e22e5968"
   }
 }
