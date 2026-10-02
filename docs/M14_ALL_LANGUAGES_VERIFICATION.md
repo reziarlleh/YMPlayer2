@@ -81,5 +81,35 @@ Package `dev.petrov.ymplayer2`, versionCode72, channel stable, подпись v2
 холодного запуска. Проверен возврат к Auto.
 [TV signed](qa/m14-all-languages/tv-signed-languages.json).
 
-Публикация, HTTP-проверки, предложение72 установленной71 и настоящая установка
-из приложения на телефоне завершаются перед объявлением цели достигнутой.
+После настоящего обновления из приложения те же восемь выборов и холодные
+запуски German/Kazakh/Ukrainian проверены на телефоне; возврат к Auto успешен.
+[Phone signed](qa/m14-all-languages/phone-signed-languages.json).
+
+Обычный [GitHub Release v2.2.1-build72](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.1-build72)
+опубликован как latest, четыре assets, без draft/prerelease. Тег `25083d3`
+содержит исходники и подписанный APK. Коммит `626a1ed` обновил оба манифеста
+основного стабильного канала.
+[HTTP и метаданные](qa/m14-all-languages/publication.json).
+
+GitHub/jsDelivr/Gcore APK: HTTP200, один размер и SHA-256. Оба raw-манифеста
+и оба cdn.jsdelivr.net @main указывают на72. После очистки кэша Gcore @main
+пока отдаёт stable68/manifest71: это задержка манифеста CDN, не успешная
+актуализация этого узла. Неизменяемый Gcore APK по тегу72 уже правильный.
+[Очистка и проверка CDN](qa/m14-all-languages/mirror-refresh.txt).
+
+Клиент настоящей signed71 предложил72:
+[экран](qa/m14-all-languages/phone-offer72.png) /
+[состояние](qa/m14-all-languages/phone-signed-offer.json).
+Через кнопку резервной загрузки получен APK, Android показал UPDATE,
+после подтверждения установлен72 без очистки данных.
+Сохранились трек «02 - City lights», пауза и позиция0:03, язык English.
+[Установка из приложения](qa/m14-all-languages/phone-in-app-installation.json) ·
+[Установщик](qa/m14-all-languages/phone-installer72.png) ·
+[После обновления](qa/m14-all-languages/phone-updated72.png).
+Драйвер сначала проверил приложение до закрытия окна «App installed»;
+после нажатия OPEN проверка продолжена. Приложение из-за этого не менялось.
+
+Цель всех языков завершена. README, руководство пользователя со свежими
+скриншотами, статус, план, карта миграции и инструкция переводов актуализированы.
+Замечания по формулировкам будут исправляться в 2.2.x; английская инструкция
+пользователя и обсуждение Google Play идут отдельными следующими этапами.

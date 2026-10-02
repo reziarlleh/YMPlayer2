@@ -1,0 +1,104 @@
+{
+  "checkedAt": "2026-10-02T04:55:36.369012+00:00",
+  "sourceHead": "626a1ede33a7c8a62d5ccebb61accb2aab32bf9b",
+  "release": {
+    "tag": "v2.2.1-build72",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.1-build72",
+    "prerelease": false,
+    "draft": false,
+    "notesMatch": true,
+    "assets": [
+      {
+        "name": "build.json",
+        "size": 449,
+        "digest": "sha256:1cb82f90d57a946e6b0e67bee1bc62911e8e78c7d0accb69310f0e371fda9180"
+      },
+      {
+        "name": "SHA256.txt",
+        "size": 93,
+        "digest": "sha256:cd9000c57843201430c38ecfc27fa112a7b67df326c996fd00ba8d8eabfe9926"
+      },
+      {
+        "name": "signature.txt",
+        "size": 978,
+        "digest": "sha256:54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1"
+      },
+      {
+        "name": "YMPlayer-2.2.1-build72.apk",
+        "size": 5830517,
+        "digest": "sha256:b9fd6d4c51a6ebdc0f6ba641f27093be9ee11cf3f37a0e6090f49a2d23d5146b"
+      }
+    ]
+  },
+  "http": [
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.1-build72/YMPlayer-2.2.1-build72.apk",
+      "status": 200,
+      "sizeBytes": 5830517,
+      "sha256": "b9fd6d4c51a6ebdc0f6ba641f27093be9ee11cf3f37a0e6090f49a2d23d5146b",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.1-build72/releases/2.2.1-build72/YMPlayer-2.2.1-build72.apk",
+      "status": 200,
+      "sizeBytes": 5830517,
+      "sha256": "b9fd6d4c51a6ebdc0f6ba641f27093be9ee11cf3f37a0e6090f49a2d23d5146b",
+      "matches": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.1-build72/releases/2.2.1-build72/YMPlayer-2.2.1-build72.apk",
+      "status": 200,
+      "sizeBytes": 5830517,
+      "sha256": "b9fd6d4c51a6ebdc0f6ba641f27093be9ee11cf3f37a0e6090f49a2d23d5146b",
+      "matches": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "sizeBytes": 1134,
+      "versionName": "2.2.1-build72",
+      "channel": "stable",
+      "matches": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "sizeBytes": 1134,
+      "versionName": "2.2.1-build72",
+      "channel": "stable",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "sizeBytes": 1134,
+      "versionName": "2.2.1-build72",
+      "channel": "stable",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "sizeBytes": 1134,
+      "versionName": "2.2.1-build72",
+      "channel": "stable",
+      "matches": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "sizeBytes": 939,
+      "versionName": "2.1.4-build68",
+      "channel": "stable",
+      "matches": false
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "sizeBytes": 988,
+      "versionName": "2.2.0-build71",
+      "channel": "stable",
+      "matches": false
+    }
+  ]
+}

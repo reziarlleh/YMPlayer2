@@ -1,0 +1,15 @@
+{
+  "serial": "emulator-5554",
+  "fromVersion": "2.2.0-build71",
+  "toVersion": "2.2.1-build72",
+  "download": "in-app backup source",
+  "installation": "Android system installer UPDATE then OPEN, observed through native UI",
+  "dataCleared": false,
+  "checkpointPreserved": true,
+  "checkpointTrack": "02 - City lights",
+  "checkpointPosition": "0:03",
+  "driverRecovery": "After installation the installer completion page remained foreground; clicked OPEN and verified the app. No application code changed.",
+  "beforeNativeDump": " YMPlayer2 [32,79][526,158] \n Profiles [828,95][891,158] \n Settings [954,95][1017,158] \nMy Vibe  [388,237][520,290] \n Equalizer / DSP [818,232][881,295] \n Queue [944,232][1007,295] \n02 - City lights  [42,836][456,920] \nНеизвестный исполнитель  [42,920][514,973] \nDevice · On device  [42,973][295,1015] \n More actions [74,1058][137,1121] \n Repeat off [812,1052][886,1126] \n Shuffle [938,1052][1012,1126] \n0:03  [42,1268][109,1310] \n0:45  [971,1268][1038,1310] \n Previous track [127,1400][222,1495] \n Play [369,1384][495,1510] \n Next track [643,1400][738,1495] \n Stop [859,1400][954,1495] \nPlayer  [79,1710][175,1752] \nLibrary  [350,1710][455,1752] \nSearch  [625,1710][730,1752] \nClips  [915,1710][991,1752] \n",
+  "afterNativeDump": " YMPlayer2 [32,79][526,158] \n Profiles [828,95][891,158] \n Settings [954,95][1017,158] \nMy Vibe  [388,237][520,290] \n Equalizer / DSP [818,232][881,295] \n Queue [944,232][1007,295] \n02 - City lights  [42,836][456,920] \nНеизвестный исполнитель  [42,920][514,973] \nDevice · On device  [42,973][295,1015] \n More actions [74,1058][137,1121] \n Repeat off [812,1052][886,1126] \n Shuffle [938,1052][1012,1126] \n0:03  [42,1268][109,1310] \n0:45  [971,1268][1038,1310] \n Previous track [127,1400][222,1495] \n Play [369,1384][495,1510] \n Next track [643,1400][738,1495] \n Stop [859,1400][954,1495] \nPlayer  [79,1710][175,1752] \nLibrary  [350,1710][455,1752] \nSearch  [625,1710][730,1752] \nClips  [915,1710][991,1752] \n",
+  "passed": true
+}

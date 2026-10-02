@@ -1,0 +1,29 @@
+{
+  "serial": "emulator-5554",
+  "installedVersion": "2.2.0-build71",
+  "offeredVersion": "2.2.1-build72",
+  "labels": [
+    "Back",
+    "YMPlayer2",
+    "Music with you",
+    "Profiles",
+    "Settings",
+    "App updates",
+    "Installed: 2.2.0-build71",
+    "Check on launch",
+    "Automatic checks run at most once a day. Downloading and installing an available update requires your confirmation.",
+    "Check for updates",
+    "2.2.1-build72 is available.",
+    "2.2.1-build72 is available",
+    "Восемь языков интерфейса: добавлены белорусский, французский, немецкий, казахский, испанский и украинский. Контекстные переводы, правильные формы чисел, сохранение выбора и смена языка без остановки музыки. Обычное обновление без beta.",
+    "02 - City lights",
+    "Неизвестный исполнитель · 0:03",
+    "Play",
+    "Queue",
+    "Player",
+    "Library",
+    "Search",
+    "Clips"
+  ],
+  "passed": true
+}
