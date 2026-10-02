@@ -1,5 +1,8 @@
 # M14 — первая English beta 2.2.0
 
+Отчёт о первоначальной English beta70. Актуальный выпуск по уточнению владельца —
+[2.2.0-build71 без beta](M14_STABLE_UPDATE_VERIFICATION.md), обычное обновление из69.
+
 Дата: 2026-10-02. Повторный старт от stable 2.1.5-build69, HEAD `00e624e`.
 Ветка `codex/2.2.0-localization-restart` создана от этой базы. Старый WIP от
 build65 не сливался и ни один его файл app/shell/designsystem не восстанавливался.

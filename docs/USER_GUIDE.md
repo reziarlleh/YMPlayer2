@@ -448,11 +448,11 @@ OK показывает её и выделяет play/pause; следующее 
 исходными. Остальные языки появятся после проверки первого английского пакета.
 
 <p align="center">
-  <img src="qa/m14-localization/phone-language-release.png" width="260" alt="2.2 beta: выбор Auto, English и Russian">
-  <img src="qa/m14-localization/tv-language-release.png" width="550" alt="Язык приложения на Android TV">
+  <img src="qa/m14-stable-update/phone-language71.png" width="260" alt="2.2.0: выбор Auto, English и Russian">
+  <img src="qa/m14-stable-update/tv-language71.png" width="550" alt="Язык приложения на Android TV">
 </p>
 
-*Подписанный 2.2.0beta-build70 на проектных эмуляторах Android 15 и TV29.*
+*Подписанный 2.2.0-build71 на проектных эмуляторах Android 15 и TV29.*
 
 ## Оформление и скины
 
