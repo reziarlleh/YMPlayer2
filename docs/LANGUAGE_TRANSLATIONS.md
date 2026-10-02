@@ -35,7 +35,8 @@ python tools/Generate-Translations.py --check
 Auto остаётся первым, языки сортируются по englishName.
 Новый язык объявляется готовым после проверки приложения и формулировок.
 
-Прежде чем добавлять остальные пакеты, владелец проверяет первую English beta.
+English доступен в обычном выпуске 2.2.0-build71 без beta. Перед расширением
+пакетов учитываем проверку владельца; уточнения и языки выпускаем в 2.2.x.
 Окончательный порядок: Auto, Belarusian (Беларуская), English (English),
 French (Français), German (Deutsch), Kazakh (Қазақша), Russian (Русский),
 Spanish (Español), Ukrainian (Українська).

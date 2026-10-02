@@ -1,0 +1,9 @@
+{
+  "versionName": "2.2.0-build71",
+  "applicationId": "dev.petrov.ymplayer2",
+  "runtimeAcceptance": "signed-upgrade-69-to-71-passed-on-project-phone-and-tv; owner-language-review-pending",
+  "channel": "stable",
+  "versionCode": 71,
+  "builtAtUtc": "2026-10-02T03:34:00.9744621Z",
+  "sha256": "d4bdf6af2bc537ab5de1d7cfbca2a13a8148ea651a11791203914d00e22e5968"
+}
