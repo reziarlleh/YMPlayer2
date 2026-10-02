@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 71,
-  "versionName": "2.2.0-build71",
+  "versionCode": 72,
+  "versionName": "2.2.1-build72",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-02T03:40:05.3531503Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.0-build71",
-  "releaseNotes": "English/Russian, сохраняемый выбор Auto. Обычное обновление из 2.1.5 без beta, прежние пакет и подпись. Исправления пульта, заголовка и разделения офлайн-кэша сохранены.",
+  "publishedAt": "2026-10-02T04:54:56.3122476Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.1-build72",
+  "releaseNotes": "Восемь языков интерфейса: добавлены белорусский, французский, немецкий, казахский, испанский и украинский. Контекстные переводы, правильные формы чисел, сохранение выбора и смена языка без остановки музыки. Обычное обновление без beta.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.0-build71/YMPlayer-2.2.0-build71.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.0-build71/releases/2.2.0-build71/YMPlayer-2.2.0-build71.apk",
-    "sizeBytes": 5285325,
-    "sha256": "d4bdf6af2bc537ab5de1d7cfbca2a13a8148ea651a11791203914d00e22e5968"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.1-build72/YMPlayer-2.2.1-build72.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.1-build72/releases/2.2.1-build72/YMPlayer-2.2.1-build72.apk",
+    "sizeBytes": 5830517,
+    "sha256": "b9fd6d4c51a6ebdc0f6ba641f27093be9ee11cf3f37a0e6090f49a2d23d5146b"
   }
 }
