@@ -20,7 +20,7 @@
 | integration:headunit/sidebar | Overlay, команды устройства, optional capability | Android; публичные playback/settings contracts |
 | distribution:update | Манифест/артефакт своего продукта, версия, проверка | Network, package identity, storage; без legacy feed |
 
-## Фактические Gradle-модули на 2026-10-01
+## Фактические Gradle-модули на 2026-10-02
 
 Состав подтверждён `settings.gradle.kts` и зависимостями модулей:
 
@@ -37,9 +37,10 @@
 | `:provider:yandex` | OAuth и музыкальные API |
 | `:headunit:sidebar` | Overlay, жесты и команды K4811; цвета получает из designsystem |
 | `:updater:android` | Манифесты, загрузка/проверка APK и Android installer |
+| `:localization` | Каталог UI-текстов, восемь языков, Auto, сохранение выбора и адаптация статусов; без изменения данных музыки и протоколов |
 
 Исторические части ниже показывают последовательность переноса, а не полный
-текущий состав. [Текущая сверка](DOCUMENTATION_AUDIT_2026-10-01.md).
+текущий состав. [Текущая сверка](AUDIT_2026-10-02.md).
 
 ## Физический старт для первого beta-прототипа
 

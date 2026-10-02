@@ -1,0 +1,36 @@
+
+dev.petrov.ymplayer2.LocalPlaybackTest:.................
+Error in modeAndQueueControlsOperateTheRealPlayer(dev.petrov.ymplayer2.LocalPlaybackTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Очередь' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at dev.petrov.ymplayer2.LocalPlaybackTest.modeAndQueueControlsOperateTheRealPlayer(LocalPlaybackTest.kt:680)
+...
+dev.petrov.ymplayer2.LocalizationTest:.........
+dev.petrov.ymplayer2.UpdateLifecycleTest:.
+dev.petrov.ymplayer2.UpdateAutoOfferTest:.
+dev.petrov.ymplayer2.UpdateSettingsTest:.
+dev.petrov.ymplayer2.NavigationTest:...
+
+Time: 148.324
+There was 1 failure:
+1) modeAndQueueControlsOperateTheRealPlayer(dev.petrov.ymplayer2.LocalPlaybackTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Очередь' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:403)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:61)
+	at dev.petrov.ymplayer2.LocalPlaybackTest.modeAndQueueControlsOperateTheRealPlayer(LocalPlaybackTest.kt:680)
+
+FAILURES!!!
+Tests run: 36,  Failures: 1

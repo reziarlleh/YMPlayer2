@@ -36,6 +36,7 @@ public class TestMusicProvider extends DocumentsProvider {
     private boolean artwork;
     private boolean missingSecond;
     private int bulkCount;
+    private boolean unsupportedFormats;
     private File directory() { File dir = new File(getContext().getCacheDir(), "test-music"); dir.mkdirs(); return dir; }
     @Override public boolean onCreate() { return true; }
     @Override public MatrixCursor queryRoots(String[] projection) {
@@ -55,6 +56,9 @@ public class TestMusicProvider extends DocumentsProvider {
         if (parent.equals("secondary") && secondaryUnavailable) throw new FileNotFoundException("Secondary fixture disconnected");
         MatrixCursor cursor = cursor(projection);
         if (parent.equals("music")) { addDocument(cursor, "one.wav"); if (duplicateFirst) addDocument(cursor, "one.wav"); addDocument(cursor, "nested"); if (artwork) addDocument(cursor, "cover.mp3"); if (corrupt) addDocument(cursor, "broken.wav"); if (extra) { addDocument(cursor, "three.wav"); addDocument(cursor, "four.wav"); } for (int i = 0; i < bulkCount; i++) addDocument(cursor, String.format(java.util.Locale.ROOT, "bulk-%03d.wav", i)); }
+        if (parent.equals("music") && unsupportedFormats) {
+            for (String id : new String[]{"ignored.aiff", "ignored.aif", "ignored.aifc", "audio-aiff", "fallback.WAV"}) addDocument(cursor, id);
+        }
         else if (parent.equals("nested") && !missingSecond) addDocument(cursor, "two.wav");
         else if (parent.equals("secondary")) addDocument(cursor, "two.wav");
         return cursor;
@@ -62,20 +66,21 @@ public class TestMusicProvider extends DocumentsProvider {
     @Override public boolean isChildDocument(String parent, String id) { return parent.equals("music") || (parent.equals("nested") || parent.equals("secondary")) && id.equals("two.wav"); }
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal) throws FileNotFoundException {
         boolean bulk = id.matches("bulk-\\d{3,4}\\.wav") && Integer.parseInt(id.substring(5, id.length() - 4)) < bulkCount;
-        if (unavailable || missingSecond && id.equals("two.wav") || !mode.equals("r") || !bulk && !Arrays.asList("one.wav", "two.wav", "three.wav", "four.wav", "broken.wav", "cover.mp3").contains(id)) throw new FileNotFoundException();
+        if (unavailable || missingSecond && id.equals("two.wav") || !mode.equals("r") || !bulk && !Arrays.asList("one.wav", "two.wav", "three.wav", "four.wav", "broken.wav", "cover.mp3", "fallback.WAV").contains(id)) throw new FileNotFoundException();
         return ParcelFileDescriptor.open(new File(directory(), bulk ? "one.wav" : id), ParcelFileDescriptor.MODE_READ_ONLY);
     }
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("fixtures")) {
             holdScan.set(false); scanReleased.countDown();
             unavailable = false; corrupt = false; extra = false; artwork = false; missingSecond = false; bulkCount = 0;
-            secondaryUnavailable = false;
+            secondaryUnavailable = false; unsupportedFormats = false;
             duplicateFirst = false;
             try {
                 wave(new File(directory(), "one.wav"), 440);
                 wave(new File(directory(), "two.wav"), 660);
                 wave(new File(directory(), "three.wav"), 550);
                 wave(new File(directory(), "four.wav"), 330);
+                wave(new File(directory(), "fallback.WAV"), 220);
                 Files.write(new File(directory(), "broken.wav").toPath(), "not an audio file".getBytes());
             } catch (IOException error) { throw new IllegalStateException(error); }
             grant(); return Bundle.EMPTY;
@@ -94,6 +99,7 @@ public class TestMusicProvider extends DocumentsProvider {
             return result;
         }
         if (method.equals("releaseScan")) { scanReleased.countDown(); return Bundle.EMPTY; }
+        if (method.equals("unsupportedFormats")) { unsupportedFormats = "true".equals(arg); return Bundle.EMPTY; }
         if (method.equals("corrupt")) { corrupt = true; return Bundle.EMPTY; }
         if (method.equals("extra")) { extra = true; return Bundle.EMPTY; }
         if (method.equals("bulk")) { bulkCount = Math.max(0, Math.min(5000, Integer.parseInt(arg))); return Bundle.EMPTY; }
@@ -118,7 +124,7 @@ public class TestMusicProvider extends DocumentsProvider {
         boolean folder = id.equals("music") || id.equals("nested") || id.equals("secondary");
         File file = new File(directory(), id.startsWith("bulk-") ? "one.wav" : id);
         cursor.newRow().add(Document.COLUMN_DOCUMENT_ID, id).add(Document.COLUMN_DISPLAY_NAME, id.equals("music") ? "Test Music" : id)
-            .add(Document.COLUMN_MIME_TYPE, folder ? Document.MIME_TYPE_DIR : id.endsWith("mp3") ? "audio/mpeg" : "audio/wav").add(Document.COLUMN_SIZE, folder ? 0L : file.length())
+            .add(Document.COLUMN_MIME_TYPE, folder ? Document.MIME_TYPE_DIR : id.equals("audio-aiff") ? "audio/x-AIFF" : id.equals("fallback.WAV") || id.endsWith("aifc") ? "application/octet-stream" : id.endsWith("mp3") ? "audio/mpeg" : "audio/wav").add(Document.COLUMN_SIZE, folder ? 0L : file.length())
             .add(Document.COLUMN_LAST_MODIFIED, file.lastModified()).add(Document.COLUMN_FLAGS, 0);
     }
     private void wave(File file, double frequency) throws IOException {

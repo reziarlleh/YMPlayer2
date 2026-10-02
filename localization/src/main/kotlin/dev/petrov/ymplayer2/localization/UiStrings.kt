@@ -64,6 +64,14 @@ object UiStrings {
     private val issuePrefixes by lazy { messagePatterns.filter {
         it.key == waveKey || it.key.source.startsWith("Не удалось") && it.key.source.endsWith(' ')
     }.distinctBy(MessagePattern::source).sortedByDescending { it.source.length } }
+    // Only updater-owned errors contain other translatable errors in their argument.
+    // Music titles, profile names and all other template parameters remain opaque.
+    private val updateIssueTemplates by lazy { templates.filter { it.key.source in setOf(
+        "Не удалось проверить обновления: @0@", "Не удалось загрузить обновление: @0@",
+        "Не удалось открыть установку: @0@", "Ожидающий APK не прошёл проверку: @0@",
+        "Источники обновлений недоступны: @0@",
+    ) } }
+    private val updateHost = Regex("^([A-Za-z0-9.-]+): (.*)$", RegexOption.DOT_MATCHES_ALL)
 
     internal fun configure(context: Context, language: String) {
         val config = Configuration(context.resources.configuration).apply {
@@ -96,6 +104,15 @@ object UiStrings {
 
     fun issue(source: String, depth: Int = 0): String {
         if (depth > 4) return source
+        for (template in updateIssueTemplates) {
+            val match = template.regex.matchEntire(source) ?: continue
+            val details = match.groupValues[1].split("; ").joinToString("; ") { detail ->
+                val hosted = updateHost.matchEntire(detail)
+                if (hosted == null) issue(detail, depth + 1)
+                else hosted.groupValues[1] + ": " + issue(hosted.groupValues[2], depth + 1)
+            }
+            return text(template.key, details)
+        }
         for (prefix in issuePrefixes) if (source.startsWith(prefix.source)) {
             return text(prefix.key) + issue(source.removePrefix(prefix.source), depth + 1)
         }

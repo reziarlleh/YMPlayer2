@@ -199,7 +199,10 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
                         pending.add(documentId to "$folder / $name")
                         continue
                     }
-                    if (!mime.startsWith("audio/") && name.substringAfterLast('.', "").lowercase() !in extensions) continue
+                    val extension = name.substringAfterLast('.', "").lowercase(java.util.Locale.ROOT)
+                    // Media3 has no AIFF extractor. An audio/* MIME must not bypass this.
+                    if (extension in aiffExtensions || mime.lowercase(java.util.Locale.ROOT) in aiffMimeTypes) continue
+                    if (!mime.startsWith("audio/") && extension !in extensions) continue
                     val uri = Documents.buildDocumentUriUsingTree(tree, documentId)
                     val id = "local:" + MessageDigest.getInstance("SHA-256").digest(uri.toString().toByteArray()).joinToString("") { byte -> "%02x".format(byte) }
                     if (id in result) continue
@@ -258,5 +261,9 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     }
 
     private fun JSONArray.objects() = (0 until length()).map(::getJSONObject)
-    private companion object { val extensions = setOf("mp3", "m4a", "aac", "flac", "ogg", "opus", "wav", "aiff", "amr") }
+    private companion object {
+        val extensions = setOf("mp3", "m4a", "aac", "flac", "ogg", "opus", "wav", "amr")
+        val aiffExtensions = setOf("aiff", "aif", "aifc")
+        val aiffMimeTypes = setOf("audio/aiff", "audio/x-aiff", "audio/x-aifc")
+    }
 }

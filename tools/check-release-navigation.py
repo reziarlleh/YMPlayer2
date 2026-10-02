@@ -35,7 +35,8 @@ def focused():
 def media():
     text = adb('shell', 'dumpsys', 'media_session').decode('utf-8')
     block = re.search(r'package=dev\.petrov\.ymplayer2\s+(.*?queueTitle=[^\n]*)', text, re.S)[1]
-    state, position = re.search(r'state=PlaybackState \{state=(\w+)\(\d+\), position=(\d+)', block).groups()
+    state, position = re.search(r'state=PlaybackState \{state=(\w+)(?:\(\d+\))?, position=(\d+)', block).groups()
+    state = {'0': 'NONE', '1': 'STOPPED', '2': 'PAUSED', '3': 'PLAYING', '6': 'BUFFERING'}.get(state, state)
     return {'state': state, 'position_ms': int(position)}
 
 result = {}
@@ -44,7 +45,8 @@ try:
     result['version'] = re.search(r'versionName=([^\s]+)', info)[1]
     result['before'] = media()
     assert result['before']['state'] == 'PLAYING', 'Start real fixture playback first'
-    click('Медиатека'); click('Поиск'); click('Настройки'); click('Папки с музыкой')
+    click('Медиатека'); click('Поиск'); click('Медиатека')
+    click('Общий каталог'); click('Папки с музыкой')
     click('Назад')
     assert any(n.get('text') == 'Треки' for n in tree().iter('node')), 'Folders must ascend to library'
     click('Назад')

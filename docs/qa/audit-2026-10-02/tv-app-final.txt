@@ -1,0 +1,28 @@
+
+dev.petrov.ymplayer2.LocalPlaybackTest:.................
+Error in modeAndQueueControlsOperateTheRealPlayer(dev.petrov.ymplayer2.LocalPlaybackTest):
+java.lang.AssertionError: expected:<[local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8]> but was:<[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.petrov.ymplayer2.LocalPlaybackTest.modeAndQueueControlsOperateTheRealPlayer(LocalPlaybackTest.kt:686)
+...
+dev.petrov.ymplayer2.LocalizationTest:.........
+dev.petrov.ymplayer2.UpdateLifecycleTest:.
+dev.petrov.ymplayer2.UpdateAutoOfferTest:.
+dev.petrov.ymplayer2.UpdateSettingsTest:.
+dev.petrov.ymplayer2.NavigationTest:...
+
+Time: 283.072
+There was 1 failure:
+1) modeAndQueueControlsOperateTheRealPlayer(dev.petrov.ymplayer2.LocalPlaybackTest)
+java.lang.AssertionError: expected:<[local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8]> but was:<[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.petrov.ymplayer2.LocalPlaybackTest.modeAndQueueControlsOperateTheRealPlayer(LocalPlaybackTest.kt:686)
+
+FAILURES!!!
+Tests run: 36,  Failures: 1

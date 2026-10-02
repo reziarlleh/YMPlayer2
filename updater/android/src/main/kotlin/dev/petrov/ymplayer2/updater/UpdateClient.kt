@@ -9,6 +9,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
@@ -118,19 +120,20 @@ class UpdateClient(
         }
         val failures = mutableListOf<String>()
         for (source in release.sources(preferAlternative)) {
-            val partial = File(directory, "YMPlayer2-${release.versionCode}.part")
+            currentCoroutineContext().ensureActive()
+            val partial = File.createTempFile("YMPlayer2-${release.versionCode}-", ".part", directory)
             try {
-                partial.delete()
                 downloadOne(source, partial, release, progress)
+                verifyArchive(partial, release)
+                currentCoroutineContext().ensureActive()
                 if (destination.exists() && !destination.delete()) throw IOException("Не удалось заменить старый APK")
                 if (!partial.renameTo(destination)) throw IOException("Не удалось завершить загрузку")
-                verifyArchive(destination, release)
                 return@withContext DownloadedUpdate(destination, source != release.primaryUrl)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
             } catch (error: Exception) {
-                partial.delete()
-                destination.delete()
                 failures += "${host(source)}: ${error.message ?: error.javaClass.simpleName}"
-            }
+            } finally { partial.delete() }
         }
         throw IOException("Не удалось загрузить обновление: ${failures.joinToString("; ")}")
     }
@@ -138,11 +141,25 @@ class UpdateClient(
     fun verifyFile(file: File, release: UpdateRelease): Boolean = file.isFile &&
         file.length() == release.sizeBytes && sha256(file).equals(release.sha256, true)
 
+    /** Pending APKs above the installed Build remain intact. Only our APK names are eligible. */
+    fun pruneInstalledApks() {
+        val installed = context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode
+        val name = Regex("YMPlayer2-([0-9]+)[.]apk")
+        File(context.filesDir, "updates").listFiles()?.forEach { file ->
+            val build = name.matchEntire(file.name)?.groupValues?.get(1)?.toLongOrNull()
+            if (file.isFile && build != null && build <= installed) file.delete()
+        }
+    }
+
     /** PackageManager and finally the system installer enforce the installed signing identity. */
     fun verifyArchive(file: File, release: UpdateRelease) {
         if (!verifyFile(file, release)) throw IOException("Контрольная сумма APK не совпадает")
         val pm = context.packageManager
-        val flags = PackageManager.GET_SIGNING_CERTIFICATES
+        // Android 10's archive parser collects certificates only with GET_SIGNATURES.
+        // Request both flags there; still compare the verified current SigningInfo signers.
+        @Suppress("DEPRECATION")
+        val flags = PackageManager.GET_SIGNING_CERTIFICATES or
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) PackageManager.GET_SIGNATURES else 0
         val archive = pm.getPackageArchiveInfo(file.absolutePath, flags) ?: throw IOException("APK не читается")
         val installed = pm.getPackageInfo(context.packageName, flags)
         if (archive.packageName != context.packageName || archive.longVersionCode != release.versionCode ||
@@ -152,7 +169,7 @@ class UpdateClient(
         if (newSigners.isEmpty() || newSigners != oldSigners) throw IOException("Подпись APK не совпадает с установленной")
     }
 
-    private fun downloadOne(source: String, file: File, release: UpdateRelease, progress: (Int, String) -> Unit) {
+    private suspend fun downloadOne(source: String, file: File, release: UpdateRelease, progress: (Int, String) -> Unit) {
         val connection = connect(source)
         try {
             val declared = connection.contentLengthLong
@@ -164,7 +181,9 @@ class UpdateClient(
             connection.inputStream.use { input -> FileOutputStream(file).use { output ->
                 val buffer = ByteArray(32 * 1024)
                 while (true) {
+                    currentCoroutineContext().ensureActive()
                     val read = input.read(buffer)
+                    currentCoroutineContext().ensureActive()
                     if (read < 0) break
                     total += read
                     if (total > MAX_APK_BYTES || total > release.sizeBytes) throw IOException("APK слишком велик")
@@ -183,7 +202,7 @@ class UpdateClient(
         } finally { connection.disconnect() }
     }
 
-    private fun readBounded(source: String, limit: Int): ByteArray {
+    private suspend fun readBounded(source: String, limit: Int): ByteArray {
         val connection = connect(source)
         try {
             if (connection.contentLengthLong > limit) throw IOException("Манифест слишком велик")
@@ -191,7 +210,9 @@ class UpdateClient(
                 val output = java.io.ByteArrayOutputStream()
                 val buffer = ByteArray(8 * 1024)
                 while (true) {
+                    currentCoroutineContext().ensureActive()
                     val read = input.read(buffer)
+                    currentCoroutineContext().ensureActive()
                     if (read < 0) break
                     if (output.size() + read > limit) throw IOException("Манифест слишком велик")
                     output.write(buffer, 0, read)
@@ -201,9 +222,10 @@ class UpdateClient(
         } finally { connection.disconnect() }
     }
 
-    private fun connect(raw: String): HttpURLConnection {
+    private suspend fun connect(raw: String): HttpURLConnection {
         var url = httpsUrl(raw)
         repeat(MAX_REDIRECTS + 1) { redirects ->
+            currentCoroutineContext().ensureActive()
             val connection = connections.open(url).apply {
                 connectTimeout = 12_000; readTimeout = 25_000; instanceFollowRedirects = false
                 setRequestProperty("User-Agent", "YMPlayer2-Updater")
@@ -212,6 +234,8 @@ class UpdateClient(
                 connection.disconnect()
                 throw error
             }
+            try { currentCoroutineContext().ensureActive() }
+            catch (cancelled: CancellationException) { connection.disconnect(); throw cancelled }
             if (code in 200..299) return connection
             if (code in listOf(301, 302, 303, 307, 308) && redirects < MAX_REDIRECTS) {
                 val target = connection.getHeaderField("Location")

@@ -55,6 +55,17 @@ class LocalPlaybackTest {
     }
     @After fun stop() { compose.runOnIdle { player.stop() }; provider("unavailable", "false") }
 
+    @Test fun unsupportedAiffIsExcludedEvenWithAudioMimeAndWavExtensionFallbackRemains() = runBlocking {
+        provider("unsupportedFormats", "true")
+        try {
+            library.refresh()
+            val tracks = library.testTracks
+            assertEquals(3, tracks.size)
+            assertTrue(tracks.any { it.uri?.contains("fallback.WAV") == true })
+            assertFalse(tracks.any { it.uri?.contains("ignored.") == true || it.uri?.contains("audio-aiff") == true })
+        } finally { provider("unsupportedFormats", "false"); library.refresh() }
+    }
+
     @Test fun diskIndexPaginatesGroupsAndRetainsUnavailableDocuments() = runBlocking {
         val first = library.pageTracks(CatalogFilter(), limit = 1)
         val second = library.pageTracks(CatalogFilter(), offset = 1, limit = 1)
@@ -341,7 +352,10 @@ class LocalPlaybackTest {
             val missing = runBlocking { cursor.queuePage(50, 3) }
             assertTrue(missing.items.none(Track::available))
             assertTrue(missing.items.all { it.title in rows.map(Track::title) })
+            // Selecting the removed folder again grants a fresh URI permission via the picker.
+            provider("grant")
             runBlocking { library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+            assertNull(library.state.value.issue)
             waitFor { cursor.state.value.current?.available == true }
             assertFalse(cursor.state.value.playing)
             assertEquals(7, cursor.state.value.positionSeconds)
@@ -666,17 +680,21 @@ class LocalPlaybackTest {
         compose.onNodeWithTag("repeat_mode").performClick()
         compose.onNodeWithTag("shuffle_mode").performClick()
         assertEquals(RepeatMode.ALL, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
-        compose.onNodeWithContentDescription("Очередь").performClick()
+        compose.onNodeWithTag("player_queue").performClick()
         compose.onNodeWithTag("queue_edit").performClick()
         compose.onNodeWithTag("queue_down_$one").performScrollTo().performClick()
+        waitFor { player.state.value.queue.map { it.id } == listOf(two, one) }
         assertEquals(listOf(two, one), player.state.value.queue.map { it.id })
         compose.onNodeWithTag("queue_remove_$one").performScrollTo().performClick()
+        waitFor { player.state.value.queue.map { it.id } == listOf(two) }
         assertEquals(listOf(two), player.state.value.queue.map { it.id })
         compose.onNodeWithTag("queue_clear").performClick()
+        waitFor { player.state.value.queue.isEmpty() }
         assertTrue(player.state.value.queue.isEmpty())
         compose.onNodeWithTag("nav_library").performClick()
         compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("enqueue_$one"))
         compose.onNodeWithTag("enqueue_$one").performClick()
+        waitFor { player.state.value.queue.map { it.id } == listOf(one) }
         assertEquals(listOf(one), player.state.value.queue.map { it.id }); assertFalse(player.state.value.playing)
     }
 

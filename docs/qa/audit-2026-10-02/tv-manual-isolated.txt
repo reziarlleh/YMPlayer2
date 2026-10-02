@@ -1,0 +1,21 @@
+
+dev.petrov.ymplayer2.LocalPlaybackTest:
+Error in largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences(dev.petrov.ymplayer2.LocalPlaybackTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:42)
+	at dev.petrov.ymplayer2.LocalPlaybackTest.largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences(LocalPlaybackTest.kt:356)
+
+
+Time: 29.673
+There was 1 failure:
+1) largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences(dev.petrov.ymplayer2.LocalPlaybackTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:42)
+	at dev.petrov.ymplayer2.LocalPlaybackTest.largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences(LocalPlaybackTest.kt:356)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1

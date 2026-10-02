@@ -10,6 +10,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.ByteArrayInputStream
 import java.io.IOException
+import java.io.File
+import kotlinx.coroutines.CancellationException
 import java.net.HttpURLConnection
 import java.net.URL
 import java.security.MessageDigest
@@ -83,6 +85,39 @@ class UpdateClientTest {
         assertEquals(listOf("primary.test", "backup.test"), calls)
         assertFalse(context.filesDir.resolve("updates/YMPlayer2-100.part").exists())
         assertFalse(context.filesDir.resolve("updates/YMPlayer2-100.apk").exists())
+    }
+
+    @Test fun cancellationStopsFallbackAndRemovesItsPartialFile() = runBlocking {
+        val calls = mutableListOf<String>()
+        val client = UpdateClient(context, UpdateConnectionFactory { url ->
+            calls += url.host
+            FakeConnection(url, 200, "abc".toByteArray())
+        })
+        val release = client.parseManifest(manifest(), "https://primary.test/manifest")
+        assertThrows(CancellationException::class.java) {
+            runBlocking { client.download(release) { _, _ -> throw CancellationException("Fixture cancellation") } }
+        }
+        assertEquals(listOf("primary.test"), calls)
+        assertFalse(context.filesDir.resolve("updates").listFiles().orEmpty().any {
+            it.name.startsWith("YMPlayer2-100-") && it.name.endsWith(".part")
+        })
+        assertFalse(context.filesDir.resolve("updates/YMPlayer2-100.apk").exists())
+    }
+
+    @Test fun cleanupRemovesOnlyAlreadyInstalledOwnedApks() {
+        val installed = context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode
+        val directory = File(context.filesDir, "updates").apply { mkdirs() }
+        val current = File(directory, "YMPlayer2-$installed.apk")
+        val old = File(directory, "YMPlayer2-${(installed - 1).coerceAtLeast(0)}.apk")
+        val pending = File(directory, "YMPlayer2-${installed + 12345}.apk")
+        val unrelated = File(directory, "audit-keep.txt")
+        val partial = File(directory, "YMPlayer2-${installed + 12345}-audit.part")
+        try {
+            listOf(current, old, pending, unrelated, partial).forEach { it.writeText("fixture") }
+            UpdateClient(context).pruneInstalledApks()
+            assertFalse(current.exists()); assertFalse(old.exists())
+            assertTrue(pending.exists()); assertTrue(unrelated.exists()); assertTrue(partial.exists())
+        } finally { listOf(current, old, pending, unrelated, partial).forEach { it.delete() } }
     }
 
     private class FakeConnection(url: URL, private val status: Int, private val bytes: ByteArray) : HttpURLConnection(url) {

@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.lifecycle.createSavedStateHandle
@@ -34,7 +35,11 @@ class MainActivity : ComponentActivity() {
     private lateinit var updates: UpdateCoordinator
     override fun onResume() {
         super.onResume()
-        if (::updates.isInitialized) updates.resumePendingInstall()
+        if (::updates.isInitialized) updates.resume(this)
+    }
+    override fun onPause() {
+        if (::updates.isInitialized) updates.detach(this)
+        super.onPause()
     }
     override fun onStart() {
         super.onStart()
@@ -46,7 +51,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         sideBar = SideBarCoordinator(this)
-        updates = UpdateCoordinator(this)
+        updates = ViewModelProvider(this, viewModelFactory {
+            initializer { UpdateCoordinator(applicationContext) }
+        })[UpdateCoordinator::class.java]
         updates.checkOnLaunch()
         val graph = application as PlayerApplication
         graph.playback.connect()

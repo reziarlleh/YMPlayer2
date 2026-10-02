@@ -1,0 +1,7 @@
+
+dev.petrov.ymplayer2.SignedUpdateDownloadTest:.
+dev.petrov.ymplayer2.UpdateLifecycleTest:.
+
+Time: 5.041
+
+OK (2 tests)

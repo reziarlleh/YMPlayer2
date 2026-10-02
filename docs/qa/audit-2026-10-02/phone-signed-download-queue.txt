@@ -1,0 +1,7 @@
+
+dev.petrov.ymplayer2.LocalPlaybackTest:.
+dev.petrov.ymplayer2.SignedUpdateDownloadTest:.
+
+Time: 8.703
+
+OK (2 tests)

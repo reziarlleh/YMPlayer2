@@ -1,0 +1,6 @@
+
+dev.petrov.ymplayer2.updater.UpdateClientTest:.......
+
+Time: 0.167
+
+OK (7 tests)

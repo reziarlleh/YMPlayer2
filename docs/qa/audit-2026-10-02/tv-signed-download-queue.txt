@@ -1,0 +1,32 @@
+
+dev.petrov.ymplayer2.LocalPlaybackTest:.
+dev.petrov.ymplayer2.SignedUpdateDownloadTest:
+Error in signedReleaseIsVerifiedBeforePublishingTemporaryDownload(dev.petrov.ymplayer2.SignedUpdateDownloadTest):
+java.io.IOException: Не удалось загрузить обновление: release.test: Подпись APK не совпадает с установленной
+	at dev.petrov.ymplayer2.updater.UpdateClient$download$3.invokeSuspend(UpdateClient.kt:138)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+
+Time: 9.907
+There was 1 failure:
+1) signedReleaseIsVerifiedBeforePublishingTemporaryDownload(dev.petrov.ymplayer2.SignedUpdateDownloadTest)
+java.io.IOException: Не удалось загрузить обновление: release.test: Подпись APK не совпадает с установленной
+	at dev.petrov.ymplayer2.updater.UpdateClient$download$3.invokeSuspend(UpdateClient.kt:138)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1

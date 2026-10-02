@@ -43,6 +43,25 @@ class LocalizationTest {
             }; bitmap.recycle()
         }
     }
+    @Test fun nestedUpdateErrorsTranslateInEveryDirectionWithoutChangingHostNames() {
+        val original = "Не удалось проверить обновления: Источники обновлений недоступны: primary.test: Неподдерживаемый формат манифеста; backup.test: Нет сведений об APK"
+        fun expected() = tr(Msg.msg_f434aef91735, tr(Msg.msg_98ae0216b918,
+            "primary.test: " + tr(Msg.msg_08cec0f555fe) + "; backup.test: " + tr(Msg.msg_50730177421a)))
+        for (from in AppLanguages.available) {
+            compose.runOnIdle { AppLanguages.select(from.tag) }
+            val rendered = trIssue(original)
+            assertEquals(expected(), rendered)
+            assertEquals(tr(Msg.msg_73cec4b1fa25, tr(Msg.msg_723b195d5744)),
+                trIssue("Не удалось открыть установку: Подпись APK не совпадает с установленной"))
+            assertEquals(tr(Msg.msg_0d19ca3fd269, tr(Msg.msg_723b195d5744)),
+                trIssue("Ожидающий APK не прошёл проверку: Подпись APK не совпадает с установленной"))
+            for (to in AppLanguages.available) {
+                compose.runOnIdle { AppLanguages.select(to.tag) }
+                assertEquals("${from.tag}->${to.tag}", expected(), trIssue(rendered))
+            }
+        }
+    }
+
     @Test fun switchUpdatesCurrentScreenAndKeepsOfflineSeparation() {
         openLanguages()
         val auto = compose.onNodeWithTag("language_system").fetchSemanticsNode().boundsInRoot
