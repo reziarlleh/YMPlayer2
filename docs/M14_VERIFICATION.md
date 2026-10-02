@@ -90,4 +90,16 @@ SHA-256: `b4655174c1be8e22dfd7aadc2280a9c50d80a7df4081596eb389fd87e297c83d`.
 [Русский после перезапуска](qa/m14-localization/tv-language-ru-release.png).
 
 RepoWise обновлён: 130 страниц, degraded=[], без модельной генерации.
-HTTP-публикация завершается. Stable69 сохраняется отдельно.
+[Публикация](qa/m14-localization/publication.json): GitHub prerelease
+[v2.2.0beta-build70](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.0beta-build70),
+четыре assets, описание совпало с RELEASE_NOTES. GitHub/jsDelivr/Gcore APK
+вернули HTTP200 и тот же размер/SHA-256. Raw beta-манифест70 и stable69 совпали
+с файлами репозитория; GitHub latest остался stable69. jsDelivr @main beta также70.
+Gcore @main stable на момент проверки отдавал старый build68: отмечено как
+задержка CDN, не как успешное обновление. Updater сравнивает валидные источники
+и выбирает новый; неизменяемые адреса APK по тегу70 проверены отдельно.
+
+Первая цель English/Auto/Russian и beta завершена. Приёмка английских формулировок
+владельцем открыта; шесть остальных пакетов, английская инструкция и Google Play
+не объявлены готовыми. Tag70 содержит подписанный APK и свежий исходный код.
+Источник — новая ветка от00e624e, fast-forward в main; старая WIP не слита.
