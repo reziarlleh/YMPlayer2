@@ -1,0 +1,101 @@
+{
+  "head": "fcbb2f266b7850b2be9d0afe5b3d2299d7c08563",
+  "stableManifestMatchesGeneral": true,
+  "localApk": {
+    "bytes": 5830513,
+    "sha256": "22c94692cb23fae4a0915d091a7e404b6cd446af270f7da2be67850ca867c959"
+  },
+  "http": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "bytes": 1252,
+      "versionCode": 74,
+      "versionName": "2.2.2-build74",
+      "channel": "stable",
+      "matches": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "bytes": 1252,
+      "versionCode": 74,
+      "versionName": "2.2.2-build74",
+      "channel": "stable",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "bytes": 1252,
+      "versionCode": 74,
+      "versionName": "2.2.2-build74",
+      "channel": "stable",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 1252,
+      "versionCode": 74,
+      "versionName": "2.2.2-build74",
+      "channel": "stable",
+      "matches": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "bytes": 988,
+      "versionCode": 71,
+      "versionName": "2.2.0-build71",
+      "channel": "stable",
+      "matches": false,
+      "differentFields": [
+        "versionCode",
+        "versionName",
+        "publishedAt",
+        "releasePageUrl",
+        "releaseNotes",
+        "apk"
+      ]
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 1134,
+      "versionCode": 72,
+      "versionName": "2.2.1-build72",
+      "channel": "stable",
+      "matches": false,
+      "differentFields": [
+        "versionCode",
+        "versionName",
+        "publishedAt",
+        "releasePageUrl",
+        "releaseNotes",
+        "apk"
+      ]
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.2-build74/YMPlayer-2.2.2-build74.apk",
+      "status": 200,
+      "bytes": 5830513,
+      "sha256": "22c94692cb23fae4a0915d091a7e404b6cd446af270f7da2be67850ca867c959",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.2-build74/releases/2.2.2-build74/YMPlayer-2.2.2-build74.apk",
+      "status": 200,
+      "bytes": 5830513,
+      "sha256": "22c94692cb23fae4a0915d091a7e404b6cd446af270f7da2be67850ca867c959",
+      "matches": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.2-build74/releases/2.2.2-build74/YMPlayer-2.2.2-build74.apk",
+      "status": 200,
+      "bytes": 5830513,
+      "sha256": "22c94692cb23fae4a0915d091a7e404b6cd446af270f7da2be67850ca867c959",
+      "matches": true
+    }
+  ]
+}

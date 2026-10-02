@@ -1,5 +1,5 @@
 {
-  "runtimeAcceptance": "44-distinct-scenarios-with-targeted-reruns-per-project-phone-and-tv; real-final-signed-archive-verified-on-Android15-and-API29; signed-TV-upgrade-72-to-74-cold-start-passed; owner-patch-review-pending",
+  "runtimeAcceptance": "44-distinct-scenarios-with-targeted-reruns-per-project-phone-and-tv; real-final-signed-archive-verified-on-Android15-and-API29; signed-TV-upgrade-72-to-74-cold-start-passed; phone-in-app-backup-download-and-system-upgrade-72-to-74-with-checkpoint-preserved; owner-patch-review-pending",
   "sha256": "22c94692cb23fae4a0915d091a7e404b6cd446af270f7da2be67850ca867c959",
   "versionName": "2.2.2-build74",
   "builtAtUtc": "2026-10-02T11:03:05.0298823Z",

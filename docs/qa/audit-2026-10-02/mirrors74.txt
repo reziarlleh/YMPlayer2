@@ -1,0 +1,6 @@
+Requested CDN refresh for stable.json: finished, request 3OCSYQrSoY5zBofa.
+Requested CDN refresh for manifest.json: finished, request 4rvpseIkPdMnFpmM.
+Verified cdn.jsdelivr.net stable.json: 2.2.2-build74, stable.
+Verified cdn.jsdelivr.net manifest.json: 2.2.2-build74, stable.
+gcore.jsdelivr.net stable.json still serves 2.2.1-build72. CDN propagation is pending; verify again before declaring the mirror current.
+gcore.jsdelivr.net manifest.json still serves 2.2.0-build71. CDN propagation is pending; verify again before declaring the mirror current.
