@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 72,
-  "versionName": "2.2.1-build72",
+  "versionCode": 74,
+  "versionName": "2.2.2-build74",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-02T04:54:56.3122476Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.1-build72",
-  "releaseNotes": "Восемь языков интерфейса: добавлены белорусский, французский, немецкий, казахский, испанский и украинский. Контекстные переводы, правильные формы чисел, сохранение выбора и смена языка без остановки музыки. Обычное обновление без beta.",
+  "publishedAt": "2026-10-02T11:10:11.3828299Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.2-build74",
+  "releaseNotes": "Аудит и исправления: AIFF исключён из каталога, старые установочные APK очищаются, обновление сохраняется при повороте, вложенные ошибки переводятся, исправлена проверка подписи APK на Android 10. На Android 10 первый исправленный APK при отказе старого обновлятора установите вручную поверх текущего приложения.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.1-build72/YMPlayer-2.2.1-build72.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.1-build72/releases/2.2.1-build72/YMPlayer-2.2.1-build72.apk",
-    "sizeBytes": 5830517,
-    "sha256": "b9fd6d4c51a6ebdc0f6ba641f27093be9ee11cf3f37a0e6090f49a2d23d5146b"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.2-build74/YMPlayer-2.2.2-build74.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.2-build74/releases/2.2.2-build74/YMPlayer-2.2.2-build74.apk",
+    "sizeBytes": 5830513,
+    "sha256": "22c94692cb23fae4a0915d091a7e404b6cd446af270f7da2be67850ca867c959"
   }
 }
