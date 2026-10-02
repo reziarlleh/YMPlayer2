@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="msg_001dda282241" formatted="false">"Sign in to Yandex in this profile. If you have already signed in, refresh your account details."</string>
+    <string name="msg_00231affc201" formatted="false">"All music"</string>
+    <string name="msg_003022fabb87" formatted="false">"Next clip"</string>
+    <string name="msg_004778f850b1" formatted="false">"Write down the code before opening your browser. The Yandex page may not let you paste it from the clipboard."</string>
+    <string name="msg_01fc82460086" formatted="false">"Online playback"</string>
+    <string name="msg_026baad87300" formatted="false">"Could not open the skin file"</string>
+    <string name="msg_031396ebc4da" formatted="false">"Profile: @0@"</string>
+    <string name="msg_03222b95f9b4" formatted="false">"Likes and blocks"</string>
+    <string name="msg_037174d58809" formatted="false">"Artist"</string>
+    <string name="msg_04080c05e46f" formatted="false">"Invalid icon viewport"</string>
+    <string name="msg_042185cacc93" formatted="false">"Tracks"</string>
+    <string name="msg_05f7734c7fbc" formatted="false">"Add to favorites"</string>
+    <string name="msg_066903b7f6fa" formatted="false">"The K4811 service is ready. Restart the device?"</string>
+    <string name="msg_06a1b25395b9" formatted="false">"Unlike album"</string>
+    <string name="msg_06da64ed2827" formatted="false">"Could not check this like or block. Refresh its status. "</string>
+    <string name="msg_074cc2ac4332" formatted="false">"Enable offline cache"</string>
+    <string name="msg_0761f7d17c1f" formatted="false">"Could not open the equalizer. Choose another app."</string>
+    <string name="msg_0796e8248aae" formatted="false">"Unknown field: @0@"</string>
+    <string name="msg_08cec0f555fe" formatted="false">"Unsupported manifest format"</string>
+    <string name="msg_09008d3dafef" formatted="false">"Not in favorites"</string>
+    <string name="msg_0918b4ba9268" formatted="false">"Name"</string>
+    <string name="msg_0928b8d4c742" formatted="false">"Album"</string>
+    <string name="msg_0a0ebb200d14" formatted="false">"Audio keeps playing as you move between sections."</string>
+    <string name="msg_0a17ec91a15b" formatted="false">"Artists and album"</string>
+    <string name="msg_0a20ddc9928f" formatted="false">"Library"</string>
+    <string name="msg_0a813814f149" formatted="false">"Get sign-in code"</string>
+    <string name="msg_0b9e2aeefccd" formatted="false">"Offline cache is turned off. You can enable it in app settings."</string>
+    <string name="msg_0c581306a3c6" formatted="false">"Select a track to play it"</string>
+    <string name="msg_0c985ad12096" formatted="false">"A music player for Android phones, Android TV and car stereos."</string>
+    <string name="msg_0d19ca3fd269" formatted="false">"The pending APK failed verification: @0@"</string>
+    <string name="msg_0df38a907fd2" formatted="false">"Open: @0@"</string>
+    <string name="msg_0e04e96eb049" formatted="false">"Downloaded audio and artwork for this account in the current profile will be deleted. Your Yandex likes will be kept."</string>
+    <string name="msg_0f0e734fb752" formatted="false">"Add to queue: @0@"</string>
+    <string name="msg_0fad384ca45b" formatted="false">"Cannot be moved"</string>
+    <string name="msg_0fd3fe573609" formatted="false">"In favorites"</string>
+    <string name="msg_100f3d517847" formatted="false">"Wrong app package"</string>
+    <string name="msg_103bc2f65ee8" formatted="false">"Check on launch"</string>
+    <string name="msg_122f71765026" formatted="false">"Menu"</string>
+    <string name="msg_126edfaa6bc7" formatted="false">"Track title · Artist"</string>
+    <string name="msg_1298b5e04346" formatted="false">"Yandex Music radio"</string>
+    <string name="msg_12e3d1e9d948" formatted="false">"@0|track@"</string>
+    <string name="msg_141e133edf3b" formatted="false">"Downloading: @0@% · @1@"</string>
+    <string name="msg_1478970270d1" formatted="false">"Up one level"</string>
+    <string name="msg_1484585c1931" formatted="false">"A saved skin is damaged. You can import it again."</string>
+    <string name="msg_14b10e3e0473" formatted="false">"Create Yandex playlist"</string>
+    <string name="msg_16e5a7c68a87" formatted="false">"Hide sidebar"</string>
+    <string name="msg_1718e90d59c5" formatted="false">"Audio"</string>
+    <string name="msg_1731619efa3a" formatted="false">"Appearance"</string>
+    <string name="msg_173c0a00334a" formatted="false">"Preview does not change your app\'s appearance."</string>
+    <string name="msg_17b7c023b762" formatted="false">"This setting applies to the whole device. Turning it off stops sync and prevents use of downloaded music. Online playback and Vibe preloading keep working."</string>
+    <string name="msg_17f63d0c483b" formatted="false">"Unknown fillType"</string>
+    <string name="msg_180f58ab9753" formatted="false">"Search"</string>
+    <string name="msg_194306e20807" formatted="false">"Rename"</string>
+    <string name="msg_1a25b02eecdb" formatted="false">"Name saved."</string>
+    <string name="msg_1a5f7efbec65" formatted="false">"Log refreshed."</string>
+    <string name="msg_1a9fb1f3cf8e" formatted="false">"Back"</string>
+    <string name="msg_1c4b50127e94" formatted="false">"The track is not in the local library"</string>
+    <string name="msg_1c947e774ae7" formatted="false">"Sleep"</string>
+    <string name="msg_1d16c7d5c800" formatted="false">"The channel and version do not match"</string>
+    <string name="msg_1d74ce16d44e" formatted="false">"Track, artist or album"</string>
+    <string name="msg_1dd7755458c1" formatted="false">"Delete playlist"</string>
+    <string name="msg_1e5e88ef7525" formatted="false">"Track"</string>
+    <string name="msg_1eecfcaa7bdb" formatted="false">"Dark"</string>
+    <string name="msg_1f0f3db2bd8d" formatted="false">"Allow display over other apps first."</string>
+    <string name="msg_203dc0ea9f7d" formatted="false">"Could not clear the log."</string>
+    <string name="msg_20c3a85f6767" formatted="false">"Available now"</string>
+    <string name="msg_21943a44634e" formatted="false">"Dark"</string>
+    <string name="msg_21c6b248c7e7" formatted="false">"Could not open Downloads."</string>
+    <string name="msg_22324e61bdfe" formatted="false">"Offline music"</string>
+    <string name="msg_22a5d9112486" formatted="false">"Loading…"</string>
+    <string name="msg_231ddb86ef9f" formatted="false">"HTTP @0@ from @1@"</string>
+    <string name="msg_23ae5f29feed" formatted="false">"Enable at least one button. An empty sidebar is disabled."</string>
+    <string name="msg_23d5ec1e3849" formatted="false">"System equalizer"</string>
+    <string name="msg_24ae31c96ef8" formatted="false">"This skin format version is not supported"</string>
+    <string name="msg_254732178a10" formatted="false">"Delete files"</string>
+    <string name="msg_25a86516eb0c" formatted="false">"Demo library status"</string>
+    <string name="msg_25dc72086a44" formatted="false">"Sidebar buttons"</string>
+    <string name="msg_263e20096cc0" formatted="false">"Favorite artists"</string>
+    <string name="msg_26d99df6eab5" formatted="false">"Music"</string>
+    <string name="msg_26e8236c8e38" formatted="false">"The skin file exceeds the size limit"</string>
+    <string name="msg_2718e917ffb3" formatted="false">"Offline download quality"</string>
+    <string name="msg_272bf8adef84" formatted="false">"No playlists yet."</string>
+    <string name="msg_27681b730821" formatted="false">"Loading clips…"</string>
+    <string name="msg_2922b43474e0" formatted="false">"Play track"</string>
+    <string name="msg_293a0bf80248" formatted="false">"Could not read the library index"</string>
+    <string name="msg_298252296d09" formatted="false">"Enter a name and choose what to search for."</string>
+    <string name="msg_2991be238f39" formatted="false">"The icon must reference a JSON vector"</string>
+    <string name="msg_29a33ded420d" formatted="false">"source"</string>
+    <string name="msg_29c90888994f" formatted="false">"Device / USB · @0|track@"</string>
+    <string name="msg_29e4a4bd7a17" formatted="false">"Follow system"</string>
+    <string name="msg_29f6f8d9dd3e" formatted="false">"Sign in with a code, without entering your password in the player. Each profile keeps its own account."</string>
+    <string name="msg_29ff5117d5b1" formatted="false">"Genres and folders apply to files on your device and USB drives."</string>
+    <string name="msg_2a6b5f7278c0" formatted="false">"Add to favorites"</string>
+    <string name="msg_2afb36246c80" formatted="false">"Invalid icon path"</string>
+    <string name="msg_2b7d2f3f797d" formatted="false">"You are up to date."</string>
+    <string name="msg_2c38faa8cf7e" formatted="false">"Shared local library · no account"</string>
+    <string name="msg_2cea82c66c45" formatted="false">"The manifest is too large"</string>
+    <string name="msg_2d6b68932448" formatted="false">"You are signed in for this profile. Yandex music is available in the library and search."</string>
+    <string name="msg_2dc14ee8f6a2" formatted="false">"Could not read the log."</string>
+    <string name="msg_2efea0f8794f" formatted="false">"Playlists"</string>
+    <string name="msg_2f4f45e427e6" formatted="false">"Preparing audio…"</string>
+    <string name="msg_2f8a1650c543" formatted="false">"Could not finish downloading"</string>
+    <string name="msg_2f9654f4d1a1" formatted="false">"Nothing here yet. Try another search or section."</string>
+    <string name="msg_3048598439e0" formatted="false">"Add music"</string>
+    <string name="msg_306af95e29b6" formatted="false">"Waiting for approval…"</string>
+    <string name="msg_307c435478f4" formatted="false">"Clips · Yandex Music"</string>
+    <string name="msg_30c61037264b" formatted="false">"Profiles"</string>
+    <string name="msg_32060a34f5be" formatted="false">"Preview"</string>
+    <string name="msg_33073b976515" formatted="false">"Queue · @0@"</string>
+    <string name="msg_3315af3b27b8" formatted="false">"Create playlist"</string>
+    <string name="msg_334c3299a899" formatted="false">"Remove from favorites"</string>
+    <string name="msg_3364af49d2ba" formatted="false">"Sign out of account"</string>
+    <string name="msg_3396400da0c4" formatted="false">"Stop"</string>
+    <string name="msg_341bfc88e988" formatted="false">"The update manifest is too large"</string>
+    <string name="msg_346750dab787" formatted="false">"Never recommend @0@"</string>
+    <string name="msg_34faf1c2240d" formatted="false">"Could not read the saved skin. Using Oxide."</string>
+    <string name="msg_350675f4e001" formatted="false">"Sign out of Yandex?"</string>
+    <string name="msg_350c510572ad" formatted="false">"Device / USB: @0@ · Yandex: @1@ shown"</string>
+    <string name="msg_35619086cdfe" formatted="false">"Create your first playlist using +."</string>
+    <string name="msg_35864bdf26cb" formatted="false">"Liked tracks · offline"</string>
+    <string name="msg_3628da5ba5a2" formatted="false">"Remove saved sign-in"</string>
+    <string name="msg_36cf98277e5f" formatted="false">"Applies to new streams and My Vibe preloading."</string>
+    <string name="msg_372ccd2e8254" formatted="false">"; refreshing…"</string>
+    <string name="msg_379116d4b4d4" formatted="false">"The skin package contains unused files"</string>
+    <string name="msg_38aa13198a8b" formatted="false">"New playlist"</string>
+    <string name="msg_392a2bb860f8" formatted="false">"This ID belongs to a built-in skin. Change the id in the manifest."</string>
+    <string name="msg_39bbc8689a90" formatted="false">"Sign-in was not approved. You can try again."</string>
+    <string name="msg_39c3c9622cdc" formatted="false">"Queue is empty"</string>
+    <string name="msg_39cef1f5fa63" formatted="false">"Choose a section."</string>
+    <string name="msg_3b024cce3b59" formatted="false">"Support development"</string>
+    <string name="msg_3b840443abf7" formatted="false">"Never recommend"</string>
+    <string name="msg_3c959ac71187" formatted="false">"Add artist to favorites"</string>
+    <string name="msg_3c99d6538c1d" formatted="false">"Popular tracks"</string>
+    <string name="msg_3cc455cf86cf" formatted="false">"Yandex rejected sign-in for this build."</string>
+    <string name="msg_3d04145a8633" formatted="false">"Duplicate path in skin package"</string>
+    <string name="msg_3d275a76f737" formatted="false">"The library contains data"</string>
+    <string name="msg_3d7762ba837e" formatted="false">"Downloaded liked tracks are available under Tracks. Albums and artists are not downloaded in full."</string>
+    <string name="msg_3e123a8bc43d" formatted="false">"Offline files deleted. Your Yandex likes have been kept."</string>
+    <string name="msg_3e1506ad1141" formatted="false">"Like track"</string>
+    <string name="msg_3e38544b4537" formatted="false">"These settings apply to this device."</string>
+    <string name="msg_3f8a4e233c3e" formatted="false">"Refresh account details"</string>
+    <string name="msg_3fbf9e4ea1c1" formatted="false">"Previous track"</string>
+    <string name="msg_407f871778d3" formatted="false">"Reset"</string>
+    <string name="msg_414209446572" formatted="false">"Remove track"</string>
+    <string name="msg_414a326c7fbe" formatted="false">"My Vibe · loading…"</string>
+    <string name="msg_417875482e57" formatted="false">"Editing playlist"</string>
+    <string name="msg_4195b215e9f0" formatted="false">"Export to Downloads"</string>
+    <string name="msg_422f550c9cff" formatted="false">"Main"</string>
+    <string name="msg_430c6faef007" formatted="false">"This profile has no downloaded music. Sign in to Yandex to sync your liked tracks."</string>
+    <string name="msg_433852b8fe49" formatted="false">"Guest plays local music without an account. Choose another profile to sign in."</string>
+    <string name="msg_4378c674b4d7" formatted="false">"Restart confirmation is not available on this device."</string>
+    <string name="msg_4382a728852f" formatted="false">"Each profile has its own queue. Switching profiles leaves playback paused."</string>
+    <string name="msg_43b07d243705" formatted="false">"Yandex · @0@"</string>
+    <string name="msg_43bd202954d8" formatted="false">"Guest"</string>
+    <string name="msg_43c191115b55" formatted="false">"The APK checksum does not match"</string>
+    <string name="msg_43fb606c5b6f" formatted="false">"Sidebar"</string>
+    <string name="msg_442f1380374f" formatted="false">"Refresh playlist"</string>
+    <string name="msg_44d4090ae9e4" formatted="false">"error"</string>
+    <string name="msg_44d8126b8321" formatted="false">"My playlists"</string>
+    <string name="msg_44f6f4d66ea4" formatted="false">"Demo profile"</string>
+    <string name="msg_460213556ee1" formatted="false">"APK verified@0@."</string>
+    <string name="msg_467a1857a936" formatted="false">"Invalid APK size or SHA-256"</string>
+    <string name="msg_468ba659166c" formatted="false">"All controls are off — the sidebar is disabled."</string>
+    <string name="msg_46da7285528f" formatted="false">"Next track"</string>
+    <string name="msg_480fae1c4bc9" formatted="false">"No results"</string>
+    <string name="msg_48b5898b7140" formatted="false">"Delete Yandex playlist"</string>
+    <string name="msg_48f1c04f18bc" formatted="false">"Move down: @0@"</string>
+    <string name="msg_4a1236b53aa7" formatted="false">"Log cleared."</string>
+    <string name="msg_4a59253d0fb2" formatted="false">"If you enjoy the app, you can support its development."</string>
+    <string name="msg_4a87a9c8e472" formatted="false">"Refreshing library…"</string>
+    <string name="msg_4b39689e6190" formatted="false">"The language setting applies to the whole device. Music, playlist and skin names stay in their original language."</string>
+    <string name="msg_4cffda4eecf8" formatted="false">"Yandex sign-in is unavailable in this build. Local music still works."</string>
+    <string name="msg_4e50f6bdc764" formatted="false">"Remove “@0@” (position @1@) from “@2@”? Other occurrences of this track will be kept."</string>
+    <string name="msg_4e882842072f" formatted="false">"Saved sign-in will be removed only from the “@0@” profile on this device. Local files, queues and playlists will be kept."</string>
+    <string name="msg_4f41558e776b" formatted="false">"Delete playlist?"</string>
+    <string name="msg_4f5782c26416" formatted="false">"Cannot read the APK"</string>
+    <string name="msg_501cfd0b1690" formatted="false">"Error / warning"</string>
+    <string name="msg_502d3a6bd090" formatted="false">"Could not read the catalog. Try searching again."</string>
+    <string name="msg_50730177421a" formatted="false">"Missing APK details"</string>
+    <string name="msg_50825290b460" formatted="false">"A .ymskin ZIP package is required"</string>
+    <string name="msg_5189135a6110" formatted="false">"Retry"</string>
+    <string name="msg_5277d2953e7b" formatted="false">"Delete offline files"</string>
+    <string name="msg_535119bf3cc5" formatted="false">"Download"</string>
+    <string name="msg_53aacea33082" formatted="false">"Playlist “@0@” created."</string>
+    <string name="msg_53ba89acf405" formatted="false">"Unavailable"</string>
+    <string name="msg_53c57c59cc24" formatted="false">"Add tracks using “…”. To reorder, drag the handle or select Position. Changes are saved to Yandex."</string>
+    <string name="msg_53ee3b3a9092" formatted="false">"Removing the current track pauses playback."</string>
+    <string name="msg_5405eb821e3a" formatted="false">"Light"</string>
+    <string name="msg_541f8f8b8a8f" formatted="false">"A playlist with this name already exists"</string>
+    <string name="msg_54b80039a9ec" formatted="false">"Active skin"</string>
+    <string name="msg_556fab910a7b" formatted="false">"New Yandex playlist"</string>
+    <string name="msg_55870b7a873d" formatted="false">"This playlist has no tracks yet."</string>
+    <string name="msg_55d6dc96a9df" formatted="false">"Choose a folder with audio files on your device or USB drive."</string>
+    <string name="msg_55e08786c6c9" formatted="false">"This playlist changed on Yandex. Refresh it and check its contents before trying again."</string>
+    <string name="msg_5651a421a70e" formatted="false">"Working…"</string>
+    <string name="msg_5690c2e63b9d" formatted="false">"Sign out"</string>
+    <string name="msg_56f5278a2acc" formatted="false">"Cannot connect to Yandex Music. Check your connection and try again."</string>
+    <string name="msg_5710ad29b999" formatted="false">"Create new playlist"</string>
+    <string name="msg_574d24b24ab4" formatted="false">"@0@ is available"</string>
+    <string name="msg_57691b646726" formatted="false">"High · 320 kbps"</string>
+    <string name="msg_5779b6589ef5" formatted="false">"Press Back again to exit"</string>
+    <string name="msg_57816af2d9ca" formatted="false">"Swipe from the edge to open the YMPlayer 2 sidebar"</string>
+    <string name="msg_57d8de34aad1" formatted="false">"Remove artist from favorites"</string>
+    <string name="msg_58995881a188" formatted="false">"This update is not for the selected channel"</string>
+    <string name="msg_589983337a78" formatted="false">"Playlist “@0@” will be deleted from your Yandex account on all devices. Your current queue and liked tracks will be kept."</string>
+    <string name="msg_58cb4ee024d5" formatted="false">"Shuffle"</string>
+    <string name="msg_58efe74ebc48" formatted="false">"Icon file not found: @0@"</string>
+    <string name="msg_59134fd3fbf7" formatted="false">"Menu is only available on K4811."</string>
+    <string name="msg_59eedda3d148" formatted="false">"Could not show the sidebar."</string>
+    <string name="msg_5c7cfc9e8bc2" formatted="false">"Playback"</string>
+    <string name="msg_5c7d98906b6b" formatted="false">"The number must be finite"</string>
+    <string name="msg_5d5f78c5790d" formatted="false">"Offline cache: @0@ found"</string>
+    <string name="msg_5d99a4bce5b6" formatted="false">"Only HTTPS is allowed"</string>
+    <string name="msg_5dc56b8cf0e0" formatted="false">"Back is only available on K4811."</string>
+    <string name="msg_5e1e0ac2d35b" formatted="false">"No entries yet."</string>
+    <string name="msg_5e3e47e18b27" formatted="false">"Choose 1–12 placeholder colors"</string>
+    <string name="msg_5e4ea237ce6b" formatted="false">"Saved: @0@ · @1@ MB"</string>
+    <string name="msg_5e66b30bc941" formatted="false">"Music with you · Beta"</string>
+    <string name="msg_5e9967fcef8f" formatted="false">"No system folder picker is installed. You need a file manager that supports the Storage Access Framework."</string>
+    <string name="msg_5ed92773c808" formatted="false">"Yandex"</string>
+    <string name="msg_5fbef357e55e" formatted="false">"My Yandex music"</string>
+    <string name="msg_601de107e288" formatted="false">"New position: 1–@0@"</string>
+    <string name="msg_603e460bf59c" formatted="false">"Refresh"</string>
+    <string name="msg_60bbcc5198aa" formatted="false">"@0@ · @1|track@"</string>
+    <string name="msg_612f724ec00f" formatted="false">"Open account"</string>
+    <string name="msg_61ab32792577" formatted="false">"The K4811 restart service is unavailable. No request was sent."</string>
+    <string name="msg_61b578bca0ca" formatted="false">"Preparing audio"</string>
+    <string name="msg_61c83c0e0569" formatted="false">"Show more from Yandex"</string>
+    <string name="msg_620bc932f669" formatted="false">"Save name"</string>
+    <string name="msg_62243b1fd0d8" formatted="false">"Could not refresh likes and blocks. Retry"</string>
+    <string name="msg_6276f8c77c1b" formatted="false">"No compatible equalizer or DSP was found. Install an audio processing app. If a system panel is available, start playback and open it here."</string>
+    <string name="msg_62984b2595bb" formatted="false">"Getting code…"</string>
+    <string name="msg_62ed32eb225c" formatted="false">"Checking…"</string>
+    <string name="msg_6518414d5226" formatted="false">"Track removed from playlist."</string>
+    <string name="msg_653f03c94726" formatted="false">"Current track"</string>
+    <string name="msg_65530fd463ea" formatted="false">"Pause"</string>
+    <string name="msg_655f2cc9a551" formatted="false">"Sync complete."</string>
+    <string name="msg_659afa619e2b" formatted="false">"The APK size or SHA-256 does not match"</string>
+    <string name="msg_65a38f8bcb09" formatted="false">"Could not read or save sign-in on this device."</string>
+    <string name="msg_65e00ce0d8d2" formatted="false">"Repeat queue"</string>
+    <string name="msg_66474d591df2" formatted="false">"Your sign-in is saved, but Music account details are not available yet. You can refresh them later without entering a new code."</string>
+    <string name="msg_66c5d76f8451" formatted="false">"Restore Oxide"</string>
+    <string name="msg_6713f0c31917" formatted="false">"A number is required: @0@"</string>
+    <string name="msg_673b49c1255b" formatted="false">"Could not read the Yandex response. Try again."</string>
+    <string name="msg_674a4f596d66" formatted="false">" The change could not be confirmed. Check your playlists before trying again."</string>
+    <string name="msg_67abbabca722" formatted="false">"Track order saved."</string>
+    <string name="msg_6807424b3688" formatted="false">"Enable sidebar"</string>
+    <string name="msg_6841e1070158" formatted="false">"The system permission screen was not found."</string>
+    <string name="msg_68cc12d616b8" formatted="false">"Refresh likes and blocks"</string>
+    <string name="msg_68eab87f63c4" formatted="false">"Yandex denied access. Check your account and Music subscription."</string>
+    <string name="msg_69294d8ce6a4" formatted="false">"Yandex may provide a different bitrate. The player selects the best available bitrate up to your limit, or the closest higher one if necessary. Auto and Maximum select the highest available bitrate."</string>
+    <string name="msg_6aadca8eb39a" formatted="false">"Create and add track"</string>
+    <string name="msg_6b5623eafb06" formatted="false">"Edit playlist"</string>
+    <string name="msg_6bd804f5b776" formatted="false">"Track: @0@"</string>
+    <string name="msg_6bf215b8f901" formatted="false">"Could not replace the old APK"</string>
+    <string name="msg_6c2b14d954bb" formatted="false">"Choose equalizer / DSP"</string>
+    <string name="msg_6c32e04d2392" formatted="false">"The next clip has not been selected yet"</string>
+    <string name="msg_6cbc48f41e6f" formatted="false">"Could not read offline music. Run sync again."</string>
+    <string name="msg_6d6a9bb2179b" formatted="false">"My music and Yandex recommendations"</string>
+    <string name="msg_6daecbeea4b6" formatted="false">"Clips"</string>
+    <string name="msg_6dccc4a3f564" formatted="false">"Could not download the update: @0@"</string>
+    <string name="msg_6dd43bf971fd" formatted="false">"Skins"</string>
+    <string name="msg_6e1f7baa472f" formatted="false">"Clear search"</string>
+    <string name="msg_6edaf3285434" formatted="false">"Remove from queue: @0@"</string>
+    <string name="msg_6f1566c263c4" formatted="false">"Copper, graphite and warm paper"</string>
+    <string name="msg_6fb373108517" formatted="false">"Could not read or save the skin. Select the file again."</string>
+    <string name="msg_7003237eb243" formatted="false">"Audio downloads failed: @0@. Artwork errors: @1@. No artwork from source: @2@. Run sync again to check and repair missing files."</string>
+    <string name="msg_7075085d9334" formatted="false">"More actions"</string>
+    <string name="msg_70c88673f5a8" formatted="false">"Removing a folder from the library does not delete its files. All profiles can access the local library."</string>
+    <string name="msg_70daf92e717a" formatted="false">"Artwork: @0@"</string>
+    <string name="msg_71038c53bbc4" formatted="false">"Add"</string>
+    <string name="msg_717012565e0a" formatted="false">"Playlist name"</string>
+    <string name="msg_71c815fdaf60" formatted="false">"Could not start the sidebar on this device."</string>
+    <string name="msg_71e214e1477f" formatted="false">"All sources"</string>
+    <string name="msg_71ff8690cd03" formatted="false">"Saving sign-in…"</string>
+    <string name="msg_723b195d5744" formatted="false">"The APK signature does not match the installed app"</string>
+    <string name="msg_729dc1568fdf" formatted="false">"Download over Wi-Fi only"</string>
+    <string name="msg_73cec4b1fa25" formatted="false">"Could not open the installer: @0@"</string>
+    <string name="msg_73e0d3beed31" formatted="false">" · demo library"</string>
+    <string name="msg_73f6917759ca" formatted="false">"The folder is unavailable or scanning did not finish. Connect the drive and refresh."</string>
+    <string name="msg_741ca2439e4d" formatted="false">"Sign in to Yandex in this profile for online music. Local music works without signing in."</string>
+    <string name="msg_7435626dd379" formatted="false">"Auto-hide after 8 seconds"</string>
+    <string name="msg_7493e161cb03" formatted="false">"Unknown album"</string>
+    <string name="msg_749a9ca9d90f" formatted="false">"Could not delete offline files."</string>
+    <string name="msg_758aa155871b" formatted="false">"Added"</string>
+    <string name="msg_760c9665ad62" formatted="false">"Standard · 192 kbps"</string>
+    <string name="msg_767475640343" formatted="false">"Add to Yandex playlist"</string>
+    <string name="msg_778b704b5c1e" formatted="false">"Could not open or save the folder. Check access and try again."</string>
+    <string name="msg_7796e6a8c011" formatted="false">"network error"</string>
+    <string name="msg_77f1e6d43b19" formatted="false">"Could not create the update folder"</string>
+    <string name="msg_78b7fcee0a88" formatted="false">"The system installer is open. Confirm the update."</string>
+    <string name="msg_78ca838c8f88" formatted="false">"Error code: @0@"</string>
+    <string name="msg_78cdeec91c73" formatted="false">"Add tracks"</string>
+    <string name="msg_7996f711496a" formatted="false">"Later"</string>
+    <string name="msg_79a58b43db6d" formatted="false">"Use #RRGGBB for colors"</string>
+    <string name="msg_79e35d4d8b5b" formatted="false">"Check likes and blocks"</string>
+    <string name="msg_7aa5b98239e2" formatted="false">"Add to “@0@”"</string>
+    <string name="msg_7ad2cca22536" formatted="false">"Could not load the queue · retry"</string>
+    <string name="msg_7b4f20da2143" formatted="false">"Empty icon path"</string>
+    <string name="msg_7cd2f0ff4082" formatted="false">"Checking for updates…"</string>
+    <string name="msg_7e0c5e62a006" formatted="false">"App updates"</string>
+    <string name="msg_7e257dbdd7a9" formatted="false">" Retrying automatically (@0@/3)."</string>
+    <string name="msg_7e57673a5d4c" formatted="false">"First-launch demo."</string>
+    <string name="msg_7e59467db9e7" formatted="false">"← Back"</string>
+    <string name="msg_7e6258d504ba" formatted="false">"Artists and album: @0@"</string>
+    <string name="msg_7f89cdaad39e" formatted="false">"Data saver · 128 kbps"</string>
+    <string name="msg_8086aac760a1" formatted="false">"Could not play the file. Check the drive or choose another track."</string>
+    <string name="msg_80cedf587a28" formatted="false">"No system file picker is installed. You need a file manager that supports the Storage Access Framework."</string>
+    <string name="msg_8208dc91519d" formatted="false">"Menu opens the K4811 app list. Play / pause controls the active player. Sleep puts the head unit to sleep. Restart asks for confirmation first."</string>
+    <string name="msg_834ec28c8644" formatted="false">"Skin not found"</string>
+    <string name="msg_83cc61451837" formatted="false">"Download from backup source"</string>
+    <string name="msg_840370e3fad2" formatted="false">"Liked tracks"</string>
+    <string name="msg_8491940b48e2" formatted="false">"Downloaded liked tracks"</string>
+    <string name="msg_84a795ddbe75" formatted="false">"You have 16 saved skins. Delete one before importing another."</string>
+    <string name="msg_8514965e4ae0" formatted="false">"Available offline"</string>
+    <string name="msg_857db5eccf13" formatted="false">"Use Add to queue in the library to add tracks."</string>
+    <string name="msg_85a21c8d0f56" formatted="false">"Refresh playlists"</string>
+    <string name="msg_85dd88927aea" formatted="false">"Playlist “@0@” deleted."</string>
+    <string name="msg_8727c0e6695b" formatted="false">"Could not confirm access to your Yandex Music account."</string>
+    <string name="msg_88d4beca1549" formatted="false">"The APK is too large"</string>
+    <string name="msg_895c5b8f961d" formatted="false">"Installed: @0@"</string>
+    <string name="msg_8965271d3c97" formatted="false">"Clear"</string>
+    <string name="msg_8cd421f138ac" formatted="false">"Use Add tracks to add music."</string>
+    <string name="msg_8dca2f783130" formatted="false">"Auto"</string>
+    <string name="msg_8f458964546a" formatted="false">"Music folders"</string>
+    <string name="msg_8f88b95463e2" formatted="false">"Shuffle"</string>
+    <string name="msg_8f88e588534f" formatted="false">"@0@ is available."</string>
+    <string name="msg_8fbe9b75cbdf" formatted="false">"Cancel"</string>
+    <string name="msg_9065b44df928" formatted="false">"Import .ymskin"</string>
+    <string name="msg_90c141192bd7" formatted="false">"Albums"</string>
+    <string name="msg_916d4505c137" formatted="false">"Deleting this account\'s offline files…"</string>
+    <string name="msg_91cf8019c9e4" formatted="false">"Could not start background sync. Try again with the app open."</string>
+    <string name="msg_91cf891549ab" formatted="false">"Track unavailable"</string>
+    <string name="msg_920c04770d7a" formatted="false">"Could not export the log."</string>
+    <string name="msg_9216ace8c045" formatted="false">"Refresh library"</string>
+    <string name="msg_9220082bb4ab" formatted="false">"Your session has expired. Sign in again."</string>
+    <string name="msg_922c5fae2ec8" formatted="false">"Status not loaded"</string>
+    <string name="msg_931fb11514ad" formatted="false">"Unavailable track @0@"</string>
+    <string name="msg_93b08f7b1465" formatted="false">"Check for updates"</string>
+    <string name="msg_94117e81a588" formatted="false">"Offline cache is off. Existing downloads stay until you delete them using the button below."</string>
+    <string name="msg_954fea171639" formatted="false">"Selected"</string>
+    <string name="msg_95a0b91751fc" formatted="false">"Search tracks"</string>
+    <string name="msg_9641a49f03aa" formatted="false">"Hold and drag to reorder: @0@"</string>
+    <string name="msg_968d76f0f95f" formatted="false">"The saved skin is unavailable. Restored Oxide."</string>
+    <string name="msg_97635a1a0f91" formatted="false">"Offline cache is off. Delete existing downloads to free up space."</string>
+    <string name="msg_982867f75b81" formatted="false">"Delete offline files?"</string>
+    <string name="msg_985b5e0f2ccf" formatted="false">"Settings"</string>
+    <string name="msg_98699315d011" formatted="false">"Move track"</string>
+    <string name="msg_9887b0bfa666" formatted="false">"Applies to new downloads when syncing liked tracks."</string>
+    <string name="msg_9895eb01a837" formatted="false">"This track or playlist is currently unavailable."</string>
+    <string name="msg_98ae0216b918" formatted="false">"Update sources are unavailable: @0@"</string>
+    <string name="msg_995011f87d4b" formatted="false">"Audio quality"</string>
+    <string name="msg_9969d130536f" formatted="false">"UP NEXT"</string>
+    <string name="msg_999770a38a9d" formatted="false">"Playlists recommended by Yandex for your account."</string>
+    <string name="msg_99a6eae9f974" formatted="false">"Yandex returned an invalid response. Try signing in again."</string>
+    <string name="msg_9a3adc7135e4" formatted="false">"Yandex · position @0@"</string>
+    <string name="msg_9a529d376ca3" formatted="false">"Add to playlist"</string>
+    <string name="msg_9c1888610d6f" formatted="false">"Swipe from the screen edge to open"</string>
+    <string name="msg_9cbbe230cb66" formatted="false">"Play displayed tracks"</string>
+    <string name="msg_9debd4812638" formatted="false">"Could not open a browser. Use the QR code or the address above."</string>
+    <string name="msg_9e0859f700e2" formatted="false">"Could not check approval. Your code is saved and we are retrying. Return to the app after approving sign-in."</string>
+    <string name="msg_9fcd67f23799" formatted="false">"Move up: @0@"</string>
+    <string name="msg_9fe9ae8fbc17" formatted="false">"Recommend @0@ again"</string>
+    <string name="msg_a033d47afec5" formatted="false">"Play playlist"</string>
+    <string name="msg_a0e71ef0091b" formatted="false">"On the road"</string>
+    <string name="msg_a0fa051b4a5b" formatted="false">"Wi-Fi is required to sync."</string>
+    <string name="msg_a137dd0ef761" formatted="false">"Load more"</string>
+    <string name="msg_a1f4f5cf6b22" formatted="false">"Too many redirects"</string>
+    <string name="msg_a25031f2dbc6" formatted="false">"No connection available for sync."</string>
+    <string name="msg_a2c053c748d0" formatted="false">"Edit queue"</string>
+    <string name="msg_a3e2c7d263a6" formatted="false">"Check blocked tracks and artists before starting recommendations."</string>
+    <string name="msg_a41905aacd11" formatted="false">"The local library is shared. Yandex sign-in, queues and playlists belong to the selected profile. Guest works without an account."</string>
+    <string name="msg_a4e0d6a1b648" formatted="false">"Shared local library · separate queue"</string>
+    <string name="msg_a4ee02a4c189" formatted="false">"Cancel sign-in"</string>
+    <string name="msg_a55d09b73e40" formatted="false">"Invalid skin ID"</string>
+    <string name="msg_a55fc5d0f320" formatted="false">"Local music works without signing in. For Yandex, sign in to this profile."</string>
+    <string name="msg_a5e1aeda4ccc" formatted="false">"Streaming quality"</string>
+    <string name="msg_a5f630df4494" formatted="false">"Clear queue"</string>
+    <string name="msg_a6d6c9941570" formatted="false">"This profile only"</string>
+    <string name="msg_a75ec8e3fe3a" formatted="false">"M1 demo mode · no audio"</string>
+    <string name="msg_a79a4eaec9fc" formatted="false">"Could not save playlists. Your change was not applied. Please try again."</string>
+    <string name="msg_a7a4033657e8" formatted="false">"Close"</string>
+    <string name="msg_a7d8adab451a" formatted="false">"Unknown artist"</string>
+    <string name="msg_a94943f157d5" formatted="false">"Now playing"</string>
+    <string name="msg_a94f8a5da271" formatted="false">"Restart"</string>
+    <string name="msg_a9bb9fcb7d94" formatted="false">"Checking likes and blocks…"</string>
+    <string name="msg_a9ec4c4c914a" formatted="false">"Cannot connect to Yandex. Check your connection and try signing in again."</string>
+    <string name="msg_aa07f084155c" formatted="false">"Offline"</string>
+    <string name="msg_aa59e4f43e97" formatted="false">"Artist IDs are missing. Open the track again from search or your library."</string>
+    <string name="msg_aa782acc1382" formatted="false">"Automatic checks run at most once a day. Downloading and installing an available update requires your confirmation."</string>
+    <string name="msg_ab78a1119f41" formatted="false">"Already in queue: @0@"</string>
+    <string name="msg_aba2a8a3d61d" formatted="false">"Remove from library"</string>
+    <string name="msg_abf18a196671" formatted="false">"Invalid icon coordinate"</string>
+    <string name="msg_ad0502838af2" formatted="false">"The skin archive is too large"</string>
+    <string name="msg_ad6a1e7e39d2" formatted="false">" · backup source"</string>
+    <string name="msg_ae407aec2e14" formatted="false">"Add from device"</string>
+    <string name="msg_aed87524dfde" formatted="false">"Loading log…"</string>
+    <string name="msg_af45ec8c56b7" formatted="false">"Move"</string>
+    <string name="msg_af72c5eb8791" formatted="false">"On K4811, use a short swipe from the middle of the left or right edge, or the center of the bottom edge. The gesture area is invisible and covers only a small part of the edge."</string>
+    <string name="msg_af9d1711a669" formatted="false">"Choose a folder in the system picker. Your music stays where it is; the app only gets read access."</string>
+    <string name="msg_b011fc656a0f" formatted="false">"Like album"</string>
+    <string name="msg_b095f9e901e7" formatted="false">"The playlist has already been deleted"</string>
+    <string name="msg_b0acd0c9bfb1" formatted="false">"Allow recommendations again"</string>
+    <string name="msg_b0ad5bf65466" formatted="false">"Edit playlist"</string>
+    <string name="msg_b0dc6691dc09" formatted="false">"Sleep is only available on K4811."</string>
+    <string name="msg_b0f0ab86be80" formatted="false">"Back to list"</string>
+    <string name="msg_b1c53cf90f0a" formatted="false">"Open installer"</string>
+    <string name="msg_b2cbccffb035" formatted="false">"Downloading @0@…"</string>
+    <string name="msg_b3b927fb4c1f" formatted="false">"My Vibe: "</string>
+    <string name="msg_b3be276ac9d7" formatted="false">"Allow display over other apps"</string>
+    <string name="msg_b46a526e0340" formatted="false">"Sync stopped. Completed downloads have been kept."</string>
+    <string name="msg_b4d30cae5289" formatted="false">"Save"</string>
+    <string name="msg_b50aa55c0b78" formatted="false">"Mute"</string>
+    <string name="msg_b583c0b5f77e" formatted="false">"Add from USB / SD"</string>
+    <string name="msg_b5c15a505a62" formatted="false">"Could not read metadata. Refresh the folder catalog."</string>
+    <string name="msg_b86ab3d74350" formatted="false">"Liked albums"</string>
+    <string name="msg_b8ad90801037" formatted="false">"Add tracks using “…”. Select Position to reorder. Changes are saved to Yandex."</string>
+    <string name="msg_ba700b6d4845" formatted="false">"Restart K4811"</string>
+    <string name="msg_bb35de568dc0" formatted="false">"Loading downloaded music…"</string>
+    <string name="msg_bb7c04530661" formatted="false">"Signed in"</string>
+    <string name="msg_bbb42f6a25b6" formatted="false">"Prototype · no audio"</string>
+    <string name="msg_bc622d6b13a3" formatted="false">"Maximum"</string>
+    <string name="msg_bcdc88d10948" formatted="false">"Rename: @0@"</string>
+    <string name="msg_bd5f65f27353" formatted="false">"Offline music"</string>
+    <string name="msg_bdd37eb21746" formatted="false">"Play"</string>
+    <string name="msg_be28ea14a37e" formatted="false">"Retry Yandex request"</string>
+    <string name="msg_be65ad9b7c99" formatted="false">"Saved to Downloads: @0@"</string>
+    <string name="msg_be83518bd33a" formatted="false">"Download and install"</string>
+    <string name="msg_be8789acfb99" formatted="false">"Sign in to Yandex"</string>
+    <string name="msg_be99b1361201" formatted="false">"Delete"</string>
+    <string name="msg_bf6c36d1e481" formatted="false">"@0|track@ · @1@ available"</string>
+    <string name="msg_c011a7b7c5c5" formatted="false">"Remove track?"</string>
+    <string name="msg_c05d6b17ae05" formatted="false">"Preview: @0@"</string>
+    <string name="msg_c06f71ebf142" formatted="false">"No browser is available. Open the address on your phone and enter the code."</string>
+    <string name="msg_c09a1e9f0c59" formatted="false">"Invalid field: @0@"</string>
+    <string name="msg_c25691d01a87" formatted="false">"Add tracks to favorites from the menu next to a track."</string>
+    <string name="msg_c39959813ccd" formatted="false">"Yandex Music"</string>
+    <string name="msg_c40f97ca1831" formatted="false">"Connecting to the K4811 service…"</string>
+    <string name="msg_c46e9d43cea9" formatted="false">"Sync could not finish. Completed downloads have been kept. Please try again."</string>
+    <string name="msg_c57bc34167f4" formatted="false">"Sending restart request…"</string>
+    <string name="msg_c59e474ea979" formatted="false">"Could not read playlists. Your data is still on disk, but editing is temporarily unavailable. Try loading them again."</string>
+    <string name="msg_c6087f7e1289" formatted="false">"Refresh the library again."</string>
+    <string name="msg_c61eb3c4706a" formatted="false">"equalizer"</string>
+    <string name="msg_c6504f6cb73b" formatted="false">"Oxide"</string>
+    <string name="msg_c6826c783794" formatted="false">"Show more"</string>
+    <string name="msg_c69f42036602" formatted="false">"English is used when a translation is not available."</string>
+    <string name="msg_c6e3a313babd" formatted="false">"Local profiles share one library. Accounts are not connected in this mode."</string>
+    <string name="msg_c722f8b4c671" formatted="false">"Reading audio files…"</string>
+    <string name="msg_c78b1aee4241" formatted="false">"A private playlist will be created in your current Yandex account."</string>
+    <string name="msg_c7dab06bf537" formatted="false">"NOW PLAYING"</string>
+    <string name="msg_c85975db07b1" formatted="false">"Invalid update version"</string>
+    <string name="msg_c8c0e3b9e7a0" formatted="false">"Loading liked tracks…"</string>
+    <string name="msg_c8dbba7583c2" formatted="false">"Playback source"</string>
+    <string name="msg_c90dd531a092" formatted="false">"The current track, preloaded My Vibe tracks and downloaded files keep their existing quality. To download your entire offline collection again, clear its files in Offline cache settings and sync again. Your likes on Yandex will remain."</string>
+    <string name="msg_c90ea6df373e" formatted="false">"pending update"</string>
+    <string name="msg_c989e98d6470" formatted="false">"Choosing the next track…"</string>
+    <string name="msg_ca3bbeeee26d" formatted="false">"Android stopped the long-running sync. Completed downloads have been kept."</string>
+    <string name="msg_ca48a1a553cc" formatted="false">"Sync liked tracks"</string>
+    <string name="msg_cb297d129add" formatted="false">"Queue"</string>
+    <string name="msg_cb3d171cdbfd" formatted="false">"Name ↓"</string>
+    <string name="msg_cb4cd68cb5f3" formatted="false">"Stop sync"</string>
+    <string name="msg_cbf686a2b04b" formatted="false">"The active skin, built-in skins and unknown skins cannot be deleted"</string>
+    <string name="msg_cd40e18eeede" formatted="false">"Track added to “@0@”."</string>
+    <string name="msg_cd70228cba41" formatted="false">"track"</string>
+    <string name="msg_cdb3ca001d96" formatted="false">"Not blocked"</string>
+    <string name="msg_ce1456ccd84b" formatted="false">"Remove from playlist: @0@"</string>
+    <string name="msg_ce1e647fd722" formatted="false">"Repeat off"</string>
+    <string name="msg_cfdce86cac0a" formatted="false">"The system did not allow opening overlay settings."</string>
+    <string name="msg_cfde40242cd9" formatted="false">"Yandex playlists"</string>
+    <string name="msg_d18c1c114691" formatted="false">"Could not read the skin package. Check its ZIP and JSON files"</string>
+    <string name="msg_d1df132336f2" formatted="false">"Previous clip"</string>
+    <string name="msg_d1edd7d2a9e2" formatted="false">"The redirect has no destination URL"</string>
+    <string name="msg_d32a29ef600e" formatted="false">"Volume up"</string>
+    <string name="msg_d3dacfa5bb27" formatted="false">"Version @0@ is available."</string>
+    <string name="msg_d4998bc84141" formatted="false">"Preview"</string>
+    <string name="msg_d555eba48a2d" formatted="false">"Try another search or reset the filters."</string>
+    <string name="msg_d585770173b3" formatted="false">"Yandex Music likes and blocks"</string>
+    <string name="msg_d58f70dd1811" formatted="false">"Unknown genre"</string>
+    <string name="msg_d60fd3858f8f" formatted="false">"The service accepted the request. Wait for K4811 to restart."</string>
+    <string name="msg_d65fb9be6155" formatted="false">"Only liked tracks and their artwork are downloaded. Favorite artists and albums are not downloaded in full."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"The log contains event codes only. Tokens, sign-in codes, track titles and request URLs are never recorded."</string>
+    <string name="msg_d73874ba53a6" formatted="false">"Your source file is kept. You can import it again."</string>
+    <string name="msg_d7ad8e4ee48a" formatted="false">"Auto — system language"</string>
+    <string name="msg_d7b587c84b68" formatted="false">"Sidebar disabled."</string>
+    <string name="msg_d7c74665073a" formatted="false">"Only the playlist will be deleted. Files and your current queue will be kept."</string>
+    <string name="msg_d8987908d58b" formatted="false">"Sources and folders"</string>
+    <string name="msg_d8cafee5a654" formatted="false">"Allow installation from YMPlayer 2. The system installer will open when you return."</string>
+    <string name="msg_d96f9192c384" formatted="false">"Liked tracks offline"</string>
+    <string name="msg_d9b2fa928b6a" formatted="false">"The code has expired. Get a new code."</string>
+    <string name="msg_da28911d8b6d" formatted="false">"Restart"</string>
+    <string name="msg_da4da4e3527c" formatted="false">"Diagnostics"</string>
+    <string name="msg_db66cedc69fc" formatted="false">"Full collection"</string>
+    <string name="msg_dba20ab53801" formatted="false">"Device"</string>
+    <string name="msg_dbfc1e54cdd9" formatted="false">"Shuffle on"</string>
+    <string name="msg_dc2b5a858155" formatted="false">"Show / hide sidebar"</string>
+    <string name="msg_dc9712a122a9" formatted="false">"Play downloads"</string>
+    <string name="msg_dca2da414320" formatted="false">"This APK is not an update for this YMPlayer 2 installation"</string>
+    <string name="msg_dcc07d613ee2" formatted="false">"Enter the code on another device, or open the Yandex sign-in page here."</string>
+    <string name="msg_dcd18c67df6b" formatted="false">"Sources: GitHub, jsDelivr and Gcore. The APK is checked for size, SHA-256, package name, version and signature. Android will ask you to confirm installation."</string>
+    <string name="msg_dcd5dbe4d9d2" formatted="false">"Could not play Yandex music. Check your connection and access to the track, then press Play to retry."</string>
+    <string name="msg_dce76ccbc542" formatted="false">"The name must be 1–80 characters long"</string>
+    <string name="msg_dcefc460162c" formatted="false">"Too much unpacked data"</string>
+    <string name="msg_de042c2d1c9a" formatted="false">"YMPlayer 2 update"</string>
+    <string name="msg_de13383c3766" formatted="false">"Now: @0@"</string>
+    <string name="msg_de1ea8c09caa" formatted="false">"My Vibe"</string>
+    <string name="msg_de2242264b20" formatted="false">"An icon must contain 1–64 paths"</string>
+    <string name="msg_ded8b330175a" formatted="false">"No connection · showing available offline tracks"</string>
+    <string name="msg_defc1856ad78" formatted="false">"Could not read the library. Refresh your music folders and select again."</string>
+    <string name="msg_df19962e1865" formatted="false">"App language"</string>
+    <string name="msg_df3940f679cf" formatted="false">"Unexpected APK size"</string>
+    <string name="msg_dff16f6f70a1" formatted="false">"Player"</string>
+    <string name="msg_e059e8f90790" formatted="false">"Could not save your skin selection"</string>
+    <string name="msg_e088cb84f420" formatted="false">"Your sign-in is saved for this profile. Yandex browsing and playback will be added in the next stage."</string>
+    <string name="msg_e09846033f94" formatted="false">"Position"</string>
+    <string name="msg_e15f960d93eb" formatted="false">"Apply"</string>
+    <string name="msg_e199c10f2526" formatted="false">"Volume down"</string>
+    <string name="msg_e2151143d516" formatted="false">"Could not read the library index. Add the folder again."</string>
+    <string name="msg_e21e6ad5c123" formatted="false">"Refreshing account details…"</string>
+    <string name="msg_e25ae5e8d071" formatted="false">"Open Yandex"</string>
+    <string name="msg_e261fc0388e8" formatted="false">"Preparing…"</string>
+    <string name="msg_e2be34974ae4" formatted="false">"Create"</string>
+    <string name="msg_e2e513b12b0d" formatted="false">"No downloaded tracks yet. Sync your music in Offline cache settings."</string>
+    <string name="msg_e30fc8a5eb01" formatted="false">"Liked tracks offline cache"</string>
+    <string name="msg_e349032e2682" formatted="false">"Separate queue and position"</string>
+    <string name="msg_e3c30e30adb9" formatted="false">"Demo error. Your current queue has been kept."</string>
+    <string name="msg_e4c1d01c5c8f" formatted="false">"Favorites"</string>
+    <string name="msg_e4e4b9b0d2df" formatted="false">"Unlike track"</string>
+    <string name="msg_e6b3d4be516a" formatted="false">"@0@: unavailable"</string>
+    <string name="msg_e85848addc52" formatted="false">"Missing APK URL"</string>
+    <string name="msg_e8c693109156" formatted="false">"YMPlayer 2 sidebar"</string>
+    <string name="msg_e92912b778ee" formatted="false">"On device"</string>
+    <string name="msg_ea16ed0e182d" formatted="false">"Delete playlist: @0@"</string>
+    <string name="msg_ea172f78eb4c" formatted="false">"Invalid path in skin package"</string>
+    <string name="msg_ea183e546bb0" formatted="false">"QR code to support development"</string>
+    <string name="msg_ea1f40824607" formatted="false">"Open"</string>
+    <string name="msg_eabc559b5eaa" formatted="false">"Choose music in the library"</string>
+    <string name="msg_eb2c88237bfa" formatted="false">"Local and online music. Sign in to Yandex from Profiles. Downloaded liked tracks are in Offline."</string>
+    <string name="msg_eb9946b15efd" formatted="false">"Reload"</string>
+    <string name="msg_ebc4254ed734" formatted="false">"Could not delete files for unliked tracks. Run sync again."</string>
+    <string name="msg_eca626bab07b" formatted="false">"About"</string>
+    <string name="msg_ecb4e3f4230f" formatted="false">"Restoring sign-in…"</string>
+    <string name="msg_edcf9d24ba56" formatted="false">"Artists"</string>
+    <string name="msg_ee19d8c20fcb" formatted="false">"Code expires in @0@"</string>
+    <string name="msg_ee9181d5fe7d" formatted="false">"Show demo data"</string>
+    <string name="msg_eef33a4ed08b" formatted="false">"Yandex ID @0@"</string>
+    <string name="msg_ef05d57959cf" formatted="false">"Done"</string>
+    <string name="msg_ef5631741cc5" formatted="false">"Refreshing likes and blocks…"</string>
+    <string name="msg_efb640146dae" formatted="false">"Back to playlists"</string>
+    <string name="msg_f0a7fd0c1884" formatted="false">"Repeat track"</string>
+    <string name="msg_f0cd3a603372" formatted="false">"Light"</string>
+    <string name="msg_f1d8f4cb696f" formatted="false">"Sign in to Yandex in this profile."</string>
+    <string name="msg_f413b50444c7" formatted="false">"artist"</string>
+    <string name="msg_f434aef91735" formatted="false">"Could not check for updates: @0@"</string>
+    <string name="msg_f4d6290e6f4b" formatted="false">"Music with you"</string>
+    <string name="msg_f4e26aa3eef6" formatted="false">"Play / pause"</string>
+    <string name="msg_f5a7276edc18" formatted="false">"The package root has no manifest.json"</string>
+    <string name="msg_f6e01d413ff6" formatted="false">"Home"</string>
+    <string name="msg_f77ad0247092" formatted="false">"Sidebar enabled."</string>
+    <string name="msg_f7be0cbd0b8a" formatted="false">"Could not load your library"</string>
+    <string name="msg_f8480d481387" formatted="false">"Your library is empty"</string>
+    <string name="msg_f8ac3be6be11" formatted="false">"The video module is still being developed"</string>
+    <string name="msg_f8ddc90b1078" formatted="false">"Hide sidebar is always the last button and cannot be disabled. If all other buttons are off, the sidebar is disabled."</string>
+    <string name="msg_f91135efb9aa" formatted="false">"Delete “@0@”?"</string>
+    <string name="msg_f9b80bf69b7f" formatted="false">"Requires Android API @0@"</string>
+    <string name="msg_fa58ba03d4c5" formatted="false">"Name ↑"</string>
+    <string name="msg_fb7d156c5bfe" formatted="false">"Recommendations"</string>
+    <string name="msg_fc0f3616f567" formatted="false">"Show more from device / USB"</string>
+    <string name="msg_fcd7691c84b2" formatted="false">"Finish editing"</string>
+    <string name="msg_fd21b337444d" formatted="false">"Refresh track likes and blocks"</string>
+    <string name="msg_fd6e72f72d55" formatted="false">"Offline cache settings"</string>
+    <string name="msg_fdc54db3a2b0" formatted="false">"Equalizer / DSP"</string>
+    <string name="msg_fed5c913384a" formatted="false">"The restart result is unknown. The request will not be sent again."</string>
+    <string name="msg_fede8859c53f" formatted="false">"Search Yandex Music"</string>
+    <string name="msg_ff5436e417d8" formatted="false">"The skin contains too many files"</string>
+    <string name="msg_ffdf574befa9" formatted="false">"In order"</string>
+    <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
+</resources>

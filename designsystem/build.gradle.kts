@@ -7,6 +7,7 @@ android {
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
 dependencies {
+    implementation(project(":localization"));
     implementation(libs.android.core)
     api(platform(libs.compose.bom))
     api(libs.compose.material3)

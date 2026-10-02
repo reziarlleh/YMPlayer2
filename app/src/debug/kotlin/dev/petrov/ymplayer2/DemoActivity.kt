@@ -17,6 +17,7 @@ import dev.petrov.ymplayer2.shell.playbackCheckpoint
 class DemoActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dev.petrov.ymplayer2.localization.AppLanguages.initialize(this, "fixture-language", "ru")
         enableEdgeToEdge()
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {

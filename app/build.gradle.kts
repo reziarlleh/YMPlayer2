@@ -68,6 +68,7 @@ gradle.taskGraph.whenReady {
     }
 }
 dependencies {
+    implementation(project(":localization"));
     implementation(project(":core"))
     implementation(project(":library:local"))
     implementation(project(":library:offline"))

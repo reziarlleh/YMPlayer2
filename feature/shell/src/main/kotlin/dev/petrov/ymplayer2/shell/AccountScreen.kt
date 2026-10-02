@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -27,58 +29,58 @@ import kotlinx.coroutines.delay
         while (true) { remaining = ((deadline - System.currentTimeMillis()).coerceAtLeast(0) + 999) / 1000; delay(1000) }
     }
     LazyColumn(Modifier.fillMaxSize().testTag("account_screen"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        item { Text("Яндекс Музыка", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { Text("Профиль: ${profile.name}", color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("account_profile")) }
+        item { Text(tr(Msg.msg_c39959813ccd), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
+        item { Text(tr(Msg.msg_031396ebc4da, profileName(profile)), color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("account_profile")) }
         when (state.phase) {
             AuthPhase.LOADING, AuthPhase.REQUESTING, AuthPhase.VERIFYING -> {
                 item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
-                item { Text(when (state.phase) { AuthPhase.REQUESTING -> "Получаем код…"; AuthPhase.VERIFYING -> "Сохраняем вход…"; else -> "Загружаем состояние входа…" }) }
+                item { Text(when (state.phase) { AuthPhase.REQUESTING -> tr(Msg.msg_62984b2595bb); AuthPhase.VERIFYING -> tr(Msg.msg_71ff8690cd03); else -> tr(Msg.msg_ecb4e3f4230f) }) }
             }
             AuthPhase.WAITING -> {
-                item { Text("Введите код на другом устройстве или откройте страницу Яндекса здесь.") }
+                item { Text(tr(Msg.msg_dcc07d613ee2)) }
                 item { Surface(color = MaterialTheme.colorScheme.primaryContainer, shape = MaterialTheme.shapes.large) {
                     SelectionContainer { Text(state.userCode.orEmpty(), Modifier.padding(20.dp).testTag("auth_code"), style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold) }
                 } }
-                item { Text("Запишите код перед переходом в браузер: на странице Яндекса не всегда можно вставить его из буфера обмена.", modifier = Modifier.testTag("auth_code_hint")) }
+                item { Text(tr(Msg.msg_004778f850b1), modifier = Modifier.testTag("auth_code_hint")) }
                 item { Text(state.verificationUrl.orEmpty()) }
-                item { Text("Код действует ещё ${secondsLabel(remaining.toInt())}", modifier = Modifier.testTag("auth_countdown")) }
+                item { Text(tr(Msg.msg_ee19d8c20fcb, secondsLabel(remaining.toInt())), modifier = Modifier.testTag("auth_countdown")) }
                 item { OutlinedButton({
                     try { browser.openUri(state.verificationUrl!!); browserIssue = false }
                     catch (_: Exception) { browserIssue = true }
-                }, Modifier.prismFocus().testTag("auth_browser")) { Text("Открыть Яндекс") } }
-                if (browserIssue) item { Text("Браузер недоступен. Откройте указанный адрес на телефоне и введите код.", color = MaterialTheme.colorScheme.error) }
-                item { Text("Ожидаем подтверждения…") }
+                }, Modifier.prismFocus().testTag("auth_browser")) { Text(tr(Msg.msg_e25ae5e8d071)) } }
+                if (browserIssue) item { Text(tr(Msg.msg_c06f71ebf142), color = MaterialTheme.colorScheme.error) }
+                item { Text(tr(Msg.msg_306af95e29b6)) }
             }
             AuthPhase.SIGNED_IN -> {
-                item { Text("Вход выполнен", style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("auth_connected")) }
+                item { Text(tr(Msg.msg_bb7c04530661), style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("auth_connected")) }
                 state.account?.let { account -> item { Text(account.name, fontWeight = FontWeight.Bold) } }
-                item { Text("Вход сохранён для этого профиля. Онлайн-каталог и воспроизведение Яндекса появятся на следующем этапе.") }
-                if (state.updatingAccount) item { Text("Обновляем сведения об аккаунте…") }
-                state.issue?.let { issue -> item { Text(issue, modifier = Modifier.testTag("auth_account_retry_message")) } }
+                item { Text(tr(Msg.msg_2d6b68932448)) }
+                if (state.updatingAccount) item { Text(tr(Msg.msg_e21e6ad5c123)) }
+                state.issue?.let { issue -> item { Text(trIssue(issue), modifier = Modifier.testTag("auth_account_retry_message")) } }
                 if (state.account == null || state.issue != null) item {
-                    OutlinedButton(auth::retryAccount, Modifier.prismFocus().testTag("auth_retry_account"), enabled = !state.updatingAccount) { Text("Обновить сведения об аккаунте") }
+                    OutlinedButton(auth::retryAccount, Modifier.prismFocus().testTag("auth_retry_account"), enabled = !state.updatingAccount) { Text(tr(Msg.msg_3f8a4e233c3e)) }
                 }
-                item { OutlinedButton({ confirmLogout = true }, Modifier.prismFocus().testTag("auth_logout")) { Text("Выйти из аккаунта") } }
+                item { OutlinedButton({ confirmLogout = true }, Modifier.prismFocus().testTag("auth_logout")) { Text(tr(Msg.msg_3364af49d2ba)) } }
             }
-            AuthPhase.GUEST -> item { Text("Гость слушает локальную музыку без аккаунта. Для входа выберите другой профиль.", modifier = Modifier.testTag("auth_guest")) }
-            AuthPhase.UNCONFIGURED -> item { Text("Вход в Яндекс недоступен в этой сборке. Локальная музыка продолжает работать.", modifier = Modifier.testTag("auth_unconfigured")) }
+            AuthPhase.GUEST -> item { Text(tr(Msg.msg_433852b8fe49), modifier = Modifier.testTag("auth_guest")) }
+            AuthPhase.UNCONFIGURED -> item { Text(tr(Msg.msg_4cffda4eecf8), modifier = Modifier.testTag("auth_unconfigured")) }
             AuthPhase.SIGNED_OUT, AuthPhase.ERROR -> {
-                item { Text("Вход по коду без ввода пароля в плеере. Аккаунты разных профилей не смешиваются.") }
-                state.issue?.let { issue -> item { Text(issue, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("auth_error")) } }
-                item { Button(auth::start, Modifier.prismFocus().testTag("auth_start")) { Text("Получить код входа") } }
+                item { Text(tr(Msg.msg_29f6f8d9dd3e)) }
+                state.issue?.let { issue -> item { Text(trIssue(issue), color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("auth_error")) } }
+                item { Button(auth::start, Modifier.prismFocus().testTag("auth_start")) { Text(tr(Msg.msg_0a813814f149)) } }
                 if (state.phase == AuthPhase.ERROR) item {
-                    TextButton({ confirmLogout = true }, Modifier.prismFocus().testTag("auth_reset")) { Text("Удалить сохранённый вход") }
+                    TextButton({ confirmLogout = true }, Modifier.prismFocus().testTag("auth_reset")) { Text(tr(Msg.msg_3628da5ba5a2)) }
                 }
             }
         }
-        if (state.phase == AuthPhase.WAITING) state.issue?.let { issue -> item { Text(issue, modifier = Modifier.testTag("auth_network_wait")) } }
-        state.diagnostic?.let { code -> item { Text("Код ошибки: $code", style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("auth_diagnostic")) } }
+        if (state.phase == AuthPhase.WAITING) state.issue?.let { issue -> item { Text(trIssue(issue), modifier = Modifier.testTag("auth_network_wait")) } }
+        state.diagnostic?.let { code -> item { Text(tr(Msg.msg_78ca838c8f88, code), style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("auth_diagnostic")) } }
         if (state.phase in setOf(AuthPhase.REQUESTING, AuthPhase.WAITING, AuthPhase.VERIFYING)) item {
-            OutlinedButton(auth::cancel, Modifier.prismFocus().testTag("auth_cancel")) { Text("Отменить вход") }
+            OutlinedButton(auth::cancel, Modifier.prismFocus().testTag("auth_cancel")) { Text(tr(Msg.msg_a4ee02a4c189)) }
         }
     }
-    if (confirmLogout) AlertDialog(onDismissRequest = { confirmLogout = false }, title = { Text("Выйти из Яндекса?") },
-        text = { Text("Сохранённый вход будет удалён только из профиля «${profile.name}» на этом устройстве. Локальные файлы, очередь и плейлисты останутся.") },
-        confirmButton = { TextButton({ confirmLogout = false; auth.signOut() }, Modifier.prismFocus().testTag("auth_logout_confirm")) { Text("Выйти") } },
-        dismissButton = { TextButton({ confirmLogout = false }, Modifier.prismFocus()) { Text("Отмена") } })
+    if (confirmLogout) AlertDialog(onDismissRequest = { confirmLogout = false }, title = { Text(tr(Msg.msg_350675f4e001)) },
+        text = { Text(tr(Msg.msg_4e882842072f, profileName(profile))) },
+        confirmButton = { TextButton({ confirmLogout = false; auth.signOut() }, Modifier.prismFocus().testTag("auth_logout_confirm")) { Text(tr(Msg.msg_5690c2e63b9d)) } },
+        dismissButton = { TextButton({ confirmLogout = false }, Modifier.prismFocus()) { Text(tr(Msg.msg_8fbe9b75cbdf)) } })
 }

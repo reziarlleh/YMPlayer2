@@ -1,0 +1,9 @@
+{
+  "sha256": "b4655174c1be8e22dfd7aadc2280a9c50d80a7df4081596eb389fd87e297c83d",
+  "builtAtUtc": "2026-10-02T01:56:39.5261299Z",
+  "versionName": "2.2.0beta-build70",
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "beta",
+  "runtimeAcceptance": "project-emulators-passed; owner-English-review-pending",
+  "versionCode": 70
+}

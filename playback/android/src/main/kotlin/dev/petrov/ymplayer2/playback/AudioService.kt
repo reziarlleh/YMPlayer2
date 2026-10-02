@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.playback
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.app.PendingIntent
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
@@ -69,8 +71,8 @@ internal object BrowserSources {
     fun item(id: String): MediaItem? = when (id) {
         ROOT -> MediaItem.Builder().setMediaId(ROOT).setMediaMetadata(MediaMetadata.Builder()
             .setTitle("YMPlayer 2").setIsBrowsable(true).setIsPlayable(false).build()).build()
-        WAVE -> playable(WAVE, "Моя волна", "Радио Яндекс Музыки")
-        LIKED_CACHE -> playable(LIKED_CACHE, "Скачанные треки «Мне нравится»", "Офлайн-коллекция")
+        WAVE -> playable(WAVE, tr(Msg.msg_de1ea8c09caa), tr(Msg.msg_1298b5e04346))
+        LIKED_CACHE -> playable(LIKED_CACHE, tr(Msg.msg_8491940b48e2), tr(Msg.msg_22324e61bdfe))
         else -> null
     }
 

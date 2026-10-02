@@ -5,4 +5,8 @@ android {
     defaultConfig { minSdk = 29 }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
-dependencies { implementation(project(":designsystem")) }
+dependencies {
+    implementation(project(":localization"))
+    implementation(project(":designsystem"))
+    implementation(libs.coroutines.android)
+}

@@ -66,6 +66,9 @@ class ClipActivity : ComponentActivity() {
             graph.skins.state.collect { controls.updatePalette(it.active.clipPalette()) }
         } }
         lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
+            dev.petrov.ymplayer2.localization.AppLanguages.state.collect { controls.refreshLanguage() }
+        } }
+        lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (isActive) {
                 controls.updateProgress(player.currentPosition, player.duration)
                 delay(250)

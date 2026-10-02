@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,20 +21,20 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val state by preferences.state.collectAsStateWithLifecycle()
     var editingCache by remember { mutableStateOf<Boolean?>(null) }
     LazyColumn(Modifier.fillMaxSize().testTag("quality_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        item { Text("Качество звука", style = MaterialTheme.typography.headlineSmall) }
-        item { Text("Настройки общие для этого устройства.") }
-        item { Text("Онлайн-воспроизведение", style = MaterialTheme.typography.titleMedium) }
-        item { OutlinedButton({ editingCache = false }, Modifier.fillMaxWidth().prismFocus().testTag("quality_stream")) { Text(state.stream.label) } }
-        item { Text("Новые потоки и предзагрузка «Моей волны».", style = MaterialTheme.typography.bodyMedium) }
-        item { Text("Офлайн-кэш «Мне нравится»", style = MaterialTheme.typography.titleMedium) }
-        item { OutlinedButton({ editingCache = true }, Modifier.fillMaxWidth().prismFocus().testTag("quality_cache")) { Text(state.cache.label) } }
-        item { Text("Новые загрузки при синхронизации «Мне нравится».", style = MaterialTheme.typography.bodyMedium) }
-        item { Text("Яндекс может предложить другой битрейт: выбирается лучший доступный до указанного значения, а если его нет — ближайший выше. «Авто» и «Максимальное» выбирают наибольший доступный битрейт.") }
-        item { Text("Текущий трек, уже подготовленные треки волны и сохранённые файлы сохраняют своё качество. Для повторной загрузки всей офлайн-коллекции удалите её файлы в настройках офлайн-кэша и запустите синхронизацию. Лайки останутся в Яндексе.") }
+        item { Text(tr(Msg.msg_995011f87d4b), style = MaterialTheme.typography.headlineSmall) }
+        item { Text(tr(Msg.msg_3e38544b4537)) }
+        item { Text(tr(Msg.msg_01fc82460086), style = MaterialTheme.typography.titleMedium) }
+        item { OutlinedButton({ editingCache = false }, Modifier.fillMaxWidth().prismFocus().testTag("quality_stream")) { Text(trMessage(state.stream.label)) } }
+        item { Text(tr(Msg.msg_36cf98277e5f), style = MaterialTheme.typography.bodyMedium) }
+        item { Text(tr(Msg.msg_e30fc8a5eb01), style = MaterialTheme.typography.titleMedium) }
+        item { OutlinedButton({ editingCache = true }, Modifier.fillMaxWidth().prismFocus().testTag("quality_cache")) { Text(trMessage(state.cache.label)) } }
+        item { Text(tr(Msg.msg_9887b0bfa666), style = MaterialTheme.typography.bodyMedium) }
+        item { Text(tr(Msg.msg_69294d8ce6a4)) }
+        item { Text(tr(Msg.msg_c90dd531a092)) }
     }
     editingCache?.let { cache ->
         val current = if (cache) state.cache else state.stream
-        AlertDialog(onDismissRequest = { editingCache = null }, title = { Text(if (cache) "Качество офлайн-кэша" else "Качество онлайн-звука") },
+        AlertDialog(onDismissRequest = { editingCache = null }, title = { Text(if (cache) tr(Msg.msg_2718e917ffb3) else tr(Msg.msg_a5e1aeda4ccc)) },
             text = {
                 LazyColumn(Modifier.heightIn(max = 320.dp).testTag("quality_options"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     items(AudioQuality.entries, key = AudioQuality::key) { option ->
@@ -45,11 +47,11 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                             color = if (option == current) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface) {
                             Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                 SkinIcon(if (option == current) UiIcon.CHOICE_ON else UiIcon.CHOICE_OFF, null)
-                                Text(option.label, Modifier.weight(1f))
+                                Text(trMessage(option.label), Modifier.weight(1f))
                             }
                         }
                     }
                 }
-            }, confirmButton = { TextButton({ editingCache = null }) { Text("Закрыть") } })
+            }, confirmButton = { TextButton({ editingCache = null }) { Text(tr(Msg.msg_a7a4033657e8)) } })
     }
 }

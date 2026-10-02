@@ -1,0 +1,4 @@
+[
+  {"tag":"en","englishName":"English","nativeName":"English","trackCount":{"one":"%d track","other":"%d tracks"}},
+  {"tag":"ru","englishName":"Russian","nativeName":"Русский","trackCount":{"one":"%d трек","few":"%d трека","many":"%d треков","other":"%d трека"}}
+]

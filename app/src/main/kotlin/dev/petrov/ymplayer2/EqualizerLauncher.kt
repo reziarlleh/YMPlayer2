@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -18,7 +20,7 @@ internal class EqualizerLauncher(private val activity: Activity, private val aud
             manager.queryIntentActivities(Intent(Intent.ACTION_MAIN).addCategory(category), 0)
         }.distinctBy { it.activityInfo.packageName }.filter {
             val value = "${it.loadLabel(manager)} ${it.activityInfo.packageName}".lowercase(Locale.ROOT)
-            it.activityInfo.packageName != activity.packageName && listOf("dsp", "equalizer", "эквалайзер", "eq", "audio", "sound", "fx").any(value::contains)
+            it.activityInfo.packageName != activity.packageName && listOf("dsp", "equalizer", tr(Msg.msg_c61eb3c4706a), "eq", "audio", "sound", "fx").any(value::contains)
         }.sortedBy { it.loadLabel(manager).toString().lowercase(Locale.ROOT) }
         val choices = apps.map { it.loadLabel(manager).toString() to {
             val packageName = it.activityInfo.packageName
@@ -30,14 +32,14 @@ internal class EqualizerLauncher(private val activity: Activity, private val aud
             .putExtra(AudioEffect.EXTRA_AUDIO_SESSION, session)
             .putExtra(AudioEffect.EXTRA_PACKAGE_NAME, activity.packageName)
             .putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
-        if (session > 0 && manager.resolveActivity(panel, 0) != null) choices += "Системный эквалайзер" to { if (!launch(panel)) missing() }
-        val dialog = AlertDialog.Builder(activity).setTitle("Эквалайзер / DSP").setNegativeButton("Закрыть", null)
-        if (choices.isEmpty()) dialog.setMessage("Совместимый эквалайзер или DSP не найден. Установите приложение обработки звука. Если доступна системная панель, начните воспроизведение и откройте её здесь.")
+        if (session > 0 && manager.resolveActivity(panel, 0) != null) choices += tr(Msg.msg_23d5ec1e3849) to { if (!launch(panel)) missing() }
+        val dialog = AlertDialog.Builder(activity).setTitle(tr(Msg.msg_fdc54db3a2b0)).setNegativeButton(tr(Msg.msg_a7a4033657e8), null)
+        if (choices.isEmpty()) dialog.setMessage(tr(Msg.msg_6276f8c77c1b))
         else dialog.setItems(choices.map { it.first }.toTypedArray()) { _, index -> choices[index].second() }
         dialog.show()
     }
     private fun launch(intent: Intent?): Boolean = try {
         if (intent == null) false else { activity.startActivity(intent); true }
     } catch (_: android.content.ActivityNotFoundException) { false } catch (_: SecurityException) { false }
-    private fun missing() { Toast.makeText(activity, "Не удалось открыть эквалайзер. Выберите другое приложение.", Toast.LENGTH_LONG).show() }
+    private fun missing() { Toast.makeText(activity, tr(Msg.msg_0761f7d17c1f), Toast.LENGTH_LONG).show() }
 }

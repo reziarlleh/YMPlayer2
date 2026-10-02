@@ -20,12 +20,18 @@ import dev.petrov.ymplayer2.yandex.YandexClip
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.Before
 import org.junit.runner.RunWith
 import java.io.File
 
 /** Production Activity/remote dispatch and real MP4; account/wave metadata is an explicit local fixture. */
 @RunWith(AndroidJUnit4::class)
 class ClipRemoteProgressTest {
+    @Before fun fixtureLanguage() {
+        instrument.runOnMainSync {
+            dev.petrov.ymplayer2.localization.AppLanguages.initialize(instrument.targetContext, "fixture-language", "ru")
+        }
+    }
     private val instrument get() = InstrumentationRegistry.getInstrumentation()
     private fun controller(activity: ClipActivity) = ClipActivity::class.java.getDeclaredField("clips")
         .apply { isAccessible = true }.get(activity) as ClipWaveController

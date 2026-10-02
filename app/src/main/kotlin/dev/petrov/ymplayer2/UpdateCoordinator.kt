@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
@@ -44,7 +46,7 @@ internal class UpdateCoordinator(private val activity: ComponentActivity,
 
     override fun check(manual: Boolean) {
         if (mutable.value.checking || mutable.value.downloading) return
-        mutable.update { it.copy(checking = true, status = if (manual) "Проверяем обновления…" else it.status) }
+        mutable.update { it.copy(checking = true, status = if (manual) tr(Msg.msg_7cd2f0ff4082) else it.status) }
         activity.lifecycleScope.launch {
             try {
                 val info = client.check()
@@ -55,10 +57,10 @@ internal class UpdateCoordinator(private val activity: ComponentActivity,
                 mutable.update { it.copy(checking = false, offer = release?.let { offer ->
                     UpdateOffer(offer.versionName, offer.notes, offer.alternativeUrl.isNotBlank())
                 }, ready = false, prompt = !manual && release != null,
-                    status = if (release == null) "Установлена актуальная версия." else "Доступна ${info.versionName}.") }
+                    status = if (release == null) tr(Msg.msg_2b7d2f3f797d) else tr(Msg.msg_8f88e588534f, info.versionName)) }
             } catch (error: Exception) {
                 mutable.update { it.copy(checking = false,
-                    status = if (manual) "Не удалось проверить обновления: ${error.message ?: "ошибка сети"}" else it.status) }
+                    status = if (manual) tr(Msg.msg_f434aef91735, error.message ?: tr(Msg.msg_7796e6a8c011)) else it.status) }
             }
         }
     }
@@ -66,7 +68,7 @@ internal class UpdateCoordinator(private val activity: ComponentActivity,
     override fun download(preferAlternative: Boolean) {
         val info = release ?: return
         if (mutable.value.downloading) return
-        mutable.update { it.copy(downloading = true, progress = 0, prompt = false, status = "Загружаем ${info.versionName}…") }
+        mutable.update { it.copy(downloading = true, progress = 0, prompt = false, status = tr(Msg.msg_b2cbccffb035, info.versionName)) }
         activity.lifecycleScope.launch {
             try {
                 val result = client.download(info, preferAlternative) { percent, source ->
@@ -74,11 +76,11 @@ internal class UpdateCoordinator(private val activity: ComponentActivity,
                 }
                 downloaded = result
                 mutable.update { it.copy(downloading = false, ready = true,
-                    status = "APK проверен${if (result.usedAlternative) " · резервный источник" else ""}.") }
+                    status = tr(Msg.msg_460213556ee1, if (result.usedAlternative) tr(Msg.msg_ad6a1e7e39d2) else "")) }
                 install()
             } catch (error: Exception) {
                 mutable.update { it.copy(downloading = false,
-                    status = "Не удалось загрузить обновление: ${error.message ?: "ошибка сети"}") }
+                    status = tr(Msg.msg_6dccc4a3f564, error.message ?: tr(Msg.msg_7796e6a8c011))) }
             }
         }
     }
@@ -90,15 +92,15 @@ internal class UpdateCoordinator(private val activity: ComponentActivity,
             when (installer.request(activity, file, info)) {
                 InstallStep.PERMISSION_REQUIRED -> {
                     rememberPending(info)
-                    mutable.update { it.copy(status = "Разрешите установку из YMPlayer 2; после возврата откроется системный установщик.") }
+                    mutable.update { it.copy(status = tr(Msg.msg_d8cafee5a654)) }
                 }
                 InstallStep.LAUNCHED -> {
                     prefs.edit().remove("pending").apply()
-                    mutable.update { it.copy(status = "Открыт системный установщик. Подтвердите обновление.") }
+                    mutable.update { it.copy(status = tr(Msg.msg_78b7fcee0a88)) }
                 }
             }
         } catch (error: Exception) {
-            mutable.update { it.copy(status = "Не удалось открыть установку: ${error.message ?: "ошибка"}") }
+            mutable.update { it.copy(status = tr(Msg.msg_73cec4b1fa25, error.message ?: tr(Msg.msg_44d4090ae9e4))) }
         }
     }
 
@@ -106,7 +108,7 @@ internal class UpdateCoordinator(private val activity: ComponentActivity,
         val saved = prefs.getString("pending", null) ?: return
         if (!activity.packageManager.canRequestPackageInstalls()) return
         try {
-            val info = client.parseManifest(JSONObject(saved), "ожидающее обновление")
+            val info = client.parseManifest(JSONObject(saved), tr(Msg.msg_c90ea6df373e))
             val file = File(activity.filesDir, "updates/YMPlayer2-${info.versionCode}.apk")
             release = info
             downloaded = DownloadedUpdate(file, false)
@@ -114,7 +116,7 @@ internal class UpdateCoordinator(private val activity: ComponentActivity,
             install()
         } catch (error: Exception) {
             prefs.edit().remove("pending").apply()
-            mutable.update { it.copy(status = "Ожидающий APK не прошёл проверку: ${error.message ?: "ошибка"}") }
+            mutable.update { it.copy(status = tr(Msg.msg_0d19ca3fd269, error.message ?: tr(Msg.msg_44d4090ae9e4))) }
         }
     }
 

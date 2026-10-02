@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -38,37 +40,37 @@ interface SideBarAccess {
     val state by access.state.collectAsStateWithLifecycle()
     LazyColumn(Modifier.fillMaxSize().testTag("sidebar_settings"),
         contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        item { Text("Боковая панель", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { Text("На K4811 откройте панель коротким свайпом от середины левого или правого края либо от центра нижнего края. Зона жеста невидима и занимает лишь небольшую часть края.") }
+        item { Text(tr(Msg.msg_43fb606c5b6f), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
+        item { Text(tr(Msg.msg_af72c5eb8791)) }
         if (!state.permitted) item {
             OutlinedButton(access::requestPermission, Modifier.fillMaxWidth().prismFocus().testTag("sidebar_permission")) {
-                Text("Разрешить показ поверх приложений")
+                Text(tr(Msg.msg_b3be276ac9d7))
             }
         }
         item {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text("Включить панель", Modifier.weight(1f))
+                Text(tr(Msg.msg_6807424b3688), Modifier.weight(1f))
                 Switch(state.enabled, access::setEnabled, enabled = state.permitted && state.options.any { it.selected }, modifier = Modifier.testTag("sidebar_enabled"))
             }
         }
         item {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text("Сворачивать через 8 секунд", Modifier.weight(1f))
+                Text(tr(Msg.msg_7435626dd379), Modifier.weight(1f))
                 Switch(state.autoHide, access::setAutoHide, modifier = Modifier.testTag("sidebar_autohide"))
             }
         }
-        item { HorizontalDivider(); Text("Кнопки панели", style = MaterialTheme.typography.titleMedium) }
+        item { HorizontalDivider(); Text(tr(Msg.msg_25dc72086a44), style = MaterialTheme.typography.titleMedium) }
         items(state.options, key = SideBarOption::id) { option ->
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(option.title, Modifier.weight(1f))
+                Text(trMessage(option.title), Modifier.weight(1f))
                 Switch(option.selected, { access.setButton(option.id, it) }, modifier = Modifier.testTag("sidebar_button_${option.id}"))
             }
         }
-        item { Text("«Спрятать сайдбар» — всегда последняя кнопка и не отключается. Если все остальные кнопки выключены, SideBar отключается.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text(tr(Msg.msg_f8ddc90b1078), color = MaterialTheme.colorScheme.onSurfaceVariant) }
         if (state.enabled) item {
-            OutlinedButton(access::toggle, Modifier.fillMaxWidth().prismFocus().testTag("sidebar_toggle")) { Text("Показать / скрыть панель") }
+            OutlinedButton(access::toggle, Modifier.fillMaxWidth().prismFocus().testTag("sidebar_toggle")) { Text(tr(Msg.msg_dc2b5a858155)) }
         }
-        item { Text("«Меню» открывает список приложений K4811. «Плей / пауза» управляет активным плеером. «Сон» усыпляет магнитолу, «Перезагрузка» сначала запрашивает подтверждение.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        state.message?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("sidebar_message")) } }
+        item { Text(tr(Msg.msg_8208dc91519d), color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        state.message?.let { message -> item { Text(trMessage(message), color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("sidebar_message")) } }
     }
 }

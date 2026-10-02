@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
@@ -18,19 +20,19 @@ interface DiagnosticsAccess {
 }
 
 @Composable internal fun DiagnosticsScreen(access: DiagnosticsAccess) {
-    var contents by remember { mutableStateOf("Загрузка журнала…") }
+    var contents by remember { mutableStateOf(tr(Msg.msg_aed87524dfde)) }
     var status by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
     LaunchedEffect(access) { contents = access.snapshot() }
     LazyColumn(Modifier.fillMaxSize().testTag("diagnostics_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        item { Text("Диагностика", style = MaterialTheme.typography.headlineSmall) }
-        item { Text("В журнале только коды событий. Токены, коды входа, названия треков и адреса запросов не записываются.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text(tr(Msg.msg_da4da4e3527c), style = MaterialTheme.typography.headlineSmall) }
+        item { Text(tr(Msg.msg_d6e12cca8a0f), color = MaterialTheme.colorScheme.onSurfaceVariant) }
         item { Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedButton({ scope.launch { contents = access.snapshot(); status = "Журнал обновлён." } }, Modifier.prismFocus().testTag("diagnostics_refresh")) { Text("Обновить") }
-            OutlinedButton({ scope.launch { status = access.clear(); contents = access.snapshot() } }, Modifier.prismFocus().testTag("diagnostics_clear")) { Text("Очистить") }
+            OutlinedButton({ scope.launch { contents = access.snapshot(); status = tr(Msg.msg_1a5f7efbec65) } }, Modifier.prismFocus().testTag("diagnostics_refresh")) { Text(tr(Msg.msg_603e460bf59c)) }
+            OutlinedButton({ scope.launch { status = access.clear(); contents = access.snapshot() } }, Modifier.prismFocus().testTag("diagnostics_clear")) { Text(tr(Msg.msg_8965271d3c97)) }
         } }
-        item { OutlinedButton({ scope.launch { status = access.export() } }, Modifier.prismFocus().testTag("diagnostics_export")) { Text("Экспорт в Downloads") } }
-        if (status != null) item { Text(status.orEmpty(), Modifier.testTag("diagnostics_status"), color = MaterialTheme.colorScheme.primary) }
+        item { OutlinedButton({ scope.launch { status = access.export() } }, Modifier.prismFocus().testTag("diagnostics_export")) { Text(tr(Msg.msg_4195b215e9f0)) } }
+        if (status != null) item { Text(trMessage(status.orEmpty()), Modifier.testTag("diagnostics_status"), color = MaterialTheme.colorScheme.primary) }
         item { Text(contents, Modifier.fillMaxWidth().testTag("diagnostics_contents"), style = MaterialTheme.typography.bodySmall) }
     }
 }

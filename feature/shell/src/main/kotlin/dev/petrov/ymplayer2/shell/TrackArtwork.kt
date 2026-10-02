@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -38,7 +40,7 @@ private val coverMemory = object : LruCache<String, Bitmap>(4 * 1024 * 1024) {
             }
         }
         if (bitmap == null) DemoArtwork(track?.tint ?: 0, modifier.testTag("artwork_placeholder"))
-        else Image(bitmap!!.asImageBitmap(), "Обложка: ${track?.title.orEmpty()}", modifier.clip(MaterialTheme.shapes.large).testTag("track_artwork"), contentScale = ContentScale.Crop)
+        else Image(bitmap!!.asImageBitmap(), tr(Msg.msg_70daf92e717a, track?.title.orEmpty()), modifier.clip(MaterialTheme.shapes.large).testTag("track_artwork"), contentScale = ContentScale.Crop)
     }
 }
 

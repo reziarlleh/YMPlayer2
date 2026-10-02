@@ -25,6 +25,7 @@ class SkinTestActivity : ComponentActivity() {
     val skins by lazy { SkinRepository(this, lifecycleScope, "skin-harness") }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dev.petrov.ymplayer2.localization.AppLanguages.initialize(this, "fixture-language", "ru")
         enableEdgeToEdge()
         val graph = application as PlayerApplication
         graph.playback.connect()

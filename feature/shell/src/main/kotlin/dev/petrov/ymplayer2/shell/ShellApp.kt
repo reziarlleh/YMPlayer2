@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import android.os.SystemClock
@@ -33,11 +35,11 @@ import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
 private data class Destination(val route: String, val label: String, val icon: UiIcon)
-private val destinations = listOf(
-    Destination("player", "Плеер", UiIcon.PLAYER),
-    Destination("library", "Медиатека", UiIcon.LIBRARY),
-    Destination("search", "Поиск", UiIcon.SEARCH),
-    Destination("clips", "Клипы", UiIcon.CLIPS),
+private val destinations get() = listOf(
+    Destination("player", tr(Msg.msg_dff16f6f70a1), UiIcon.PLAYER),
+    Destination("library", tr(Msg.msg_0a20ddc9928f), UiIcon.LIBRARY),
+    Destination("search", tr(Msg.msg_180f58ab9753), UiIcon.SEARCH),
+    Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
 @Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}) {
@@ -92,7 +94,7 @@ private val destinations = listOf(
     LaunchedEffect(exitAt) { if (exitAt != null) { delay(2000); exitAt = null } }
     BackHandler {
         when (route) {
-            "quality", "diagnostics", "sidebar", "updates", "skins", "offline_settings" -> navigate("settings")
+            "quality", "diagnostics", "sidebar", "updates", "skins", "offline_settings", "language" -> navigate("settings")
             "account" -> navigate("profiles")
             "playlists", "favorites", "folders", "offline" -> { libraryUpRequest++; navigate("library") }
             "player" -> {
@@ -112,13 +114,13 @@ private val destinations = listOf(
             val typingInShortWindow = short && WindowInsets.ime.getBottom(density) > 0
             Column(Modifier.fillMaxSize().testTag("shell_layout")) {
                 if (!typingInShortWindow) Row(Modifier.fillMaxWidth().testTag("shell_header").padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                    if (route != "player") ActionIcon(UiIcon.BACK, "Назад", { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))
-                    Column(Modifier.weight(1f).heightIn(min = 48.dp).prismFocus().clickable(onClickLabel = "О приложении", role = Role.Button) { aboutOpen = true }.testTag("about_logo").padding(vertical = 6.dp)) {
+                    if (route != "player") ActionIcon(UiIcon.BACK, tr(Msg.msg_1a9fb1f3cf8e), { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))
+                    Column(Modifier.weight(1f).heightIn(min = 48.dp).prismFocus().clickable(onClickLabel = tr(Msg.msg_eca626bab07b), role = Role.Button) { aboutOpen = true }.testTag("about_logo").padding(vertical = 6.dp)) {
                         WideBrandLogo(Modifier.widthIn(max = 188.dp).fillMaxWidth().height(30.dp), "YMPlayer2")
-                        if (route != "player") Text(if (demo) "Прототип · Без звука" else if (version.contains("beta", ignoreCase = true)) "Музыка рядом · Beta" else "Музыка рядом", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        if (route != "player") Text(if (demo) tr(Msg.msg_bbb42f6a25b6) else if (version.contains("beta", ignoreCase = true)) tr(Msg.msg_5e66b30bc941) else tr(Msg.msg_f4d6290e6f4b), color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
-                    ActionIcon(UiIcon.PROFILE, "Профили", { navigate("profiles") }, Modifier.testTag("profiles"))
-                    ActionIcon(UiIcon.SETTINGS, "Настройки", { navigate("settings") }, Modifier.testTag("settings"))
+                    ActionIcon(UiIcon.PROFILE, tr(Msg.msg_30c61037264b), { navigate("profiles") }, Modifier.testTag("profiles"))
+                    ActionIcon(UiIcon.SETTINGS, tr(Msg.msg_985b5e0f2ccf), { navigate("settings") }, Modifier.testTag("settings"))
                 }
                 BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
                     // Rail sizing uses the space remaining below the common header.
@@ -130,8 +132,8 @@ private val destinations = listOf(
                             containerColor = MaterialTheme.colorScheme.background) {
                             destinations.forEach { item ->
                                 NavigationRailItem(navigationRoute == item.route, { navigate(item.route) },
-                                    { SkinIcon(item.icon, item.label) }, Modifier.height(if (tinyRail) 56.dp else if (compactRail) 76.dp else if (short) 72.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
-                                    label = if (tinyRail) null else ({ Text(item.label,
+                                    { SkinIcon(item.icon, trMessage(item.label)) }, Modifier.height(if (tinyRail) 56.dp else if (compactRail) 76.dp else if (short) 72.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
+                                    label = if (tinyRail) null else ({ Text(trMessage(item.label),
                                         fontSize = if (compactRail) 10.sp else 12.sp,
                                         maxLines = 2, textAlign = TextAlign.Center) }))
                             }
@@ -146,12 +148,12 @@ private val destinations = listOf(
                                         "library", "search" -> Column(Modifier.fillMaxSize()) {
                                             model.online?.let {
                                                 if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (route == "search" && offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
-                                                    FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text("Общий каталог") }, choice("local").prismFocus().testTag("source_local"))
-                                                    FilterChip(onlineSource, { onlineSource = true; offlineSearch = false }, { Text("Яндекс Музыка") }, choice("yandex").prismFocus().testTag("source_yandex"))
+                                                    FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text(tr(Msg.msg_00231affc201)) }, choice("local").prismFocus().testTag("source_local"))
+                                                    FilterChip(onlineSource, { onlineSource = true; offlineSearch = false }, { Text(tr(Msg.msg_c39959813ccd)) }, choice("yandex").prismFocus().testTag("source_yandex"))
                                                     if (model.offline != null) FilterChip(route == "search" && offlineSearch, {
                                                         if (route == "search") { onlineSource = false; offlineSearch = true }
                                                         else navigate("offline")
-                                                    }, { Text("Офлайн") }, choice("offline").prismFocus().testTag("open_offline"))
+                                                    }, { Text(tr(Msg.msg_aa07f084155c)) }, choice("offline").prismFocus().testTag("open_offline"))
                                                 }
                                             }
                                             val cacheOnly = route == "search" && offlineSearch
@@ -180,13 +182,14 @@ private val destinations = listOf(
                                         "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                         "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
                                         "offline_settings" -> model.offline?.let { OfflineSettingsScreen(it, syncOffline, { navigate("account") }) }
-                                        "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true })
+                                        "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true }, language = { navigate("language") })
+                                        "language" -> LanguageScreen()
                                         "skins" -> skins?.let { SkinsScreen(it, importSkin) }
                                         "diagnostics" -> diagnostics?.let { DiagnosticsScreen(it) }
                                         "sidebar" -> sideBar?.let { SideBarScreen(it) }
                                         "updates" -> updates?.let { UpdateScreen(version, it) }
                                         "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
-                                        "clips" -> MessageScreen("Клипы", "Видеомодуль ещё разрабатывается", "Аудиоплеер продолжает работать при переходе между разделами.", UiIcon.CLIPS)
+                                        "clips" -> MessageScreen(tr(Msg.msg_6daecbeea4b6), tr(Msg.msg_f8ac3be6be11), tr(Msg.msg_0a0ebb200d14), UiIcon.CLIPS)
                                     }
                                 }
                             }
@@ -194,8 +197,8 @@ private val destinations = listOf(
                             if (!rail && !typingInShortWindow) NavigationBar(Modifier.onSizeChanged { bottomBarHeight = it.height }, containerColor = MaterialTheme.colorScheme.background) {
                                 destinations.forEach { item ->
                                     NavigationBarItem(navigationRoute == item.route, { navigate(item.route) },
-                                        { SkinIcon(item.icon, item.label) }, Modifier.testTag("nav_${item.route}").prismFocus(),
-                                        label = { Text(item.label, maxLines = 1, overflow = TextOverflow.Ellipsis) })
+                                        { SkinIcon(item.icon, trMessage(item.label)) }, Modifier.testTag("nav_${item.route}").prismFocus(),
+                                        label = { Text(trMessage(item.label), maxLines = 1, overflow = TextOverflow.Ellipsis) })
                                 }
                             }
                             collectionTrack?.let { track -> model.collections?.let { store ->
@@ -208,7 +211,7 @@ private val destinations = listOf(
             }
             model.cloudPlaylists?.let { CloudPlaylistDialog(it) }
             if (exitAt != null) Snackbar(Modifier.align(Alignment.BottomCenter).padding(start = 16.dp, end = 16.dp, bottom = 16.dp + if (rail) 0.dp else with(density) { bottomBarHeight.toDp() }).testTag("exit_hint")) {
-                Text("Нажмите «Назад» ещё раз для выхода")
+                Text(tr(Msg.msg_5779b6589ef5))
             }
         }
         if (aboutOpen) AboutDialog(version) { aboutOpen = false }
@@ -225,12 +228,12 @@ private val destinations = listOf(
         Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             TextButton(open, Modifier.weight(1f).prismFocus().testTag("mini_open")) {
                 Column(Modifier.fillMaxWidth()) {
-                    Text(state.current?.title ?: "Очередь пуста", maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Text(state.current?.title ?: tr(Msg.msg_39c3c9622cdc), maxLines = 1, overflow = TextOverflow.Ellipsis)
                     Text("${state.current?.artist.orEmpty()} · ${secondsLabel(state.positionSeconds)}", style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            ActionIcon(if (state.playing) UiIcon.PAUSE else UiIcon.PLAY, if (state.playing) "Пауза" else "Воспроизвести", player::toggle, Modifier.testTag("mini_play"), state.current?.available == true)
-            ActionIcon(UiIcon.QUEUE, "Очередь", queue)
+            ActionIcon(if (state.playing) UiIcon.PAUSE else UiIcon.PLAY, if (state.playing) tr(Msg.msg_65530fd463ea) else tr(Msg.msg_bdd37eb21746), player::toggle, Modifier.testTag("mini_play"), state.current?.available == true)
+            ActionIcon(UiIcon.QUEUE, tr(Msg.msg_cb297d129add), queue)
         }
     }
 }

@@ -18,6 +18,13 @@
 [Текущий статус](docs/PROJECT_STATUS.md) · [Порядок](docs/ROADMAP.md) ·
 [Проверка выпуска](docs/PATCH_2_1_5_VERIFICATION.md).
 
+**Для проверки English — [2.2.0beta-build70](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.0beta-build70).**
+Настройки → Язык приложения: Auto, English (English), Russian (Русский).
+Новая работа начата от последней 2.1.5, прежняя незавершённая ветка не слита.
+Смена языка сохраняет профиль, настройки и воспроизведение.
+[Результаты Android/TV](docs/M14_VERIFICATION.md) · [Добавление переводов](docs/LANGUAGE_TRANSLATIONS.md).
+Остальные языки и английская инструкция — после проверки English.
+
 [Тема на 4PDA — описание, APK и обсуждение](https://4pda.to/forum/index.php?showtopic=1127108).
 
 **[Руководство пользователя — со скриншотами и значками кнопок](docs/USER_GUIDE.md).**

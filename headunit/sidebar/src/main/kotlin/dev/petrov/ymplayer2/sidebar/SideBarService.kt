@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.sidebar
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -24,6 +26,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import java.util.EnumMap
+import kotlinx.coroutines.*
 
 /** User-enabled overlay. K4811 commands stay in K4811Controls; no Accessibility service or boot auto-start. */
 class SideBarService : Service() {
@@ -33,20 +36,30 @@ class SideBarService : Service() {
     private var panel: View? = null
     private var edge = SideBarEdge.RIGHT
     private val hide = Runnable { collapse() }
+    private val languageScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     override fun onCreate() {
         super.onCreate()
         settings = SideBarSettings(this)
         windows = getSystemService(WindowManager::class.java)
+        languageScope.launch {
+            AppLanguages.state.collect {
+                refreshNotification()
+                if (panel != null) expand(edge)
+            }
+        }
+    }
+
+    private fun refreshNotification() {
         val manager = getSystemService(NotificationManager::class.java)
-        manager.createNotificationChannel(NotificationChannel(CHANNEL, "Панель YMPlayer 2", NotificationManager.IMPORTANCE_LOW))
+        manager.createNotificationChannel(NotificationChannel(CHANNEL, tr(Msg.msg_e8c693109156), NotificationManager.IMPORTANCE_LOW))
         val launch = packageManager.getLaunchIntentForPackage(packageName)
         val content = launch?.let { PendingIntent.getActivity(this, 0, it,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE) }
         val notification = Notification.Builder(this, CHANNEL)
             .setSmallIcon(android.R.drawable.ic_menu_manage)
-            .setContentTitle("Панель YMPlayer 2")
-            .setContentText("Проведите от края экрана, чтобы открыть")
+            .setContentTitle(tr(Msg.msg_e8c693109156))
+            .setContentText(tr(Msg.msg_9c1888610d6f))
             .setContentIntent(content).setOngoing(true).setOnlyAlertOnce(true).build()
         if (Build.VERSION.SDK_INT >= 34) startForeground(ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
         else startForeground(ID, notification)
@@ -67,6 +80,7 @@ class SideBarService : Service() {
     }
 
     override fun onDestroy() {
+        languageScope.cancel()
         removePanel(); removeHandles()
         stopForeground(STOP_FOREGROUND_REMOVE)
         super.onDestroy()
@@ -118,13 +132,13 @@ class SideBarService : Service() {
         val columns = if (horizontal) count.coerceAtMost(4) else ((count + maxRows - 1) / maxRows).coerceAtLeast(1)
         val grid = GridLayout(this).apply { columnCount = columns; orientation = GridLayout.HORIZONTAL }
         selected.forEach { button ->
-            grid.addView(button(button.glyph, button.title) {
+            grid.addView(button(button.glyph, trMessage(button.title)) {
                 scheduleHide()
                 perform(button)
             })
         }
         // Collapse is mandatory and always last, regardless of button preferences.
-        grid.addView(button("×", "Спрятать сайдбар") { collapse() })
+        grid.addView(button("×", tr(Msg.msg_16e5a7c68a87)) { collapse() })
         row.addView(grid)
         if (add(row, params(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, edge))) { panel = row; scheduleHide() }
         else showHandles()
@@ -159,15 +173,15 @@ class SideBarService : Service() {
                 SideBarButton.HOME -> if (!K4811Controls.home(this))
                     startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 SideBarButton.BACK -> if (!K4811Controls.back(this))
-                    Toast.makeText(this, "«Назад» доступно только на K4811.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, tr(Msg.msg_5dc56b8cf0e0), Toast.LENGTH_LONG).show()
                 SideBarButton.MENU -> if (!K4811Controls.menu(this))
-                    Toast.makeText(this, "«Меню» доступно только на K4811.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, tr(Msg.msg_59134fd3fbf7), Toast.LENGTH_LONG).show()
                 SideBarButton.SLEEP -> if (K4811Controls.sleep(this)) collapse()
-                    else Toast.makeText(this, "«Сон» доступен только на K4811.", Toast.LENGTH_LONG).show()
+                    else Toast.makeText(this, tr(Msg.msg_b0dc6691dc09), Toast.LENGTH_LONG).show()
                 SideBarButton.REBOOT -> if (K4811RebootActivity.open(this)) collapse()
-                    else Toast.makeText(this, "Подтверждение перезагрузки недоступно на этом устройстве.", Toast.LENGTH_LONG).show()
+                    else Toast.makeText(this, tr(Msg.msg_4378c674b4d7), Toast.LENGTH_LONG).show()
             }
-        } catch (_: Exception) { Toast.makeText(this, "${button.title}: действие недоступно", Toast.LENGTH_SHORT).show() }
+        } catch (_: Exception) { Toast.makeText(this, tr(Msg.msg_e6b3d4be516a, trMessage(button.title)), Toast.LENGTH_SHORT).show() }
     }
 
     private fun audio(): AudioManager = getSystemService(AudioManager::class.java)
@@ -201,7 +215,7 @@ class SideBarService : Service() {
         private var downX = 0f
         private var downY = 0f
         init {
-            contentDescription = "Провести от края для открытия панели YMPlayer 2"
+            contentDescription = tr(Msg.msg_57816af2d9ca)
             // Keep only the small touch window; the collapsed handle has no visible pixels.
             background = null
         }

@@ -208,7 +208,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
 class OnlineTestActivity : ComponentActivity() {
     val harness get() = ViewModelProvider(this)[OnlineHarness::class.java]
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState); enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
+        dev.petrov.ymplayer2.localization.AppLanguages.initialize(this, "fixture-language", "ru"); enableEdgeToEdge()
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists) }

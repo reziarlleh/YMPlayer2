@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="msg_001dda282241" formatted="false">"Войдите в Яндекс в этом профиле. Если вход уже сохранён, обновите сведения об аккаунте."</string>
+    <string name="msg_00231affc201" formatted="false">"Общий каталог"</string>
+    <string name="msg_003022fabb87" formatted="false">"Следующий клип"</string>
+    <string name="msg_004778f850b1" formatted="false">"Запишите код перед переходом в браузер: на странице Яндекса не всегда можно вставить его из буфера обмена."</string>
+    <string name="msg_01fc82460086" formatted="false">"Онлайн-воспроизведение"</string>
+    <string name="msg_026baad87300" formatted="false">"Не удалось открыть файл скина"</string>
+    <string name="msg_031396ebc4da" formatted="false">"Профиль: @0@"</string>
+    <string name="msg_03222b95f9b4" formatted="false">"Отметки"</string>
+    <string name="msg_037174d58809" formatted="false">"Исполнитель"</string>
+    <string name="msg_04080c05e46f" formatted="false">"Недопустимый viewport значка"</string>
+    <string name="msg_042185cacc93" formatted="false">"Треки"</string>
+    <string name="msg_05f7734c7fbc" formatted="false">"В избранное"</string>
+    <string name="msg_066903b7f6fa" formatted="false">"Служба K4811 готова. Перезагрузить устройство?"</string>
+    <string name="msg_06a1b25395b9" formatted="false">"Убрать из любимых альбомов"</string>
+    <string name="msg_06da64ed2827" formatted="false">"Не удалось проверить отметку. Обновите состояние. "</string>
+    <string name="msg_074cc2ac4332" formatted="false">"Включить офлайн-кэш"</string>
+    <string name="msg_0761f7d17c1f" formatted="false">"Не удалось открыть эквалайзер. Выберите другое приложение."</string>
+    <string name="msg_0796e8248aae" formatted="false">"Неизвестное поле: @0@"</string>
+    <string name="msg_08cec0f555fe" formatted="false">"Неподдерживаемый формат манифеста"</string>
+    <string name="msg_09008d3dafef" formatted="false">"Не в избранном"</string>
+    <string name="msg_0918b4ba9268" formatted="false">"Название"</string>
+    <string name="msg_0928b8d4c742" formatted="false">"Альбом"</string>
+    <string name="msg_0a0ebb200d14" formatted="false">"Аудиоплеер продолжает работать при переходе между разделами."</string>
+    <string name="msg_0a17ec91a15b" formatted="false">"Исполнители и альбом"</string>
+    <string name="msg_0a20ddc9928f" formatted="false">"Медиатека"</string>
+    <string name="msg_0a813814f149" formatted="false">"Получить код входа"</string>
+    <string name="msg_0b9e2aeefccd" formatted="false">"Офлайн-кэш выключен. Его можно включить в настройках приложения."</string>
+    <string name="msg_0c581306a3c6" formatted="false">"Выбор трека запускает его"</string>
+    <string name="msg_0c985ad12096" formatted="false">"Музыкальный плеер для Android, Android TV и автомагнитол."</string>
+    <string name="msg_0d19ca3fd269" formatted="false">"Ожидающий APK не прошёл проверку: @0@"</string>
+    <string name="msg_0df38a907fd2" formatted="false">"Открыть: @0@"</string>
+    <string name="msg_0e04e96eb049" formatted="false">"Будут удалены аудио и обложки этого аккаунта в текущем профиле. Лайки в Яндексе сохранятся."</string>
+    <string name="msg_0f0e734fb752" formatted="false">"В очередь: @0@"</string>
+    <string name="msg_0fad384ca45b" formatted="false">"Недоступен для перемещения"</string>
+    <string name="msg_0fd3fe573609" formatted="false">"В избранном"</string>
+    <string name="msg_100f3d517847" formatted="false">"Другой пакет приложения"</string>
+    <string name="msg_103bc2f65ee8" formatted="false">"Проверять при запуске"</string>
+    <string name="msg_122f71765026" formatted="false">"Меню"</string>
+    <string name="msg_126edfaa6bc7" formatted="false">"Название трека · Исполнитель"</string>
+    <string name="msg_1298b5e04346" formatted="false">"Радио Яндекс Музыки"</string>
+    <string name="msg_12e3d1e9d948" formatted="false">"@0@ треков"</string>
+    <string name="msg_141e133edf3b" formatted="false">"Загрузка: @0@% · @1@"</string>
+    <string name="msg_1478970270d1" formatted="false">"На уровень выше"</string>
+    <string name="msg_1484585c1931" formatted="false">"Один из сохранённых скинов повреждён. Его можно импортировать заново."</string>
+    <string name="msg_14b10e3e0473" formatted="false">"Создать плейлист Яндекса"</string>
+    <string name="msg_16e5a7c68a87" formatted="false">"Спрятать сайдбар"</string>
+    <string name="msg_1718e90d59c5" formatted="false">"Аудио"</string>
+    <string name="msg_1731619efa3a" formatted="false">"Оформление"</string>
+    <string name="msg_173c0a00334a" formatted="false">"Предпросмотр не меняет оформление приложения."</string>
+    <string name="msg_17b7c023b762" formatted="false">"Настройка общая для устройства. При выключении синхронизация останавливается, сохранённая музыка не используется. Онлайн-музыка и предзагрузка волны продолжают работать."</string>
+    <string name="msg_17f63d0c483b" formatted="false">"Неизвестный fillType"</string>
+    <string name="msg_180f58ab9753" formatted="false">"Поиск"</string>
+    <string name="msg_194306e20807" formatted="false">"Переименовать"</string>
+    <string name="msg_1a25b02eecdb" formatted="false">"Название сохранено."</string>
+    <string name="msg_1a5f7efbec65" formatted="false">"Журнал обновлён."</string>
+    <string name="msg_1a9fb1f3cf8e" formatted="false">"Назад"</string>
+    <string name="msg_1c4b50127e94" formatted="false">"Трек отсутствует в локальном каталоге"</string>
+    <string name="msg_1c947e774ae7" formatted="false">"Сон"</string>
+    <string name="msg_1d16c7d5c800" formatted="false">"Канал и версия не совпадают"</string>
+    <string name="msg_1d74ce16d44e" formatted="false">"Трек, исполнитель или альбом"</string>
+    <string name="msg_1dd7755458c1" formatted="false">"Удалить плейлист"</string>
+    <string name="msg_1e5e88ef7525" formatted="false">"Трек"</string>
+    <string name="msg_1eecfcaa7bdb" formatted="false">"Тёмная"</string>
+    <string name="msg_1f0f3db2bd8d" formatted="false">"Сначала разрешите показ поверх приложений."</string>
+    <string name="msg_203dc0ea9f7d" formatted="false">"Не удалось очистить журнал."</string>
+    <string name="msg_20c3a85f6767" formatted="false">"Доступные сейчас"</string>
+    <string name="msg_21943a44634e" formatted="false">"Тёмный"</string>
+    <string name="msg_21c6b248c7e7" formatted="false">"Не удалось открыть папку Downloads."</string>
+    <string name="msg_22324e61bdfe" formatted="false">"Офлайн-коллекция"</string>
+    <string name="msg_22a5d9112486" formatted="false">"Загружаем…"</string>
+    <string name="msg_231ddb86ef9f" formatted="false">"HTTP @0@ от @1@"</string>
+    <string name="msg_23ae5f29feed" formatted="false">"Выберите хотя бы одну кнопку. Пустая панель отключена."</string>
+    <string name="msg_23d5ec1e3849" formatted="false">"Системный эквалайзер"</string>
+    <string name="msg_24ae31c96ef8" formatted="false">"Версия формата скина не поддерживается"</string>
+    <string name="msg_254732178a10" formatted="false">"Удалить файлы"</string>
+    <string name="msg_25a86516eb0c" formatted="false">"Состояние демокаталога"</string>
+    <string name="msg_25dc72086a44" formatted="false">"Кнопки панели"</string>
+    <string name="msg_263e20096cc0" formatted="false">"Любимые исполнители"</string>
+    <string name="msg_26d99df6eab5" formatted="false">"Музыка"</string>
+    <string name="msg_26e8236c8e38" formatted="false">"Превышен допустимый размер файла скина"</string>
+    <string name="msg_2718e917ffb3" formatted="false">"Качество офлайн-кэша"</string>
+    <string name="msg_272bf8adef84" formatted="false">"Плейлистов пока нет."</string>
+    <string name="msg_27681b730821" formatted="false">"Загрузка клипов…"</string>
+    <string name="msg_2922b43474e0" formatted="false">"Воспроизвести трек"</string>
+    <string name="msg_293a0bf80248" formatted="false">"Не удалось прочитать индекс"</string>
+    <string name="msg_298252296d09" formatted="false">"Введите название и выберите тип результатов."</string>
+    <string name="msg_2991be238f39" formatted="false">"Значок должен ссылаться на JSON-вектор"</string>
+    <string name="msg_29a33ded420d" formatted="false">"источник"</string>
+    <string name="msg_29c90888994f" formatted="false">"Устройство / USB · @0@ треков"</string>
+    <string name="msg_29e4a4bd7a17" formatted="false">"Как в системе"</string>
+    <string name="msg_29f6f8d9dd3e" formatted="false">"Вход по коду без ввода пароля в плеере. Аккаунты разных профилей не смешиваются."</string>
+    <string name="msg_29ff5117d5b1" formatted="false">"Жанры и папки относятся к файлам устройства и USB."</string>
+    <string name="msg_2a6b5f7278c0" formatted="false">"Добавить в избранное"</string>
+    <string name="msg_2afb36246c80" formatted="false">"Недопустимый путь значка"</string>
+    <string name="msg_2b7d2f3f797d" formatted="false">"Установлена актуальная версия."</string>
+    <string name="msg_2c38faa8cf7e" formatted="false">"Общий локальный каталог · без аккаунта"</string>
+    <string name="msg_2cea82c66c45" formatted="false">"Манифест слишком велик"</string>
+    <string name="msg_2d6b68932448" formatted="false">"Вход сохранён для этого профиля. Музыка Яндекса доступна в медиатеке и поиске."</string>
+    <string name="msg_2dc14ee8f6a2" formatted="false">"Не удалось прочитать журнал."</string>
+    <string name="msg_2efea0f8794f" formatted="false">"Плейлисты"</string>
+    <string name="msg_2f4f45e427e6" formatted="false">"Подготовка аудио…"</string>
+    <string name="msg_2f8a1650c543" formatted="false">"Не удалось завершить загрузку"</string>
+    <string name="msg_2f9654f4d1a1" formatted="false">"Здесь пока ничего нет. Попробуйте другой запрос или раздел."</string>
+    <string name="msg_3048598439e0" formatted="false">"Добавить музыку"</string>
+    <string name="msg_306af95e29b6" formatted="false">"Ожидаем подтверждения…"</string>
+    <string name="msg_307c435478f4" formatted="false">"Клипы · Яндекс Музыка"</string>
+    <string name="msg_30c61037264b" formatted="false">"Профили"</string>
+    <string name="msg_32060a34f5be" formatted="false">"Предпросмотр"</string>
+    <string name="msg_33073b976515" formatted="false">"Очередь · @0@"</string>
+    <string name="msg_3315af3b27b8" formatted="false">"Создать плейлист"</string>
+    <string name="msg_334c3299a899" formatted="false">"Убрать из избранного"</string>
+    <string name="msg_3364af49d2ba" formatted="false">"Выйти из аккаунта"</string>
+    <string name="msg_3396400da0c4" formatted="false">"Остановить"</string>
+    <string name="msg_341bfc88e988" formatted="false">"Manifest слишком большой"</string>
+    <string name="msg_346750dab787" formatted="false">"Никогда не предлагать @0@"</string>
+    <string name="msg_34faf1c2240d" formatted="false">"Не удалось прочитать сохранённое оформление. Используется «Оксид»."</string>
+    <string name="msg_350675f4e001" formatted="false">"Выйти из Яндекса?"</string>
+    <string name="msg_350c510572ad" formatted="false">"Устройство / USB: @0@ · Яндекс: @1@ показано"</string>
+    <string name="msg_35619086cdfe" formatted="false">"Создайте первый плейлист кнопкой «+»."</string>
+    <string name="msg_35864bdf26cb" formatted="false">"Мне нравится · офлайн"</string>
+    <string name="msg_3628da5ba5a2" formatted="false">"Удалить сохранённый вход"</string>
+    <string name="msg_36cf98277e5f" formatted="false">"Новые потоки и предзагрузка «Моей волны»."</string>
+    <string name="msg_372ccd2e8254" formatted="false">"; обновляем…"</string>
+    <string name="msg_379116d4b4d4" formatted="false">"В пакете есть неиспользуемые файлы"</string>
+    <string name="msg_38aa13198a8b" formatted="false">"Новый плейлист"</string>
+    <string name="msg_392a2bb860f8" formatted="false">"Этот ID принадлежит встроенному скину. Измените id в manifest."</string>
+    <string name="msg_39bbc8689a90" formatted="false">"Вход не разрешён. Можно попробовать снова."</string>
+    <string name="msg_39c3c9622cdc" formatted="false">"Очередь пуста"</string>
+    <string name="msg_39cef1f5fa63" formatted="false">"Выберите раздел."</string>
+    <string name="msg_3b024cce3b59" formatted="false">"Поддержать разработку"</string>
+    <string name="msg_3b840443abf7" formatted="false">"Никогда не предлагать"</string>
+    <string name="msg_3c959ac71187" formatted="false">"В любимые исполнители"</string>
+    <string name="msg_3c99d6538c1d" formatted="false">"Популярные треки"</string>
+    <string name="msg_3cc455cf86cf" formatted="false">"Яндекс отклонил вход для этой сборки."</string>
+    <string name="msg_3d04145a8633" formatted="false">"Повторяющийся путь в скине"</string>
+    <string name="msg_3d275a76f737" formatted="false">"Каталог содержит данные"</string>
+    <string name="msg_3d7762ba837e" formatted="false">"Скачанные «Мне нравится» доступны в разделе «Треки». Альбомы и исполнители целиком не скачиваются."</string>
+    <string name="msg_3e123a8bc43d" formatted="false">"Офлайн-файлы удалены. Лайки в Яндексе сохранены."</string>
+    <string name="msg_3e1506ad1141" formatted="false">"В «Мне нравится»"</string>
+    <string name="msg_3e38544b4537" formatted="false">"Настройки общие для этого устройства."</string>
+    <string name="msg_3f8a4e233c3e" formatted="false">"Обновить сведения об аккаунте"</string>
+    <string name="msg_3fbf9e4ea1c1" formatted="false">"Предыдущий трек"</string>
+    <string name="msg_407f871778d3" formatted="false">"Сбросить"</string>
+    <string name="msg_414209446572" formatted="false">"Убрать трек"</string>
+    <string name="msg_414a326c7fbe" formatted="false">"Моя волна · загружаем…"</string>
+    <string name="msg_417875482e57" formatted="false">"Редактирование плейлиста"</string>
+    <string name="msg_4195b215e9f0" formatted="false">"Экспорт в Downloads"</string>
+    <string name="msg_422f550c9cff" formatted="false">"Основной"</string>
+    <string name="msg_430c6faef007" formatted="false">"В этом профиле нет сохранённой музыки. Для синхронизации нужен вход в Яндекс."</string>
+    <string name="msg_433852b8fe49" formatted="false">"Гость слушает локальную музыку без аккаунта. Для входа выберите другой профиль."</string>
+    <string name="msg_4378c674b4d7" formatted="false">"Подтверждение перезагрузки недоступно на этом устройстве."</string>
+    <string name="msg_4382a728852f" formatted="false">"У каждого профиля своя очередь. При переключении плеер остаётся на паузе."</string>
+    <string name="msg_43b07d243705" formatted="false">"Яндекс · @0@"</string>
+    <string name="msg_43bd202954d8" formatted="false">"Гость"</string>
+    <string name="msg_43c191115b55" formatted="false">"Контрольная сумма APK не совпадает"</string>
+    <string name="msg_43fb606c5b6f" formatted="false">"Боковая панель"</string>
+    <string name="msg_442f1380374f" formatted="false">"Обновить плейлист"</string>
+    <string name="msg_44d4090ae9e4" formatted="false">"ошибка"</string>
+    <string name="msg_44d8126b8321" formatted="false">"Мои плейлисты"</string>
+    <string name="msg_44f6f4d66ea4" formatted="false">"Демонстрационный профиль"</string>
+    <string name="msg_460213556ee1" formatted="false">"APK проверен@0@."</string>
+    <string name="msg_467a1857a936" formatted="false">"Неверные размер или SHA-256 APK"</string>
+    <string name="msg_468ba659166c" formatted="false">"Все команды выключены — SideBar отключён."</string>
+    <string name="msg_46da7285528f" formatted="false">"Следующий трек"</string>
+    <string name="msg_480fae1c4bc9" formatted="false">"Ничего не найдено"</string>
+    <string name="msg_48b5898b7140" formatted="false">"Удалить плейлист Яндекса"</string>
+    <string name="msg_48f1c04f18bc" formatted="false">"Ниже: @0@"</string>
+    <string name="msg_4a1236b53aa7" formatted="false">"Журнал очищен."</string>
+    <string name="msg_4a59253d0fb2" formatted="false">"Если приложение пригодилось, можно поддержать его разработку."</string>
+    <string name="msg_4a87a9c8e472" formatted="false">"Обновляем каталог…"</string>
+    <string name="msg_4b39689e6190" formatted="false">"Язык общий для устройства. Названия музыки, плейлистов и скинов не переводятся."</string>
+    <string name="msg_4cffda4eecf8" formatted="false">"Вход в Яндекс недоступен в этой сборке. Локальная музыка продолжает работать."</string>
+    <string name="msg_4e50f6bdc764" formatted="false">"Убрать «@0@» (позиция @1@) из «@2@»? Другие вхождения трека сохранятся."</string>
+    <string name="msg_4e882842072f" formatted="false">"Сохранённый вход будет удалён только из профиля «@0@» на этом устройстве. Локальные файлы, очередь и плейлисты останутся."</string>
+    <string name="msg_4f41558e776b" formatted="false">"Удалить плейлист?"</string>
+    <string name="msg_4f5782c26416" formatted="false">"APK не читается"</string>
+    <string name="msg_501cfd0b1690" formatted="false">"Ошибка / предупреждение"</string>
+    <string name="msg_502d3a6bd090" formatted="false">"Не удалось прочитать каталог. Повторите поиск."</string>
+    <string name="msg_50730177421a" formatted="false">"Нет сведений об APK"</string>
+    <string name="msg_50825290b460" formatted="false">"Нужен ZIP-пакет .ymskin"</string>
+    <string name="msg_5189135a6110" formatted="false">"Повторить"</string>
+    <string name="msg_5277d2953e7b" formatted="false">"Удалить офлайн-файлы"</string>
+    <string name="msg_535119bf3cc5" formatted="false">"Скачать"</string>
+    <string name="msg_53aacea33082" formatted="false">"Плейлист «@0@» создан."</string>
+    <string name="msg_53ba89acf405" formatted="false">"Недоступен"</string>
+    <string name="msg_53c57c59cc24" formatted="false">"Добавление — через «…». Для перестановки удерживайте значок с полосками и перетащите трек или нажмите «Позиция». Изменения сохраняются в Яндексе."</string>
+    <string name="msg_53ee3b3a9092" formatted="false">"Удаление текущего трека ставит воспроизведение на паузу."</string>
+    <string name="msg_5405eb821e3a" formatted="false">"Светлый"</string>
+    <string name="msg_541f8f8b8a8f" formatted="false">"Плейлист с таким названием уже есть"</string>
+    <string name="msg_54b80039a9ec" formatted="false">"Активный скин"</string>
+    <string name="msg_556fab910a7b" formatted="false">"Новый плейлист Яндекса"</string>
+    <string name="msg_55870b7a873d" formatted="false">"В плейлисте пока нет треков."</string>
+    <string name="msg_55d6dc96a9df" formatted="false">"Выберите папку с аудиофайлами на устройстве или USB."</string>
+    <string name="msg_55e08786c6c9" formatted="false">"Плейлист изменился в Яндексе. Обновите его и проверьте состав перед повтором."</string>
+    <string name="msg_5651a421a70e" formatted="false">"Выполняем…"</string>
+    <string name="msg_5690c2e63b9d" formatted="false">"Выйти"</string>
+    <string name="msg_56f5278a2acc" formatted="false">"Нет связи с Яндекс Музыкой. Проверьте сеть и повторите."</string>
+    <string name="msg_5710ad29b999" formatted="false">"Создать новый плейлист"</string>
+    <string name="msg_574d24b24ab4" formatted="false">"Доступна @0@"</string>
+    <string name="msg_57691b646726" formatted="false">"Высокое · 320 кбит/с"</string>
+    <string name="msg_5779b6589ef5" formatted="false">"Нажмите «Назад» ещё раз для выхода"</string>
+    <string name="msg_57816af2d9ca" formatted="false">"Провести от края для открытия панели YMPlayer 2"</string>
+    <string name="msg_57d8de34aad1" formatted="false">"Убрать из любимых исполнителей"</string>
+    <string name="msg_58995881a188" formatted="false">"Обновление не относится к выбранному каналу"</string>
+    <string name="msg_589983337a78" formatted="false">"Плейлист «@0@» будет удалён из вашего аккаунта Яндекса на всех устройствах. Текущая очередь и отметки «Мне нравится» сохранятся."</string>
+    <string name="msg_58cb4ee024d5" formatted="false">"В случайном порядке"</string>
+    <string name="msg_58efe74ebc48" formatted="false">"Файл значка не найден: @0@"</string>
+    <string name="msg_59134fd3fbf7" formatted="false">"«Меню» доступно только на K4811."</string>
+    <string name="msg_59eedda3d148" formatted="false">"Не удалось показать панель."</string>
+    <string name="msg_5c7cfc9e8bc2" formatted="false">"Воспроизведение"</string>
+    <string name="msg_5c7d98906b6b" formatted="false">"Число должно быть конечным"</string>
+    <string name="msg_5d5f78c5790d" formatted="false">"В офлайн-кэше: @0@ найдено"</string>
+    <string name="msg_5d99a4bce5b6" formatted="false">"Разрешён только HTTPS"</string>
+    <string name="msg_5dc56b8cf0e0" formatted="false">"«Назад» доступно только на K4811."</string>
+    <string name="msg_5e1e0ac2d35b" formatted="false">"Записей пока нет."</string>
+    <string name="msg_5e3e47e18b27" formatted="false">"Нужно 1–12 цветов заглушек"</string>
+    <string name="msg_5e4ea237ce6b" formatted="false">"Сохранено: @0@ · @1@ МБ"</string>
+    <string name="msg_5e66b30bc941" formatted="false">"Музыка рядом · Beta"</string>
+    <string name="msg_5e9967fcef8f" formatted="false">"На устройстве нет системного выбора папки. Нужен файловый менеджер с поддержкой Storage Access Framework."</string>
+    <string name="msg_5ed92773c808" formatted="false">"Яндекс"</string>
+    <string name="msg_5fbef357e55e" formatted="false">"Моя музыка в Яндексе"</string>
+    <string name="msg_601de107e288" formatted="false">"Новая позиция: 1–@0@"</string>
+    <string name="msg_603e460bf59c" formatted="false">"Обновить"</string>
+    <string name="msg_60bbcc5198aa" formatted="false">"@0@ · @1@ треков"</string>
+    <string name="msg_612f724ec00f" formatted="false">"Открыть аккаунт"</string>
+    <string name="msg_61ab32792577" formatted="false">"Служба перезагрузки K4811 недоступна. Запрос не отправлен."</string>
+    <string name="msg_61b578bca0ca" formatted="false">"Подготовка аудио"</string>
+    <string name="msg_61c83c0e0569" formatted="false">"Показать ещё из Яндекса"</string>
+    <string name="msg_620bc932f669" formatted="false">"Сохранить название"</string>
+    <string name="msg_62243b1fd0d8" formatted="false">"Не удалось обновить отметки. Повторить"</string>
+    <string name="msg_6276f8c77c1b" formatted="false">"Совместимый эквалайзер или DSP не найден. Установите приложение обработки звука. Если доступна системная панель, начните воспроизведение и откройте её здесь."</string>
+    <string name="msg_62984b2595bb" formatted="false">"Получаем код…"</string>
+    <string name="msg_62ed32eb225c" formatted="false">"Проверяем…"</string>
+    <string name="msg_6518414d5226" formatted="false">"Трек убран из плейлиста."</string>
+    <string name="msg_653f03c94726" formatted="false">"Текущий трек"</string>
+    <string name="msg_65530fd463ea" formatted="false">"Пауза"</string>
+    <string name="msg_655f2cc9a551" formatted="false">"Синхронизация завершена."</string>
+    <string name="msg_659afa619e2b" formatted="false">"Размер или SHA-256 APK не совпадает"</string>
+    <string name="msg_65a38f8bcb09" formatted="false">"Не удалось прочитать или сохранить вход на устройстве."</string>
+    <string name="msg_65e00ce0d8d2" formatted="false">"Повтор очереди"</string>
+    <string name="msg_66474d591df2" formatted="false">"Вход сохранён. Сведения об аккаунте Музыки пока недоступны. Их можно обновить позже без повторного ввода кода."</string>
+    <string name="msg_66c5d76f8451" formatted="false">"Вернуть «Оксид»"</string>
+    <string name="msg_6713f0c31917" formatted="false">"Нужно число: @0@"</string>
+    <string name="msg_673b49c1255b" formatted="false">"Не удалось прочитать ответ Яндекса. Повторите запрос."</string>
+    <string name="msg_674a4f596d66" formatted="false">" Результат изменения не подтверждён. Проверьте плейлисты перед повтором."</string>
+    <string name="msg_67abbabca722" formatted="false">"Порядок треков сохранён."</string>
+    <string name="msg_6807424b3688" formatted="false">"Включить панель"</string>
+    <string name="msg_6841e1070158" formatted="false">"Системный экран разрешения не найден."</string>
+    <string name="msg_68cc12d616b8" formatted="false">"Обновить отметки"</string>
+    <string name="msg_68eab87f63c4" formatted="false">"Яндекс не разрешил доступ. Проверьте аккаунт и подписку на Музыку."</string>
+    <string name="msg_69294d8ce6a4" formatted="false">"Яндекс может предложить другой битрейт: выбирается лучший доступный до указанного значения, а если его нет — ближайший выше. «Авто» и «Максимальное» выбирают наибольший доступный битрейт."</string>
+    <string name="msg_6aadca8eb39a" formatted="false">"Создать и добавить трек"</string>
+    <string name="msg_6b5623eafb06" formatted="false">"Изменить список"</string>
+    <string name="msg_6bd804f5b776" formatted="false">"Трек: @0@"</string>
+    <string name="msg_6bf215b8f901" formatted="false">"Не удалось заменить старый APK"</string>
+    <string name="msg_6c2b14d954bb" formatted="false">"Выбрать эквалайзер / DSP"</string>
+    <string name="msg_6c32e04d2392" formatted="false">"Следующий клип пока не определён"</string>
+    <string name="msg_6cbc48f41e6f" formatted="false">"Не удалось прочитать офлайн-коллекцию. Повторите синхронизацию."</string>
+    <string name="msg_6d6a9bb2179b" formatted="false">"Моя музыка и рекомендации Яндекса"</string>
+    <string name="msg_6daecbeea4b6" formatted="false">"Клипы"</string>
+    <string name="msg_6dccc4a3f564" formatted="false">"Не удалось загрузить обновление: @0@"</string>
+    <string name="msg_6dd43bf971fd" formatted="false">"Скины"</string>
+    <string name="msg_6e1f7baa472f" formatted="false">"Очистить поиск"</string>
+    <string name="msg_6edaf3285434" formatted="false">"Удалить из очереди: @0@"</string>
+    <string name="msg_6f1566c263c4" formatted="false">"Медь, графит и тёплая бумага"</string>
+    <string name="msg_6fb373108517" formatted="false">"Не удалось сохранить или прочитать скин. Повторите выбор файла."</string>
+    <string name="msg_7003237eb243" formatted="false">"Не загружено аудио: @0@. Ошибки обложек: @1@. Без обложки у источника: @2@. Повторная синхронизация проверит и восстановит недостающее."</string>
+    <string name="msg_7075085d9334" formatted="false">"Дополнительные действия"</string>
+    <string name="msg_70c88673f5a8" formatted="false">"Удаление папки из медиатеки не удаляет файлы. Локальный каталог доступен всем профилям."</string>
+    <string name="msg_70daf92e717a" formatted="false">"Обложка: @0@"</string>
+    <string name="msg_71038c53bbc4" formatted="false">"Добавить"</string>
+    <string name="msg_717012565e0a" formatted="false">"Название плейлиста"</string>
+    <string name="msg_71c815fdaf60" formatted="false">"Не удалось запустить панель на этом устройстве."</string>
+    <string name="msg_71e214e1477f" formatted="false">"Все источники"</string>
+    <string name="msg_71ff8690cd03" formatted="false">"Сохраняем вход…"</string>
+    <string name="msg_723b195d5744" formatted="false">"Подпись APK не совпадает с установленной"</string>
+    <string name="msg_729dc1568fdf" formatted="false">"Загружать только по Wi-Fi"</string>
+    <string name="msg_73cec4b1fa25" formatted="false">"Не удалось открыть установку: @0@"</string>
+    <string name="msg_73e0d3beed31" formatted="false">" · демонстрационный каталог"</string>
+    <string name="msg_73f6917759ca" formatted="false">"Папка недоступна или обход не завершён. Подключите носитель и обновите."</string>
+    <string name="msg_741ca2439e4d" formatted="false">"Для онлайн-музыки войдите в Яндекс в этом профиле. Локальная музыка доступна без входа."</string>
+    <string name="msg_7435626dd379" formatted="false">"Сворачивать через 8 секунд"</string>
+    <string name="msg_7493e161cb03" formatted="false">"Без альбома"</string>
+    <string name="msg_749a9ca9d90f" formatted="false">"Не удалось очистить офлайн-файлы."</string>
+    <string name="msg_758aa155871b" formatted="false">"Добавлен"</string>
+    <string name="msg_760c9665ad62" formatted="false">"Стандарт · 192 кбит/с"</string>
+    <string name="msg_767475640343" formatted="false">"Добавить в плейлист Яндекса"</string>
+    <string name="msg_778b704b5c1e" formatted="false">"Не удалось открыть или сохранить папку. Проверьте доступ и повторите."</string>
+    <string name="msg_7796e6a8c011" formatted="false">"ошибка сети"</string>
+    <string name="msg_77f1e6d43b19" formatted="false">"Не удалось создать папку обновлений"</string>
+    <string name="msg_78b7fcee0a88" formatted="false">"Открыт системный установщик. Подтвердите обновление."</string>
+    <string name="msg_78ca838c8f88" formatted="false">"Код ошибки: @0@"</string>
+    <string name="msg_78cdeec91c73" formatted="false">"Добавить треки"</string>
+    <string name="msg_7996f711496a" formatted="false">"Позже"</string>
+    <string name="msg_79a58b43db6d" formatted="false">"Цвет должен иметь формат #RRGGBB"</string>
+    <string name="msg_79e35d4d8b5b" formatted="false">"Проверить отметки"</string>
+    <string name="msg_7aa5b98239e2" formatted="false">"Добавить в «@0@»"</string>
+    <string name="msg_7ad2cca22536" formatted="false">"Не удалось загрузить очередь · повторить"</string>
+    <string name="msg_7b4f20da2143" formatted="false">"Пустой путь значка"</string>
+    <string name="msg_7cd2f0ff4082" formatted="false">"Проверяем обновления…"</string>
+    <string name="msg_7e0c5e62a006" formatted="false">"Обновление приложения"</string>
+    <string name="msg_7e257dbdd7a9" formatted="false">" Повторим автоматически (@0@/3)."</string>
+    <string name="msg_7e57673a5d4c" formatted="false">"Демонстрация первого запуска."</string>
+    <string name="msg_7e59467db9e7" formatted="false">"← Назад"</string>
+    <string name="msg_7e6258d504ba" formatted="false">"Исполнители и альбом: @0@"</string>
+    <string name="msg_7f89cdaad39e" formatted="false">"Экономия · 128 кбит/с"</string>
+    <string name="msg_8086aac760a1" formatted="false">"Не удалось воспроизвести файл. Проверьте носитель или выберите другой трек."</string>
+    <string name="msg_80cedf587a28" formatted="false">"На устройстве нет системного выбора файла. Нужен файловый менеджер с поддержкой Storage Access Framework."</string>
+    <string name="msg_8208dc91519d" formatted="false">"«Меню» открывает список приложений K4811. «Плей / пауза» управляет активным плеером. «Сон» усыпляет магнитолу, «Перезагрузка» сначала запрашивает подтверждение."</string>
+    <string name="msg_834ec28c8644" formatted="false">"Скин не найден"</string>
+    <string name="msg_83cc61451837" formatted="false">"Скачать через резервный источник"</string>
+    <string name="msg_840370e3fad2" formatted="false">"Мне нравится"</string>
+    <string name="msg_8491940b48e2" formatted="false">"Скачанные треки «Мне нравится»"</string>
+    <string name="msg_84a795ddbe75" formatted="false">"Сохранено 16 скинов. Удалите ненужный перед импортом."</string>
+    <string name="msg_8514965e4ae0" formatted="false">"Доступно офлайн"</string>
+    <string name="msg_857db5eccf13" formatted="false">"Добавьте треки кнопкой «В очередь» в медиатеке."</string>
+    <string name="msg_85a21c8d0f56" formatted="false">"Обновить плейлисты"</string>
+    <string name="msg_85dd88927aea" formatted="false">"Плейлист «@0@» удалён."</string>
+    <string name="msg_8727c0e6695b" formatted="false">"Не удалось подтвердить доступ к аккаунту Яндекс Музыки."</string>
+    <string name="msg_88d4beca1549" formatted="false">"APK слишком велик"</string>
+    <string name="msg_895c5b8f961d" formatted="false">"Установлено: @0@"</string>
+    <string name="msg_8965271d3c97" formatted="false">"Очистить"</string>
+    <string name="msg_8cd421f138ac" formatted="false">"Добавьте музыку кнопкой «Добавить треки»."</string>
+    <string name="msg_8dca2f783130" formatted="false">"Авто"</string>
+    <string name="msg_8f458964546a" formatted="false">"Папки с музыкой"</string>
+    <string name="msg_8f88b95463e2" formatted="false">"Случайный порядок"</string>
+    <string name="msg_8f88e588534f" formatted="false">"Доступна @0@."</string>
+    <string name="msg_8fbe9b75cbdf" formatted="false">"Отмена"</string>
+    <string name="msg_9065b44df928" formatted="false">"Импортировать .ymskin"</string>
+    <string name="msg_90c141192bd7" formatted="false">"Альбомы"</string>
+    <string name="msg_916d4505c137" formatted="false">"Удаляем офлайн-файлы этого аккаунта…"</string>
+    <string name="msg_91cf8019c9e4" formatted="false">"Не удалось запустить фоновую синхронизацию. Повторите из открытого приложения."</string>
+    <string name="msg_91cf891549ab" formatted="false">"Трек недоступен"</string>
+    <string name="msg_920c04770d7a" formatted="false">"Не удалось экспортировать журнал."</string>
+    <string name="msg_9216ace8c045" formatted="false">"Обновить каталог"</string>
+    <string name="msg_9220082bb4ab" formatted="false">"Срок входа истёк. Войдите заново."</string>
+    <string name="msg_922c5fae2ec8" formatted="false">"Состояние не получено"</string>
+    <string name="msg_931fb11514ad" formatted="false">"Недоступный трек @0@"</string>
+    <string name="msg_93b08f7b1465" formatted="false">"Проверить обновления"</string>
+    <string name="msg_94117e81a588" formatted="false">"Офлайн-кэш выключен. Ранее скачанные файлы остаются до удаления кнопкой ниже."</string>
+    <string name="msg_954fea171639" formatted="false">"Выбран"</string>
+    <string name="msg_95a0b91751fc" formatted="false">"Поиск треков"</string>
+    <string name="msg_9641a49f03aa" formatted="false">"Удерживайте и перетащите для изменения порядка: @0@"</string>
+    <string name="msg_968d76f0f95f" formatted="false">"Сохранённый скин недоступен. Восстановлен «Оксид»."</string>
+    <string name="msg_97635a1a0f91" formatted="false">"Офлайн-кэш выключен. Для освобождения места удалите ранее сохранённые файлы."</string>
+    <string name="msg_982867f75b81" formatted="false">"Удалить офлайн-файлы?"</string>
+    <string name="msg_985b5e0f2ccf" formatted="false">"Настройки"</string>
+    <string name="msg_98699315d011" formatted="false">"Переместить трек"</string>
+    <string name="msg_9887b0bfa666" formatted="false">"Новые загрузки при синхронизации «Мне нравится»."</string>
+    <string name="msg_9895eb01a837" formatted="false">"Этот трек или список сейчас недоступен."</string>
+    <string name="msg_98ae0216b918" formatted="false">"Источники обновлений недоступны: @0@"</string>
+    <string name="msg_995011f87d4b" formatted="false">"Качество звука"</string>
+    <string name="msg_9969d130536f" formatted="false">"ДАЛЕЕ"</string>
+    <string name="msg_999770a38a9d" formatted="false">"Плейлисты, подобранные Яндексом для вашего аккаунта."</string>
+    <string name="msg_99a6eae9f974" formatted="false">"Получен некорректный ответ Яндекса. Повторите вход."</string>
+    <string name="msg_9a3adc7135e4" formatted="false">"Яндекс · позиция @0@"</string>
+    <string name="msg_9a529d376ca3" formatted="false">"В плейлист"</string>
+    <string name="msg_9c1888610d6f" formatted="false">"Проведите от края экрана, чтобы открыть"</string>
+    <string name="msg_9cbbe230cb66" formatted="false">"Слушать показанные треки"</string>
+    <string name="msg_9debd4812638" formatted="false">"Не удалось открыть браузер. Используйте QR-код или адрес выше."</string>
+    <string name="msg_9e0859f700e2" formatted="false">"Не удалось проверить подтверждение. Код сохранён, повторяем запрос. После подтверждения вернитесь в приложение."</string>
+    <string name="msg_9fcd67f23799" formatted="false">"Выше: @0@"</string>
+    <string name="msg_9fe9ae8fbc17" formatted="false">"Снова предлагать @0@"</string>
+    <string name="msg_a033d47afec5" formatted="false">"Воспроизвести список"</string>
+    <string name="msg_a0e71ef0091b" formatted="false">"В дороге"</string>
+    <string name="msg_a0fa051b4a5b" formatted="false">"Для синхронизации нужен Wi-Fi."</string>
+    <string name="msg_a137dd0ef761" formatted="false">"Загрузить ещё"</string>
+    <string name="msg_a1f4f5cf6b22" formatted="false">"Слишком много редиректов"</string>
+    <string name="msg_a25031f2dbc6" formatted="false">"Нет сети для синхронизации."</string>
+    <string name="msg_a2c053c748d0" formatted="false">"Изменить очередь"</string>
+    <string name="msg_a3e2c7d263a6" formatted="false">"Для рекомендаций нужно проверить запрещённые треки и исполнителей."</string>
+    <string name="msg_a41905aacd11" formatted="false">"Локальный каталог общий. Вход в Яндекс, очередь и списки принадлежат выбранному профилю. Гость работает без аккаунта."</string>
+    <string name="msg_a4e0d6a1b648" formatted="false">"Общий локальный каталог · своя очередь"</string>
+    <string name="msg_a4ee02a4c189" formatted="false">"Отменить вход"</string>
+    <string name="msg_a55d09b73e40" formatted="false">"Недопустимый ID скина"</string>
+    <string name="msg_a55fc5d0f320" formatted="false">"Музыка устройства доступна без входа. Для Яндекса войдите в этом профиле."</string>
+    <string name="msg_a5e1aeda4ccc" formatted="false">"Качество онлайн-звука"</string>
+    <string name="msg_a5f630df4494" formatted="false">"Очистить очередь"</string>
+    <string name="msg_a6d6c9941570" formatted="false">"Только для текущего профиля"</string>
+    <string name="msg_a75ec8e3fe3a" formatted="false">"Демонстрационный режим M1 · без звука"</string>
+    <string name="msg_a79a4eaec9fc" formatted="false">"Не удалось сохранить плейлисты. Изменение не применено; повторите попытку."</string>
+    <string name="msg_a7a4033657e8" formatted="false">"Закрыть"</string>
+    <string name="msg_a7d8adab451a" formatted="false">"Неизвестный исполнитель"</string>
+    <string name="msg_a94943f157d5" formatted="false">"Сейчас играет"</string>
+    <string name="msg_a94f8a5da271" formatted="false">"Перезагрузка"</string>
+    <string name="msg_a9bb9fcb7d94" formatted="false">"Проверяем отметки…"</string>
+    <string name="msg_a9ec4c4c914a" formatted="false">"Нет связи с Яндексом. Проверьте сеть и повторите вход."</string>
+    <string name="msg_aa07f084155c" formatted="false">"Офлайн"</string>
+    <string name="msg_aa59e4f43e97" formatted="false">"Идентификаторы исполнителей отсутствуют. Откройте трек заново из поиска или медиатеки."</string>
+    <string name="msg_aa782acc1382" formatted="false">"Автоматическая проверка выполняется не чаще раза в сутки. При наличии новой версии загрузка и системная установка требуют вашего действия."</string>
+    <string name="msg_ab78a1119f41" formatted="false">"Уже в очереди: @0@"</string>
+    <string name="msg_aba2a8a3d61d" formatted="false">"Убрать из медиатеки"</string>
+    <string name="msg_abf18a196671" formatted="false">"Недопустимая координата значка"</string>
+    <string name="msg_ad0502838af2" formatted="false">"Слишком большой архив скина"</string>
+    <string name="msg_ad6a1e7e39d2" formatted="false">" · резервный источник"</string>
+    <string name="msg_ae407aec2e14" formatted="false">"Добавить с устройства"</string>
+    <string name="msg_aed87524dfde" formatted="false">"Загрузка журнала…"</string>
+    <string name="msg_af45ec8c56b7" formatted="false">"Переместить"</string>
+    <string name="msg_af72c5eb8791" formatted="false">"На K4811 откройте панель коротким свайпом от середины левого или правого края либо от центра нижнего края. Зона жеста невидима и занимает лишь небольшую часть края."</string>
+    <string name="msg_af9d1711a669" formatted="false">"Выберите папку в системном окне. Музыка остаётся на своём месте, приложение получает только доступ к чтению."</string>
+    <string name="msg_b011fc656a0f" formatted="false">"В любимые альбомы"</string>
+    <string name="msg_b095f9e901e7" formatted="false">"Плейлист уже удалён"</string>
+    <string name="msg_b0acd0c9bfb1" formatted="false">"Снова предлагать"</string>
+    <string name="msg_b0ad5bf65466" formatted="false">"Редактировать плейлист"</string>
+    <string name="msg_b0dc6691dc09" formatted="false">"«Сон» доступен только на K4811."</string>
+    <string name="msg_b0f0ab86be80" formatted="false">"К списку"</string>
+    <string name="msg_b1c53cf90f0a" formatted="false">"Открыть установку"</string>
+    <string name="msg_b2cbccffb035" formatted="false">"Загружаем @0@…"</string>
+    <string name="msg_b3b927fb4c1f" formatted="false">"Моя волна: "</string>
+    <string name="msg_b3be276ac9d7" formatted="false">"Разрешить показ поверх приложений"</string>
+    <string name="msg_b46a526e0340" formatted="false">"Синхронизация остановлена. Готовые файлы сохранены."</string>
+    <string name="msg_b4d30cae5289" formatted="false">"Сохранить"</string>
+    <string name="msg_b50aa55c0b78" formatted="false">"Без звука"</string>
+    <string name="msg_b583c0b5f77e" formatted="false">"Добавить с USB / SD"</string>
+    <string name="msg_b5c15a505a62" formatted="false">"Не удалось прочитать метаданные. Обновите каталог папок."</string>
+    <string name="msg_b86ab3d74350" formatted="false">"Любимые альбомы"</string>
+    <string name="msg_b8ad90801037" formatted="false">"Добавление — через «…». Меняйте порядок кнопкой «Позиция». Изменения сохраняются в Яндексе."</string>
+    <string name="msg_ba700b6d4845" formatted="false">"Перезагрузка K4811"</string>
+    <string name="msg_bb35de568dc0" formatted="false">"Сохранённая музыка загружается…"</string>
+    <string name="msg_bb7c04530661" formatted="false">"Вход выполнен"</string>
+    <string name="msg_bbb42f6a25b6" formatted="false">"Прототип · Без звука"</string>
+    <string name="msg_bc622d6b13a3" formatted="false">"Максимальное"</string>
+    <string name="msg_bcdc88d10948" formatted="false">"Переименовать: @0@"</string>
+    <string name="msg_bd5f65f27353" formatted="false">"Офлайн-музыка"</string>
+    <string name="msg_bdd37eb21746" formatted="false">"Воспроизвести"</string>
+    <string name="msg_be28ea14a37e" formatted="false">"Повторить запрос Яндекса"</string>
+    <string name="msg_be65ad9b7c99" formatted="false">"Сохранено в Downloads: @0@"</string>
+    <string name="msg_be83518bd33a" formatted="false">"Скачать и установить"</string>
+    <string name="msg_be8789acfb99" formatted="false">"Нужен вход в Яндекс"</string>
+    <string name="msg_be99b1361201" formatted="false">"Удалить"</string>
+    <string name="msg_bf6c36d1e481" formatted="false">"@0@ треков · @1@ доступно"</string>
+    <string name="msg_c011a7b7c5c5" formatted="false">"Убрать трек?"</string>
+    <string name="msg_c05d6b17ae05" formatted="false">"Предпросмотр: @0@"</string>
+    <string name="msg_c06f71ebf142" formatted="false">"Браузер недоступен. Откройте указанный адрес на телефоне и введите код."</string>
+    <string name="msg_c09a1e9f0c59" formatted="false">"Неверное поле: @0@"</string>
+    <string name="msg_c25691d01a87" formatted="false">"Добавляйте треки в избранное через меню рядом с треком."</string>
+    <string name="msg_c39959813ccd" formatted="false">"Яндекс Музыка"</string>
+    <string name="msg_c40f97ca1831" formatted="false">"Подключение к службе K4811…"</string>
+    <string name="msg_c46e9d43cea9" formatted="false">"Не удалось завершить синхронизацию. Готовые файлы сохранены; повторите попытку."</string>
+    <string name="msg_c57bc34167f4" formatted="false">"Запрос перезагрузки отправляется…"</string>
+    <string name="msg_c59e474ea979" formatted="false">"Не удалось прочитать плейлисты. Данные сохранены на диске; изменения временно недоступны. Повторите чтение."</string>
+    <string name="msg_c6087f7e1289" formatted="false">"Повторите обновление каталога."</string>
+    <string name="msg_c61eb3c4706a" formatted="false">"эквалайзер"</string>
+    <string name="msg_c6504f6cb73b" formatted="false">"Оксид"</string>
+    <string name="msg_c6826c783794" formatted="false">"Показать ещё"</string>
+    <string name="msg_c69f42036602" formatted="false">"При отсутствии перевода используется английский."</string>
+    <string name="msg_c6e3a313babd" formatted="false">"Локальные профили используют общий каталог. В этом режиме аккаунты не подключены."</string>
+    <string name="msg_c722f8b4c671" formatted="false">"Читаем аудиофайлы…"</string>
+    <string name="msg_c78b1aee4241" formatted="false">"Будет создан приватный плейлист в текущем аккаунте Яндекса."</string>
+    <string name="msg_c7dab06bf537" formatted="false">"СЕЙЧАС"</string>
+    <string name="msg_c85975db07b1" formatted="false">"Неверная версия обновления"</string>
+    <string name="msg_c8c0e3b9e7a0" formatted="false">"Получаем «Мне нравится»…"</string>
+    <string name="msg_c8dbba7583c2" formatted="false">"Источник воспроизведения"</string>
+    <string name="msg_c90dd531a092" formatted="false">"Текущий трек, уже подготовленные треки волны и сохранённые файлы сохраняют своё качество. Для повторной загрузки всей офлайн-коллекции удалите её файлы в настройках офлайн-кэша и запустите синхронизацию. Лайки останутся в Яндексе."</string>
+    <string name="msg_c90ea6df373e" formatted="false">"ожидающее обновление"</string>
+    <string name="msg_c989e98d6470" formatted="false">"Подбираем следующий трек…"</string>
+    <string name="msg_ca3bbeeee26d" formatted="false">"Android остановил длительную синхронизацию. Готовые файлы сохранены."</string>
+    <string name="msg_ca48a1a553cc" formatted="false">"Синхронизировать «Мне нравится»"</string>
+    <string name="msg_cb297d129add" formatted="false">"Очередь"</string>
+    <string name="msg_cb3d171cdbfd" formatted="false">"Название ↓"</string>
+    <string name="msg_cb4cd68cb5f3" formatted="false">"Остановить синхронизацию"</string>
+    <string name="msg_cbf686a2b04b" formatted="false">"Активный, встроенный или неизвестный скин нельзя удалить"</string>
+    <string name="msg_cd40e18eeede" formatted="false">"Трек добавлен в «@0@»."</string>
+    <string name="msg_cd70228cba41" formatted="false">"трек"</string>
+    <string name="msg_cdb3ca001d96" formatted="false">"Запрет не установлен"</string>
+    <string name="msg_ce1456ccd84b" formatted="false">"Убрать из плейлиста: @0@"</string>
+    <string name="msg_ce1e647fd722" formatted="false">"Повтор выключен"</string>
+    <string name="msg_cfdce86cac0a" formatted="false">"Система не разрешила открыть настройки наложения."</string>
+    <string name="msg_cfde40242cd9" formatted="false">"Плейлисты Яндекса"</string>
+    <string name="msg_d18c1c114691" formatted="false">"Не удалось прочитать пакет скина: проверьте ZIP и JSON"</string>
+    <string name="msg_d1df132336f2" formatted="false">"Предыдущий клип"</string>
+    <string name="msg_d1edd7d2a9e2" formatted="false">"Редирект без адреса"</string>
+    <string name="msg_d32a29ef600e" formatted="false">"Громче"</string>
+    <string name="msg_d3dacfa5bb27" formatted="false">"Доступна версия @0@."</string>
+    <string name="msg_d4998bc84141" formatted="false">"Посмотреть"</string>
+    <string name="msg_d555eba48a2d" formatted="false">"Попробуйте другой запрос или сбросьте фильтры."</string>
+    <string name="msg_d585770173b3" formatted="false">"Отметки в Яндекс Музыке"</string>
+    <string name="msg_d58f70dd1811" formatted="false">"Без жанра"</string>
+    <string name="msg_d60fd3858f8f" formatted="false">"Служба приняла запрос. Ожидайте перезагрузку K4811."</string>
+    <string name="msg_d65fb9be6155" formatted="false">"Сохраняются только понравившиеся треки и их обложки. Любимые исполнители и альбомы целиком не загружаются."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"В журнале только коды событий. Токены, коды входа, названия треков и адреса запросов не записываются."</string>
+    <string name="msg_d73874ba53a6" formatted="false">"Файл-источник остаётся у вас. Его можно импортировать снова."</string>
+    <string name="msg_d7ad8e4ee48a" formatted="false">"Авто — как в системе"</string>
+    <string name="msg_d7b587c84b68" formatted="false">"Панель выключена."</string>
+    <string name="msg_d7c74665073a" formatted="false">"Удалится только плейлист. Файлы и текущая очередь сохранятся."</string>
+    <string name="msg_d8987908d58b" formatted="false">"Источник и папки"</string>
+    <string name="msg_d8cafee5a654" formatted="false">"Разрешите установку из YMPlayer 2; после возврата откроется системный установщик."</string>
+    <string name="msg_d96f9192c384" formatted="false">"«Мне нравится» офлайн"</string>
+    <string name="msg_d9b2fa928b6a" formatted="false">"Код истёк. Получите новый код."</string>
+    <string name="msg_da28911d8b6d" formatted="false">"Перезагрузить"</string>
+    <string name="msg_da4da4e3527c" formatted="false">"Диагностика"</string>
+    <string name="msg_db66cedc69fc" formatted="false">"Вся коллекция"</string>
+    <string name="msg_dba20ab53801" formatted="false">"Устройство"</string>
+    <string name="msg_dbfc1e54cdd9" formatted="false">"Случайный порядок включён"</string>
+    <string name="msg_dc2b5a858155" formatted="false">"Показать / скрыть панель"</string>
+    <string name="msg_dc9712a122a9" formatted="false">"Слушать сохранённое"</string>
+    <string name="msg_dca2da414320" formatted="false">"APK не обновляет этот YMPlayer 2"</string>
+    <string name="msg_dcc07d613ee2" formatted="false">"Введите код на другом устройстве или откройте страницу Яндекса здесь."</string>
+    <string name="msg_dcd18c67df6b" formatted="false">"Источники: GitHub, jsDelivr и Gcore. APK проверяется по размеру, SHA-256, имени пакета, версии и подписи. Android попросит подтвердить установку."</string>
+    <string name="msg_dcd5dbe4d9d2" formatted="false">"Не удалось воспроизвести музыку Яндекса. Проверьте сеть и доступ к треку; нажмите воспроизведение для повтора."</string>
+    <string name="msg_dce76ccbc542" formatted="false">"Название должно содержать от 1 до 80 символов"</string>
+    <string name="msg_dcefc460162c" formatted="false">"Слишком много распакованных данных"</string>
+    <string name="msg_de042c2d1c9a" formatted="false">"Обновление YMPlayer 2"</string>
+    <string name="msg_de13383c3766" formatted="false">"Сейчас: @0@"</string>
+    <string name="msg_de1ea8c09caa" formatted="false">"Моя волна"</string>
+    <string name="msg_de2242264b20" formatted="false">"Нужно 1–64 пути значка"</string>
+    <string name="msg_ded8b330175a" formatted="false">"Нет сети · показаны доступные офлайн треки"</string>
+    <string name="msg_defc1856ad78" formatted="false">"Не удалось прочитать медиатеку. Обновите папки с музыкой и повторите выбор."</string>
+    <string name="msg_df19962e1865" formatted="false">"Язык приложения"</string>
+    <string name="msg_df3940f679cf" formatted="false">"Неожиданный размер APK"</string>
+    <string name="msg_dff16f6f70a1" formatted="false">"Плеер"</string>
+    <string name="msg_e059e8f90790" formatted="false">"Не удалось сохранить выбор оформления"</string>
+    <string name="msg_e088cb84f420" formatted="false">"Вход сохранён для этого профиля. Онлайн-каталог и воспроизведение Яндекса появятся на следующем этапе."</string>
+    <string name="msg_e09846033f94" formatted="false">"Позиция"</string>
+    <string name="msg_e15f960d93eb" formatted="false">"Применить"</string>
+    <string name="msg_e199c10f2526" formatted="false">"Тише"</string>
+    <string name="msg_e2151143d516" formatted="false">"Не удалось прочитать индекс. Добавьте папку заново."</string>
+    <string name="msg_e21e6ad5c123" formatted="false">"Обновляем сведения об аккаунте…"</string>
+    <string name="msg_e25ae5e8d071" formatted="false">"Открыть Яндекс"</string>
+    <string name="msg_e261fc0388e8" formatted="false">"Подготовка…"</string>
+    <string name="msg_e2be34974ae4" formatted="false">"Создать"</string>
+    <string name="msg_e2e513b12b0d" formatted="false">"Сохранённых треков пока нет. Синхронизация доступна в настройках офлайн-кэша."</string>
+    <string name="msg_e30fc8a5eb01" formatted="false">"Офлайн-кэш «Мне нравится»"</string>
+    <string name="msg_e349032e2682" formatted="false">"Своя очередь и позиция"</string>
+    <string name="msg_e3c30e30adb9" formatted="false">"Демонстрация ошибки. Текущая очередь сохранена."</string>
+    <string name="msg_e4c1d01c5c8f" formatted="false">"Избранное"</string>
+    <string name="msg_e4e4b9b0d2df" formatted="false">"Убрать из «Мне нравится»"</string>
+    <string name="msg_e6b3d4be516a" formatted="false">"@0@: действие недоступно"</string>
+    <string name="msg_e85848addc52" formatted="false">"Нет адреса APK"</string>
+    <string name="msg_e8c693109156" formatted="false">"Панель YMPlayer 2"</string>
+    <string name="msg_e92912b778ee" formatted="false">"На устройстве"</string>
+    <string name="msg_ea16ed0e182d" formatted="false">"Удалить плейлист: @0@"</string>
+    <string name="msg_ea172f78eb4c" formatted="false">"Недопустимый путь в скине"</string>
+    <string name="msg_ea183e546bb0" formatted="false">"QR-код для поддержки разработки"</string>
+    <string name="msg_ea1f40824607" formatted="false">"Открыть"</string>
+    <string name="msg_eabc559b5eaa" formatted="false">"Выберите музыку в медиатеке"</string>
+    <string name="msg_eb2c88237bfa" formatted="false">"Локальная и онлайн-музыка. Вход в Яндекс — в профилях. Сохранённое «Мне нравится» — в разделе «Офлайн»."</string>
+    <string name="msg_eb9946b15efd" formatted="false">"Повторить чтение"</string>
+    <string name="msg_ebc4254ed734" formatted="false">"Не удалось удалить файлы снятых лайков. Повторите синхронизацию."</string>
+    <string name="msg_eca626bab07b" formatted="false">"О приложении"</string>
+    <string name="msg_ecb4e3f4230f" formatted="false">"Загружаем состояние входа…"</string>
+    <string name="msg_edcf9d24ba56" formatted="false">"Исполнители"</string>
+    <string name="msg_ee19d8c20fcb" formatted="false">"Код действует ещё @0@"</string>
+    <string name="msg_ee9181d5fe7d" formatted="false">"Показать демоданные"</string>
+    <string name="msg_eef33a4ed08b" formatted="false">"Яндекс ID @0@"</string>
+    <string name="msg_ef05d57959cf" formatted="false">"Готово"</string>
+    <string name="msg_ef5631741cc5" formatted="false">"Обновляем отметки…"</string>
+    <string name="msg_efb640146dae" formatted="false">"К плейлистам"</string>
+    <string name="msg_f0a7fd0c1884" formatted="false">"Повтор трека"</string>
+    <string name="msg_f0cd3a603372" formatted="false">"Светлая"</string>
+    <string name="msg_f1d8f4cb696f" formatted="false">"Войдите в Яндекс в этом профиле."</string>
+    <string name="msg_f413b50444c7" formatted="false">"исполнителя"</string>
+    <string name="msg_f434aef91735" formatted="false">"Не удалось проверить обновления: @0@"</string>
+    <string name="msg_f4d6290e6f4b" formatted="false">"Музыка рядом"</string>
+    <string name="msg_f4e26aa3eef6" formatted="false">"Плей / пауза"</string>
+    <string name="msg_f5a7276edc18" formatted="false">"В корне нет manifest.json"</string>
+    <string name="msg_f6e01d413ff6" formatted="false">"Домой"</string>
+    <string name="msg_f77ad0247092" formatted="false">"Панель включена."</string>
+    <string name="msg_f7be0cbd0b8a" formatted="false">"Не удалось загрузить медиатеку"</string>
+    <string name="msg_f8480d481387" formatted="false">"Медиатека пока пуста"</string>
+    <string name="msg_f8ac3be6be11" formatted="false">"Видеомодуль ещё разрабатывается"</string>
+    <string name="msg_f8ddc90b1078" formatted="false">"«Спрятать сайдбар» — всегда последняя кнопка и не отключается. Если все остальные кнопки выключены, SideBar отключается."</string>
+    <string name="msg_f91135efb9aa" formatted="false">"Удалить «@0@»?"</string>
+    <string name="msg_f9b80bf69b7f" formatted="false">"Требуется Android API @0@"</string>
+    <string name="msg_fa58ba03d4c5" formatted="false">"Название ↑"</string>
+    <string name="msg_fb7d156c5bfe" formatted="false">"Рекомендации"</string>
+    <string name="msg_fc0f3616f567" formatted="false">"Показать ещё с устройства / USB"</string>
+    <string name="msg_fcd7691c84b2" formatted="false">"Завершить редактирование"</string>
+    <string name="msg_fd21b337444d" formatted="false">"Обновить отметки трека"</string>
+    <string name="msg_fd6e72f72d55" formatted="false">"Настройки офлайн-кэша"</string>
+    <string name="msg_fdc54db3a2b0" formatted="false">"Эквалайзер / DSP"</string>
+    <string name="msg_fed5c913384a" formatted="false">"Результат перезагрузки неизвестен. Повторный запрос не отправляется."</string>
+    <string name="msg_fede8859c53f" formatted="false">"Поиск в Яндекс Музыке"</string>
+    <string name="msg_ff5436e417d8" formatted="false">"В скине слишком много файлов"</string>
+    <string name="msg_ffdf574befa9" formatted="false">"По порядку"</string>
+    <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
+</resources>

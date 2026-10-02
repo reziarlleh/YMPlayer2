@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.clips
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.content.Context
 import android.graphics.Canvas
 import dev.petrov.ymplayer2.designsystem.skin.ClipPalette
@@ -28,26 +30,26 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private var revealKey: Int? = null
     private val top = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
     private val bottom = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
-    private val back = button("← Назад", close)
-    private val heading = label("Клипы · Яндекс Музыка", 18f, true)
+    private val back = button(tr(Msg.msg_7e59467db9e7), close)
+    private val heading = label(tr(Msg.msg_307c435478f4), 18f, true)
     private val status = label("", 16f)
     private val infoBand = DiagonalClipInfoBand(context, palette).apply { tag = "clip_info_band" }
     private val title = label("", 22f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val artist = label("", 16f).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val nextTitle = label("", 18f, true).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
     private val nextArtist = label("", 14f).apply { maxLines = 1; ellipsize = TextUtils.TruncateAt.END }
-    private val currentCaption = infoLabel("СЕЙЧАС", palette.accent)
-    private val nextCaption = infoLabel("ДАЛЕЕ", palette.secondary)
-    private val preview = label("Предпросмотр", 14f)
-    private val retry = button("Повторить", controller::retry)
+    private val currentCaption = infoLabel(tr(Msg.msg_c7dab06bf537), palette.accent)
+    private val nextCaption = infoLabel(tr(Msg.msg_9969d130536f), palette.secondary)
+    private val preview = label(tr(Msg.msg_32060a34f5be), 14f)
+    private val retry = button(tr(Msg.msg_5189135a6110), controller::retry)
     private val previous = button("◀", controller::previous)
     private val play = button("▶", controller::toggle)
     private val next = button("▶▶", controller::next)
 
     init {
         isClickable = false
-        previous.contentDescription = "Предыдущий клип"
-        next.contentDescription = "Следующий клип"
+        previous.contentDescription = tr(Msg.msg_d1df132336f2)
+        next.contentDescription = tr(Msg.msg_003022fabb87)
         top.setPadding(dp(12), dp(12), dp(12), dp(8))
         top.background = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
             intArrayOf(palette.topShade, palette.clearShade))
@@ -104,15 +106,26 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         render(latest)
     }
 
+    fun refreshLanguage() {
+        back.text = trMessage("← Назад")
+        heading.text = trMessage("Клипы · Яндекс Музыка")
+        currentCaption.text = trMessage("СЕЙЧАС")
+        nextCaption.text = trMessage("ДАЛЕЕ")
+        preview.text = trMessage("Предпросмотр")
+        retry.text = trMessage("Повторить")
+        previous.contentDescription = trMessage("Предыдущий клип")
+        next.contentDescription = trMessage("Следующий клип")
+        render(latest)
+    }
     fun render(state: ClipWaveState) {
         val firstClip = latest.clip == null && state.clip != null
         if (latest.clip?.id != state.clip?.id || state.loading) infoBand.setProgress(0L, 0L)
         latest = state
-        status.text = state.issue ?: if (state.loading) "Загрузка клипов…" else ""
+        status.text = state.issue?.let(::trIssue) ?: if (state.loading) tr(Msg.msg_27681b730821) else ""
         status.visibility = if (status.text.isNotEmpty()) VISIBLE else GONE
         title.text = state.clip?.title.orEmpty()
         artist.text = state.clip?.artist.orEmpty()
-        nextTitle.text = state.nextClip?.title ?: "Следующий клип пока не определён"
+        nextTitle.text = state.nextClip?.title ?: tr(Msg.msg_6c32e04d2392)
         nextArtist.text = state.nextClip?.artist.orEmpty()
         nextArtist.visibility = if (nextArtist.text.isNotEmpty()) VISIBLE else GONE
         infoBand.visibility = if (state.clip != null) VISIBLE else GONE
@@ -121,7 +134,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         previous.isEnabled = state.canGoBack
         play.isEnabled = state.clip != null
         play.text = if (state.playing) "Ⅱ" else "▶"
-        play.contentDescription = if (state.playing) "Пауза" else "Воспроизвести"
+        play.contentDescription = if (state.playing) tr(Msg.msg_65530fd463ea) else tr(Msg.msg_bdd37eb21746)
         next.isEnabled = state.clip != null && !state.loading
         for (control in listOf(previous, play, next)) control.alpha = if (control.isEnabled) 1f else .42f
         if (!state.playing || state.issue != null) shown = true

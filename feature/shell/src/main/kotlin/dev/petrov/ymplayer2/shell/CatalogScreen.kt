@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -139,86 +141,86 @@ import kotlinx.coroutines.CancellationException
         LazyColumn(Modifier.fillMaxSize().imePadding().testTag("catalog_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (currentDetail != null) ActionIcon(UiIcon.BACK, "К списку", { detail = null })
-                    Text(currentDetail ?: if (search) "Поиск" else "Медиатека", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                    if (currentDetail != null) ActionIcon(UiIcon.BACK, tr(Msg.msg_b0f0ab86be80), { detail = null })
+                    Text(currentDetail ?: if (search) tr(Msg.msg_180f58ab9753) else tr(Msg.msg_0a20ddc9928f), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
                 }
             }
             if (!demo && !search && currentDetail == null) item {
                 Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { SkinIcon(UiIcon.FOLDER, null); Spacer(Modifier.width(8.dp)); Text("Папки с музыкой") }
+                OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { SkinIcon(UiIcon.FOLDER, null); Spacer(Modifier.width(8.dp)); Text(tr(Msg.msg_8f458964546a)) }
                 if (music != null) {
-                    OutlinedButton(onlineHome, Modifier.prismFocus().testTag("online_home")) { Text("Моя музыка и рекомендации Яндекса") }
+                    OutlinedButton(onlineHome, Modifier.prismFocus().testTag("online_home")) { Text(tr(Msg.msg_6d6a9bb2179b)) }
                     if (taste != null) WaveButton(player, online?.signedIn == true, signIn, waveStarted)
                 }
                 }
             }
-            if (scanning) item { LinearProgressIndicator(Modifier.fillMaxWidth()); Text("Обновляем каталог…") }
-            if (issue != null) item { Text(issue, color = MaterialTheme.colorScheme.error) }
+            if (scanning) item { LinearProgressIndicator(Modifier.fillMaxWidth()); Text(tr(Msg.msg_4a87a9c8e472)) }
+            if (issue != null) item { Text(trIssue(issue), color = MaterialTheme.colorScheme.error) }
             if (currentDetail == null) {
                 if (search) item {
                     OutlinedTextField(query, changeQuery, Modifier.fillMaxWidth().testTag("search_input").prismFocus(),
-                        label = { Text("Трек, исполнитель или альбом") }, singleLine = true,
+                        label = { Text(tr(Msg.msg_1d74ce16d44e)) }, singleLine = true,
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                         keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
                         leadingIcon = { SkinIcon(UiIcon.SEARCH, null) },
-                        trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, "Очистить поиск", { changeQuery("") }) })
+                        trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, tr(Msg.msg_6e1f7baa472f), { changeQuery("") }) })
                 }
                 if (!cacheOnly && (!search || music != null)) item {
                     ChoiceRow(currentCategory.name, Modifier.fillMaxWidth()) { choice ->
                         Category.entries.filter { demo || collections || it != Category.PLAYLISTS }.forEach { item ->
-                            FilterChip(currentCategory == item, { if (item == Category.PLAYLISTS && collections) playlists() else category = item }, { Text(item.label) }, choice(item.name).prismFocus().testTag("category_${item.name}"))
+                            FilterChip(currentCategory == item, { if (item == Category.PLAYLISTS && collections) playlists() else category = item }, { Text(trMessage(item.label)) }, choice(item.name).prismFocus().testTag("category_${item.name}"))
                         }
-                        if (collections) AssistChip(favorites, { Text("Избранное") }, choice("FAVORITES").prismFocus().testTag("category_FAVORITES"), leadingIcon = { SkinIcon(UiIcon.FAVORITE, null) })
+                        if (collections) AssistChip(favorites, { Text(tr(Msg.msg_e4c1d01c5c8f)) }, choice("FAVORITES").prismFocus().testTag("category_FAVORITES"), leadingIcon = { SkinIcon(UiIcon.FAVORITE, null) })
                     }
                 }
                 if (!cacheOnly) item {
                     ChoiceRow(source?.name ?: "ALL", Modifier.fillMaxWidth()) { choice ->
-                        FilterChip(source == null, { source = null }, { Text("Все источники") }, choice("ALL").prismFocus().testTag("filter_all"))
+                        FilterChip(source == null, { source = null }, { Text(tr(Msg.msg_71e214e1477f)) }, choice("ALL").prismFocus().testTag("filter_all"))
                         Source.entries.filter { it in sources }.forEach { item ->
-                            FilterChip(source == item, { source = item }, { Text(item.label) }, choice(item.name).prismFocus().testTag("filter_${item.name}"))
+                            FilterChip(source == item, { source = item }, { Text(trMessage(item.label)) }, choice(item.name).prismFocus().testTag("filter_${item.name}"))
                         }
                     }
                 }
                 if (!cacheOnly) item {
                     ChoiceRow(if (offline) "offline" else if (availableOnly) "available" else "offline", Modifier.fillMaxWidth()) { choice ->
-                        FilterChip(offline, { offline = !offline }, { Text("Доступно офлайн") }, choice("offline").prismFocus().testTag("filter_offline"))
-                        FilterChip(availableOnly, { availableOnly = !availableOnly }, { Text("Доступные сейчас") }, choice("available").prismFocus().testTag("filter_available"))
-                        AssistChip({ descending = !descending }, { Text(if (descending) "Название ↓" else "Название ↑") }, choice("sort").prismFocus())
+                        FilterChip(offline, { offline = !offline }, { Text(tr(Msg.msg_8514965e4ae0)) }, choice("offline").prismFocus().testTag("filter_offline"))
+                        FilterChip(availableOnly, { availableOnly = !availableOnly }, { Text(tr(Msg.msg_20c3a85f6767)) }, choice("available").prismFocus().testTag("filter_available"))
+                        AssistChip({ descending = !descending }, { Text(if (descending) tr(Msg.msg_cb3d171cdbfd) else tr(Msg.msg_fa58ba03d4c5)) }, choice("sort").prismFocus())
                     }
                 }
             }
             if (remoteRequested && online?.signedIn == false) item {
-                Text("Музыка устройства доступна без входа. Для Яндекса войдите в этом профиле.")
-                OutlinedButton(signIn, Modifier.prismFocus().testTag("catalog_sign_in")) { Text("Открыть аккаунт") }
+                Text(tr(Msg.msg_a55fc5d0f320))
+                OutlinedButton(signIn, Modifier.prismFocus().testTag("catalog_sign_in")) { Text(tr(Msg.msg_612f724ec00f)) }
             }
             if (remote?.loading == true) item { LinearProgressIndicator(Modifier.fillMaxWidth().testTag("catalog_online_loading")) }
             if (remote?.issue != null) item {
-                Text(remote.issue!!, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("catalog_online_issue"))
-                OutlinedButton({ music.retry() }, Modifier.prismFocus().testTag("catalog_online_retry"), enabled = !remote.loading) { Text("Повторить запрос Яндекса") }
+                Text(trIssue(remote.issue!!), color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("catalog_online_issue"))
+                OutlinedButton({ music.retry() }, Modifier.prismFocus().testTag("catalog_online_retry"), enabled = !remote.loading) { Text(tr(Msg.msg_be28ea14a37e)) }
             }
             if (music != null && currentDetail == null && offline && grouped && source != Source.LOCAL && source != Source.USB) item {
-                Text("Скачанные «Мне нравится» доступны в разделе «Треки». Альбомы и исполнители целиком не скачиваются.")
+                Text(tr(Msg.msg_3d7762ba837e))
             }
             if (music != null && currentDetail == null && remoteKind == null) item {
-                Text("Жанры и папки относятся к файлам устройства и USB.")
+                Text(tr(Msg.msg_29ff5117d5b1))
             }
             if (indexLoading) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
-            if (indexFailed) item { CatalogMessage("Не удалось прочитать индекс", "Повторите обновление каталога.", retry, "Обновить") }
+            if (indexFailed) item { CatalogMessage(tr(Msg.msg_293a0bf80248), tr(Msg.msg_c6087f7e1289), retry, tr(Msg.msg_603e460bf59c)) }
             when {
-                !demo && noLocalRoots && !search && !indexLoading && resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true -> item { CatalogMessage("Медиатека пока пуста", "Выберите папку с аудиофайлами на устройстве или USB.", folders, "Добавить музыку") }
-                state == CatalogState.ERROR -> item { CatalogMessage("Не удалось загрузить медиатеку", "Демонстрация ошибки. Текущая очередь сохранена.", retry, "Повторить") }
-                state == CatalogState.EMPTY -> item { CatalogMessage("Медиатека пока пуста", "Демонстрация первого запуска.", retry, "Показать демоданные") }
-                resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true && !indexLoading && !indexFailed -> item { CatalogMessage("Ничего не найдено", "Попробуйте другой запрос или сбросьте фильтры.", { changeQuery(""); source = null; offline = false; availableOnly = false }, "Сбросить") }
+                !demo && noLocalRoots && !search && !indexLoading && resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true -> item { CatalogMessage(tr(Msg.msg_f8480d481387), tr(Msg.msg_55d6dc96a9df), folders, tr(Msg.msg_3048598439e0)) }
+                state == CatalogState.ERROR -> item { CatalogMessage(tr(Msg.msg_f7be0cbd0b8a), tr(Msg.msg_e3c30e30adb9), retry, tr(Msg.msg_5189135a6110)) }
+                state == CatalogState.EMPTY -> item { CatalogMessage(tr(Msg.msg_f8480d481387), tr(Msg.msg_7e57673a5d4c), retry, tr(Msg.msg_ee9181d5fe7d)) }
+                resultCount == 0 && shownTracks.isEmpty() && remoteEntities.isEmpty() && remote?.loading != true && !indexLoading && !indexFailed -> item { CatalogMessage(tr(Msg.msg_480fae1c4bc9), tr(Msg.msg_d555eba48a2d), { changeQuery(""); source = null; offline = false; availableOnly = false }, tr(Msg.msg_407f871778d3)) }
                 else -> {
-                    if (state == CatalogState.OFFLINE) item { Text("Нет сети · показаны доступные офлайн треки", color = MaterialTheme.colorScheme.primary) }
+                    if (state == CatalogState.OFFLINE) item { Text(tr(Msg.msg_ded8b330175a), color = MaterialTheme.colorScheme.primary) }
                     if (!grouped) {
                         val shown = page
                         item {
                             Column {
-                            Text(if (cacheOnly) "В офлайн-кэше: ${remoteTracks.size} найдено" else if (music != null) "Устройство / USB: ${shown?.total ?: 0} · Яндекс: ${remoteTracks.size} показано"
-                                else "${shown?.total ?: 0} треков" + if (demo) " · демонстрационный каталог" else "",
+                            Text(if (cacheOnly) tr(Msg.msg_5d5f78c5790d, remoteTracks.size) else if (music != null) tr(Msg.msg_350c510572ad, shown?.total ?: 0, remoteTracks.size)
+                                else tr(Msg.msg_12e3d1e9d948, shown?.total ?: 0) + if (demo) tr(Msg.msg_73e0d3beed31) else "",
                                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            if (music != null && shownTracks.any { it.available }) OutlinedButton({ player.playQueue(shownTracks.map(Track::id)); keyboard?.hide() }, Modifier.prismFocus().testTag("catalog_play_all")) { Text("Слушать показанные треки") }
+                            if (music != null && shownTracks.any { it.available }) OutlinedButton({ player.playQueue(shownTracks.map(Track::id)); keyboard?.hide() }, Modifier.prismFocus().testTag("catalog_play_all")) { Text(tr(Msg.msg_9cbbe230cb66)) }
                             }
                         }
                         items(shownTracks, key = Track::id) { track -> TrackRow(track, play = {
@@ -229,7 +231,7 @@ import kotlinx.coroutines.CancellationException
                                 (playback.automaticSource == null || playback.automaticSource == track.source),
                             more = if (track.source == Source.YANDEX && taste != null) ({ trackActions = track }) else more?.let { action -> { action(track) } },
                             taste = taste?.takeIf { track.source == Source.YANDEX }, artist = artist) }
-                        if (shown?.hasMore == true && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё с устройства / USB") } }
+                        if (shown?.hasMore == true && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text(tr(Msg.msg_fc0f3616f567)) } }
                     } else {
                         val shown = groups
                         items(shownGroups, key = CatalogGroupRow::key) { row ->
@@ -239,18 +241,18 @@ import kotlinx.coroutines.CancellationException
                                     row.local?.let { TrackArtwork(it.sample, Modifier.size(64.dp)) }
                                     Column(Modifier.weight(1f)) {
                                         Text(row.title, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                                        Text(row.local?.let { "Устройство / USB · ${it.count} треков" } ?: "Яндекс · ${row.remote?.subtitle.orEmpty()}", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                        Text(row.local?.let { tr(Msg.msg_29c90888994f, it.count) } ?: tr(Msg.msg_43b07d243705, row.remote?.subtitle.orEmpty()), color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
-                                    SkinIcon(UiIcon.FORWARD, "Открыть")
+                                    SkinIcon(UiIcon.FORWARD, tr(Msg.msg_ea1f40824607))
                                 }
                             }
                         }
-                        if (shown?.hasMore == true && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text("Показать ещё с устройства / USB") } }
+                        if (shown?.hasMore == true && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text(tr(Msg.msg_fc0f3616f567)) } }
                     }
                 }
             }
             if (remote?.nextPage != null && remote.issue == null) item {
-                OutlinedButton({ music.more() }, Modifier.fillMaxWidth().prismFocus().testTag("catalog_online_more"), enabled = !remote.loading) { Text("Показать ещё из Яндекса") }
+                OutlinedButton({ music.more() }, Modifier.fillMaxWidth().prismFocus().testTag("catalog_online_more"), enabled = !remote.loading) { Text(tr(Msg.msg_61c83c0e0569)) }
             }
         }
     }

@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,13 +35,13 @@ import kotlinx.coroutines.launch
     if (details && taste != null) state.current?.let { TrackTasteDialog(it, taste, artist = artist, extra = {
         playlists?.let { lists -> AddToCloudPlaylist(state.current!!, lists) { details = false } }
         HorizontalDivider()
-        TextButton({ details = false; menu = true }, Modifier.prismFocus().testTag("player_sources")) { Text("Источник и папки") }
-        TextButton({ details = false; equalizer(true) }, Modifier.prismFocus()) { Text("Выбрать эквалайзер / DSP") }
+        TextButton({ details = false; menu = true }, Modifier.prismFocus().testTag("player_sources")) { Text(tr(Msg.msg_d8987908d58b)) }
+        TextButton({ details = false; equalizer(true) }, Modifier.prismFocus()) { Text(tr(Msg.msg_6c2b14d954bb)) }
     }) { details = false } }
-    val message = state.waveIssue ?: state.error
-    if (issue) AlertDialog(onDismissRequest = { issue = false }, title = { Text("Воспроизведение") },
-        text = { Text(message ?: if (state.waveLoading) "Подбираем следующий трек…" else "Подготовка аудио…") },
-        confirmButton = { TextButton({ issue = false }) { Text("Закрыть") } })
+    val message = (state.waveIssue ?: state.error)?.let(::trIssue)
+    if (issue) AlertDialog(onDismissRequest = { issue = false }, title = { Text(tr(Msg.msg_5c7cfc9e8bc2)) },
+        text = { Text(message ?: if (state.waveLoading) tr(Msg.msg_c989e98d6470) else tr(Msg.msg_2f4f45e427e6)) },
+        confirmButton = { TextButton({ issue = false }) { Text(tr(Msg.msg_a7a4033657e8)) } })
     val account = taste?.state?.collectAsStateWithLifecycle()?.value
     val toolbar: @Composable () -> Unit = {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -47,35 +49,35 @@ import kotlinx.coroutines.launch
                 Modifier.weight(1f).height(48.dp).prismFocus().testTag("my_wave"), enabled = !state.waveLoading,
                 contentPadding = PaddingValues(horizontal = 10.dp)) {
                 SkinIcon(UiIcon.WAVE, null); Spacer(Modifier.width(6.dp))
-                Text("Моя волна", maxLines = 1, overflow = TextOverflow.Ellipsis)
-            } else Text("Сейчас играет", Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, maxLines = 1)
-            ActionIcon(UiIcon.EQUALIZER, "Эквалайзер / DSP", { equalizer(false) }, Modifier.testTag("player_equalizer"))
-            ActionIcon(UiIcon.QUEUE, "Очередь", queue, Modifier.testTag("player_queue"))
+                Text(tr(Msg.msg_de1ea8c09caa), maxLines = 1, overflow = TextOverflow.Ellipsis)
+            } else Text(tr(Msg.msg_a94943f157d5), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, maxLines = 1)
+            ActionIcon(UiIcon.EQUALIZER, tr(Msg.msg_fdc54db3a2b0), { equalizer(false) }, Modifier.testTag("player_equalizer"))
+            ActionIcon(UiIcon.QUEUE, tr(Msg.msg_cb297d129add), queue, Modifier.testTag("player_queue"))
         }
     }
     val actions: @Composable () -> Unit = {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
             if (taste != null && state.current?.source == Source.YANDEX) TasteIcons(taste, state.current!!.tasteTarget(), "player")
             val shelf = account?.shelf(TasteKind.TRACK)
-            if (shelf?.issue != null && state.current?.source == Source.YANDEX) ActionIcon(UiIcon.REFRESH, "Обновить отметки трека", { taste?.refresh(TasteKind.TRACK) },
+            if (shelf?.issue != null && state.current?.source == Source.YANDEX) ActionIcon(UiIcon.REFRESH, tr(Msg.msg_fd21b337444d), { taste?.refresh(TasteKind.TRACK) },
                 Modifier.testTag("player_taste_TRACK_${state.current!!.tasteTarget().key}_retry"), enabled = !shelf.busy)
             else if (message != null || state.waveLoading || state.buffering) ActionIcon(if (message != null) UiIcon.REFRESH else UiIcon.UNKNOWN,
-                message ?: "Подготовка аудио", { if (state.waveIssue != null) player.retryWave() else issue = true },
+                message ?: tr(Msg.msg_61b578bca0ca), { if (state.waveIssue != null) player.retryWave() else issue = true },
                 Modifier.testTag(if (state.waveIssue != null) "wave_retry" else if (state.waveLoading) "wave_loading" else "player_issue"))
             Box {
-                ActionIcon(UiIcon.MORE, "Дополнительные действия", { if (taste != null && state.current?.source == Source.YANDEX) details = true else menu = true }, Modifier.testTag("player_more"))
+                ActionIcon(UiIcon.MORE, tr(Msg.msg_7075085d9334), { if (taste != null && state.current?.source == Source.YANDEX) details = true else menu = true }, Modifier.testTag("player_more"))
                 DropdownMenu(menu, { menu = false }) {
-                    if (taste != null && state.current?.source == Source.YANDEX) DropdownMenuItem({ Text("Исполнители и альбом") }, { menu = false; details = true }, Modifier.testTag("player_artist_actions"))
-                    DropdownMenuItem({ Text("Источник воспроизведения") }, {}, enabled = false)
+                    if (taste != null && state.current?.source == Source.YANDEX) DropdownMenuItem({ Text(tr(Msg.msg_0a17ec91a15b)) }, { menu = false; details = true }, Modifier.testTag("player_artist_actions"))
+                    DropdownMenuItem({ Text(tr(Msg.msg_c8dbba7583c2)) }, {}, enabled = false)
                     (listOf<Source?>(null) + Source.entries.filter { state.profileId != "guest" && demo || it != Source.YANDEX }).forEach { source ->
-                        DropdownMenuItem({ Text(source?.label ?: "Вся коллекция") }, { menu = false; player.chooseSource(source) }, Modifier.testTag("playback_source_${source?.name ?: "ALL"}"))
+                        DropdownMenuItem({ Text(source?.label?.let(::trMessage) ?: tr(Msg.msg_db66cedc69fc)) }, { menu = false; player.chooseSource(source) }, Modifier.testTag("playback_source_${source?.name ?: "ALL"}"))
                     }
-                    if (!demo) DropdownMenuItem({ Text("Папки с музыкой") }, { menu = false; folders() }, Modifier.testTag("manage_folders"))
-                    DropdownMenuItem({ Text("Выбрать эквалайзер / DSP") }, { menu = false; equalizer(true) })
+                    if (!demo) DropdownMenuItem({ Text(tr(Msg.msg_8f458964546a)) }, { menu = false; folders() }, Modifier.testTag("manage_folders"))
+                    DropdownMenuItem({ Text(tr(Msg.msg_6c2b14d954bb)) }, { menu = false; equalizer(true) })
                 }
             }
             Spacer(Modifier.weight(1f))
-            if (state.wave) SkinIcon(UiIcon.WAVE, "Моя волна", Modifier.size(28.dp).testTag("wave_mode"))
+            if (state.wave) SkinIcon(UiIcon.WAVE, tr(Msg.msg_de1ea8c09caa), Modifier.size(28.dp).testTag("wave_mode"))
             else if (state.supportsQueueOrdering) PlaybackModes(state, player)
         }
     }
@@ -84,7 +86,7 @@ import kotlinx.coroutines.launch
         val compact = maxHeight < 440.dp || LocalDensity.current.fontScale > 1.3f
         val veryShort = maxHeight < 300.dp
         val heading: @Composable () -> Unit = { TrackHeading(state.current, artist = artist, compact = compact,
-            status = message ?: if (state.waveLoading) "Подбираем следующий трек…" else if (state.buffering) "Подготовка аудио…" else null,
+            status = message ?: if (state.waveLoading) tr(Msg.msg_c989e98d6470) else if (state.buffering) tr(Msg.msg_2f4f45e427e6) else null,
             error = message != null, showStatus = { issue = true }) }
         if (landscape) Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
             Column(Modifier.weight(.7f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -148,20 +150,20 @@ import kotlinx.coroutines.launch
                 SkinIcon(icon, label, Modifier.size(if (primary) 48.dp else 36.dp))
             }
         }
-        button(UiIcon.PREVIOUS, "Предыдущий трек", { player.skip(-1) }, "player_previous")
-        button(if (state.playing) UiIcon.PAUSE else UiIcon.PLAY, if (state.playing) "Пауза" else "Воспроизвести", player::toggle, "player_play", true)
-        button(UiIcon.NEXT, "Следующий трек", { player.skip(1) }, "player_next")
-        button(UiIcon.STOP, "Остановить", player::stop, "player_stop")
+        button(UiIcon.PREVIOUS, tr(Msg.msg_3fbf9e4ea1c1), { player.skip(-1) }, "player_previous")
+        button(if (state.playing) UiIcon.PAUSE else UiIcon.PLAY, if (state.playing) tr(Msg.msg_65530fd463ea) else tr(Msg.msg_bdd37eb21746), player::toggle, "player_play", true)
+        button(UiIcon.NEXT, tr(Msg.msg_46da7285528f), { player.skip(1) }, "player_next")
+        button(UiIcon.STOP, tr(Msg.msg_3396400da0c4), player::stop, "player_stop")
     }
 }
 
 @Composable private fun TrackHeading(track: Track?, artist: (ArtistRef) -> Unit, compact: Boolean, status: String?, error: Boolean, showStatus: () -> Unit) {
     Column(Modifier.fillMaxWidth()) {
-        Text(track?.title ?: "Очередь пуста", style = if (compact) MaterialTheme.typography.titleLarge else MaterialTheme.typography.headlineSmall,
+        Text(track?.title ?: tr(Msg.msg_39c3c9622cdc), style = if (compact) MaterialTheme.typography.titleLarge else MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold, maxLines = if (compact) 1 else 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.testTag("current_title"))
         ArtistNames(track, artist, "player")
-        Text(status ?: track?.let { if (it.source == Source.YANDEX) "Яндекс Музыка" else "${it.source.label} · ${if (it.available) "На устройстве" else "Недоступен"}" }
-            ?: "Выберите музыку в медиатеке", Modifier.testTag("player_status").then(if (status != null) Modifier.clickable(onClick = showStatus) else Modifier),
+        Text(status ?: track?.let { if (it.source == Source.YANDEX) tr(Msg.msg_c39959813ccd) else "${trMessage(it.source.label)} · ${if (it.available) tr(Msg.msg_e92912b778ee) else tr(Msg.msg_53ba89acf405)}" }
+            ?: tr(Msg.msg_eabc559b5eaa), Modifier.testTag("player_status").then(if (status != null) Modifier.clickable(onClick = showStatus) else Modifier),
             maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall,
             color = if (error) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary)
     }
@@ -187,12 +189,12 @@ import kotlinx.coroutines.launch
 }
 
 @Composable private fun PlaybackModes(state: PlaybackState, player: PlaybackController) {
-    val repeat = when (state.repeatMode) { RepeatMode.OFF -> "Повтор выключен"; RepeatMode.ALL -> "Повтор очереди"; RepeatMode.ONE -> "Повтор трека" }
+    val repeat = when (state.repeatMode) { RepeatMode.OFF -> tr(Msg.msg_ce1e647fd722); RepeatMode.ALL -> tr(Msg.msg_65e00ce0d8d2); RepeatMode.ONE -> tr(Msg.msg_f0a7fd0c1884) }
     IconToggleButton(state.repeatMode != RepeatMode.OFF, { player.setRepeatMode(state.repeatMode.next()) }, Modifier.size(48.dp).prismFocus().testTag("repeat_mode").semantics { stateDescription = repeat }) {
         SkinIcon(if (state.repeatMode == RepeatMode.ONE) UiIcon.REPEAT_ONE else UiIcon.REPEAT, repeat, Modifier.size(28.dp))
     }
-    IconToggleButton(state.shuffle, { player.setShuffle(!state.shuffle) }, Modifier.size(48.dp).prismFocus().testTag("shuffle_mode").semantics { stateDescription = if (state.shuffle) "В случайном порядке" else "По порядку" }) {
-        SkinIcon(UiIcon.SHUFFLE, "Случайный порядок", Modifier.size(28.dp))
+    IconToggleButton(state.shuffle, { player.setShuffle(!state.shuffle) }, Modifier.size(48.dp).prismFocus().testTag("shuffle_mode").semantics { stateDescription = if (state.shuffle) tr(Msg.msg_58cb4ee024d5) else tr(Msg.msg_ffdf574befa9) }) {
+        SkinIcon(UiIcon.SHUFFLE, tr(Msg.msg_8f88b95463e2), Modifier.size(28.dp))
     }
 }
 
@@ -213,18 +215,18 @@ import kotlinx.coroutines.launch
         }
     }
     Column(Modifier.fillMaxSize().padding(horizontal = 8.dp)) {
-        Text("Очередь · ${state.queueCount}", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 12.dp))
+        Text(tr(Msg.msg_33073b976515, state.queueCount), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 12.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(if (state.shuffle) "Случайный порядок включён" else "Выбор трека запускает его", Modifier.weight(1f), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            ActionIcon(if (editing) UiIcon.CHECK else UiIcon.EDIT, if (editing) "Завершить редактирование" else "Изменить очередь", { editing = !editing }, Modifier.testTag("queue_edit"), enabled = state.queueCount > 0)
+            Text(if (state.shuffle) tr(Msg.msg_dbfc1e54cdd9) else tr(Msg.msg_0c581306a3c6), Modifier.weight(1f), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            ActionIcon(if (editing) UiIcon.CHECK else UiIcon.EDIT, if (editing) tr(Msg.msg_fcd7691c84b2) else tr(Msg.msg_a2c053c748d0), { editing = !editing }, Modifier.testTag("queue_edit"), enabled = state.queueCount > 0)
         }
         if (editing && state.queueCount > 0) {
-            Text("Удаление текущего трека ставит воспроизведение на паузу.", style = MaterialTheme.typography.bodySmall)
+            Text(tr(Msg.msg_53ee3b3a9092), style = MaterialTheme.typography.bodySmall)
             TextButton({ player.clearQueue(); editing = false }, Modifier.heightIn(min = 48.dp).prismFocus().testTag("queue_clear")) {
-                SkinIcon(UiIcon.CLEAR_QUEUE, null); Spacer(Modifier.width(8.dp)); Text("Очистить очередь")
+                SkinIcon(UiIcon.CLEAR_QUEUE, null); Spacer(Modifier.width(8.dp)); Text(tr(Msg.msg_a5f630df4494))
             }
         }
-        if (state.queueCount == 0) Text("Добавьте треки кнопкой «В очередь» в медиатеке.", Modifier.padding(vertical = 16.dp), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (state.queueCount == 0) Text(tr(Msg.msg_857db5eccf13), Modifier.padding(vertical = 16.dp), color = MaterialTheme.colorScheme.onSurfaceVariant)
         LazyColumn(Modifier.fillMaxWidth().weight(1f).testTag("queue_list"), contentPadding = PaddingValues(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             items(state.queueCount, key = { it }) { index ->
                 val number = index / 80
@@ -234,12 +236,12 @@ import kotlinx.coroutines.launch
                 if (track != null) Column {
                     TrackRow(track, state.current?.id == track.id, { player.select(track.id) }, taste = taste, location = "queue", artist = artist)
                     if (editing) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                        ActionIcon(UiIcon.UP, "Выше: ${track.title}", { player.moveInQueue(track.id, index - 1) }, Modifier.testTag("queue_up_${track.id}"), enabled = index > 0)
-                        ActionIcon(UiIcon.DOWN, "Ниже: ${track.title}", { player.moveInQueue(track.id, index + 1) }, Modifier.testTag("queue_down_${track.id}"), enabled = index < state.queueCount - 1)
-                        ActionIcon(UiIcon.REMOVE, "Удалить из очереди: ${track.title}", { player.removeFromQueue(track.id) }, Modifier.testTag("queue_remove_${track.id}"))
+                        ActionIcon(UiIcon.UP, tr(Msg.msg_9fcd67f23799, track.title), { player.moveInQueue(track.id, index - 1) }, Modifier.testTag("queue_up_${track.id}"), enabled = index > 0)
+                        ActionIcon(UiIcon.DOWN, tr(Msg.msg_48f1c04f18bc, track.title), { player.moveInQueue(track.id, index + 1) }, Modifier.testTag("queue_down_${track.id}"), enabled = index < state.queueCount - 1)
+                        ActionIcon(UiIcon.REMOVE, tr(Msg.msg_6edaf3285434, track.title), { player.removeFromQueue(track.id) }, Modifier.testTag("queue_remove_${track.id}"))
                     }
-                } else if (result?.isFailure == true) TextButton({ pages.remove(number); requestPage(number) }) { Text("Не удалось загрузить очередь · повторить") }
-                else Text("Загружаем…", Modifier.padding(12.dp))
+                } else if (result?.isFailure == true) TextButton({ pages.remove(number); requestPage(number) }) { Text(tr(Msg.msg_7ad2cca22536)) }
+                else Text(tr(Msg.msg_22a5d9112486), Modifier.padding(12.dp))
             }
         }
     }
@@ -249,7 +251,7 @@ import kotlinx.coroutines.launch
     taste: MusicTaste? = null, location: String = "catalog", artist: (ArtistRef) -> Unit = {}) {
     val onlineTaste = taste?.takeIf { track.source == Source.YANDEX }
     val hasActions = onlineTaste != null || enqueue != null || more != null
-    val metadata = if (track.available) "${track.source.label} · ${secondsLabel(track.durationSeconds)}" else "Трек недоступен"
+    val metadata = if (track.available) "${trMessage(track.source.label)} · ${secondsLabel(track.durationSeconds)}" else tr(Msg.msg_91cf891549ab)
     var details by remember(track.id) { mutableStateOf(false) }
     if (details && onlineTaste != null) TrackTasteDialog(track, onlineTaste, artist = artist) { details = false }
     Surface(Modifier.fillMaxWidth().testTag("track_card_${track.id}"), shape = MaterialTheme.shapes.medium,
@@ -265,7 +267,7 @@ import kotlinx.coroutines.launch
                     if (!hasActions) Text(metadata, style = MaterialTheme.typography.labelSmall)
                 }
                 SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY,
-                    if (selected) "Текущий трек" else "Воспроизвести трек", Modifier.size(24.dp))
+                    if (selected) tr(Msg.msg_653f03c94726) else tr(Msg.msg_2922b43474e0), Modifier.size(24.dp))
             }
             if (hasActions) {
                 Row(Modifier.fillMaxWidth().padding(start = 8.dp, end = 4.dp, bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -274,17 +276,17 @@ import kotlinx.coroutines.launch
                         overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (enqueue != null) ActionIcon(if (queued) UiIcon.CHECK else UiIcon.ADD_QUEUE,
-                        if (queued) "Уже в очереди: ${track.title}" else "В очередь: ${track.title}", enqueue,
+                        if (queued) tr(Msg.msg_ab78a1119f41, track.title) else tr(Msg.msg_0f0e734fb752, track.title), enqueue,
                         Modifier.testTag("enqueue_${track.id}"), enabled = track.available && !queued)
                     if (onlineTaste != null || more != null) ActionIcon(UiIcon.MORE,
-                        "Исполнители и альбом: ${track.title}", { if (more != null) more() else details = true },
+                        tr(Msg.msg_7e6258d504ba, track.title), { if (more != null) more() else details = true },
                         Modifier.testTag("track_more_${track.id}"))
                 }
             }
             if (onlineTaste != null) {
                 val shelf = onlineTaste.state.collectAsStateWithLifecycle().value.shelf(TasteKind.TRACK)
                 if (shelf.issue != null) TextButton({ onlineTaste.refresh(TasteKind.TRACK) }, Modifier.prismFocus(), enabled = !shelf.busy) {
-                    Text("Обновить отметки трека", color = MaterialTheme.colorScheme.error)
+                    Text(tr(Msg.msg_fd21b337444d), color = MaterialTheme.colorScheme.error)
                 }
             }
         }

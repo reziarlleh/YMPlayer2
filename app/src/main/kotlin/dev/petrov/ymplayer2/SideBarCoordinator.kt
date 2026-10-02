@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import dev.petrov.ymplayer2.shell.SideBarAccess
@@ -29,24 +31,24 @@ internal class SideBarCoordinator(private val activity: Activity) : SideBarAcces
 
     override fun requestPermission() {
         try { activity.startActivity(settings.permissionIntent()) }
-        catch (_: ActivityNotFoundException) { updateMessage("Системный экран разрешения не найден.") }
-        catch (_: SecurityException) { updateMessage("Система не разрешила открыть настройки наложения.") }
+        catch (_: ActivityNotFoundException) { updateMessage(tr(Msg.msg_6841e1070158)) }
+        catch (_: SecurityException) { updateMessage(tr(Msg.msg_cfdce86cac0a)) }
     }
 
     override fun setEnabled(enabled: Boolean) {
         if (enabled && settings.read().buttons.isEmpty()) {
-            updateMessage("Выберите хотя бы одну кнопку. Пустая панель отключена.")
+            updateMessage(tr(Msg.msg_23ae5f29feed))
             return
         }
-        if (enabled && !settings.hasPermission()) { updateMessage("Сначала разрешите показ поверх приложений."); return }
+        if (enabled && !settings.hasPermission()) { updateMessage(tr(Msg.msg_1f0f3db2bd8d)); return }
         settings.setEnabled(enabled)
         if (enabled) {
-            try { SideBarService.start(activity); updateMessage("Панель включена.") }
+            try { SideBarService.start(activity); updateMessage(tr(Msg.msg_f77ad0247092)) }
             catch (_: RuntimeException) {
                 settings.setEnabled(false)
-                updateMessage("Не удалось запустить панель на этом устройстве.")
+                updateMessage(tr(Msg.msg_71c815fdaf60))
             }
-        } else { SideBarService.stop(activity); updateMessage("Панель выключена.") }
+        } else { SideBarService.stop(activity); updateMessage(tr(Msg.msg_d7b587c84b68)) }
         refresh()
     }
 
@@ -63,7 +65,7 @@ internal class SideBarCoordinator(private val activity: Activity) : SideBarAcces
         settings.setButtons(selection)
         if (selection.isEmpty()) {
             SideBarService.stop(activity)
-            updateMessage("Все команды выключены — SideBar отключён.")
+            updateMessage(tr(Msg.msg_468ba659166c))
         } else if (settings.read().enabled && settings.hasPermission()) SideBarService.refresh(activity)
         refresh()
     }
@@ -71,7 +73,7 @@ internal class SideBarCoordinator(private val activity: Activity) : SideBarAcces
     override fun toggle() {
         if (!settings.read().enabled || !settings.hasPermission()) return
         try { SideBarService.toggle(activity) }
-        catch (_: RuntimeException) { updateMessage("Не удалось показать панель.") }
+        catch (_: RuntimeException) { updateMessage(tr(Msg.msg_59eedda3d148)) }
     }
 
     private fun updateMessage(message: String) { mutable.value = mutable.value.copy(message = message) }

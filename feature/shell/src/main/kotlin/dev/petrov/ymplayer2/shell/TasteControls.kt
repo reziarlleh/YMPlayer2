@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -39,16 +41,16 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 if (marked) TasteAction.UNBLOCK else TasteAction.BLOCK
             } else if (marked) TasteAction.UNLIKE else TasteAction.LIKE
             val description = when {
-                !known -> if (state.signedIn) "Состояние не получено" else "Нужен вход в Яндекс"
-                block -> if (marked) "Никогда не предлагать" else "Запрет не установлен"
-                else -> if (marked) "В избранном" else "Не в избранном"
-            } + if (shelf.busy) "; обновляем…" else ""
+                !known -> if (state.signedIn) tr(Msg.msg_922c5fae2ec8) else tr(Msg.msg_be8789acfb99)
+                block -> if (marked) tr(Msg.msg_3b840443abf7) else tr(Msg.msg_cdb3ca001d96)
+                else -> if (marked) tr(Msg.msg_0fd3fe573609) else tr(Msg.msg_09008d3dafef)
+            } + if (shelf.busy) tr(Msg.msg_372ccd2e8254) else ""
             val label = when (action) {
-                TasteAction.LIKE -> "Добавить в избранное"
-                TasteAction.UNLIKE -> "Убрать из избранного"
-                TasteAction.BLOCK -> "Никогда не предлагать"
-                TasteAction.UNBLOCK -> "Снова предлагать"
-            } + ": ${target.kind.label.lowercase()} «${target.title}»"
+                TasteAction.LIKE -> tr(Msg.msg_2a6b5f7278c0)
+                TasteAction.UNLIKE -> tr(Msg.msg_334c3299a899)
+                TasteAction.BLOCK -> tr(Msg.msg_3b840443abf7)
+                TasteAction.UNBLOCK -> tr(Msg.msg_b0acd0c9bfb1)
+            } + ": ${trMessage(target.kind.label).lowercase()} «${target.title}»"
             FilledIconToggleButton(marked, { taste.react(target, action) },
                 Modifier.size(48.dp).prismFocus().testTag("${tag}_${if (block) "block" else "like"}").semantics {
                     contentDescription = label
@@ -87,7 +89,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val shelf = taste.state.collectAsStateWithLifecycle().value.shelf(target.kind)
     if (shelf.issue != null) TextButton({ taste.refresh(target.kind) }, Modifier.prismFocus().testTag("${location}_taste_${target.kind.name}_${target.key}_retry"), enabled = !shelf.busy) {
         SkinIcon(UiIcon.REFRESH, null); Spacer(Modifier.width(8.dp))
-        Text("Не удалось обновить отметки. Повторить", color = MaterialTheme.colorScheme.error)
+        Text(tr(Msg.msg_62243b1fd0d8), color = MaterialTheme.colorScheme.error)
     }
 }
 
@@ -99,28 +101,28 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val enabled = state.signedIn && shelf.ready && !shelf.busy
     val tag = "taste_${target.kind.name}_${target.key}"
     Column(Modifier.fillMaxWidth().testTag(tag), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text("${target.kind.label} · ${target.title}", fontWeight = FontWeight.Medium)
-        if (!shelf.ready && shelf.issue == null) Text("Проверяем отметки…", style = MaterialTheme.typography.bodySmall)
+        Text("${trMessage(target.kind.label)} · ${target.title}", fontWeight = FontWeight.Medium)
+        if (!shelf.ready && shelf.issue == null) Text(tr(Msg.msg_a9bb9fcb7d94), style = MaterialTheme.typography.bodySmall)
         OutlinedButton({ taste.react(target, if (liked) TasteAction.UNLIKE else TasteAction.LIKE) },
             Modifier.prismFocus().testTag("${tag}_like"), enabled = enabled) {
             SkinIcon(if (liked) UiIcon.FAVORITE else UiIcon.FAVORITE_OFF, null)
             Spacer(Modifier.width(8.dp))
             Text(when (target.kind) {
-                TasteKind.TRACK -> if (liked) "Убрать из «Мне нравится»" else "В «Мне нравится»"
-                TasteKind.ARTIST -> if (liked) "Убрать из любимых исполнителей" else "В любимые исполнители"
-                TasteKind.ALBUM -> if (liked) "Убрать из любимых альбомов" else "В любимые альбомы"
+                TasteKind.TRACK -> if (liked) tr(Msg.msg_e4e4b9b0d2df) else tr(Msg.msg_3e1506ad1141)
+                TasteKind.ARTIST -> if (liked) tr(Msg.msg_57d8de34aad1) else tr(Msg.msg_3c959ac71187)
+                TasteKind.ALBUM -> if (liked) tr(Msg.msg_06a1b25395b9) else tr(Msg.msg_b011fc656a0f)
             })
         }
         if (target.kind != TasteKind.ALBUM) OutlinedButton({ taste.react(target, if (blocked) TasteAction.UNBLOCK else TasteAction.BLOCK) },
             Modifier.prismFocus().testTag("${tag}_block"), enabled = enabled) {
             SkinIcon(if (blocked) UiIcon.DISLIKE else UiIcon.DISLIKE_OFF, null); Spacer(Modifier.width(8.dp))
-            Text(if (blocked) "Снова предлагать ${if (target.kind == TasteKind.TRACK) "трек" else "исполнителя"}"
-                else "Никогда не предлагать ${if (target.kind == TasteKind.TRACK) "трек" else "исполнителя"}")
+            Text(if (blocked) tr(Msg.msg_9fe9ae8fbc17, if (target.kind == TasteKind.TRACK) tr(Msg.msg_cd70228cba41) else tr(Msg.msg_f413b50444c7))
+                else tr(Msg.msg_346750dab787, if (target.kind == TasteKind.TRACK) tr(Msg.msg_cd70228cba41) else tr(Msg.msg_f413b50444c7)))
         }
-        if (shelf.busy) Text("Обновляем отметки…", style = MaterialTheme.typography.bodySmall)
+        if (shelf.busy) Text(tr(Msg.msg_ef5631741cc5), style = MaterialTheme.typography.bodySmall)
         shelf.issue?.let {
-            Text(it, color = MaterialTheme.colorScheme.error)
-            TextButton({ taste.refresh(target.kind) }, Modifier.prismFocus(), enabled = !shelf.busy) { Text("Проверить отметки") }
+            Text(trMessage(it), color = MaterialTheme.colorScheme.error)
+            TextButton({ taste.refresh(target.kind) }, Modifier.prismFocus(), enabled = !shelf.busy) { Text(tr(Msg.msg_79e35d4d8b5b)) }
         }
     }
 }
@@ -128,11 +130,11 @@ import dev.petrov.ymplayer2.designsystem.skin.*
 @Composable internal fun TrackTasteDialog(track: Track, taste: MusicTaste, artist: (ArtistRef) -> Unit = {}, extra: @Composable () -> Unit = {}, dismiss: () -> Unit) {
     val content: @Composable () -> Unit = {
             track.artists.distinctBy(ArtistRef::id).forEach {
-                TextButton({ dismiss(); artist(it) }, Modifier.prismFocus().testTag("actions_artist_${it.id}")) { Text("Открыть: ${it.name}") }
+                TextButton({ dismiss(); artist(it) }, Modifier.prismFocus().testTag("actions_artist_${it.id}")) { Text(tr(Msg.msg_0df38a907fd2, it.name)) }
                 TasteControls(taste, TasteTarget(TasteKind.ARTIST, it.id, it.name))
             }
             track.albumId?.let { TasteControls(taste, TasteTarget(TasteKind.ALBUM, it, track.album)) }
-            if (track.artists.isEmpty()) Text("Идентификаторы исполнителей отсутствуют. Откройте трек заново из поиска или медиатеки.")
+            if (track.artists.isEmpty()) Text(tr(Msg.msg_aa59e4f43e97))
             extra()
     }
     if (LocalConfiguration.current.screenHeightDp < 480 || LocalDensity.current.fontScale > 1.3f) {
@@ -140,22 +142,22 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             Box(Modifier.fillMaxSize().safeDrawingPadding(), contentAlignment = Alignment.Center) {
                 Surface(Modifier.widthIn(max = 880.dp).fillMaxSize(), shape = MaterialTheme.shapes.large) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("Отметки", style = MaterialTheme.typography.titleMedium)
+                        Text(tr(Msg.msg_03222b95f9b4), style = MaterialTheme.typography.titleMedium)
                         Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) { content() }
-                        TextButton(dismiss, Modifier.align(Alignment.End).prismFocus()) { Text("Готово") }
+                        TextButton(dismiss, Modifier.align(Alignment.End).prismFocus()) { Text(tr(Msg.msg_ef05d57959cf)) }
                     }
                 }
             }
         }
-    } else AlertDialog(onDismissRequest = dismiss, title = { Text("Отметки в Яндекс Музыке") },
+    } else AlertDialog(onDismissRequest = dismiss, title = { Text(tr(Msg.msg_d585770173b3)) },
         text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) { content() } },
-        confirmButton = { TextButton(dismiss, Modifier.prismFocus()) { Text("Готово") } })
+        confirmButton = { TextButton(dismiss, Modifier.prismFocus()) { Text(tr(Msg.msg_ef05d57959cf)) } })
 }
 
 @Composable internal fun WaveButton(player: PlaybackController, signedIn: Boolean, signIn: () -> Unit, started: () -> Unit = {}, modifier: Modifier = Modifier) {
     val state by player.state.collectAsStateWithLifecycle()
     Button({ if (signedIn) { player.playMyWave(); started() } else signIn() }, modifier.prismFocus().testTag("my_wave"), enabled = !state.waveLoading) {
         SkinIcon(UiIcon.WAVE, null); Spacer(Modifier.width(8.dp))
-        Text(if (state.waveLoading) "Моя волна · загружаем…" else "Моя волна")
+        Text(if (state.waveLoading) tr(Msg.msg_414a326c7fbe) else tr(Msg.msg_de1ea8c09caa))
     }
 }

@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.sidebar
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ComponentName
@@ -40,7 +42,7 @@ class K4811RebootActivity : Activity() {
                             main.removeCallbacks(timeout)
                             waiting = false
                             readyService = service
-                            showStatus("Служба K4811 готова. Перезагрузить устройство?")
+                            showStatus(tr(Msg.msg_066903b7f6fa))
                         }
                     }
                 } catch (_: Exception) {
@@ -58,10 +60,10 @@ class K4811RebootActivity : Activity() {
         super.onCreate(savedInstanceState)
         attempted = savedInstanceState?.getBoolean("rebootAttempted") ?: false
         dialog = AlertDialog.Builder(this)
-            .setTitle("Перезагрузка K4811")
+            .setTitle(tr(Msg.msg_ba700b6d4845))
             .setMessage(if (attempted) UNKNOWN else CONNECTING)
-            .setNegativeButton("Отмена") { _, _ -> closeRequest(); finish() }
-            .setPositiveButton("Перезагрузить", null)
+            .setNegativeButton(tr(Msg.msg_8fbe9b75cbdf)) { _, _ -> closeRequest(); finish() }
+            .setPositiveButton(tr(Msg.msg_da28911d8b6d), null)
             .create()
         dialog.setOnCancelListener { closeRequest(); finish() }
         dialog.setOnDismissListener { closeRequest(); finish() }
@@ -87,7 +89,7 @@ class K4811RebootActivity : Activity() {
         val service = readyService ?: return
         if (closed.get() || attempted) return
         attempted = true
-        showStatus("Запрос перезагрузки отправляется…")
+        showStatus(tr(Msg.msg_c57bc34167f4))
         main.postDelayed(timeout, TIMEOUT_MS)
         if (!runWorker {
             if (closed.get()) return@runWorker
@@ -97,7 +99,7 @@ class K4811RebootActivity : Activity() {
                     if (!closed.get()) {
                         main.removeCallbacks(timeout)
                         unbind()
-                        showStatus("Служба приняла запрос. Ожидайте перезагрузку K4811.")
+                        showStatus(tr(Msg.msg_d60fd3858f8f))
                     }
                 }
             } catch (_: Exception) {
@@ -112,7 +114,7 @@ class K4811RebootActivity : Activity() {
         waiting = false
         readyService = null
         unbind()
-        showStatus(if (attempted) UNKNOWN else "Служба перезагрузки K4811 недоступна. Запрос не отправлен.")
+        showStatus(if (attempted) UNKNOWN else tr(Msg.msg_61ab32792577))
     }
 
     private fun showStatus(message: String) {
@@ -158,8 +160,8 @@ class K4811RebootActivity : Activity() {
 
     companion object {
         private const val TIMEOUT_MS = 5_000L
-        private const val CONNECTING = "Подключение к службе K4811…"
-        private const val UNKNOWN = "Результат перезагрузки неизвестен. Повторный запрос не отправляется."
+        private val CONNECTING get() = tr(Msg.msg_c40f97ca1831)
+        private val UNKNOWN get() = tr(Msg.msg_fed5c913384a)
 
         fun open(context: Context): Boolean {
             if (!K4811Controls.isTargetDevice()) return false

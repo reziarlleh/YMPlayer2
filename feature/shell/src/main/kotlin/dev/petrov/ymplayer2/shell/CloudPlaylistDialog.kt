@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
@@ -46,7 +48,7 @@ import dev.petrov.ymplayer2.designsystem.skin.UiIcon
 @Composable internal fun AddToCloudPlaylist(track: Track, playlists: CloudPlaylists, dismiss: () -> Unit) {
     val state by playlists.state.collectAsStateWithLifecycle()
     if (state.owner != null && track.cloudTrackKey() != null) TextButton({ dismiss(); playlists.choose(track) },
-        Modifier.prismFocus().testTag("cloud_add_track"), enabled = !state.busy) { Text("Добавить в плейлист Яндекса") }
+        Modifier.prismFocus().testTag("cloud_add_track"), enabled = !state.busy) { Text(tr(Msg.msg_767475640343)) }
 }
 
 @Composable internal fun CloudPlaylistDialog(playlists: CloudPlaylists) {
@@ -128,14 +130,14 @@ import dev.petrov.ymplayer2.designsystem.skin.UiIcon
             Surface(Modifier.widthIn(max = 640.dp).fillMaxWidth().heightIn(max = minOf(maxHeight, 640.dp)).padding(12.dp), shape = MaterialTheme.shapes.large) {
                 Column(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(when (mode) {
-                        PlaylistDialog.CHOOSE -> "Плейлисты Яндекса"
-                        PlaylistDialog.CREATE -> "Новый плейлист Яндекса"
-                        PlaylistDialog.DELETE -> "Удалить плейлист?"
-                        PlaylistDialog.RESULT -> "Плейлисты Яндекса"
-                        PlaylistDialog.EDIT -> "Редактирование плейлиста"
-                        PlaylistDialog.RENAME -> "Название плейлиста"
-                        PlaylistDialog.REMOVE -> "Убрать трек?"
-                        PlaylistDialog.MOVE -> "Переместить трек"
+                        PlaylistDialog.CHOOSE -> tr(Msg.msg_cfde40242cd9)
+                        PlaylistDialog.CREATE -> tr(Msg.msg_556fab910a7b)
+                        PlaylistDialog.DELETE -> tr(Msg.msg_4f41558e776b)
+                        PlaylistDialog.RESULT -> tr(Msg.msg_cfde40242cd9)
+                        PlaylistDialog.EDIT -> tr(Msg.msg_417875482e57)
+                        PlaylistDialog.RENAME -> tr(Msg.msg_717012565e0a)
+                        PlaylistDialog.REMOVE -> tr(Msg.msg_c011a7b7c5c5)
+                        PlaylistDialog.MOVE -> tr(Msg.msg_98699315d011)
                     }, style = MaterialTheme.typography.titleLarge)
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                     LazyColumn(Modifier.fillMaxSize().onGloballyPositioned { listCoordinates = it }
@@ -145,45 +147,45 @@ import dev.petrov.ymplayer2.designsystem.skin.UiIcon
                         // from one fresh snapshot, including when the account closes the dialog.
                         val state = observed.value
                         val mode = state.dialog
-                        state.track?.let { item { Text("Трек: ${it.title}") } }
-                        if (state.busy) item { LinearProgressIndicator(Modifier.fillMaxWidth()); Text("Выполняем…") }
-                        state.message?.let { item { Text(it, Modifier.testTag("cloud_message")) } }
-                        state.issue?.let { item { Text(it, Modifier.testTag("cloud_issue"), color = MaterialTheme.colorScheme.error) } }
+                        state.track?.let { item { Text(tr(Msg.msg_6bd804f5b776, it.title)) } }
+                        if (state.busy) item { LinearProgressIndicator(Modifier.fillMaxWidth()); Text(tr(Msg.msg_5651a421a70e)) }
+                        state.message?.let { item { Text(trMessage(it), Modifier.testTag("cloud_message")) } }
+                        state.issue?.let { item { Text(trMessage(it), Modifier.testTag("cloud_issue"), color = MaterialTheme.colorScheme.error) } }
                         when (mode) {
                             PlaylistDialog.CREATE -> {
-                                item { Text("Будет создан приватный плейлист в текущем аккаунте Яндекса.") }
+                                item { Text(tr(Msg.msg_c78b1aee4241)) }
                                 item { OutlinedTextField(title, { if (it.length <= 200) title = it }, Modifier.fillMaxWidth().prismFocus().testTag("cloud_title").onPreviewKeyEvent {
                                         it.type == KeyEventType.KeyDown && it.key == Key.DirectionDown && focus.moveFocus(FocusDirection.Down)
                                     },
-                                    label = { Text("Название") }, singleLine = true, enabled = !state.busy,
+                                    label = { Text(tr(Msg.msg_0918b4ba9268)) }, singleLine = true, enabled = !state.busy,
                                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done), keyboardActions = KeyboardActions(onDone = { keyboard?.hide(); focus.moveFocus(FocusDirection.Next) })) }
                                 item { Button({ playlists.create(title) }, Modifier.fillMaxWidth().prismFocus().testTag("cloud_create_confirm"), enabled = title.isNotBlank() && !state.busy) {
-                                    Text(if (state.track == null) "Создать" else "Создать и добавить трек")
+                                    Text(if (state.track == null) tr(Msg.msg_e2be34974ae4) else tr(Msg.msg_6aadca8eb39a))
                                 } }
                             }
                             PlaylistDialog.CHOOSE -> {
-                                item { OutlinedButton({ playlists.newPlaylist() }, Modifier.fillMaxWidth().prismFocus().testTag("cloud_new"), enabled = !state.busy) { Text("Создать новый плейлист") } }
-                                item { TextButton(playlists::refresh, Modifier.prismFocus().testTag("cloud_refresh"), enabled = !state.busy) { Text("Обновить плейлисты") } }
-                                if (state.loaded && state.playlists.isEmpty()) item { Text("Плейлистов пока нет.") }
+                                item { OutlinedButton({ playlists.newPlaylist() }, Modifier.fillMaxWidth().prismFocus().testTag("cloud_new"), enabled = !state.busy) { Text(tr(Msg.msg_5710ad29b999)) } }
+                                item { TextButton(playlists::refresh, Modifier.prismFocus().testTag("cloud_refresh"), enabled = !state.busy) { Text(tr(Msg.msg_85a21c8d0f56)) } }
+                                if (state.loaded && state.playlists.isEmpty()) item { Text(tr(Msg.msg_272bf8adef84)) }
                                 if (state.loaded) items(state.playlists, key = { "${it.ownerId}:${it.id}" }) { playlist ->
                                     OutlinedButton({ playlists.add(playlist) }, Modifier.fillMaxWidth().prismFocus().testTag("cloud_playlist_${playlist.id}"), enabled = !state.busy && state.track != null) {
-                                        Text("${playlist.title} · ${playlist.trackCount} треков")
+                                        Text(tr(Msg.msg_60bbcc5198aa, playlist.title, playlist.trackCount))
                                     }
                                 }
                             }
                             PlaylistDialog.DELETE -> {
-                                item { Text("Плейлист «${state.target?.title}» будет удалён из вашего аккаунта Яндекса на всех устройствах. Текущая очередь и отметки «Мне нравится» сохранятся.") }
-                                item { Button(playlists::delete, Modifier.fillMaxWidth().prismFocus().testTag("cloud_delete_confirm"), enabled = !state.busy) { Text("Удалить плейлист") } }
+                                item { Text(tr(Msg.msg_589983337a78, state.target?.title)) }
+                                item { Button(playlists::delete, Modifier.fillMaxWidth().prismFocus().testTag("cloud_delete_confirm"), enabled = !state.busy) { Text(tr(Msg.msg_1dd7755458c1)) } }
                             }
                             PlaylistDialog.RESULT, null -> Unit
                             PlaylistDialog.EDIT -> {
                                 item { Text(state.target?.title.orEmpty(), style = MaterialTheme.typography.titleMedium) }
-                                item { OutlinedButton({ playlists.editorAction(PlaylistDialog.RENAME) }, Modifier.prismFocus().testTag("cloud_rename"), enabled = state.loaded && !state.busy) { Text("Переименовать") } }
-                                item { TextButton(playlists::refreshEditor, Modifier.prismFocus().testTag("cloud_editor_refresh"), enabled = !state.busy) { Text("Обновить плейлист") } }
+                                item { OutlinedButton({ playlists.editorAction(PlaylistDialog.RENAME) }, Modifier.prismFocus().testTag("cloud_rename"), enabled = state.loaded && !state.busy) { Text(tr(Msg.msg_194306e20807)) } }
+                                item { TextButton(playlists::refreshEditor, Modifier.prismFocus().testTag("cloud_editor_refresh"), enabled = !state.busy) { Text(tr(Msg.msg_442f1380374f)) } }
                                 item { Text(if (touchReorder)
-                                    "Добавление — через «…». Для перестановки удерживайте значок с полосками и перетащите трек или нажмите «Позиция». Изменения сохраняются в Яндексе."
-                                    else "Добавление — через «…». Меняйте порядок кнопкой «Позиция». Изменения сохраняются в Яндексе.") }
-                                if (state.loaded && editorSnapshot?.tracks?.isEmpty() == true) item { Text("В плейлисте пока нет треков.") }
+                                    tr(Msg.msg_53c57c59cc24)
+                                    else tr(Msg.msg_b8ad90801037)) }
+                                if (state.loaded && editorSnapshot?.tracks?.isEmpty() == true) item { Text(tr(Msg.msg_55870b7a873d)) }
                                 if (state.loaded && editorSnapshot != null) itemsIndexed(order, key = { _, original -> "cloud_editor_item_$original" }) { displayIndex, original ->
                                     DisposableEffect(original) { onDispose { handleBounds.remove(original) } }
                                     // The lazy item can compose before its parent after a readback. Keep
@@ -199,22 +201,22 @@ import dev.petrov.ymplayer2.designsystem.skin.UiIcon
                                                     Text(entry.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
                                                     if (entry.artist.isNotBlank()) Text(entry.artist, maxLines = 1, overflow = TextOverflow.Ellipsis,
                                                         style = MaterialTheme.typography.bodySmall)
-                                                    Text("Яндекс · позиция ${displayIndex + 1}", style = MaterialTheme.typography.labelSmall)
+                                                    Text(tr(Msg.msg_9a3adc7135e4, displayIndex + 1), style = MaterialTheme.typography.labelSmall)
                                                 }
                                             }
                                             Row(Modifier.fillMaxWidth().padding(start = 8.dp, end = 4.dp, bottom = 4.dp),
                                                 verticalAlignment = Alignment.CenterVertically) {
-                                                if (!entry.movable) Text("Недоступен для перемещения", Modifier.weight(1f), style = MaterialTheme.typography.labelSmall)
+                                                if (!entry.movable) Text(tr(Msg.msg_0fad384ca45b), Modifier.weight(1f), style = MaterialTheme.typography.labelSmall)
                                                 else Spacer(Modifier.weight(1f))
                                                 TextButton({ playlists.editorAction(PlaylistDialog.MOVE, original) },
                                                     Modifier.prismFocus().testTag("cloud_move_$original"), enabled = !state.busy && dragOrigin < 0 && entry.movable && editorSnapshot.tracks.size > 1,
-                                                    contentPadding = PaddingValues(horizontal = 8.dp)) { Text("Позиция") }
-                                                ActionIcon(UiIcon.REMOVE, "Убрать из плейлиста: ${entry.title}",
+                                                    contentPadding = PaddingValues(horizontal = 8.dp)) { Text(tr(Msg.msg_e09846033f94)) }
+                                                ActionIcon(UiIcon.REMOVE, tr(Msg.msg_ce1456ccd84b, entry.title),
                                                     { playlists.editorAction(PlaylistDialog.REMOVE, original) }, Modifier.testTag("cloud_remove_$original"),
                                                     enabled = !state.busy && dragOrigin < 0)
                                                 if (touchReorder && entry.movable && editorSnapshot.tracks.size > 1) Box(
                                                     Modifier.size(48.dp).testTag("cloud_drag_$original").semantics {
-                                                        contentDescription = "Удерживайте и перетащите для изменения порядка: ${entry.title}"
+                                                        contentDescription = tr(Msg.msg_9641a49f03aa, entry.title)
                                                     }.onGloballyPositioned { coordinates ->
                                                         val parent = listCoordinates?.boundsInRoot() ?: return@onGloballyPositioned
                                                         val bounds = coordinates.boundsInRoot()
@@ -231,14 +233,14 @@ import dev.petrov.ymplayer2.designsystem.skin.UiIcon
                             PlaylistDialog.RENAME -> {
                                 item { OutlinedTextField(title, { if (it.length <= 200) title = it }, Modifier.fillMaxWidth().prismFocus().testTag("cloud_rename_title").onPreviewKeyEvent {
                                     it.type == KeyEventType.KeyDown && it.key == Key.DirectionDown && focus.moveFocus(FocusDirection.Down)
-                                }, label = { Text("Название") }, singleLine = true, enabled = !state.busy,
+                                }, label = { Text(tr(Msg.msg_0918b4ba9268)) }, singleLine = true, enabled = !state.busy,
                                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done), keyboardActions = KeyboardActions(onDone = { keyboard?.hide(); focus.moveFocus(FocusDirection.Next) })) }
-                                item { Button({ playlists.rename(title) }, Modifier.prismFocus().testTag("cloud_rename_confirm"), enabled = !state.busy && title.isNotBlank()) { Text("Сохранить название") } }
+                                item { Button({ playlists.rename(title) }, Modifier.prismFocus().testTag("cloud_rename_confirm"), enabled = !state.busy && title.isNotBlank()) { Text(tr(Msg.msg_620bc932f669)) } }
                             }
                             PlaylistDialog.REMOVE -> {
                                 val index = state.selectedIndex!!; val entry = state.snapshot!!.tracks[index]
-                                item { Text("Убрать «${entry.title}» (позиция ${index + 1}) из «${state.target?.title}»? Другие вхождения трека сохранятся.") }
-                                item { Button(playlists::removeTrack, Modifier.prismFocus().testTag("cloud_remove_confirm"), enabled = !state.busy) { Text("Убрать трек") } }
+                                item { Text(tr(Msg.msg_4e50f6bdc764, entry.title, index + 1, state.target?.title)) }
+                                item { Button(playlists::removeTrack, Modifier.prismFocus().testTag("cloud_remove_confirm"), enabled = !state.busy) { Text(tr(Msg.msg_414209446572)) } }
                             }
                             PlaylistDialog.MOVE -> {
                                 val snapshot = state.snapshot!!; val index = state.selectedIndex!!
@@ -246,9 +248,9 @@ import dev.petrov.ymplayer2.designsystem.skin.UiIcon
                                 item { Text("${index + 1}. ${snapshot.tracks[index].title}") }
                                 item { OutlinedTextField(position, { if (it.length <= 7 && it.all { c -> c in '0'..'9' }) position = it }, Modifier.fillMaxWidth().prismFocus().testTag("cloud_move_position").onPreviewKeyEvent {
                                     it.type == KeyEventType.KeyDown && it.key == Key.DirectionDown && focus.moveFocus(FocusDirection.Down)
-                                }, label = { Text("Новая позиция: 1–${snapshot.tracks.size}") }, singleLine = true, enabled = !state.busy,
+                                }, label = { Text(tr(Msg.msg_601de107e288, snapshot.tracks.size)) }, singleLine = true, enabled = !state.busy,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done), keyboardActions = KeyboardActions(onDone = { keyboard?.hide(); focus.moveFocus(FocusDirection.Next) })) }
-                                item { Button({ to?.let(playlists::moveTrack) }, Modifier.prismFocus().testTag("cloud_move_confirm"), enabled = !state.busy && to != null && to in snapshot.tracks.indices && to != index) { Text("Переместить") } }
+                                item { Button({ to?.let(playlists::moveTrack) }, Modifier.prismFocus().testTag("cloud_move_confirm"), enabled = !state.busy && to != null && to in snapshot.tracks.indices && to != index) { Text(tr(Msg.msg_af45ec8c56b7)) } }
                             }
                         }
                     }
@@ -256,7 +258,7 @@ import dev.petrov.ymplayer2.designsystem.skin.UiIcon
                         Modifier.align(Alignment.CenterEnd).width(56.dp).fillMaxHeight()
                             .onGloballyPositioned { overlayCoordinates = it }.then(reorderGesture))
                     }
-                    TextButton(close, Modifier.align(Alignment.End).prismFocus().testTag("cloud_close"), enabled = !state.busy) { Text(if (subEditor) "Отмена" else "Закрыть") }
+                    TextButton(close, Modifier.align(Alignment.End).prismFocus().testTag("cloud_close"), enabled = !state.busy) { Text(if (subEditor) tr(Msg.msg_8fbe9b75cbdf) else tr(Msg.msg_a7a4033657e8)) }
                 }
             }
         }

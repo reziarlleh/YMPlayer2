@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.content.ContentValues
 import android.content.Context
 import android.os.Build
@@ -54,10 +56,10 @@ internal class DiagnosticsJournal(private val context: Context,
     override suspend fun clear(): String = withContext(Dispatchers.IO) {
         synchronized(lock) {
             try {
-                if (file.exists() && !file.delete()) return@synchronized "Не удалось очистить журнал."
+                if (file.exists() && !file.delete()) return@synchronized tr(Msg.msg_203dc0ea9f7d)
                 record(DiagnosticEvent.JOURNAL_CLEARED)
-                "Журнал очищен."
-            } catch (_: IOException) { "Не удалось очистить журнал." }
+                tr(Msg.msg_4a1236b53aa7)
+            } catch (_: IOException) { tr(Msg.msg_203dc0ea9f7d) }
         }
     }
 
@@ -71,7 +73,7 @@ internal class DiagnosticsJournal(private val context: Context,
         }
         val resolver = context.contentResolver
         val uri = try { resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values) }
-        catch (_: Exception) { null } ?: return@withContext "Не удалось открыть папку Downloads."
+        catch (_: Exception) { null } ?: return@withContext tr(Msg.msg_21c6b248c7e7)
         try {
             val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown"
             val header = "YMPlayer 2 $version\nExported: ${stamp()}\nAndroid API ${Build.VERSION.SDK_INT}\n\n"
@@ -80,16 +82,16 @@ internal class DiagnosticsJournal(private val context: Context,
             output.use { it.write((header + body).toByteArray(StandardCharsets.UTF_8)) }
             resolver.update(uri, ContentValues().apply { put(MediaStore.MediaColumns.IS_PENDING, 0) }, null, null)
             record(DiagnosticEvent.JOURNAL_EXPORTED)
-            "Сохранено в Downloads: $name"
+            tr(Msg.msg_be65ad9b7c99, name)
         } catch (_: Exception) {
             resolver.delete(uri, null, null)
-            "Не удалось экспортировать журнал."
+            tr(Msg.msg_920c04770d7a)
         }
     }
 
     private fun readSnapshot(): String = try {
-        if (!file.exists() || file.length() == 0L) "Записей пока нет." else file.readText(StandardCharsets.UTF_8)
-    } catch (_: IOException) { "Не удалось прочитать журнал." }
+        if (!file.exists() || file.length() == 0L) tr(Msg.msg_5e1e0ac2d35b) else file.readText(StandardCharsets.UTF_8)
+    } catch (_: IOException) { tr(Msg.msg_2dc14ee8f6a2) }
 
     private fun stamp() = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US).format(Date())
 }

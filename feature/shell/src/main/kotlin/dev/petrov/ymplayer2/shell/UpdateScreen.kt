@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2.shell
 
+import dev.petrov.ymplayer2.localization.*
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -41,42 +43,42 @@ interface UpdateAccess {
     val state = update.state.collectAsState().value
     LazyColumn(Modifier.fillMaxSize().testTag("updates_list"), contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        item { Text("Обновление приложения", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { Text("Установлено: $version", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        item { Text(tr(Msg.msg_7e0c5e62a006), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
+        item { Text(tr(Msg.msg_895c5b8f961d, version), color = MaterialTheme.colorScheme.onSurfaceVariant) }
         item {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text("Проверять при запуске", Modifier.weight(1f))
+                Text(tr(Msg.msg_103bc2f65ee8), Modifier.weight(1f))
                 Switch(state.autoCheck, update::setAutoCheck, Modifier.testTag("updates_auto"))
             }
         }
-        item { Text("Автоматическая проверка выполняется не чаще раза в сутки. При наличии новой версии загрузка и системная установка требуют вашего действия.",
+        item { Text(tr(Msg.msg_aa782acc1382),
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         item { OutlinedButton({ update.check() }, Modifier.fillMaxWidth().prismFocus().testTag("updates_check"), enabled = !state.checking && !state.downloading) {
-            Text(if (state.checking) "Проверяем…" else "Проверить обновления")
+            Text(if (state.checking) tr(Msg.msg_62ed32eb225c) else tr(Msg.msg_93b08f7b1465))
         } }
-        if (state.status.isNotBlank()) item { Text(state.status, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("updates_status")) }
+        if (state.status.isNotBlank()) item { Text(trIssue(state.status), color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("updates_status")) }
         if (state.downloading) item {
-            Column { Text("Загрузка: ${state.progress}% · ${state.source}"); LinearProgressIndicator({ state.progress / 100f }, Modifier.fillMaxWidth()) }
+            Column { Text(tr(Msg.msg_141e133edf3b, state.progress, state.source)); LinearProgressIndicator({ state.progress / 100f }, Modifier.fillMaxWidth()) }
         }
         state.offer?.let { offer ->
-            item { Text("Доступна ${offer.versionName}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold) }
+            item { Text(tr(Msg.msg_574d24b24ab4, offer.versionName), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold) }
             if (offer.notes.isNotBlank()) item { Text(offer.notes) }
             if (!state.ready) {
-                item { Button({ update.download() }, Modifier.fillMaxWidth().prismFocus().testTag("updates_download"), enabled = !state.downloading) { Text("Скачать и установить") } }
-                if (offer.hasAlternative) item { OutlinedButton({ update.download(true) }, Modifier.fillMaxWidth().prismFocus().testTag("updates_alternative"), enabled = !state.downloading) { Text("Скачать через резервный источник") } }
-            } else item { Button(update::install, Modifier.fillMaxWidth().prismFocus().testTag("updates_install")) { Text("Открыть установку") } }
+                item { Button({ update.download() }, Modifier.fillMaxWidth().prismFocus().testTag("updates_download"), enabled = !state.downloading) { Text(tr(Msg.msg_be83518bd33a)) } }
+                if (offer.hasAlternative) item { OutlinedButton({ update.download(true) }, Modifier.fillMaxWidth().prismFocus().testTag("updates_alternative"), enabled = !state.downloading) { Text(tr(Msg.msg_83cc61451837)) } }
+            } else item { Button(update::install, Modifier.fillMaxWidth().prismFocus().testTag("updates_install")) { Text(tr(Msg.msg_b1c53cf90f0a)) } }
         }
-        item { Text("Источники: GitHub, jsDelivr и Gcore. APK проверяется по размеру, SHA-256, имени пакета, версии и подписи. Android попросит подтвердить установку.",
+        item { Text(tr(Msg.msg_dcd18c67df6b),
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
 }
 
 @Composable internal fun UpdatePrompt(update: UpdateAccess, offer: UpdateOffer) {
-    AlertDialog(onDismissRequest = update::dismissPrompt, title = { Text("Обновление YMPlayer 2") },
+    AlertDialog(onDismissRequest = update::dismissPrompt, title = { Text(tr(Msg.msg_de042c2d1c9a)) },
         text = { Column(Modifier.heightIn(max = 240.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Доступна версия ${offer.versionName}.")
+            Text(tr(Msg.msg_d3dacfa5bb27, offer.versionName))
             if (offer.notes.isNotBlank()) Text(offer.notes)
         } },
-        confirmButton = { TextButton({ update.dismissPrompt(); update.download() }, Modifier.testTag("updates_prompt_download")) { Text("Скачать") } },
-        dismissButton = { TextButton(update::dismissPrompt, Modifier.testTag("updates_prompt_later")) { Text("Позже") } })
+        confirmButton = { TextButton({ update.dismissPrompt(); update.download() }, Modifier.testTag("updates_prompt_download")) { Text(tr(Msg.msg_535119bf3cc5)) } },
+        dismissButton = { TextButton(update::dismissPrompt, Modifier.testTag("updates_prompt_later")) { Text(tr(Msg.msg_7996f711496a)) } })
 }

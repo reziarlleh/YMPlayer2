@@ -1,5 +1,7 @@
 package dev.petrov.ymplayer2
 
+import dev.petrov.ymplayer2.localization.*
+
 import android.os.Bundle
 import android.content.Intent
 import android.content.ActivityNotFoundException
@@ -102,16 +104,16 @@ class MainActivity : ComponentActivity() {
             }
             ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins, importSkin = {
                 try { skinPicker.launch(arrayOf("*/*")) }
-                catch (_: ActivityNotFoundException) { graph.skins.report("На устройстве нет системного выбора файла. Нужен файловый менеджер с поддержкой Storage Access Framework.") }
+                catch (_: ActivityNotFoundException) { graph.skins.report(tr(Msg.msg_80cedf587a28)) }
             }, diagnostics = journal, sideBar = sideBar, updates = updates, openClips = {
                 startActivity(Intent(this, ClipActivity::class.java))
             }, addFolder = {
                 source = it; pickerIssue = null
                 try { picker.launch(null) }
-                catch (_: ActivityNotFoundException) { pickerIssue = "На устройстве нет системного выбора папки. Нужен файловый менеджер с поддержкой Storage Access Framework." }
+                catch (_: ActivityNotFoundException) { pickerIssue = tr(Msg.msg_5e9967fcef8f) }
             }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
                 try { startForegroundService(android.content.Intent(this, OfflineSyncService::class.java)) }
-                catch (_: Exception) { graph.offline.report("Не удалось запустить фоновую синхронизацию. Повторите из открытого приложения.") }
+                catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
             })
         }
     }

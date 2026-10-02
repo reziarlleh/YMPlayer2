@@ -1,0 +1,4674 @@
+[
+  {
+    "key": "msg_001dda282241",
+    "source": "Войдите в Яндекс в этом профиле. Если вход уже сохранён, обновите сведения об аккаунте.",
+    "english": "Sign in to Yandex in this profile. If you have already signed in, refresh your account details.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_00231affc201",
+    "source": "Общий каталог",
+    "english": "All music",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_003022fabb87",
+    "source": "Следующий клип",
+    "english": "Next clip",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_004778f850b1",
+    "source": "Запишите код перед переходом в браузер: на странице Яндекса не всегда можно вставить его из буфера обмена.",
+    "english": "Write down the code before opening your browser. The Yandex page may not let you paste it from the clipboard.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_01fc82460086",
+    "source": "Онлайн-воспроизведение",
+    "english": "Online playback",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_026baad87300",
+    "source": "Не удалось открыть файл скина",
+    "english": "Could not open the skin file",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_031396ebc4da",
+    "source": "Профиль: @0@",
+    "english": "Profile: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_03222b95f9b4",
+    "source": "Отметки",
+    "english": "Likes and blocks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_037174d58809",
+    "source": "Исполнитель",
+    "english": "Artist",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt",
+      "provider/yandex/src/main/kotlin/dev/petrov/ymplayer2/yandex/YandexMusicApi.kt"
+    ]
+  },
+  {
+    "key": "msg_04080c05e46f",
+    "source": "Недопустимый viewport значка",
+    "english": "Invalid icon viewport",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_042185cacc93",
+    "source": "Треки",
+    "english": "Tracks",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_05f7734c7fbc",
+    "source": "В избранное",
+    "english": "Add to favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_066903b7f6fa",
+    "source": "Служба K4811 готова. Перезагрузить устройство?",
+    "english": "The K4811 service is ready. Restart the device?",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_06a1b25395b9",
+    "source": "Убрать из любимых альбомов",
+    "english": "Unlike album",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_06da64ed2827",
+    "source": "Не удалось проверить отметку. Обновите состояние. ",
+    "english": "Could not check this like or block. Refresh its status. ",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt"
+    ]
+  },
+  {
+    "key": "msg_074cc2ac4332",
+    "source": "Включить офлайн-кэш",
+    "english": "Enable offline cache",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_0761f7d17c1f",
+    "source": "Не удалось открыть эквалайзер. Выберите другое приложение.",
+    "english": "Could not open the equalizer. Choose another app.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/EqualizerLauncher.kt"
+    ]
+  },
+  {
+    "key": "msg_0796e8248aae",
+    "source": "Неизвестное поле: @0@",
+    "english": "Unknown field: @0@",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_08cec0f555fe",
+    "source": "Неподдерживаемый формат манифеста",
+    "english": "Unsupported manifest format",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_09008d3dafef",
+    "source": "Не в избранном",
+    "english": "Not in favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_0918b4ba9268",
+    "source": "Название",
+    "english": "Name",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_0928b8d4c742",
+    "source": "Альбом",
+    "english": "Album",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt"
+    ]
+  },
+  {
+    "key": "msg_0a0ebb200d14",
+    "source": "Аудиоплеер продолжает работать при переходе между разделами.",
+    "english": "Audio keeps playing as you move between sections.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_0a17ec91a15b",
+    "source": "Исполнители и альбом",
+    "english": "Artists and album",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_0a20ddc9928f",
+    "source": "Медиатека",
+    "english": "Library",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_0a813814f149",
+    "source": "Получить код входа",
+    "english": "Get sign-in code",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_0b9e2aeefccd",
+    "source": "Офлайн-кэш выключен. Его можно включить в настройках приложения.",
+    "english": "Offline cache is turned off. You can enable it in app settings.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_0c581306a3c6",
+    "source": "Выбор трека запускает его",
+    "english": "Select a track to play it",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_0c985ad12096",
+    "source": "Музыкальный плеер для Android, Android TV и автомагнитол.",
+    "english": "A music player for Android phones, Android TV and car stereos.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AboutDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_0d19ca3fd269",
+    "source": "Ожидающий APK не прошёл проверку: @0@",
+    "english": "The pending APK failed verification: @0@",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_0df38a907fd2",
+    "source": "Открыть: @0@",
+    "english": "Open: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_0e04e96eb049",
+    "source": "Будут удалены аудио и обложки этого аккаунта в текущем профиле. Лайки в Яндексе сохранятся.",
+    "english": "Downloaded audio and artwork for this account in the current profile will be deleted. Your Yandex likes will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_0f0e734fb752",
+    "source": "В очередь: @0@",
+    "english": "Add to queue: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_0fad384ca45b",
+    "source": "Недоступен для перемещения",
+    "english": "Cannot be moved",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_0fd3fe573609",
+    "source": "В избранном",
+    "english": "In favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_100f3d517847",
+    "source": "Другой пакет приложения",
+    "english": "Wrong app package",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_103bc2f65ee8",
+    "source": "Проверять при запуске",
+    "english": "Check on launch",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_122f71765026",
+    "source": "Меню",
+    "english": "Menu",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_126edfaa6bc7",
+    "source": "Название трека · Исполнитель",
+    "english": "Track title · Artist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_1298b5e04346",
+    "source": "Радио Яндекс Музыки",
+    "english": "Yandex Music radio",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt"
+    ]
+  },
+  {
+    "key": "msg_12e3d1e9d948",
+    "source": "@0@ треков",
+    "english": "@0|track@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "provider/yandex/src/main/kotlin/dev/petrov/ymplayer2/yandex/YandexMusicApi.kt"
+    ]
+  },
+  {
+    "key": "msg_141e133edf3b",
+    "source": "Загрузка: @0@% · @1@",
+    "english": "Downloading: @0@% · @1@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_1478970270d1",
+    "source": "На уровень выше",
+    "english": "Up one level",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_1484585c1931",
+    "source": "Один из сохранённых скинов повреждён. Его можно импортировать заново.",
+    "english": "A saved skin is damaged. You can import it again.",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_14b10e3e0473",
+    "source": "Создать плейлист Яндекса",
+    "english": "Create Yandex playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_16e5a7c68a87",
+    "source": "Спрятать сайдбар",
+    "english": "Hide sidebar",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_1718e90d59c5",
+    "source": "Аудио",
+    "english": "Audio",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_1731619efa3a",
+    "source": "Оформление",
+    "english": "Appearance",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_173c0a00334a",
+    "source": "Предпросмотр не меняет оформление приложения.",
+    "english": "Preview does not change your app's appearance.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_17b7c023b762",
+    "source": "Настройка общая для устройства. При выключении синхронизация останавливается, сохранённая музыка не используется. Онлайн-музыка и предзагрузка волны продолжают работать.",
+    "english": "This setting applies to the whole device. Turning it off stops sync and prevents use of downloaded music. Online playback and Vibe preloading keep working.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_17f63d0c483b",
+    "source": "Неизвестный fillType",
+    "english": "Unknown fillType",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_180f58ab9753",
+    "source": "Поиск",
+    "english": "Search",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_194306e20807",
+    "source": "Переименовать",
+    "english": "Rename",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_1a25b02eecdb",
+    "source": "Название сохранено.",
+    "english": "Name saved.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/CloudPlaylists.kt"
+    ]
+  },
+  {
+    "key": "msg_1a5f7efbec65",
+    "source": "Журнал обновлён.",
+    "english": "Log refreshed.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/DiagnosticsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_1a9fb1f3cf8e",
+    "source": "Назад",
+    "english": "Back",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt",
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_1c4b50127e94",
+    "source": "Трек отсутствует в локальном каталоге",
+    "english": "The track is not in the local library",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt"
+    ]
+  },
+  {
+    "key": "msg_1c947e774ae7",
+    "source": "Сон",
+    "english": "Sleep",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_1d16c7d5c800",
+    "source": "Канал и версия не совпадают",
+    "english": "The channel and version do not match",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_1d74ce16d44e",
+    "source": "Трек, исполнитель или альбом",
+    "english": "Track, artist or album",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_1dd7755458c1",
+    "source": "Удалить плейлист",
+    "english": "Delete playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_1e5e88ef7525",
+    "source": "Трек",
+    "english": "Track",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt"
+    ]
+  },
+  {
+    "key": "msg_1eecfcaa7bdb",
+    "source": "Тёмная",
+    "english": "Dark",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_1f0f3db2bd8d",
+    "source": "Сначала разрешите показ поверх приложений.",
+    "english": "Allow display over other apps first.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_203dc0ea9f7d",
+    "source": "Не удалось очистить журнал.",
+    "english": "Could not clear the log.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ]
+  },
+  {
+    "key": "msg_20c3a85f6767",
+    "source": "Доступные сейчас",
+    "english": "Available now",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_21943a44634e",
+    "source": "Тёмный",
+    "english": "Dark",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_21c6b248c7e7",
+    "source": "Не удалось открыть папку Downloads.",
+    "english": "Could not open Downloads.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ]
+  },
+  {
+    "key": "msg_22324e61bdfe",
+    "source": "Офлайн-коллекция",
+    "english": "Offline music",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt"
+    ]
+  },
+  {
+    "key": "msg_22a5d9112486",
+    "source": "Загружаем…",
+    "english": "Loading…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_231ddb86ef9f",
+    "source": "HTTP @0@ от @1@",
+    "english": "HTTP @0@ from @1@",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_23ae5f29feed",
+    "source": "Выберите хотя бы одну кнопку. Пустая панель отключена.",
+    "english": "Enable at least one button. An empty sidebar is disabled.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_23d5ec1e3849",
+    "source": "Системный эквалайзер",
+    "english": "System equalizer",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/EqualizerLauncher.kt"
+    ]
+  },
+  {
+    "key": "msg_24ae31c96ef8",
+    "source": "Версия формата скина не поддерживается",
+    "english": "This skin format version is not supported",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_254732178a10",
+    "source": "Удалить файлы",
+    "english": "Delete files",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_25a86516eb0c",
+    "source": "Состояние демокаталога",
+    "english": "Demo library status",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_25dc72086a44",
+    "source": "Кнопки панели",
+    "english": "Sidebar buttons",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_263e20096cc0",
+    "source": "Любимые исполнители",
+    "english": "Favorite artists",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_26d99df6eab5",
+    "source": "Музыка",
+    "english": "Music",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_26e8236c8e38",
+    "source": "Превышен допустимый размер файла скина",
+    "english": "The skin file exceeds the size limit",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_2718e917ffb3",
+    "source": "Качество офлайн-кэша",
+    "english": "Offline download quality",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_272bf8adef84",
+    "source": "Плейлистов пока нет.",
+    "english": "No playlists yet.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_27681b730821",
+    "source": "Загрузка клипов…",
+    "english": "Loading clips…",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_2922b43474e0",
+    "source": "Воспроизвести трек",
+    "english": "Play track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_293a0bf80248",
+    "source": "Не удалось прочитать индекс",
+    "english": "Could not read the library index",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_298252296d09",
+    "source": "Введите название и выберите тип результатов.",
+    "english": "Enter a name and choose what to search for.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_2991be238f39",
+    "source": "Значок должен ссылаться на JSON-вектор",
+    "english": "The icon must reference a JSON vector",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_29a33ded420d",
+    "source": "источник",
+    "english": "source",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_29c90888994f",
+    "source": "Устройство / USB · @0@ треков",
+    "english": "Device / USB · @0|track@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_29e4a4bd7a17",
+    "source": "Как в системе",
+    "english": "Follow system",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_29f6f8d9dd3e",
+    "source": "Вход по коду без ввода пароля в плеере. Аккаунты разных профилей не смешиваются.",
+    "english": "Sign in with a code, without entering your password in the player. Each profile keeps its own account.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_29ff5117d5b1",
+    "source": "Жанры и папки относятся к файлам устройства и USB.",
+    "english": "Genres and folders apply to files on your device and USB drives.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_2a6b5f7278c0",
+    "source": "Добавить в избранное",
+    "english": "Add to favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_2afb36246c80",
+    "source": "Недопустимый путь значка",
+    "english": "Invalid icon path",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_2b7d2f3f797d",
+    "source": "Установлена актуальная версия.",
+    "english": "You are up to date.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_2c38faa8cf7e",
+    "source": "Общий локальный каталог · без аккаунта",
+    "english": "Shared local library · no account",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_2cea82c66c45",
+    "source": "Манифест слишком велик",
+    "english": "The manifest is too large",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_2d6b68932448",
+    "source": "Вход сохранён для этого профиля. Музыка Яндекса доступна в медиатеке и поиске.",
+    "english": "You are signed in for this profile. Yandex music is available in the library and search.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_2dc14ee8f6a2",
+    "source": "Не удалось прочитать журнал.",
+    "english": "Could not read the log.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ]
+  },
+  {
+    "key": "msg_2efea0f8794f",
+    "source": "Плейлисты",
+    "english": "Playlists",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_2f4f45e427e6",
+    "source": "Подготовка аудио…",
+    "english": "Preparing audio…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_2f8a1650c543",
+    "source": "Не удалось завершить загрузку",
+    "english": "Could not finish downloading",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_2f9654f4d1a1",
+    "source": "Здесь пока ничего нет. Попробуйте другой запрос или раздел.",
+    "english": "Nothing here yet. Try another search or section.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3048598439e0",
+    "source": "Добавить музыку",
+    "english": "Add music",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_306af95e29b6",
+    "source": "Ожидаем подтверждения…",
+    "english": "Waiting for approval…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_307c435478f4",
+    "source": "Клипы · Яндекс Музыка",
+    "english": "Clips · Yandex Music",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_30c61037264b",
+    "source": "Профили",
+    "english": "Profiles",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_32060a34f5be",
+    "source": "Предпросмотр",
+    "english": "Preview",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_33073b976515",
+    "source": "Очередь · @0@",
+    "english": "Queue · @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3315af3b27b8",
+    "source": "Создать плейлист",
+    "english": "Create playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_334c3299a899",
+    "source": "Убрать из избранного",
+    "english": "Remove from favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_3364af49d2ba",
+    "source": "Выйти из аккаунта",
+    "english": "Sign out of account",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3396400da0c4",
+    "source": "Остановить",
+    "english": "Stop",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "app/src/main/kotlin/dev/petrov/ymplayer2/OfflineSyncService.kt"
+    ]
+  },
+  {
+    "key": "msg_341bfc88e988",
+    "source": "Manifest слишком большой",
+    "english": "The update manifest is too large",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_346750dab787",
+    "source": "Никогда не предлагать @0@",
+    "english": "Never recommend @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_34faf1c2240d",
+    "source": "Не удалось прочитать сохранённое оформление. Используется «Оксид».",
+    "english": "Could not read the saved skin. Using Oxide.",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_350675f4e001",
+    "source": "Выйти из Яндекса?",
+    "english": "Sign out of Yandex?",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_350c510572ad",
+    "source": "Устройство / USB: @0@ · Яндекс: @1@ показано",
+    "english": "Device / USB: @0@ · Yandex: @1@ shown",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_35619086cdfe",
+    "source": "Создайте первый плейлист кнопкой «+».",
+    "english": "Create your first playlist using +.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_35864bdf26cb",
+    "source": "Мне нравится · офлайн",
+    "english": "Liked tracks · offline",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3628da5ba5a2",
+    "source": "Удалить сохранённый вход",
+    "english": "Remove saved sign-in",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_36cf98277e5f",
+    "source": "Новые потоки и предзагрузка «Моей волны».",
+    "english": "Applies to new streams and My Vibe preloading.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_372ccd2e8254",
+    "source": "; обновляем…",
+    "english": "; refreshing…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_379116d4b4d4",
+    "source": "В пакете есть неиспользуемые файлы",
+    "english": "The skin package contains unused files",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_38aa13198a8b",
+    "source": "Новый плейлист",
+    "english": "New playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_392a2bb860f8",
+    "source": "Этот ID принадлежит встроенному скину. Измените id в manifest.",
+    "english": "This ID belongs to a built-in skin. Change the id in the manifest.",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_39bbc8689a90",
+    "source": "Вход не разрешён. Можно попробовать снова.",
+    "english": "Sign-in was not approved. You can try again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_39c3c9622cdc",
+    "source": "Очередь пуста",
+    "english": "Queue is empty",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_39cef1f5fa63",
+    "source": "Выберите раздел.",
+    "english": "Choose a section.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3b024cce3b59",
+    "source": "Поддержать разработку",
+    "english": "Support development",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AboutDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_3b840443abf7",
+    "source": "Никогда не предлагать",
+    "english": "Never recommend",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_3c959ac71187",
+    "source": "В любимые исполнители",
+    "english": "Add artist to favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_3c99d6538c1d",
+    "source": "Популярные треки",
+    "english": "Popular tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3cc455cf86cf",
+    "source": "Яндекс отклонил вход для этой сборки.",
+    "english": "Yandex rejected sign-in for this build.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_3d04145a8633",
+    "source": "Повторяющийся путь в скине",
+    "english": "Duplicate path in skin package",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_3d275a76f737",
+    "source": "Каталог содержит данные",
+    "english": "The library contains data",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_3d7762ba837e",
+    "source": "Скачанные «Мне нравится» доступны в разделе «Треки». Альбомы и исполнители целиком не скачиваются.",
+    "english": "Downloaded liked tracks are available under Tracks. Albums and artists are not downloaded in full.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3e123a8bc43d",
+    "source": "Офлайн-файлы удалены. Лайки в Яндексе сохранены.",
+    "english": "Offline files deleted. Your Yandex likes have been kept.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_3e1506ad1141",
+    "source": "В «Мне нравится»",
+    "english": "Like track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_3e38544b4537",
+    "source": "Настройки общие для этого устройства.",
+    "english": "These settings apply to this device.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3f8a4e233c3e",
+    "source": "Обновить сведения об аккаунте",
+    "english": "Refresh account details",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_3fbf9e4ea1c1",
+    "source": "Предыдущий трек",
+    "english": "Previous track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_407f871778d3",
+    "source": "Сбросить",
+    "english": "Reset",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_414209446572",
+    "source": "Убрать трек",
+    "english": "Remove track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_414a326c7fbe",
+    "source": "Моя волна · загружаем…",
+    "english": "My Vibe · loading…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_417875482e57",
+    "source": "Редактирование плейлиста",
+    "english": "Editing playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_4195b215e9f0",
+    "source": "Экспорт в Downloads",
+    "english": "Export to Downloads",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/DiagnosticsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_422f550c9cff",
+    "source": "Основной",
+    "english": "Main",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_430c6faef007",
+    "source": "В этом профиле нет сохранённой музыки. Для синхронизации нужен вход в Яндекс.",
+    "english": "This profile has no downloaded music. Sign in to Yandex to sync your liked tracks.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_433852b8fe49",
+    "source": "Гость слушает локальную музыку без аккаунта. Для входа выберите другой профиль.",
+    "english": "Guest plays local music without an account. Choose another profile to sign in.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_4378c674b4d7",
+    "source": "Подтверждение перезагрузки недоступно на этом устройстве.",
+    "english": "Restart confirmation is not available on this device.",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_4382a728852f",
+    "source": "У каждого профиля своя очередь. При переключении плеер остаётся на паузе.",
+    "english": "Each profile has its own queue. Switching profiles leaves playback paused.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_43b07d243705",
+    "source": "Яндекс · @0@",
+    "english": "Yandex · @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_43bd202954d8",
+    "source": "Гость",
+    "english": "Guest",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_43c191115b55",
+    "source": "Контрольная сумма APK не совпадает",
+    "english": "The APK checksum does not match",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_43fb606c5b6f",
+    "source": "Боковая панель",
+    "english": "Sidebar",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_442f1380374f",
+    "source": "Обновить плейлист",
+    "english": "Refresh playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_44d4090ae9e4",
+    "source": "ошибка",
+    "english": "error",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_44d8126b8321",
+    "source": "Мои плейлисты",
+    "english": "My playlists",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_44f6f4d66ea4",
+    "source": "Демонстрационный профиль",
+    "english": "Demo profile",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_460213556ee1",
+    "source": "APK проверен@0@.",
+    "english": "APK verified@0@.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_467a1857a936",
+    "source": "Неверные размер или SHA-256 APK",
+    "english": "Invalid APK size or SHA-256",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_468ba659166c",
+    "source": "Все команды выключены — SideBar отключён.",
+    "english": "All controls are off — the sidebar is disabled.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_46da7285528f",
+    "source": "Следующий трек",
+    "english": "Next track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_480fae1c4bc9",
+    "source": "Ничего не найдено",
+    "english": "No results",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_48b5898b7140",
+    "source": "Удалить плейлист Яндекса",
+    "english": "Delete Yandex playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_48f1c04f18bc",
+    "source": "Ниже: @0@",
+    "english": "Move down: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_4a1236b53aa7",
+    "source": "Журнал очищен.",
+    "english": "Log cleared.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ]
+  },
+  {
+    "key": "msg_4a59253d0fb2",
+    "source": "Если приложение пригодилось, можно поддержать его разработку.",
+    "english": "If you enjoy the app, you can support its development.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AboutDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_4a87a9c8e472",
+    "source": "Обновляем каталог…",
+    "english": "Refreshing library…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_4b39689e6190",
+    "source": "Язык общий для устройства. Названия музыки, плейлистов и скинов не переводятся.",
+    "english": "The language setting applies to the whole device. Music, playlist and skin names stay in their original language.",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_4cffda4eecf8",
+    "source": "Вход в Яндекс недоступен в этой сборке. Локальная музыка продолжает работать.",
+    "english": "Yandex sign-in is unavailable in this build. Local music still works.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_4e50f6bdc764",
+    "source": "Убрать «@0@» (позиция @1@) из «@2@»? Другие вхождения трека сохранятся.",
+    "english": "Remove “@0@” (position @1@) from “@2@”? Other occurrences of this track will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_4e882842072f",
+    "source": "Сохранённый вход будет удалён только из профиля «@0@» на этом устройстве. Локальные файлы, очередь и плейлисты останутся.",
+    "english": "Saved sign-in will be removed only from the “@0@” profile on this device. Local files, queues and playlists will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_4f41558e776b",
+    "source": "Удалить плейлист?",
+    "english": "Delete playlist?",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_4f5782c26416",
+    "source": "APK не читается",
+    "english": "Cannot read the APK",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_501cfd0b1690",
+    "source": "Ошибка / предупреждение",
+    "english": "Error / warning",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_502d3a6bd090",
+    "source": "Не удалось прочитать каталог. Повторите поиск.",
+    "english": "Could not read the catalog. Try searching again.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_50730177421a",
+    "source": "Нет сведений об APK",
+    "english": "Missing APK details",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_50825290b460",
+    "source": "Нужен ZIP-пакет .ymskin",
+    "english": "A .ymskin ZIP package is required",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_5189135a6110",
+    "source": "Повторить",
+    "english": "Retry",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt",
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_5277d2953e7b",
+    "source": "Удалить офлайн-файлы",
+    "english": "Delete offline files",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_535119bf3cc5",
+    "source": "Скачать",
+    "english": "Download",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_53aacea33082",
+    "source": "Плейлист «@0@» создан.",
+    "english": "Playlist “@0@” created.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/CloudPlaylists.kt"
+    ]
+  },
+  {
+    "key": "msg_53ba89acf405",
+    "source": "Недоступен",
+    "english": "Unavailable",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_53c57c59cc24",
+    "source": "Добавление — через «…». Для перестановки удерживайте значок с полосками и перетащите трек или нажмите «Позиция». Изменения сохраняются в Яндексе.",
+    "english": "Add tracks using “…”. To reorder, drag the handle or select Position. Changes are saved to Yandex.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_53ee3b3a9092",
+    "source": "Удаление текущего трека ставит воспроизведение на паузу.",
+    "english": "Removing the current track pauses playback.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_5405eb821e3a",
+    "source": "Светлый",
+    "english": "Light",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_541f8f8b8a8f",
+    "source": "Плейлист с таким названием уже есть",
+    "english": "A playlist with this name already exists",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt"
+    ]
+  },
+  {
+    "key": "msg_54b80039a9ec",
+    "source": "Активный скин",
+    "english": "Active skin",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_556fab910a7b",
+    "source": "Новый плейлист Яндекса",
+    "english": "New Yandex playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_55870b7a873d",
+    "source": "В плейлисте пока нет треков.",
+    "english": "This playlist has no tracks yet.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_55d6dc96a9df",
+    "source": "Выберите папку с аудиофайлами на устройстве или USB.",
+    "english": "Choose a folder with audio files on your device or USB drive.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_55e08786c6c9",
+    "source": "Плейлист изменился в Яндексе. Обновите его и проверьте состав перед повтором.",
+    "english": "This playlist changed on Yandex. Refresh it and check its contents before trying again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/CloudPlaylists.kt"
+    ]
+  },
+  {
+    "key": "msg_5651a421a70e",
+    "source": "Выполняем…",
+    "english": "Working…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_5690c2e63b9d",
+    "source": "Выйти",
+    "english": "Sign out",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_56f5278a2acc",
+    "source": "Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.",
+    "english": "Cannot connect to Yandex Music. Check your connection and try again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_5710ad29b999",
+    "source": "Создать новый плейлист",
+    "english": "Create new playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_574d24b24ab4",
+    "source": "Доступна @0@",
+    "english": "@0@ is available",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_57691b646726",
+    "source": "Высокое · 320 кбит/с",
+    "english": "High · 320 kbps",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AudioQuality.kt"
+    ]
+  },
+  {
+    "key": "msg_5779b6589ef5",
+    "source": "Нажмите «Назад» ещё раз для выхода",
+    "english": "Press Back again to exit",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_57816af2d9ca",
+    "source": "Провести от края для открытия панели YMPlayer 2",
+    "english": "Swipe from the edge to open the YMPlayer 2 sidebar",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_57d8de34aad1",
+    "source": "Убрать из любимых исполнителей",
+    "english": "Remove artist from favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_58995881a188",
+    "source": "Обновление не относится к выбранному каналу",
+    "english": "This update is not for the selected channel",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_589983337a78",
+    "source": "Плейлист «@0@» будет удалён из вашего аккаунта Яндекса на всех устройствах. Текущая очередь и отметки «Мне нравится» сохранятся.",
+    "english": "Playlist “@0@” will be deleted from your Yandex account on all devices. Your current queue and liked tracks will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_58cb4ee024d5",
+    "source": "В случайном порядке",
+    "english": "Shuffle",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_58efe74ebc48",
+    "source": "Файл значка не найден: @0@",
+    "english": "Icon file not found: @0@",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_59134fd3fbf7",
+    "source": "«Меню» доступно только на K4811.",
+    "english": "Menu is only available on K4811.",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_59eedda3d148",
+    "source": "Не удалось показать панель.",
+    "english": "Could not show the sidebar.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_5c7cfc9e8bc2",
+    "source": "Воспроизведение",
+    "english": "Playback",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_5c7d98906b6b",
+    "source": "Число должно быть конечным",
+    "english": "The number must be finite",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_5d5f78c5790d",
+    "source": "В офлайн-кэше: @0@ найдено",
+    "english": "Offline cache: @0@ found",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_5d99a4bce5b6",
+    "source": "Разрешён только HTTPS",
+    "english": "Only HTTPS is allowed",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_5dc56b8cf0e0",
+    "source": "«Назад» доступно только на K4811.",
+    "english": "Back is only available on K4811.",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_5e1e0ac2d35b",
+    "source": "Записей пока нет.",
+    "english": "No entries yet.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ]
+  },
+  {
+    "key": "msg_5e3e47e18b27",
+    "source": "Нужно 1–12 цветов заглушек",
+    "english": "Choose 1–12 placeholder colors",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_5e4ea237ce6b",
+    "source": "Сохранено: @0@ · @1@ МБ",
+    "english": "Saved: @0@ · @1@ MB",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_5e66b30bc941",
+    "source": "Музыка рядом · Beta",
+    "english": "Music with you · Beta",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_5e9967fcef8f",
+    "source": "На устройстве нет системного выбора папки. Нужен файловый менеджер с поддержкой Storage Access Framework.",
+    "english": "No system folder picker is installed. You need a file manager that supports the Storage Access Framework.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_5ed92773c808",
+    "source": "Яндекс",
+    "english": "Yandex",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_5fbef357e55e",
+    "source": "Моя музыка в Яндексе",
+    "english": "My Yandex music",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_601de107e288",
+    "source": "Новая позиция: 1–@0@",
+    "english": "New position: 1–@0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_603e460bf59c",
+    "source": "Обновить",
+    "english": "Refresh",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/DiagnosticsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_60bbcc5198aa",
+    "source": "@0@ · @1@ треков",
+    "english": "@0@ · @1|track@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_612f724ec00f",
+    "source": "Открыть аккаунт",
+    "english": "Open account",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_61ab32792577",
+    "source": "Служба перезагрузки K4811 недоступна. Запрос не отправлен.",
+    "english": "The K4811 restart service is unavailable. No request was sent.",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_61b578bca0ca",
+    "source": "Подготовка аудио",
+    "english": "Preparing audio",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_61c83c0e0569",
+    "source": "Показать ещё из Яндекса",
+    "english": "Show more from Yandex",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_620bc932f669",
+    "source": "Сохранить название",
+    "english": "Save name",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_62243b1fd0d8",
+    "source": "Не удалось обновить отметки. Повторить",
+    "english": "Could not refresh likes and blocks. Retry",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_6276f8c77c1b",
+    "source": "Совместимый эквалайзер или DSP не найден. Установите приложение обработки звука. Если доступна системная панель, начните воспроизведение и откройте её здесь.",
+    "english": "No compatible equalizer or DSP was found. Install an audio processing app. If a system panel is available, start playback and open it here.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/EqualizerLauncher.kt"
+    ]
+  },
+  {
+    "key": "msg_62984b2595bb",
+    "source": "Получаем код…",
+    "english": "Getting code…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_62ed32eb225c",
+    "source": "Проверяем…",
+    "english": "Checking…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6518414d5226",
+    "source": "Трек убран из плейлиста.",
+    "english": "Track removed from playlist.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/CloudPlaylists.kt"
+    ]
+  },
+  {
+    "key": "msg_653f03c94726",
+    "source": "Текущий трек",
+    "english": "Current track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_65530fd463ea",
+    "source": "Пауза",
+    "english": "Pause",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt",
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_655f2cc9a551",
+    "source": "Синхронизация завершена.",
+    "english": "Sync complete.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_659afa619e2b",
+    "source": "Размер или SHA-256 APK не совпадает",
+    "english": "The APK size or SHA-256 does not match",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_65a38f8bcb09",
+    "source": "Не удалось прочитать или сохранить вход на устройстве.",
+    "english": "Could not read or save sign-in on this device.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_65e00ce0d8d2",
+    "source": "Повтор очереди",
+    "english": "Repeat queue",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_66474d591df2",
+    "source": "Вход сохранён. Сведения об аккаунте Музыки пока недоступны. Их можно обновить позже без повторного ввода кода.",
+    "english": "Your sign-in is saved, but Music account details are not available yet. You can refresh them later without entering a new code.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_66c5d76f8451",
+    "source": "Вернуть «Оксид»",
+    "english": "Restore Oxide",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6713f0c31917",
+    "source": "Нужно число: @0@",
+    "english": "A number is required: @0@",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_673b49c1255b",
+    "source": "Не удалось прочитать ответ Яндекса. Повторите запрос.",
+    "english": "Could not read the Yandex response. Try again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_674a4f596d66",
+    "source": " Результат изменения не подтверждён. Проверьте плейлисты перед повтором.",
+    "english": " The change could not be confirmed. Check your playlists before trying again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/CloudPlaylists.kt"
+    ]
+  },
+  {
+    "key": "msg_67abbabca722",
+    "source": "Порядок треков сохранён.",
+    "english": "Track order saved.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/CloudPlaylists.kt"
+    ]
+  },
+  {
+    "key": "msg_6807424b3688",
+    "source": "Включить панель",
+    "english": "Enable sidebar",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6841e1070158",
+    "source": "Системный экран разрешения не найден.",
+    "english": "The system permission screen was not found.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_68cc12d616b8",
+    "source": "Обновить отметки",
+    "english": "Refresh likes and blocks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_68eab87f63c4",
+    "source": "Яндекс не разрешил доступ. Проверьте аккаунт и подписку на Музыку.",
+    "english": "Yandex denied access. Check your account and Music subscription.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_69294d8ce6a4",
+    "source": "Яндекс может предложить другой битрейт: выбирается лучший доступный до указанного значения, а если его нет — ближайший выше. «Авто» и «Максимальное» выбирают наибольший доступный битрейт.",
+    "english": "Yandex may provide a different bitrate. The player selects the best available bitrate up to your limit, or the closest higher one if necessary. Auto and Maximum select the highest available bitrate.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6aadca8eb39a",
+    "source": "Создать и добавить трек",
+    "english": "Create and add track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_6b5623eafb06",
+    "source": "Изменить список",
+    "english": "Edit playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6bd804f5b776",
+    "source": "Трек: @0@",
+    "english": "Track: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_6bf215b8f901",
+    "source": "Не удалось заменить старый APK",
+    "english": "Could not replace the old APK",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_6c2b14d954bb",
+    "source": "Выбрать эквалайзер / DSP",
+    "english": "Choose equalizer / DSP",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6c32e04d2392",
+    "source": "Следующий клип пока не определён",
+    "english": "The next clip has not been selected yet",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_6cbc48f41e6f",
+    "source": "Не удалось прочитать офлайн-коллекцию. Повторите синхронизацию.",
+    "english": "Could not read offline music. Run sync again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_6d6a9bb2179b",
+    "source": "Моя музыка и рекомендации Яндекса",
+    "english": "My music and Yandex recommendations",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6daecbeea4b6",
+    "source": "Клипы",
+    "english": "Clips",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_6dccc4a3f564",
+    "source": "Не удалось загрузить обновление: @0@",
+    "english": "Could not download the update: @0@",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt",
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_6dd43bf971fd",
+    "source": "Скины",
+    "english": "Skins",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6e1f7baa472f",
+    "source": "Очистить поиск",
+    "english": "Clear search",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6edaf3285434",
+    "source": "Удалить из очереди: @0@",
+    "english": "Remove from queue: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_6f1566c263c4",
+    "source": "Медь, графит и тёплая бумага",
+    "english": "Copper, graphite and warm paper",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_6fb373108517",
+    "source": "Не удалось сохранить или прочитать скин. Повторите выбор файла.",
+    "english": "Could not read or save the skin. Select the file again.",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_7003237eb243",
+    "source": "Не загружено аудио: @0@. Ошибки обложек: @1@. Без обложки у источника: @2@. Повторная синхронизация проверит и восстановит недостающее.",
+    "english": "Audio downloads failed: @0@. Artwork errors: @1@. No artwork from source: @2@. Run sync again to check and repair missing files.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7075085d9334",
+    "source": "Дополнительные действия",
+    "english": "More actions",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_70c88673f5a8",
+    "source": "Удаление папки из медиатеки не удаляет файлы. Локальный каталог доступен всем профилям.",
+    "english": "Removing a folder from the library does not delete its files. All profiles can access the local library.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_70daf92e717a",
+    "source": "Обложка: @0@",
+    "english": "Artwork: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackArtwork.kt"
+    ]
+  },
+  {
+    "key": "msg_71038c53bbc4",
+    "source": "Добавить",
+    "english": "Add",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_717012565e0a",
+    "source": "Название плейлиста",
+    "english": "Playlist name",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_71c815fdaf60",
+    "source": "Не удалось запустить панель на этом устройстве.",
+    "english": "Could not start the sidebar on this device.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_71e214e1477f",
+    "source": "Все источники",
+    "english": "All sources",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_71ff8690cd03",
+    "source": "Сохраняем вход…",
+    "english": "Saving sign-in…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_723b195d5744",
+    "source": "Подпись APK не совпадает с установленной",
+    "english": "The APK signature does not match the installed app",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_729dc1568fdf",
+    "source": "Загружать только по Wi-Fi",
+    "english": "Download over Wi-Fi only",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_73cec4b1fa25",
+    "source": "Не удалось открыть установку: @0@",
+    "english": "Could not open the installer: @0@",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_73e0d3beed31",
+    "source": " · демонстрационный каталог",
+    "english": " · demo library",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_73f6917759ca",
+    "source": "Папка недоступна или обход не завершён. Подключите носитель и обновите.",
+    "english": "The folder is unavailable or scanning did not finish. Connect the drive and refresh.",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_741ca2439e4d",
+    "source": "Для онлайн-музыки войдите в Яндекс в этом профиле. Локальная музыка доступна без входа.",
+    "english": "Sign in to Yandex in this profile for online music. Local music works without signing in.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7435626dd379",
+    "source": "Сворачивать через 8 секунд",
+    "english": "Auto-hide after 8 seconds",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7493e161cb03",
+    "source": "Без альбома",
+    "english": "Unknown album",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt",
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_749a9ca9d90f",
+    "source": "Не удалось очистить офлайн-файлы.",
+    "english": "Could not delete offline files.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_758aa155871b",
+    "source": "Добавлен",
+    "english": "Added",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_760c9665ad62",
+    "source": "Стандарт · 192 кбит/с",
+    "english": "Standard · 192 kbps",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AudioQuality.kt"
+    ]
+  },
+  {
+    "key": "msg_767475640343",
+    "source": "Добавить в плейлист Яндекса",
+    "english": "Add to Yandex playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_778b704b5c1e",
+    "source": "Не удалось открыть или сохранить папку. Проверьте доступ и повторите.",
+    "english": "Could not open or save the folder. Check access and try again.",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_7796e6a8c011",
+    "source": "ошибка сети",
+    "english": "network error",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_77f1e6d43b19",
+    "source": "Не удалось создать папку обновлений",
+    "english": "Could not create the update folder",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_78b7fcee0a88",
+    "source": "Открыт системный установщик. Подтвердите обновление.",
+    "english": "The system installer is open. Confirm the update.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_78ca838c8f88",
+    "source": "Код ошибки: @0@",
+    "english": "Error code: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_78cdeec91c73",
+    "source": "Добавить треки",
+    "english": "Add tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7996f711496a",
+    "source": "Позже",
+    "english": "Later",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_79a58b43db6d",
+    "source": "Цвет должен иметь формат #RRGGBB",
+    "english": "Use #RRGGBB for colors",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_79e35d4d8b5b",
+    "source": "Проверить отметки",
+    "english": "Check likes and blocks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_7aa5b98239e2",
+    "source": "Добавить в «@0@»",
+    "english": "Add to “@0@”",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7ad2cca22536",
+    "source": "Не удалось загрузить очередь · повторить",
+    "english": "Could not load the queue · retry",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7b4f20da2143",
+    "source": "Пустой путь значка",
+    "english": "Empty icon path",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_7cd2f0ff4082",
+    "source": "Проверяем обновления…",
+    "english": "Checking for updates…",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_7e0c5e62a006",
+    "source": "Обновление приложения",
+    "english": "App updates",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7e257dbdd7a9",
+    "source": " Повторим автоматически (@0@/3).",
+    "english": " Retrying automatically (@0@/3).",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
+    ]
+  },
+  {
+    "key": "msg_7e57673a5d4c",
+    "source": "Демонстрация первого запуска.",
+    "english": "First-launch demo.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7e59467db9e7",
+    "source": "← Назад",
+    "english": "← Back",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_7e6258d504ba",
+    "source": "Исполнители и альбом: @0@",
+    "english": "Artists and album: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_7f89cdaad39e",
+    "source": "Экономия · 128 кбит/с",
+    "english": "Data saver · 128 kbps",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AudioQuality.kt"
+    ]
+  },
+  {
+    "key": "msg_8086aac760a1",
+    "source": "Не удалось воспроизвести файл. Проверьте носитель или выберите другой трек.",
+    "english": "Could not play the file. Check the drive or choose another track.",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
+    ]
+  },
+  {
+    "key": "msg_80cedf587a28",
+    "source": "На устройстве нет системного выбора файла. Нужен файловый менеджер с поддержкой Storage Access Framework.",
+    "english": "No system file picker is installed. You need a file manager that supports the Storage Access Framework.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_8208dc91519d",
+    "source": "«Меню» открывает список приложений K4811. «Плей / пауза» управляет активным плеером. «Сон» усыпляет магнитолу, «Перезагрузка» сначала запрашивает подтверждение.",
+    "english": "Menu opens the K4811 app list. Play / pause controls the active player. Sleep puts the head unit to sleep. Restart asks for confirmation first.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_834ec28c8644",
+    "source": "Скин не найден",
+    "english": "Skin not found",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_83cc61451837",
+    "source": "Скачать через резервный источник",
+    "english": "Download from backup source",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_840370e3fad2",
+    "source": "Мне нравится",
+    "english": "Liked tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_8491940b48e2",
+    "source": "Скачанные треки «Мне нравится»",
+    "english": "Downloaded liked tracks",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt"
+    ]
+  },
+  {
+    "key": "msg_84a795ddbe75",
+    "source": "Сохранено 16 скинов. Удалите ненужный перед импортом.",
+    "english": "You have 16 saved skins. Delete one before importing another.",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_8514965e4ae0",
+    "source": "Доступно офлайн",
+    "english": "Available offline",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_857db5eccf13",
+    "source": "Добавьте треки кнопкой «В очередь» в медиатеке.",
+    "english": "Use Add to queue in the library to add tracks.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_85a21c8d0f56",
+    "source": "Обновить плейлисты",
+    "english": "Refresh playlists",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_85dd88927aea",
+    "source": "Плейлист «@0@» удалён.",
+    "english": "Playlist “@0@” deleted.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/CloudPlaylists.kt"
+    ]
+  },
+  {
+    "key": "msg_8727c0e6695b",
+    "source": "Не удалось подтвердить доступ к аккаунту Яндекс Музыки.",
+    "english": "Could not confirm access to your Yandex Music account.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_88d4beca1549",
+    "source": "APK слишком велик",
+    "english": "The APK is too large",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_895c5b8f961d",
+    "source": "Установлено: @0@",
+    "english": "Installed: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_8965271d3c97",
+    "source": "Очистить",
+    "english": "Clear",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/DiagnosticsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_8cd421f138ac",
+    "source": "Добавьте музыку кнопкой «Добавить треки».",
+    "english": "Use Add tracks to add music.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_8dca2f783130",
+    "source": "Авто",
+    "english": "Auto",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AudioQuality.kt"
+    ]
+  },
+  {
+    "key": "msg_8f458964546a",
+    "source": "Папки с музыкой",
+    "english": "Music folders",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_8f88b95463e2",
+    "source": "Случайный порядок",
+    "english": "Shuffle",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_8f88e588534f",
+    "source": "Доступна @0@.",
+    "english": "@0@ is available.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_8fbe9b75cbdf",
+    "source": "Отмена",
+    "english": "Cancel",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt",
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_9065b44df928",
+    "source": "Импортировать .ymskin",
+    "english": "Import .ymskin",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_90c141192bd7",
+    "source": "Альбомы",
+    "english": "Albums",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt",
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_916d4505c137",
+    "source": "Удаляем офлайн-файлы этого аккаунта…",
+    "english": "Deleting this account's offline files…",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_91cf8019c9e4",
+    "source": "Не удалось запустить фоновую синхронизацию. Повторите из открытого приложения.",
+    "english": "Could not start background sync. Try again with the app open.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_91cf891549ab",
+    "source": "Трек недоступен",
+    "english": "Track unavailable",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_920c04770d7a",
+    "source": "Не удалось экспортировать журнал.",
+    "english": "Could not export the log.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ]
+  },
+  {
+    "key": "msg_9216ace8c045",
+    "source": "Обновить каталог",
+    "english": "Refresh library",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_9220082bb4ab",
+    "source": "Срок входа истёк. Войдите заново.",
+    "english": "Your session has expired. Sign in again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_922c5fae2ec8",
+    "source": "Состояние не получено",
+    "english": "Status not loaded",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_931fb11514ad",
+    "source": "Недоступный трек @0@",
+    "english": "Unavailable track @0@",
+    "locations": [
+      "provider/yandex/src/main/kotlin/dev/petrov/ymplayer2/yandex/YandexPlaylistApi.kt"
+    ]
+  },
+  {
+    "key": "msg_93b08f7b1465",
+    "source": "Проверить обновления",
+    "english": "Check for updates",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_94117e81a588",
+    "source": "Офлайн-кэш выключен. Ранее скачанные файлы остаются до удаления кнопкой ниже.",
+    "english": "Offline cache is off. Existing downloads stay until you delete them using the button below.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_954fea171639",
+    "source": "Выбран",
+    "english": "Selected",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_95a0b91751fc",
+    "source": "Поиск треков",
+    "english": "Search tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_9641a49f03aa",
+    "source": "Удерживайте и перетащите для изменения порядка: @0@",
+    "english": "Hold and drag to reorder: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_968d76f0f95f",
+    "source": "Сохранённый скин недоступен. Восстановлен «Оксид».",
+    "english": "The saved skin is unavailable. Restored Oxide.",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_97635a1a0f91",
+    "source": "Офлайн-кэш выключен. Для освобождения места удалите ранее сохранённые файлы.",
+    "english": "Offline cache is off. Delete existing downloads to free up space.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_982867f75b81",
+    "source": "Удалить офлайн-файлы?",
+    "english": "Delete offline files?",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_985b5e0f2ccf",
+    "source": "Настройки",
+    "english": "Settings",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_98699315d011",
+    "source": "Переместить трек",
+    "english": "Move track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_9887b0bfa666",
+    "source": "Новые загрузки при синхронизации «Мне нравится».",
+    "english": "Applies to new downloads when syncing liked tracks.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_9895eb01a837",
+    "source": "Этот трек или список сейчас недоступен.",
+    "english": "This track or playlist is currently unavailable.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_98ae0216b918",
+    "source": "Источники обновлений недоступны: @0@",
+    "english": "Update sources are unavailable: @0@",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_995011f87d4b",
+    "source": "Качество звука",
+    "english": "Audio quality",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_9969d130536f",
+    "source": "ДАЛЕЕ",
+    "english": "UP NEXT",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_999770a38a9d",
+    "source": "Плейлисты, подобранные Яндексом для вашего аккаунта.",
+    "english": "Playlists recommended by Yandex for your account.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_99a6eae9f974",
+    "source": "Получен некорректный ответ Яндекса. Повторите вход.",
+    "english": "Yandex returned an invalid response. Try signing in again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_9a3adc7135e4",
+    "source": "Яндекс · позиция @0@",
+    "english": "Yandex · position @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_9a529d376ca3",
+    "source": "В плейлист",
+    "english": "Add to playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_9c1888610d6f",
+    "source": "Проведите от края экрана, чтобы открыть",
+    "english": "Swipe from the screen edge to open",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_9cbbe230cb66",
+    "source": "Слушать показанные треки",
+    "english": "Play displayed tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_9debd4812638",
+    "source": "Не удалось открыть браузер. Используйте QR-код или адрес выше.",
+    "english": "Could not open a browser. Use the QR code or the address above.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AboutDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_9e0859f700e2",
+    "source": "Не удалось проверить подтверждение. Код сохранён, повторяем запрос. После подтверждения вернитесь в приложение.",
+    "english": "Could not check approval. Your code is saved and we are retrying. Return to the app after approving sign-in.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_9fcd67f23799",
+    "source": "Выше: @0@",
+    "english": "Move up: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_9fe9ae8fbc17",
+    "source": "Снова предлагать @0@",
+    "english": "Recommend @0@ again",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_a033d47afec5",
+    "source": "Воспроизвести список",
+    "english": "Play playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a0e71ef0091b",
+    "source": "В дороге",
+    "english": "On the road",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_a0fa051b4a5b",
+    "source": "Для синхронизации нужен Wi-Fi.",
+    "english": "Wi-Fi is required to sync.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_a137dd0ef761",
+    "source": "Загрузить ещё",
+    "english": "Load more",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a1f4f5cf6b22",
+    "source": "Слишком много редиректов",
+    "english": "Too many redirects",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_a25031f2dbc6",
+    "source": "Нет сети для синхронизации.",
+    "english": "No connection available for sync.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_a2c053c748d0",
+    "source": "Изменить очередь",
+    "english": "Edit queue",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a3e2c7d263a6",
+    "source": "Для рекомендаций нужно проверить запрещённые треки и исполнителей.",
+    "english": "Check blocked tracks and artists before starting recommendations.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a41905aacd11",
+    "source": "Локальный каталог общий. Вход в Яндекс, очередь и списки принадлежат выбранному профилю. Гость работает без аккаунта.",
+    "english": "The local library is shared. Yandex sign-in, queues and playlists belong to the selected profile. Guest works without an account.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_a4e0d6a1b648",
+    "source": "Общий локальный каталог · своя очередь",
+    "english": "Shared local library · separate queue",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_a4ee02a4c189",
+    "source": "Отменить вход",
+    "english": "Cancel sign-in",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a55d09b73e40",
+    "source": "Недопустимый ID скина",
+    "english": "Invalid skin ID",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_a55fc5d0f320",
+    "source": "Музыка устройства доступна без входа. Для Яндекса войдите в этом профиле.",
+    "english": "Local music works without signing in. For Yandex, sign in to this profile.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a5e1aeda4ccc",
+    "source": "Качество онлайн-звука",
+    "english": "Streaming quality",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a5f630df4494",
+    "source": "Очистить очередь",
+    "english": "Clear queue",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a6d6c9941570",
+    "source": "Только для текущего профиля",
+    "english": "This profile only",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a75ec8e3fe3a",
+    "source": "Демонстрационный режим M1 · без звука",
+    "english": "M1 demo mode · no audio",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_a79a4eaec9fc",
+    "source": "Не удалось сохранить плейлисты. Изменение не применено; повторите попытку.",
+    "english": "Could not save playlists. Your change was not applied. Please try again.",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/LocalCollections.kt"
+    ]
+  },
+  {
+    "key": "msg_a7a4033657e8",
+    "source": "Закрыть",
+    "english": "Close",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AboutDialog.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "app/src/main/kotlin/dev/petrov/ymplayer2/EqualizerLauncher.kt"
+    ]
+  },
+  {
+    "key": "msg_a7d8adab451a",
+    "source": "Неизвестный исполнитель",
+    "english": "Unknown artist",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_a94943f157d5",
+    "source": "Сейчас играет",
+    "english": "Now playing",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_a94f8a5da271",
+    "source": "Перезагрузка",
+    "english": "Restart",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_a9bb9fcb7d94",
+    "source": "Проверяем отметки…",
+    "english": "Checking likes and blocks…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_a9ec4c4c914a",
+    "source": "Нет связи с Яндексом. Проверьте сеть и повторите вход.",
+    "english": "Cannot connect to Yandex. Check your connection and try signing in again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_aa07f084155c",
+    "source": "Офлайн",
+    "english": "Offline",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_aa59e4f43e97",
+    "source": "Идентификаторы исполнителей отсутствуют. Откройте трек заново из поиска или медиатеки.",
+    "english": "Artist IDs are missing. Open the track again from search or your library.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_aa782acc1382",
+    "source": "Автоматическая проверка выполняется не чаще раза в сутки. При наличии новой версии загрузка и системная установка требуют вашего действия.",
+    "english": "Automatic checks run at most once a day. Downloading and installing an available update requires your confirmation.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_ab78a1119f41",
+    "source": "Уже в очереди: @0@",
+    "english": "Already in queue: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_aba2a8a3d61d",
+    "source": "Убрать из медиатеки",
+    "english": "Remove from library",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_abf18a196671",
+    "source": "Недопустимая координата значка",
+    "english": "Invalid icon coordinate",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_ad0502838af2",
+    "source": "Слишком большой архив скина",
+    "english": "The skin archive is too large",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_ad6a1e7e39d2",
+    "source": " · резервный источник",
+    "english": " · backup source",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_ae407aec2e14",
+    "source": "Добавить с устройства",
+    "english": "Add from device",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_aed87524dfde",
+    "source": "Загрузка журнала…",
+    "english": "Loading log…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/DiagnosticsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_af45ec8c56b7",
+    "source": "Переместить",
+    "english": "Move",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_af72c5eb8791",
+    "source": "На K4811 откройте панель коротким свайпом от середины левого или правого края либо от центра нижнего края. Зона жеста невидима и занимает лишь небольшую часть края.",
+    "english": "On K4811, use a short swipe from the middle of the left or right edge, or the center of the bottom edge. The gesture area is invisible and covers only a small part of the edge.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_af9d1711a669",
+    "source": "Выберите папку в системном окне. Музыка остаётся на своём месте, приложение получает только доступ к чтению.",
+    "english": "Choose a folder in the system picker. Your music stays where it is; the app only gets read access.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b011fc656a0f",
+    "source": "В любимые альбомы",
+    "english": "Like album",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_b095f9e901e7",
+    "source": "Плейлист уже удалён",
+    "english": "The playlist has already been deleted",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt"
+    ]
+  },
+  {
+    "key": "msg_b0acd0c9bfb1",
+    "source": "Снова предлагать",
+    "english": "Allow recommendations again",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_b0ad5bf65466",
+    "source": "Редактировать плейлист",
+    "english": "Edit playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b0dc6691dc09",
+    "source": "«Сон» доступен только на K4811.",
+    "english": "Sleep is only available on K4811.",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_b0f0ab86be80",
+    "source": "К списку",
+    "english": "Back to list",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b1c53cf90f0a",
+    "source": "Открыть установку",
+    "english": "Open installer",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b2cbccffb035",
+    "source": "Загружаем @0@…",
+    "english": "Downloading @0@…",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_b3b927fb4c1f",
+    "source": "Моя волна: ",
+    "english": "My Vibe: ",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
+    ]
+  },
+  {
+    "key": "msg_b3be276ac9d7",
+    "source": "Разрешить показ поверх приложений",
+    "english": "Allow display over other apps",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b46a526e0340",
+    "source": "Синхронизация остановлена. Готовые файлы сохранены.",
+    "english": "Sync stopped. Completed downloads have been kept.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_b4d30cae5289",
+    "source": "Сохранить",
+    "english": "Save",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b50aa55c0b78",
+    "source": "Без звука",
+    "english": "Mute",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_b583c0b5f77e",
+    "source": "Добавить с USB / SD",
+    "english": "Add from USB / SD",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b5c15a505a62",
+    "source": "Не удалось прочитать метаданные. Обновите каталог папок.",
+    "english": "Could not read metadata. Refresh the folder catalog.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b86ab3d74350",
+    "source": "Любимые альбомы",
+    "english": "Liked albums",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_b8ad90801037",
+    "source": "Добавление — через «…». Меняйте порядок кнопкой «Позиция». Изменения сохраняются в Яндексе.",
+    "english": "Add tracks using “…”. Select Position to reorder. Changes are saved to Yandex.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_ba700b6d4845",
+    "source": "Перезагрузка K4811",
+    "english": "Restart K4811",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_bb35de568dc0",
+    "source": "Сохранённая музыка загружается…",
+    "english": "Loading downloaded music…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_bb7c04530661",
+    "source": "Вход выполнен",
+    "english": "Signed in",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_bbb42f6a25b6",
+    "source": "Прототип · Без звука",
+    "english": "Prototype · no audio",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_bc622d6b13a3",
+    "source": "Максимальное",
+    "english": "Maximum",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AudioQuality.kt"
+    ]
+  },
+  {
+    "key": "msg_bcdc88d10948",
+    "source": "Переименовать: @0@",
+    "english": "Rename: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_bd5f65f27353",
+    "source": "Офлайн-музыка",
+    "english": "Offline music",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/OfflineSyncService.kt"
+    ]
+  },
+  {
+    "key": "msg_bdd37eb21746",
+    "source": "Воспроизвести",
+    "english": "Play",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt",
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_be28ea14a37e",
+    "source": "Повторить запрос Яндекса",
+    "english": "Retry Yandex request",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_be65ad9b7c99",
+    "source": "Сохранено в Downloads: @0@",
+    "english": "Saved to Downloads: @0@",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ]
+  },
+  {
+    "key": "msg_be83518bd33a",
+    "source": "Скачать и установить",
+    "english": "Download and install",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_be8789acfb99",
+    "source": "Нужен вход в Яндекс",
+    "english": "Sign in to Yandex",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_be99b1361201",
+    "source": "Удалить",
+    "english": "Delete",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_bf6c36d1e481",
+    "source": "@0@ треков · @1@ доступно",
+    "english": "@0|track@ · @1@ available",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c011a7b7c5c5",
+    "source": "Убрать трек?",
+    "english": "Remove track?",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_c05d6b17ae05",
+    "source": "Предпросмотр: @0@",
+    "english": "Preview: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c06f71ebf142",
+    "source": "Браузер недоступен. Откройте указанный адрес на телефоне и введите код.",
+    "english": "No browser is available. Open the address on your phone and enter the code.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c09a1e9f0c59",
+    "source": "Неверное поле: @0@",
+    "english": "Invalid field: @0@",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_c25691d01a87",
+    "source": "Добавляйте треки в избранное через меню рядом с треком.",
+    "english": "Add tracks to favorites from the menu next to a track.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c39959813ccd",
+    "source": "Яндекс Музыка",
+    "english": "Yandex Music",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt",
+      "provider/yandex/src/main/kotlin/dev/petrov/ymplayer2/yandex/YandexMusicApi.kt",
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt",
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/ReferencePlaybackOrder.kt"
+    ]
+  },
+  {
+    "key": "msg_c40f97ca1831",
+    "source": "Подключение к службе K4811…",
+    "english": "Connecting to the K4811 service…",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_c46e9d43cea9",
+    "source": "Не удалось завершить синхронизацию. Готовые файлы сохранены; повторите попытку.",
+    "english": "Sync could not finish. Completed downloads have been kept. Please try again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_c57bc34167f4",
+    "source": "Запрос перезагрузки отправляется…",
+    "english": "Sending restart request…",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_c59e474ea979",
+    "source": "Не удалось прочитать плейлисты. Данные сохранены на диске; изменения временно недоступны. Повторите чтение.",
+    "english": "Could not read playlists. Your data is still on disk, but editing is temporarily unavailable. Try loading them again.",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/LocalCollections.kt"
+    ]
+  },
+  {
+    "key": "msg_c6087f7e1289",
+    "source": "Повторите обновление каталога.",
+    "english": "Refresh the library again.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c61eb3c4706a",
+    "source": "эквалайзер",
+    "english": "equalizer",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/EqualizerLauncher.kt"
+    ]
+  },
+  {
+    "key": "msg_c6504f6cb73b",
+    "source": "Оксид",
+    "english": "Oxide",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/PrismSkin.kt"
+    ]
+  },
+  {
+    "key": "msg_c6826c783794",
+    "source": "Показать ещё",
+    "english": "Show more",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c69f42036602",
+    "source": "При отсутствии перевода используется английский.",
+    "english": "English is used when a translation is not available.",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_c6e3a313babd",
+    "source": "Локальные профили используют общий каталог. В этом режиме аккаунты не подключены.",
+    "english": "Local profiles share one library. Accounts are not connected in this mode.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_c722f8b4c671",
+    "source": "Читаем аудиофайлы…",
+    "english": "Reading audio files…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c78b1aee4241",
+    "source": "Будет создан приватный плейлист в текущем аккаунте Яндекса.",
+    "english": "A private playlist will be created in your current Yandex account.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_c7dab06bf537",
+    "source": "СЕЙЧАС",
+    "english": "NOW PLAYING",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_c85975db07b1",
+    "source": "Неверная версия обновления",
+    "english": "Invalid update version",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_c8c0e3b9e7a0",
+    "source": "Получаем «Мне нравится»…",
+    "english": "Loading liked tracks…",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_c8dbba7583c2",
+    "source": "Источник воспроизведения",
+    "english": "Playback source",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c90dd531a092",
+    "source": "Текущий трек, уже подготовленные треки волны и сохранённые файлы сохраняют своё качество. Для повторной загрузки всей офлайн-коллекции удалите её файлы в настройках офлайн-кэша и запустите синхронизацию. Лайки останутся в Яндексе.",
+    "english": "The current track, preloaded My Vibe tracks and downloaded files keep their existing quality. To download your entire offline collection again, clear its files in Offline cache settings and sync again. Your likes on Yandex will remain.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_c90ea6df373e",
+    "source": "ожидающее обновление",
+    "english": "pending update",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_c989e98d6470",
+    "source": "Подбираем следующий трек…",
+    "english": "Choosing the next track…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_ca3bbeeee26d",
+    "source": "Android остановил длительную синхронизацию. Готовые файлы сохранены.",
+    "english": "Android stopped the long-running sync. Completed downloads have been kept.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/OfflineSyncService.kt"
+    ]
+  },
+  {
+    "key": "msg_ca48a1a553cc",
+    "source": "Синхронизировать «Мне нравится»",
+    "english": "Sync liked tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_cb297d129add",
+    "source": "Очередь",
+    "english": "Queue",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_cb3d171cdbfd",
+    "source": "Название ↓",
+    "english": "Name ↓",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_cb4cd68cb5f3",
+    "source": "Остановить синхронизацию",
+    "english": "Stop sync",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_cbf686a2b04b",
+    "source": "Активный, встроенный или неизвестный скин нельзя удалить",
+    "english": "The active skin, built-in skins and unknown skins cannot be deleted",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_cd40e18eeede",
+    "source": "Трек добавлен в «@0@».",
+    "english": "Track added to “@0@”.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/CloudPlaylists.kt"
+    ]
+  },
+  {
+    "key": "msg_cd70228cba41",
+    "source": "трек",
+    "english": "track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_cdb3ca001d96",
+    "source": "Запрет не установлен",
+    "english": "Not blocked",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_ce1456ccd84b",
+    "source": "Убрать из плейлиста: @0@",
+    "english": "Remove from playlist: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_ce1e647fd722",
+    "source": "Повтор выключен",
+    "english": "Repeat off",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_cfdce86cac0a",
+    "source": "Система не разрешила открыть настройки наложения.",
+    "english": "The system did not allow opening overlay settings.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_cfde40242cd9",
+    "source": "Плейлисты Яндекса",
+    "english": "Yandex playlists",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_d18c1c114691",
+    "source": "Не удалось прочитать пакет скина: проверьте ZIP и JSON",
+    "english": "Could not read the skin package. Check its ZIP and JSON files",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_d1df132336f2",
+    "source": "Предыдущий клип",
+    "english": "Previous clip",
+    "locations": [
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ]
+  },
+  {
+    "key": "msg_d1edd7d2a9e2",
+    "source": "Редирект без адреса",
+    "english": "The redirect has no destination URL",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_d32a29ef600e",
+    "source": "Громче",
+    "english": "Volume up",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_d3dacfa5bb27",
+    "source": "Доступна версия @0@.",
+    "english": "Version @0@ is available.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_d4998bc84141",
+    "source": "Посмотреть",
+    "english": "Preview",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_d555eba48a2d",
+    "source": "Попробуйте другой запрос или сбросьте фильтры.",
+    "english": "Try another search or reset the filters.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_d585770173b3",
+    "source": "Отметки в Яндекс Музыке",
+    "english": "Yandex Music likes and blocks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_d58f70dd1811",
+    "source": "Без жанра",
+    "english": "Unknown genre",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt",
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_d60fd3858f8f",
+    "source": "Служба приняла запрос. Ожидайте перезагрузку K4811.",
+    "english": "The service accepted the request. Wait for K4811 to restart.",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_d65fb9be6155",
+    "source": "Сохраняются только понравившиеся треки и их обложки. Любимые исполнители и альбомы целиком не загружаются.",
+    "english": "Only liked tracks and their artwork are downloaded. Favorite artists and albums are not downloaded in full.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_d6e12cca8a0f",
+    "source": "В журнале только коды событий. Токены, коды входа, названия треков и адреса запросов не записываются.",
+    "english": "The log contains event codes only. Tokens, sign-in codes, track titles and request URLs are never recorded.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/DiagnosticsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_d73874ba53a6",
+    "source": "Файл-источник остаётся у вас. Его можно импортировать снова.",
+    "english": "Your source file is kept. You can import it again.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_d7ad8e4ee48a",
+    "source": "Авто — как в системе",
+    "english": "Auto — system language",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_d7b587c84b68",
+    "source": "Панель выключена.",
+    "english": "Sidebar disabled.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_d7c74665073a",
+    "source": "Удалится только плейлист. Файлы и текущая очередь сохранятся.",
+    "english": "Only the playlist will be deleted. Files and your current queue will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_d8987908d58b",
+    "source": "Источник и папки",
+    "english": "Sources and folders",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_d8cafee5a654",
+    "source": "Разрешите установку из YMPlayer 2; после возврата откроется системный установщик.",
+    "english": "Allow installation from YMPlayer 2. The system installer will open when you return.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_d96f9192c384",
+    "source": "«Мне нравится» офлайн",
+    "english": "Liked tracks offline",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/OfflineSyncService.kt"
+    ]
+  },
+  {
+    "key": "msg_d9b2fa928b6a",
+    "source": "Код истёк. Получите новый код.",
+    "english": "The code has expired. Get a new code.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt"
+    ]
+  },
+  {
+    "key": "msg_da28911d8b6d",
+    "source": "Перезагрузить",
+    "english": "Restart",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_da4da4e3527c",
+    "source": "Диагностика",
+    "english": "Diagnostics",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/DiagnosticsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_db66cedc69fc",
+    "source": "Вся коллекция",
+    "english": "Full collection",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_dba20ab53801",
+    "source": "Устройство",
+    "english": "Device",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_dbfc1e54cdd9",
+    "source": "Случайный порядок включён",
+    "english": "Shuffle on",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_dc2b5a858155",
+    "source": "Показать / скрыть панель",
+    "english": "Show / hide sidebar",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_dc9712a122a9",
+    "source": "Слушать сохранённое",
+    "english": "Play downloads",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_dca2da414320",
+    "source": "APK не обновляет этот YMPlayer 2",
+    "english": "This APK is not an update for this YMPlayer 2 installation",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_dcc07d613ee2",
+    "source": "Введите код на другом устройстве или откройте страницу Яндекса здесь.",
+    "english": "Enter the code on another device, or open the Yandex sign-in page here.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_dcd18c67df6b",
+    "source": "Источники: GitHub, jsDelivr и Gcore. APK проверяется по размеру, SHA-256, имени пакета, версии и подписи. Android попросит подтвердить установку.",
+    "english": "Sources: GitHub, jsDelivr and Gcore. The APK is checked for size, SHA-256, package name, version and signature. Android will ask you to confirm installation.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_dcd5dbe4d9d2",
+    "source": "Не удалось воспроизвести музыку Яндекса. Проверьте сеть и доступ к треку; нажмите воспроизведение для повтора.",
+    "english": "Could not play Yandex music. Check your connection and access to the track, then press Play to retry.",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
+    ]
+  },
+  {
+    "key": "msg_dce76ccbc542",
+    "source": "Название должно содержать от 1 до 80 символов",
+    "english": "The name must be 1–80 characters long",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt"
+    ]
+  },
+  {
+    "key": "msg_dcefc460162c",
+    "source": "Слишком много распакованных данных",
+    "english": "Too much unpacked data",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_de042c2d1c9a",
+    "source": "Обновление YMPlayer 2",
+    "english": "YMPlayer 2 update",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/UpdateScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_de13383c3766",
+    "source": "Сейчас: @0@",
+    "english": "Now: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_de1ea8c09caa",
+    "source": "Моя волна",
+    "english": "My Vibe",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt",
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt",
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
+    ]
+  },
+  {
+    "key": "msg_de2242264b20",
+    "source": "Нужно 1–64 пути значка",
+    "english": "An icon must contain 1–64 paths",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_ded8b330175a",
+    "source": "Нет сети · показаны доступные офлайн треки",
+    "english": "No connection · showing available offline tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_defc1856ad78",
+    "source": "Не удалось прочитать медиатеку. Обновите папки с музыкой и повторите выбор.",
+    "english": "Could not read the library. Refresh your music folders and select again.",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
+    ]
+  },
+  {
+    "key": "msg_df19962e1865",
+    "source": "Язык приложения",
+    "english": "App language",
+    "locations": [
+      "presentation adapter / language settings"
+    ]
+  },
+  {
+    "key": "msg_df3940f679cf",
+    "source": "Неожиданный размер APK",
+    "english": "Unexpected APK size",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_dff16f6f70a1",
+    "source": "Плеер",
+    "english": "Player",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_e059e8f90790",
+    "source": "Не удалось сохранить выбор оформления",
+    "english": "Could not save your skin selection",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinRepository.kt"
+    ]
+  },
+  {
+    "key": "msg_e088cb84f420",
+    "source": "Вход сохранён для этого профиля. Онлайн-каталог и воспроизведение Яндекса появятся на следующем этапе.",
+    "english": "Your sign-in is saved for this profile. Yandex browsing and playback will be added in the next stage.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_e09846033f94",
+    "source": "Позиция",
+    "english": "Position",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_e15f960d93eb",
+    "source": "Применить",
+    "english": "Apply",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_e199c10f2526",
+    "source": "Тише",
+    "english": "Volume down",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_e2151143d516",
+    "source": "Не удалось прочитать индекс. Добавьте папку заново.",
+    "english": "Could not read the library index. Add the folder again.",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_e21e6ad5c123",
+    "source": "Обновляем сведения об аккаунте…",
+    "english": "Refreshing account details…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_e25ae5e8d071",
+    "source": "Открыть Яндекс",
+    "english": "Open Yandex",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_e261fc0388e8",
+    "source": "Подготовка…",
+    "english": "Preparing…",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/OfflineSyncService.kt"
+    ]
+  },
+  {
+    "key": "msg_e2be34974ae4",
+    "source": "Создать",
+    "english": "Create",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CloudPlaylistDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_e2e513b12b0d",
+    "source": "Сохранённых треков пока нет. Синхронизация доступна в настройках офлайн-кэша.",
+    "english": "No downloaded tracks yet. Sync your music in Offline cache settings.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_e30fc8a5eb01",
+    "source": "Офлайн-кэш «Мне нравится»",
+    "english": "Liked tracks offline cache",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_e349032e2682",
+    "source": "Своя очередь и позиция",
+    "english": "Separate queue and position",
+    "locations": [
+      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+    ]
+  },
+  {
+    "key": "msg_e3c30e30adb9",
+    "source": "Демонстрация ошибки. Текущая очередь сохранена.",
+    "english": "Demo error. Your current queue has been kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_e4c1d01c5c8f",
+    "source": "Избранное",
+    "english": "Favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_e4e4b9b0d2df",
+    "source": "Убрать из «Мне нравится»",
+    "english": "Unlike track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_e6b3d4be516a",
+    "source": "@0@: действие недоступно",
+    "english": "@0@: unavailable",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_e85848addc52",
+    "source": "Нет адреса APK",
+    "english": "Missing APK URL",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_e8c693109156",
+    "source": "Панель YMPlayer 2",
+    "english": "YMPlayer 2 sidebar",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarService.kt"
+    ]
+  },
+  {
+    "key": "msg_e92912b778ee",
+    "source": "На устройстве",
+    "english": "On device",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_ea16ed0e182d",
+    "source": "Удалить плейлист: @0@",
+    "english": "Delete playlist: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_ea172f78eb4c",
+    "source": "Недопустимый путь в скине",
+    "english": "Invalid path in skin package",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_ea183e546bb0",
+    "source": "QR-код для поддержки разработки",
+    "english": "QR code to support development",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AboutDialog.kt"
+    ]
+  },
+  {
+    "key": "msg_ea1f40824607",
+    "source": "Открыть",
+    "english": "Open",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_eabc559b5eaa",
+    "source": "Выберите музыку в медиатеке",
+    "english": "Choose music in the library",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_eb2c88237bfa",
+    "source": "Локальная и онлайн-музыка. Вход в Яндекс — в профилях. Сохранённое «Мне нравится» — в разделе «Офлайн».",
+    "english": "Local and online music. Sign in to Yandex from Profiles. Downloaded liked tracks are in Offline.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_eb9946b15efd",
+    "source": "Повторить чтение",
+    "english": "Reload",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_ebc4254ed734",
+    "source": "Не удалось удалить файлы снятых лайков. Повторите синхронизацию.",
+    "english": "Could not delete files for unliked tracks. Run sync again.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_eca626bab07b",
+    "source": "О приложении",
+    "english": "About",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AboutDialog.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_ecb4e3f4230f",
+    "source": "Загружаем состояние входа…",
+    "english": "Restoring sign-in…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_edcf9d24ba56",
+    "source": "Исполнители",
+    "english": "Artists",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_ee19d8c20fcb",
+    "source": "Код действует ещё @0@",
+    "english": "Code expires in @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_ee9181d5fe7d",
+    "source": "Показать демоданные",
+    "english": "Show demo data",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_eef33a4ed08b",
+    "source": "Яндекс ID @0@",
+    "english": "Yandex ID @0@",
+    "locations": [
+      "provider/yandex/src/main/kotlin/dev/petrov/ymplayer2/yandex/YandexDeviceApi.kt"
+    ]
+  },
+  {
+    "key": "msg_ef05d57959cf",
+    "source": "Готово",
+    "english": "Done",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_ef5631741cc5",
+    "source": "Обновляем отметки…",
+    "english": "Refreshing likes and blocks…",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_efb640146dae",
+    "source": "К плейлистам",
+    "english": "Back to playlists",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_f0a7fd0c1884",
+    "source": "Повтор трека",
+    "english": "Repeat track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_f0cd3a603372",
+    "source": "Светлая",
+    "english": "Light",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_f1d8f4cb696f",
+    "source": "Войдите в Яндекс в этом профиле.",
+    "english": "Sign in to Yandex in this profile.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ]
+  },
+  {
+    "key": "msg_f413b50444c7",
+    "source": "исполнителя",
+    "english": "artist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ]
+  },
+  {
+    "key": "msg_f434aef91735",
+    "source": "Не удалось проверить обновления: @0@",
+    "english": "Could not check for updates: @0@",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_f4d6290e6f4b",
+    "source": "Музыка рядом",
+    "english": "Music with you",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_f4e26aa3eef6",
+    "source": "Плей / пауза",
+    "english": "Play / pause",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_f5a7276edc18",
+    "source": "В корне нет manifest.json",
+    "english": "The package root has no manifest.json",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_f6e01d413ff6",
+    "source": "Домой",
+    "english": "Home",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/SideBarConfig.kt"
+    ]
+  },
+  {
+    "key": "msg_f77ad0247092",
+    "source": "Панель включена.",
+    "english": "Sidebar enabled.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/SideBarCoordinator.kt"
+    ]
+  },
+  {
+    "key": "msg_f7be0cbd0b8a",
+    "source": "Не удалось загрузить медиатеку",
+    "english": "Could not load your library",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_f8480d481387",
+    "source": "Медиатека пока пуста",
+    "english": "Your library is empty",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_f8ac3be6be11",
+    "source": "Видеомодуль ещё разрабатывается",
+    "english": "The video module is still being developed",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
+    ]
+  },
+  {
+    "key": "msg_f8ddc90b1078",
+    "source": "«Спрятать сайдбар» — всегда последняя кнопка и не отключается. Если все остальные кнопки выключены, SideBar отключается.",
+    "english": "Hide sidebar is always the last button and cannot be disabled. If all other buttons are off, the sidebar is disabled.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SideBarScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_f91135efb9aa",
+    "source": "Удалить «@0@»?",
+    "english": "Delete “@0@”?",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CollectionsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SkinsScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_f9b80bf69b7f",
+    "source": "Требуется Android API @0@",
+    "english": "Requires Android API @0@",
+    "locations": [
+      "updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt"
+    ]
+  },
+  {
+    "key": "msg_fa58ba03d4c5",
+    "source": "Название ↑",
+    "english": "Name ↑",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_fb7d156c5bfe",
+    "source": "Рекомендации",
+    "english": "Recommendations",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_fc0f3616f567",
+    "source": "Показать ещё с устройства / USB",
+    "english": "Show more from device / USB",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/CatalogScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_fcd7691c84b2",
+    "source": "Завершить редактирование",
+    "english": "Finish editing",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_fd21b337444d",
+    "source": "Обновить отметки трека",
+    "english": "Refresh track likes and blocks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_fd6e72f72d55",
+    "source": "Настройки офлайн-кэша",
+    "english": "Offline cache settings",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ]
+  },
+  {
+    "key": "msg_fdc54db3a2b0",
+    "source": "Эквалайзер / DSP",
+    "english": "Equalizer / DSP",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
+      "app/src/main/kotlin/dev/petrov/ymplayer2/EqualizerLauncher.kt"
+    ]
+  },
+  {
+    "key": "msg_fed5c913384a",
+    "source": "Результат перезагрузки неизвестен. Повторный запрос не отправляется.",
+    "english": "The restart result is unknown. The request will not be sent again.",
+    "locations": [
+      "headunit/sidebar/src/main/kotlin/dev/petrov/ymplayer2/sidebar/K4811RebootActivity.kt"
+    ]
+  },
+  {
+    "key": "msg_fede8859c53f",
+    "source": "Поиск в Яндекс Музыке",
+    "english": "Search Yandex Music",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ]
+  },
+  {
+    "key": "msg_ff5436e417d8",
+    "source": "В скине слишком много файлов",
+    "english": "The skin contains too many files",
+    "locations": [
+      "designsystem/src/main/kotlin/dev/petrov/ymplayer2/designsystem/skin/SkinPackageReader.kt"
+    ]
+  },
+  {
+    "key": "msg_ffdf574befa9",
+    "source": "По порядку",
+    "english": "In order",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ]
+  }
+]
