@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 74,
-  "versionName": "2.2.2-build74",
+  "versionCode": 75,
+  "versionName": "2.3.0-build75",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-02T11:10:11.3828299Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.2.2-build74",
-  "releaseNotes": "Аудит и исправления: AIFF исключён из каталога, старые установочные APK очищаются, обновление сохраняется при повороте, вложенные ошибки переводятся, исправлена проверка подписи APK на Android 10. На Android 10 первый исправленный APK при отказе старого обновлятора установите вручную поверх текущего приложения.",
+  "publishedAt": "2026-10-03T04:49:06.9993509Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.0-build75",
+  "releaseNotes": "История прослушивания: последние 500 треков каждого профиля, повторный запуск и очистка с подтверждением. Новые пункты на восьми языках и английская инструкция. Стабильное обновление поверх 2.2 с сохранением данных.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.2.2-build74/YMPlayer-2.2.2-build74.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.2.2-build74/releases/2.2.2-build74/YMPlayer-2.2.2-build74.apk",
-    "sizeBytes": 5830513,
-    "sha256": "22c94692cb23fae4a0915d091a7e404b6cd446af270f7da2be67850ca867c959"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.0-build75/YMPlayer-2.3.0-build75.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.0-build75/releases/2.3.0-build75/YMPlayer-2.3.0-build75.apk",
+    "sizeBytes": 5870433,
+    "sha256": "2b9cbe3f669e3e28569681cbb286b0199599f31f2f5f68922253a84c23ecf074"
   }
 }
