@@ -586,5 +586,9 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     history_empty("Здесь появятся треки, которые вы слушали в этом профиле.", "Tracks you play in this profile will appear here.", R.string.history_empty),
     history_failure("Не удалось прочитать или сохранить историю. Повторить", "Could not read or save the listening history. Retry", R.string.history_failure),
     history_clear_title("Очистить историю этого профиля?", "Clear this profile’s listening history?", R.string.history_clear_title),
-    history_clear_description("Удалится только история прослушивания. Файлы, кэш и плейлисты останутся.", "Only the listening history will be cleared. Files, cached music and playlists will be kept.", R.string.history_clear_description);
+    history_clear_description("Удалится только история прослушивания. Файлы, кэш и плейлисты останутся.", "Only the listening history will be cleared. Files, cached music and playlists will be kept.", R.string.history_clear_description),
+    recent_title("Недавно добавлено", "Recently added", R.string.recent_title),
+    recent_description("Музыка устройства и USB по времени первого появления в медиатеке. Повторное сканирование не меняет порядок.", "Device and USB music, newest additions first. Rescanning keeps the original order.", R.string.recent_description),
+    recent_empty("Новых треков пока нет. Музыка, добавленная до появления этого раздела, остаётся в обычной медиатеке.", "No new tracks yet. Music added before this feature is still in your library.", R.string.recent_empty),
+    recent_failure("Не удалось загрузить список. Повторить", "Could not load the list. Retry", R.string.recent_failure);
 }

@@ -585,5 +585,9 @@
     <string name="history_failure" formatted="false">"Не удалось прочитать или сохранить историю. Повторить"</string>
     <string name="history_clear_title" formatted="false">"Очистить историю этого профиля?"</string>
     <string name="history_clear_description" formatted="false">"Удалится только история прослушивания. Файлы, кэш и плейлисты останутся."</string>
+    <string name="recent_title" formatted="false">"Недавно добавлено"</string>
+    <string name="recent_description" formatted="false">"Музыка устройства и USB по времени первого появления в медиатеке. Повторное сканирование не меняет порядок."</string>
+    <string name="recent_empty" formatted="false">"Новых треков пока нет. Музыка, добавленная до появления этого раздела, остаётся в обычной медиатеке."</string>
+    <string name="recent_failure" formatted="false">"Не удалось загрузить список. Повторить"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

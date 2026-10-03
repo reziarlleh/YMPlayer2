@@ -585,5 +585,9 @@
     <string name="history_failure" formatted="false">"Тыңдау тарихын оқу не сақтау мүмкін болмады. Қайталау"</string>
     <string name="history_clear_title" formatted="false">"Осы профильдің тыңдау тарихын тазалау керек пе?"</string>
     <string name="history_clear_description" formatted="false">"Тек тыңдау тарихы өшіріледі. Файлдар, кэш пен плейлисттер сақталады."</string>
+    <string name="recent_title" formatted="false">"Жақында қосылған"</string>
+    <string name="recent_description" formatted="false">"Құрылғы мен USB музыкасы: медиатекаға жаңадан қосылған тректер бірінші көрсетіледі. Қайта сканерлеу ретті өзгертпейді."</string>
+    <string name="recent_empty" formatted="false">"Жаңа тректер әлі жоқ. Бұл бөлім пайда болғанға дейін қосылған музыка әдеттегі медиатекада қалады."</string>
+    <string name="recent_failure" formatted="false">"Тізім жүктелмеді. Қайталау"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

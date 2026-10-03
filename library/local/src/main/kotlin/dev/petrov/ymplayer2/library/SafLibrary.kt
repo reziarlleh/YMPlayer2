@@ -82,6 +82,11 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
         return withContext(Dispatchers.IO) { index.pageGroups(filter, dimension, descending, offset, limit) }
     }
 
+    override suspend fun pageRecentTracks(filter: CatalogFilter, offset: Int, limit: Int): CatalogPage<Track> {
+        loaded.await()
+        return withContext(Dispatchers.IO) { index.pageRecentTracks(filter, offset, limit) }
+    }
+
     init {
         monitorStorage(context, scope, this)
         scope.launch(Dispatchers.IO) {

@@ -52,6 +52,9 @@ interface IndexedLocalLibrary : LocalLibrary {
     suspend fun referencesByIds(ids: Collection<String>): Map<String, SavedTrack>
     suspend fun pageTracks(filter: CatalogFilter, descending: Boolean = false, group: String? = null,
         dimension: CatalogDimension = CatalogDimension.TRACKS, offset: Int = 0, limit: Int = 80): CatalogPage<Track>
+    /** First appearance in the catalog; legacy entries with unknown dates are omitted. */
+    suspend fun pageRecentTracks(filter: CatalogFilter = CatalogFilter(), offset: Int = 0,
+        limit: Int = 80): CatalogPage<Track> = CatalogPage(emptyList(), 0, offset)
     suspend fun pageGroups(filter: CatalogFilter, dimension: CatalogDimension,
         descending: Boolean = false, offset: Int = 0, limit: Int = 80): CatalogPage<CatalogGroup>
 }

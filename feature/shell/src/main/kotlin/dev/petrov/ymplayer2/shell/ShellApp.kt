@@ -63,7 +63,7 @@ private val destinations get() = listOf(
     var offlineSearch by rememberSaveable(playback.profileId) { mutableStateOf(false) }
     var searchQuery by rememberSaveable(playback.profileId) { mutableStateOf("") }
     val holder = rememberSaveableStateHolder()
-    val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline", "history")) "library" else route
+    val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline", "history", "recent")) "library" else route
     val navigate: (String) -> Unit = {
         if (route == "account" && it != "account") model.accounts?.cancel()
         if (route == "artist" && it != "artist") model.online?.closeArtistCard()
@@ -96,7 +96,7 @@ private val destinations get() = listOf(
         when (route) {
             "quality", "diagnostics", "sidebar", "updates", "skins", "offline_settings", "language" -> navigate("settings")
             "account" -> navigate("profiles")
-            "playlists", "favorites", "folders", "offline", "history" -> { libraryUpRequest++; navigate("library") }
+            "playlists", "favorites", "folders", "offline", "history", "recent" -> { libraryUpRequest++; navigate("library") }
             "player" -> {
                 val now = SystemClock.elapsedRealtime()
                 if (exitAt?.let { now - it in 0..1999 } == true) { exitAt = null; onExit() }
@@ -146,7 +146,10 @@ private val destinations get() = listOf(
                                         "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists)
                                         "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists) }
                                         "library", "search" -> Column(Modifier.fillMaxSize()) {
-                                            if (route == "library" && model.history != null) OutlinedButton({ navigate("history") }, Modifier.padding(horizontal = 16.dp).prismFocus().testTag("open_history")) { Text(tr(Msg.history_title)) }
+                                            if (route == "library") Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                                if (model.history != null) OutlinedButton({ navigate("history") }, Modifier.prismFocus().testTag("open_history")) { Text(tr(Msg.history_title)) }
+                                                if (model.local is IndexedLocalLibrary) OutlinedButton({ navigate("recent") }, Modifier.prismFocus().testTag("open_recent")) { Text(tr(Msg.recent_title)) }
+                                            }
                                             model.online?.let {
                                                 if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (route == "search" && offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
                                                     FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text(tr(Msg.msg_00231affc201)) }, choice("local").prismFocus().testTag("source_local"))
@@ -178,6 +181,7 @@ private val destinations get() = listOf(
                                         "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
                                         "offline" -> model.offline?.let { OfflineScreen(it, model.player) }
                                         "history" -> HistoryScreen(model, openArtist)
+                                        "recent" -> RecentScreen(model) { collectionTrack = it }
                                         "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
                                             model.player.switchProfile(it); navigate("player")
                                         }

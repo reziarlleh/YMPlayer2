@@ -9,8 +9,9 @@ import android.net.Uri
 import dev.petrov.ymplayer2.core.*
 
 /** Transactional metadata index. Document URIs point to the original media; audio is never copied. */
-internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkCache) :
-    SQLiteOpenHelper(context, "local-catalog.db", null, 2) {
+internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkCache,
+    databaseName: String = "local-catalog.db", private val now: () -> Long = System::currentTimeMillis) :
+    SQLiteOpenHelper(context, databaseName, null, 3) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
@@ -21,7 +22,8 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
             genre TEXT NOT NULL, folder TEXT NOT NULL, tint INTEGER NOT NULL,
             uri TEXT NOT NULL, root TEXT NOT NULL, size INTEGER NOT NULL, modified INTEGER NOT NULL,
             artwork TEXT, artwork_checked INTEGER NOT NULL,
-            title_key TEXT NOT NULL, artist_key TEXT NOT NULL, album_key TEXT NOT NULL
+            title_key TEXT NOT NULL, artist_key TEXT NOT NULL, album_key TEXT NOT NULL,
+            added_at INTEGER NOT NULL DEFAULT 0
         )""")
         db.execSQL("CREATE INDEX tracks_order ON tracks(title_key, id)")
         db.execSQL("CREATE INDEX tracks_source_order ON tracks(source, title_key, id)")
@@ -30,32 +32,34 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
         db.execSQL("CREATE INDEX tracks_artist ON tracks(artist)")
         db.execSQL("CREATE INDEX tracks_genre ON tracks(genre)")
         db.execSQL("CREATE INDEX tracks_folder ON tracks(folder)")
+        db.execSQL("CREATE INDEX tracks_recent ON tracks(added_at DESC,id)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (oldVersion == 1 && newVersion == 2) {
-            db.execSQL("CREATE INDEX tracks_source_order ON tracks(source, title_key, id)")
-            return
-        }
-        error("Unsupported local catalog schema $oldVersion → $newVersion")
+        require(oldVersion in 1..2 && newVersion == 3) { "Unsupported local catalog schema $oldVersion → $newVersion" }
+        if (oldVersion < 2) db.execSQL("CREATE INDEX tracks_source_order ON tracks(source, title_key, id)")
+        // Zero means the first appearance predates this feature, not the date of upgrading.
+        db.execSQL("ALTER TABLE tracks ADD COLUMN added_at INTEGER NOT NULL DEFAULT 0")
+        db.execSQL("CREATE INDEX tracks_recent ON tracks(added_at DESC,id)")
     }
 
     fun initialized(): Boolean = readableDatabase.rawQuery("SELECT value FROM meta WHERE key='initialized'", null).use { it.moveToFirst() }
 
-    /** Replace only after every SAF root was scanned or its previous unavailable rows were retained. */
+    /** Import the legacy JSON index; its entries have no known first-appearance date. */
     fun replace(snapshot: LibrarySnapshot, artworkChecked: Set<String>) {
         val db = writableDatabase
         db.beginTransaction()
         try {
             db.delete("tracks", null, null)
             db.delete("roots", null, null)
-            insertRows(db, snapshot, artworkChecked)
+            insertRows(db, snapshot, artworkChecked, emptyMap(), 0)
             db.execSQL("INSERT OR REPLACE INTO meta(key,value) VALUES('initialized','1')")
             db.setTransactionSuccessful()
         } finally { db.endTransaction() }
     }
 
-    private fun insertRows(db: SQLiteDatabase, snapshot: LibrarySnapshot, artworkChecked: Set<String>) {
+    private fun insertRows(db: SQLiteDatabase, snapshot: LibrarySnapshot, artworkChecked: Set<String>,
+        existingDates: Map<String, Long>, firstSeen: Long) {
         snapshot.roots.forEach { insertRoot(db, it) }
         snapshot.tracks.forEach { track ->
             db.insertOrThrow("tracks", null, ContentValues().apply {
@@ -69,6 +73,7 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
                 put("artwork_checked", if (track.id in artworkChecked) 1 else 0)
                 put("title_key", track.title.lowercase()); put("artist_key", track.artist.lowercase())
                 put("album_key", track.album.lowercase())
+                put("added_at", existingDates[track.id] ?: firstSeen)
             })
         }
     }
@@ -94,8 +99,11 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
         val db = writableDatabase
         db.beginTransaction()
         try {
+            val dates = db.rawQuery("SELECT id,added_at FROM tracks WHERE root=?", arrayOf(root.uri)).use { cursor ->
+                buildMap { while (cursor.moveToNext()) put(cursor.getString(0), cursor.getLong(1)) }
+            }
             db.delete("tracks", "root=?", arrayOf(root.uri))
-            insertRows(db, LibrarySnapshot(listOf(root), tracks), artworkChecked)
+            insertRows(db, LibrarySnapshot(listOf(root), tracks), artworkChecked, dates, now())
             db.setTransactionSuccessful()
         } finally { db.endTransaction() }
     }
@@ -245,6 +253,23 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
             buildList { while (cursor.moveToNext()) add(track(cursor)) }
         }
         return CatalogPage(page, total, offset)
+    }
+
+    fun pageRecentTracks(filter: CatalogFilter, offset: Int, limit: Int): CatalogPage<Track> {
+        validate(offset, limit)
+        val (filterWhere, args) = condition(filter, null, CatalogDimension.TRACKS)
+        val where = " WHERE added_at>0" + if (filterWhere.isEmpty()) "" else " AND " + filterWhere.removePrefix(" WHERE ")
+        val db = readableDatabase
+        db.beginTransactionNonExclusive()
+        try {
+            val total = db.rawQuery("SELECT COUNT(*) FROM tracks$where", args).use { it.moveToFirst(); it.getInt(0) }
+            val rows = db.rawQuery("SELECT $trackColumns FROM tracks$where ORDER BY added_at DESC,id LIMIT ? OFFSET ?",
+                args + arrayOf(limit.toString(), offset.toString())).use { cursor ->
+                buildList { while (cursor.moveToNext()) add(track(cursor)) }
+            }
+            db.setTransactionSuccessful()
+            return CatalogPage(rows, total, offset)
+        } finally { db.endTransaction() }
     }
 
     fun pageGroups(filter: CatalogFilter, dimension: CatalogDimension, descending: Boolean,

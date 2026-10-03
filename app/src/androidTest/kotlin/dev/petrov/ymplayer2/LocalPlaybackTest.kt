@@ -82,6 +82,47 @@ class LocalPlaybackTest {
         compose.onNodeWithTag("open_history").assertIsDisplayed()
     }
 
+    @Test fun recentlyAddedUsesSafIndexAndRemoteNavigationWithoutRescanReordering() {
+        val first = runBlocking { library.pageRecentTracks().items.map { it.id } }
+        assertEquals(2, first.size)
+        runBlocking { library.refresh() }
+        assertEquals(first, runBlocking { library.pageRecentTracks().items.map { it.id } })
+        compose.onNodeWithTag("nav_library").performClick()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.onNodeWithTag("open_recent").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+        compose.onNodeWithTag("open_recent").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
+        compose.onNodeWithTag("recent_list").assertIsDisplayed()
+        compose.onNodeWithTag("track_${first.first()}").assertIsDisplayed().performClick()
+        waitFor { player.state.value.current?.id == first.first() }
+        compose.runOnIdle { player.stop() }
+        compose.onNodeWithTag("recent_USB").performClick()
+        compose.onNodeWithTag("recent_empty").assertIsDisplayed()
+        compose.onNodeWithTag("recent_LOCAL").performClick()
+        compose.onNodeWithTag("track_${first.first()}").assertIsDisplayed()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
+        compose.onNodeWithTag("open_recent").assertIsDisplayed()
+    }
+
+    @Test fun recentlyAddedLoadsNextPageAndRetainsDisconnectedUsbRows() {
+        provider("bulk", "81")
+        runBlocking { library.refresh() }
+        val rows = runBlocking { library.pageRecentTracks(limit = 100).items }
+        assertEquals(83, rows.size)
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("open_recent").performClick()
+        waitFor { compose.onAllNodesWithTag("track_${rows.first().id}").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("recent_list").performScrollToNode(hasTestTag("recent_more"))
+        compose.onNodeWithTag("recent_more").performClick()
+        waitFor { compose.onAllNodesWithTag("recent_more").fetchSemanticsNodes().isEmpty() }
+        compose.onNodeWithTag("recent_list").performScrollToNode(hasTestTag("track_${rows.last().id}"))
+        compose.onNodeWithTag("track_${rows.last().id}").assertIsDisplayed()
+        provider("unavailable", "true")
+        runBlocking { library.refresh() }
+        val unavailable = runBlocking { library.pageRecentTracks(limit = 100) }
+        assertEquals(rows.map { it.id }, unavailable.items.map { it.id })
+        assertTrue(unavailable.items.none { it.available })
+    }
+
     @Test fun unsupportedAiffIsExcludedEvenWithAudioMimeAndWavExtensionFallbackRemains() = runBlocking {
         provider("unsupportedFormats", "true")
         try {

@@ -585,5 +585,9 @@
     <string name="history_failure" formatted="false">"Der Hörverlauf konnte nicht gelesen oder gespeichert werden. Erneut versuchen"</string>
     <string name="history_clear_title" formatted="false">"Hörverlauf dieses Profils löschen?"</string>
     <string name="history_clear_description" formatted="false">"Nur der Hörverlauf wird gelöscht. Dateien, Cache und Playlists bleiben erhalten."</string>
+    <string name="recent_title" formatted="false">"Zuletzt hinzugefügt"</string>
+    <string name="recent_description" formatted="false">"Musik vom Gerät und von USB, neu hinzugefügte Titel zuerst. Erneutes Einlesen ändert die Reihenfolge nicht."</string>
+    <string name="recent_empty" formatted="false">"Noch keine neuen Titel. Musik, die vor dieser Funktion hinzugefügt wurde, findest du weiterhin in der Mediathek."</string>
+    <string name="recent_failure" formatted="false">"Liste konnte nicht geladen werden. Erneut versuchen"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

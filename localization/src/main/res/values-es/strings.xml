@@ -585,5 +585,9 @@
     <string name="history_failure" formatted="false">"No se pudo leer o guardar el historial. Reintentar"</string>
     <string name="history_clear_title" formatted="false">"¿Borrar el historial de este perfil?"</string>
     <string name="history_clear_description" formatted="false">"Solo se borrará el historial de escucha. Se conservarán los archivos, la música en caché y las listas."</string>
+    <string name="recent_title" formatted="false">"Añadido recientemente"</string>
+    <string name="recent_description" formatted="false">"Música del dispositivo y de USB, con las incorporaciones más recientes primero. Volver a escanear no cambia el orden."</string>
+    <string name="recent_empty" formatted="false">"Aún no hay temas nuevos. La música añadida antes de esta función sigue en tu biblioteca."</string>
+    <string name="recent_failure" formatted="false">"No se pudo cargar la lista. Reintentar"</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

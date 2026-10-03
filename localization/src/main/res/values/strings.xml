@@ -585,5 +585,9 @@
     <string name="history_failure" formatted="false">"Could not read or save the listening history. Retry"</string>
     <string name="history_clear_title" formatted="false">"Clear this profile’s listening history?"</string>
     <string name="history_clear_description" formatted="false">"Only the listening history will be cleared. Files, cached music and playlists will be kept."</string>
+    <string name="recent_title" formatted="false">"Recently added"</string>
+    <string name="recent_description" formatted="false">"Device and USB music, newest additions first. Rescanning keeps the original order."</string>
+    <string name="recent_empty" formatted="false">"No new tracks yet. Music added before this feature is still in your library."</string>
+    <string name="recent_failure" formatted="false">"Could not load the list. Retry"</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

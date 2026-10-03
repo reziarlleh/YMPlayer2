@@ -1,0 +1,368 @@
+{
+  "lint": {
+    "counts": {
+      "Warning": 31
+    },
+    "byId": {
+      "OldTargetApi": 1,
+      "AndroidGradlePluginVersion": 3,
+      "GradleDependency": 9,
+      "NewerVersionAvailable": 5,
+      "DataExtractionRules": 1,
+      "ObsoleteSdkInt": 1,
+      "StaticFieldLeak": 1,
+      "MonochromeLauncherIcon": 1,
+      "UseKtx": 9
+    },
+    "issues": [
+      {
+        "id": "OldTargetApi",
+        "severity": "Warning",
+        "message": "Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details.",
+        "locations": [
+          {
+            "file": "app/build.gradle.kts",
+            "line": "25"
+          }
+        ]
+      },
+      {
+        "id": "AndroidGradlePluginVersion",
+        "severity": "Warning",
+        "message": "A newer version of Gradle than 9.5.0 is available: 9.8.0",
+        "locations": [
+          {
+            "file": "gradle/wrapper/gradle-wrapper.properties",
+            "line": "3"
+          }
+        ]
+      },
+      {
+        "id": "AndroidGradlePluginVersion",
+        "severity": "Warning",
+        "message": "A newer version of com.android.application than 9.3.2 is available: 9.4.1. (There is also a newer version of 9.3.𝑥 available, if upgrading to 9.4.1 is difficult: 9.3.3)",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "2"
+          }
+        ]
+      },
+      {
+        "id": "AndroidGradlePluginVersion",
+        "severity": "Warning",
+        "message": "A newer version of com.android.library than 9.3.2 is available: 9.4.1. (There is also a newer version of 9.3.𝑥 available, if upgrading to 9.4.1 is difficult: 9.3.3)",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "2"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.compose:compose-bom than 2026.08.00 is available: 2026.09.00",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "4"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.lifecycle:lifecycle-runtime-compose than 2.10.0 is available: 2.11.0",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "6"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.lifecycle:lifecycle-viewmodel-compose than 2.10.0 is available: 2.11.0",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "6"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.media3:media3-exoplayer than 1.11.0 is available: 1.11.1",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "8"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.media3:media3-exoplayer-dash than 1.11.0 is available: 1.11.1",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "8"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.media3:media3-exoplayer-hls than 1.11.0 is available: 1.11.1",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "8"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.media3:media3-session than 1.11.0 is available: 1.11.1",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "8"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.media3:media3-ui than 1.11.0 is available: 1.11.1",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "8"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.core:core than 1.19.0 is available: 1.19.1",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "11"
+          }
+        ]
+      },
+      {
+        "id": "NewerVersionAvailable",
+        "severity": "Warning",
+        "message": "A newer version of org.jetbrains.kotlin.jvm than 2.3.21 is available: 2.4.20",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "3"
+          }
+        ]
+      },
+      {
+        "id": "NewerVersionAvailable",
+        "severity": "Warning",
+        "message": "A newer version of org.jetbrains.kotlin.plugin.compose than 2.3.21 is available: 2.4.20",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "3"
+          }
+        ]
+      },
+      {
+        "id": "NewerVersionAvailable",
+        "severity": "Warning",
+        "message": "A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-android than 1.10.2 is available: 1.11.0",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "7"
+          }
+        ]
+      },
+      {
+        "id": "NewerVersionAvailable",
+        "severity": "Warning",
+        "message": "A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-core than 1.10.2 is available: 1.11.0",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "7"
+          }
+        ]
+      },
+      {
+        "id": "NewerVersionAvailable",
+        "severity": "Warning",
+        "message": "A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-test than 1.10.2 is available: 1.11.0",
+        "locations": [
+          {
+            "file": "gradle/libs.versions.toml",
+            "line": "7"
+          }
+        ]
+      },
+      {
+        "id": "DataExtractionRules",
+        "severity": "Warning",
+        "message": "The attribute `android:dataExtractionRules` only applies for Android 12 and higher; since `minSdkVersion` is API 29 you should also set `android:fullBackupContent`",
+        "locations": [
+          {
+            "file": "app/src/main/AndroidManifest.xml",
+            "line": "15"
+          }
+        ]
+      },
+      {
+        "id": "ObsoleteSdkInt",
+        "severity": "Warning",
+        "message": "This folder configuration (`v26`) is unnecessary; `minSdkVersion` is 29. Merge all the resources in this folder into `mipmap-anydpi`.",
+        "locations": [
+          {
+            "file": "app/src/main/res/mipmap-anydpi-v26",
+            "line": null
+          }
+        ]
+      },
+      {
+        "id": "StaticFieldLeak",
+        "severity": "Warning",
+        "message": "This field leaks a context object",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt",
+            "line": "31"
+          }
+        ]
+      },
+      {
+        "id": "MonochromeLauncherIcon",
+        "severity": "Warning",
+        "message": "The application adaptive icon is missing a monochrome tag",
+        "locations": [
+          {
+            "file": "app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+            "line": "1"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/AudioQualitySettings.kt",
+            "line": "10"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/EqualizerLauncher.kt",
+            "line": "27"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt",
+            "line": "53"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt",
+            "line": "60"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt",
+            "line": "63"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt",
+            "line": "74"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt",
+            "line": "127"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt",
+            "line": "147"
+          }
+        ]
+      },
+      {
+        "id": "UseKtx",
+        "severity": "Warning",
+        "message": "Use the KTX extension function `SharedPreferences.edit` instead?",
+        "locations": [
+          {
+            "file": "app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt",
+            "line": "161"
+          }
+        ]
+      }
+    ]
+  },
+  "jvmTests": {
+    "tests": 90,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "trackedPrivateFiles": []
+}

@@ -116,6 +116,15 @@ not remove files, offline downloads or playlists.
 
 *Signed 2.3.0-build75 on the project’s Android 15 emulator, with a local test track.*
 
+## Recently added
+
+Open **Library → Recently added** to find new device and USB tracks.
+Choose a source or load the next page. Rescanning and changing file tags keep
+the original order. Disconnected USB tracks retain their labels but cannot
+play until you reconnect the drive. Music added before this feature remains
+in the regular library: its original date is unknown. Forgetting a folder
+and adding it again counts as a new addition.
+
 ## Yandex sign-in and profiles
 
 1. Open **Profiles**, choose the profile you want, then open its Yandex account page.
