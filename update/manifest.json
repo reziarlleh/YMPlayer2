@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 76,
-  "versionName": "2.3.1-build76",
+  "versionCode": 77,
+  "versionName": "2.3.2-build77",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-03T05:17:41.6498341Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.1-build76",
-  "releaseNotes": "Недавно добавленная музыка устройства и USB: порядок по первому появлению в медиатеке, без перестановки при сканировании. Все восемь языков, управление пультом, сохранение старого каталога и настроек.",
+  "publishedAt": "2026-10-03T05:51:49.3402069Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.2-build77",
+  "releaseNotes": "Массовый выбор треков: добавление в очередь и локальные плейлисты в порядке выбора, отметки на следующих страницах, управление пультом и сохранение данных.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.1-build76/YMPlayer-2.3.1-build76.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.1-build76/releases/2.3.1-build76/YMPlayer-2.3.1-build76.apk",
-    "sizeBytes": 5891981,
-    "sha256": "de0a6327bfa4dde3025b33fe88f2364d5e863484fd978aaa6e23a90f7f3ad382"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.2-build77/YMPlayer-2.3.2-build77.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.2-build77/releases/2.3.2-build77/YMPlayer-2.3.2-build77.apk",
+    "sizeBytes": 5928981,
+    "sha256": "f67cade57eda4873799883e3d607950202932f0d945e59c528a5a6a002c13554"
   }
 }
