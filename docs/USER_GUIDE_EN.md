@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For 2.3.0. Updated on 3 October 2026.
+For 2.3.2. Updated on 3 October 2026.
 
 YMPlayer 2 plays music from your device and USB storage, Yandex Music and music
 videos. It supports separate profiles, offline liked tracks and custom skins.
@@ -187,6 +187,8 @@ The action bar stays visible while you scroll in selection mode. Cancel or Back
 clears the selection. Changing section, profile, source, filter or search also
 clears it. Your audio files stay untouched. If a local track disappears before
 saving, the whole playlist change is rejected; adjust your selection and retry.
+
+<p align="center"><img src="qa/2-3-2/phone-bulk77.png" width="280" alt="Multi-track selection using local test files"></p>
 
 ## Offline music
 
