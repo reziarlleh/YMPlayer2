@@ -589,5 +589,10 @@
     <string name="recent_description" formatted="false">"Musik vom Gerät und von USB, neu hinzugefügte Titel zuerst. Erneutes Einlesen ändert die Reihenfolge nicht."</string>
     <string name="recent_empty" formatted="false">"Noch keine neuen Titel. Musik, die vor dieser Funktion hinzugefügt wurde, findest du weiterhin in der Mediathek."</string>
     <string name="recent_failure" formatted="false">"Liste konnte nicht geladen werden. Erneut versuchen"</string>
+    <string name="bulk_select" formatted="false">"Titel auswählen"</string>
+    <string name="bulk_count" formatted="false">"Ausgewählt: @0@"</string>
+    <string name="bulk_queue" formatted="false">"Zur Warteschlange"</string>
+    <string name="bulk_playlist" formatted="false">"Zur lokalen Playlist"</string>
+    <string name="bulk_local_only" formatted="false">"Lokale Playlists können nur Musik vom Gerät und von USB enthalten."</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

@@ -589,5 +589,10 @@
     <string name="recent_description" formatted="false">"Device and USB music, newest additions first. Rescanning keeps the original order."</string>
     <string name="recent_empty" formatted="false">"No new tracks yet. Music added before this feature is still in your library."</string>
     <string name="recent_failure" formatted="false">"Could not load the list. Retry"</string>
+    <string name="bulk_select" formatted="false">"Select tracks"</string>
+    <string name="bulk_count" formatted="false">"Selected: @0@"</string>
+    <string name="bulk_queue" formatted="false">"Add to queue"</string>
+    <string name="bulk_playlist" formatted="false">"Add to local playlist"</string>
+    <string name="bulk_local_only" formatted="false">"Local playlists can contain device and USB music only."</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

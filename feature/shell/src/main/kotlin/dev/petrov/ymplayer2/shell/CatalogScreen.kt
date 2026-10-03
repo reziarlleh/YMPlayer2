@@ -34,7 +34,7 @@ import kotlinx.coroutines.CancellationException
     music: OnlineMusic? = null, taste: MusicTaste? = null, cached: List<Track> = emptyList(),
     artist: (ArtistRef) -> Unit = {}, cloudPlaylists: CloudPlaylists? = null, signIn: () -> Unit = {},
     onlineHome: () -> Unit = {}, waveStarted: () -> Unit = {}, cacheOnly: Boolean = false,
-    searchQuery: String? = null, onSearchQueryChange: (String) -> Unit = {}, retry: () -> Unit) {
+    searchQuery: String? = null, onSearchQueryChange: (String) -> Unit = {}, collectionStore: UserCollections? = null, retry: () -> Unit) {
     var localQuery by rememberSaveable { mutableStateOf("") }
     val query = searchQuery ?: localQuery
     val changeQuery: (String) -> Unit = { localQuery = it; onSearchQueryChange(it) }
@@ -67,6 +67,7 @@ import kotlinx.coroutines.CancellationException
     val currentCategory = if (cacheOnly) Category.TRACKS else category
     val grouped = currentDetail == null && currentCategory != Category.TRACKS && (!search || music != null)
     val dimension = currentCategory.dimension()
+    val selection = rememberTrackSelection(playback.profileId, filter, currentCategory, currentDetail, descending, search, upRequest)
     val remoteKind = when (currentCategory) {
         Category.TRACKS -> MusicKind.TRACKS
         Category.ALBUMS -> MusicKind.ALBUMS
@@ -137,12 +138,15 @@ import kotlinx.coroutines.CancellationException
         remoteEntities.map { CatalogGroupRow(remote = it) }).sortedWith(
         compareBy<CatalogGroupRow> { it.title.lowercase() }.thenBy { it.key }.let { if (descending) it.reversed() else it })
     val loadMore = { visibleCount = if (indexed == null) (visibleCount + 80).coerceAtMost(50_000) else visibleCount + 80 }
+    Column(Modifier.fillMaxSize()) {
+    if (selection.active) SelectionToolbar(selection, player, collectionStore)
     holder.SaveableStateProvider(currentDetail ?: "root") {
-        LazyColumn(Modifier.fillMaxSize().imePadding().testTag("catalog_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        LazyColumn(Modifier.weight(1f).fillMaxWidth().imePadding().testTag("catalog_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     if (currentDetail != null) ActionIcon(UiIcon.BACK, tr(Msg.msg_b0f0ab86be80), { detail = null })
                     Text(currentDetail ?: if (search) tr(Msg.msg_180f58ab9753) else tr(Msg.msg_0a20ddc9928f), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                    if (!grouped && !selection.active) OutlinedButton({ selection.active = true }, Modifier.prismFocus().testTag("bulk_start")) { Text(tr(Msg.bulk_select)) }
                 }
             }
             if (!demo && !search && currentDetail == null) item {
@@ -230,7 +234,9 @@ import kotlinx.coroutines.CancellationException
                             queued = track.id in queuedIds || playback.automaticLocal && track.source != Source.YANDEX &&
                                 (playback.automaticSource == null || playback.automaticSource == track.source),
                             more = if (track.source == Source.YANDEX && taste != null) ({ trackActions = track }) else more?.let { action -> { action(track) } },
-                            taste = taste?.takeIf { track.source == Source.YANDEX }, artist = artist) }
+                            taste = taste?.takeIf { track.source == Source.YANDEX }, artist = artist,
+                            checked = if (selection.active) selection.contains(track.id) else null,
+                            toggleSelection = if (selection.active) ({ selection.toggle(track) }) else null) }
                         if (shown?.hasMore == true && (indexed == null || visibleCount <= Int.MAX_VALUE - 80)) item { OutlinedButton(loadMore, Modifier.fillMaxWidth().prismFocus().testTag("catalog_more")) { Text(tr(Msg.msg_fc0f3616f567)) } }
                     } else {
                         val shown = groups
@@ -256,6 +262,8 @@ import kotlinx.coroutines.CancellationException
             }
         }
     }
+}
+
 }
 
 private data class CatalogGroupRow(val local: CatalogGroup? = null, val remote: MusicEntry? = null) {

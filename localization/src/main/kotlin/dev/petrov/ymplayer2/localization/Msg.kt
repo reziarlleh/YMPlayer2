@@ -590,5 +590,10 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     recent_title("Недавно добавлено", "Recently added", R.string.recent_title),
     recent_description("Музыка устройства и USB по времени первого появления в медиатеке. Повторное сканирование не меняет порядок.", "Device and USB music, newest additions first. Rescanning keeps the original order.", R.string.recent_description),
     recent_empty("Новых треков пока нет. Музыка, добавленная до появления этого раздела, остаётся в обычной медиатеке.", "No new tracks yet. Music added before this feature is still in your library.", R.string.recent_empty),
-    recent_failure("Не удалось загрузить список. Повторить", "Could not load the list. Retry", R.string.recent_failure);
+    recent_failure("Не удалось загрузить список. Повторить", "Could not load the list. Retry", R.string.recent_failure),
+    bulk_select("Выбрать треки", "Select tracks", R.string.bulk_select),
+    bulk_count("Выбрано: @0@", "Selected: @0@", R.string.bulk_count),
+    bulk_queue("В очередь", "Add to queue", R.string.bulk_queue),
+    bulk_playlist("В локальный плейлист", "Add to local playlist", R.string.bulk_playlist),
+    bulk_local_only("В локальный плейлист можно добавить только музыку устройства и USB.", "Local playlists can contain device and USB music only.", R.string.bulk_local_only);
 }

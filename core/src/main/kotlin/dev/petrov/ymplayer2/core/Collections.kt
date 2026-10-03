@@ -19,6 +19,8 @@ sealed interface CollectionEdit {
     data class Rename(val playlistId: String, val name: String) : CollectionEdit
     data class Delete(val playlistId: String) : CollectionEdit
     data class Add(val playlistId: String, val trackId: String) : CollectionEdit
+    data class AddMany(val playlistId: String, val trackIds: List<String>) : CollectionEdit
+    data class CreateMany(val name: String, val trackIds: List<String>) : CollectionEdit
     data class Remove(val playlistId: String, val trackId: String) : CollectionEdit
     data class Move(val playlistId: String, val trackId: String, val toIndex: Int) : CollectionEdit
     data class Favorite(val trackId: String, val selected: Boolean) : CollectionEdit
@@ -49,6 +51,12 @@ fun ProfileCollections.edited(change: CollectionEdit, catalog: Map<String, Track
         is CollectionEdit.Add -> update(change.playlistId) { list ->
             if (list.tracks.any { it.id == change.trackId }) list else list.copy(tracks = list.tracks + reference(change.trackId))
         }
+        is CollectionEdit.AddMany -> {
+            // Validate the entire input before committing, including IDs already in the list.
+            val refs = change.trackIds.distinct().map(::reference)
+            update(change.playlistId) { list -> list.copy(tracks = (list.tracks + refs).distinctBy(SavedTrack::id)) }
+        }
+        is CollectionEdit.CreateMany -> copy(playlists = playlists + LocalPlaylist(newId(), name(change.name), change.trackIds.distinct().map(::reference)))
         is CollectionEdit.Remove -> update(change.playlistId) { it.copy(tracks = it.tracks.filterNot { track -> track.id == change.trackId }) }
         is CollectionEdit.Move -> update(change.playlistId) { list ->
             val from = list.tracks.indexOfFirst { it.id == change.trackId }

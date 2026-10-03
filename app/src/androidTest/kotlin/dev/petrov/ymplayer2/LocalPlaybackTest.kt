@@ -123,6 +123,120 @@ class LocalPlaybackTest {
         assertTrue(unavailable.items.none { it.available })
     }
 
+    @Test fun bulkPlaylistCommitIsAtomicOrderedPersistentAndProfileScoped() = runBlocking {
+        val store = graph.collections
+        waitFor { store.state.value.ready }
+        val ids = library.testTracks.map { it.id }.asReversed()
+        val name = "Batch-${System.nanoTime()}"
+        assertTrue(store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.CreateMany(name, ids + ids.first())))
+        val list = store.state.value.profile("owner").playlists.single { it.name == name }
+        try {
+            assertEquals(ids, list.tracks.map { it.id })
+            assertFalse(store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.AddMany(list.id, listOf(ids.first(), "missing"))))
+            assertEquals(ids, store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.map { it.id })
+            assertFalse(store.state.value.profile("road").playlists.any { it.id == list.id })
+            store.reload()
+            assertEquals(ids, store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.map { it.id })
+        } finally { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) }
+    }
+
+    @Test fun bulkSelectionSurvivesPaginationAndAddsInChosenOrderWithRemote() {
+        provider("bulk", "81")
+        runBlocking { library.refresh() }
+        val rows = runBlocking { library.pageTracks(CatalogFilter(), limit = 100).items }
+        val first = rows[5]; val last = rows.last()
+        val store = graph.collections
+        waitFor { store.state.value.ready }
+        val name = "Selection-${System.nanoTime()}"
+        assertTrue(runBlocking { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Create(name)) })
+        val list = store.state.value.profile("owner").playlists.single { it.name == name }
+        compose.runOnIdle { player.clearQueue() }
+        waitFor { player.state.value.queueCount == 0 }
+        fun action(tag: String) {
+            compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+        }
+        try {
+            compose.onNodeWithTag("nav_library").performClick()
+            action("bulk_start")
+            action("select_${first.id}")
+            action("catalog_more")
+            action("select_${last.id}")
+            compose.onNodeWithTag("select_${last.id}").assertIsOn()
+            compose.onNodeWithTag("bulk_count").assertTextContains("2", substring = true)
+            assertFalse(player.state.value.playing)
+            val bitmap = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()
+            if (bitmap != null) {
+                java.io.File(compose.activity.getExternalFilesDir(null), "bulk-ui.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+                bitmap.recycle()
+            }
+            compose.onNodeWithTag("bulk_playlist").performClick()
+            compose.onNodeWithTag("bulk_playlist_${list.id}").performClick()
+            waitFor { store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.size == 2 }
+            assertEquals(listOf(first.id, last.id), store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.map { it.id })
+            action("bulk_start")
+            action("select_${last.id}")
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+            compose.onNodeWithTag("select_${last.id}").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+            compose.onNodeWithTag("select_${last.id}").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
+            compose.onNodeWithTag("select_${last.id}").assertIsOff()
+            compose.onNodeWithTag("select_${last.id}").performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
+            action("select_${first.id}")
+            compose.onNodeWithTag("bulk_enqueue").performClick()
+            waitFor { player.state.value.queueCount == 2 }
+            assertEquals(listOf(last.id, first.id), runBlocking { player.queuePage(0).items.map { it.id } })
+            assertFalse(player.state.value.playing)
+        } finally { runBlocking { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) } }
+    }
+
+    @Test fun recentBulkSelectionCreatesLocalPlaylistThroughNameDialog() {
+        val store = graph.collections
+        waitFor { store.state.value.ready }
+        val ids = runBlocking { library.pageRecentTracks().items.map { it.id } }
+        val name = "Recent-batch-${System.nanoTime()}"
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("open_recent").performClick()
+        compose.onNodeWithTag("bulk_start").performClick()
+        for (id in ids) {
+            compose.onNodeWithTag("recent_list").performScrollToNode(hasTestTag("select_$id"))
+            compose.onNodeWithTag("select_$id").performClick()
+        }
+        compose.onNodeWithTag("bulk_playlist").performClick()
+        compose.onNodeWithTag("bulk_new_playlist").performClick()
+        compose.onNodeWithTag("playlist_name").performTextInput(name)
+        compose.onNodeWithTag("playlist_save").performClick()
+        waitFor { store.state.value.profile("owner").playlists.any { it.name == name } }
+        val list = store.state.value.profile("owner").playlists.single { it.name == name }
+        try {
+            assertEquals(ids, list.tracks.map { it.id })
+            waitFor { compose.onAllNodesWithTag("bulk_start").fetchSemanticsNodes().isNotEmpty() }
+            compose.onNodeWithTag("bulk_start").assertIsDisplayed()
+        } finally { runBlocking { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) } }
+    }
+
+    @Test fun bulkSelectionResetsOnFilterProfileSectionAndBack() {
+        compose.onNodeWithTag("nav_library").performClick()
+        fun action(tag: String) {
+            compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+        }
+        val id = library.testTracks.first().id
+        action("bulk_start"); action("select_$id")
+        action("filter_LOCAL")
+        action("bulk_start")
+        compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
+        compose.onNodeWithTag("bulk_start").assertIsDisplayed()
+        action("bulk_start"); action("select_$id")
+        compose.runOnIdle { player.switchProfile("road") }
+        waitFor { player.state.value.profileId == "road" }
+        action("bulk_start")
+        compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
+        compose.onNodeWithTag("nav_search").performClick()
+        action("bulk_start")
+        compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
+    }
+
     @Test fun unsupportedAiffIsExcludedEvenWithAudioMimeAndWavExtensionFallbackRemains() = runBlocking {
         provider("unsupportedFormats", "true")
         try {

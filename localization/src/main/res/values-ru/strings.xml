@@ -589,5 +589,10 @@
     <string name="recent_description" formatted="false">"Музыка устройства и USB по времени первого появления в медиатеке. Повторное сканирование не меняет порядок."</string>
     <string name="recent_empty" formatted="false">"Новых треков пока нет. Музыка, добавленная до появления этого раздела, остаётся в обычной медиатеке."</string>
     <string name="recent_failure" formatted="false">"Не удалось загрузить список. Повторить"</string>
+    <string name="bulk_select" formatted="false">"Выбрать треки"</string>
+    <string name="bulk_count" formatted="false">"Выбрано: @0@"</string>
+    <string name="bulk_queue" formatted="false">"В очередь"</string>
+    <string name="bulk_playlist" formatted="false">"В локальный плейлист"</string>
+    <string name="bulk_local_only" formatted="false">"В локальный плейлист можно добавить только музыку устройства и USB."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

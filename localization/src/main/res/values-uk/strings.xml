@@ -589,5 +589,10 @@
     <string name="recent_description" formatted="false">"Музика пристрою та USB: спочатку нові додані треки. Повторне сканування не змінює порядок."</string>
     <string name="recent_empty" formatted="false">"Нових треків поки немає. Музика, додана до появи цього розділу, залишається у звичайній медіатеці."</string>
     <string name="recent_failure" formatted="false">"Не вдалося завантажити список. Повторити"</string>
+    <string name="bulk_select" formatted="false">"Вибрати треки"</string>
+    <string name="bulk_count" formatted="false">"Вибрано: @0@"</string>
+    <string name="bulk_queue" formatted="false">"До черги"</string>
+    <string name="bulk_playlist" formatted="false">"До локального плейлиста"</string>
+    <string name="bulk_local_only" formatted="false">"До локального плейлиста можна додати лише музику пристрою та USB."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

@@ -35,6 +35,7 @@ import kotlinx.coroutines.launch
     var editing by rememberSaveable { mutableStateOf(false) }
     var actionTrack by remember { mutableStateOf<Track?>(null) }
     val selected = data.playlists.find { it.id == selectedId }
+    val selection = rememberTrackSelection(profileId, selectedId, favorites, editing)
     val entries = if (favorites) data.favorites else selected?.tracks.orEmpty()
     val diskCatalog by key(indexed, indexed?.indexRevision, entries) { produceState<Result<Map<String, Track>>?>(null, indexed, indexed?.indexRevision, entries) {
         value = if (indexed == null) null else try { Result.success(indexed.tracksByIds(entries.map(SavedTrack::id))) }
@@ -72,12 +73,15 @@ import kotlinx.coroutines.launch
             Button({ player.playQueue(entries.map { it.id }) }, Modifier.heightIn(min = 48.dp).prismFocus().testTag("collection_play"), enabled = resolved.any { it.available } && playback.connected && (indexed == null || diskCatalog?.isSuccess == true)) {
                 SkinIcon(UiIcon.PLAY, null); Spacer(Modifier.width(8.dp)); Text(tr(Msg.msg_a033d47afec5))
             }
+            if (!editing && entries.isNotEmpty()) SelectionToolbar(selection, player, store)
             if (entries.isEmpty()) Text(if (favorites) tr(Msg.msg_c25691d01a87) else tr(Msg.msg_8cd421f138ac), Modifier.padding(vertical = 16.dp))
             LazyColumn(Modifier.weight(1f).fillMaxWidth().testTag("collection_tracks"), contentPadding = PaddingValues(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(resolved.size, key = { resolved[it].id }) { index ->
                     val track = resolved[index]
                     Column {
-                        TrackRow(track, playback.current?.id == track.id, { player.playQueue(entries.map { it.id }, track.id) }, more = { actionTrack = track })
+                        TrackRow(track, playback.current?.id == track.id, { player.playQueue(entries.map { it.id }, track.id) }, more = { actionTrack = track },
+                            checked = if (selection.active) selection.contains(track.id) else null,
+                            toggleSelection = if (selection.active) ({ selection.toggle(track) }) else null)
                         if (editing && selected != null) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                             ActionIcon(UiIcon.UP, tr(Msg.msg_9fcd67f23799, track.title), { scope.launch { store.edit(profileId, CollectionEdit.Move(selected.id, track.id, index - 1)) } }, Modifier.testTag("playlist_up_${track.id}"), enabled = index > 0 && state.writable)
                             ActionIcon(UiIcon.DOWN, tr(Msg.msg_48f1c04f18bc, track.title), { scope.launch { store.edit(profileId, CollectionEdit.Move(selected.id, track.id, index + 1)) } }, Modifier.testTag("playlist_down_${track.id}"), enabled = index < entries.lastIndex && state.writable)
@@ -122,7 +126,7 @@ import kotlinx.coroutines.launch
     actionTrack?.let { track -> TrackCollectionDialog(track, store, profileId, catalog.containsKey(track.id), { actionTrack = null }) }
 }
 
-@Composable private fun PlaylistNameDialog(initial: String, issue: String?, dismiss: () -> Unit, save: suspend (String) -> Boolean) {
+@Composable internal fun PlaylistNameDialog(initial: String, issue: String?, dismiss: () -> Unit, save: suspend (String) -> Boolean) {
     var name by rememberSaveable { mutableStateOf(initial) }
     var busy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()

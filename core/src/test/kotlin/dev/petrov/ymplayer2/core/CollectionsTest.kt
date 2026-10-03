@@ -47,6 +47,16 @@ class CollectionsTest {
         val changed = state.copy(profiles = state.profiles + ("owner" to owner.edit(CollectionEdit.Delete("playlist-1"))))
         assertEquals(owner, state.profile("owner")); assertEquals(guest, changed.profile("guest"))
     }
+    @Test fun batchAddsKeepSelectionOrderDeduplicateAndRejectWholeInvalidBatch() {
+        val data = ProfileCollections().edit(CollectionEdit.CreateMany("Batch", listOf("local:5", "local:4", "local:5")))
+        assertEquals(listOf("local:5", "local:4"), data.playlists.single().tracks.map { it.id })
+        val changed = data.edit(CollectionEdit.AddMany("playlist-1", listOf("local:4", "usb:3", "usb:3")))
+        assertEquals(listOf("local:5", "local:4", "usb:3"), changed.playlists.single().tracks.map { it.id })
+        for (ids in listOf(listOf("usb:3", "missing"), listOf("usb:3", "yandex:1"))) {
+            assertThrows(IllegalArgumentException::class.java) { data.edit(CollectionEdit.AddMany("playlist-1", ids)) }
+        }
+        assertEquals(listOf("local:5", "local:4"), data.playlists.single().tracks.map { it.id })
+    }
     @Test fun explicitPlaylistPlaybackFiltersUnavailableAndForeignTracks() {
         val player = DemoPlaybackController(DemoCatalog())
         player.switchProfile("guest")

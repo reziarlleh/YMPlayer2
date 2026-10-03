@@ -589,5 +589,10 @@
     <string name="recent_description" formatted="false">"Música del dispositivo y de USB, con las incorporaciones más recientes primero. Volver a escanear no cambia el orden."</string>
     <string name="recent_empty" formatted="false">"Aún no hay temas nuevos. La música añadida antes de esta función sigue en tu biblioteca."</string>
     <string name="recent_failure" formatted="false">"No se pudo cargar la lista. Reintentar"</string>
+    <string name="bulk_select" formatted="false">"Seleccionar temas"</string>
+    <string name="bulk_count" formatted="false">"Seleccionados: @0@"</string>
+    <string name="bulk_queue" formatted="false">"Añadir a la cola"</string>
+    <string name="bulk_playlist" formatted="false">"Añadir a una lista local"</string>
+    <string name="bulk_local_only" formatted="false">"Las listas locales solo pueden contener música del dispositivo y de USB."</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

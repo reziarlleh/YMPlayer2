@@ -9498,5 +9498,85 @@
       "es": "No se pudo cargar la lista. Reintentar",
       "uk": "Не вдалося завантажити список. Повторити"
     }
+  },
+  {
+    "key": "bulk_select",
+    "source": "Выбрать треки",
+    "english": "Select tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "Выбраць трэкі",
+      "fr": "Sélectionner des titres",
+      "de": "Titel auswählen",
+      "kk": "Тректерді таңдау",
+      "es": "Seleccionar temas",
+      "uk": "Вибрати треки"
+    }
+  },
+  {
+    "key": "bulk_count",
+    "source": "Выбрано: @0@",
+    "english": "Selected: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "Выбрана: @0@",
+      "fr": "Sélection : @0@",
+      "de": "Ausgewählt: @0@",
+      "kk": "Таңдалғаны: @0@",
+      "es": "Seleccionados: @0@",
+      "uk": "Вибрано: @0@"
+    }
+  },
+  {
+    "key": "bulk_queue",
+    "source": "В очередь",
+    "english": "Add to queue",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "У чаргу",
+      "fr": "Ajouter à la file",
+      "de": "Zur Warteschlange",
+      "kk": "Кезекке қосу",
+      "es": "Añadir a la cola",
+      "uk": "До черги"
+    }
+  },
+  {
+    "key": "bulk_playlist",
+    "source": "В локальный плейлист",
+    "english": "Add to local playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "У лакальны плэйліст",
+      "fr": "Ajouter à une playlist locale",
+      "de": "Zur lokalen Playlist",
+      "kk": "Жергілікті плейлистке қосу",
+      "es": "Añadir a una lista local",
+      "uk": "До локального плейлиста"
+    }
+  },
+  {
+    "key": "bulk_local_only",
+    "source": "В локальный плейлист можно добавить только музыку устройства и USB.",
+    "english": "Local playlists can contain device and USB music only.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "У лакальны плэйліст можна дадаць толькі музыку прылады і USB.",
+      "fr": "Les playlists locales ne peuvent contenir que de la musique de l’appareil et des supports USB.",
+      "de": "Lokale Playlists können nur Musik vom Gerät und von USB enthalten.",
+      "kk": "Жергілікті плейлистке тек құрылғы мен USB музыкасын қосуға болады.",
+      "es": "Las listas locales solo pueden contener música del dispositivo y de USB.",
+      "uk": "До локального плейлиста можна додати лише музику пристрою та USB."
+    }
   }
 ]

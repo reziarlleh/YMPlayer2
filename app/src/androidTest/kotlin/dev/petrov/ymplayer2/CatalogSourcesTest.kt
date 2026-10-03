@@ -37,6 +37,10 @@ class CatalogSourcesTest {
         if (tag.startsWith("track_")) compose.onNodeWithTag(tag).performTouchInput {
             // Artist names have their own action. Hit the play icon at the row's right edge.
             click(androidx.compose.ui.geometry.Offset(width - 12f, height / 2f))
+        } else if (tag.startsWith("filter_") && compose.activity.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION) {
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+            compose.onNodeWithTag(tag).performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+            compose.onNodeWithTag(tag).assertIsFocused().assertIsDisplayed().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
         } else compose.onNodeWithTag(tag).performClick()
     }
     private fun showTrack(id: String) {
@@ -117,7 +121,8 @@ class CatalogSourcesTest {
         fromTo("filter_available", up, "filter_all")
         fromTo("filter_all", up, "category_TRACKS")
         fromTo("category_TRACKS", up, "manage_folders")
-        fromTo("manage_folders", up, "source_local")
+        fromTo("manage_folders", up, "bulk_start")
+        fromTo("bulk_start", up, "source_local")
         fromTo("source_local", androidx.compose.ui.input.key.Key.DirectionRight, "source_yandex")
         compose.onNodeWithTag("source_local").assertIsSelected()
         compose.onNodeWithTag("source_yandex").assertIsNotSelected()
@@ -138,6 +143,21 @@ class CatalogSourcesTest {
             compose.onNodeWithTag("online_kind_${kind.name}").assertIsFocused().assertIsSelected()
             assertEquals(kind, fixture.online.state.value.request.kind)
         }
+        assertFalse(player.state.value.playing)
+    }
+
+    @Test fun onlineBulkSelectionSurvivesProviderPaginationAndQueuesBothTracks() {
+        compose.onNodeWithTag("nav_library").performClick()
+        await { fixture.online.state.value.loaded && fixture.online.state.value.request.collection }
+        action("bulk_start")
+        action("select_yandex:1:7")
+        action("catalog_online_more")
+        await { fixture.online.state.value.entries.size == 2 }
+        action("select_yandex:2:7")
+        compose.onNodeWithTag("bulk_count").assertTextContains("2", substring = true)
+        compose.onNodeWithTag("bulk_enqueue").performClick()
+        await { player.state.value.queueCount == 2 }
+        assertEquals(listOf("yandex:1:7", "yandex:2:7"), runBlocking { player.queuePage(0).items.map(Track::id) })
         assertFalse(player.state.value.playing)
     }
 

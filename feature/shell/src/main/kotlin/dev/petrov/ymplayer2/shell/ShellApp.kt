@@ -175,6 +175,7 @@ private val destinations get() = listOf(
                                             artist = openArtist, cloudPlaylists = model.cloudPlaylists, signIn = { navigate("account") },
                                             onlineHome = { onlineSource = true }, waveStarted = { navigate("player") },
                                             cacheOnly = cacheOnly, searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it },
+                                            collectionStore = model.collections,
                                             retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
                                         }
                                         "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, if (demo) library.tracks else emptyList(), model.player, route == "favorites", model.local as? IndexedLocalLibrary) }

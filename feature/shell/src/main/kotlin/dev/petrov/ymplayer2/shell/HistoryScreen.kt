@@ -43,9 +43,12 @@ import java.util.Date
         catch (e: Exception) { Result.failure(e) }
     }
     val page = result?.getOrNull()
+    val selection = rememberTrackSelection(playback.profileId)
+    fun prepare(track: Track): Boolean = track.source != Source.YANDEX || track.offline || model.online?.restoreForPlayback(playback.profileId, track) == true
     Column(Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
         Text(tr(Msg.history_title), style = MaterialTheme.typography.titleLarge)
         Text(tr(Msg.history_description), style = MaterialTheme.typography.bodySmall)
+        SelectionToolbar(selection, model.player, model.collections, ::prepare)
         if (page != null && page.total > 0) OutlinedButton({ confirming = true }, Modifier.prismFocus().testTag("history_clear")) { Text(trMessage("Очистить")) }
         if (result == null) LinearProgressIndicator(Modifier.fillMaxWidth())
         if (result?.isFailure == true || log.failed) TextButton({ retry++ }, Modifier.prismFocus()) { Text(tr(Msg.history_failure), color = MaterialTheme.colorScheme.error) }
@@ -53,11 +56,12 @@ import java.util.Date
         LazyColumn(Modifier.weight(1f).fillMaxWidth().testTag("history_list"), contentPadding = PaddingValues(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(page?.items.orEmpty(), key = { it.track.id }) { entry ->
                 val track = entry.track
-                fun prepare(): Boolean = track.source != Source.YANDEX || track.offline || model.online?.restoreForPlayback(playback.profileId, track) == true
-                TrackRow(track, playback.current?.id == track.id, { if (prepare()) model.player.playQueue(listOf(track.id)) },
-                    enqueue = { if (prepare()) model.player.enqueue(track.id) }, queued = playback.explicitQueueIds?.contains(track.id) == true,
+                TrackRow(track, playback.current?.id == track.id, { if (prepare(track)) model.player.playQueue(listOf(track.id)) },
+                    enqueue = { if (prepare(track)) model.player.enqueue(track.id) }, queued = playback.explicitQueueIds?.contains(track.id) == true,
                     taste = model.taste, location = "history", artist = artist,
-                    note = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(entry.playedAtMillis)))
+                    note = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(entry.playedAtMillis)),
+                    checked = if (selection.active) selection.contains(track.id) else null,
+                    toggleSelection = if (selection.active) ({ selection.toggle(track) }) else null)
             }
             if (page?.hasMore == true) item { OutlinedButton({ count = (count + 80).coerceAtMost(500) }, Modifier.fillMaxWidth().prismFocus().testTag("history_more")) { Text(trMessage("Загрузить ещё")) } }
         }

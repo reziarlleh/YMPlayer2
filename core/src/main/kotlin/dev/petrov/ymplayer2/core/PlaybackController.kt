@@ -50,6 +50,7 @@ interface PlaybackController {
     fun setRepeatMode(mode: RepeatMode)
     fun setShuffle(enabled: Boolean)
     fun enqueue(trackId: String)
+    fun enqueueMany(trackIds: List<String>) { trackIds.distinct().forEach(::enqueue) }
     fun moveInQueue(trackId: String, toIndex: Int)
     fun removeFromQueue(trackId: String)
     fun clearQueue()

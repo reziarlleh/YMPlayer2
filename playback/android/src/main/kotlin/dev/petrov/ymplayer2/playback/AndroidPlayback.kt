@@ -544,21 +544,28 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         engine?.shuffleModeEnabled = enabled
         if (bounded != usesBoundedLocalWindow()) syncQueue(queue) else { publish(); checkpoint() }
     } }
-    override fun enqueue(trackId: String) = diskCommand {
-        val track = (localTracksByIds(state.value.profileId, listOf(trackId))[trackId]
-            ?: knownTracks(state.value.profileId).find { it.id == trackId })?.takeIf(Track::available) ?: return@diskCommand
+    override fun enqueue(trackId: String) = enqueueMany(listOf(trackId))
+    override fun enqueueMany(trackIds: List<String>) = diskCommand {
+        val ids = trackIds.distinct()
+        val known = knownTracks(state.value.profileId).associateBy(Track::id) + localTracksByIds(state.value.profileId, ids)
+        val tracks = ids.mapNotNull { known[it]?.takeIf(Track::available) }
+        if (tracks.isEmpty()) return@diskCommand
         if (library is IndexedLocalLibrary) {
             val refs = editableReferences()
-            if (refs.any { it.id == trackId }) return@diskCommand
+            val present = refs.mapTo(hashSetOf(), PlaybackReference::id)
+            val additions = tracks.filter { it.id !in present }.map(PlaybackReference::from)
+            if (additions.isEmpty()) return@diskCommand
             cancelWave()
-            setReferences(refs + PlaybackReference.from(track))
+            setReferences(refs + additions)
             return@diskCommand
         }
         val queue = editableQueue()
-        if (queue.any { it.id == trackId }) return@diskCommand
+        val present = queue.mapTo(hashSetOf(), Track::id)
+        val additions = tracks.filter { it.id !in present }
+        if (additions.isEmpty()) return@diskCommand
         cancelWave()
         followLibrary = false
-        syncQueue(queue + track)
+        syncQueue(queue + additions)
     }
     override fun moveInQueue(trackId: String, toIndex: Int) = diskCommand {
         if (library is IndexedLocalLibrary) {

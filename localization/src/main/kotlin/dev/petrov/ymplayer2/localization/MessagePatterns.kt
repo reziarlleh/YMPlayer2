@@ -73,6 +73,7 @@ internal val messagePatterns = buildList {
     addAll(patterns56())
     addAll(patterns57())
     addAll(patterns58())
+    addAll(patterns59())
 }
 
 private fun patterns0() = listOf(
@@ -4966,4 +4967,47 @@ private fun patterns58() = listOf(
     MessagePattern(Msg.recent_failure, "ru", "Не удалось загрузить список. Повторить"),
     MessagePattern(Msg.recent_failure, "es", "No se pudo cargar la lista. Reintentar"),
     MessagePattern(Msg.recent_failure, "uk", "Не вдалося завантажити список. Повторити"),
+    MessagePattern(Msg.bulk_select, "be", "Выбраць трэкі"),
+    MessagePattern(Msg.bulk_select, "en", "Select tracks"),
+    MessagePattern(Msg.bulk_select, "fr", "Sélectionner des titres"),
+    MessagePattern(Msg.bulk_select, "de", "Titel auswählen"),
+)
+
+private fun patterns59() = listOf(
+    MessagePattern(Msg.bulk_select, "kk", "Тректерді таңдау"),
+    MessagePattern(Msg.bulk_select, "ru", "Выбрать треки"),
+    MessagePattern(Msg.bulk_select, "es", "Seleccionar temas"),
+    MessagePattern(Msg.bulk_select, "uk", "Вибрати треки"),
+    MessagePattern(Msg.bulk_count, "be", "Выбрана: @0@"),
+    MessagePattern(Msg.bulk_count, "en", "Selected: @0@"),
+    MessagePattern(Msg.bulk_count, "fr", "Sélection : @0@"),
+    MessagePattern(Msg.bulk_count, "de", "Ausgewählt: @0@"),
+    MessagePattern(Msg.bulk_count, "kk", "Таңдалғаны: @0@"),
+    MessagePattern(Msg.bulk_count, "ru", "Выбрано: @0@"),
+    MessagePattern(Msg.bulk_count, "es", "Seleccionados: @0@"),
+    MessagePattern(Msg.bulk_count, "uk", "Вибрано: @0@"),
+    MessagePattern(Msg.bulk_queue, "be", "У чаргу"),
+    MessagePattern(Msg.bulk_queue, "en", "Add to queue"),
+    MessagePattern(Msg.bulk_queue, "fr", "Ajouter à la file"),
+    MessagePattern(Msg.bulk_queue, "de", "Zur Warteschlange"),
+    MessagePattern(Msg.bulk_queue, "kk", "Кезекке қосу"),
+    MessagePattern(Msg.bulk_queue, "ru", "В очередь"),
+    MessagePattern(Msg.bulk_queue, "es", "Añadir a la cola"),
+    MessagePattern(Msg.bulk_queue, "uk", "До черги"),
+    MessagePattern(Msg.bulk_playlist, "be", "У лакальны плэйліст"),
+    MessagePattern(Msg.bulk_playlist, "en", "Add to local playlist"),
+    MessagePattern(Msg.bulk_playlist, "fr", "Ajouter à une playlist locale"),
+    MessagePattern(Msg.bulk_playlist, "de", "Zur lokalen Playlist"),
+    MessagePattern(Msg.bulk_playlist, "kk", "Жергілікті плейлистке қосу"),
+    MessagePattern(Msg.bulk_playlist, "ru", "В локальный плейлист"),
+    MessagePattern(Msg.bulk_playlist, "es", "Añadir a una lista local"),
+    MessagePattern(Msg.bulk_playlist, "uk", "До локального плейлиста"),
+    MessagePattern(Msg.bulk_local_only, "be", "У лакальны плэйліст можна дадаць толькі музыку прылады і USB."),
+    MessagePattern(Msg.bulk_local_only, "en", "Local playlists can contain device and USB music only."),
+    MessagePattern(Msg.bulk_local_only, "fr", "Les playlists locales ne peuvent contenir que de la musique de l’appareil et des supports USB."),
+    MessagePattern(Msg.bulk_local_only, "de", "Lokale Playlists können nur Musik vom Gerät und von USB enthalten."),
+    MessagePattern(Msg.bulk_local_only, "kk", "Жергілікті плейлистке тек құрылғы мен USB музыкасын қосуға болады."),
+    MessagePattern(Msg.bulk_local_only, "ru", "В локальный плейлист можно добавить только музыку устройства и USB."),
+    MessagePattern(Msg.bulk_local_only, "es", "Las listas locales solo pueden contener música del dispositivo y de USB."),
+    MessagePattern(Msg.bulk_local_only, "uk", "До локального плейлиста можна додати лише музику пристрою та USB."),
 )

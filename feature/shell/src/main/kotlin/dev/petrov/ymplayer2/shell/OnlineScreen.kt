@@ -34,6 +34,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val query = searchQuery ?: request.query
     fun changeQuery(value: String) { onSearchQueryChange(value); music.search(value) }
     val detail = request.entity
+    val selection = rememberTrackSelection(playback.profileId, request, query, search)
     fun up() { if (standalone && detail?.kind == MusicKind.ARTISTS) closeArtist() else music.up() }
     BackHandler(detail != null) { up() }
     LaunchedEffect(search, searchQuery, state.profileId, state.signedIn) {
@@ -55,7 +56,9 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         keyboard?.hide()
     }
     val queued = playback.explicitQueueIds ?: playback.queue.mapTo(hashSetOf(), Track::id)
-    LazyColumn(Modifier.fillMaxSize().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(Modifier.fillMaxSize()) {
+    if (selection.active) SelectionToolbar(selection, player)
+    LazyColumn(Modifier.weight(1f).fillMaxWidth().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         item {
             if (detail != null) TextButton({ up() }, Modifier.prismFocus().testTag("online_up")) { Text(tr(Msg.msg_1478970270d1)) }
             val title: @Composable () -> Unit = { Text(detail?.title ?: if (search) tr(Msg.msg_fede8859c53f) else tr(Msg.msg_5fbef357e55e), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
@@ -123,11 +126,14 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 }
                 OutlinedButton({ play() }, Modifier.prismFocus().testTag("online_play_all"), enabled = filtersReady) { Text(tr(Msg.msg_9cbbe230cb66)) }
             }
+            if (shownTracks.isNotEmpty() && !selection.active) item(key = "bulk") { SelectionToolbar(selection, player) }
             items(entries, key = MusicEntry::id) { entry ->
                 val track = entry.track
                 if (track != null) TrackRow(track,
                     play = { play(track.id) },
-                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null, taste = taste, artist = artist)
+                    enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null, taste = taste, artist = artist,
+                    checked = if (selection.active) selection.contains(track.id) else null,
+                    toggleSelection = if (selection.active) ({ selection.toggle(track) }) else null)
                 else entry.entity?.let { entity ->
                     val label: @Composable () -> Unit = { Surface(onClick = { keyboard?.hide(); music.open(entity) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("online_entity_${entity.id}"), shape = MaterialTheme.shapes.medium) {
                         Column(Modifier.padding(16.dp)) {
@@ -143,5 +149,6 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 OutlinedButton(music::more, Modifier.prismFocus().testTag("online_more"), enabled = !state.loading) { Text(tr(Msg.msg_a137dd0ef761)) }
             }
         }
+    }
     }
 }

@@ -174,6 +174,20 @@ Yandex playlist editor, or use the position command for an exact move with a rem
 Other users’ playlists
 are available for listening; the app does not grant editing rights to them.
 
+## Select several tracks
+
+Choose **Select tracks** in a track list, then select cards or checkboxes.
+On a remote, press OK. Selecting does not start playback, and loading another
+page keeps your choices. **Add to queue** adds available tracks in the order
+selected, skipping existing queue members. **Add to local playlist** adds device
+and USB tracks to an existing playlist or creates a new one. Yandex tracks can
+join the queue but cannot join local playlists.
+
+The action bar stays visible while you scroll in selection mode. Cancel or Back
+clears the selection. Changing section, profile, source, filter or search also
+clears it. Your audio files stay untouched. If a local track disappears before
+saving, the whole playlist change is rejected; adjust your selection and retry.
+
 ## Offline music
 
 **Settings → Offline cache settings** contains the cache switch, Wi-Fi-only

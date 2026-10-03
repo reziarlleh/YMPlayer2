@@ -248,26 +248,29 @@ import kotlinx.coroutines.launch
 }
 
 @Composable internal fun TrackRow(track: Track, selected: Boolean = false, play: () -> Unit, enqueue: (() -> Unit)? = null, queued: Boolean = false, more: (() -> Unit)? = null,
-    taste: MusicTaste? = null, location: String = "catalog", artist: (ArtistRef) -> Unit = {}, note: String? = null) {
+    taste: MusicTaste? = null, location: String = "catalog", artist: (ArtistRef) -> Unit = {}, note: String? = null,
+    checked: Boolean? = null, toggleSelection: (() -> Unit)? = null) {
     val onlineTaste = taste?.takeIf { track.source == Source.YANDEX }
-    val hasActions = onlineTaste != null || enqueue != null || more != null
+    val hasActions = checked == null && (onlineTaste != null || enqueue != null || more != null)
     val metadata = if (track.available) "${trMessage(track.source.label)} · ${secondsLabel(track.durationSeconds)}" else tr(Msg.msg_91cf891549ab)
     var details by remember(track.id) { mutableStateOf(false) }
     if (details && onlineTaste != null) TrackTasteDialog(track, onlineTaste, artist = artist) { details = false }
     Surface(Modifier.fillMaxWidth().testTag("track_card_${track.id}"), shape = MaterialTheme.shapes.medium,
-        color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow) {
+        color = if (checked == true || selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow) {
         Column(Modifier.fillMaxWidth()) {
-            Row(Modifier.fillMaxWidth().clickable(enabled = track.available, onClick = play).prismFocus().testTag("track_${track.id}")
+            Row(Modifier.fillMaxWidth().clickable(enabled = checked != null || track.available, onClick = toggleSelection ?: play).prismFocus().testTag("track_${track.id}")
                 .padding(start = 12.dp, end = 12.dp, top = 8.dp, bottom = 2.dp),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                if (checked != null) Checkbox(checked, { toggleSelection?.invoke() }, Modifier.testTag("select_${track.id}").prismFocus())
                 TrackArtwork(track, Modifier.size(44.dp))
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(0.dp)) {
                     Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
-                    ArtistNames(track, artist, "${location}_${track.id}", compact = true)
+                    if (checked == null) ArtistNames(track, artist, "${location}_${track.id}", compact = true)
+                    else Text(track.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall)
                     note?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                     if (!hasActions) Text(metadata, style = MaterialTheme.typography.labelSmall)
                 }
-                SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY,
+                if (checked == null) SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY,
                     if (selected) tr(Msg.msg_653f03c94726) else tr(Msg.msg_2922b43474e0), Modifier.size(24.dp))
             }
             if (hasActions) {
@@ -284,7 +287,7 @@ import kotlinx.coroutines.launch
                         Modifier.testTag("track_more_${track.id}"))
                 }
             }
-            if (onlineTaste != null) {
+            if (onlineTaste != null && checked == null) {
                 val shelf = onlineTaste.state.collectAsStateWithLifecycle().value.shelf(TasteKind.TRACK)
                 if (shelf.issue != null) TextButton({ onlineTaste.refresh(TasteKind.TRACK) }, Modifier.prismFocus(), enabled = !shelf.busy) {
                     Text(tr(Msg.msg_fd21b337444d), color = MaterialTheme.colorScheme.error)

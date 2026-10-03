@@ -1,0 +1,1259 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.LocalPlaybackTest:
+INSTRUMENTATION_STATUS: test=bulkSelectionSurvivesPaginationAndAddsInChosenOrderWithRemote
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: uncancelled requests present
+	at androidx.compose.foundation.internal.InlineClassHelperKt.throwIllegalStateException(InlineClassHelper.kt:26)
+	at androidx.compose.foundation.gestures.BringIntoViewRequestPriorityQueue.cancelAndRemoveAll(BringIntoViewRequestPriorityQueue.kt:163)
+	at androidx.compose.foundation.gestures.ContentInViewNode$launchAnimation$2.invokeSuspend(ContentInViewNode.kt:318)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at androidx.compose.ui.test.ApplyingContinuationInterceptor$SendApplyContinuation.resumeWith(ApplyingContinuationInterceptor.kt:52)
+	at androidx.compose.ui.test.FrameDeferringContinuationInterceptor$FrameDeferredContinuation.resumeWith(FrameDeferringContinuationInterceptor.jvmAndAndroid.kt:187)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:163)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:152)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:470)
+	at kotlinx.coroutines.CancellableContinuationImpl.cancel(CancellableContinuationImpl.kt:214)
+	at kotlinx.coroutines.CancellableContinuationImpl.parentCancelled$kotlinx_coroutines_core(CancellableContinuationImpl.kt:221)
+	at kotlinx.coroutines.ChildContinuation.invoke(CancellableContinuationImpl.kt:698)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCompletingSlowPath(JobSupport.kt:931)
+	at kotlinx.coroutines.JobSupport.tryMakeCompleting(JobSupport.kt:894)
+	at kotlinx.coroutines.JobSupport.cancelMakeCompleting(JobSupport.kt:727)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:698)
+	at kotlinx.coroutines.JobSupport.cancelInternal(JobSupport.kt:663)
+	at kotlinx.coroutines.JobSupport.cancel(JobSupport.kt:648)
+	at kotlinx.coroutines.CoroutineScopeKt.cancel(CoroutineScope.kt:309)
+	at androidx.compose.ui.Modifier$Node.markAsDetached$ui(Modifier.kt:295)
+	at androidx.compose.ui.node.DelegatingNode.markAsDetached$ui(DelegatingNode.kt:270)
+	at androidx.compose.ui.node.DelegatingNode.markAsDetached$ui(DelegatingNode.kt:270)
+	at androidx.compose.ui.node.NodeChain.markAsDetached$ui(NodeChain.kt:376)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:585)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.onChildRemoved(LayoutNode.kt:371)
+	at androidx.compose.ui.node.LayoutNode.removeAll$ui(LayoutNode.kt:357)
+	at androidx.compose.ui.node.UiApplier.onClear(UiApplier.android.kt:41)
+	at androidx.compose.runtime.AbstractApplier.clear(Applier.kt:216)
+	at androidx.compose.runtime.CompositionImpl.dispose(Composition.kt:953)
+	at androidx.compose.ui.platform.WrappedComposition.dispose(Wrapper.android.kt:141)
+	at androidx.compose.ui.platform.AbstractComposeView.disposeComposition(ComposeView.android.kt:418)
+	at androidx.compose.ui.platform.ViewCompositionStrategy$DisposeOnDetachedFromWindowOrReleasedFromPool$installFor$listener$1.onViewDetachedFromWindow(ViewCompositionStrategy.android.kt:92)
+	at android.view.View.dispatchDetachedFromWindow(View.java:19646)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3814)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewRootImpl.dispatchDetachedFromWindow(ViewRootImpl.java:4146)
+	at android.view.ViewRootImpl.doDie(ViewRootImpl.java:7151)
+	at android.view.ViewRootImpl.die(ViewRootImpl.java:7128)
+	at android.view.WindowManagerGlobal.removeViewLocked(WindowManagerGlobal.java:490)
+	at android.view.WindowManagerGlobal.removeView(WindowManagerGlobal.java:428)
+	at android.view.WindowManagerImpl.removeViewImmediate(WindowManagerImpl.java:126)
+	at android.app.Dialog.dismissDialog(Dialog.java:389)
+	at android.app.Dialog.dismiss(Dialog.java:371)
+	at androidx.compose.ui.window.AndroidDialog_androidKt$Dialog$lambda$3$0$$inlined$onDispose$1.dispose(Effects.kt:777)
+	at androidx.compose.runtime.DisposableEffectImpl.onForgotten(Effects.kt:237)
+	at androidx.compose.runtime.internal.RememberEventDispatcher.dispatchRememberObservers(RememberEventDispatcher.kt:223)
+	at androidx.compose.runtime.CompositionImpl.deactivate(Composition.kt:1492)
+	at androidx.compose.ui.layout.LayoutNodeSubcompositionsState.deactivateOutOfFrame$lambda$0(SubcomposeLayout.kt:792)
+	at androidx.compose.ui.layout.LayoutNodeSubcompositionsState$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.platform.AndroidComposeView.outOfFrameRunnable$lambda$0(AndroidComposeView.android.kt:354)
+	at androidx.compose.ui.platform.AndroidComposeView$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+INSTRUMENTATION_STATUS: stream=
+Error in bulkSelectionSurvivesPaginationAndAddsInChosenOrderWithRemote(dev.petrov.ymplayer2.LocalPlaybackTest):
+java.lang.IllegalStateException: uncancelled requests present
+	at androidx.compose.foundation.internal.InlineClassHelperKt.throwIllegalStateException(InlineClassHelper.kt:26)
+	at androidx.compose.foundation.gestures.BringIntoViewRequestPriorityQueue.cancelAndRemoveAll(BringIntoViewRequestPriorityQueue.kt:163)
+	at androidx.compose.foundation.gestures.ContentInViewNode$launchAnimation$2.invokeSuspend(ContentInViewNode.kt:318)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at androidx.compose.ui.test.ApplyingContinuationInterceptor$SendApplyContinuation.resumeWith(ApplyingContinuationInterceptor.kt:52)
+	at androidx.compose.ui.test.FrameDeferringContinuationInterceptor$FrameDeferredContinuation.resumeWith(FrameDeferringContinuationInterceptor.jvmAndAndroid.kt:187)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:163)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:152)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:470)
+	at kotlinx.coroutines.CancellableContinuationImpl.cancel(CancellableContinuationImpl.kt:214)
+	at kotlinx.coroutines.CancellableContinuationImpl.parentCancelled$kotlinx_coroutines_core(CancellableContinuationImpl.kt:221)
+	at kotlinx.coroutines.ChildContinuation.invoke(CancellableContinuationImpl.kt:698)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCompletingSlowPath(JobSupport.kt:931)
+	at kotlinx.coroutines.JobSupport.tryMakeCompleting(JobSupport.kt:894)
+	at kotlinx.coroutines.JobSupport.cancelMakeCompleting(JobSupport.kt:727)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:698)
+	at kotlinx.coroutines.JobSupport.cancelInternal(JobSupport.kt:663)
+	at kotlinx.coroutines.JobSupport.cancel(JobSupport.kt:648)
+	at kotlinx.coroutines.CoroutineScopeKt.cancel(CoroutineScope.kt:309)
+	at androidx.compose.ui.Modifier$Node.markAsDetached$ui(Modifier.kt:295)
+	at androidx.compose.ui.node.DelegatingNode.markAsDetached$ui(DelegatingNode.kt:270)
+	at androidx.compose.ui.node.DelegatingNode.markAsDetached$ui(DelegatingNode.kt:270)
+	at androidx.compose.ui.node.NodeChain.markAsDetached$ui(NodeChain.kt:376)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:585)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.onChildRemoved(LayoutNode.kt:371)
+	at androidx.compose.ui.node.LayoutNode.removeAll$ui(LayoutNode.kt:357)
+	at androidx.compose.ui.node.UiApplier.onClear(UiApplier.android.kt:41)
+	at androidx.compose.runtime.AbstractApplier.clear(Applier.kt:216)
+	at androidx.compose.runtime.CompositionImpl.dispose(Composition.kt:953)
+	at androidx.compose.ui.platform.WrappedComposition.dispose(Wrapper.android.kt:141)
+	at androidx.compose.ui.platform.AbstractComposeView.disposeComposition(ComposeView.android.kt:418)
+	at androidx.compose.ui.platform.ViewCompositionStrategy$DisposeOnDetachedFromWindowOrReleasedFromPool$installFor$listener$1.onViewDetachedFromWindow(ViewCompositionStrategy.android.kt:92)
+	at android.view.View.dispatchDetachedFromWindow(View.java:19646)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3814)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewRootImpl.dispatchDetachedFromWindow(ViewRootImpl.java:4146)
+	at android.view.ViewRootImpl.doDie(ViewRootImpl.java:7151)
+	at android.view.ViewRootImpl.die(ViewRootImpl.java:7128)
+	at android.view.WindowManagerGlobal.removeViewLocked(WindowManagerGlobal.java:490)
+	at android.view.WindowManagerGlobal.removeView(WindowManagerGlobal.java:428)
+	at android.view.WindowManagerImpl.removeViewImmediate(WindowManagerImpl.java:126)
+	at android.app.Dialog.dismissDialog(Dialog.java:389)
+	at android.app.Dialog.dismiss(Dialog.java:371)
+	at androidx.compose.ui.window.AndroidDialog_androidKt$Dialog$lambda$3$0$$inlined$onDispose$1.dispose(Effects.kt:777)
+	at androidx.compose.runtime.DisposableEffectImpl.onForgotten(Effects.kt:237)
+	at androidx.compose.runtime.internal.RememberEventDispatcher.dispatchRememberObservers(RememberEventDispatcher.kt:223)
+	at androidx.compose.runtime.CompositionImpl.deactivate(Composition.kt:1492)
+	at androidx.compose.ui.layout.LayoutNodeSubcompositionsState.deactivateOutOfFrame$lambda$0(SubcomposeLayout.kt:792)
+	at androidx.compose.ui.layout.LayoutNodeSubcompositionsState$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.platform.AndroidComposeView.outOfFrameRunnable$lambda$0(AndroidComposeView.android.kt:354)
+	at androidx.compose.ui.platform.AndroidComposeView$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+
+INSTRUMENTATION_STATUS: test=bulkSelectionSurvivesPaginationAndAddsInChosenOrderWithRemote
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=recentlyAddedUsesSafIndexAndRemoteNavigationWithoutRescanReordering
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=recentlyAddedUsesSafIndexAndRemoteNavigationWithoutRescanReordering
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=historyRecordsAudiblePlaybackAndOpensFromLibraryWithConfirmedClear
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=historyRecordsAudiblePlaybackAndOpensFromLibraryWithConfirmedClear
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=bulkSelectionResetsOnFilterProfileSectionAndBack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bulkSelectionResetsOnFilterProfileSectionAndBack
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=bulkPlaylistCommitIsAtomicOrderedPersistentAndProfileScoped
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=bulkPlaylistCommitIsAtomicOrderedPersistentAndProfileScoped
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.CatalogSourcesTest:
+INSTRUMENTATION_STATUS: test=sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Online=OnlineMusicState(profileId=owner, signedIn=true, request=MusicRequest(query=, kind=TRACKS, collection=true, entity=null, recommended=false), entries=[MusicEntry(id=yandex:1:7, title=Онлайн: трек 1, subtitle=Неизвестный исполнитель, track=Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), entity=null), MusicEntry(id=yandex:2:7, title=Онлайн: трек 2, subtitle=Неизвестный исполнитель, track=Track(id=yandex:2:7, title=Онлайн: трек 2, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7), entity=null)], loading=false, loaded=true, nextPage=null, failedPage=null, issue=null); playback=PlaybackState(profileId=owner, queue=[Track(id=local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c, title=two, artist=Неизвестный исполнитель, album=Без альбома, source=USB, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=secondary, tint=5, uri=content://dev.petrov.ymplayer2.test.music/tree/secondary/document/two.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/secondary, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[], albumId=null), Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), Track(id=yandex:2:7, title=Онлайн: трек 2, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7)], index=3, positionSeconds=1, playing=true, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=false, waveLoading=false, waveIssue=null, recommendations=false, queueOffset=2, queueTotal=5, currentTrack=Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), automaticLocal=false, automaticSource=null, queueRevision=34, referenceQueue=true, explicitQueueIds=[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c, yandex:1:7, yandex:2:7]); UI=Printing with useUnmergedTree = 'false'
+Node #4204 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+ |-Node #4205 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+   IsContainer = 'true'
+   Shape = 'RectangleShape'
+    |-Node #4206 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+      Shape = 'RectangleShape'
+       |-Node #4208 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px, Tag: 'shell_layout'
+          |-Node #4209 at (l=0.0, t=0.0, r=1920.0, b=116.0)px, Tag: 'shell_header'
+          |  |-Node #4313 at (l=24.0, t=10.0, r=120.0, b=106.0)px, Tag: 'navigate_up'
+          |  | ContentDescription = '[Назад]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4210 at (l=120.0, t=0.0, r=1704.0, b=116.0)px, Tag: 'about_logo'
+          |  | ContentDescription = '[YMPlayer2]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Музыка рядом]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4212 at (l=1704.0, t=10.0, r=1800.0, b=106.0)px, Tag: 'profiles'
+          |  | ContentDescription = '[Профили]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4214 at (l=1800.0, t=10.0, r=1896.0, b=106.0)px, Tag: 'settings'
+          |    ContentDescription = '[Настройки]'
+          |    Focused = 'false'
+          |    Role = 'Button'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Actions = [OnClick, RequestFocus]
+          |    MergeDescendants = 'true'
+          |-Node #4219 at (l=0.0, t=116.0, r=160.0, b=1080.0)px, Tag: 'shell_rail'
+          | IsContainer = 'true'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+          | VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4220 at (l=0.0, t=124.0, r=160.0, b=1072.0)px
+          |    IsTraversalGroup = 'true'
+          |    [SelectableGroup]
+          |     |-Node #4221 at (l=0.0, t=124.0, r=160.0, b=284.0)px, Tag: 'nav_player'
+          |     | Focused = 'true'
+          |     | Role = 'Tab'
+          |     | Selected = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Плеер]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4230 at (l=0.0, t=292.0, r=160.0, b=452.0)px, Tag: 'nav_library'
+          |     | Focused = 'false'
+          |     | Role = 'Tab'
+          |     | Selected = 'true'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Медиатека]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4239 at (l=0.0, t=460.0, r=160.0, b=620.0)px, Tag: 'nav_search'
+          |     | Focused = 'false'
+          |     | Role = 'Tab'
+          |     | Selected = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Поиск]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4248 at (l=0.0, t=628.0, r=160.0, b=788.0)px, Tag: 'nav_clips'
+          |       Focused = 'false'
+          |       Role = 'Tab'
+          |       Selected = 'false'
+          |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |       Text = '[Клипы]'
+          |       Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |       MergeDescendants = 'true'
+          |-Node #4317 at (l=192.0, t=116.0, r=1888.0, b=212.0)px
+          | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4318 at (l=192.0, t=124.0, r=620.0, b=204.0)px, Tag: 'open_history'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[История прослушивания]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4321 at (l=636.0, t=124.0, r=998.0, b=204.0)px, Tag: 'open_recent'
+          |    Focused = 'false'
+          |    Role = 'Button'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Text = '[Недавно добавлено]'
+          |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |    MergeDescendants = 'true'
+          |-Node #4324 at (l=192.0, t=212.0, r=1888.0, b=308.0)px
+          | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4325 at (l=192.0, t=228.0, r=459.0, b=292.0)px, Tag: 'source_local'
+          |  | Focused = 'false'
+          |  | Role = 'Checkbox'
+          |  | Selected = 'true'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Общий каталог]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4329 at (l=475.0, t=228.0, r=750.0, b=292.0)px, Tag: 'source_yandex'
+          |  | Focused = 'false'
+          |  | Role = 'Checkbox'
+          |  | Selected = 'false'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Яндекс Музыка]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4333 at (l=766.0, t=228.0, r=933.0, b=292.0)px, Tag: 'open_offline'
+          |    Focused = 'false'
+          |    Role = 'Checkbox'
+          |    Selected = 'false'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Text = '[Офлайн]'
+          |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |    MergeDescendants = 'true'
+          |-Node #4337 at (l=160.0, t=308.0, r=1920.0, b=976.0)px, Tag: 'catalog_list'
+          | CollectionInfo = 'CollectionInfo(rowCount=8, columnCount=1)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+          | VerticalScrollAxisRange = 'ScrollAxisRange(value=2000.0, maxValue=2000.0, reverseScrolling=false)'
+          | Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+          |  |-Node #4684 at (l=192.0, t=220.0, r=1888.0, b=316.0)px
+          |  | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          |  | IsTraversalGroup = 'true'
+          |  | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          |  | Actions = [ScrollBy, ScrollByOffset]
+          |  |  |-Node #4685 at (l=192.0, t=236.0, r=452.0, b=300.0)px, Tag: 'filter_all'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Все источники]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4689 at (l=468.0, t=236.0, r=629.0, b=300.0)px, Tag: 'filter_YANDEX'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Яндекс]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4693 at (l=645.0, t=236.0, r=865.0, b=300.0)px, Tag: 'filter_LOCAL'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Устройство]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4697 at (l=881.0, t=236.0, r=999.0, b=300.0)px, Tag: 'filter_USB'
+          |  |    Focused = 'false'
+          |  |    Role = 'Checkbox'
+          |  |    Selected = 'true'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[USB]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4701 at (l=192.0, t=340.0, r=1888.0, b=436.0)px
+          |  | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          |  | IsTraversalGroup = 'true'
+          |  | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          |  | Actions = [ScrollBy, ScrollByOffset]
+          |  |  |-Node #4702 at (l=192.0, t=356.0, r=491.0, b=420.0)px, Tag: 'filter_offline'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Доступно офлайн]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4706 at (l=507.0, t=356.0, r=820.0, b=420.0)px, Tag: 'filter_available'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Доступные сейчас]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4710 at (l=836.0, t=356.0, r=1049.0, b=420.0)px
+          |  |    Focused = 'false'
+          |  |    Role = 'Button'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[Название ↑]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4728 at (l=192.0, t=460.0, r=696.0, b=492.0)px
+          |  | Text = '[Устройство / USB: 1 · Яндекс: 0 показано]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #4729 at (l=192.0, t=500.0, r=657.0, b=580.0)px, Tag: 'catalog_play_all'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Слушать показанные треки]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4787 at (l=192.0, t=612.0, r=1888.0, b=708.0)px
+          |  | IsContainer = 'true'
+          |  | Shape = 'RectangleShape'
+          |  |  |-Node #4789 at (l=192.0, t=620.0, r=490.0, b=700.0)px, Tag: 'bulk_start'
+          |  |    Focused = 'false'
+          |  |    Role = 'Button'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[Выбрать треки]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4792 at (l=192.0, t=732.0, r=1888.0, b=944.0)px, Tag: 'track_card_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |    IsContainer = 'true'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     |-Node #4794 at (l=192.0, t=732.0, r=1888.0, b=840.0)px, Tag: 'track_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |     | ContentDescription = '[Воспроизвести трек]'
+          |     | Focused = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[two, Неизвестный исполнитель]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4802 at (l=208.0, t=872.0, r=1784.0, b=904.0)px, Tag: 'track_meta_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |     | Text = '[USB · 0:30]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |     |-Node #4803 at (l=1784.0, t=840.0, r=1880.0, b=936.0)px, Tag: 'enqueue_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |       ContentDescription = '[Уже в очереди: two]'
+          |       Role = 'Button'
+          |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |       [Disabled]
+          |       Actions = [OnClick]
+          |       MergeDescendants = 'true'
+          |-Node #4338 at (l=160.0, t=976.0, r=1920.0, b=1080.0)px
+            IsContainer = 'true'
+            Shape = 'RectangleShape'
+             |-Node #4340 at (l=176.0, t=976.0, r=1712.0, b=1080.0)px, Tag: 'mini_open'
+             | Focused = 'false'
+             | Role = 'Button'
+             | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+             | Text = '[Онлайн: трек 1, Неизвестный исполнитель · 0:01]'
+             | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+             | MergeDescendants = 'true'
+             |-Node #4345 at (l=1712.0, t=980.0, r=1808.0, b=1076.0)px, Tag: 'mini_play'
+             | ContentDescription = '[Пауза]'
+             | Focused = 'false'
+             | Role = 'Button'
+             | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+             | Actions = [OnClick, RequestFocus]
+             | MergeDescendants = 'true'
+             |-Node #4347 at (l=1808.0, t=980.0, r=1904.0, b=1076.0)px
+               ContentDescription = '[Очередь]'
+               Focused = 'false'
+               Role = 'Button'
+               Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+               Actions = [OnClick, RequestFocus]
+               MergeDescendants = 'true'
+	at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:49)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences(CatalogSourcesTest.kt:186)
+	... 67 trimmed
+Caused by: java.lang.AssertionError: No node found that matches TestTag = 'track_yandex:1:7' in scrollable container
+Semantics of the node:
+Node #4337 at (l=160.0, t=308.0, r=1920.0, b=976.0)px, Tag: 'catalog_list'
+CollectionInfo = 'CollectionInfo(rowCount=8, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=2000.0, maxValue=2000.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 6 children, 5 siblings
+Selector used: (TestTag = 'catalog_list')
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:258)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:43)
+	... 69 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences(dev.petrov.ymplayer2.CatalogSourcesTest):
+java.lang.AssertionError: Online=OnlineMusicState(profileId=owner, signedIn=true, request=MusicRequest(query=, kind=TRACKS, collection=true, entity=null, recommended=false), entries=[MusicEntry(id=yandex:1:7, title=Онлайн: трек 1, subtitle=Неизвестный исполнитель, track=Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), entity=null), MusicEntry(id=yandex:2:7, title=Онлайн: трек 2, subtitle=Неизвестный исполнитель, track=Track(id=yandex:2:7, title=Онлайн: трек 2, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7), entity=null)], loading=false, loaded=true, nextPage=null, failedPage=null, issue=null); playback=PlaybackState(profileId=owner, queue=[Track(id=local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c, title=two, artist=Неизвестный исполнитель, album=Без альбома, source=USB, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=secondary, tint=5, uri=content://dev.petrov.ymplayer2.test.music/tree/secondary/document/two.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/secondary, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[], albumId=null), Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), Track(id=yandex:2:7, title=Онлайн: трек 2, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7)], index=3, positionSeconds=1, playing=true, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=false, waveLoading=false, waveIssue=null, recommendations=false, queueOffset=2, queueTotal=5, currentTrack=Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), automaticLocal=false, automaticSource=null, queueRevision=34, referenceQueue=true, explicitQueueIds=[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c, yandex:1:7, yandex:2:7]); UI=Printing with useUnmergedTree = 'false'
+Node #4204 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+ |-Node #4205 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+   IsContainer = 'true'
+   Shape = 'RectangleShape'
+    |-Node #4206 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+      Shape = 'RectangleShape'
+       |-Node #4208 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px, Tag: 'shell_layout'
+          |-Node #4209 at (l=0.0, t=0.0, r=1920.0, b=116.0)px, Tag: 'shell_header'
+          |  |-Node #4313 at (l=24.0, t=10.0, r=120.0, b=106.0)px, Tag: 'navigate_up'
+          |  | ContentDescription = '[Назад]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4210 at (l=120.0, t=0.0, r=1704.0, b=116.0)px, Tag: 'about_logo'
+          |  | ContentDescription = '[YMPlayer2]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Музыка рядом]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4212 at (l=1704.0, t=10.0, r=1800.0, b=106.0)px, Tag: 'profiles'
+          |  | ContentDescription = '[Профили]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4214 at (l=1800.0, t=10.0, r=1896.0, b=106.0)px, Tag: 'settings'
+          |    ContentDescription = '[Настройки]'
+          |    Focused = 'false'
+          |    Role = 'Button'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Actions = [OnClick, RequestFocus]
+          |    MergeDescendants = 'true'
+          |-Node #4219 at (l=0.0, t=116.0, r=160.0, b=1080.0)px, Tag: 'shell_rail'
+          | IsContainer = 'true'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+          | VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4220 at (l=0.0, t=124.0, r=160.0, b=1072.0)px
+          |    IsTraversalGroup = 'true'
+          |    [SelectableGroup]
+          |     |-Node #4221 at (l=0.0, t=124.0, r=160.0, b=284.0)px, Tag: 'nav_player'
+          |     | Focused = 'true'
+          |     | Role = 'Tab'
+          |     | Selected = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Плеер]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4230 at (l=0.0, t=292.0, r=160.0, b=452.0)px, Tag: 'nav_library'
+          |     | Focused = 'false'
+          |     | Role = 'Tab'
+          |     | Selected = 'true'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Медиатека]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4239 at (l=0.0, t=460.0, r=160.0, b=620.0)px, Tag: 'nav_search'
+          |     | Focused = 'false'
+          |     | Role = 'Tab'
+          |     | Selected = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Поиск]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4248 at (l=0.0, t=628.0, r=160.0, b=788.0)px, Tag: 'nav_clips'
+          |       Focused = 'false'
+          |       Role = 'Tab'
+          |       Selected = 'false'
+          |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |       Text = '[Клипы]'
+          |       Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |       MergeDescendants = 'true'
+          |-Node #4317 at (l=192.0, t=116.0, r=1888.0, b=212.0)px
+          | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4318 at (l=192.0, t=124.0, r=620.0, b=204.0)px, Tag: 'open_history'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[История прослушивания]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4321 at (l=636.0, t=124.0, r=998.0, b=204.0)px, Tag: 'open_recent'
+          |    Focused = 'false'
+          |    Role = 'Button'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Text = '[Недавно добавлено]'
+          |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |    MergeDescendants = 'true'
+          |-Node #4324 at (l=192.0, t=212.0, r=1888.0, b=308.0)px
+          | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4325 at (l=192.0, t=228.0, r=459.0, b=292.0)px, Tag: 'source_local'
+          |  | Focused = 'false'
+          |  | Role = 'Checkbox'
+          |  | Selected = 'true'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Общий каталог]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4329 at (l=475.0, t=228.0, r=750.0, b=292.0)px, Tag: 'source_yandex'
+          |  | Focused = 'false'
+          |  | Role = 'Checkbox'
+          |  | Selected = 'false'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Яндекс Музыка]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4333 at (l=766.0, t=228.0, r=933.0, b=292.0)px, Tag: 'open_offline'
+          |    Focused = 'false'
+          |    Role = 'Checkbox'
+          |    Selected = 'false'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Text = '[Офлайн]'
+          |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |    MergeDescendants = 'true'
+          |-Node #4337 at (l=160.0, t=308.0, r=1920.0, b=976.0)px, Tag: 'catalog_list'
+          | CollectionInfo = 'CollectionInfo(rowCount=8, columnCount=1)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+          | VerticalScrollAxisRange = 'ScrollAxisRange(value=2000.0, maxValue=2000.0, reverseScrolling=false)'
+          | Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+          |  |-Node #4684 at (l=192.0, t=220.0, r=1888.0, b=316.0)px
+          |  | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          |  | IsTraversalGroup = 'true'
+          |  | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          |  | Actions = [ScrollBy, ScrollByOffset]
+          |  |  |-Node #4685 at (l=192.0, t=236.0, r=452.0, b=300.0)px, Tag: 'filter_all'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Все источники]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4689 at (l=468.0, t=236.0, r=629.0, b=300.0)px, Tag: 'filter_YANDEX'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Яндекс]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4693 at (l=645.0, t=236.0, r=865.0, b=300.0)px, Tag: 'filter_LOCAL'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Устройство]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4697 at (l=881.0, t=236.0, r=999.0, b=300.0)px, Tag: 'filter_USB'
+          |  |    Focused = 'false'
+          |  |    Role = 'Checkbox'
+          |  |    Selected = 'true'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[USB]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4701 at (l=192.0, t=340.0, r=1888.0, b=436.0)px
+          |  | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          |  | IsTraversalGroup = 'true'
+          |  | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          |  | Actions = [ScrollBy, ScrollByOffset]
+          |  |  |-Node #4702 at (l=192.0, t=356.0, r=491.0, b=420.0)px, Tag: 'filter_offline'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Доступно офлайн]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4706 at (l=507.0, t=356.0, r=820.0, b=420.0)px, Tag: 'filter_available'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Доступные сейчас]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4710 at (l=836.0, t=356.0, r=1049.0, b=420.0)px
+          |  |    Focused = 'false'
+          |  |    Role = 'Button'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[Название ↑]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4728 at (l=192.0, t=460.0, r=696.0, b=492.0)px
+          |  | Text = '[Устройство / USB: 1 · Яндекс: 0 показано]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #4729 at (l=192.0, t=500.0, r=657.0, b=580.0)px, Tag: 'catalog_play_all'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Слушать показанные треки]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4787 at (l=192.0, t=612.0, r=1888.0, b=708.0)px
+          |  | IsContainer = 'true'
+          |  | Shape = 'RectangleShape'
+          |  |  |-Node #4789 at (l=192.0, t=620.0, r=490.0, b=700.0)px, Tag: 'bulk_start'
+          |  |    Focused = 'false'
+          |  |    Role = 'Button'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[Выбрать треки]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4792 at (l=192.0, t=732.0, r=1888.0, b=944.0)px, Tag: 'track_card_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |    IsContainer = 'true'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     |-Node #4794 at (l=192.0, t=732.0, r=1888.0, b=840.0)px, Tag: 'track_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |     | ContentDescription = '[Воспроизвести трек]'
+          |     | Focused = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[two, Неизвестный исполнитель]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4802 at (l=208.0, t=872.0, r=1784.0, b=904.0)px, Tag: 'track_meta_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |     | Text = '[USB · 0:30]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |     |-Node #4803 at (l=1784.0, t=840.0, r=1880.0, b=936.0)px, Tag: 'enqueue_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |       ContentDescription = '[Уже в очереди: two]'
+          |       Role = 'Button'
+          |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |       [Disabled]
+          |       Actions = [OnClick]
+          |       MergeDescendants = 'true'
+          |-Node #4338 at (l=160.0, t=976.0, r=1920.0, b=1080.0)px
+            IsContainer = 'true'
+            Shape = 'RectangleShape'
+             |-Node #4340 at (l=176.0, t=976.0, r=1712.0, b=1080.0)px, Tag: 'mini_open'
+             | Focused = 'false'
+             | Role = 'Button'
+             | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+             | Text = '[Онлайн: трек 1, Неизвестный исполнитель · 0:01]'
+             | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+             | MergeDescendants = 'true'
+             |-Node #4345 at (l=1712.0, t=980.0, r=1808.0, b=1076.0)px, Tag: 'mini_play'
+             | ContentDescription = '[Пауза]'
+             | Focused = 'false'
+             | Role = 'Button'
+             | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+             | Actions = [OnClick, RequestFocus]
+             | MergeDescendants = 'true'
+             |-Node #4347 at (l=1808.0, t=980.0, r=1904.0, b=1076.0)px
+               ContentDescription = '[Очередь]'
+               Focused = 'false'
+               Role = 'Button'
+               Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+               Actions = [OnClick, RequestFocus]
+               MergeDescendants = 'true'
+	at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:49)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences(CatalogSourcesTest.kt:186)
+	... 67 trimmed
+Caused by: java.lang.AssertionError: No node found that matches TestTag = 'track_yandex:1:7' in scrollable container
+Semantics of the node:
+Node #4337 at (l=160.0, t=308.0, r=1920.0, b=976.0)px, Tag: 'catalog_list'
+CollectionInfo = 'CollectionInfo(rowCount=8, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=2000.0, maxValue=2000.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 6 children, 5 siblings
+Selector used: (TestTag = 'catalog_list')
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:258)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:43)
+	... 69 more
+
+INSTRUMENTATION_STATUS: test=sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedCatalogRowsRemainReachableAndFocusDoesNotChangeFilters
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedCatalogRowsRemainReachableAndFocusDoesNotChangeFilters
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=onlineBulkSelectionSurvivesProviderPaginationAndQueuesBothTracks
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=9
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=onlineBulkSelectionSurvivesProviderPaginationAndQueuesBothTracks
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 51.52
+There were 2 failures:
+1) bulkSelectionSurvivesPaginationAndAddsInChosenOrderWithRemote(dev.petrov.ymplayer2.LocalPlaybackTest)
+java.lang.IllegalStateException: uncancelled requests present
+	at androidx.compose.foundation.internal.InlineClassHelperKt.throwIllegalStateException(InlineClassHelper.kt:26)
+	at androidx.compose.foundation.gestures.BringIntoViewRequestPriorityQueue.cancelAndRemoveAll(BringIntoViewRequestPriorityQueue.kt:163)
+	at androidx.compose.foundation.gestures.ContentInViewNode$launchAnimation$2.invokeSuspend(ContentInViewNode.kt:318)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at kotlinx.coroutines.internal.ScopeCoroutine.afterResume(Scopes.kt:35)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:101)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:47)
+	at androidx.compose.ui.test.ApplyingContinuationInterceptor$SendApplyContinuation.resumeWith(ApplyingContinuationInterceptor.kt:52)
+	at androidx.compose.ui.test.FrameDeferringContinuationInterceptor$FrameDeferredContinuation.resumeWith(FrameDeferringContinuationInterceptor.jvmAndAndroid.kt:187)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:163)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:152)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:470)
+	at kotlinx.coroutines.CancellableContinuationImpl.cancel(CancellableContinuationImpl.kt:214)
+	at kotlinx.coroutines.CancellableContinuationImpl.parentCancelled$kotlinx_coroutines_core(CancellableContinuationImpl.kt:221)
+	at kotlinx.coroutines.ChildContinuation.invoke(CancellableContinuationImpl.kt:698)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCancelling(JobSupport.kt:826)
+	at kotlinx.coroutines.JobSupport.makeCancelling(JobSupport.kt:786)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:702)
+	at kotlinx.coroutines.JobSupport.parentCancelled(JobSupport.kt:668)
+	at kotlinx.coroutines.ChildHandleNode.invoke(JobSupport.kt:1580)
+	at kotlinx.coroutines.JobSupport.notifyCancelling(JobSupport.kt:1604)
+	at kotlinx.coroutines.JobSupport.tryMakeCompletingSlowPath(JobSupport.kt:931)
+	at kotlinx.coroutines.JobSupport.tryMakeCompleting(JobSupport.kt:894)
+	at kotlinx.coroutines.JobSupport.cancelMakeCompleting(JobSupport.kt:727)
+	at kotlinx.coroutines.JobSupport.cancelImpl$kotlinx_coroutines_core(JobSupport.kt:698)
+	at kotlinx.coroutines.JobSupport.cancelInternal(JobSupport.kt:663)
+	at kotlinx.coroutines.JobSupport.cancel(JobSupport.kt:648)
+	at kotlinx.coroutines.CoroutineScopeKt.cancel(CoroutineScope.kt:309)
+	at androidx.compose.ui.Modifier$Node.markAsDetached$ui(Modifier.kt:295)
+	at androidx.compose.ui.node.DelegatingNode.markAsDetached$ui(DelegatingNode.kt:270)
+	at androidx.compose.ui.node.DelegatingNode.markAsDetached$ui(DelegatingNode.kt:270)
+	at androidx.compose.ui.node.NodeChain.markAsDetached$ui(NodeChain.kt:376)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:585)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.detach$ui(LayoutNode.kt:584)
+	at androidx.compose.ui.node.LayoutNode.onChildRemoved(LayoutNode.kt:371)
+	at androidx.compose.ui.node.LayoutNode.removeAll$ui(LayoutNode.kt:357)
+	at androidx.compose.ui.node.UiApplier.onClear(UiApplier.android.kt:41)
+	at androidx.compose.runtime.AbstractApplier.clear(Applier.kt:216)
+	at androidx.compose.runtime.CompositionImpl.dispose(Composition.kt:953)
+	at androidx.compose.ui.platform.WrappedComposition.dispose(Wrapper.android.kt:141)
+	at androidx.compose.ui.platform.AbstractComposeView.disposeComposition(ComposeView.android.kt:418)
+	at androidx.compose.ui.platform.ViewCompositionStrategy$DisposeOnDetachedFromWindowOrReleasedFromPool$installFor$listener$1.onViewDetachedFromWindow(ViewCompositionStrategy.android.kt:92)
+	at android.view.View.dispatchDetachedFromWindow(View.java:19646)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3814)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewGroup.dispatchDetachedFromWindow(ViewGroup.java:3806)
+	at android.view.ViewRootImpl.dispatchDetachedFromWindow(ViewRootImpl.java:4146)
+	at android.view.ViewRootImpl.doDie(ViewRootImpl.java:7151)
+	at android.view.ViewRootImpl.die(ViewRootImpl.java:7128)
+	at android.view.WindowManagerGlobal.removeViewLocked(WindowManagerGlobal.java:490)
+	at android.view.WindowManagerGlobal.removeView(WindowManagerGlobal.java:428)
+	at android.view.WindowManagerImpl.removeViewImmediate(WindowManagerImpl.java:126)
+	at android.app.Dialog.dismissDialog(Dialog.java:389)
+	at android.app.Dialog.dismiss(Dialog.java:371)
+	at androidx.compose.ui.window.AndroidDialog_androidKt$Dialog$lambda$3$0$$inlined$onDispose$1.dispose(Effects.kt:777)
+	at androidx.compose.runtime.DisposableEffectImpl.onForgotten(Effects.kt:237)
+	at androidx.compose.runtime.internal.RememberEventDispatcher.dispatchRememberObservers(RememberEventDispatcher.kt:223)
+	at androidx.compose.runtime.CompositionImpl.deactivate(Composition.kt:1492)
+	at androidx.compose.ui.layout.LayoutNodeSubcompositionsState.deactivateOutOfFrame$lambda$0(SubcomposeLayout.kt:792)
+	at androidx.compose.ui.layout.LayoutNodeSubcompositionsState$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.platform.AndroidComposeView.outOfFrameRunnable$lambda$0(AndroidComposeView.android.kt:354)
+	at androidx.compose.ui.platform.AndroidComposeView$$ExternalSyntheticLambda2.run(D8$$SyntheticClass:0)
+	at android.os.Handler.handleCallback(Handler.java:883)
+	at android.os.Handler.dispatchMessage(Handler.java:100)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7356)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+2) sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences(dev.petrov.ymplayer2.CatalogSourcesTest)
+java.lang.AssertionError: Online=OnlineMusicState(profileId=owner, signedIn=true, request=MusicRequest(query=, kind=TRACKS, collection=true, entity=null, recommended=false), entries=[MusicEntry(id=yandex:1:7, title=Онлайн: трек 1, subtitle=Неизвестный исполнитель, track=Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), entity=null), MusicEntry(id=yandex:2:7, title=Онлайн: трек 2, subtitle=Неизвестный исполнитель, track=Track(id=yandex:2:7, title=Онлайн: трек 2, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7), entity=null)], loading=false, loaded=true, nextPage=null, failedPage=null, issue=null); playback=PlaybackState(profileId=owner, queue=[Track(id=local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c, title=two, artist=Неизвестный исполнитель, album=Без альбома, source=USB, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=secondary, tint=5, uri=content://dev.petrov.ymplayer2.test.music/tree/secondary/document/two.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/secondary, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[], albumId=null), Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), Track(id=yandex:2:7, title=Онлайн: трек 2, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7)], index=3, positionSeconds=1, playing=true, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=false, waveLoading=false, waveIssue=null, recommendations=false, queueOffset=2, queueTotal=5, currentTrack=Track(id=yandex:1:7, title=Онлайн: трек 1, artist=Неизвестный исполнитель, album=Без альбома, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791005751000, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), automaticLocal=false, automaticSource=null, queueRevision=34, referenceQueue=true, explicitQueueIds=[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c, yandex:1:7, yandex:2:7]); UI=Printing with useUnmergedTree = 'false'
+Node #4204 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+ |-Node #4205 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+   IsContainer = 'true'
+   Shape = 'RectangleShape'
+    |-Node #4206 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px
+      Shape = 'RectangleShape'
+       |-Node #4208 at (l=0.0, t=0.0, r=1920.0, b=1080.0)px, Tag: 'shell_layout'
+          |-Node #4209 at (l=0.0, t=0.0, r=1920.0, b=116.0)px, Tag: 'shell_header'
+          |  |-Node #4313 at (l=24.0, t=10.0, r=120.0, b=106.0)px, Tag: 'navigate_up'
+          |  | ContentDescription = '[Назад]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4210 at (l=120.0, t=0.0, r=1704.0, b=116.0)px, Tag: 'about_logo'
+          |  | ContentDescription = '[YMPlayer2]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Музыка рядом]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4212 at (l=1704.0, t=10.0, r=1800.0, b=106.0)px, Tag: 'profiles'
+          |  | ContentDescription = '[Профили]'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Actions = [OnClick, RequestFocus]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4214 at (l=1800.0, t=10.0, r=1896.0, b=106.0)px, Tag: 'settings'
+          |    ContentDescription = '[Настройки]'
+          |    Focused = 'false'
+          |    Role = 'Button'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Actions = [OnClick, RequestFocus]
+          |    MergeDescendants = 'true'
+          |-Node #4219 at (l=0.0, t=116.0, r=160.0, b=1080.0)px, Tag: 'shell_rail'
+          | IsContainer = 'true'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+          | VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4220 at (l=0.0, t=124.0, r=160.0, b=1072.0)px
+          |    IsTraversalGroup = 'true'
+          |    [SelectableGroup]
+          |     |-Node #4221 at (l=0.0, t=124.0, r=160.0, b=284.0)px, Tag: 'nav_player'
+          |     | Focused = 'true'
+          |     | Role = 'Tab'
+          |     | Selected = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Плеер]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4230 at (l=0.0, t=292.0, r=160.0, b=452.0)px, Tag: 'nav_library'
+          |     | Focused = 'false'
+          |     | Role = 'Tab'
+          |     | Selected = 'true'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Медиатека]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4239 at (l=0.0, t=460.0, r=160.0, b=620.0)px, Tag: 'nav_search'
+          |     | Focused = 'false'
+          |     | Role = 'Tab'
+          |     | Selected = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[Поиск]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4248 at (l=0.0, t=628.0, r=160.0, b=788.0)px, Tag: 'nav_clips'
+          |       Focused = 'false'
+          |       Role = 'Tab'
+          |       Selected = 'false'
+          |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |       Text = '[Клипы]'
+          |       Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |       MergeDescendants = 'true'
+          |-Node #4317 at (l=192.0, t=116.0, r=1888.0, b=212.0)px
+          | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4318 at (l=192.0, t=124.0, r=620.0, b=204.0)px, Tag: 'open_history'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[История прослушивания]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4321 at (l=636.0, t=124.0, r=998.0, b=204.0)px, Tag: 'open_recent'
+          |    Focused = 'false'
+          |    Role = 'Button'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Text = '[Недавно добавлено]'
+          |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |    MergeDescendants = 'true'
+          |-Node #4324 at (l=192.0, t=212.0, r=1888.0, b=308.0)px
+          | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          | Actions = [ScrollBy, ScrollByOffset]
+          |  |-Node #4325 at (l=192.0, t=228.0, r=459.0, b=292.0)px, Tag: 'source_local'
+          |  | Focused = 'false'
+          |  | Role = 'Checkbox'
+          |  | Selected = 'true'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Общий каталог]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4329 at (l=475.0, t=228.0, r=750.0, b=292.0)px, Tag: 'source_yandex'
+          |  | Focused = 'false'
+          |  | Role = 'Checkbox'
+          |  | Selected = 'false'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Яндекс Музыка]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4333 at (l=766.0, t=228.0, r=933.0, b=292.0)px, Tag: 'open_offline'
+          |    Focused = 'false'
+          |    Role = 'Checkbox'
+          |    Selected = 'false'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |    Text = '[Офлайн]'
+          |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |    MergeDescendants = 'true'
+          |-Node #4337 at (l=160.0, t=308.0, r=1920.0, b=976.0)px, Tag: 'catalog_list'
+          | CollectionInfo = 'CollectionInfo(rowCount=8, columnCount=1)'
+          | IsTraversalGroup = 'true'
+          | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+          | VerticalScrollAxisRange = 'ScrollAxisRange(value=2000.0, maxValue=2000.0, reverseScrolling=false)'
+          | Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+          |  |-Node #4684 at (l=192.0, t=220.0, r=1888.0, b=316.0)px
+          |  | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          |  | IsTraversalGroup = 'true'
+          |  | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          |  | Actions = [ScrollBy, ScrollByOffset]
+          |  |  |-Node #4685 at (l=192.0, t=236.0, r=452.0, b=300.0)px, Tag: 'filter_all'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Все источники]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4689 at (l=468.0, t=236.0, r=629.0, b=300.0)px, Tag: 'filter_YANDEX'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Яндекс]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4693 at (l=645.0, t=236.0, r=865.0, b=300.0)px, Tag: 'filter_LOCAL'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Устройство]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4697 at (l=881.0, t=236.0, r=999.0, b=300.0)px, Tag: 'filter_USB'
+          |  |    Focused = 'false'
+          |  |    Role = 'Checkbox'
+          |  |    Selected = 'true'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[USB]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4701 at (l=192.0, t=340.0, r=1888.0, b=436.0)px
+          |  | HorizontalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+          |  | IsTraversalGroup = 'true'
+          |  | Shape = 'androidx.compose.foundation.HorizontalScrollableClipShape@f8bc828'
+          |  | Actions = [ScrollBy, ScrollByOffset]
+          |  |  |-Node #4702 at (l=192.0, t=356.0, r=491.0, b=420.0)px, Tag: 'filter_offline'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Доступно офлайн]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4706 at (l=507.0, t=356.0, r=820.0, b=420.0)px, Tag: 'filter_available'
+          |  |  | Focused = 'false'
+          |  |  | Role = 'Checkbox'
+          |  |  | Selected = 'false'
+          |  |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |  | Text = '[Доступные сейчас]'
+          |  |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |  | MergeDescendants = 'true'
+          |  |  |-Node #4710 at (l=836.0, t=356.0, r=1049.0, b=420.0)px
+          |  |    Focused = 'false'
+          |  |    Role = 'Button'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[Название ↑]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4728 at (l=192.0, t=460.0, r=696.0, b=492.0)px
+          |  | Text = '[Устройство / USB: 1 · Яндекс: 0 показано]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |  |-Node #4729 at (l=192.0, t=500.0, r=657.0, b=580.0)px, Tag: 'catalog_play_all'
+          |  | Focused = 'false'
+          |  | Role = 'Button'
+          |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  | Text = '[Слушать показанные треки]'
+          |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  | MergeDescendants = 'true'
+          |  |-Node #4787 at (l=192.0, t=612.0, r=1888.0, b=708.0)px
+          |  | IsContainer = 'true'
+          |  | Shape = 'RectangleShape'
+          |  |  |-Node #4789 at (l=192.0, t=620.0, r=490.0, b=700.0)px, Tag: 'bulk_start'
+          |  |    Focused = 'false'
+          |  |    Role = 'Button'
+          |  |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |  |    Text = '[Выбрать треки]'
+          |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |  |    MergeDescendants = 'true'
+          |  |-Node #4792 at (l=192.0, t=732.0, r=1888.0, b=944.0)px, Tag: 'track_card_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |    IsContainer = 'true'
+          |    Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     |-Node #4794 at (l=192.0, t=732.0, r=1888.0, b=840.0)px, Tag: 'track_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |     | ContentDescription = '[Воспроизвести трек]'
+          |     | Focused = 'false'
+          |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |     | Text = '[two, Неизвестный исполнитель]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+          |     | MergeDescendants = 'true'
+          |     |-Node #4802 at (l=208.0, t=872.0, r=1784.0, b=904.0)px, Tag: 'track_meta_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |     | Text = '[USB · 0:30]'
+          |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+          |     |-Node #4803 at (l=1784.0, t=840.0, r=1880.0, b=936.0)px, Tag: 'enqueue_local:ba25c1120e1adf37c4cee4bafb17b6e1a41378384b3a42649de36b9936660f1c'
+          |       ContentDescription = '[Уже в очереди: two]'
+          |       Role = 'Button'
+          |       Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+          |       [Disabled]
+          |       Actions = [OnClick]
+          |       MergeDescendants = 'true'
+          |-Node #4338 at (l=160.0, t=976.0, r=1920.0, b=1080.0)px
+            IsContainer = 'true'
+            Shape = 'RectangleShape'
+             |-Node #4340 at (l=176.0, t=976.0, r=1712.0, b=1080.0)px, Tag: 'mini_open'
+             | Focused = 'false'
+             | Role = 'Button'
+             | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+             | Text = '[Онлайн: трек 1, Неизвестный исполнитель · 0:01]'
+             | Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+             | MergeDescendants = 'true'
+             |-Node #4345 at (l=1712.0, t=980.0, r=1808.0, b=1076.0)px, Tag: 'mini_play'
+             | ContentDescription = '[Пауза]'
+             | Focused = 'false'
+             | Role = 'Button'
+             | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+             | Actions = [OnClick, RequestFocus]
+             | MergeDescendants = 'true'
+             |-Node #4347 at (l=1808.0, t=980.0, r=1904.0, b=1076.0)px
+               ContentDescription = '[Очередь]'
+               Focused = 'false'
+               Role = 'Button'
+               Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+               Actions = [OnClick, RequestFocus]
+               MergeDescendants = 'true'
+	at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:49)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences(CatalogSourcesTest.kt:186)
+	... 67 trimmed
+Caused by: java.lang.AssertionError: No node found that matches TestTag = 'track_yandex:1:7' in scrollable container
+Semantics of the node:
+Node #4337 at (l=160.0, t=308.0, r=1920.0, b=976.0)px, Tag: 'catalog_list'
+CollectionInfo = 'CollectionInfo(rowCount=8, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@5675f9a'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=2000.0, maxValue=2000.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 6 children, 5 siblings
+Selector used: (TestTag = 'catalog_list')
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:258)
+	at dev.petrov.ymplayer2.CatalogSourcesTest.showTrack(CatalogSourcesTest.kt:43)
+	... 69 more
+
+FAILURES!!!
+Tests run: 9,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

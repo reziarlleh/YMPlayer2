@@ -22,6 +22,7 @@ import kotlinx.coroutines.CancellationException
     var count by remember(playback.profileId, source) { mutableIntStateOf(80) }
     var retry by remember { mutableIntStateOf(0) }
     val filter = CatalogFilter(source = source)
+    val selection = rememberTrackSelection(playback.profileId, source)
     val batches = remember(indexed.indexRevision, library, filter, retry) { mutableMapOf<Int, CatalogPage<Track>>() }
     val result by key(batches, count) { produceState<Result<CatalogPage<Track>>?>(null, batches, count) {
         value = try {
@@ -37,6 +38,7 @@ import kotlinx.coroutines.CancellationException
     Column(Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
         Text(tr(Msg.recent_title), style = MaterialTheme.typography.titleLarge)
         Text(tr(Msg.recent_description), style = MaterialTheme.typography.bodySmall)
+        SelectionToolbar(selection, model.player, model.collections)
         ChoiceRow(source?.name ?: "all", Modifier.fillMaxWidth()) { choice ->
             FilterChip(source == null, { source = null }, { Text(trMessage("Общий каталог")) }, choice("all").prismFocus().testTag("recent_all"))
             listOf(Source.LOCAL, Source.USB).forEach { item ->
@@ -49,7 +51,9 @@ import kotlinx.coroutines.CancellationException
             if (page?.total == 0) item { Text(tr(Msg.recent_empty), Modifier.testTag("recent_empty")) }
             items(page?.items.orEmpty(), key = Track::id) { track ->
                 TrackRow(track, playback.current?.id == track.id, { model.player.playQueue(listOf(track.id)) },
-                    enqueue = { model.player.enqueue(track.id) }, queued = playback.explicitQueueIds?.contains(track.id) == true, more = { more(track) })
+                    enqueue = { model.player.enqueue(track.id) }, queued = playback.explicitQueueIds?.contains(track.id) == true, more = { more(track) },
+                    checked = if (selection.active) selection.contains(track.id) else null,
+                    toggleSelection = if (selection.active) ({ selection.toggle(track) }) else null)
             }
             if (page?.hasMore == true) item { OutlinedButton({ count += 80 }, Modifier.fillMaxWidth().prismFocus().testTag("recent_more")) { Text(trMessage("Загрузить ещё")) } }
         }
