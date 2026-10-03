@@ -112,6 +112,10 @@ requires the current profile’s account or usable offline download.
 **Clear** asks for confirmation and clears only this profile’s history. It does
 not remove files, offline downloads or playlists.
 
+<p align="center"><img src="qa/2-3-0/phone-history75.png" width="280" alt="English listening history in signed 2.3.0-build75"></p>
+
+*Signed 2.3.0-build75 on the project’s Android 15 emulator, with a local test track.*
+
 ## Yandex sign-in and profiles
 
 1. Open **Profiles**, choose the profile you want, then open its Yandex account page.

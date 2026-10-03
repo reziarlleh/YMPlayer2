@@ -1,0 +1,21 @@
+{
+  "version": "2.3.0-build75",
+  "labels": [
+    "Back",
+    "YMPlayer2",
+    "Music with you",
+    "Profiles",
+    "Settings",
+    "Player",
+    "Library",
+    "Search",
+    "Clips",
+    "Listening history",
+    "The last 500 tracks played in this profile. Playing a track again moves it to the top.",
+    "Tracks you play in this profile will appear here.",
+    "Queue is empty",
+    " · 0:00",
+    "Play",
+    "Queue"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "version": "2.3.0-build75",
+  "labels": [
+    "Back",
+    "YMPlayer2",
+    "Music with you",
+    "Profiles",
+    "Settings",
+    "Listening history",
+    "The last 500 tracks played in this profile. Playing a track again moves it to the top.",
+    "Clear",
+    "02 - City lights",
+    "Неизвестный исполнитель",
+    "10/3/26 4:54 AM",
+    "Current track",
+    "Device · 0:45",
+    "Already in queue: 02 - City lights",
+    "02 - City lights",
+    "Неизвестный исполнитель · 0:10",
+    "Play",
+    "Queue",
+    "Player",
+    "Library",
+    "Search",
+    "Clips"
+  ],
+  "playedProductionFixture": true
+}
