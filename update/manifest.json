@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 75,
-  "versionName": "2.3.0-build75",
+  "versionCode": 76,
+  "versionName": "2.3.1-build76",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-03T04:49:06.9993509Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.0-build75",
-  "releaseNotes": "История прослушивания: последние 500 треков каждого профиля, повторный запуск и очистка с подтверждением. Новые пункты на восьми языках и английская инструкция. Стабильное обновление поверх 2.2 с сохранением данных.",
+  "publishedAt": "2026-10-03T05:17:41.6498341Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.1-build76",
+  "releaseNotes": "Недавно добавленная музыка устройства и USB: порядок по первому появлению в медиатеке, без перестановки при сканировании. Все восемь языков, управление пультом, сохранение старого каталога и настроек.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.0-build75/YMPlayer-2.3.0-build75.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.0-build75/releases/2.3.0-build75/YMPlayer-2.3.0-build75.apk",
-    "sizeBytes": 5870433,
-    "sha256": "2b9cbe3f669e3e28569681cbb286b0199599f31f2f5f68922253a84c23ecf074"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.1-build76/YMPlayer-2.3.1-build76.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.1-build76/releases/2.3.1-build76/YMPlayer-2.3.1-build76.apk",
+    "sizeBytes": 5891981,
+    "sha256": "de0a6327bfa4dde3025b33fe88f2364d5e863484fd978aaa6e23a90f7f3ad382"
   }
 }
