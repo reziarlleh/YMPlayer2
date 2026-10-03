@@ -1,0 +1,24 @@
+{
+  "labels": [
+    "Back",
+    "YMPlayer2",
+    "Music with you",
+    "Profiles",
+    "Settings",
+    "Player",
+    "Library",
+    "Search",
+    "Clips",
+    "Recently added",
+    "Device and USB music, newest additions first. Rescanning keeps the original order.",
+    "All music",
+    "Device",
+    "USB",
+    "No new tracks yet. Music added before this feature is still in your library.",
+    "Queue is empty",
+    " · 0:00",
+    "Play",
+    "Queue"
+  ],
+  "version": "2.3.1-build76"
+}

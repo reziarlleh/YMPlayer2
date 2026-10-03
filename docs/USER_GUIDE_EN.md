@@ -125,6 +125,8 @@ play until you reconnect the drive. Music added before this feature remains
 in the regular library: its original date is unknown. Forgetting a folder
 and adding it again counts as a new addition.
 
+<p align="center"><img src="qa/2-3-1/phone-recent76.png" width="280" alt="Recently added after upgrading: older files remain in the regular library"></p>
+
 ## Yandex sign-in and profiles
 
 1. Open **Profiles**, choose the profile you want, then open its Yandex account page.
