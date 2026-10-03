@@ -34,16 +34,21 @@ class MyWavePlaybackTest {
         waitFor { player.state.value.positionSeconds >= 1 && player.state.value.queue.size >= 2 }
     }
     @Test fun fastStartPrefetchAutomaticContinuationAndPausedRestore() {
+        runBlocking { fixture.history.clear("owner") }
         start()
         assertTrue(player.state.value.wave)
+        assertEquals(listOf("yandex:1:7"), runBlocking { fixture.history.page("owner").items.map { it.track.id } })
         compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 }
         waitFor { fixture.waveFeedback.any { it.third == WaveFeedback.FINISHED && it.second.track.id == "yandex:1:7" } }
         assertTrue(fixture.waveFeedback.any { it.third == WaveFeedback.STARTED && it.second.track.id == "yandex:2:7" })
+        val history = runBlocking { fixture.history.page("owner").items }
+        assertEquals(listOf("yandex:2:7", "yandex:1:7"), history.map { it.track.id })
         compose.runOnIdle { player.toggle(); fixture.restartEngine() }
         waitFor { player.state.value.connected && player.state.value.current?.id == "yandex:2:7" }
         assertFalse(player.state.value.playing); assertTrue(player.state.value.wave)
         assertEquals("6", player.state.value.current!!.artists.single().id)
+        assertEquals(history, runBlocking { fixture.history.page("owner").items })
         assertFalse(fixture.checkpointText().contains("fixture-"))
         compose.runOnIdle { player.toggle() }
         waitFor { player.state.value.positionSeconds >= 2 }

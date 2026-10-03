@@ -191,7 +191,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         override suspend fun next(profileId: String, previous: WaveBatch) = batch(previous.cursor.toInt() + 1)
         override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) { waveFeedback += Triple(profileId, item, type) }
     }
-    val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi, offline, streamQuality = { audioQuality.state.value.stream })
+    val history = dev.petrov.ymplayer2.library.ListeningHistory(context, viewModelScope, "fixture-history.db")
+    val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi, offline, streamQuality = { audioQuality.state.value.stream }, listened = history::record)
     val systemPlayer get() = sessionPlayer(engine!!, player)
     private var engine: ExoPlayer? = null
     init { createEngine() }
@@ -212,7 +213,7 @@ class OnlineTestActivity : ComponentActivity() {
         dev.petrov.ymplayer2.localization.AppLanguages.initialize(this, "fixture-language", "ru"); enableEdgeToEdge()
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
-                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists) }
+                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists, history = harness.history) }
             })
             ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it })
         }

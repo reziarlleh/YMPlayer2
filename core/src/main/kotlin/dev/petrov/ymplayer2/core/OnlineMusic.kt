@@ -68,6 +68,13 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
         val visible = state.value.takeIf { it.profileId == profileId }?.entries?.mapNotNull(MusicEntry::track).orEmpty()
         return (catalog.value.tracks + visible).associateBy(Track::id).values.toList()
     }
+    /** Metadata restored from history; stream access still goes through the current account/API. */
+    fun restoreForPlayback(profileId: String, track: Track): Boolean {
+        if (track.source != Source.YANDEX || catalog.value.profileId != profileId || !catalog.value.enabled) return false
+        mutableCatalog.value = catalog.value.copy(tracks = (catalog.value.tracks + track.copy(uri = null, available = true))
+            .associateBy(Track::id).values.toList().takeLast(4000))
+        return true
+    }
     fun search(query: String, kind: MusicKind = state.value.request.kind, debounce: Boolean = true) {
         val request = MusicRequest(query.take(200), kind)
         if (request == state.value.request && (state.value.loading || state.value.loaded)) return

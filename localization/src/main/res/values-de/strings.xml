@@ -579,5 +579,11 @@
     <string name="msg_c0c419b5947a" formatted="false">"Diesen Künstler nie empfehlen"</string>
     <string name="msg_3605c85705cf" formatted="false">"Diesen Titel wieder empfehlen"</string>
     <string name="msg_d8462717244f" formatted="false">"Diesen Künstler wieder empfehlen"</string>
+    <string name="history_title" formatted="false">"Hörverlauf"</string>
+    <string name="history_description" formatted="false">"Die letzten 500 Titel dieses Profils. Erneut abgespielte Titel stehen wieder ganz oben."</string>
+    <string name="history_empty" formatted="false">"Hier erscheinen die Titel, die du in diesem Profil abspielst."</string>
+    <string name="history_failure" formatted="false">"Der Hörverlauf konnte nicht gelesen oder gespeichert werden. Erneut versuchen"</string>
+    <string name="history_clear_title" formatted="false">"Hörverlauf dieses Profils löschen?"</string>
+    <string name="history_clear_description" formatted="false">"Nur der Hörverlauf wird gelöscht. Dateien, Cache und Playlists bleiben erhalten."</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

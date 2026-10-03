@@ -579,5 +579,11 @@
     <string name="msg_c0c419b5947a" formatted="false">"No recomendar nunca este artista"</string>
     <string name="msg_3605c85705cf" formatted="false">"Volver a recomendar esta canción"</string>
     <string name="msg_d8462717244f" formatted="false">"Volver a recomendar este artista"</string>
+    <string name="history_title" formatted="false">"Historial de escucha"</string>
+    <string name="history_description" formatted="false">"Los últimos 500 temas reproducidos en este perfil. Al volver a escuchar un tema, pasa al principio."</string>
+    <string name="history_empty" formatted="false">"Aquí aparecerán los temas que escuches en este perfil."</string>
+    <string name="history_failure" formatted="false">"No se pudo leer o guardar el historial. Reintentar"</string>
+    <string name="history_clear_title" formatted="false">"¿Borrar el historial de este perfil?"</string>
+    <string name="history_clear_description" formatted="false">"Solo se borrará el historial de escucha. Se conservarán los archivos, la música en caché y las listas."</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

@@ -1,0 +1,26 @@
+
+dev.petrov.ymplayer2.ListeningHistoryTest:.
+dev.petrov.ymplayer2.LocalPlaybackTest:..
+dev.petrov.ymplayer2.OnlinePlaybackTest:...
+Error in historyReplaysOnlineTrackAfterLookupCacheAndQueueWereCleared(dev.petrov.ymplayer2.OnlinePlaybackTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.petrov.ymplayer2.OnlinePlaybackTest.historyReplaysOnlineTrackAfterLookupCacheAndQueueWereCleared(OnlinePlaybackTest.kt:86)
+..
+dev.petrov.ymplayer2.MyWavePlaybackTest:.
+dev.petrov.ymplayer2.OfflinePlaybackTest:.
+dev.petrov.ymplayer2.CatalogSourcesTest:.
+
+Time: 107.932
+There was 1 failure:
+1) historyReplaysOnlineTrackAfterLookupCacheAndQueueWereCleared(dev.petrov.ymplayer2.OnlinePlaybackTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at dev.petrov.ymplayer2.OnlinePlaybackTest.historyReplaysOnlineTrackAfterLookupCacheAndQueueWereCleared(OnlinePlaybackTest.kt:86)
+
+FAILURES!!!
+Tests run: 12,  Failures: 1

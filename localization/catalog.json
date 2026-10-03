@@ -9338,5 +9338,101 @@
       "es": "Volver a recomendar este artista",
       "uk": "Знову пропонувати цього виконавця"
     }
+  },
+  {
+    "key": "history_title",
+    "source": "История прослушивания",
+    "english": "Listening history",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Гісторыя праслухоўвання",
+      "fr": "Historique d’écoute",
+      "de": "Hörverlauf",
+      "kk": "Тыңдау тарихы",
+      "es": "Historial de escucha",
+      "uk": "Історія прослуховування"
+    }
+  },
+  {
+    "key": "history_description",
+    "source": "Последние 500 треков этого профиля. Повторное прослушивание поднимает трек в начало.",
+    "english": "The last 500 tracks played in this profile. Playing a track again moves it to the top.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Апошнія 500 трэкаў гэтага профілю. Паўторнае праслухоўванне пераносіць трэк у пачатак.",
+      "fr": "Les 500 derniers titres écoutés dans ce profil. Réécouter un titre le place en tête de liste.",
+      "de": "Die letzten 500 Titel dieses Profils. Erneut abgespielte Titel stehen wieder ganz oben.",
+      "kk": "Осы профильде тыңдалған соңғы 500 трек. Қайта тыңдалған трек тізімнің басына ауысады.",
+      "es": "Los últimos 500 temas reproducidos en este perfil. Al volver a escuchar un tema, pasa al principio.",
+      "uk": "Останні 500 треків цього профілю. Повторне прослуховування переміщує трек на початок."
+    }
+  },
+  {
+    "key": "history_empty",
+    "source": "Здесь появятся треки, которые вы слушали в этом профиле.",
+    "english": "Tracks you play in this profile will appear here.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Тут з’явяцца трэкі, якія вы слухалі ў гэтым профілі.",
+      "fr": "Les titres écoutés dans ce profil apparaîtront ici.",
+      "de": "Hier erscheinen die Titel, die du in diesem Profil abspielst.",
+      "kk": "Осы профильде тыңдаған тректеріңіз осында көрсетіледі.",
+      "es": "Aquí aparecerán los temas que escuches en este perfil.",
+      "uk": "Тут з’являться треки, які ви слухали в цьому профілі."
+    }
+  },
+  {
+    "key": "history_failure",
+    "source": "Не удалось прочитать или сохранить историю. Повторить",
+    "english": "Could not read or save the listening history. Retry",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Не ўдалося прачытаць або захаваць гісторыю. Паўтарыць",
+      "fr": "Impossible de lire ou d’enregistrer l’historique. Réessayer",
+      "de": "Der Hörverlauf konnte nicht gelesen oder gespeichert werden. Erneut versuchen",
+      "kk": "Тыңдау тарихын оқу не сақтау мүмкін болмады. Қайталау",
+      "es": "No se pudo leer o guardar el historial. Reintentar",
+      "uk": "Не вдалося прочитати або зберегти історію. Повторити"
+    }
+  },
+  {
+    "key": "history_clear_title",
+    "source": "Очистить историю этого профиля?",
+    "english": "Clear this profile’s listening history?",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Ачысціць гісторыю гэтага профілю?",
+      "fr": "Effacer l’historique de ce profil ?",
+      "de": "Hörverlauf dieses Profils löschen?",
+      "kk": "Осы профильдің тыңдау тарихын тазалау керек пе?",
+      "es": "¿Borrar el historial de este perfil?",
+      "uk": "Очистити історію цього профілю?"
+    }
+  },
+  {
+    "key": "history_clear_description",
+    "source": "Удалится только история прослушивания. Файлы, кэш и плейлисты останутся.",
+    "english": "Only the listening history will be cleared. Files, cached music and playlists will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Выдаліцца толькі гісторыя праслухоўвання. Файлы, кэш і плэйлісты застануцца.",
+      "fr": "Seul l’historique d’écoute sera effacé. Les fichiers, le cache et les playlists seront conservés.",
+      "de": "Nur der Hörverlauf wird gelöscht. Dateien, Cache und Playlists bleiben erhalten.",
+      "kk": "Тек тыңдау тарихы өшіріледі. Файлдар, кэш пен плейлисттер сақталады.",
+      "es": "Solo se borrará el historial de escucha. Se conservarán los archivos, la música en caché y las listas.",
+      "uk": "Видалиться лише історія прослуховування. Файли, кеш і плейлисти залишаться."
+    }
   }
 ]

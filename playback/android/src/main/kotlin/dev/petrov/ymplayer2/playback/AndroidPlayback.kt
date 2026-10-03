@@ -22,7 +22,8 @@ interface PlaybackHost {
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class AndroidPlayback(private val context: Context, private val library: LocalLibrary, private val scope: CoroutineScope, private val online: OnlineMusic? = null,
     private val taste: MusicTaste? = null, private val waveApi: MyWaveApi? = null, private val offline: OfflineMusic? = null,
-    private val streamQuality: () -> AudioQuality = { AudioQuality.AUTO }) : PlaybackController {
+    private val streamQuality: () -> AudioQuality = { AudioQuality.AUTO },
+    private val listened: (String, Track) -> Unit = { _, _ -> }) : PlaybackController {
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
@@ -59,6 +60,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var failedWaveTracks = 0
     private var waveTrackErrorJob: Job? = null
     private var wavePausePending = false
+    private var lastAudible: Pair<String, String>? = null
 
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
     fun audioSessionId(): Int = engine?.audioSessionId ?: 0
@@ -112,6 +114,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         player.addListener(object : Player.Listener {
             override fun onEvents(player: Player, events: Player.Events) { if (!updating && !restoring && ready) {
                 publish()
+                recordAudible(player)
                 if (referenceOrder != null && events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) {
                     startDiskWork { refreshReferenceWindow(preserveCurrent = true) }
                 }
@@ -122,6 +125,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 checkpoint(); maintainWave(); maintainIndexedOrder()
             } }
             override fun onIsPlayingChanged(isPlaying: Boolean) {
+                if (!isPlaying) lastAudible = null
                 if (isPlaying && state.value.wave && !updating && !restoring) {
                     val id = player.currentMediaItem?.mediaId
                     if (id != null && id != waveStarted) { waveStarted = id; feedback(id, WaveFeedback.STARTED) }
@@ -134,6 +138,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                         (oldPosition.positionMs / 1000).toInt())
                     waveStarted = null
                 }
+            }
+            override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+                if (reason == Player.MEDIA_ITEM_TRANSITION_REASON_REPEAT) lastAudible = null
             }
             override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
                 // Media3 can deliver our internal pause after the surrounding command returns.
@@ -174,14 +181,24 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 delay(500)
                 // Until metadata arrives the engine may still describe the outgoing profile.
                 if (ready && !restoring) {
-                    publish(); maintainWave(); maintainIndexedOrder()
+                    publish(); engine?.let(::recordAudible); maintainWave(); maintainIndexedOrder()
                     if (state.value.playing && state.value.positionSeconds % 5 == 0) checkpoint()
                 }
             }
         }
     }
 
+    private fun recordAudible(player: Player) {
+        val current = state.value.current ?: return
+        val key = state.value.profileId to current.id
+        if (player.isPlaying && current.id == player.currentMediaItem?.mediaId && key != lastAudible) {
+            lastAudible = key
+            listened(state.value.profileId, current)
+        }
+    }
+
     internal fun detach() {
+        lastAudible = null
         if (ready && !restoring) { publish(); checkpoint() }
         indexedSelectionGeneration++
         indexedWindowJob?.cancel(); indexedWindowJob = null; restoring = false

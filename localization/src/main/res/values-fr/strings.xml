@@ -579,5 +579,11 @@
     <string name="msg_c0c419b5947a" formatted="false">"Ne plus recommander cet artiste"</string>
     <string name="msg_3605c85705cf" formatted="false">"Recommander à nouveau ce titre"</string>
     <string name="msg_d8462717244f" formatted="false">"Recommander à nouveau cet artiste"</string>
+    <string name="history_title" formatted="false">"Historique d’écoute"</string>
+    <string name="history_description" formatted="false">"Les 500 derniers titres écoutés dans ce profil. Réécouter un titre le place en tête de liste."</string>
+    <string name="history_empty" formatted="false">"Les titres écoutés dans ce profil apparaîtront ici."</string>
+    <string name="history_failure" formatted="false">"Impossible de lire ou d’enregistrer l’historique. Réessayer"</string>
+    <string name="history_clear_title" formatted="false">"Effacer l’historique de ce profil ?"</string>
+    <string name="history_clear_description" formatted="false">"Seul l’historique d’écoute sera effacé. Les fichiers, le cache et les playlists seront conservés."</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

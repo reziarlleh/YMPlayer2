@@ -72,6 +72,7 @@ internal val messagePatterns = buildList {
     addAll(patterns55())
     addAll(patterns56())
     addAll(patterns57())
+    addAll(patterns58())
 }
 
 private fun patterns0() = listOf(
@@ -4882,4 +4883,55 @@ private fun patterns57() = listOf(
     MessagePattern(Msg.msg_d8462717244f, "ru", "Снова предлагать этого исполнителя"),
     MessagePattern(Msg.msg_d8462717244f, "es", "Volver a recomendar este artista"),
     MessagePattern(Msg.msg_d8462717244f, "uk", "Знову пропонувати цього виконавця"),
+    MessagePattern(Msg.history_title, "be", "Гісторыя праслухоўвання"),
+    MessagePattern(Msg.history_title, "en", "Listening history"),
+    MessagePattern(Msg.history_title, "fr", "Historique d’écoute"),
+    MessagePattern(Msg.history_title, "de", "Hörverlauf"),
+)
+
+private fun patterns58() = listOf(
+    MessagePattern(Msg.history_title, "kk", "Тыңдау тарихы"),
+    MessagePattern(Msg.history_title, "ru", "История прослушивания"),
+    MessagePattern(Msg.history_title, "es", "Historial de escucha"),
+    MessagePattern(Msg.history_title, "uk", "Історія прослуховування"),
+    MessagePattern(Msg.history_description, "be", "Апошнія 500 трэкаў гэтага профілю. Паўторнае праслухоўванне пераносіць трэк у пачатак."),
+    MessagePattern(Msg.history_description, "en", "The last 500 tracks played in this profile. Playing a track again moves it to the top."),
+    MessagePattern(Msg.history_description, "fr", "Les 500 derniers titres écoutés dans ce profil. Réécouter un titre le place en tête de liste."),
+    MessagePattern(Msg.history_description, "de", "Die letzten 500 Titel dieses Profils. Erneut abgespielte Titel stehen wieder ganz oben."),
+    MessagePattern(Msg.history_description, "kk", "Осы профильде тыңдалған соңғы 500 трек. Қайта тыңдалған трек тізімнің басына ауысады."),
+    MessagePattern(Msg.history_description, "ru", "Последние 500 треков этого профиля. Повторное прослушивание поднимает трек в начало."),
+    MessagePattern(Msg.history_description, "es", "Los últimos 500 temas reproducidos en este perfil. Al volver a escuchar un tema, pasa al principio."),
+    MessagePattern(Msg.history_description, "uk", "Останні 500 треків цього профілю. Повторне прослуховування переміщує трек на початок."),
+    MessagePattern(Msg.history_empty, "be", "Тут з’явяцца трэкі, якія вы слухалі ў гэтым профілі."),
+    MessagePattern(Msg.history_empty, "en", "Tracks you play in this profile will appear here."),
+    MessagePattern(Msg.history_empty, "fr", "Les titres écoutés dans ce profil apparaîtront ici."),
+    MessagePattern(Msg.history_empty, "de", "Hier erscheinen die Titel, die du in diesem Profil abspielst."),
+    MessagePattern(Msg.history_empty, "kk", "Осы профильде тыңдаған тректеріңіз осында көрсетіледі."),
+    MessagePattern(Msg.history_empty, "ru", "Здесь появятся треки, которые вы слушали в этом профиле."),
+    MessagePattern(Msg.history_empty, "es", "Aquí aparecerán los temas que escuches en este perfil."),
+    MessagePattern(Msg.history_empty, "uk", "Тут з’являться треки, які ви слухали в цьому профілі."),
+    MessagePattern(Msg.history_failure, "be", "Не ўдалося прачытаць або захаваць гісторыю. Паўтарыць"),
+    MessagePattern(Msg.history_failure, "en", "Could not read or save the listening history. Retry"),
+    MessagePattern(Msg.history_failure, "fr", "Impossible de lire ou d’enregistrer l’historique. Réessayer"),
+    MessagePattern(Msg.history_failure, "de", "Der Hörverlauf konnte nicht gelesen oder gespeichert werden. Erneut versuchen"),
+    MessagePattern(Msg.history_failure, "kk", "Тыңдау тарихын оқу не сақтау мүмкін болмады. Қайталау"),
+    MessagePattern(Msg.history_failure, "ru", "Не удалось прочитать или сохранить историю. Повторить"),
+    MessagePattern(Msg.history_failure, "es", "No se pudo leer o guardar el historial. Reintentar"),
+    MessagePattern(Msg.history_failure, "uk", "Не вдалося прочитати або зберегти історію. Повторити"),
+    MessagePattern(Msg.history_clear_title, "be", "Ачысціць гісторыю гэтага профілю?"),
+    MessagePattern(Msg.history_clear_title, "en", "Clear this profile’s listening history?"),
+    MessagePattern(Msg.history_clear_title, "fr", "Effacer l’historique de ce profil ?"),
+    MessagePattern(Msg.history_clear_title, "de", "Hörverlauf dieses Profils löschen?"),
+    MessagePattern(Msg.history_clear_title, "kk", "Осы профильдің тыңдау тарихын тазалау керек пе?"),
+    MessagePattern(Msg.history_clear_title, "ru", "Очистить историю этого профиля?"),
+    MessagePattern(Msg.history_clear_title, "es", "¿Borrar el historial de este perfil?"),
+    MessagePattern(Msg.history_clear_title, "uk", "Очистити історію цього профілю?"),
+    MessagePattern(Msg.history_clear_description, "be", "Выдаліцца толькі гісторыя праслухоўвання. Файлы, кэш і плэйлісты застануцца."),
+    MessagePattern(Msg.history_clear_description, "en", "Only the listening history will be cleared. Files, cached music and playlists will be kept."),
+    MessagePattern(Msg.history_clear_description, "fr", "Seul l’historique d’écoute sera effacé. Les fichiers, le cache et les playlists seront conservés."),
+    MessagePattern(Msg.history_clear_description, "de", "Nur der Hörverlauf wird gelöscht. Dateien, Cache und Playlists bleiben erhalten."),
+    MessagePattern(Msg.history_clear_description, "kk", "Тек тыңдау тарихы өшіріледі. Файлдар, кэш пен плейлисттер сақталады."),
+    MessagePattern(Msg.history_clear_description, "ru", "Удалится только история прослушивания. Файлы, кэш и плейлисты останутся."),
+    MessagePattern(Msg.history_clear_description, "es", "Solo se borrará el historial de escucha. Se conservarán los archivos, la música en caché y las listas."),
+    MessagePattern(Msg.history_clear_description, "uk", "Видалиться лише історія прослуховування. Файли, кеш і плейлисти залишаться."),
 )

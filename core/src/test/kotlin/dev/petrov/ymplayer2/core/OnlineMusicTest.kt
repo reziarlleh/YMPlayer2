@@ -38,6 +38,18 @@ class OnlineMusicTest {
         assertEquals("album", api.requests.single().first.query)
         assertEquals("album", music.state.value.entries.single().id)
     }
+    @Test fun restoredHistoryMetadataRequiresCurrentProfileAndNeverRestoresStreamUri() = runTest {
+        val accounts = auth(); val music = OnlineMusic(accounts, Api(), backgroundScope); runCurrent()
+        val saved = Track("history-1", "Title", "Artist", "Album", Source.YANDEX, 60, false, uri = "expired-signed-url", available = false)
+        assertFalse(music.restoreForPlayback("road", saved))
+        assertFalse(music.restoreForPlayback("owner", saved.copy(source = Source.LOCAL)))
+        assertTrue(music.restoreForPlayback("owner", saved))
+        val resolved = music.tracksForPlayback("owner").single()
+        assertNull(resolved.uri); assertTrue(resolved.available)
+        accounts.activate("guest"); runCurrent()
+        assertFalse(music.restoreForPlayback("guest", saved))
+        assertTrue(music.tracksForPlayback("guest").isEmpty())
+    }
     @Test fun reactionRefreshKeepsDetailParentAndReloadsFavouriteShelfOnUp() = runTest {
         val api = Api(); val music = OnlineMusic(auth(), api, backgroundScope); runCurrent()
         music.collection(MusicKind.ARTISTS); runCurrent()

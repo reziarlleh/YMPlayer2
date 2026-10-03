@@ -248,7 +248,7 @@ import kotlinx.coroutines.launch
 }
 
 @Composable internal fun TrackRow(track: Track, selected: Boolean = false, play: () -> Unit, enqueue: (() -> Unit)? = null, queued: Boolean = false, more: (() -> Unit)? = null,
-    taste: MusicTaste? = null, location: String = "catalog", artist: (ArtistRef) -> Unit = {}) {
+    taste: MusicTaste? = null, location: String = "catalog", artist: (ArtistRef) -> Unit = {}, note: String? = null) {
     val onlineTaste = taste?.takeIf { track.source == Source.YANDEX }
     val hasActions = onlineTaste != null || enqueue != null || more != null
     val metadata = if (track.available) "${trMessage(track.source.label)} · ${secondsLabel(track.durationSeconds)}" else tr(Msg.msg_91cf891549ab)
@@ -264,6 +264,7 @@ import kotlinx.coroutines.launch
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(0.dp)) {
                     Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
                     ArtistNames(track, artist, "${location}_${track.id}", compact = true)
+                    note?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                     if (!hasActions) Text(metadata, style = MaterialTheme.typography.labelSmall)
                 }
                 SkinIcon(if (selected) UiIcon.NOW_PLAYING else UiIcon.PLAY,

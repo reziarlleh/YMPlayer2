@@ -579,5 +579,11 @@
     <string name="msg_c0c419b5947a" formatted="false">"Бұл орындаушыны ешқашан ұсынбау"</string>
     <string name="msg_3605c85705cf" formatted="false">"Бұл тректі қайта ұсыну"</string>
     <string name="msg_d8462717244f" formatted="false">"Бұл орындаушыны қайта ұсыну"</string>
+    <string name="history_title" formatted="false">"Тыңдау тарихы"</string>
+    <string name="history_description" formatted="false">"Осы профильде тыңдалған соңғы 500 трек. Қайта тыңдалған трек тізімнің басына ауысады."</string>
+    <string name="history_empty" formatted="false">"Осы профильде тыңдаған тректеріңіз осында көрсетіледі."</string>
+    <string name="history_failure" formatted="false">"Тыңдау тарихын оқу не сақтау мүмкін болмады. Қайталау"</string>
+    <string name="history_clear_title" formatted="false">"Осы профильдің тыңдау тарихын тазалау керек пе?"</string>
+    <string name="history_clear_description" formatted="false">"Тек тыңдау тарихы өшіріледі. Файлдар, кэш пен плейлисттер сақталады."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

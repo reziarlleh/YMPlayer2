@@ -169,6 +169,7 @@ class OfflinePlaybackTest {
         assertTrue(savedAudio.isFile)
     }
     @Test fun syncScreenThenPlayWithNetworkDisabledAndRestorePaused() {
+        runBlocking { h.history.clear("owner") }
         openScreen(); clickOffline("offline_sync")
         waitFor { !cache.state.value.running && cache.state.value.tracks.size == 2 }
         compose.waitForIdle()
@@ -185,9 +186,13 @@ class OfflinePlaybackTest {
         waitFor { h.player.state.value.positionSeconds >= 1 }
         compose.runOnIdle { h.player.skip(1) }
         waitFor { h.player.state.value.current?.id == "yandex:2:7" && h.player.state.value.positionSeconds >= 1 }
+        val history = runBlocking { h.history.page("owner").items }
+        assertEquals(listOf("yandex:2:7", "yandex:1:7"), history.map { it.track.id })
+        assertTrue(history.all { it.track.uri == null })
         compose.runOnIdle { h.player.toggle(); h.restartEngine() }
         waitFor { h.player.state.value.connected && h.player.state.value.current?.id == "yandex:2:7" }
         assertFalse(h.player.state.value.playing)
+        assertEquals(history, runBlocking { h.history.page("owner").items })
         compose.runOnIdle { h.player.toggle() }
         waitFor { h.player.state.value.playing && h.player.state.value.positionSeconds >= 1 }
         assertEquals("Offline playback must not resolve a network URL", resolved, h.resolved.size)

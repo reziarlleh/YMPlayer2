@@ -580,5 +580,11 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     msg_6d41ea47365d("Никогда не предлагать этот трек", "Never recommend this track", R.string.msg_6d41ea47365d),
     msg_c0c419b5947a("Никогда не предлагать этого исполнителя", "Never recommend this artist", R.string.msg_c0c419b5947a),
     msg_3605c85705cf("Снова предлагать этот трек", "Recommend this track again", R.string.msg_3605c85705cf),
-    msg_d8462717244f("Снова предлагать этого исполнителя", "Recommend this artist again", R.string.msg_d8462717244f);
+    msg_d8462717244f("Снова предлагать этого исполнителя", "Recommend this artist again", R.string.msg_d8462717244f),
+    history_title("История прослушивания", "Listening history", R.string.history_title),
+    history_description("Последние 500 треков этого профиля. Повторное прослушивание поднимает трек в начало.", "The last 500 tracks played in this profile. Playing a track again moves it to the top.", R.string.history_description),
+    history_empty("Здесь появятся треки, которые вы слушали в этом профиле.", "Tracks you play in this profile will appear here.", R.string.history_empty),
+    history_failure("Не удалось прочитать или сохранить историю. Повторить", "Could not read or save the listening history. Retry", R.string.history_failure),
+    history_clear_title("Очистить историю этого профиля?", "Clear this profile’s listening history?", R.string.history_clear_title),
+    history_clear_description("Удалится только история прослушивания. Файлы, кэш и плейлисты останутся.", "Only the listening history will be cleared. Files, cached music and playlists will be kept.", R.string.history_clear_description);
 }

@@ -41,6 +41,7 @@ class PlayerApplication : Application(), PlaybackHost {
     }
     val library by lazy { SafLibrary(this, scope) }
     val collections by lazy { LocalCollections(this, library, scope) }
+    val history by lazy { dev.petrov.ymplayer2.library.ListeningHistory(this, scope) }
     private val musicApi by lazy { YandexMusicApi(accounts) }
     val online by lazy { OnlineMusic(accounts, musicApi, scope) }
     val cloudPlaylists by lazy { dev.petrov.ymplayer2.core.CloudPlaylists(accounts,
@@ -58,7 +59,7 @@ class PlayerApplication : Application(), PlaybackHost {
         enabled = offlinePrefs.getBoolean("enabled", true),
         saveEnabled = { offlinePrefs.edit().putBoolean("enabled", it).apply() }) }
     override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi), offline,
-        streamQuality = { audioQuality.state.value.stream }) }
+        streamQuality = { audioQuality.state.value.stream }, listened = history::record) }
     val accounts by lazy { AccountAuth(library.profiles,
         YandexDeviceApi(this, BuildConfig.YANDEX_CLIENT_ID, BuildConfig.YANDEX_CLIENT_SECRET), KeystoreAccountStore(this), scope) }
 }

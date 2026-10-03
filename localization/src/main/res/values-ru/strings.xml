@@ -579,5 +579,11 @@
     <string name="msg_c0c419b5947a" formatted="false">"Никогда не предлагать этого исполнителя"</string>
     <string name="msg_3605c85705cf" formatted="false">"Снова предлагать этот трек"</string>
     <string name="msg_d8462717244f" formatted="false">"Снова предлагать этого исполнителя"</string>
+    <string name="history_title" formatted="false">"История прослушивания"</string>
+    <string name="history_description" formatted="false">"Последние 500 треков этого профиля. Повторное прослушивание поднимает трек в начало."</string>
+    <string name="history_empty" formatted="false">"Здесь появятся треки, которые вы слушали в этом профиле."</string>
+    <string name="history_failure" formatted="false">"Не удалось прочитать или сохранить историю. Повторить"</string>
+    <string name="history_clear_title" formatted="false">"Очистить историю этого профиля?"</string>
+    <string name="history_clear_description" formatted="false">"Удалится только история прослушивания. Файлы, кэш и плейлисты останутся."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

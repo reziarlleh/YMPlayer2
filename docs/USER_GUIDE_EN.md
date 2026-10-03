@@ -1,0 +1,291 @@
+# YMPlayer 2 — user guide
+
+For 2.3.0. Updated on 3 October 2026.
+
+YMPlayer 2 plays music from your device and USB storage, Yandex Music and music
+videos. It supports separate profiles, offline liked tracks and custom skins.
+You do not need a Yandex account to play your own files.
+
+[Download the latest APK](https://github.com/reziarlleh/YMPlayer2/releases/latest) ·
+[Russian guide](USER_GUIDE.md) · [Project home](../README.md) ·
+[4PDA discussion](https://4pda.to/forum/index.php?showtopic=1127108)
+
+## Install and get started
+
+Android 10 or later is required. The same APK works on phones, tablets, Android
+TV and car head units; the layout adapts to the screen.
+
+1. Download the latest APK and open it. Allow installation from that source if Android asks.
+2. Open **YMPlayer 2**.
+3. For your own music, go to **Library → All music → Music folders** and add a folder.
+4. For Yandex Music, choose a profile and sign in with a device code.
+
+2.x is an independent application. It does not need 1.x and has its own accounts,
+settings, playlists, cache and update channel. Both applications can be installed
+at the same time. To update 2.x, install the new APK over the existing application;
+uninstalling it first would remove its private data.
+
+## Find your way around
+
+| Section | What it contains |
+| --- | --- |
+| **Player** | Current track, playback controls, queue, My Vibe and equalizer shortcut. |
+| **Library** | Local/USB music, your Yandex collection, playlists and offline downloads. |
+| **Search** | Search by track, artist or album; choose the source you want to search. |
+| **Clips** | A personalized stream of Yandex music videos. |
+
+The menu sits at the bottom in portrait mode and on the left on wide screens.
+The profile icon and settings button are in the top bar. Select the wide logo
+to open **About**. Other pages have a mini-player; select its title to return to
+the full player.
+
+**Back** goes up one level. On the main player, press Back twice within two
+seconds to close the interface. Background playback can still be controlled
+from the media notification and media buttons.
+
+<p align="center"><img src="qa/patch-2-1-4/header-tv-release.png" width="800" alt="Android TV layout with a full-width header and navigation below it"></p>
+
+*Illustrations below include earlier stable releases with Russian labels. They
+show the layout and controls; the current app supports English.*
+
+## Buttons and states
+
+| Icon | Action |
+| :---: | --- |
+| ![Play](user-guide/icons/play.svg) / ![Pause](user-guide/icons/pause.svg) | Start/resume playback or pause. |
+| ![Previous](user-guide/icons/previous.svg) / ![Next](user-guide/icons/next.svg) | Previous or next track. |
+| ![Stop](user-guide/icons/stop.svg) | Stop playback. |
+| ![Queue](user-guide/icons/queue.svg) | Open the queue. |
+| ![Add to queue](user-guide/icons/add-queue.svg) | Add this track to the queue. |
+| ![Check](user-guide/icons/check.svg) | On a track card: already in the queue. It does not mean downloaded or liked. In selection/editing dialogs: selected or done. |
+| ![Shuffle](user-guide/icons/shuffle.svg) | Shuffle a regular list. Highlighted when enabled. |
+| ![Repeat](user-guide/icons/repeat.svg) / ![Repeat one](user-guide/icons/repeat-one.svg) | Repeat the list or the current track. No highlight means repeat is off. |
+| ![Equalizer](user-guide/icons/equalizer.svg) | Open your selected external equalizer or DSP. |
+| ![More](user-guide/icons/more.svg) | Additional actions for this item and source. |
+
+Select an artist’s name to open their Yandex page with popular tracks and albums.
+The track’s **More** menu contains actions for its artists; a like beside the
+track applies to the track itself.
+
+On Android TV, Left/Right on the progress bar seeks within the track. Up/Down
+moves to another control. On a regular list, shuffle and repeat are available;
+**My Vibe** chooses its own sequence and does not show these controls.
+
+<p align="center"><img src="publication/4pda/phone-player.png" width="280" alt="Player with artwork, track information and playback controls"><img src="publication/4pda/phone-library.png" width="280" alt="Library and compact track cards"></p>
+
+## Local music, USB and search
+
+Open **Library → All music → Music folders**, select **Add from device** or
+**Add from USB / SD**, then choose a folder in Android’s file picker and grant
+access. The player reads those files in place. It does not copy or modify them.
+Use **Refresh library** after adding or deleting files. Removing a folder from
+the library disconnects it without deleting its files. Connected folders are
+shared by all profiles.
+
+Browse by tracks, albums, artists, genres, folders or playlists. Source filters
+limit the list to device/USB music; availability filters hide inaccessible
+items. A saved playlist cannot make an unplugged USB drive available.
+
+The local engine supports MP3, AAC/M4A, FLAC, Ogg Vorbis/Opus/FLAC, Opus, ordinary
+PCM WAV and AMR. A filename extension alone cannot guarantee playback: the
+container, codec and device decoder also matter. AIFF is excluded; APE, WMA,
+DSD and a dedicated ALAC decoder are not included in the supported set. There is
+no bundled FFmpeg decoder package. See the [format details in the Russian guide](USER_GUIDE.md#форматы-локальной-музыки).
+
+In **Search**, select **All music**, **Yandex Music** or **Offline**. Offline
+search looks only in downloaded liked tracks for the current profile and stays
+on the search page. The query remains when you switch sources. Yandex search
+also supports artists, albums and playlists and requires sign-in.
+
+## Listening history
+
+Open **Library → Listening history**. Each profile keeps its last 500 distinct
+tracks, with the most recently played first. Playing a track again moves it to
+the top. Only actual audio playback creates a record; selecting, buffering,
+prefetching or restoring a paused track does not.
+
+The history stores track information, not audio files or signed stream addresses.
+Select a track to play it again as a one-track list using its current source. An unavailable USB
+track keeps its name, but you must reconnect its storage. Yandex playback still
+requires the current profile’s account or usable offline download.
+
+**Clear** asks for confirmation and clears only this profile’s history. It does
+not remove files, offline downloads or playlists.
+
+## Yandex sign-in and profiles
+
+1. Open **Profiles**, choose the profile you want, then open its Yandex account page.
+2. Request a sign-in code. Write it down before opening the browser: the next page may not allow pasting it.
+3. Open the Yandex authorization page, enter the code and approve access.
+4. Return to the player and wait for confirmation. If the code expires, request a new one.
+
+You never enter your Yandex password in the player. 2.x stores its own sign-in;
+it does not read the credentials of 1.x. Each profile has its own account, queue,
+position, history and personal collection. Switching profiles does not mix accounts.
+The guest profile can play local files without signing in.
+
+## Your collection, recommendations and My Vibe
+
+Choose **Yandex Music** in the library to browse liked tracks, favorite albums,
+favorite artists and playlists. Recommendations show suggested playlists.
+**My Vibe** starts your personalized stream. It prepares the next track while
+the current one plays and requests further recommendations as needed.
+
+Likes and dislikes apply to the item shown:
+
+- A track like adds it to **Liked tracks**; an artist like adds the artist to favorites.
+- An album can be added to favorite albums. Favoriting an album does not like every track on it.
+- A track dislike means do not recommend that track; an artist dislike means do not recommend that artist.
+
+The buttons show the current server state. If that state is unknown, refresh it
+before interpreting an unfilled icon as an unliked item. Artist actions are
+available through the track’s More menu or the artist page.
+
+## Queue and playlists
+
+Open **Queue** to inspect the current list, remove items or move them. The add
+icon on a track becomes a check mark once it is already in the queue.
+Regular lists support shuffle and repeat. My Vibe manages a short upcoming
+sequence itself; ordinary queue modes do not apply to it.
+
+Local playlists contain references to your device/USB tracks. Create a playlist,
+rename it, add/remove tracks and enter editing mode to change their order.
+Use the up/down controls to move tracks. Removing a playlist item does not
+delete the underlying file.
+
+Yandex playlists are separate server lists. You can create and edit your own
+playlists, rename them and add/remove/reorder tracks. Drag the handle in the
+Yandex playlist editor, or use the position command for an exact move with a remote.
+Other users’ playlists
+are available for listening; the app does not grant editing rights to them.
+
+## Offline music
+
+**Settings → Offline cache settings** contains the cache switch, Wi-Fi-only
+option, synchronization, cancellation and deletion. **Library → Offline**
+contains the downloaded tracks and **Play downloads**. Settings and track lists
+are separate pages.
+
+1. Enable the offline cache and check whether downloads should use Wi-Fi only.
+2. Select **Sync liked tracks** and wait for completion.
+3. Open **Library → Offline** and play the list or a track.
+
+Only liked tracks and their covers are synchronized. Favorite artists, albums
+and whole playlists are not downloaded automatically. Run synchronization again
+after new likes. Downloads belong to both the profile and its Yandex account.
+
+You can disable the cache on an always-online TV with little storage. This stops
+synchronization and prevents new playback requests from using cached music.
+Existing downloads remain; use the delete command to reclaim space. Re-enabling
+the cache makes retained downloads available again. The switch applies to the
+device, while downloaded collections remain account/profile-specific. My Vibe’s
+temporary next-track preparation is separate from this permanent cache.
+
+## Audio quality and equalizer
+
+**Settings → Audio quality** has independent choices for **Online playback**
+and offline downloads: Auto, 128 kbps, 192 kbps, 320 kbps and Maximum. The API’s
+available files determine the actual format/bitrate; the app does not transcode
+each track to the selected number. Auto and Maximum choose the best available option.
+
+A change affects newly requested streams/downloads. It does not rewrite the
+current track, already prepared My Vibe audio or existing downloads. To replace
+the whole offline cache at a different quality, change the setting, delete its
+files and synchronize again.
+
+The player’s equalizer/DSP button opens an external app or system panel. Use
+the More menu to choose a different handler. YMPlayer 2 has no built-in
+multiband equalizer.
+
+## Music videos
+
+**Clips** requires Yandex sign-in and a network connection. Audio and video do
+not play at the same time. Tap the video to show or hide controls. During playback
+the controls hide after five seconds; they remain visible when paused or on error.
+
+The center button plays/pauses; the side buttons select the previous/next clip.
+The **NOW** panel shows the current title and artist, **NEXT** shows the next
+clip. Its name may be pending while the next item is being found. The current
+panel’s background darkens from left to right as playback progresses; the next
+panel is unaffected. Rotation keeps the clip and playback position.
+
+On a remote, the first arrow/OK press reveals hidden controls and focuses
+play/pause. The next press operates the controls. Media Play/Pause/Next/Previous
+buttons also work.
+
+<p align="center"><img src="qa/patch-2-1-1/clip-tv-progress.png" width="800" alt="TV video controls: playback progress within the current-track panel"></p>
+
+*This illustration uses a local test video and sample metadata on TV29.*
+
+## Language and skins
+
+Choose **Settings → App language**. Auto follows the system and is the default.
+The list includes Belarusian, English, French, German, Kazakh, Russian, Spanish
+and Ukrainian, ordered by their English names. Each entry also shows its native
+name. Changing language keeps playback running and leaves your music, playlist
+and skin names unchanged.
+
+**Appearance** chooses Dark, Light or System. **Skins** chooses the palette and
+supported icon artwork. Built-in Oxide (Оксид), Harbor (Гавань), Olive (Олива)
+and Silver (Серебро) skins have both
+dark and light palettes. Preview a skin, check both modes, then apply it or cancel.
+Changing modes inside a preview only changes the preview.
+
+For a custom skin, download a **.ymskin** package and import the whole file; do
+not unpack it. Review the preview before applying. An invalid package does not
+replace the active skin. Switch away from an imported skin before deleting it.
+Deletion leaves the original downloaded package intact. Skins do not move buttons
+or change their actions, the launcher/TV logo or the K4811 sidebar’s styling.
+See [skin packages](../skins/README.md) and the [author guide](SKIN_AUTHOR_GUIDE.md).
+
+<p align="center"><img src="publication/4pda/phone-skins.png" width="300" alt="Skins, package import and previews"></p>
+
+## K4811 sidebar
+
+This panel is intended for **K4811** head units. Open **Settings → Sidebar**,
+grant Android’s display-over-other-apps permission and enable it. A short swipe
+from the configured edge opens the panel; its small gesture area is invisible.
+
+Choose which controls to include: volume up/down, mute, play/pause, home, menu,
+back, sleep and reboot. Hide is always last. Disabling all optional controls
+disables the panel. Reboot asks for confirmation. The menu opens the K4811 app
+list, and play/pause controls the active player. Auto-hide can fold the panel
+after eight seconds. This vendor integration is not a general promise for all
+Android devices.
+
+## Updates, diagnostics and donations
+
+**Settings → App update** can check on launch, at most once daily. Use the
+manual check whenever you need it. Download an offered release and approve
+Android’s installation prompt. If GitHub is unavailable, choose the backup
+download when offered. The APK is checked before the installer opens.
+Automatic checking does not mean silent installation.
+
+**Settings → Diagnostics** lets you inspect, refresh, clear and export the
+error journal to Downloads. A useful bug report includes the app version,
+device/Android version, music source, steps, journal and a screenshot if relevant.
+Use [GitHub Issues](https://github.com/reziarlleh/YMPlayer2/issues) or the
+[4PDA topic](https://4pda.to/forum/index.php?showtopic=1127108). Keep passwords,
+tokens and live sign-in codes out of public reports.
+
+**About** is available from Settings and from the wide header logo. It shows
+the version, GitHub link, donation button and QR code. Scan the QR code with
+your phone when using a TV; it leads to the same donation page as the button.
+
+<p align="center"><img src="qa/patch-2-1-3/about-phone-release.png" width="280" alt="About with version, project link and donation QR code"></p>
+
+## Quick troubleshooting
+
+| Problem | Check |
+| --- | --- |
+| Code accepted in the browser, sign-in still pending | Return to the account page; check network/profile and request a new code if it expired. |
+| No device tracks | Add the folder through Music folders, grant access and refresh the library. |
+| USB entries unavailable | Reconnect storage and check folder access. Playlist/history metadata is not a substitute for the source file. |
+| Offline search is empty | Check the cache switch, profile and synchronization. A like alone does not mean downloaded. |
+| Downloads sound unchanged after changing quality | The setting affects new downloads. Delete the cache and synchronize again to replace it. |
+| Custom skin will not import | Select the complete .ymskin file and check its package format. The active skin remains in place on error. |
+| No equalizer available | Install a compatible equalizer/DSP or select an available system handler. |
+| GitHub cannot be reached | Use the backup update source or the APK attached to the 4PDA topic. |
+
+This guide describes released features. Earlier screenshot versions and their
+test origins are documented in [the documentation verification note](USER_GUIDE_VERIFICATION.md).

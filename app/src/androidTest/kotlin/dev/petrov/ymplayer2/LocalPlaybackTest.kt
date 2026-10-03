@@ -55,6 +55,33 @@ class LocalPlaybackTest {
     }
     @After fun stop() { compose.runOnIdle { player.stop() }; provider("unavailable", "false") }
 
+    @Test fun historyRecordsAudiblePlaybackAndOpensFromLibraryWithConfirmedClear() {
+        runBlocking { graph.history.clear("owner") }
+        val track = library.testTracks.first()
+        compose.runOnIdle { player.playQueue(listOf(track.id)); player.toggle() }
+        waitFor { player.state.value.current?.id == track.id && !player.state.value.playing }
+        assertEquals(0, runBlocking { graph.history.page("owner").total })
+        compose.runOnIdle { player.toggle() }
+        waitFor { runBlocking { graph.history.page("owner").total == 1 } }
+        compose.runOnIdle { player.stop() }
+        val entry = runBlocking { graph.history.page("owner").items.single() }
+        assertEquals(track.id, entry.track.id); assertNull(entry.track.uri)
+        compose.onNodeWithTag("nav_library").performClick()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.onNodeWithTag("open_history").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+        compose.onNodeWithTag("open_history").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
+        compose.onNodeWithTag("history_list").assertIsDisplayed()
+        compose.onNodeWithTag("track_${track.id}").assertIsDisplayed()
+        compose.onNodeWithTag("history_clear").performClick()
+        assertEquals(1, runBlocking { graph.history.page("owner").total })
+        compose.onNodeWithTag("history_clear_confirm").performClick()
+        waitFor { runBlocking { graph.history.page("owner").total == 0 } }
+        compose.onNodeWithTag("history_empty").assertIsDisplayed()
+        assertEquals(2, library.testTracks.size)
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
+        compose.onNodeWithTag("open_history").assertIsDisplayed()
+    }
+
     @Test fun unsupportedAiffIsExcludedEvenWithAudioMimeAndWavExtensionFallbackRemains() = runBlocking {
         provider("unsupportedFormats", "true")
         try {
@@ -236,7 +263,7 @@ class LocalPlaybackTest {
             override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("references-test-$name", mode)
         }
         context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit()
-        val requested = mutableListOf<Set<String>>()
+        val requested = java.util.concurrent.CopyOnWriteArrayList<Set<String>>()
         var gate: CompletableDeferred<Unit>? = null
         val indexed = object : IndexedLocalLibrary by library {
             override fun tracks(profileId: String): List<Track> = error("A manual list must not read the entire catalog")
@@ -264,7 +291,9 @@ class LocalPlaybackTest {
             waitFor { cursor.state.value.queue.map(Track::id) == edited }
             assertEquals(order[4].id, cursor.state.value.current?.id)
             assertEquals(7, cursor.state.value.positionSeconds)
-            compose.runOnIdle { cursor.setRepeatMode(RepeatMode.ALL); cursor.setShuffle(true); cursor.detach(); engine.release() }
+            compose.runOnIdle { cursor.setRepeatMode(RepeatMode.ALL); cursor.setShuffle(true) }
+            waitFor { cursor.state.value.shuffle && cursor.state.value.repeatMode == RepeatMode.ALL }
+            compose.runOnIdle { cursor.detach(); engine.release() }
             compose.waitForIdle()
             compose.runOnIdle { engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
             waitFor { cursor.state.value.connected && cursor.state.value.queue.map(Track::id) == edited }
@@ -292,7 +321,7 @@ class LocalPlaybackTest {
             override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("large-references-test-$name", mode)
         }
         context.getSharedPreferences("playback", 0).edit().clear().commit()
-        val requested = mutableListOf<Int>()
+        val requested = java.util.concurrent.CopyOnWriteArrayList<Int>()
         val indexed = object : IndexedLocalLibrary by library {
             override fun tracks(profileId: String): List<Track> = error("No full metadata snapshot")
             override suspend fun tracksByIds(ids: Collection<String>): Map<String, Track> {

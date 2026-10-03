@@ -72,6 +72,27 @@ class OnlinePlaybackTest {
         assertEquals(listOf(local), player.state.value.queue.map { it.id }); assertFalse(player.state.value.playing)
         assertFalse(fixture.checkpointText().contains("yandex:"))
     }
+    @Test fun historyReplaysOnlineTrackAfterLookupCacheAndQueueWereCleared() {
+        runBlocking { fixture.history.clear("owner") }
+        search(); action("online_play_all")
+        waitFor { player.state.value.positionSeconds >= 1 }
+        assertEquals("yandex:1:7", runBlocking { fixture.history.page("owner").items.first().track.id })
+        compose.runOnIdle { player.stop(); player.clearQueue() }
+        compose.onNodeWithTag("nav_library").performClick(); compose.onNodeWithTag("open_history").performClick()
+        compose.runOnIdle { player.switchProfile("road") }
+        waitFor { fixture.online.catalog.value.profileId == "road" }
+        compose.runOnIdle { player.switchProfile("owner") }
+        waitFor { fixture.online.catalog.value.profileId == "owner" && fixture.online.catalog.value.enabled }
+        assertTrue(fixture.online.tracksForPlayback("owner").isEmpty())
+        waitFor { compose.onAllNodesWithTag("track_yandex:1:7").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("track_yandex:1:7").performTouchInput {
+            // The artist name has its own action; target the play area, not the row center.
+            click(androidx.compose.ui.geometry.Offset(width - 12f, height / 2f))
+        }
+        try { waitFor { player.state.value.current?.id == "yandex:1:7" && player.state.value.positionSeconds >= 1 } }
+        catch (e: Throwable) { throw AssertionError("History replay: player=${player.state.value}; auth=${fixture.auth.state.value.phase}; resolved=${fixture.resolved}", e) }
+        assertNull(runBlocking { fixture.history.page("owner").items.first().track.uri })
+    }
     @Test fun lateStreamCannotStartAfterProfileSwitch() {
         search(); compose.runOnIdle { fixture.streamDelayMillis = 1500 }; action("online_play_all")
         waitFor { fixture.resolved.isNotEmpty() }
