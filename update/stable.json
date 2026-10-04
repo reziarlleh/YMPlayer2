@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 77,
-  "versionName": "2.3.2-build77",
+  "versionCode": 78,
+  "versionName": "2.3.3-build78",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-03T05:51:49.3402069Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.2-build77",
-  "releaseNotes": "Массовый выбор треков: добавление в очередь и локальные плейлисты в порядке выбора, отметки на следующих страницах, управление пультом и сохранение данных.",
+  "publishedAt": "2026-10-04T04:41:42.0661376Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.3-build78",
+  "releaseNotes": "Сохранение типа и стека последнего падения, контекста экрана и клавиатуры. На Android 11+ — системные причины завершения. После вылета перезапустите приложение и экспортируйте диагностику. Причина вылета поиска на Galaxy A14 пока не установлена.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.2-build77/YMPlayer-2.3.2-build77.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.2-build77/releases/2.3.2-build77/YMPlayer-2.3.2-build77.apk",
-    "sizeBytes": 5928981,
-    "sha256": "f67cade57eda4873799883e3d607950202932f0d945e59c528a5a6a002c13554"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.3-build78/YMPlayer-2.3.3-build78.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.3-build78/releases/2.3.3-build78/YMPlayer-2.3.3-build78.apk",
+    "sizeBytes": 5930165,
+    "sha256": "d674902193e77919c916064be8e36b7537d472fc545d3ea5ceb488282a960b47"
   }
 }
