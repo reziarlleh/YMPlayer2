@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 78,
-  "versionName": "2.3.3-build78",
+  "versionCode": 79,
+  "versionName": "2.3.4-build79",
   "channel": "stable",
   "minSdk": 29,
-  "publishedAt": "2026-10-04T04:41:42.0661376Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.3-build78",
-  "releaseNotes": "Сохранение типа и стека последнего падения, контекста экрана и клавиатуры. На Android 11+ — системные причины завершения. После вылета перезапустите приложение и экспортируйте диагностику. Причина вылета поиска на Galaxy A14 пока не установлена.",
+  "publishedAt": "2026-10-04T17:00:46.6734147Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.4-build79",
+  "releaseNotes": "Исправлен вылет при открытии поиска (StackOverflowError). Сохранены навигация пультом и переход к выбранным пунктам строк. Данные и настройки сохраняются.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.3-build78/YMPlayer-2.3.3-build78.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.3-build78/releases/2.3.3-build78/YMPlayer-2.3.3-build78.apk",
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.4-build79/YMPlayer-2.3.4-build79.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.4-build79/releases/2.3.4-build79/YMPlayer-2.3.4-build79.apk",
     "sizeBytes": 5930165,
-    "sha256": "d674902193e77919c916064be8e36b7537d472fc545d3ea5ceb488282a960b47"
+    "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f"
   }
 }
