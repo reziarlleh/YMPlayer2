@@ -20,18 +20,18 @@
 | integration:headunit/sidebar | Overlay, команды устройства, optional capability | Android; публичные playback/settings contracts |
 | distribution:update | Манифест/артефакт своего продукта, версия, проверка | Network, package identity, storage; без legacy feed |
 
-## Фактические Gradle-модули на 2026-10-02
+## Фактические Gradle-модули — сверка 2026-10-04
 
 Состав подтверждён `settings.gradle.kts` и зависимостями модулей:
 
 | Модуль | Реализация |
 | --- | --- |
-| `:app` | Composition root, Activity/services, координаторы профилей/обновлений, диагностика |
+| `:app` | Composition root, Activity/services, координаторы профилей/обновлений, диагностика; build78 добавил сохраняемое Java-падение и причины завершения API30+ |
 | `:core` | Чистые модели, контракты, контроллеры каталога/волны/коллекций |
 | `:designsystem` | AppSkin, «Оксид», семантические векторы, Compose/native-палитры; в M13 парсер пакетов и локальное хранилище только оформления |
 | `:feature:shell` | Маршруты и экраны музыкального UI |
 | `:feature:clips` | Видеоплеер, rotor-сессия, preload и диагональная панель |
-| `:library:local` | SAF, SQLiteOpenHelper-каталог, плейлисты и обложки |
+| `:library:local` | SAF, SQLiteOpenHelper-каталог, плейлисты, обложки, отдельное хранилище истории и первый момент появления локальных треков |
 | `:library:offline` | Постоянный кэш только понравившихся треков Яндекса |
 | `:playback:android` | Media3, библиотечная сессия, engine window и checkpoints |
 | `:provider:yandex` | OAuth и музыкальные API |

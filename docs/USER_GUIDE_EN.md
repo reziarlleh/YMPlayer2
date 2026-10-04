@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For 2.3.2. Updated on 3 October 2026.
+For 2.3.4-build79. Reviewed on 4 October 2026.
 
 YMPlayer 2 plays music from your device and USB storage, Yandex Music and music
 videos. It supports separate profiles, offline liked tracks and custom skins.

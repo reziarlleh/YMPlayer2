@@ -1,0 +1,85 @@
+{
+  "checkedAtUtc": "2026-10-04T17:58:15.205150+00:00",
+  "repository": {
+    "full_name": "reziarlleh/YMPlayer2",
+    "description": "Самостоятельный плеер для Android 10+: Яндекс Музыка, Моя волна, local/USB, офлайн, клипы, Android TV, скины, восемь языков, история и массовые действия.",
+    "private": false,
+    "default_branch": "main",
+    "html_url": "https://github.com/reziarlleh/YMPlayer2"
+  },
+  "latest": {
+    "tag_name": "v2.3.4-build79",
+    "name": "YMPlayer 2.3.4-build79",
+    "prerelease": false,
+    "published_at": "2026-10-04T17:00:46Z",
+    "html_url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.4-build79"
+  },
+  "sources": [
+    {
+      "source": "GitHub",
+      "feed": "stable",
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "checkedAtUtc": "2026-10-04T17:58:15.205150+00:00",
+      "http": 200,
+      "versionName": "2.3.4-build79",
+      "versionCode": 79,
+      "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f",
+      "age": null
+    },
+    {
+      "source": "GitHub",
+      "feed": "manifest",
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "checkedAtUtc": "2026-10-04T17:58:15.206150+00:00",
+      "http": 200,
+      "versionName": "2.3.4-build79",
+      "versionCode": 79,
+      "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f",
+      "age": null
+    },
+    {
+      "source": "jsDelivr",
+      "feed": "stable",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "checkedAtUtc": "2026-10-04T17:58:15.206150+00:00",
+      "http": 200,
+      "versionName": "2.3.4-build79",
+      "versionCode": 79,
+      "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f",
+      "age": "91"
+    },
+    {
+      "source": "jsDelivr",
+      "feed": "manifest",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "checkedAtUtc": "2026-10-04T17:58:15.207150+00:00",
+      "http": 200,
+      "versionName": "2.3.4-build79",
+      "versionCode": 79,
+      "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f",
+      "age": "91"
+    },
+    {
+      "source": "Gcore",
+      "feed": "stable",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "checkedAtUtc": "2026-10-04T17:58:15.207150+00:00",
+      "http": 200,
+      "versionName": "2.3.3-build78",
+      "versionCode": 78,
+      "sha256": "d674902193e77919c916064be8e36b7537d472fc545d3ea5ceb488282a960b47",
+      "age": "6751"
+    },
+    {
+      "source": "Gcore",
+      "feed": "manifest",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "checkedAtUtc": "2026-10-04T17:58:15.207150+00:00",
+      "http": 200,
+      "versionName": "2.3.4-build79",
+      "versionCode": 79,
+      "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f",
+      "age": "3405"
+    }
+  ]
+}

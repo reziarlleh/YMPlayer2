@@ -1,0 +1,12 @@
+{
+  "version": "2.3.4-build79",
+  "localFeeds": {
+    "manifest": "2.3.4-build79",
+    "stable": "2.3.4-build79"
+  },
+  "documents": 184,
+  "localLinks": 1420,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}
