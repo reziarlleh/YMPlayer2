@@ -480,7 +480,7 @@
     <string name="msg_d58f70dd1811" formatted="false">"Genre inconnu"</string>
     <string name="msg_d60fd3858f8f" formatted="false">"Le service a accepté la demande. Attendez le redémarrage du K4811."</string>
     <string name="msg_d65fb9be6155" formatted="false">"Seuls les titres aimés et leurs pochettes sont téléchargés. Les artistes et albums favoris ne sont pas téléchargés en entier."</string>
-    <string name="msg_d6e12cca8a0f" formatted="false">"Le journal ne contient que des codes d’événements. Les jetons, codes de connexion, titres des morceaux et adresses des requêtes ne sont jamais enregistrés."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"Le journal contient les événements, les paramètres de l’appareil et les détails du dernier plantage. Les jetons, codes de connexion, titres des morceaux, textes de recherche et adresses des requêtes ne sont pas enregistrés. Vous décidez de partager ou non le rapport."</string>
     <string name="msg_d73874ba53a6" formatted="false">"Votre fichier d’origine est conservé. Vous pouvez l’importer à nouveau."</string>
     <string name="msg_d7ad8e4ee48a" formatted="false">"Auto — langue du système"</string>
     <string name="msg_d7b587c84b68" formatted="false">"Panneau latéral désactivé."</string>

@@ -22,11 +22,13 @@ import kotlinx.coroutines.*
 class PlayerApplication : Application(), PlaybackHost {
     override fun onCreate() {
         super.onCreate()
+        diagnostics.installCrashCapture()
         dev.petrov.ymplayer2.localization.AppLanguages.initialize(this)
     }
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
         super.onConfigurationChanged(newConfig)
         dev.petrov.ymplayer2.localization.AppLanguages.refresh()
+        diagnostics.refreshEnvironment()
     }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     internal val diagnostics by lazy { DiagnosticsJournal(this) }

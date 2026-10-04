@@ -480,7 +480,7 @@
     <string name="msg_d58f70dd1811" formatted="false">"Género desconocido"</string>
     <string name="msg_d60fd3858f8f" formatted="false">"El servicio aceptó la solicitud. Espera a que K4811 se reinicie."</string>
     <string name="msg_d65fb9be6155" formatted="false">"Solo se descargan las canciones favoritas y sus portadas. No se descargan todos los temas de los artistas ni los álbumes favoritos completos."</string>
-    <string name="msg_d6e12cca8a0f" formatted="false">"El registro solo contiene códigos de eventos. No se guardan tokens, códigos de acceso, títulos de canciones ni direcciones de solicitudes."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"El registro incluye eventos, ajustes del dispositivo y detalles del último cierre inesperado. No guarda tokens, códigos de acceso, títulos de canciones, textos de búsqueda ni direcciones de solicitudes. Tú decides si compartes el informe."</string>
     <string name="msg_d73874ba53a6" formatted="false">"Se conserva el archivo original. Puedes importarlo de nuevo."</string>
     <string name="msg_d7ad8e4ee48a" formatted="false">"Auto — idioma del sistema"</string>
     <string name="msg_d7b587c84b68" formatted="false">"Panel lateral desactivado."</string>

@@ -293,7 +293,14 @@ download when offered. The APK is checked before the installer opens.
 Automatic checking does not mean silent installation.
 
 **Settings → Diagnostics** lets you inspect, refresh, clear and export the
-error journal to Downloads. A useful bug report includes the app version,
+error journal to Downloads. After a crash, reopen the app and export the log
+before clearing it. From2.3.3, it includes the last Java exception type and
+stack without exception messages, device/display settings and the selected
+keyboard. Android11+ also provides system process-exit reasons; Android10
+does not support that part. Search text, track titles and tokens are not
+recorded. Reports stay on your device until you choose to share them.
+**Clear** removes the saved crash and events and hides older system exit records
+from later exports. A useful bug report includes the app version,
 device/Android version, music source, steps, journal and a screenshot if relevant.
 Use [GitHub Issues](https://github.com/reziarlleh/YMPlayer2/issues) or the
 [4PDA topic](https://4pda.to/forum/index.php?showtopic=1127108). Keep passwords,

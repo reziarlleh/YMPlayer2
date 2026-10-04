@@ -13,6 +13,8 @@ import java.io.File
 class DiagnosticsJournalTest {
     @Test fun journalIsBoundedAndExportContainsOnlyEventCodes() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
+        // No preceding UI test is required to choose Russian in this isolated storage test.
+        dev.petrov.ymplayer2.localization.AppLanguages.initialize(context, "diagnostics-test-language", "ru")
         val file = File(context.cacheDir, "diagnostics-test-${System.nanoTime()}.log")
         try {
             val journal = DiagnosticsJournal(context, file)
@@ -20,7 +22,7 @@ class DiagnosticsJournalTest {
             val text = journal.snapshot()
             assertTrue(file.length() <= 96 * 1024)
             assertTrue(text.startsWith("20"))
-            assertTrue(text.endsWith("PLAYBACK_STARTED\n"))
+            assertTrue(text.substringBefore("\n\nDIAGNOSTIC_ENVIRONMENT").endsWith("PLAYBACK_STARTED\n"))
             assertFalse(text.contains("access_token"))
             val result = journal.export()
             assertTrue(result, result.startsWith("Сохранено в Downloads:"))
@@ -39,6 +41,9 @@ class DiagnosticsJournalTest {
             assertEquals("Журнал очищен.", journal.clear())
             assertTrue(journal.snapshot().contains("JOURNAL_CLEARED"))
             assertFalse(journal.snapshot().contains("PLAYBACK_STARTED"))
-        } finally { file.delete() }
+        } finally {
+            file.delete()
+            dev.petrov.ymplayer2.localization.AppLanguages.initialize(context)
+        }
     }
 }

@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var updates: UpdateCoordinator
     override fun onResume() {
         super.onResume()
+        (application as PlayerApplication).diagnostics.refreshEnvironment()
         if (::updates.isInitialized) updates.resume(this)
     }
     override fun onPause() {
@@ -112,7 +113,7 @@ class MainActivity : ComponentActivity() {
             ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins, importSkin = {
                 try { skinPicker.launch(arrayOf("*/*")) }
                 catch (_: ActivityNotFoundException) { graph.skins.report(tr(Msg.msg_80cedf587a28)) }
-            }, diagnostics = journal, sideBar = sideBar, updates = updates, openClips = {
+            }, diagnostics = journal, diagnosticScreen = journal::screen, sideBar = sideBar, updates = updates, openClips = {
                 startActivity(Intent(this, ClipActivity::class.java))
             }, addFolder = {
                 source = it; pickerIssue = null

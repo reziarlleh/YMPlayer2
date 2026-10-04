@@ -480,7 +480,7 @@
     <string name="msg_d58f70dd1811" formatted="false">"Unknown genre"</string>
     <string name="msg_d60fd3858f8f" formatted="false">"The service accepted the request. Wait for K4811 to restart."</string>
     <string name="msg_d65fb9be6155" formatted="false">"Only liked tracks and their artwork are downloaded. Favorite artists and albums are not downloaded in full."</string>
-    <string name="msg_d6e12cca8a0f" formatted="false">"The log contains event codes only. Tokens, sign-in codes, track titles and request URLs are never recorded."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"The log includes events, device settings and details of the last crash. It does not record tokens, sign-in codes, track titles, search text or request URLs. Share the report only if you choose to."</string>
     <string name="msg_d73874ba53a6" formatted="false">"Your source file is kept. You can import it again."</string>
     <string name="msg_d7ad8e4ee48a" formatted="false">"Auto — system language"</string>
     <string name="msg_d7b587c84b68" formatted="false">"Sidebar disabled."</string>

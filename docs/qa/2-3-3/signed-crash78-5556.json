@@ -1,0 +1,8 @@
+{
+  "serial": "emulator-5556",
+  "version": "2.3.3-build78",
+  "trigger": "adb shell am crash (owned emulator only)",
+  "manualUiExport": true,
+  "rawExceptionMessagesExcluded": true,
+  "passed": true
+}

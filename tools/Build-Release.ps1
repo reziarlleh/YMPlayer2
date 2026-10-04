@@ -37,6 +37,8 @@ try {
     New-Item -ItemType Directory -Path $destination | Out-Null
     $archived = Join-Path $destination "YMPlayer-$versionName.apk"
     Copy-Item -LiteralPath $apk -Destination $archived
+    # Keep the matching R8 map locally before a later build overwrites it.
+    Copy-Item -LiteralPath (Join-Path $projectRoot 'app\build\outputs\mapping\release\mapping.txt') -Destination (Join-Path $destination 'mapping.txt')
     $sha = (Get-FileHash -LiteralPath $archived -Algorithm SHA256).Hash.ToLowerInvariant()
     [IO.File]::WriteAllText((Join-Path $destination 'SHA256.txt'), "$sha  $([IO.Path]::GetFileName($archived))`n")
     $signature | Set-Content -LiteralPath (Join-Path $destination 'signature.txt') -Encoding UTF8

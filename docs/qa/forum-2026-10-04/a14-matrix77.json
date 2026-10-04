@@ -1,0 +1,157 @@
+{
+  "serial": "emulator-5558",
+  "api": 35,
+  "avd": "YM2_A14_API35",
+  "resolution": "1080x2408",
+  "ramMB": 4096,
+  "hardwareKeyboard": false,
+  "firmware": "AOSP, not One UI",
+  "apk": "2.3.2-build77",
+  "cases": [
+    {
+      "density": 420,
+      "fontScale": "1.0",
+      "rotation": "0",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "test"
+      ],
+      "passed": true
+    },
+    {
+      "density": 420,
+      "fontScale": "1.0",
+      "rotation": "1",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 420,
+      "fontScale": "1.3",
+      "rotation": "0",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 420,
+      "fontScale": "1.3",
+      "rotation": "1",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttesttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 420,
+      "fontScale": "2.0",
+      "rotation": "0",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttestestttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 420,
+      "fontScale": "2.0",
+      "rotation": "1",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttestestttesttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 480,
+      "fontScale": "1.0",
+      "rotation": "0",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttestesttestttesttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 480,
+      "fontScale": "1.0",
+      "rotation": "1",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttestesttestttesttesttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 480,
+      "fontScale": "1.3",
+      "rotation": "0",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttesttestesttestttesttesttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 480,
+      "fontScale": "1.3",
+      "rotation": "1",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttesttestesttestttestttestesttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 480,
+      "fontScale": "2.0",
+      "rotation": "0",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtestttestesttestesttestttestttestesttest"
+      ],
+      "passed": true
+    },
+    {
+      "density": 480,
+      "fontScale": "2.0",
+      "rotation": "1",
+      "pidBefore": "2343",
+      "pidAfter": "2343",
+      "imeVisible": true,
+      "editableFields": [
+        "testtestttestesttesteteststtestttestttestesttest"
+      ],
+      "passed": true
+    }
+  ],
+  "crashBuffer": ""
+}

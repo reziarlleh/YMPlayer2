@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-/** Only these fixed event codes may reach disk. Never pass provider responses or exception messages. */
+/** Event codes only; CrashDiagnostics separately stores message-free structural crash data. */
 internal enum class DiagnosticEvent {
     APP_OPEN, LIBRARY_SCAN_STARTED, LIBRARY_SCAN_FINISHED, LIBRARY_ERROR,
     AUTH_CODE_REQUESTED, AUTH_WAITING, AUTH_SIGNED_IN, AUTH_ERROR, AUTH_SIGNED_OUT,
@@ -29,6 +29,10 @@ internal enum class DiagnosticEvent {
 
 internal class DiagnosticsJournal(private val context: Context,
     private val file: File = File(context.filesDir, "diagnostics-2.log")) : DiagnosticsAccess {
+    private val crashes = CrashDiagnostics(context, File(file.parentFile, "${file.name}.crash"))
+    fun installCrashCapture() = crashes.install()
+    fun refreshEnvironment() = crashes.refreshEnvironment()
+    fun screen(route: String, imeVisible: Boolean, widthDp: Int, heightDp: Int) = crashes.screen(route, imeVisible, widthDp, heightDp)
     private val lock = Any()
     private val maxBytes = 96 * 1024
     private val keepBytes = 64 * 1024
@@ -50,16 +54,17 @@ internal class DiagnosticsJournal(private val context: Context,
     }
 
     override suspend fun snapshot(): String = withContext(Dispatchers.IO) {
-        synchronized(lock) { readSnapshot() }
+        synchronized(lock) { readSnapshot() } + "\n\n" + crashes.snapshot()
     }
 
     override suspend fun clear(): String = withContext(Dispatchers.IO) {
         synchronized(lock) {
             try {
+                crashes.clear()
                 if (file.exists() && !file.delete()) return@synchronized tr(Msg.msg_203dc0ea9f7d)
                 record(DiagnosticEvent.JOURNAL_CLEARED)
                 tr(Msg.msg_4a1236b53aa7)
-            } catch (_: IOException) { tr(Msg.msg_203dc0ea9f7d) }
+            } catch (_: Exception) { tr(Msg.msg_203dc0ea9f7d) }
         }
     }
 
@@ -77,7 +82,7 @@ internal class DiagnosticsJournal(private val context: Context,
         try {
             val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown"
             val header = "YMPlayer 2 $version\nExported: ${stamp()}\nAndroid API ${Build.VERSION.SDK_INT}\n\n"
-            val body = synchronized(lock) { readSnapshot() }
+            val body = synchronized(lock) { readSnapshot() } + "\n\n" + crashes.snapshot()
             val output = resolver.openOutputStream(uri, "w") ?: throw IOException("No output")
             output.use { it.write((header + body).toByteArray(StandardCharsets.UTF_8)) }
             resolver.update(uri, ContentValues().apply { put(MediaStore.MediaColumns.IS_PENDING, 0) }, null, null)

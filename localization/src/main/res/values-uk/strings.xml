@@ -480,7 +480,7 @@
     <string name="msg_d58f70dd1811" formatted="false">"Без жанру"</string>
     <string name="msg_d60fd3858f8f" formatted="false">"Служба прийняла запит. Очікуйте перезавантаження K4811."</string>
     <string name="msg_d65fb9be6155" formatted="false">"Зберігаються лише вподобані треки та їхні обкладинки. Улюблені виконавці й альбоми цілком не завантажуються."</string>
-    <string name="msg_d6e12cca8a0f" formatted="false">"У журналі лише коди подій. Токени, коди входу, назви треків та адреси запитів не записуються."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"Журнал містить події, параметри пристрою та відомості про останній збій. Токени, коди входу, назви треків, текст пошуку й адреси запитів не записуються. Надсилайте звіт лише за власним рішенням."</string>
     <string name="msg_d73874ba53a6" formatted="false">"Початковий файл залишається у вас. Його можна імпортувати знову."</string>
     <string name="msg_d7ad8e4ee48a" formatted="false">"Авто — мова системи"</string>
     <string name="msg_d7b587c84b68" formatted="false">"Бічну панель вимкнено."</string>

@@ -13,3 +13,4 @@ captures/
 .idea/
 .vscode/
 releases/**/*.apk
+releases/**/mapping.txt

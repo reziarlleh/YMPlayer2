@@ -480,7 +480,7 @@
     <string name="msg_d58f70dd1811" formatted="false">"Без жанру"</string>
     <string name="msg_d60fd3858f8f" formatted="false">"Служба прыняла запыт. Чакайце перазагрузкі K4811."</string>
     <string name="msg_d65fb9be6155" formatted="false">"Захоўваюцца толькі ўпадабаныя трэкі і іх вокладкі. Любімыя выканаўцы і альбомы цалкам не спампоўваюцца."</string>
-    <string name="msg_d6e12cca8a0f" formatted="false">"У журнале толькі коды падзей. Токены, коды ўваходу, назвы трэкаў і адрасы запытаў не запісваюцца."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"Журнал змяшчае падзеі, параметры прылады і звесткі пра апошні збой. Токены, коды ўваходу, назвы трэкаў, тэкст пошуку і адрасы запытаў не запісваюцца. Дасылайце справаздачу толькі па ўласным рашэнні."</string>
     <string name="msg_d73874ba53a6" formatted="false">"Зыходны файл застаецца ў вас. Яго можна імпартаваць зноў."</string>
     <string name="msg_d7ad8e4ee48a" formatted="false">"Аўта — мова сістэмы"</string>
     <string name="msg_d7b587c84b68" formatted="false">"Панэль выключана."</string>

@@ -482,7 +482,7 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     msg_d58f70dd1811("Без жанра", "Unknown genre", R.string.msg_d58f70dd1811),
     msg_d60fd3858f8f("Служба приняла запрос. Ожидайте перезагрузку K4811.", "The service accepted the request. Wait for K4811 to restart.", R.string.msg_d60fd3858f8f),
     msg_d65fb9be6155("Сохраняются только понравившиеся треки и их обложки. Любимые исполнители и альбомы целиком не загружаются.", "Only liked tracks and their artwork are downloaded. Favorite artists and albums are not downloaded in full.", R.string.msg_d65fb9be6155),
-    msg_d6e12cca8a0f("В журнале только коды событий. Токены, коды входа, названия треков и адреса запросов не записываются.", "The log contains event codes only. Tokens, sign-in codes, track titles and request URLs are never recorded.", R.string.msg_d6e12cca8a0f),
+    msg_d6e12cca8a0f("Журнал содержит события, параметры устройства и сведения о последнем падении. Токены, коды входа, названия треков, текст поиска и адреса запросов не записываются. Отправляйте отчёт только по своему решению.", "The log includes events, device settings and details of the last crash. It does not record tokens, sign-in codes, track titles, search text or request URLs. Share the report only if you choose to.", R.string.msg_d6e12cca8a0f),
     msg_d73874ba53a6("Файл-источник остаётся у вас. Его можно импортировать снова.", "Your source file is kept. You can import it again.", R.string.msg_d73874ba53a6),
     msg_d7ad8e4ee48a("Авто — как в системе", "Auto — system language", R.string.msg_d7ad8e4ee48a),
     msg_d7b587c84b68("Панель выключена.", "Sidebar disabled.", R.string.msg_d7b587c84b68),

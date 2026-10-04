@@ -68,6 +68,7 @@ gradle.taskGraph.whenReady {
     }
 }
 dependencies {
+    testImplementation(libs.junit)
     implementation(project(":localization"));
     implementation(project(":core"))
     implementation(project(":library:local"))

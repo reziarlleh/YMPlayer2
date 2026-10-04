@@ -7745,18 +7745,18 @@
   },
   {
     "key": "msg_d6e12cca8a0f",
-    "source": "В журнале только коды событий. Токены, коды входа, названия треков и адреса запросов не записываются.",
-    "english": "The log contains event codes only. Tokens, sign-in codes, track titles and request URLs are never recorded.",
+    "source": "Журнал содержит события, параметры устройства и сведения о последнем падении. Токены, коды входа, названия треков, текст поиска и адреса запросов не записываются. Отправляйте отчёт только по своему решению.",
+    "english": "The log includes events, device settings and details of the last crash. It does not record tokens, sign-in codes, track titles, search text or request URLs. Share the report only if you choose to.",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/DiagnosticsScreen.kt"
     ],
     "translations": {
-      "be": "У журнале толькі коды падзей. Токены, коды ўваходу, назвы трэкаў і адрасы запытаў не запісваюцца.",
-      "fr": "Le journal ne contient que des codes d’événements. Les jetons, codes de connexion, titres des morceaux et adresses des requêtes ne sont jamais enregistrés.",
-      "de": "Das Protokoll enthält nur Ereigniscodes. Tokens, Anmeldecodes, Titelnamen und Anfrageadressen werden nicht aufgezeichnet.",
-      "kk": "Журналға тек оқиға кодтары жазылады. Токендер, кіру кодтары, трек атаулары және сұрау мекенжайлары жазылмайды.",
-      "es": "El registro solo contiene códigos de eventos. No se guardan tokens, códigos de acceso, títulos de canciones ni direcciones de solicitudes.",
-      "uk": "У журналі лише коди подій. Токени, коди входу, назви треків та адреси запитів не записуються."
+      "be": "Журнал змяшчае падзеі, параметры прылады і звесткі пра апошні збой. Токены, коды ўваходу, назвы трэкаў, тэкст пошуку і адрасы запытаў не запісваюцца. Дасылайце справаздачу толькі па ўласным рашэнні.",
+      "fr": "Le journal contient les événements, les paramètres de l’appareil et les détails du dernier plantage. Les jetons, codes de connexion, titres des morceaux, textes de recherche et adresses des requêtes ne sont pas enregistrés. Vous décidez de partager ou non le rapport.",
+      "de": "Das Protokoll enthält Ereignisse, Geräteeinstellungen und Angaben zum letzten Absturz. Tokens, Anmeldecodes, Titelnamen, Suchtexte und Anfrageadressen werden nicht gespeichert. Sie entscheiden selbst, ob Sie den Bericht weitergeben.",
+      "kk": "Журналда оқиғалар, құрылғы параметрлері және соңғы ақау туралы мәліметтер сақталады. Токендер, кіру кодтары, трек атаулары, іздеу мәтіні және сұрау мекенжайлары жазылмайды. Есепті жіберу-жібермеуді өзіңіз шешесіз.",
+      "es": "El registro incluye eventos, ajustes del dispositivo y detalles del último cierre inesperado. No guarda tokens, códigos de acceso, títulos de canciones, textos de búsqueda ni direcciones de solicitudes. Tú decides si compartes el informe.",
+      "uk": "Журнал містить події, параметри пристрою та відомості про останній збій. Токени, коди входу, назви треків, текст пошуку й адреси запитів не записуються. Надсилайте звіт лише за власним рішенням."
     }
   },
   {

@@ -480,7 +480,7 @@
     <string name="msg_d58f70dd1811" formatted="false">"Unbekanntes Genre"</string>
     <string name="msg_d60fd3858f8f" formatted="false">"Der Dienst hat die Anfrage angenommen. Warte auf den Neustart von K4811."</string>
     <string name="msg_d65fb9be6155" formatted="false">"Nur Lieblingstitel und ihre Cover werden heruntergeladen. Lieblingskünstler und Lieblingsalben werden nicht vollständig heruntergeladen."</string>
-    <string name="msg_d6e12cca8a0f" formatted="false">"Das Protokoll enthält nur Ereigniscodes. Tokens, Anmeldecodes, Titelnamen und Anfrageadressen werden nicht aufgezeichnet."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"Das Protokoll enthält Ereignisse, Geräteeinstellungen und Angaben zum letzten Absturz. Tokens, Anmeldecodes, Titelnamen, Suchtexte und Anfrageadressen werden nicht gespeichert. Sie entscheiden selbst, ob Sie den Bericht weitergeben."</string>
     <string name="msg_d73874ba53a6" formatted="false">"Deine Quelldatei bleibt erhalten. Du kannst sie erneut importieren."</string>
     <string name="msg_d7ad8e4ee48a" formatted="false">"Auto — Systemsprache"</string>
     <string name="msg_d7b587c84b68" formatted="false">"Seitenleiste deaktiviert."</string>

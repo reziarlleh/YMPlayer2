@@ -42,7 +42,7 @@ private val destinations get() = listOf(
     Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val library by model.library.collectAsStateWithLifecycle()
     val offlineState = model.offline?.state?.collectAsStateWithLifecycle()?.value
@@ -112,6 +112,8 @@ private val destinations get() = listOf(
             val short = maxHeight < 480.dp
             // Give text entry room on short windows; playback continues while its bar is hidden.
             val typingInShortWindow = short && WindowInsets.ime.getBottom(density) > 0
+            val imeVisible = WindowInsets.ime.getBottom(density) > 0
+            SideEffect { diagnosticScreen(route, imeVisible, maxWidth.value.toInt(), maxHeight.value.toInt()) }
             Column(Modifier.fillMaxSize().testTag("shell_layout")) {
                 if (!typingInShortWindow) Row(Modifier.fillMaxWidth().testTag("shell_header").padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                     if (route != "player") ActionIcon(UiIcon.BACK, tr(Msg.msg_1a9fb1f3cf8e), { dispatcher?.onBackPressed() }, Modifier.testTag("navigate_up"))

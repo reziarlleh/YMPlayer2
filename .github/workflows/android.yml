@@ -25,4 +25,4 @@ jobs:
       - name: Verify translation catalog and generated resources
         run: python3 tools/Generate-Translations.py --check
       - name: Unit tests, APK compilation and lint
-        run: bash gradlew :core:test :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain
+        run: bash gradlew :core:test :app:testDebugUnitTest :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain

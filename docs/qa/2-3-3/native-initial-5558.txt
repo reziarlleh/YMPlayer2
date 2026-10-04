@@ -1,0 +1,126 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CrashDiagnosticsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.CrashDiagnosticsTest:
+INSTRUMENTATION_STATUS: test=persistedCrashReopensAndClearsWithoutExportingMessages
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CrashDiagnosticsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=persistedCrashReopensAndClearsWithoutExportingMessages
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CrashDiagnosticsTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=realFatalChildProcessIsRecordedAndIncludedInManualExport
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CrashDiagnosticsTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=realFatalChildProcessIsRecordedAndIncludedInManualExport
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.DiagnosticsJournalTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.DiagnosticsJournalTest:
+INSTRUMENTATION_STATUS: test=journalIsBoundedAndExportContainsOnlyEventCodes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.DiagnosticsJournalTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Saved to Downloads: YMPlayer2-diagnostics-20261004-042134.txt
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.DiagnosticsJournalTest$journalIsBoundedAndExportContainsOnlyEventCodes$1.invokeSuspend(DiagnosticsJournalTest.kt:26)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.DiagnosticsJournalTest.journalIsBoundedAndExportContainsOnlyEventCodes(DiagnosticsJournalTest.kt:14)
+
+INSTRUMENTATION_STATUS: stream=
+Error in journalIsBoundedAndExportContainsOnlyEventCodes(dev.petrov.ymplayer2.DiagnosticsJournalTest):
+java.lang.AssertionError: Saved to Downloads: YMPlayer2-diagnostics-20261004-042134.txt
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.DiagnosticsJournalTest$journalIsBoundedAndExportContainsOnlyEventCodes$1.invokeSuspend(DiagnosticsJournalTest.kt:26)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.DiagnosticsJournalTest.journalIsBoundedAndExportContainsOnlyEventCodes(DiagnosticsJournalTest.kt:14)
+
+INSTRUMENTATION_STATUS: test=journalIsBoundedAndExportContainsOnlyEventCodes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.CatalogSourcesTest:
+INSTRUMENTATION_STATUS: test=searchHandlesRealImeQueriesAndCompositionWhileAudioPlays
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=searchHandlesRealImeQueriesAndCompositionWhileAudioPlays
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=commonSearchAndOnlineFailureKeepLocalResultsUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CatalogSourcesTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=commonSearchAndOnlineFailureKeepLocalResultsUsable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 44.004
+There was 1 failure:
+1) journalIsBoundedAndExportContainsOnlyEventCodes(dev.petrov.ymplayer2.DiagnosticsJournalTest)
+java.lang.AssertionError: Saved to Downloads: YMPlayer2-diagnostics-20261004-042134.txt
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.DiagnosticsJournalTest$journalIsBoundedAndExportContainsOnlyEventCodes$1.invokeSuspend(DiagnosticsJournalTest.kt:26)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.DiagnosticsJournalTest.journalIsBoundedAndExportContainsOnlyEventCodes(DiagnosticsJournalTest.kt:14)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -480,7 +480,7 @@
     <string name="msg_d58f70dd1811" formatted="false">"Без жанра"</string>
     <string name="msg_d60fd3858f8f" formatted="false">"Служба приняла запрос. Ожидайте перезагрузку K4811."</string>
     <string name="msg_d65fb9be6155" formatted="false">"Сохраняются только понравившиеся треки и их обложки. Любимые исполнители и альбомы целиком не загружаются."</string>
-    <string name="msg_d6e12cca8a0f" formatted="false">"В журнале только коды событий. Токены, коды входа, названия треков и адреса запросов не записываются."</string>
+    <string name="msg_d6e12cca8a0f" formatted="false">"Журнал содержит события, параметры устройства и сведения о последнем падении. Токены, коды входа, названия треков, текст поиска и адреса запросов не записываются. Отправляйте отчёт только по своему решению."</string>
     <string name="msg_d73874ba53a6" formatted="false">"Файл-источник остаётся у вас. Его можно импортировать снова."</string>
     <string name="msg_d7ad8e4ee48a" formatted="false">"Авто — как в системе"</string>
     <string name="msg_d7b587c84b68" formatted="false">"Панель выключена."</string>

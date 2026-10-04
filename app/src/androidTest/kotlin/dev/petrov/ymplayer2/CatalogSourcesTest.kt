@@ -71,6 +71,41 @@ class CatalogSourcesTest {
         await { fixture.offline.state.value.ready && fixture.offline.state.value.tracks.isEmpty() }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
+
+    @Test fun searchHandlesRealImeQueriesAndCompositionWhileAudioPlays() {
+        compose.onNodeWithTag("nav_library").performClick()
+        val firstLocal = fixture.library.testTracks.first { it.available }
+        compose.runOnIdle { player.playQueue(listOf(firstLocal.id), firstLocal.id) }
+        await { player.state.value.playing && player.state.value.positionSeconds > 0 }
+        compose.onNodeWithTag("nav_search").performClick()
+        action("search_input")
+        compose.waitForIdle()
+        // Exercise Android's InputConnection, not the Compose semantics text-injection shortcut.
+        compose.runOnIdle {
+            fun editor(view: android.view.View): android.view.View? {
+                if (view.onCheckIsTextEditor()) return view
+                if (view is android.view.ViewGroup) for (i in 0 until view.childCount) editor(view.getChildAt(i))?.let { return it }
+                return null
+            }
+            val connection = editor(compose.activity.window.decorView)!!.onCreateInputConnection(android.view.inputmethod.EditorInfo())!!
+            connection.getExtractedText(android.view.inputmethod.ExtractedTextRequest().apply { hintMaxChars = 4096; hintMaxLines = 10 }, 1)
+            connection.getTextBeforeCursor(1024, 0)
+            connection.getTextAfterCursor(1024, 0)
+            connection.getSelectedText(0)
+            connection.getCursorCapsMode(android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+            if (android.os.Build.VERSION.SDK_INT >= 31) connection.getSurroundingText(1024, 1024, 0)
+            connection.requestCursorUpdates(android.view.inputmethod.InputConnection.CURSOR_UPDATE_IMMEDIATE or android.view.inputmethod.InputConnection.CURSOR_UPDATE_MONITOR)
+            connection.beginBatchEdit()
+            connection.setComposingText("тест", 1)
+            connection.finishComposingText()
+            connection.endBatchEdit()
+        }
+        compose.waitForIdle()
+        compose.onNodeWithTag("search_input").assertTextContains("тест")
+        assertTrue(player.state.value.playing)
+        compose.onNodeWithTag("search_input").performImeAction()
+        assertFalse(compose.activity.isFinishing)
+    }
     @Test fun selectedOnlineSectionCanReceiveVerticalFocusFromBothSides() {
         compose.onNodeWithTag("nav_library").performClick()
         compose.onNodeWithTag("source_yandex").performClick()
