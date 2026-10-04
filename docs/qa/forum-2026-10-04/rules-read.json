@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-04",
+  "method": "urllib GET; guest; no cookies, account login or browser",
+  "charset": "windows-1251",
+  "pages": [
+    {
+      "url": "https://4pda.to/forum/index.php?act=announce&f=212&st=250",
+      "status": 200,
+      "bytes": 241383,
+      "sha256": "d96de8c3095d88a668c78824d633db25b2e66afd1451aad3145a77eeca8e2f7d",
+      "editionOnPage": "2025-10-27"
+    },
+    {
+      "url": "https://4pda.to/forum/index.php?act=announce&f=212&st=368",
+      "status": 200,
+      "bytes": 238756,
+      "sha256": "ff5df139cdf080982d9f447736e9deaa1df54db7a35e180969b99ccefb18b5fe",
+      "editionOnPage": "2025-10-04"
+    },
+    {
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108",
+      "status": 200,
+      "bytes": 252407,
+      "sha256": "c7e5dee2bfa302fa05e4354117e8c4faf3a90666e7003b0f8e44fe21cfd8a14d",
+      "headerPost": 145319180,
+      "headerVersion": "2.1.0-build64",
+      "lastModeratorEditor": "antonridd",
+      "editDateAsDisplayed": "Сегодня, 01:37",
+      "reasonAsDisplayed": "правка шапки"
+    }
+  ],
+  "authenticatedEditRightsChecked": false,
+  "forumMutationsPerformed": false,
+  "fullHtmlPublished": false,
+  "documentationChecks": {
+    "markdownDocuments": 176,
+    "localLinksChecked": 1285,
+    "missingLocalLinks": 0,
+    "gitDiffCheckPassed": true
+  }
+}
