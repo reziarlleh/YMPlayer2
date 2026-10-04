@@ -1,0 +1,43 @@
+{
+  "version": "2.3.2-build77",
+  "serial": "emulator-5554",
+  "api": "35",
+  "manufacturer": "unknown",
+  "inputMethod": "com.android.inputmethod.latin/.LatinIME",
+  "dataCleared": false,
+  "cases": [
+    {
+      "typed": "fixture",
+      "processAlive": true,
+      "fields": [
+        {
+          "text": "fixturemusicfixture",
+          "focused": "true"
+        }
+      ],
+      "imeVisible": true
+    },
+    {
+      "typed": "music",
+      "processAlive": true,
+      "fields": [
+        {
+          "text": "fixturemusicfixturmusice",
+          "focused": "true"
+        }
+      ],
+      "imeVisible": true
+    },
+    {
+      "typed": "test",
+      "processAlive": true,
+      "fields": [
+        {
+          "text": "fixturemusicfixturtestmusice",
+          "focused": "true"
+        }
+      ],
+      "imeVisible": true
+    }
+  ]
+}
