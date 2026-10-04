@@ -7,6 +7,12 @@
   "documents": 184,
   "localLinks": 1420,
   "brokenLinks": [],
-  "github": null,
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.3.4-build79",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.4-build79",
+    "readmeBlob": "15f6079e4270533334067d6b7518703980eeb82f",
+    "localReadmeBlob": "15f6079e4270533334067d6b7518703980eeb82f"
+  },
   "errors": []
 }
