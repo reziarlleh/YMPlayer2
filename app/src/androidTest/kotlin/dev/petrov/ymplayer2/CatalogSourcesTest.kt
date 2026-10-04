@@ -123,9 +123,14 @@ class CatalogSourcesTest {
         val wave = compose.onNodeWithTag("my_wave")
         wave.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
         wave.assertIsFocused()
+        compose.runOnIdle {
+            assertFalse("Native D-pad needs non-touch mode", compose.activity.window.decorView.isInTouchMode)
+            assertTrue("The fixture window must receive native keys", compose.activity.window.decorView.hasWindowFocus())
+        }
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
         compose.waitForIdle()
-        section.assertIsFocused()
+        try { section.assertIsFocused() }
+        catch (failure: AssertionError) { throw AssertionError(compose.onRoot().printToString(), failure) }
         val play = compose.onNodeWithTag("online_play_all")
         play.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
         play.assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionUp) }

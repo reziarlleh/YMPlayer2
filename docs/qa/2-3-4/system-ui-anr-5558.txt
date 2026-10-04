@@ -1,0 +1,4 @@
+
+  mCurrentFocus=Window{67a638f u0 Application Not Responding: com.android.systemui}
+  mFocusedApp=ActivityRecord{213a528 u0 com.android.launcher3/.uioverrides.QuickstepLauncher t28}
+

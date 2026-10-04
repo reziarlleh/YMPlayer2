@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.graphics.Brush
@@ -32,7 +33,8 @@ import android.app.Activity
         }
     }
     val resolved = skin.takeIf { it.contractVersion == 1 } ?: PrismSkin
-    CompositionLocalProvider(LocalSkin provides resolved) {
+    val focusAnchor = remember { ChoiceRowFocusAnchor() }
+    CompositionLocalProvider(LocalSkin provides resolved, LocalChoiceRowFocusAnchor provides focusAnchor) {
         MaterialTheme(colorScheme = if (dark) resolved.dark else resolved.light, typography = resolved.typography, shapes = resolved.shapes) {
             Surface(color = MaterialTheme.colorScheme.background, content = content)
         }
@@ -42,7 +44,16 @@ import android.app.Activity
 /** A border, not scaling: focus never changes layout or obscures its neighbours. */
 @Composable fun Modifier.prismFocus(): Modifier {
     var focused by remember { mutableStateOf(false) }
-    return onFocusChanged { focused = it.hasFocus }.border(
+    val anchor = LocalChoiceRowFocusAnchor.current
+    val position = remember { ChoiceRowFocusPosition() }
+    DisposableEffect(anchor) {
+        onDispose { if (anchor?.focused === position) anchor.focused = null }
+    }
+    return onGloballyPositioned { position.coordinates = it }.onFocusChanged {
+        focused = it.hasFocus
+        if (it.isFocused) anchor?.focused = position
+        else if (!it.hasFocus && anchor?.focused === position) anchor.focused = null
+    }.border(
         2.dp, if (focused) MaterialTheme.colorScheme.primary else Color.Transparent, MaterialTheme.shapes.medium,
     )
 }

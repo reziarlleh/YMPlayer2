@@ -1,0 +1,68 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ChoiceRowFocusTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.ChoiceRowFocusTest:
+INSTRUMENTATION_STATUS: test=platformFocusBoundsAfterFocusedItemRemovalDoNotReenterChoiceRow
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ChoiceRowFocusTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Focused = 'true')
+Node found:
+Node #8 at (l=0.0, t=11.0, r=268.0, b=116.0)px, Tag: 'new_choice'
+Focused = 'true'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Selected]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:311)
+	at dev.petrov.ymplayer2.ChoiceRowFocusTest.platformFocusBoundsAfterFocusedItemRemovalDoNotReenterChoiceRow(ChoiceRowFocusTest.kt:49)
+
+INSTRUMENTATION_STATUS: stream=
+Error in platformFocusBoundsAfterFocusedItemRemovalDoNotReenterChoiceRow(dev.petrov.ymplayer2.ChoiceRowFocusTest):
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Focused = 'true')
+Node found:
+Node #8 at (l=0.0, t=11.0, r=268.0, b=116.0)px, Tag: 'new_choice'
+Focused = 'true'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Selected]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:311)
+	at dev.petrov.ymplayer2.ChoiceRowFocusTest.platformFocusBoundsAfterFocusedItemRemovalDoNotReenterChoiceRow(ChoiceRowFocusTest.kt:49)
+
+INSTRUMENTATION_STATUS: test=platformFocusBoundsAfterFocusedItemRemovalDoNotReenterChoiceRow
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 4.848
+There was 1 failure:
+1) platformFocusBoundsAfterFocusedItemRemovalDoNotReenterChoiceRow(dev.petrov.ymplayer2.ChoiceRowFocusTest)
+java.lang.AssertionError: Failed to assert count of nodes.
+Reason: Did not expect any node but found '1' node that satisfies: (Focused = 'true')
+Node found:
+Node #8 at (l=0.0, t=11.0, r=268.0, b=116.0)px, Tag: 'new_choice'
+Focused = 'true'
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 12.0.dp), topEnd = CornerSize(size = 12.0.dp), bottomEnd = CornerSize(size = 12.0.dp), bottomStart = CornerSize(size = 12.0.dp))'
+Text = '[Selected]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+
+	at androidx.compose.ui.test.AssertionsKt.assertCountEquals(Assertions.kt:311)
+	at dev.petrov.ymplayer2.ChoiceRowFocusTest.platformFocusBoundsAfterFocusedItemRemovalDoNotReenterChoiceRow(ChoiceRowFocusTest.kt:49)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

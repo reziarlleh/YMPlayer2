@@ -1,0 +1,38 @@
+{
+  "serial": "emulator-5558",
+  "version": "2.3.4-build79",
+  "dataCleared": false,
+  "cases": [
+    {
+      "repeat": 1,
+      "pidBefore": "3271",
+      "pidAfter": "3271",
+      "imeVisible": true,
+      "editableFields": [
+        "test"
+      ],
+      "passed": true
+    },
+    {
+      "repeat": 2,
+      "pidBefore": "3271",
+      "pidAfter": "3271",
+      "imeVisible": true,
+      "editableFields": [
+        "testtest"
+      ],
+      "passed": true
+    },
+    {
+      "repeat": 3,
+      "pidBefore": "3271",
+      "pidAfter": "3271",
+      "imeVisible": true,
+      "editableFields": [
+        "testtesttest"
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true
+}
