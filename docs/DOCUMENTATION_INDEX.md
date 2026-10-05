@@ -19,6 +19,8 @@
 
 ## Пользовательские и технические документы
 
+- [README](../README.md) — описание приложения для пользователей;
+  [CHANGELOG](../CHANGELOG.md) — что изменилось по версиям.
 - [Русская инструкция](USER_GUIDE.md) и [English guide](USER_GUIDE_EN.md).
 - [Скины](SKINS.md), [руководство автора](SKIN_AUTHOR_GUIDE.md), [формат](SKIN_FORMAT.md).
 - [Переводы](LANGUAGE_TRANSLATIONS.md), [сборка](BUILDING.md),
