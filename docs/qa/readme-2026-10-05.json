@@ -1,0 +1,18 @@
+{
+  "version": "2.3.4-build79",
+  "localFeeds": {
+    "manifest": "2.3.4-build79",
+    "stable": "2.3.4-build79"
+  },
+  "documents": 185,
+  "localLinks": 1403,
+  "brokenLinks": [],
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.3.4-build79",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.4-build79",
+    "readmeBlob": "30a65a6885145c6c36bbb0c35a02e48558fe77e0",
+    "localReadmeBlob": "30a65a6885145c6c36bbb0c35a02e48558fe77e0"
+  },
+  "errors": []
+}
