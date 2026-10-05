@@ -25,6 +25,8 @@
 - [Скины](SKINS.md), [руководство автора](SKIN_AUTHOR_GUIDE.md), [формат](SKIN_FORMAT.md).
 - [Переводы](LANGUAGE_TRANSLATIONS.md), [сборка](BUILDING.md),
   [архитектурный эскиз](ARCHITECTURE.md), [исходное ТЗ](../YMPlayer_2x_Codex_Startup_Prompt.md).
+- [Оценка API 28](API_28_FEASIBILITY.md) — необходимые изменения и границы
+  проверки; предложение, не реализованная поддержка Android 9.
 - [Правила4PDA](FORUM_RULES_4PDA.md), [последняя разрешённая публикация](FORUM_VERSIONS_PUBLICATION_2026_10_04.md).
 
 ## Подробные журналы и история

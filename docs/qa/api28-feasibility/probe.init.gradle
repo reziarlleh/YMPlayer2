@@ -1,0 +1,11 @@
+// Analysis only: no change to committed minSdk, app version, signing or update feeds.
+gradle.beforeProject { project ->
+    ['com.android.application', 'com.android.library'].each { pluginId ->
+        project.pluginManager.withPlugin(pluginId) {
+            project.extensions.getByName('androidComponents').finalizeDsl { dsl ->
+                dsl.defaultConfig.minSdk = 28
+                dsl.lint.checkDependencies = true
+            }
+        }
+    }
+}

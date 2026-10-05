@@ -1,0 +1,22 @@
+[
+  {
+    "artifact": "androidx.media3:media3-exoplayer:1.11.0",
+    "minSdk": "23"
+  },
+  {
+    "artifact": "androidx.media3:media3-session:1.11.0",
+    "minSdk": "23"
+  },
+  {
+    "artifact": "androidx.activity:activity:1.13.0",
+    "minSdk": "23"
+  },
+  {
+    "artifact": "androidx.core:core:1.19.0",
+    "minSdk": "23"
+  },
+  {
+    "artifact": "androidx.compose.ui:ui-android:1.12.0",
+    "minSdk": "23"
+  }
+]

@@ -1,6 +1,6 @@
 # Сборка YMPlayer 2
 
-Актуализировано 2026-10-02 для stable 2.2.2-build74. Фактические 12 модулей:
+Актуализировано 2026-10-05 для stable 2.3.4-build79. Фактические 12 модулей:
 app, core, designsystem, feature:shell, feature:clips, library:local, library:offline,
 playback:android, provider:yandex, headunit:sidebar, updater:android, localization. Аудиодвижок Media3 1.11.0.
 AGP 9.3.2 с built-in Kotlin, Kotlin/Compose compiler 2.3.21, Compose BOM
@@ -16,7 +16,7 @@ Build Tools 36.0.0. Значения закреплены в version catalog и 
 ```
 
 Внутренний debug APK имеет applicationId `dev.petrov.ymplayer2.dev` и versionName
-`<baseVersion>-internal` (сейчас `2.2.2-internal`). Он используется только локальной автоматикой, не передаётся
+`<baseVersion>-internal` (сейчас `2.3.4-internal`). Он используется только локальной автоматикой, не передаётся
 как нумерованный beta APK и не расходует Build. Для передачи владельцу — команда ниже.
 
 ```powershell
