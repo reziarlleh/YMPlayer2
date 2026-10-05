@@ -90,6 +90,7 @@ internal object BrowserSources {
         ?.setUri("ymplayer2://browser/$id")?.build()
 }
 
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 private fun browserCallback(playback: AndroidPlayback, diagnostic: (AudioServiceEvent) -> Unit) = object : MediaLibraryService.MediaLibrarySession.Callback {
     override fun onPlaybackResumption(session: MediaSession, controller: MediaSession.ControllerInfo,
         isForPlayback: Boolean): ListenableFuture<MediaSession.MediaItemsWithStartPosition> {
@@ -111,7 +112,7 @@ private fun browserCallback(playback: AndroidPlayback, diagnostic: (AudioService
     override fun onGetItem(session: MediaLibraryService.MediaLibrarySession, browser: MediaSession.ControllerInfo,
         mediaId: String): ListenableFuture<LibraryResult<MediaItem>> =
         Futures.immediateFuture(BrowserSources.item(mediaId)?.let { LibraryResult.ofItem(it, null) }
-            ?: LibraryResult.ofError(LibraryResult.RESULT_ERROR_BAD_VALUE))
+            ?: LibraryResult.ofError(androidx.media3.session.SessionError.ERROR_BAD_VALUE))
 
     // A browser can select only these source IDs. Ignore all caller-supplied URIs/metadata.
     override fun onAddMediaItems(session: MediaSession, controller: MediaSession.ControllerInfo,

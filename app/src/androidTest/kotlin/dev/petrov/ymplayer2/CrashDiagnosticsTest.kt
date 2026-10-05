@@ -29,6 +29,7 @@ class CrashDiagnosticsTest {
         } finally { android.util.AtomicFile(file).delete() }
     }
 
+    @androidx.test.filters.SdkSuppress(minSdkVersion = 29)
     @Test fun realFatalChildProcessIsRecordedAndIncludedInManualExport() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val journal = (context.applicationContext as PlayerApplication).diagnostics

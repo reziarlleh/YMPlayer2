@@ -125,8 +125,7 @@ import kotlinx.coroutines.launch
         Slider(state.positionSeconds.toFloat(), { player.seek(it.toInt()) }, Modifier.weight(1f).height(40.dp).testTag("progress").then(navigation), enabled = state.current != null,
             valueRange = 0f..(state.current?.durationSeconds ?: 1).coerceAtLeast(1).toFloat())
         Text(secondsLabel(state.current?.durationSeconds ?: 0), style = MaterialTheme.typography.labelMedium)
-    } else
-    Column(Modifier.fillMaxWidth()) {
+    } else Column(Modifier.fillMaxWidth()) {
         Slider(state.positionSeconds.toFloat(), { player.seek(it.toInt()) }, Modifier.fillMaxWidth().height(40.dp).testTag("progress").then(navigation), enabled = state.current != null,
             valueRange = 0f..(state.current?.durationSeconds ?: 1).coerceAtLeast(1).toFloat())
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {

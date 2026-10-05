@@ -594,5 +594,7 @@
     <string name="bulk_queue" formatted="false">"Кезекке қосу"</string>
     <string name="bulk_playlist" formatted="false">"Жергілікті плейлистке қосу"</string>
     <string name="bulk_local_only" formatted="false">"Жергілікті плейлистке тек құрылғы мен USB музыкасын қосуға болады."</string>
+    <string name="diagnostics_choose_destination" formatted="false">"Есепті сақтайтын орынды таңдаңыз."</string>
+    <string name="diagnostics_saved_document" formatted="false">"Сақталды: @0@"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

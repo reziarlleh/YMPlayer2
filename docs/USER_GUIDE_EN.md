@@ -2,6 +2,12 @@
 
 For 2.3.4-build79. Reviewed on 4 October 2026.
 
+The manual [2.4.0beta-build80](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build80)
+adds Android 9 support. It is excluded from automatic updates while compatibility
+is being tested. Installing it over2.3 keeps app data. Android will not install
+build79 over a newer beta through the regular installer; uninstalling the app
+removes its private data.
+
 YMPlayer 2 plays music from your device and USB storage, Yandex Music and music
 videos. It supports separate profiles, offline liked tracks and custom skins.
 You do not need a Yandex account to play your own files.
@@ -299,6 +305,11 @@ stack without exception messages, device/display settings and the selected
 keyboard. Android11+ also provides system process-exit reasons; Android10
 does not support that part. Search text, track titles and tokens are not
 recorded. Reports stay on your device until you choose to share them.
+
+On Android9 with2.4 beta, export opens the system file picker instead: choose
+a destination and save the report. A toast confirms the result. Cancelling
+the picker does not save a file.
+
 **Clear** removes the saved crash and events and hides older system exit records
 from later exports. A useful bug report includes the app version,
 device/Android version, music source, steps, journal and a screenshot if relevant.

@@ -1,10 +1,10 @@
 # Сборка YMPlayer 2
 
-Актуализировано 2026-10-05 для stable 2.3.4-build79. Фактические 12 модулей:
+Актуализировано 2026-10-05: main / ручная2.4.0beta, стабильный канал2.3.4-build79. Фактические 12 модулей:
 app, core, designsystem, feature:shell, feature:clips, library:local, library:offline,
 playback:android, provider:yandex, headunit:sidebar, updater:android, localization. Аудиодвижок Media3 1.11.0.
 AGP 9.3.2 с built-in Kotlin, Kotlin/Compose compiler 2.3.21, Compose BOM
-2026.08.00, Gradle wrapper 9.5.0, JDK 17. SDK: compile 37, target 36, min 29;
+2026.08.00, Gradle wrapper 9.5.0, JDK 17. SDK: compile 37, target 36, min 28;
 Build Tools 36.0.0. Значения закреплены в version catalog и Gradle.
 
 Нужны JDK 17, Android SDK с platforms;android-37.0 и build-tools;36.0.0.
@@ -16,8 +16,12 @@ Build Tools 36.0.0. Значения закреплены в version catalog и 
 ```
 
 Внутренний debug APK имеет applicationId `dev.petrov.ymplayer2.dev` и versionName
-`<baseVersion>-internal` (сейчас `2.3.4-internal`). Он используется только локальной автоматикой, не передаётся
+`<baseVersion>-internal` (сейчас `2.4.0-internal`). Он используется только локальной автоматикой, не передаётся
 как нумерованный beta APK и не расходует Build. Для передачи владельцу — команда ниже.
+
+Для ручной2.4 beta `channel=beta`, `updateChannel=stable`: маркировка версии
+и канал проверки обновлений разделены. Prepare-UpdateManifest отклоняет beta;
+подробности и условия допуска — в [PLAN_2_4](PLAN_2_4.md).
 
 ```powershell
 # Только один раз для нового продукта; существующий ключ нельзя заменять.

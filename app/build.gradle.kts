@@ -5,6 +5,8 @@ val versionInfo = Properties().apply { rootProject.file("version.properties").in
 val issuedBuild = providers.gradleProperty("issuedBuildNumber").orNull?.toInt()
 val base = versionInfo.getProperty("baseVersion")
 val channel = versionInfo.getProperty("channel")
+val updateChannel = versionInfo.getProperty("updateChannel", channel)
+require(updateChannel in listOf("beta", "stable")) { "Invalid update channel." }
 val yandexInfo = Properties().apply {
     rootProject.file(".provider/yandex.properties").takeIf { it.isFile }?.inputStream()?.use(::load)
 }
@@ -21,14 +23,14 @@ android {
     compileSdk = 37
     defaultConfig {
         applicationId = "dev.petrov.ymplayer2"
-        minSdk = 29
+        minSdk = 28
         targetSdk = 36
         versionCode = issuedBuild ?: 1
         versionName = if (issuedBuild == null) "$base-internal" else "$base${if (channel == "beta") "beta" else ""}-build$issuedBuild"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "YANDEX_CLIENT_ID", yandexValue("clientId"))
         buildConfigField("String", "YANDEX_CLIENT_SECRET", yandexValue("clientSecret"))
-        buildConfigField("String", "UPDATE_CHANNEL", "\"$channel\"")
+        buildConfigField("String", "UPDATE_CHANNEL", "\"$updateChannel\"")
     }
     signingConfigs {
         if (signingInfo.isNotEmpty()) create("product") {
@@ -59,6 +61,7 @@ android {
         }
     }
     buildFeatures { compose = true; buildConfig = true }
+    lint { checkDependencies = true }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
 gradle.taskGraph.whenReady {

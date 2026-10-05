@@ -594,5 +594,7 @@
     <string name="bulk_queue" formatted="false">"В очередь"</string>
     <string name="bulk_playlist" formatted="false">"В локальный плейлист"</string>
     <string name="bulk_local_only" formatted="false">"В локальный плейлист можно добавить только музыку устройства и USB."</string>
+    <string name="diagnostics_choose_destination" formatted="false">"Выберите место для сохранения отчёта."</string>
+    <string name="diagnostics_saved_document" formatted="false">"Сохранено: @0@"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

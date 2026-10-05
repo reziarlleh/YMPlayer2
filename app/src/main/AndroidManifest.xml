@@ -22,6 +22,7 @@
         </provider>
         <activity android:name=".ClipActivity" android:exported="false"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout" />
+        <activity android:name=".DiagnosticsExportActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

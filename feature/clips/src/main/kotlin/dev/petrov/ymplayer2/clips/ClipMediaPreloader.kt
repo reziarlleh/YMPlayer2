@@ -13,7 +13,7 @@ import androidx.media3.exoplayer.source.preload.PreloadManagerListener
 import androidx.media3.exoplayer.source.preload.TargetPreloadStatusControl
 
 /** Keeps at most the playing source and three seconds of the next clip in memory. */
-@OptIn(UnstableApi::class)
+@androidx.annotation.OptIn(UnstableApi::class)
 class ClipMediaPreloader(
     context: Context,
     private val onPreloaded: (MediaItem) -> Unit = {},

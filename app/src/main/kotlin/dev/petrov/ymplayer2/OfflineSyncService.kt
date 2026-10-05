@@ -23,7 +23,9 @@ open class OfflineSyncService : Service() {
         if (intent?.action == CANCEL) { offline.cancel(); finish(); return START_NOT_STICKY }
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(NotificationChannel(CHANNEL, tr(Msg.msg_bd5f65f27353), NotificationManager.IMPORTANCE_LOW))
-        startForeground(ID, notification(offline.state.value), ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        val notification = notification(offline.state.value)
+        if (Build.VERSION.SDK_INT >= 29) startForeground(ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        else startForeground(ID, notification)
         if (watching != null) return START_NOT_STICKY
         offline.sync()
         watching = scope.launch {

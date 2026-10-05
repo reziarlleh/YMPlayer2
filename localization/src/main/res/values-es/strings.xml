@@ -594,5 +594,7 @@
     <string name="bulk_queue" formatted="false">"Añadir a la cola"</string>
     <string name="bulk_playlist" formatted="false">"Añadir a una lista local"</string>
     <string name="bulk_local_only" formatted="false">"Las listas locales solo pueden contener música del dispositivo y de USB."</string>
+    <string name="diagnostics_choose_destination" formatted="false">"Elige dónde guardar el informe."</string>
+    <string name="diagnostics_saved_document" formatted="false">"Guardado: @0@"</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

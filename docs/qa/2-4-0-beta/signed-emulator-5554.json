@@ -1,0 +1,26 @@
+{
+  "serial": "emulator-5554",
+  "api": 35,
+  "before": {
+    "version": "2.3.4-build79",
+    "code": "79",
+    "minimum": "29",
+    "firstInstall": "2026-09-09 07:09:25"
+  },
+  "after": {
+    "version": "2.4.0beta-build80",
+    "code": "80",
+    "minimum": "28",
+    "firstInstall": "2026-09-09 07:09:25"
+  },
+  "signedInstall": "Performing Streamed Install\r\nSuccess",
+  "started": true,
+  "preservedPreferenceHashes": {
+    "app-language": true,
+    "skins": true,
+    "playback": true
+  },
+  "privatePrefsReadable": true,
+  "firstInstallPreserved": true,
+  "physicalOwnerAcceptance": false
+}

@@ -594,5 +594,7 @@
     <string name="bulk_queue" formatted="false">"Zur Warteschlange"</string>
     <string name="bulk_playlist" formatted="false">"Zur lokalen Playlist"</string>
     <string name="bulk_local_only" formatted="false">"Lokale Playlists können nur Musik vom Gerät und von USB enthalten."</string>
+    <string name="diagnostics_choose_destination" formatted="false">"Wähle aus, wo du den Bericht speichern möchtest."</string>
+    <string name="diagnostics_saved_document" formatted="false">"Gespeichert: @0@"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

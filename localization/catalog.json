@@ -9578,5 +9578,37 @@
       "es": "Las listas locales solo pueden contener música del dispositivo y de USB.",
       "uk": "До локального плейлиста можна додати лише музику пристрою та USB."
     }
+  },
+  {
+    "key": "diagnostics_choose_destination",
+    "source": "Выберите место для сохранения отчёта.",
+    "english": "Choose where to save the report.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ],
+    "translations": {
+      "be": "Выберыце, куды захаваць справаздачу.",
+      "kk": "Есепті сақтайтын орынды таңдаңыз.",
+      "uk": "Виберіть, куди зберегти звіт.",
+      "de": "Wähle aus, wo du den Bericht speichern möchtest.",
+      "es": "Elige dónde guardar el informe.",
+      "fr": "Choisissez où enregistrer le rapport."
+    }
+  },
+  {
+    "key": "diagnostics_saved_document",
+    "source": "Сохранено: @0@",
+    "english": "Saved: @0@",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ],
+    "translations": {
+      "be": "Захавана: @0@",
+      "kk": "Сақталды: @0@",
+      "uk": "Збережено: @0@",
+      "de": "Gespeichert: @0@",
+      "es": "Guardado: @0@",
+      "fr": "Enregistré : @0@"
+    }
   }
 ]

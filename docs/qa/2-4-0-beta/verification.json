@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-05",
+  "version": "2.4.0beta-build80",
+  "jvm": {
+    "tests": 95,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 53,
+      "checkDependencies": true
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 52,
+      "checkDependencies": true
+    }
+  },
+  "nativeFirstPass": [
+    {
+      "serial": "emulator-5554",
+      "api": 35,
+      "expected": 26,
+      "passed": 26,
+      "failed": 0,
+      "success": true
+    },
+    {
+      "serial": "emulator-5556",
+      "api": 29,
+      "expected": 26,
+      "passed": 25,
+      "failed": 1,
+      "success": false
+    },
+    {
+      "serial": "emulator-5560",
+      "api": 28,
+      "expected": 24,
+      "passed": 23,
+      "failed": 1,
+      "success": false
+    }
+  ],
+  "rechecks": [
+    {
+      "api": 29,
+      "case": "localSearchReadsDiskIndexAndOpensSelectedTrack",
+      "passed": true,
+      "productionCodeChangedBeforeRecheck": false
+    },
+    {
+      "api": 28,
+      "case": "remoteRevealsHiddenControlsThenSelectsPausesResumesAndNavigates",
+      "passed": true,
+      "productionCodeChangedBeforeRecheck": false
+    }
+  ],
+  "distinctNativeCasesVerified": 76,
+  "ownerPreviousDeviceAcceptance": false,
+  "automaticUpdatePromotionAllowed": false,
+  "firstBuildFailure": "Only two UseSdkSuppress errors from redundant RequiresApi in tests; removed RequiresApi, retained SdkSuppress. Product compilation and JVM passed.",
+  "signedHelperRepair": "Handle unreadable/missing prefs as unavailable; API28 first install and non-root TV cannot provide those snapshots."
+}

@@ -24,7 +24,9 @@ try {
     if (Test-Path -LiteralPath $destination) { throw 'Refusing to overwrite an issued build.' }
     # Reserve before Gradle. Failures intentionally leave gaps; never reuse a number.
     [IO.File]::WriteAllText($counterPath, "$number")
-    [IO.File]::WriteAllText($versionPath, "baseVersion=$($info.baseVersion)`nchannel=$($info.channel)`nlastIssuedBuild=$number`n")
+    $updateChannel = if ($info.updateChannel) { $info.updateChannel } else { $info.channel }
+    if ($updateChannel -notin @('beta', 'stable')) { throw 'Invalid update channel.' }
+    [IO.File]::WriteAllText($versionPath, "baseVersion=$($info.baseVersion)`nchannel=$($info.channel)`nupdateChannel=$updateChannel`nlastIssuedBuild=$number`n")
     & .\gradlew.bat :app:assembleRelease "-PissuedBuildNumber=$number" --console=plain
     if ($LASTEXITCODE -ne 0) { throw "Build $number failed and remains reserved." }
     $apk = Join-Path $projectRoot 'app\build\outputs\apk\release\app-release.apk'
@@ -32,6 +34,9 @@ try {
     $badging = & (Join-Path $buildTools 'aapt.exe') dump badging $apk
     if ($LASTEXITCODE -ne 0 -or $badging[0] -notmatch "name='dev.petrov.ymplayer2' versionCode='$number' versionName='$([regex]::Escape($versionName))'") { throw 'APK identity/version verification failed.' }
     if ($badging -match '^application-debuggable') { throw 'Release must not be debuggable.' }
+    $sdkLine = $badging | Where-Object { $_ -match "^sdkVersion:'([0-9]+)'" } | Select-Object -First 1
+    if (-not $sdkLine -or $sdkLine -notmatch "^sdkVersion:'([0-9]+)'$") { throw 'APK minimum SDK is missing.' }
+    $minimumSdk = [int]$Matches[1]
     $signature = & (Join-Path $buildTools 'apksigner.bat') verify --verbose --print-certs $apk
     if ($LASTEXITCODE -ne 0) { throw 'APK signature verification failed.' }
     New-Item -ItemType Directory -Path $destination | Out-Null
@@ -43,7 +48,7 @@ try {
     [IO.File]::WriteAllText((Join-Path $destination 'SHA256.txt'), "$sha  $([IO.Path]::GetFileName($archived))`n")
     $signature | Set-Content -LiteralPath (Join-Path $destination 'signature.txt') -Encoding UTF8
     $badging | Set-Content -LiteralPath (Join-Path $destination 'badging.txt') -Encoding UTF8
-    @{ applicationId = 'dev.petrov.ymplayer2'; versionName = $versionName; versionCode = $number; channel = $info.channel; sha256 = $sha; builtAtUtc = [DateTime]::UtcNow.ToString('o'); runtimeAcceptance = 'pending'; } |
+    @{ applicationId = 'dev.petrov.ymplayer2'; versionName = $versionName; versionCode = $number; channel = $info.channel; updateChannel = $updateChannel; minSdk = $minimumSdk; sha256 = $sha; builtAtUtc = [DateTime]::UtcNow.ToString('o'); runtimeAcceptance = 'pending'; } |
         ConvertTo-Json | Set-Content -LiteralPath (Join-Path $destination 'build.json') -Encoding UTF8
     Write-Output "Verified artifact: $archived"
 } finally { if ($null -ne $lock) { $lock.Dispose() }; Pop-Location }

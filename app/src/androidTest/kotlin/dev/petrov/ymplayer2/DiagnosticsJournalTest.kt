@@ -10,6 +10,7 @@ import org.junit.runner.RunWith
 import java.io.File
 
 @RunWith(AndroidJUnit4::class)
+@androidx.test.filters.SdkSuppress(minSdkVersion = 29)
 class DiagnosticsJournalTest {
     @Test fun journalIsBoundedAndExportContainsOnlyEventCodes() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext

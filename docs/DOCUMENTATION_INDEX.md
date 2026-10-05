@@ -26,7 +26,9 @@
 - [Переводы](LANGUAGE_TRANSLATIONS.md), [сборка](BUILDING.md),
   [архитектурный эскиз](ARCHITECTURE.md), [исходное ТЗ](../YMPlayer_2x_Codex_Startup_Prompt.md).
 - [Оценка API 28](API_28_FEASIBILITY.md) — необходимые изменения и границы
-  проверки; предложение, не реализованная поддержка Android 9.
+  проверки на исходном stable79; [утверждённый план2.4 beta](PLAN_2_4.md).
+- [Проверки beta2.4](RELEASE_2_4_0_BETA_VERIFICATION.md) — API28, прежние эмуляторы,
+  подпись/установка, ручной выпуск и условие допуска в auto-update.
 - [Правила4PDA](FORUM_RULES_4PDA.md), [последняя разрешённая публикация](FORUM_VERSIONS_PUBLICATION_2026_10_04.md).
 
 ## Подробные журналы и история

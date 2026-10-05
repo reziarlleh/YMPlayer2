@@ -11,6 +11,10 @@ $metadata = Get-Content -LiteralPath (Join-Path $release 'build.json') -Raw | Co
 if ($metadata.versionName -ne $Version -or $metadata.applicationId -ne 'dev.petrov.ymplayer2') {
     throw 'Release metadata does not match the 2.x product.'
 }
+if ($metadata.channel -ne 'stable') {
+    throw 'Prereleases are manual only. Do not write either automatic update feed before stable acceptance.'
+}
+if (-not $metadata.minSdk) { throw 'Build metadata must declare the minimum SDK verified from the APK.' }
 if (-not (Test-Path -LiteralPath $apk)) { throw 'Signed release APK is missing.' }
 $taggedApk = "releases/$Version/$apkName"
 $inTag = ([string](& git -C $root ls-tree -r --name-only "v$Version" -- $taggedApk)).Trim()
@@ -27,7 +31,7 @@ $manifest = [ordered]@{
     versionCode = [int]$metadata.versionCode
     versionName = $Version
     channel = $metadata.channel
-    minSdk = 29
+    minSdk = [int]$metadata.minSdk
     publishedAt = [DateTime]::UtcNow.ToString('o')
     releasePageUrl = "https://github.com/reziarlleh/YMPlayer2/releases/tag/v$Version"
     releaseNotes = $Notes

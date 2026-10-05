@@ -232,7 +232,8 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
         var cover: String? = null
         // Invalid tags don't hide a file: the player reports a decoding error if necessary.
         runCatching {
-            MediaMetadataRetriever().use { retriever ->
+            val retriever = MediaMetadataRetriever()
+            try {
                 resolver.openFileDescriptor(uri, "r")?.use { descriptor ->
                     retriever.setDataSource(descriptor.fileDescriptor)
                     fun tag(key: Int) = retriever.extractMetadata(key)?.trim()?.takeIf(String::isNotBlank)
@@ -243,7 +244,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
                     duration = ((tag(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLongOrNull() ?: 0L) / 1000).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
                     cover = artwork.store(retriever.embeddedPicture)
                 }
-            }
+            } finally { retriever.release() }
         }
         artworkChecked += id
         return Track(id, title, artist, album, root.source, duration, true, genre = genre, folder = folder,

@@ -595,5 +595,7 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     bulk_count("Выбрано: @0@", "Selected: @0@", R.string.bulk_count),
     bulk_queue("В очередь", "Add to queue", R.string.bulk_queue),
     bulk_playlist("В локальный плейлист", "Add to local playlist", R.string.bulk_playlist),
-    bulk_local_only("В локальный плейлист можно добавить только музыку устройства и USB.", "Local playlists can contain device and USB music only.", R.string.bulk_local_only);
+    bulk_local_only("В локальный плейлист можно добавить только музыку устройства и USB.", "Local playlists can contain device and USB music only.", R.string.bulk_local_only),
+    diagnostics_choose_destination("Выберите место для сохранения отчёта.", "Choose where to save the report.", R.string.diagnostics_choose_destination),
+    diagnostics_saved_document("Сохранено: @0@", "Saved: @0@", R.string.diagnostics_saved_document);
 }

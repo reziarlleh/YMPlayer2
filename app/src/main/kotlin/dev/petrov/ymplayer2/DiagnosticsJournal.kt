@@ -4,6 +4,8 @@ import dev.petrov.ymplayer2.localization.*
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
@@ -70,6 +72,15 @@ internal class DiagnosticsJournal(private val context: Context,
 
     override suspend fun export(): String = withContext(Dispatchers.IO) {
         val name = "YMPlayer2-diagnostics-${SimpleDateFormat("yyyyMMdd-HHmmss", Locale.US).format(Date())}.txt"
+        if (Build.VERSION.SDK_INT < 29) {
+            return@withContext withContext(Dispatchers.Main) {
+                try {
+                    context.startActivity(Intent(context, DiagnosticsExportActivity::class.java)
+                        .putExtra(DiagnosticsExportActivity.FILE_NAME, name).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    tr(Msg.diagnostics_choose_destination)
+                } catch (_: android.content.ActivityNotFoundException) { tr(Msg.msg_920c04770d7a) }
+            }
+        }
         val values = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, name)
             put(MediaStore.MediaColumns.MIME_TYPE, "text/plain")
@@ -80,11 +91,7 @@ internal class DiagnosticsJournal(private val context: Context,
         val uri = try { resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values) }
         catch (_: Exception) { null } ?: return@withContext tr(Msg.msg_21c6b248c7e7)
         try {
-            val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown"
-            val header = "YMPlayer 2 $version\nExported: ${stamp()}\nAndroid API ${Build.VERSION.SDK_INT}\n\n"
-            val body = synchronized(lock) { readSnapshot() } + "\n\n" + crashes.snapshot()
-            val output = resolver.openOutputStream(uri, "w") ?: throw IOException("No output")
-            output.use { it.write((header + body).toByteArray(StandardCharsets.UTF_8)) }
+            writeDocument(uri)
             resolver.update(uri, ContentValues().apply { put(MediaStore.MediaColumns.IS_PENDING, 0) }, null, null)
             record(DiagnosticEvent.JOURNAL_EXPORTED)
             tr(Msg.msg_be65ad9b7c99, name)
@@ -92,6 +99,22 @@ internal class DiagnosticsJournal(private val context: Context,
             resolver.delete(uri, null, null)
             tr(Msg.msg_920c04770d7a)
         }
+    }
+
+    internal suspend fun exportDocument(uri: Uri, name: String): String = withContext(Dispatchers.IO) {
+        try {
+            writeDocument(uri)
+            record(DiagnosticEvent.JOURNAL_EXPORTED)
+            tr(Msg.diagnostics_saved_document, name)
+        } catch (_: Exception) { tr(Msg.msg_920c04770d7a) }
+    }
+
+    private fun writeDocument(uri: Uri) {
+        val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown"
+        val header = "YMPlayer 2 $version\nExported: ${stamp()}\nAndroid API ${Build.VERSION.SDK_INT}\n\n"
+        val body = synchronized(lock) { readSnapshot() } + "\n\n" + crashes.snapshot()
+        val output = context.contentResolver.openOutputStream(uri, "w") ?: throw IOException("No output")
+        output.use { it.write((header + body).toByteArray(StandardCharsets.UTF_8)) }
     }
 
     private fun readSnapshot(): String = try {

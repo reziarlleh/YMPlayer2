@@ -1,0 +1,11 @@
+{
+  "serial": "emulator-5560",
+  "api": 28,
+  "variant": "signed beta80",
+  "productionExportOpenedSystemPicker": true,
+  "pickerSurvivedRotation": true,
+  "cancelDidNotExport": true,
+  "savedViaSaf": true,
+  "reportHeaderCorrect": true,
+  "noAccessTokenInReport": true
+}
