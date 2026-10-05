@@ -1,8 +1,8 @@
 # Карта переноса и модулей
 
-Стабильный срез: **2.3.4-build79**. На main с 2026-10-05 готовится
-[ручная beta2.4 / API28](PLAN_2_4.md). Путь данных/модули сохраняются;
-адаптируются foreground-sync, export и lifecycle metadata retriever.
+Стабильный срез: **2.3.4-build79**. На main с 2026-10-05 опубликована
+[ручная 2.4.0beta-build80 / API28](RELEASE_2_4_0_BETA_VERIFICATION.md). Путь данных/модули сохраняются;
+адаптированы foreground-sync, export и lifecycle metadata retriever.
 Таблица фиксирует происхождение и проверку алгоритмов. Номер старого build
 в строке — момент переноса, а не текущая версия приложения.
 Fxx: [карта функций](FEATURE_INVENTORY.md); Sxx: [reference1.x](LEGACY_1X_ANALYSIS.md).

@@ -2,7 +2,8 @@
 
 2026-10-05. Прямое решение владельца после [оценки API28](API_28_FEASIBILITY.md).
 База main / stable2.3.4-build79. [План и допуск](PLAN_2_4.md).
-APK подготовлен и проверен; публикация и HTTP-сверка фиксируются ниже после выполнения.
+[APK опубликован как prerelease](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build80);
+проверки публикации приведены ниже.
 Автоматическое обновление остаётся на **2.3.4-build79**, а не на beta.
 
 ## Изменения
@@ -67,10 +68,27 @@ v2 signature verified. R8 mapping сохранён локально, не опу
   открыла DocumentsUI, picker пережил поворот, отмена не добавила JOURNAL_EXPORTED.
   Следующий выбор сохранил отчёт с заголовком80/API28 и без access_token.
 
+## Публикация и сверка
+
+Исходники и tag `v2.4.0beta-build80`: `7b3f2140a510a4a34bce490694d6865d73e4efb2`,
+та же ветка main. GitHub prerelease=true, latest=false; latest остаётся79.
+[HTTP-срез 2026-10-05](qa/2-4-0-beta/publication.json): все девять запросов200.
+GitHub, основной jsDelivr и Gcore отдают оба stable feeds79/min29; их содержимое
+не менялось. Три APK beta80 (GitHub и version-pinned CDN) совпадают по размеру
+и SHA256. Защита Prepare-UpdateManifest отклонила beta до записи манифестов.
+D-001: в этом срезе Gcore актуален; прежние задержки остаются датированными
+свидетельствами, постоянная свежесть CDN не заявляется.
+
+RepoWise index-only обновлён для source7b3f214:116 страниц,159.688s,
+cost0, degraded=[]; модельный prose не использован. [Документы и GitHub](qa/2-4-0-beta/documentation.json)
+сверены без ошибок. GitHub CI для исходного коммита:
+[run37270596240](https://github.com/reziarlleh/YMPlayer2/actions/runs/37270596240)
+завершён успешно, включая unit tests/compile/lint.
+
 ## Остаток
 
 Приёмка физических прежних устройств не получена: auto-update не переключать
 по эмуляторной проверке. Установка beta поверх2.3 сохраняет идентичность данных;
 обычный downgrade на79 запрещён по versionCode, удаление удаляет приватные данные.
 B-006 остаётся открытым в текущей линии; параллельный patch2.3 не запускается.
-Перед закрытием сверить GitHub prerelease/latest, неизменённые feeds и хэш APK.
+Ручной выпуск завершён; допуск стабильного выпуска в auto-update остаётся закрытым.
