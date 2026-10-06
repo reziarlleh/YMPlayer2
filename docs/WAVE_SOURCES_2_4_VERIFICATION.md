@@ -62,9 +62,20 @@ Signed81→82 на двух проектных эмуляторах провер
 [TV29](qa/2-4-wave-sources/emulator-5556/signed-upgrade.json). Приватные данные release
 не читаются через run-as; сохранение firstInstallTime не выдаётся за хэш всех данных.
 
-GitHub prerelease **v2.4.0beta-build82**, latest=false. APK также сохраняется в Git
-для version-pinned резервной загрузки. Срез источников, guard beta-feed и CI
-добавляются в [publication.json](qa/2-4-wave-sources/publication.json).
+GitHub prerelease **v2.4.0beta-build82** опубликован, latest=false, исходники316c099.
+APK также сохранён в Git для version-pinned резервной загрузки. Размер6059253,
+SHA256 `1a7da0ec3c0ce4d59a27bbbab128c9c9df73e0afc58cf7b6f50c231501b30886`.
+GitHub, pinned jsDelivr и Gcore отдают одинаковый APK; шесть HTTP feeds остаются
+stable79/min29. Guard публикации beta отклоняет запись до изменения обоих
+локальных манифестов; их хэши прежние. [Срез 2026-10-06](qa/2-4-wave-sources/publication.json).
+[Документальная сверка GitHub](qa/2-4-wave-sources/documentation-github.json):
+README совпадает, latest79, manual beta82, отсутствующих локальных ссылок нет.
+RepoWise обновлён index-only: 63 страницы, без model prose, partial health.
+GitHub Actions для316c099 завершён успешно: переводы, core/app unit,
+debug/instrumentation APK и полный debug lint — [CI](qa/2-4-wave-sources/ci.json),
+[запуск](https://github.com/reziarlleh/YMPlayer2/actions/runs/37417125003).
+Индекс и HTTP не подменяют Android-проверки. Закрывающий docs-only commit
+не меняет код, tag или опубликованный APK.
 
 Волна сохраняет прежний короткий буфер previous/current/next; это расширение
 источника существующей сессии. Продолжение доступно только для идентифицируемого

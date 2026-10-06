@@ -111,6 +111,11 @@ partial health/cascade не выдаётся за полный аудит.
 [Подробный отчёт и первичные логи](WAVE_SOURCES_2_4_VERIFICATION.md).
 Signed82 проверен прежним ключом, установлен поверх81 без удаления приложения.
 README/CHANGELOG, обе инструкции, статус/планы и карты сверены. Manual prerelease82
-сохраняет stable/latest/feeds79; итог HTTP и CI записывается в отчёт публикации.
+сохраняет stable/latest/feeds79. Исходники316c099, три APK-загрузки совпадают;
+шесть внешних feeds79/min29, guard beta не изменяет локальные манифесты.
+Сверка --github пройдена, README совпадает. RepoWise index-only обновлён:
+63 страницы, без model prose; partial health не является полным аудитом.
+CI для316c099 успешно завершён: [запуск](https://github.com/reziarlleh/YMPlayer2/actions/runs/37417125003),
+[срез](qa/2-4-wave-sources/ci.json). Закрывающий docs-only commit не меняет APK/tag.
 Следующий шаг — замечания по beta82 в той же линии и отдельное B-006; физическая
 приёмка прежних устройств и неподтверждённый русский seed учитываются отдельно.
