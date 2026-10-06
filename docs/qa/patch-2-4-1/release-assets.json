@@ -1,0 +1,54 @@
+{
+  "checkedAtUtc": "2026-10-06T07:56:45.335718+00:00",
+  "reason": "Owner noticed build/SHA/signature reports missing from release attachments; standalone reports are not consumed by Android installer or UpdateClient",
+  "releases": [
+    {
+      "version": "2.4.0-build83",
+      "assets": [
+        {
+          "name": "build.json",
+          "bytes": 479,
+          "sha256": "53db33c27c8c6c7e622848a3c250648a169ad2346c73cc9b93864fe79f925389",
+          "matchesLocal": true
+        },
+        {
+          "name": "SHA256.txt",
+          "bytes": 93,
+          "sha256": "b926e460836b5d625b968c589fbe71940c785ec5ea3e312319fb86cb91547284",
+          "matchesLocal": true
+        },
+        {
+          "name": "signature.txt",
+          "bytes": 978,
+          "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1",
+          "matchesLocal": true
+        }
+      ],
+      "apkDigestUnchanged": true
+    },
+    {
+      "version": "2.4.1-build84",
+      "assets": [
+        {
+          "name": "build.json",
+          "bytes": 459,
+          "sha256": "d638e87c7fc5581a5eb4e65005e9aa33cc512f47d6d4bdf4d80cb84f24d89e7a",
+          "matchesLocal": true
+        },
+        {
+          "name": "SHA256.txt",
+          "bytes": 93,
+          "sha256": "fe6b1fa176889fe1a3cfb0c4a673805cdd961c97b1af8a36e7d6ce9bb75f47a1",
+          "matchesLocal": true
+        },
+        {
+          "name": "signature.txt",
+          "bytes": 978,
+          "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1",
+          "matchesLocal": true
+        }
+      ],
+      "apkDigestUnchanged": true
+    }
+  ]
+}
