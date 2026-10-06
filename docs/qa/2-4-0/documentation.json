@@ -1,0 +1,20 @@
+{
+  "version": "2.4.0-build83",
+  "manualBeta": false,
+  "stableVersion": "2.4.0-build83",
+  "localFeeds": {
+    "manifest": "2.4.0-build83",
+    "stable": "2.4.0-build83"
+  },
+  "documents": 193,
+  "localLinks": 1539,
+  "brokenLinks": [],
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.4.0-build83",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0-build83",
+    "readmeBlob": "abc1f4f8f7794418498000e89bf595842c9d758a",
+    "localReadmeBlob": "abc1f4f8f7794418498000e89bf595842c9d758a"
+  },
+  "errors": []
+}

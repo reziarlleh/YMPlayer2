@@ -1,0 +1,102 @@
+{
+  "checkedAtUtc": "2026-10-06T07:04:12.333078+00:00",
+  "releaseVersion": "2.4.0-build83",
+  "sourceCommit": "6798f359fd879a05f22dac3358f1320e0d1c6471",
+  "prerelease": false,
+  "githubLatest": "v2.4.0-build83",
+  "public": true,
+  "defaultBranch": "main",
+  "description": "РЎР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅС‹Р№ РїР»РµРµСЂ РґР»СЏ Android 9+: РЇРЅРґРµРєСЃ РњСѓР·С‹РєР°, РЅР°СЃС‚СЂР°РёРІР°РµРјС‹Рµ РІРѕР»РЅС‹ РїРѕ С‚СЂРµРєСѓ/Р°СЂС‚РёСЃС‚Сѓ/Р°Р»СЊР±РѕРјСѓ/РїР»РµР№Р»РёСЃС‚Сѓ, local/USB, РѕС„Р»Р°Р№РЅ, РєР»РёРїС‹, Android TV, СЃРєРёРЅС‹, РІРѕСЃРµРјСЊ СЏР·С‹РєРѕРІ.",
+  "assetDigest": "sha256:b6a5936a95b28dd324d9359907ed5590b353ec22aea519a4fba88cd180d0a21c",
+  "assetBytes": 6059249,
+  "http": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "bytes": 1044,
+      "sha256": "4ccd44472ffeea14c1ae82732e42452b4e73215109f9534bd68fb7efed03ee60",
+      "version": "2.4.0-build83",
+      "channel": "stable",
+      "minimum": 28,
+      "verified": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "bytes": 1044,
+      "sha256": "4ccd44472ffeea14c1ae82732e42452b4e73215109f9534bd68fb7efed03ee60",
+      "version": "2.4.0-build83",
+      "channel": "stable",
+      "minimum": 28,
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "bytes": 1044,
+      "sha256": "4ccd44472ffeea14c1ae82732e42452b4e73215109f9534bd68fb7efed03ee60",
+      "version": "2.4.0-build83",
+      "channel": "stable",
+      "minimum": 28,
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 1044,
+      "sha256": "4ccd44472ffeea14c1ae82732e42452b4e73215109f9534bd68fb7efed03ee60",
+      "version": "2.4.0-build83",
+      "channel": "stable",
+      "minimum": 28,
+      "verified": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": false
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": false
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.4.0-build83/YMPlayer-2.4.0-build83.apk",
+      "status": 200,
+      "bytes": 6059249,
+      "sha256": "b6a5936a95b28dd324d9359907ed5590b353ec22aea519a4fba88cd180d0a21c",
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.0-build83/releases/2.4.0-build83/YMPlayer-2.4.0-build83.apk",
+      "status": 200,
+      "bytes": 6059249,
+      "sha256": "b6a5936a95b28dd324d9359907ed5590b353ec22aea519a4fba88cd180d0a21c",
+      "verified": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.0-build83/releases/2.4.0-build83/YMPlayer-2.4.0-build83.apk",
+      "status": 200,
+      "bytes": 6059249,
+      "sha256": "b6a5936a95b28dd324d9359907ed5590b353ec22aea519a4fba88cd180d0a21c",
+      "verified": true
+    }
+  ],
+  "allMirrorsCurrent": false,
+  "verified": true,
+  "pendingMirrors": [
+    "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json"
+  ],
+  "verificationScope": "Stable release/latest, raw GitHub and primary CDN feeds, all three immutable APK downloads. Dynamic Gcore main feeds reported separately as pending."
+}

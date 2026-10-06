@@ -60,8 +60,9 @@ show the layout and controls; the current app supports English.*
 | ![Queue](user-guide/icons/queue.svg) | Open the queue. |
 | ![Add to queue](user-guide/icons/add-queue.svg) | Add this track to the queue. |
 | ![Check](user-guide/icons/check.svg) | On a track card: already in the queue. It does not mean downloaded or liked. In selection/editing dialogs: selected or done. |
-| ![Shuffle](user-guide/icons/shuffle.svg) | Shuffle a regular list. Highlighted when enabled. |
+| ![Shuffle](user-guide/icons/shuffle.svg) | Play the list indefinitely in random order. Highlighted when enabled. |
 | ![Repeat](user-guide/icons/repeat.svg) / ![Repeat one](user-guide/icons/repeat-one.svg) | Repeat the list or the current track. No highlight means repeat is off. |
+| **Continue with radio** | Start radio after a Yandex list ends, using that list’s source. Available for lists with a known source; turns shuffle and repeat off. |
 | ![Equalizer](user-guide/icons/equalizer.svg) | Open your selected external equalizer or DSP. |
 | ![More](user-guide/icons/more.svg) | Additional actions for this item and source. |
 
@@ -70,8 +71,9 @@ The track’s **More** menu contains actions for its artists; a like beside the
 track applies to the track itself.
 
 On Android TV, Left/Right on the progress bar seeks within the track. Up/Down
-moves to another control. On a regular list, shuffle and repeat are available;
-**My Vibe** chooses its own sequence and does not show these controls.
+moves to another control. Regular lists offer shuffle and repeat;
+Yandex lists with a known source also offer radio continuation. Any active radio
+stream chooses its own sequence and hides these controls.
 
 <p align="center"><img src="publication/4pda/phone-player.png" width="280" alt="Player with artwork, track information and playback controls"><img src="publication/4pda/phone-library.png" width="280" alt="Library and compact track cards"></p>
 
