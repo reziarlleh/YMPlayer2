@@ -19,6 +19,7 @@ YMPlayer 2 — самостоятельное приложение. Для ра�
 **[Попробовать Радио — 2.5.0beta-build87](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build87)**: эфирные станции,
 избранное, города, жанры и поиск. Устанавливается вручную поверх приложения;
 автоматическое обновление пока предлагает стабильную версию выше.
+[Резервная загрузка beta APK](https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@5136f3c82f5c4b265e11225cf212d909e363ea26/releases/2.5.0beta-build87/YMPlayer-2.5.0beta-build87.apk) ·
 [Как пользоваться Радио](docs/USER_GUIDE.md#радио--ручная-beta25).
 
 ## Возможности

@@ -71,6 +71,10 @@ cities/genres, city/genre filters, global search, station/stream URL/widgets —
 
 Ручной prerelease с четырьмя вложениями: APK/build.json/SHA256.txt/signature.txt.
 APK также хранится в репозитории для резервного immutable CDN-адреса.
+Все четыре GitHub assets ответили200 и совпали побайтно с локальными файлами;
+[резервный APK](https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@5136f3c82f5c4b265e11225cf212d909e363ea26/releases/2.5.0beta-build87/YMPlayer-2.5.0beta-build87.apk)
+ответил200 и совпал по SHA256. GitHub/latest/main и основные feeds84 сверены.
+Динамический Gcore всё ещё отдаёт79: прежнее D-001, не изменение канала beta.
 Stable feeds не меняются. Проверены документы локально и после push;
 [согласованность](qa/radio-2-5-2026-10-06/documentation.json).
 
