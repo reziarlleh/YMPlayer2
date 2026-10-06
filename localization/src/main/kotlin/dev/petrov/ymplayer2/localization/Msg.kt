@@ -624,5 +624,17 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     wave_workout("Тренируюсь", "Working out", R.string.wave_workout),
     wave_sleep("Засыпаю", "Falling asleep", R.string.wave_sleep),
     wave_dance("Танцую", "Dancing", R.string.wave_dance),
-    wave_relax("Отдыхаю", "Relaxing", R.string.wave_relax);
+    wave_relax("Отдыхаю", "Relaxing", R.string.wave_relax),
+    wave_by_track("Слушать волну по треку", "Start track radio", R.string.wave_by_track),
+    wave_by_artist("Слушать волну по исполнителю", "Start artist radio", R.string.wave_by_artist),
+    wave_by_album("Слушать волну по альбому", "Start album radio", R.string.wave_by_album),
+    wave_by_playlist("Слушать волну по плейлисту", "Start playlist radio", R.string.wave_by_playlist),
+    wave_source_title("Волна · @0@", "Radio · @0@", R.string.wave_source_title),
+    wave_continue_action("После списка продолжить волну", "Continue with radio when the list ends", R.string.wave_continue_action),
+    wave_continue_on("Продолжение волной включено", "Radio continuation on", R.string.wave_continue_on),
+    wave_continue_off("Продолжение волной выключено", "Radio continuation off", R.string.wave_continue_off),
+    player_source_offline("Оффлайн", "Offline", R.string.player_source_offline),
+    player_source_favorites("Локальное избранное", "Local favorites", R.string.player_source_favorites),
+    player_source_device("Устройство / USB", "Device / USB", R.string.player_source_device),
+    player_source_list("Список треков", "Track list", R.string.player_source_list);
 }

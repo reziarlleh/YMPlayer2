@@ -1,0 +1,25 @@
+{
+  "serial": "emulator-5556",
+  "api": 29,
+  "passed": 36,
+  "failed": 2,
+  "success": false,
+  "durationSeconds": 261.6,
+  "selection": [
+    "EntityWavePlaybackTest",
+    "WaveSettingsAdapterTest",
+    "WaveSettingsPlaybackTest",
+    "WaveQueueModeTest",
+    "MyWavePlaybackTest",
+    "PlayerCompositionTest",
+    "LocalPlaybackTest#largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences",
+    "LocalPlaybackTest#automaticShuffleVisitsAllIdsAndRepeatsWithoutFullMetadataQueue",
+    "LocalPlaybackTest#legacyManualCheckpointMigratesWithoutChangingOrderOrPosition",
+    "LocalPlaybackTest#nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack",
+    "LocalPlaybackTest#modeAndQueueControlsOperateTheRealPlayer",
+    "CollectionsPlaybackTest#nativeUiCreatesEditsAndPlaysOnlyTheChosenPlaylist",
+    "OfflinePlaybackTest#syncScreenThenPlayWithNetworkDisabledAndRestorePaused"
+  ],
+  "personalAccountAcceptance": false,
+  "fixtures": "Real Media3 with isolated fake auth/music and public settings JSON"
+}

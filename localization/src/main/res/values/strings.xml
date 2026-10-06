@@ -623,5 +623,17 @@
     <string name="wave_sleep" formatted="false">"Falling asleep"</string>
     <string name="wave_dance" formatted="false">"Dancing"</string>
     <string name="wave_relax" formatted="false">"Relaxing"</string>
+    <string name="wave_by_track" formatted="false">"Start track radio"</string>
+    <string name="wave_by_artist" formatted="false">"Start artist radio"</string>
+    <string name="wave_by_album" formatted="false">"Start album radio"</string>
+    <string name="wave_by_playlist" formatted="false">"Start playlist radio"</string>
+    <string name="wave_source_title" formatted="false">"Radio · @0@"</string>
+    <string name="wave_continue_action" formatted="false">"Continue with radio when the list ends"</string>
+    <string name="wave_continue_on" formatted="false">"Radio continuation on"</string>
+    <string name="wave_continue_off" formatted="false">"Radio continuation off"</string>
+    <string name="player_source_offline" formatted="false">"Offline"</string>
+    <string name="player_source_favorites" formatted="false">"Local favorites"</string>
+    <string name="player_source_device" formatted="false">"Device / USB"</string>
+    <string name="player_source_list" formatted="false">"Track list"</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

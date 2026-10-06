@@ -51,7 +51,7 @@ class LargeCatalogTest {
             val page = runBlocking { player.queuePage(4480, 80) }
             assertEquals(5002, page.total); assertEquals(80, page.items.size)
             compose.runOnIdle { player.setRepeatMode(RepeatMode.ALL); player.setShuffle(true) }
-            waitFor { player.state.value.shuffle && player.state.value.repeatMode == RepeatMode.ALL &&
+            waitFor { player.state.value.shuffle && player.state.value.repeatMode == RepeatMode.OFF &&
                 compose.runOnIdle { controller.shuffleModeEnabled && controller.mediaItemCount <= 3 } }
             compose.runOnIdle { player.skip(1) }
             waitFor { player.state.value.current?.id != selected }

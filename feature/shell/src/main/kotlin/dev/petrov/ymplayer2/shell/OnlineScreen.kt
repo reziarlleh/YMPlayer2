@@ -13,6 +13,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -45,14 +46,15 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
     val preferences = taste?.state?.collectAsStateWithLifecycle()?.value
     var actions by remember(state.profileId) { mutableStateOf<Track?>(null) }
-    if (taste != null) actions?.let { track -> TrackTasteDialog(track, taste, artist = artist,
+    if (taste != null) actions?.let { track -> TrackTasteDialog(track, taste, artist = artist, player = player, started = waveStarted,
         extra = { playlists?.let { AddToCloudPlaylist(track, it) { actions = null } } }) { actions = null } }
     val entries = if (request.recommended) state.entries.filter { entry -> entry.track?.let { preferences?.allows(it) != false } ?: true } else state.entries
     val shownTracks = entries.mapNotNull(MusicEntry::track)
     val filtersReady = !request.recommended || preferences?.let { it.shelf(TasteKind.TRACK).ready && it.shelf(TasteKind.ARTIST).ready } != false
     fun play(trackId: String? = null) {
         if (!filtersReady) return
-        if (request.recommended) player.playRecommendedQueue(shownTracks.map(Track::id), trackId) else player.playQueue(shownTracks.map(Track::id), trackId)
+        if (request.recommended) player.playRecommendedQueue(shownTracks.map(Track::id), trackId, request.playbackOrigin(music.accounts.state.value.account?.id))
+        else player.playList(shownTracks.map(Track::id), trackId, request.playbackOrigin(music.accounts.state.value.account?.id))
         keyboard?.hide()
     }
     val queued = playback.explicitQueueIds ?: playback.queue.mapTo(hashSetOf(), Track::id)
@@ -63,7 +65,12 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             if (detail != null) TextButton({ up() }, Modifier.prismFocus().testTag("online_up")) { Text(tr(Msg.msg_1478970270d1)) }
             val title: @Composable () -> Unit = { Text(detail?.title ?: if (search) tr(Msg.msg_fede8859c53f) else tr(Msg.msg_5fbef357e55e), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
             val target = detail?.tasteTarget()
-            if (state.signedIn && taste != null && target != null) Column { TasteLabel(taste, target, "detail", title) } else title()
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(Modifier.weight(1f)) {
+                    if (state.signedIn && taste != null && target != null) Column { TasteLabel(taste, target, "detail", title) } else title()
+                }
+                if (state.signedIn && detail != null) EntityWaveMenu(detail, player, waveStarted, "detail")
+            }
         }
         if (!state.signedIn) {
             item {
@@ -142,7 +149,10 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                         }
                     } }
                     val target = entity.tasteTarget()
-                    if (taste != null && target != null) Column { TasteLabel(taste, target, "catalog", label) } else label()
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(Modifier.weight(1f)) { if (taste != null && target != null) Column { TasteLabel(taste, target, "catalog", label) } else label() }
+                        EntityWaveMenu(entity, player, waveStarted, "catalog")
+                    }
                 }
             }
             if (state.nextPage != null && state.issue == null) item {

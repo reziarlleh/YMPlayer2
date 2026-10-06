@@ -32,8 +32,7 @@ internal class IndexedPlaybackOrder(private val library: IndexedLocalLibrary) {
         if (ids.isEmpty()) return null
         val index = ids.indexOf(current)
         val next = if (index < 0) { if (direction > 0) 0 else ids.lastIndex } else index + direction
-        val selected = ids.getOrNull(next) ?: if (repeat == RepeatMode.ALL)
-            ids[if (direction > 0) 0 else ids.lastIndex] else return null
+        val selected = ids.getOrNull(next) ?: ids[if (direction > 0) 0 else ids.lastIndex]
         return library.tracksByIds(listOf(selected))[selected]
     }
 
@@ -44,8 +43,7 @@ internal class IndexedPlaybackOrder(private val library: IndexedLocalLibrary) {
         val index = ids.indexOf(window.current.id)
         fun neighbour(direction: Int): String? {
             if (index < 0 || ids.isEmpty()) return null
-            return ids.getOrNull(index + direction) ?: if (repeat == RepeatMode.ALL)
-                ids[if (direction > 0) 0 else ids.lastIndex] else null
+            return ids.getOrNull(index + direction) ?: ids[if (direction > 0) 0 else ids.lastIndex]
         }
         val next = neighbour(1)?.takeUnless { it == window.current.id }
         val previous = neighbour(-1)?.takeUnless { it == window.current.id || it == next }

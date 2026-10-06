@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-06",
+  "localFeedSha256": {
+    "stable": "af6d3c6bf908efe85eba5fec518830d28c2f49a30dc3a987a673f7670e70eef7",
+    "manifest": "af6d3c6bf908efe85eba5fec518830d28c2f49a30dc3a987a673f7670e70eef7"
+  },
+  "betaFeedPublicationGuardRejected": true,
+  "publication": "pending HTTP check after upload"
+}

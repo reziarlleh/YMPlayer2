@@ -131,13 +131,22 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun TrackTasteDialog(track: Track, taste: MusicTaste, artist: (ArtistRef) -> Unit = {}, extra: @Composable () -> Unit = {}, dismiss: () -> Unit) {
+@Composable internal fun TrackTasteDialog(track: Track, taste: MusicTaste, artist: (ArtistRef) -> Unit = {}, player: PlaybackController? = null, started: () -> Unit = {}, extra: @Composable () -> Unit = {}, dismiss: () -> Unit) {
     val content: @Composable () -> Unit = {
+            if (player != null) track.waveRequest()?.let { request -> WaveAction(request, Msg.wave_by_track, player) { dismiss(); started() } }
             track.artists.distinctBy(ArtistRef::id).forEach {
                 TextButton({ dismiss(); artist(it) }, Modifier.prismFocus().testTag("actions_artist_${it.id}")) { Text(tr(Msg.msg_0df38a907fd2, it.name)) }
                 TasteControls(taste, TasteTarget(TasteKind.ARTIST, it.id, it.name))
+                if (player != null) MusicEntity(it.id, it.name, MusicKind.ARTISTS).waveRequest()?.let { request ->
+                    WaveAction(request, Msg.wave_by_artist, player) { dismiss(); started() }
+                }
             }
-            track.albumId?.let { TasteControls(taste, TasteTarget(TasteKind.ALBUM, it, track.album)) }
+            track.albumId?.let {
+                TasteControls(taste, TasteTarget(TasteKind.ALBUM, it, track.album))
+                if (player != null) MusicEntity(it, track.album, MusicKind.ALBUMS).waveRequest()?.let { request ->
+                    WaveAction(request, Msg.wave_by_album, player) { dismiss(); started() }
+                }
+            }
             if (track.artists.isEmpty()) Text(tr(Msg.msg_aa59e4f43e97))
             extra()
     }

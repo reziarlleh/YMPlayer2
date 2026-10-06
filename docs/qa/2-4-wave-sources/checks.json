@@ -1,0 +1,33 @@
+{
+  "nativeScenarios": 80,
+  "languagePacks": 8,
+  "date": "2026-10-06",
+  "lint": [
+    {
+      "warnings": 53,
+      "errors": 0,
+      "variant": "debug"
+    },
+    {
+      "warnings": 52,
+      "errors": 0,
+      "variant": "release"
+    }
+  ],
+  "messages": 635,
+  "jvm": [
+    {
+      "module": "core",
+      "tests": 97,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "module": "app",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "physicalAcceptance": false
+}

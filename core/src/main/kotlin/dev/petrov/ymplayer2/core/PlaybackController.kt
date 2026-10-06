@@ -25,6 +25,7 @@ data class PlaybackState(
     val queueOffset: Int = 0, val queueTotal: Int? = null, val currentTrack: Track? = null,
     val automaticLocal: Boolean = false, val automaticSource: Source? = null, val queueRevision: Long = 0,
     val referenceQueue: Boolean = false, val explicitQueueIds: Set<String>? = null,
+    val origin: PlaybackOrigin = PlaybackOrigin(), val continueWave: Boolean = false,
 ) {
     val current: Track? get() = currentTrack ?: queue.getOrNull(index - queueOffset)
     val queueCount: Int get() = queueTotal ?: queue.size
@@ -50,6 +51,7 @@ interface PlaybackController {
     fun chooseSource(source: Source?)
     fun setRepeatMode(mode: RepeatMode)
     fun setShuffle(enabled: Boolean)
+    fun setContinueWave(enabled: Boolean) = Unit
     fun enqueue(trackId: String)
     fun enqueueMany(trackIds: List<String>) { trackIds.distinct().forEach(::enqueue) }
     fun moveInQueue(trackId: String, toIndex: Int)
@@ -57,14 +59,18 @@ interface PlaybackController {
     fun clearQueue()
     fun playQueue(trackIds: List<String>, startId: String? = null)
     fun playMyWave() = Unit
+    fun playWave(request: WaveRequest) = Unit
+    fun playOffline() = Unit
+    fun playList(trackIds: List<String>, startId: String? = null, origin: PlaybackOrigin) = playQueue(trackIds, startId)
     fun retryWave() = Unit
-    fun playRecommendedQueue(trackIds: List<String>, startId: String? = null) = playQueue(trackIds, startId)
+    fun playRecommendedQueue(trackIds: List<String>, startId: String? = null, origin: PlaybackOrigin = PlaybackOrigin(PlaybackSource.LIST)) = playList(trackIds, startId, origin)
 }
 
 data class PlaybackCheckpoint(val profileId: String, val queueIds: List<String>, val currentId: String?, val positionSeconds: Int,
-    val repeatMode: RepeatMode = RepeatMode.OFF, val shuffle: Boolean = false)
+    val repeatMode: RepeatMode = RepeatMode.OFF, val shuffle: Boolean = false,
+    val origin: PlaybackOrigin = PlaybackOrigin(), val continueWave: Boolean = false)
 
-fun PlaybackState.checkpoint() = PlaybackCheckpoint(profileId, queue.map(Track::id), current?.id, positionSeconds, repeatMode, shuffle)
+fun PlaybackState.checkpoint() = PlaybackCheckpoint(profileId, queue.map(Track::id), current?.id, positionSeconds, repeatMode, shuffle, origin, continueWave)
 
 /** Commands are serialized by the caller (UI thread). No timer and no sound in M1. */
 class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackCheckpoint? = null) : PlaybackController {
@@ -78,7 +84,8 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
         val queue = checkpoint.queueIds.distinct().mapNotNull(allowed::get)
         val index = queue.indexOfFirst { it.id == checkpoint.currentId }.coerceAtLeast(0)
         return PlaybackState(checkpoint.profileId, queue, index,
-            checkpoint.positionSeconds.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0), repeatMode = checkpoint.repeatMode, shuffle = checkpoint.shuffle)
+            checkpoint.positionSeconds.coerceIn(0, queue.getOrNull(index)?.durationSeconds ?: 0),
+            origin = checkpoint.origin).withRepeat(checkpoint.repeatMode).withShuffle(checkpoint.shuffle).withContinuation(checkpoint.continueWave)
     }
 
     override fun toggle() {
@@ -95,7 +102,7 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
         val order = s.queue.indices.filter { s.queue[it].available }.let { if (s.shuffle) it.shuffled(kotlin.random.Random(42)) else it }
         val position = order.indexOf(s.index)
         val step = direction.compareTo(0)
-        val next = order.getOrNull(position + step) ?: if (s.repeatMode == RepeatMode.ALL && order.isNotEmpty()) order[if (step > 0) 0 else order.lastIndex] else null
+        val next = order.getOrNull(position + step) ?: if ((s.shuffle || s.repeatMode == RepeatMode.ALL) && order.isNotEmpty()) order[if (step > 0) 0 else order.lastIndex] else null
         mutableState.value = if (next == null) s.copy(playing = false) else s.copy(index = next, positionSeconds = 0)
     }
     override fun select(trackId: String) {
@@ -115,8 +122,9 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
         val queue = catalog.tracks(s.profileId).filter { source == null || it.source == source }
         mutableState.value = PlaybackState(s.profileId, queue, index = queue.indexOfFirst { it.available }.coerceAtLeast(0), repeatMode = s.repeatMode, shuffle = s.shuffle)
     }
-    override fun setRepeatMode(mode: RepeatMode) { mutableState.value = state.value.copy(repeatMode = mode) }
-    override fun setShuffle(enabled: Boolean) { mutableState.value = state.value.copy(shuffle = enabled) }
+    override fun setRepeatMode(mode: RepeatMode) { mutableState.value = state.value.withRepeat(mode) }
+    override fun setShuffle(enabled: Boolean) { mutableState.value = state.value.withShuffle(enabled) }
+    override fun setContinueWave(enabled: Boolean) { mutableState.value = state.value.withContinuation(enabled) }
     override fun enqueue(trackId: String) {
         val s = state.value
         val track = catalog.tracks(s.profileId).find { it.id == trackId && it.available } ?: return
@@ -143,6 +151,10 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
         val allowed = catalog.tracks(state.value.profileId).filter { it.available }.associateBy(Track::id)
         val queue = trackIds.distinct().mapNotNull(allowed::get)
         if (queue.isEmpty()) return
-        mutableState.value = state.value.copy(queue = queue, index = queue.indexOfFirst { it.id == startId }.coerceAtLeast(0), positionSeconds = 0, playing = true, error = null)
+        mutableState.value = state.value.copy(queue = queue, index = queue.indexOfFirst { it.id == startId }.coerceAtLeast(0), positionSeconds = 0, playing = true, error = null, origin = PlaybackOrigin(), continueWave = false)
+    }
+    override fun playList(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) {
+        playQueue(trackIds, startId)
+        if (state.value.queue.any { it.id in trackIds }) mutableState.value = state.value.copy(origin = origin)
     }
 }

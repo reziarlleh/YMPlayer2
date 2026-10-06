@@ -623,5 +623,17 @@
     <string name="wave_sleep" formatted="false">"Pour s’endormir"</string>
     <string name="wave_dance" formatted="false">"Pour danser"</string>
     <string name="wave_relax" formatted="false">"Pour se détendre"</string>
+    <string name="wave_by_track" formatted="false">"Lancer la radio du titre"</string>
+    <string name="wave_by_artist" formatted="false">"Lancer la radio de l’artiste"</string>
+    <string name="wave_by_album" formatted="false">"Lancer la radio de l’album"</string>
+    <string name="wave_by_playlist" formatted="false">"Lancer la radio de la playlist"</string>
+    <string name="wave_source_title" formatted="false">"Radio · @0@"</string>
+    <string name="wave_continue_action" formatted="false">"Continuer avec la radio à la fin de la liste"</string>
+    <string name="wave_continue_on" formatted="false">"Continuation avec la radio activée"</string>
+    <string name="wave_continue_off" formatted="false">"Continuation avec la radio désactivée"</string>
+    <string name="player_source_offline" formatted="false">"Hors connexion"</string>
+    <string name="player_source_favorites" formatted="false">"Favoris locaux"</string>
+    <string name="player_source_device" formatted="false">"Appareil / USB"</string>
+    <string name="player_source_list" formatted="false">"Liste de titres"</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

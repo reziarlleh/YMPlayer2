@@ -623,5 +623,17 @@
     <string name="wave_sleep" formatted="false">"Засынаю"</string>
     <string name="wave_dance" formatted="false">"Танцую"</string>
     <string name="wave_relax" formatted="false">"Адпачываю"</string>
+    <string name="wave_by_track" formatted="false">"Слухаць хвалю па трэку"</string>
+    <string name="wave_by_artist" formatted="false">"Слухаць хвалю па выканаўцы"</string>
+    <string name="wave_by_album" formatted="false">"Слухаць хвалю па альбоме"</string>
+    <string name="wave_by_playlist" formatted="false">"Слухаць хвалю па плэйлісце"</string>
+    <string name="wave_source_title" formatted="false">"Хваля · @0@"</string>
+    <string name="wave_continue_action" formatted="false">"Пасля спіса працягнуць хвалю"</string>
+    <string name="wave_continue_on" formatted="false">"Працяг хваляй уключаны"</string>
+    <string name="wave_continue_off" formatted="false">"Працяг хваляй выключаны"</string>
+    <string name="player_source_offline" formatted="false">"Афлайн"</string>
+    <string name="player_source_favorites" formatted="false">"Лакальнае абранае"</string>
+    <string name="player_source_device" formatted="false">"Прылада / USB"</string>
+    <string name="player_source_list" formatted="false">"Спіс трэкаў"</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

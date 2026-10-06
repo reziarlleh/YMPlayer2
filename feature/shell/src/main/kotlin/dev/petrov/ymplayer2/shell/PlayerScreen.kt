@@ -28,14 +28,27 @@ import kotlinx.coroutines.launch
 
 /** Only artwork is flexible. Transport and actions never live in a scroll container. */
 @Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {},
-    taste: MusicTaste? = null, signIn: () -> Unit = {}, artist: (ArtistRef) -> Unit = {}, equalizer: (Boolean) -> Unit = {}, playlists: CloudPlaylists? = null) {
+    taste: MusicTaste? = null, signIn: () -> Unit = {}, artist: (ArtistRef) -> Unit = {}, equalizer: (Boolean) -> Unit = {}, playlists: CloudPlaylists? = null, collections: UserCollections? = null, offline: OfflineMusic? = null) {
     var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var issue by remember { mutableStateOf(false) }
     var configureWave by remember(state.profileId) { mutableStateOf(false) }
+    var sourceChoice by remember(state.profileId) { mutableStateOf(false) }
+    val saved = collections?.state?.collectAsStateWithLifecycle()?.value
+    val favorites = saved?.profile(state.profileId)?.favorites.orEmpty()
+    val cached = offline?.state?.collectAsStateWithLifecycle()?.value
+    val sourceLabel = when (state.origin.source) {
+        PlaybackSource.DEVICE -> tr(Msg.player_source_device)
+        PlaybackSource.MY_WAVE -> tr(Msg.msg_de1ea8c09caa)
+        PlaybackSource.OFFLINE -> tr(Msg.player_source_offline)
+        PlaybackSource.LOCAL_FAVORITES -> tr(Msg.player_source_favorites)
+        PlaybackSource.YANDEX_LIKES -> tr(Msg.msg_840370e3fad2)
+        PlaybackSource.LIST -> state.origin.title.ifBlank { tr(Msg.player_source_list) }
+        PlaybackSource.OBJECT_WAVE -> tr(Msg.wave_source_title, state.origin.title)
+    }
     val waveSettings = player.waveSettings
     if (configureWave && waveSettings != null) WaveSettingsDialog(waveSettings, player) { configureWave = false }
-    if (details && taste != null) state.current?.let { TrackTasteDialog(it, taste, artist = artist, extra = {
+    if (details && taste != null) state.current?.let { TrackTasteDialog(it, taste, artist = artist, player = player, extra = {
         playlists?.let { lists -> AddToCloudPlaylist(state.current!!, lists) { details = false } }
         HorizontalDivider()
         TextButton({ details = false; menu = true }, Modifier.prismFocus().testTag("player_sources")) { Text(tr(Msg.msg_d8987908d58b)) }
@@ -51,12 +64,24 @@ import kotlinx.coroutines.launch
             if (taste != null) Surface(Modifier.weight(1f).height(48.dp), shape = MaterialTheme.shapes.extraLarge,
                 color = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    TextButton({ if (account?.signedIn == true) player.playMyWave() else signIn() },
-                        Modifier.weight(1f).fillMaxHeight().prismFocus().testTag("my_wave"), enabled = !state.waveLoading,
+                    Box(Modifier.weight(1f).fillMaxHeight()) {
+                    TextButton({ sourceChoice = true },
+                        Modifier.fillMaxSize().prismFocus().testTag("my_wave"),
                         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onPrimary),
                         contentPadding = PaddingValues(horizontal = 10.dp)) {
                         SkinIcon(UiIcon.WAVE, null); Spacer(Modifier.width(6.dp))
-                        Text(tr(Msg.msg_de1ea8c09caa), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        Text(sourceLabel, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    }
+                    DropdownMenu(sourceChoice, { sourceChoice = false }) {
+                        DropdownMenuItem({ Text(tr(Msg.msg_de1ea8c09caa)) }, {
+                            sourceChoice = false; if (account?.signedIn == true) player.playMyWave() else signIn()
+                        }, Modifier.testTag("player_source_wave"))
+                        DropdownMenuItem({ Text(tr(Msg.player_source_offline)) }, { sourceChoice = false; player.playOffline() },
+                            Modifier.testTag("player_source_offline"), enabled = cached?.enabled == true && cached.owner?.profileId == state.profileId && cached.tracks.any { it.available && it.offline })
+                        DropdownMenuItem({ Text(tr(Msg.player_source_favorites)) }, {
+                            sourceChoice = false; player.playList(favorites.map(SavedTrack::id), origin = PlaybackOrigin(PlaybackSource.LOCAL_FAVORITES))
+                        }, Modifier.testTag("player_source_favorites"), enabled = favorites.isNotEmpty() && saved?.ready == true)
+                    }
                     }
                     if (waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
                         { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings"))
@@ -203,6 +228,10 @@ import kotlinx.coroutines.launch
     IconToggleButton(state.repeatMode != RepeatMode.OFF, { player.setRepeatMode(state.repeatMode.next()) }, Modifier.size(48.dp).prismFocus().testTag("repeat_mode").semantics { stateDescription = repeat }) {
         SkinIcon(if (state.repeatMode == RepeatMode.ONE) UiIcon.REPEAT_ONE else UiIcon.REPEAT, repeat, Modifier.size(28.dp))
     }
+    if (state.origin.wave != null) IconToggleButton(state.continueWave, { player.setContinueWave(!state.continueWave) },
+        Modifier.size(48.dp).prismFocus().testTag("continue_wave_mode").semantics {
+            stateDescription = if (state.continueWave) tr(Msg.wave_continue_on) else tr(Msg.wave_continue_off)
+        }) { SkinIcon(UiIcon.WAVE, tr(Msg.wave_continue_action), Modifier.size(28.dp)) }
     IconToggleButton(state.shuffle, { player.setShuffle(!state.shuffle) }, Modifier.size(48.dp).prismFocus().testTag("shuffle_mode").semantics { stateDescription = if (state.shuffle) tr(Msg.msg_58cb4ee024d5) else tr(Msg.msg_ffdf574befa9) }) {
         SkinIcon(UiIcon.SHUFFLE, tr(Msg.msg_8f88b95463e2), Modifier.size(28.dp))
     }
@@ -244,7 +273,7 @@ import kotlinx.coroutines.launch
                 val result = pages[number]
                 val track = result?.getOrNull()?.items?.getOrNull(index % 80)
                 if (track != null) Column {
-                    TrackRow(track, state.current?.id == track.id, { player.select(track.id) }, taste = taste, location = "queue", artist = artist)
+                    TrackRow(track, state.current?.id == track.id, { player.select(track.id) }, taste = taste, location = "queue", artist = artist, player = player)
                     if (editing) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                         ActionIcon(UiIcon.UP, tr(Msg.msg_9fcd67f23799, track.title), { player.moveInQueue(track.id, index - 1) }, Modifier.testTag("queue_up_${track.id}"), enabled = index > 0)
                         ActionIcon(UiIcon.DOWN, tr(Msg.msg_48f1c04f18bc, track.title), { player.moveInQueue(track.id, index + 1) }, Modifier.testTag("queue_down_${track.id}"), enabled = index < state.queueCount - 1)
@@ -259,12 +288,12 @@ import kotlinx.coroutines.launch
 
 @Composable internal fun TrackRow(track: Track, selected: Boolean = false, play: () -> Unit, enqueue: (() -> Unit)? = null, queued: Boolean = false, more: (() -> Unit)? = null,
     taste: MusicTaste? = null, location: String = "catalog", artist: (ArtistRef) -> Unit = {}, note: String? = null,
-    checked: Boolean? = null, toggleSelection: (() -> Unit)? = null) {
+    checked: Boolean? = null, toggleSelection: (() -> Unit)? = null, player: PlaybackController? = null) {
     val onlineTaste = taste?.takeIf { track.source == Source.YANDEX }
     val hasActions = checked == null && (onlineTaste != null || enqueue != null || more != null)
     val metadata = if (track.available) "${trMessage(track.source.label)} · ${secondsLabel(track.durationSeconds)}" else tr(Msg.msg_91cf891549ab)
     var details by remember(track.id) { mutableStateOf(false) }
-    if (details && onlineTaste != null) TrackTasteDialog(track, onlineTaste, artist = artist) { details = false }
+    if (details && onlineTaste != null) TrackTasteDialog(track, onlineTaste, artist = artist, player = player) { details = false }
     Surface(Modifier.fillMaxWidth().testTag("track_card_${track.id}"), shape = MaterialTheme.shapes.medium,
         color = if (checked == true || selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainerLow) {
         Column(Modifier.fillMaxWidth()) {

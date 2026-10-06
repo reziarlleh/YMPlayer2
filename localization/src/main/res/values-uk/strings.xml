@@ -623,5 +623,17 @@
     <string name="wave_sleep" formatted="false">"Засинаю"</string>
     <string name="wave_dance" formatted="false">"Танцюю"</string>
     <string name="wave_relax" formatted="false">"Відпочиваю"</string>
+    <string name="wave_by_track" formatted="false">"Слухати хвилю за треком"</string>
+    <string name="wave_by_artist" formatted="false">"Слухати хвилю за виконавцем"</string>
+    <string name="wave_by_album" formatted="false">"Слухати хвилю за альбомом"</string>
+    <string name="wave_by_playlist" formatted="false">"Слухати хвилю за плейлістом"</string>
+    <string name="wave_source_title" formatted="false">"Хвиля · @0@"</string>
+    <string name="wave_continue_action" formatted="false">"Після списку продовжити хвилю"</string>
+    <string name="wave_continue_on" formatted="false">"Продовження хвилею ввімкнено"</string>
+    <string name="wave_continue_off" formatted="false">"Продовження хвилею вимкнено"</string>
+    <string name="player_source_offline" formatted="false">"Офлайн"</string>
+    <string name="player_source_favorites" formatted="false">"Локальне обране"</string>
+    <string name="player_source_device" formatted="false">"Пристрій / USB"</string>
+    <string name="player_source_list" formatted="false">"Список треків"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

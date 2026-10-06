@@ -623,5 +623,17 @@
     <string name="wave_sleep" formatted="false">"Ұйқыға дайындалып жатырмын"</string>
     <string name="wave_dance" formatted="false">"Билеп жатырмын"</string>
     <string name="wave_relax" formatted="false">"Демалып жатырмын"</string>
+    <string name="wave_by_track" formatted="false">"Трек бойынша толқынды тыңдау"</string>
+    <string name="wave_by_artist" formatted="false">"Орындаушы бойынша толқынды тыңдау"</string>
+    <string name="wave_by_album" formatted="false">"Альбом бойынша толқынды тыңдау"</string>
+    <string name="wave_by_playlist" formatted="false">"Плейлист бойынша толқынды тыңдау"</string>
+    <string name="wave_source_title" formatted="false">"Толқын · @0@"</string>
+    <string name="wave_continue_action" formatted="false">"Тізім аяқталғанда толқынды жалғастыру"</string>
+    <string name="wave_continue_on" formatted="false">"Толқынмен жалғастыру қосулы"</string>
+    <string name="wave_continue_off" formatted="false">"Толқынмен жалғастыру өшірулі"</string>
+    <string name="player_source_offline" formatted="false">"Офлайн"</string>
+    <string name="player_source_favorites" formatted="false">"Жергілікті таңдаулылар"</string>
+    <string name="player_source_device" formatted="false">"Құрылғы / USB"</string>
+    <string name="player_source_list" formatted="false">"Тректер тізімі"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

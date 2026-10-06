@@ -10042,5 +10042,209 @@
       "es": "Descansando",
       "fr": "Pour se détendre"
     }
+  },
+  {
+    "key": "wave_by_track",
+    "source": "Слушать волну по треку",
+    "english": "Start track radio",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Слухаць хвалю па трэку",
+      "kk": "Трек бойынша толқынды тыңдау",
+      "uk": "Слухати хвилю за треком",
+      "de": "Track-Radio starten",
+      "es": "Iniciar radio de la canción",
+      "fr": "Lancer la radio du titre"
+    }
+  },
+  {
+    "key": "wave_by_artist",
+    "source": "Слушать волну по исполнителю",
+    "english": "Start artist radio",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Слухаць хвалю па выканаўцы",
+      "kk": "Орындаушы бойынша толқынды тыңдау",
+      "uk": "Слухати хвилю за виконавцем",
+      "de": "Künstler-Radio starten",
+      "es": "Iniciar radio del artista",
+      "fr": "Lancer la radio de l’artiste"
+    }
+  },
+  {
+    "key": "wave_by_album",
+    "source": "Слушать волну по альбому",
+    "english": "Start album radio",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Слухаць хвалю па альбоме",
+      "kk": "Альбом бойынша толқынды тыңдау",
+      "uk": "Слухати хвилю за альбомом",
+      "de": "Album-Radio starten",
+      "es": "Iniciar radio del álbum",
+      "fr": "Lancer la radio de l’album"
+    }
+  },
+  {
+    "key": "wave_by_playlist",
+    "source": "Слушать волну по плейлисту",
+    "english": "Start playlist radio",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Слухаць хвалю па плэйлісце",
+      "kk": "Плейлист бойынша толқынды тыңдау",
+      "uk": "Слухати хвилю за плейлістом",
+      "de": "Playlist-Radio starten",
+      "es": "Iniciar radio de la lista",
+      "fr": "Lancer la radio de la playlist"
+    }
+  },
+  {
+    "key": "wave_source_title",
+    "source": "Волна · @0@",
+    "english": "Radio · @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Хваля · @0@",
+      "kk": "Толқын · @0@",
+      "uk": "Хвиля · @0@",
+      "de": "Radio · @0@",
+      "es": "Radio · @0@",
+      "fr": "Radio · @0@"
+    }
+  },
+  {
+    "key": "wave_continue_action",
+    "source": "После списка продолжить волну",
+    "english": "Continue with radio when the list ends",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Пасля спіса працягнуць хвалю",
+      "kk": "Тізім аяқталғанда толқынды жалғастыру",
+      "uk": "Після списку продовжити хвилю",
+      "de": "Nach der Liste mit Radio weiterspielen",
+      "es": "Continuar con la radio al terminar la lista",
+      "fr": "Continuer avec la radio à la fin de la liste"
+    }
+  },
+  {
+    "key": "wave_continue_on",
+    "source": "Продолжение волной включено",
+    "english": "Radio continuation on",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Працяг хваляй уключаны",
+      "kk": "Толқынмен жалғастыру қосулы",
+      "uk": "Продовження хвилею ввімкнено",
+      "de": "Radio-Fortsetzung an",
+      "es": "Continuación con radio activada",
+      "fr": "Continuation avec la radio activée"
+    }
+  },
+  {
+    "key": "wave_continue_off",
+    "source": "Продолжение волной выключено",
+    "english": "Radio continuation off",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Працяг хваляй выключаны",
+      "kk": "Толқынмен жалғастыру өшірулі",
+      "uk": "Продовження хвилею вимкнено",
+      "de": "Radio-Fortsetzung aus",
+      "es": "Continuación con radio desactivada",
+      "fr": "Continuation avec la radio désactivée"
+    }
+  },
+  {
+    "key": "player_source_offline",
+    "source": "Оффлайн",
+    "english": "Offline",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Афлайн",
+      "kk": "Офлайн",
+      "uk": "Офлайн",
+      "de": "Offline",
+      "es": "Sin conexión",
+      "fr": "Hors connexion"
+    }
+  },
+  {
+    "key": "player_source_favorites",
+    "source": "Локальное избранное",
+    "english": "Local favorites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Лакальнае абранае",
+      "kk": "Жергілікті таңдаулылар",
+      "uk": "Локальне обране",
+      "de": "Lokale Favoriten",
+      "es": "Favoritos locales",
+      "fr": "Favoris locaux"
+    }
+  },
+  {
+    "key": "player_source_device",
+    "source": "Устройство / USB",
+    "english": "Device / USB",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Прылада / USB",
+      "kk": "Құрылғы / USB",
+      "uk": "Пристрій / USB",
+      "de": "Gerät / USB",
+      "es": "Dispositivo / USB",
+      "fr": "Appareil / USB"
+    }
+  },
+  {
+    "key": "player_source_list",
+    "source": "Список треков",
+    "english": "Track list",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Спіс трэкаў",
+      "kk": "Тректер тізімі",
+      "uk": "Список треків",
+      "de": "Trackliste",
+      "es": "Lista de canciones",
+      "fr": "Liste de titres"
+    }
   }
 ]

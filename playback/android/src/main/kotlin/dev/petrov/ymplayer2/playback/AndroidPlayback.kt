@@ -393,7 +393,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             // Discard audio, retaining metadata. Resume must prepare the next full file again.
             load(logicalQueue, state.value.index, 0)
         } else {
-            cancelWave()
+            cancelWaveWork()
             mutable.value = state.value.copy(positionSeconds = 0)
             player.seekTo(0)
         }
@@ -504,52 +504,29 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         load(queue, queue.indexOfFirst { it.available }.coerceAtLeast(0), 0)
     }
 
-    override fun setRepeatMode(mode: RepeatMode) = command { if (!state.value.wave) {
-        if (referenceOrder != null) {
-            mutable.value = state.value.copy(repeatMode = mode)
-            applyOrderingModes()
-            checkpoint()
-            startDiskWork { refreshReferenceWindow() }
-            return@command
-        }
-        if (followLibrary && indexedOrder != null) {
-            mutable.value = state.value.copy(repeatMode = mode)
-            applyOrderingModes()
-            checkpoint()
-            loadIndexedSelection(state.value.current?.id, state.value.positionSeconds, state.value.playing, preserveCurrent = true)
-            return@command
-        }
+    override fun setRepeatMode(mode: RepeatMode) = command { if (!state.value.wave) changeOrdering(state.value.withRepeat(mode)) }
+    override fun setShuffle(enabled: Boolean) = command { if (!state.value.wave) changeOrdering(state.value.withShuffle(enabled)) }
+    override fun setContinueWave(enabled: Boolean) = command {
+        if (!state.value.wave && (!enabled || state.value.origin.wave != null)) changeOrdering(state.value.withContinuation(enabled))
+    }
+    private fun changeOrdering(next: PlaybackState) {
+        val before = state.value
+        if (before.shuffle != next.shuffle) { referenceOrder?.resetShuffle(); indexedOrder?.reset() }
         val bounded = usesBoundedLocalWindow()
-        val willBeBounded = followLibrary && engine?.shuffleModeEnabled == false && mode != RepeatMode.ALL
-        val queue = if (bounded == willBeBounded) emptyList() else activeQueue()
-        mutable.value = state.value.copy(repeatMode = mode)
-        engine?.repeatMode = mode.toPlayerMode()
-        if (bounded != usesBoundedLocalWindow()) syncQueue(queue) else { publish(); checkpoint() }
-    } }
-    override fun setShuffle(enabled: Boolean) = command { if (!state.value.wave) {
-        if (referenceOrder != null) {
-            if (enabled != state.value.shuffle) referenceOrder?.resetShuffle()
-            mutable.value = state.value.copy(shuffle = enabled)
-            applyOrderingModes()
-            checkpoint()
-            startDiskWork { refreshReferenceWindow() }
-            return@command
+        val queue = if (referenceOrder == null && !(followLibrary && indexedOrder != null)) activeQueue() else emptyList()
+        // Engine listeners must see a complete logical mode transition, never half of it.
+        updating = true
+        try { mutable.value = next; applyOrderingModes() } finally { updating = false }
+        when {
+            referenceOrder != null -> { checkpoint(); startDiskWork { refreshReferenceWindow() } }
+            followLibrary && indexedOrder != null -> {
+                checkpoint()
+                loadIndexedSelection(next.current?.id, next.positionSeconds, next.playing, preserveCurrent = true)
+            }
+            bounded != usesBoundedLocalWindow() -> syncQueue(queue)
+            else -> { publish(); checkpoint() }
         }
-        if (followLibrary && indexedOrder != null) {
-            if (enabled != state.value.shuffle) indexedOrder.reset()
-            mutable.value = state.value.copy(shuffle = enabled)
-            applyOrderingModes()
-            checkpoint()
-            loadIndexedSelection(state.value.current?.id, state.value.positionSeconds, state.value.playing, preserveCurrent = true)
-            return@command
-        }
-        val bounded = usesBoundedLocalWindow()
-        val willBeBounded = followLibrary && !enabled && engine?.repeatMode != Player.REPEAT_MODE_ALL
-        val queue = if (bounded == willBeBounded) emptyList() else activeQueue()
-        mutable.value = state.value.copy(shuffle = enabled)
-        engine?.shuffleModeEnabled = enabled
-        if (bounded != usesBoundedLocalWindow()) syncQueue(queue) else { publish(); checkpoint() }
-    } }
+    }
     override fun enqueue(trackId: String) = enqueueMany(listOf(trackId))
     override fun enqueueMany(trackIds: List<String>) = diskCommand {
         val ids = trackIds.distinct()
@@ -619,7 +596,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     override fun playQueue(trackIds: List<String>, startId: String?) = diskCommand {
         playResolvedQueue(trackIds, startId)
     }
-    private suspend fun playResolvedQueue(trackIds: List<String>, startId: String?): Boolean {
+    override fun playList(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) = diskCommand {
+        playResolvedQueue(trackIds, startId, origin)
+    }
+    private suspend fun playResolvedQueue(trackIds: List<String>, startId: String?, origin: PlaybackOrigin = PlaybackOrigin(PlaybackSource.LIST)): Boolean {
         if (library is IndexedLocalLibrary) {
             val refs = referencesFor(trackIds)
             if (refs.isEmpty()) return false
@@ -627,6 +607,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             val selected = order.reference(startId)?.let { resolveReference(it).takeIf(Track::available) }
                 ?: order.adjacent(null, 1, state.value.shuffle, RepeatMode.OFF, ::resolveReference) ?: return false
             cancelWave()
+            mutable.value = state.value.copy(origin = origin)
             referenceOrder = order
             setReferences(refs, selected.id, 0, resume = true, preserveCurrent = false)
             return true
@@ -635,6 +616,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val queue = trackIds.distinct().mapNotNull { known[it]?.takeIf(Track::available) }
         if (queue.isEmpty()) return false
         cancelWave()
+        mutable.value = state.value.copy(origin = origin)
         followLibrary = false
         load(queue, queue.indexOfFirst { it.id == startId }.coerceAtLeast(0), 0)
         engine?.prepare(); engine?.play()
@@ -642,21 +624,27 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
 
     override fun playMyWave() = command {
-        if (waveApi == null || !remoteEnabled(state.value.profileId)) return@command
-        val request = waveSettings?.request(state.value.profileId) ?: WaveRequest()
-        cancelWave(); followLibrary = false; activeWaveRequest = request
-        mutable.value = state.value.copy(repeatMode = RepeatMode.OFF, shuffle = false)
+        startWave(waveSettings?.request(state.value.profileId) ?: WaveRequest(), PlaybackSource.MY_WAVE)
+    }
+    override fun playWave(request: WaveRequest) = command { startWave(request, PlaybackSource.OBJECT_WAVE) }
+    private fun startWave(request: WaveRequest, source: PlaybackSource) {
+        if (waveApi == null || !remoteEnabled(state.value.profileId)) return
+        cancelWave(); followLibrary = false; referenceOrder = null; activeWaveRequest = request
+        mutable.value = state.value.copy(repeatMode = RepeatMode.OFF, shuffle = false, continueWave = false,
+            origin = PlaybackOrigin(source, request.title, request))
         engine?.repeatMode = Player.REPEAT_MODE_OFF; engine?.shuffleModeEnabled = false
         load(emptyList(), 0, 0)
         mutable.value = state.value.copy(wave = true)
         waveAdvance = true; waveResume = true
         fetchWave()
     }
+    override fun playOffline() = playOfflineLikes()
     internal fun playOfflineLikes() = diskCommand {
         val profile = state.value.profileId
         val tracks = offline?.tracks(profile)?.filter { it.available && it.offline }.orEmpty()
         if (tracks.isEmpty()) return@diskCommand
         cancelWave(); followLibrary = false
+        mutable.value = state.value.copy(origin = PlaybackOrigin(PlaybackSource.OFFLINE))
         if (library is IndexedLocalLibrary) {
             setReferences(tracks.map(PlaybackReference::from), tracks.first().id, 0, resume = true, preserveCurrent = false)
             return@diskCommand
@@ -664,8 +652,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         load(tracks, 0, 0)
         engine?.prepare(); engine?.play()
     }
-    override fun playRecommendedQueue(trackIds: List<String>, startId: String?) = diskCommand {
-        if (!playResolvedQueue(trackIds, startId)) return@diskCommand
+    override fun playRecommendedQueue(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) = diskCommand {
+        if (!playResolvedQueue(trackIds, startId, origin)) return@diskCommand
         mutable.value = state.value.copy(recommendations = true)
         filterWave(); checkpoint()
     }
@@ -697,7 +685,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             player.repeatMode = if (state.value.repeatMode == RepeatMode.ONE) Player.REPEAT_MODE_ONE else Player.REPEAT_MODE_OFF
             player.shuffleModeEnabled = false
         } else {
-            player.repeatMode = state.value.repeatMode.toPlayerMode()
+            player.repeatMode = if (state.value.shuffle) Player.REPEAT_MODE_ALL else state.value.repeatMode.toPlayerMode()
             player.shuffleModeEnabled = state.value.shuffle
         }
         if (notifiedRepeat != state.value.repeatMode || notifiedShuffle != state.value.shuffle) {
@@ -708,9 +696,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun maintainIndexedOrder() {
         val player = engine ?: return
+        if (ready && !restoring && !updating && !state.value.wave && state.value.continueWave &&
+            player.playbackState == Player.STATE_ENDED && player.playWhenReady) {
+            state.value.origin.wave?.let { startWave(it, PlaybackSource.OBJECT_WAVE) }
+            return
+        }
         if (referenceOrder != null) {
             if (ready && !restoring && !updating && player.playbackState == Player.STATE_ENDED &&
-                player.playWhenReady && state.value.repeatMode == RepeatMode.ALL)
+                player.playWhenReady && (state.value.repeatMode == RepeatMode.ALL || state.value.shuffle))
                 startDiskWork { skipReference(1, resume = true) }
             return
         }
@@ -730,7 +723,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         cancelWaveWork()
         waveBatch = null; waveItems.clear()
         activeWaveRequest = WaveRequest()
-        mutable.value = state.value.copy(wave = false, recommendations = false)
+        mutable.value = state.value.copy(wave = false, recommendations = false, origin = PlaybackOrigin(), continueWave = false)
     }
     private fun feedback(id: String?, type: WaveFeedback, seconds: Int = 0) {
         val api = waveApi ?: return
@@ -1105,8 +1098,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         online?.accounts?.activate(validProfile)
         val ids = json?.optJSONArray("ids")
         followLibrary = json?.optBoolean("followLibrary", ids == null || ids.length() == 0) ?: true
-        mutable.value = state.value.copy(repeatMode = runCatching { RepeatMode.valueOf(prefs.getString("repeat:$validProfile", "OFF")!!) }.getOrDefault(RepeatMode.OFF),
-            shuffle = prefs.getBoolean("shuffle:$validProfile", false))
+        val savedOrigin = json?.optJSONObject("origin")
+        val origin = savedOrigin?.let { PlaybackOrigin(
+            runCatching { PlaybackSource.valueOf(it.getString("source")) }.getOrDefault(PlaybackSource.DEVICE),
+            it.optString("title"), it.optJSONObject("wave")?.let { wave -> runCatching { wave.readWaveRequest() }.getOrNull() }) } ?: PlaybackOrigin()
+        mutable.value = state.value.copy(origin = origin)
+            .withRepeat(runCatching { RepeatMode.valueOf(prefs.getString("repeat:$validProfile", "OFF")!!) }.getOrDefault(RepeatMode.OFF))
+            .withShuffle(prefs.getBoolean("shuffle:$validProfile", false))
+            .withContinuation(json?.optBoolean("continueWave", false) == true)
         applyOrderingModes()
         if (followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow()) {
             indexedRestore = true
@@ -1170,7 +1169,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             queue.getOrNull(index + 1)?.let { next ->
                 pendingWaveBatch = waveBatch!!.copy(tracks = listOf(waveItems.getValue(next.id)), cursor = next.tasteTarget().key)
             }
-            mutable.value = state.value.copy(wave = true)
+            mutable.value = state.value.copy(wave = true, repeatMode = RepeatMode.OFF, shuffle = false, continueWave = false,
+                origin = originForRestoredWave(state.value.origin, activeWaveRequest))
             engine?.repeatMode = Player.REPEAT_MODE_OFF; engine?.shuffleModeEnabled = false
         }
         val restoredQueue = if (state.value.wave) {
@@ -1307,8 +1307,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 player.playWhenReady && player.playbackSuppressionReason == Player.PLAYBACK_SUPPRESSION_REASON_NONE &&
                 player.playbackState != Player.STATE_ENDED && player.playerError == null,
             buffering = waitingId == null && player.playbackState == Player.STATE_BUFFERING,
-            repeatMode = if (referenceOrder != null || followLibrary && indexedOrder != null) before.repeatMode else player.repeatMode.toRepeatMode(),
-            shuffle = if (referenceOrder != null || followLibrary && indexedOrder != null) before.shuffle else player.shuffleModeEnabled)
+            repeatMode = before.repeatMode, shuffle = before.shuffle)
     }
     private fun checkpoint() {
         val state = state.value
@@ -1325,6 +1324,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             .put("wave", state.wave).put("waveSession", waveBatch?.sessionId).put("waveCursor", waveBatch?.cursor)
             .put("waveSelection", if (state.wave) JSONObject().put("station", activeWaveRequest.station)
                 .put("title", activeWaveRequest.title).put("settings", JSONArray(activeWaveRequest.settings)) else JSONObject.NULL)
+            .put("origin", JSONObject().put("source", state.origin.source.name).put("title", state.origin.title)
+                .put("wave", state.origin.wave?.json() ?: JSONObject.NULL))
+            .put("continueWave", state.continueWave)
             .put("recommendations", state.recommendations)
             .put("waveBatches", JSONObject().apply { if (state.wave) state.queue.forEach { track -> put(track.id, waveItems[track.id]?.batchId) } })
         json.put("referenceOrder", referenceOrder != null)
@@ -1343,3 +1345,10 @@ private fun Track.mediaItem(profile: String) = MediaItem.Builder().setMediaId(id
     .setMediaMetadata(MediaMetadata.Builder().setTitle(title).setArtist(artist).setAlbumTitle(album).setArtworkUri(artworkUri?.let(Uri::parse)).build()).build()
 private fun RepeatMode.toPlayerMode() = when (this) { RepeatMode.OFF -> Player.REPEAT_MODE_OFF; RepeatMode.ALL -> Player.REPEAT_MODE_ALL; RepeatMode.ONE -> Player.REPEAT_MODE_ONE }
 private fun Int.toRepeatMode() = when (this) { Player.REPEAT_MODE_ALL -> RepeatMode.ALL; Player.REPEAT_MODE_ONE -> RepeatMode.ONE; else -> RepeatMode.OFF }
+
+private fun WaveRequest.json() = JSONObject().put("station", station).put("title", title).put("settings", JSONArray(settings))
+private fun JSONObject.readWaveRequest() = WaveRequest(getString("station"), optString("title"),
+    optJSONArray("settings")?.let { seeds -> (0 until seeds.length()).map { seeds.getString(it) } }.orEmpty())
+private fun originForRestoredWave(origin: PlaybackOrigin, request: WaveRequest) =
+    if (origin.source in setOf(PlaybackSource.MY_WAVE, PlaybackSource.OBJECT_WAVE)) origin.copy(wave = request)
+    else PlaybackOrigin(PlaybackSource.MY_WAVE, request.title, request)

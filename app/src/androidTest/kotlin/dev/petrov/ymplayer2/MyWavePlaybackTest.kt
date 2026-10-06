@@ -31,6 +31,7 @@ class MyWavePlaybackTest {
     @After fun stop() { compose.runOnIdle { player.stop() } }
     private fun start() {
         compose.onNodeWithTag("my_wave").performClick()
+        compose.onNodeWithTag("player_source_wave").performClick()
         waitFor { player.state.value.positionSeconds >= 1 && player.state.value.queue.size >= 2 }
     }
     @Test fun fastStartPrefetchAutomaticContinuationAndPausedRestore() {

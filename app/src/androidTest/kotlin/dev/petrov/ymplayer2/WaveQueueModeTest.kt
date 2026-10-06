@@ -37,6 +37,7 @@ class WaveQueueModeTest {
     @After fun stop() { compose.runOnIdle { player.stop() } }
     private fun start() {
         compose.onNodeWithTag("my_wave").performClick()
+        compose.onNodeWithTag("player_source_wave").performClick()
         waitFor { player.state.value.positionSeconds >= 1 && player.state.value.queue.size >= 2 }
     }
     private fun waveControls() {
@@ -66,7 +67,7 @@ class WaveQueueModeTest {
         waitFor { !player.state.value.wave && player.state.value.current?.id == local }
         compose.onNodeWithTag("repeat_mode").assertIsDisplayed().performClick()
         compose.onNodeWithTag("shuffle_mode").assertIsDisplayed().performClick()
-        assertEquals(RepeatMode.ALL, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
+        assertEquals(RepeatMode.OFF, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
     }
     @Test fun externalControllerCannotEnableOrderingForPlayingPausedOrStoppedWave() {
         start()
@@ -90,8 +91,8 @@ class WaveQueueModeTest {
             fixture.systemPlayer.repeatMode = Player.REPEAT_MODE_ONE
             fixture.systemPlayer.shuffleModeEnabled = true
         }
-        waitFor { !player.state.value.wave && player.state.value.repeatMode == RepeatMode.ONE && player.state.value.shuffle }
-        assertEquals(RepeatMode.ONE, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
+        waitFor { !player.state.value.wave && player.state.value.repeatMode == RepeatMode.OFF && player.state.value.shuffle }
+        assertEquals(RepeatMode.OFF, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
     }
     @Test fun stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay() {
         compose.runOnIdle { fixture.waveDelayMillis = 1200; player.playMyWave() }

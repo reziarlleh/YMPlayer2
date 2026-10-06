@@ -63,7 +63,7 @@ internal class ReferencePlaybackOrder {
         repeat(order.size) {
             position += direction
             if (position !in order.indices) {
-                if (repeat != RepeatMode.ALL) return null
+                if (!shuffle && repeat != RepeatMode.ALL) return null
                 position = if (direction > 0) 0 else order.lastIndex
             }
             val track = resolve(reference(order[position])!!)

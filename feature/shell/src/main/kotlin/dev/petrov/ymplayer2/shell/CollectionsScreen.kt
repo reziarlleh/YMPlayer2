@@ -70,7 +70,9 @@ import kotlinx.coroutines.launch
                 }
             }
             Text(tr(Msg.msg_bf6c36d1e481, entries.size, resolved.count { it.available }), style = MaterialTheme.typography.bodySmall)
-            Button({ player.playQueue(entries.map { it.id }) }, Modifier.heightIn(min = 48.dp).prismFocus().testTag("collection_play"), enabled = resolved.any { it.available } && playback.connected && (indexed == null || diskCatalog?.isSuccess == true)) {
+            val origin = if (favorites) PlaybackOrigin(PlaybackSource.LOCAL_FAVORITES)
+                else PlaybackOrigin(PlaybackSource.LIST, selected!!.name)
+            Button({ player.playList(entries.map { it.id }, origin = origin) }, Modifier.heightIn(min = 48.dp).prismFocus().testTag("collection_play"), enabled = resolved.any { it.available } && playback.connected && (indexed == null || diskCatalog?.isSuccess == true)) {
                 SkinIcon(UiIcon.PLAY, null); Spacer(Modifier.width(8.dp)); Text(tr(Msg.msg_a033d47afec5))
             }
             if (!editing && entries.isNotEmpty()) SelectionToolbar(selection, player, store)
@@ -79,7 +81,7 @@ import kotlinx.coroutines.launch
                 items(resolved.size, key = { resolved[it].id }) { index ->
                     val track = resolved[index]
                     Column {
-                        TrackRow(track, playback.current?.id == track.id, { player.playQueue(entries.map { it.id }, track.id) }, more = { actionTrack = track },
+                        TrackRow(track, playback.current?.id == track.id, { player.playList(entries.map { it.id }, track.id, origin) }, more = { actionTrack = track },
                             checked = if (selection.active) selection.contains(track.id) else null,
                             toggleSelection = if (selection.active) ({ selection.toggle(track) }) else null)
                         if (editing && selected != null) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
@@ -117,7 +119,7 @@ import kotlinx.coroutines.launch
         store.edit(profileId, rename?.let { CollectionEdit.Rename(it.id, name) } ?: CollectionEdit.Create(name)).also { if (it) naming = false }
     }
     deleting?.let { list ->
-        AlertDialog(onDismissRequest = { deleting = null }, title = { Text(tr(Msg.msg_f91135efb9aa, list.name)) },
+        StableAlertDialog(onDismissRequest = { deleting = null }, title = { Text(tr(Msg.msg_f91135efb9aa, list.name)) },
             text = { Text(tr(Msg.msg_d7c74665073a)) },
             confirmButton = { TextButton({ scope.launch { if (store.edit(profileId, CollectionEdit.Delete(list.id))) deleting = null } }, Modifier.prismFocus().testTag("playlist_delete_confirm")) { Text(tr(Msg.msg_be99b1361201)) } },
             dismissButton = { TextButton({ deleting = null }, Modifier.prismFocus()) { Text(tr(Msg.msg_8fbe9b75cbdf)) } })
@@ -130,7 +132,7 @@ import kotlinx.coroutines.launch
     var name by rememberSaveable { mutableStateOf(initial) }
     var busy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    AlertDialog(onDismissRequest = { if (!busy) dismiss() }, title = { Text(if (initial.isEmpty()) tr(Msg.msg_38aa13198a8b) else tr(Msg.msg_717012565e0a)) },
+    StableAlertDialog(onDismissRequest = { if (!busy) dismiss() }, title = { Text(if (initial.isEmpty()) tr(Msg.msg_38aa13198a8b) else tr(Msg.msg_717012565e0a)) },
         text = { Column {
             OutlinedTextField(name, { name = it.take(80) }, Modifier.fillMaxWidth().testTag("playlist_name"), label = { Text(tr(Msg.msg_0918b4ba9268)) }, singleLine = true)
             issue?.let { Text(trMessage(it), color = MaterialTheme.colorScheme.error) }
@@ -158,7 +160,7 @@ import kotlinx.coroutines.launch
     } }
     val choices = if (indexed == null) tracks.filter { it.source != Source.YANDEX && (it.title.contains(query, true) || it.artist.contains(query, true)) }
         else diskPage?.getOrNull()?.items.orEmpty()
-    AlertDialog(onDismissRequest = dismiss, title = { Text(tr(Msg.msg_7aa5b98239e2, list.name)) }, text = { Column {
+    StableAlertDialog(onDismissRequest = dismiss, title = { Text(tr(Msg.msg_7aa5b98239e2, list.name)) }, text = { Column {
         OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth().testTag("playlist_track_search"), label = { Text(tr(Msg.msg_95a0b91751fc)) }, singleLine = true)
         state.issue?.let { Text(trMessage(it), color = MaterialTheme.colorScheme.error) }
         LazyColumn(Modifier.heightIn(max = 320.dp).testTag("playlist_picker")) {
@@ -187,7 +189,7 @@ import kotlinx.coroutines.launch
     val scope = rememberCoroutineScope()
     val edit: (CollectionEdit) -> Unit = { change -> scope.launch { busy = true; try { if (store.edit(profileId, change)) dismiss() } finally { busy = false } } }
     if (creating) PlaylistNameDialog("", state.issue, { creating = false }) { name -> store.edit(profileId, CollectionEdit.Create(name, track.id)).also { if (it) dismiss() } }
-    else AlertDialog(onDismissRequest = dismiss, title = { Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis) }, text = {
+    else StableAlertDialog(onDismissRequest = dismiss, title = { Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis) }, text = {
         Column {
             state.issue?.let { Text(trMessage(it), color = MaterialTheme.colorScheme.error) }
             if (!choosing) {

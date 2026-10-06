@@ -92,7 +92,7 @@ class YandexWaveApi(private val music: YandexMusicApi) : MyWaveApi {
                 val values = group.optJSONArray("possibleValues")?.objects().orEmpty().mapNotNull {
                     val seed = it.optString("serializedSeed"); val title = it.optString("name")
                     if (seed.isBlank() || title.isBlank()) null else WaveOption(seed, title, it.optBoolean("unspecified"))
-                }.distinctBy(WaveOption::seed)
+                }.distinctBy(WaveOption::seed).sortedBy { !it.unspecified }
                 if (values.isNotEmpty()) groups += WaveOptionGroup(key, group.optString("name", key), values)
             }
             if (groups.isEmpty()) throw MusicException(MusicFailure.RESPONSE)

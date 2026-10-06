@@ -51,7 +51,7 @@ class StorageRecoveryTest {
         restartService()
         assertEquals(two, player.state.value.current?.id)
         assertEquals(position, player.state.value.positionSeconds)
-        assertEquals(RepeatMode.ALL, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
+        assertEquals(RepeatMode.OFF, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
         provider("unavailable", "false"); provider("notify")
         waitFor { player.state.value.current?.available == true }
         assertEquals(listOf(two, one), player.state.value.queue.map { it.id })

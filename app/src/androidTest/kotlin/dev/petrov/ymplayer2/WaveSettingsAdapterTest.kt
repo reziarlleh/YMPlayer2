@@ -31,6 +31,7 @@ class WaveSettingsAdapterTest {
             assertTrue(url.contains("/rotor/wave/settings?seeds=user%3Aonyourwave"))
             assertEquals("fixture-token", token); assertNull(form); fixture().toString()
         })).options("owner", "ru")
+        assertTrue("Any must come first in every group", options.groups.all { it.values.first().unspecified })
         assertEquals(4, options.groups.size)
         val contexts = options.groups.first().values
         assertTrue(contexts.any { it.seed == "activity:road-trip" }); assertTrue(contexts.any { it.seed == "mood:relaxed" })
@@ -69,5 +70,26 @@ class WaveSettingsAdapterTest {
         try { api.start("owner", WaveRequest(settings = listOf("settingLanguage:russian"))); fail() }
         catch (e: MusicException) { assertEquals(MusicFailure.NETWORK, e.failure) }
         assertEquals(0, legacyRequests)
+    }
+    @Test fun objectSessionAndLegacyFallbackNeverReplaceTheRequestedSeed() = runBlocking {
+        for (seed in listOf("track:7", "artist:8", "album:9", "playlist:100_3")) {
+            var modern = 0; var legacy = 0
+            val request = WaveRequest(seed, "Fixture")
+            val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+                override suspend fun json(url: String, token: String, body: String): String {
+                    modern++
+                    assertEquals(seed, JSONObject(body).getJSONArray("seeds").getString(0))
+                    throw MusicException(MusicFailure.NETWORK)
+                }
+                override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                    legacy++; assertTrue(url.contains("/station/$seed/tracks")); assertFalse(url.contains("user:onyourwave"))
+                    return """{"result":{"batchId":"b1","sequence":[{"track":{"id":7,"title":"Fixture","durationMs":30000,"available":true,"artists":[],"albums":[{"id":1,"title":"Album"}]}}]}}"""
+                }
+            }))
+            val batch = api.start("owner", request)
+            assertEquals(request, batch.request); assertEquals(seed, batch.tracks.single().station)
+            api.next("owner", batch)
+            assertEquals(1, modern); assertEquals(2, legacy)
+        }
     }
 }

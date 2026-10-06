@@ -1,9 +1,9 @@
 # YMPlayer 2 — user guide
 
-For 2.3.4-build79. Reviewed on 6 October 2026; the My Vibe settings section covers manual beta81.
+For 2.3.4-build79. Reviewed on 6 October 2026; the My Vibe settings, sources and list modes sections cover manual beta82.
 
-The manual [2.4.0beta-build81](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build81)
-adds Android 9 support and My Vibe settings. It is excluded from automatic updates while compatibility
+The manual [2.4.0beta-build82](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build82)
+adds Android 9 support, My Vibe settings, radio sources and list modes. It is excluded from automatic updates while compatibility
 is being tested. Installing it over2.3 keeps app data. Android will not install
 build79 over a newer beta through the regular installer; uninstalling the app
 removes its private data.
@@ -152,9 +152,37 @@ favorite artists and playlists. Recommendations show suggested playlists.
 **My Vibe** starts your personalized stream. It prepares the next track while
 the current one plays and requests further recommendations as needed.
 
-In the **2.4 test release**, select **More (…)** on the right, inside the My Vibe
+In the **2.4 test release**, the button at the top of the player shows the current
+source or list name. Press it to select **My Vibe**, **Offline** or **Local favorites**.
+Empty favorites and an empty or disabled cache cannot be selected. Choose
+playlists in the library; the player button displays their names.
+
+<p><img src="qa/2-4-wave-sources/emulator-5560/source-picker.png" width="300"
+alt="Source picker in beta82: My Vibe, Offline and Local favorites"></p>
+
+Screenshot with test music on an emulator; the source menu is shown in Russian.
+
+A Yandex track, artist, album or playlist has **Start … radio** in its More menu.
+The track menu places artist and album radio commands next to their own names.
+The chosen source is kept for subsequent recommendations and paused restoration.
+
+The radio icon next to repeat enables **Continue with radio when the list ends**.
+It appears for a Yandex list with an identifiable source: an album, playlist,
+artist's popular tracks or Liked tracks. Local lists, cached tracks and general
+search results do not have a Yandex list radio source. Playback still uses the
+already loaded pages when you select “Play shown tracks”.
+
+Shuffle, repeat list/one track and radio continuation are mutually exclusive:
+enabling one turns the others off. Shuffle plays indefinitely within the chosen
+device/USB/Yandex list. Turning it off does not restore a previous mode. All
+three controls are hidden during radio playback. Pause and Stop do not start
+radio; Stop keeps the source. Manually editing the queue clears its association
+with the original playlist.
+
+Select **More (…)** on the right, inside the My Vibe
 button, to customize activities, music selection, mood and language. Available
 choices and regional language labels come from Yandex for the current account.
+Any is the first choice in each group.
 A separate Russian-only filter alongside a regional language has not yet been
 verified through the API.
 

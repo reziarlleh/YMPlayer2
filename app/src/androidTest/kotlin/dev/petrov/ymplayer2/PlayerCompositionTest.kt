@@ -83,7 +83,7 @@ class PlayerCompositionTest {
         compose.onNodeWithTag("player_taste_ARTIST_5_like").assertDoesNotExist()
         compose.onNodeWithTag("repeat_mode").performClick()
         compose.onNodeWithTag("shuffle_mode").performClick()
-        assertEquals(RepeatMode.ALL, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
+        assertEquals(RepeatMode.OFF, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
         compose.onNodeWithTag("player_equalizer").performClick()
         assertEquals(listOf(false), fixture.equalizerRequests)
         assertFalse(player.state.value.playing)

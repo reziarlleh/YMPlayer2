@@ -22,9 +22,9 @@ import dev.petrov.ymplayer2.designsystem.prismFocus
         item { Text(tr(Msg.msg_35864bdf26cb), style = MaterialTheme.typography.headlineSmall) }
         if (state.tracks.isNotEmpty()) {
             item { Text(tr(Msg.msg_5e4ea237ce6b, state.tracks.size, state.bytes / (1024 * 1024)), Modifier.testTag("offline_summary")) }
-            item { OutlinedButton({ player.playQueue(state.tracks.map(Track::id)) }, Modifier.fillMaxWidth().prismFocus().testTag("offline_play_all")) { Text(tr(Msg.msg_dc9712a122a9)) } }
+            item { OutlinedButton({ player.playOffline() }, Modifier.fillMaxWidth().prismFocus().testTag("offline_play_all")) { Text(tr(Msg.msg_dc9712a122a9)) } }
             items(state.tracks, key = Track::id) { track ->
-                Surface(onClick = { player.playQueue(state.tracks.map(Track::id), track.id) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("offline_track_${track.id}"), shape = MaterialTheme.shapes.medium) {
+                Surface(onClick = { player.playList(state.tracks.map(Track::id), track.id, PlaybackOrigin(PlaybackSource.OFFLINE)) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("offline_track_${track.id}"), shape = MaterialTheme.shapes.medium) {
                     Row(Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                         TrackArtwork(track, Modifier.size(56.dp))
                         Column(Modifier.weight(1f)) {

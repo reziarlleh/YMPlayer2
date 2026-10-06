@@ -623,5 +623,17 @@
     <string name="wave_sleep" formatted="false">"Засыпаю"</string>
     <string name="wave_dance" formatted="false">"Танцую"</string>
     <string name="wave_relax" formatted="false">"Отдыхаю"</string>
+    <string name="wave_by_track" formatted="false">"Слушать волну по треку"</string>
+    <string name="wave_by_artist" formatted="false">"Слушать волну по исполнителю"</string>
+    <string name="wave_by_album" formatted="false">"Слушать волну по альбому"</string>
+    <string name="wave_by_playlist" formatted="false">"Слушать волну по плейлисту"</string>
+    <string name="wave_source_title" formatted="false">"Волна · @0@"</string>
+    <string name="wave_continue_action" formatted="false">"После списка продолжить волну"</string>
+    <string name="wave_continue_on" formatted="false">"Продолжение волной включено"</string>
+    <string name="wave_continue_off" formatted="false">"Продолжение волной выключено"</string>
+    <string name="player_source_offline" formatted="false">"Оффлайн"</string>
+    <string name="player_source_favorites" formatted="false">"Локальное избранное"</string>
+    <string name="player_source_device" formatted="false">"Устройство / USB"</string>
+    <string name="player_source_list" formatted="false">"Список треков"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

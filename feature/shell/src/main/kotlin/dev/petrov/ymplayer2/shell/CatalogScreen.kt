@@ -51,7 +51,7 @@ import kotlinx.coroutines.CancellationException
     val playback by player.state.collectAsState()
     val online = music?.state?.collectAsState()?.value?.takeIf { it.profileId == playback.profileId }
     var trackActions by remember(playback.profileId) { mutableStateOf<Track?>(null) }
-    if (taste != null) trackActions?.let { track -> TrackTasteDialog(track, taste, artist = artist,
+    if (taste != null) trackActions?.let { track -> TrackTasteDialog(track, taste, artist = artist, player = player, started = waveStarted,
         extra = { cloudPlaylists?.let { AddToCloudPlaylist(track, it) { trackActions = null } } }) { trackActions = null } }
     if (!cacheOnly && online?.request?.entity != null) {
         OnlineScreen(music, player, search, signIn, taste, waveStarted, artist, playlists = cloudPlaylists,
@@ -224,11 +224,15 @@ import kotlinx.coroutines.CancellationException
                             Text(if (cacheOnly) tr(Msg.msg_5d5f78c5790d, remoteTracks.size) else if (music != null) tr(Msg.msg_350c510572ad, shown?.total ?: 0, remoteTracks.size)
                                 else tr(Msg.msg_12e3d1e9d948, shown?.total ?: 0) + if (demo) tr(Msg.msg_73e0d3beed31) else "",
                                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            if (music != null && shownTracks.any { it.available }) OutlinedButton({ player.playQueue(shownTracks.map(Track::id)); keyboard?.hide() }, Modifier.prismFocus().testTag("catalog_play_all")) { Text(tr(Msg.msg_9cbbe230cb66)) }
+                            if (music != null && shownTracks.any { it.available }) OutlinedButton({ player.playList(shownTracks.map(Track::id), origin = if (cacheOnly || offline) PlaybackOrigin(PlaybackSource.OFFLINE)
+                                else if (shownTracks.all { it.source == Source.YANDEX }) remoteRequest?.playbackOrigin(music.accounts.state.value.account?.id) ?: PlaybackOrigin(PlaybackSource.LIST)
+                                else PlaybackOrigin(PlaybackSource.LIST)); keyboard?.hide() }, Modifier.prismFocus().testTag("catalog_play_all")) { Text(tr(Msg.msg_9cbbe230cb66)) }
                             }
                         }
                         items(shownTracks, key = Track::id) { track -> TrackRow(track, play = {
-                            if (music != null && track.source == Source.YANDEX) player.playQueue(shownTracks.map(Track::id), track.id) else player.select(track.id)
+                            if (music != null && track.source == Source.YANDEX) player.playList(shownTracks.map(Track::id), track.id, if (cacheOnly || offline) PlaybackOrigin(PlaybackSource.OFFLINE)
+                                else if (shownTracks.all { it.source == Source.YANDEX }) remoteRequest?.playbackOrigin(music.accounts.state.value.account?.id) ?: PlaybackOrigin(PlaybackSource.LIST)
+                                else PlaybackOrigin(PlaybackSource.LIST)) else player.select(track.id)
                             keyboard?.hide()
                         }, enqueue = { player.enqueue(track.id) },
                             queued = track.id in queuedIds || playback.automaticLocal && track.source != Source.YANDEX &&
@@ -249,6 +253,7 @@ import kotlinx.coroutines.CancellationException
                                         Text(row.title, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
                                         Text(row.local?.let { tr(Msg.msg_29c90888994f, it.count) } ?: tr(Msg.msg_43b07d243705, row.remote?.subtitle.orEmpty()), color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
+                                    row.remote?.entity?.let { EntityWaveMenu(it, player, waveStarted, "catalog") }
                                     SkinIcon(UiIcon.FORWARD, tr(Msg.msg_ea1f40824607))
                                 }
                             }

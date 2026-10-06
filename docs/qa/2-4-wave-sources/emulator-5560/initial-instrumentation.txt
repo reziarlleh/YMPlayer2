@@ -1,0 +1,641 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.EntityWavePlaybackTest:
+INSTRUMENTATION_STATUS: test=trackArtistAlbumAndPlaylistHaveTheirOwnMenuCommands
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=trackArtistAlbumAndPlaylistHaveTheirOwnMenuCommands
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=lastTrackContinuesWithTheListSeedAndFiniteOriginSurvivesRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.EntityWavePlaybackTest.waitFor(EntityWavePlaybackTest.kt:20)
+	at dev.petrov.ymplayer2.EntityWavePlaybackTest.lastTrackContinuesWithTheListSeedAndFiniteOriginSurvivesRestart(EntityWavePlaybackTest.kt:60)
+
+INSTRUMENTATION_STATUS: stream=
+Error in lastTrackContinuesWithTheListSeedAndFiniteOriginSurvivesRestart(dev.petrov.ymplayer2.EntityWavePlaybackTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.EntityWavePlaybackTest.waitFor(EntityWavePlaybackTest.kt:20)
+	at dev.petrov.ymplayer2.EntityWavePlaybackTest.lastTrackContinuesWithTheListSeedAndFiniteOriginSurvivesRestart(EntityWavePlaybackTest.kt:60)
+
+INSTRUMENTATION_STATUS: test=lastTrackContinuesWithTheListSeedAndFiniteOriginSurvivesRestart
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=remoteOrderingAndContinuationExcludeEachOtherWithoutSeeking
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=remoteOrderingAndContinuationExcludeEachOtherWithoutSeeking
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sourcePickerSupportsFavoritesOfflineAndWaveAndNativeFocus
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sourcePickerSupportsFavoritesOfflineAndWaveAndNativeFocus
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=allFourSourcesKeepSeedThroughFeedbackNextAndPausedRestoration
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=allFourSourcesKeepSeedThroughFeedbackNextAndPausedRestoration
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=shufflePassesTheListBoundaryAutomaticallyWithoutRepeatIncludingOneTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.EntityWavePlaybackTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=shufflePassesTheListBoundaryAutomaticallyWithoutRepeatIncludingOneTrack
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveSettingsAdapterTest:
+INSTRUMENTATION_STATUS: test=objectSessionAndLegacyFallbackNeverReplaceTheRequestedSeed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=objectSessionAndLegacyFallbackNeverReplaceTheRequestedSeed
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Any must come first in every group
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId$1.invokeSuspend(WaveSettingsAdapterTest.kt:34)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId(WaveSettingsAdapterTest.kt:29)
+
+INSTRUMENTATION_STATUS: stream=
+Error in realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId(dev.petrov.ymplayer2.WaveSettingsAdapterTest):
+java.lang.AssertionError: Any must come first in every group
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId$1.invokeSuspend(WaveSettingsAdapterTest.kt:34)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId(WaveSettingsAdapterTest.kt:29)
+
+INSTRUMENTATION_STATUS: test=realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedCustomSessionDoesNotFallBackToUnfilteredWave
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedCustomSessionDoesNotFallBackToUnfilteredWave
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=customSeedsContinuationAndFeedbackStayOnChosenActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=customSeedsContinuationAndFeedbackStayOnChosenActivity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveSettingsPlaybackTest:
+INSTRUMENTATION_STATUS: test=failedSettingsReadCanRetryWithoutStartingWave
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedSettingsReadCanRetryWithoutStartingWave
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=remoteCanSelectAnAlreadySelectedChipAndNavigateBetweenGroups
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=remoteCanSelectAnAlreadySelectedChipAndNavigateBetweenGroups
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=closeResetRecreationAndProfileIsolationKeepChoicesAndQueueSeparate
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=closeResetRecreationAndProfileIsolationKeepChoicesAndQueueSeparate
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=settingsDoNotInterruptAudioAndSelectedSeedsSurviveWaveContinuationAndPausedRestore
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=settingsDoNotInterruptAudioAndSelectedSeedsSurviveWaveContinuationAndPausedRestore
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueueModeTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveQueueModeTest:
+INSTRUMENTATION_STATUS: test=externalControllerCannotEnableOrderingForPlayingPausedOrStoppedWave
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueueModeTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=externalControllerCannotEnableOrderingForPlayingPausedOrStoppedWave
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueueModeTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueueModeTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueueModeTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueueModeTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=stoppedInitialRequestStaysWaveAndCanResumeWithoutLateAutoplay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.MyWavePlaybackTest:
+INSTRUMENTATION_STATUS: test=banningArtistAlsoRemovesUpcomingTracksFromRecommendedPlaylist
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=banningArtistAlsoRemovesUpcomingTracksFromRecommendedPlaylist
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=endWaitsForExistingAudioPrefetchAndPauseStillWins
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=endWaitsForExistingAudioPrefetchAndPauseStillWins
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=systemPauseDuringNextRequestCannotRestartAudioOnLateReply
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=systemPauseDuringNextRequestCannotRestartAudioOnLateReply
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fastStartPrefetchAutomaticContinuationAndPausedRestore
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fastStartPrefetchAutomaticContinuationAndPausedRestore
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=lateWaveCannotReplaceManualQueueOrNewProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=lateWaveCannotReplaceManualQueueOrNewProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=restoredUpcomingTrackCanBeSelectedBeforeItsBufferExists
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=restoredUpcomingTrackCanBeSelectedBeforeItsBufferExists
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failureCanRetryAndUiTargetsTrackArtistAndAlbumIndividually
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failureCanRetryAndUiTargetsTrackArtistAndAlbumIndividually
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=artistBanDropsPrefetchAndCurrentTrackBanSkipsWithoutBanningArtist
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=artistBanDropsPrefetchAndCurrentTrackBanSkipsWithoutBanningArtist
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=accessFailureDoesNotRetryAutomaticallyAtStartOrAtEnd
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=accessFailureDoesNotRetryAutomaticallyAtStartOrAtEnd
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.PlayerCompositionTest:
+INSTRUMENTATION_STATUS: test=waveUsesSameFixedLayoutWithoutManualQueueModes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=waveUsesSameFixedLayoutWithoutManualQueueModes
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fixedPlayerFitsViewportAndUsesLargerTransport
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fixedPlayerFitsViewportAndUsesLargerTransport
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=progressUsesHorizontalSeekAndVerticalFocusNavigation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=progressUsesHorizontalSeekAndVerticalFocusNavigation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=33
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=artistCardHasPopularTracksAlbumsAndHierarchicalUpWithoutChangingAudio
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.PlayerCompositionTest
+INSTRUMENTATION_STATUS: current=33
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=artistCardHasPopularTracksAlbumsAndHierarchicalUpWithoutChangingAudio
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=34
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.LocalPlaybackTest:
+INSTRUMENTATION_STATUS: test=automaticShuffleVisitsAllIdsAndRepeatsWithoutFullMetadataQueue
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=34
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=automaticShuffleVisitsAllIdsAndRepeatsWithoutFullMetadataQueue
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=35
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=legacyManualCheckpointMigratesWithoutChangingOrderOrPosition
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=35
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=legacyManualCheckpointMigratesWithoutChangingOrderOrPosition
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=36
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=36
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=37
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=37
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=largeManualOrderUsesThreeMediaItemsAndRestoresAllReferences
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=38
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=modeAndQueueControlsOperateTheRealPlayer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=38
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=modeAndQueueControlsOperateTheRealPlayer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CollectionsPlaybackTest
+INSTRUMENTATION_STATUS: current=39
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.CollectionsPlaybackTest:
+INSTRUMENTATION_STATUS: test=nativeUiCreatesEditsAndPlaysOnlyTheChosenPlaylist
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.CollectionsPlaybackTest
+INSTRUMENTATION_STATUS: current=39
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=nativeUiCreatesEditsAndPlaysOnlyTheChosenPlaylist
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflinePlaybackTest
+INSTRUMENTATION_STATUS: current=40
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.OfflinePlaybackTest:
+INSTRUMENTATION_STATUS: test=syncScreenThenPlayWithNetworkDisabledAndRestorePaused
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflinePlaybackTest
+INSTRUMENTATION_STATUS: current=40
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=40
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=syncScreenThenPlayWithNetworkDisabledAndRestorePaused
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 355.533
+There were 2 failures:
+1) lastTrackContinuesWithTheListSeedAndFiniteOriginSurvivesRestart(dev.petrov.ymplayer2.EntityWavePlaybackTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.EntityWavePlaybackTest.waitFor(EntityWavePlaybackTest.kt:20)
+	at dev.petrov.ymplayer2.EntityWavePlaybackTest.lastTrackContinuesWithTheListSeedAndFiniteOriginSurvivesRestart(EntityWavePlaybackTest.kt:60)
+2) realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId(dev.petrov.ymplayer2.WaveSettingsAdapterTest)
+java.lang.AssertionError: Any must come first in every group
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId$1.invokeSuspend(WaveSettingsAdapterTest.kt:34)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId(WaveSettingsAdapterTest.kt:29)
+
+FAILURES!!!
+Tests run: 40,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

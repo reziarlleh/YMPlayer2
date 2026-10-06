@@ -145,7 +145,7 @@ private val destinations get() = listOf(
                                 // Each route/profile owns its scroll, filters, detail and text field state.
                                 holder.SaveableStateProvider("${playback.profileId}:$route") {
                                     when (route) {
-                                        "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists)
+                                        "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists, model.collections, model.offline)
                                         "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists) }
                                         "library", "search" -> Column(Modifier.fillMaxSize()) {
                                             if (route == "library") Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {

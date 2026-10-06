@@ -1,0 +1,44 @@
+10-06 04:53:34.024  9159  9382 D SurfaceFlinger: onHandleDestroyed, markLayerPendingRemovalLocked: Surface(name=Dim Layer for - Task=3726)/@0x29db348 - animation-leash#0
+10-06 04:53:34.024  9159  9382 D SurfaceFlinger: onHandleDestroyed, markLayerPendingRemovalLocked: Surface(name=66cb865 dev.petrov.ymplayer2.dev/dev.petrov.ymplayer2.MainActivity)/@0xf97793a - animation-leash#0
+10-06 04:53:34.025  9159  9382 D SurfaceFlinger: onHandleDestroyed, markLayerPendingRemovalLocked: Surface(name=Dim Layer for - Task=3726)/@0x29db348 - animation-leash#0
+10-06 04:53:34.025  9159  9382 D SurfaceFlinger: onHandleDestroyed, markLayerPendingRemovalLocked: Surface(name=66cb865 dev.petrov.ymplayer2.dev/dev.petrov.ymplayer2.MainActivity)/@0xf97793a - animation-leash#0
+10-06 04:53:34.031  9159  9159 D SurfaceFlinger: mLayersPendingRemoval, layerRemoved, make not visible: Surface(name=66cb865 dev.petrov.ymplayer2.dev/dev.petrov.ymplayer2.MainActivity)/@0xf97793a - animation-leash#0
+10-06 04:53:34.031  9159  9159 D SurfaceFlinger: mLayersPendingRemoval, layerRemoved, make not visible: Surface(name=Dim Layer for - Task=3726)/@0x29db348 - animation-leash#0
+10-06 04:53:34.031  9159  9159 D SurfaceFlinger: mLayersPendingRemoval, release: Surface(name=66cb865 dev.petrov.ymplayer2.dev/dev.petrov.ymplayer2.MainActivity)/@0xf97793a - animation-leash#0
+10-06 04:53:34.031  9159  9159 D SurfaceFlinger: mLayersPendingRemoval, release: Surface(name=Dim Layer for - Task=3726)/@0x29db348 - animation-leash#0
+10-06 04:53:34.166  9159  9159 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 9159 (surfaceflinger), pid 9159 (surfaceflinger)
+10-06 04:53:34.178  9159  9381 D SurfaceFlinger: onHandleDestroyed, markLayerPendingRemovalLocked: Surface(name=66cb865 dev.petrov.ymplayer2.dev/dev.petrov.ymplayer2.MainActivity)/@0xf97793a - animation-leash#0
+10-06 04:53:34.179  9159  9381 D SurfaceFlinger: onHandleDestroyed, markLayerPendingRemovalLocked: Surface(name=66cb865 dev.petrov.ymplayer2.dev/dev.petrov.ymplayer2.MainActivity)/@0xf97793a - animation-leash#0
+10-06 04:53:34.219 13576 13576 F DEBUG   : pid: 9159, tid: 9159, name: surfaceflinger  >>> /system/bin/surfaceflinger <<<
+10-06 04:53:34.219 13576 13576 F DEBUG   : Abort message: 'ubsan: add-overflow'
+10-06 04:53:34.252 13576 13576 F DEBUG   :       #00 pc 00000ad9  [vdso] (__kernel_vsyscall+9)
+10-06 04:53:34.252 13576 13576 F DEBUG   :       #01 pc 00092328  /apex/com.android.runtime/lib/bionic/libc.so (syscall+40) (BuildId: 76290498408016ad14f4b98c3ab6c65c)
+10-06 04:53:34.252 13576 13576 F DEBUG   :       #02 pc 000ad651  /apex/com.android.runtime/lib/bionic/libc.so (abort+193) (BuildId: 76290498408016ad14f4b98c3ab6c65c)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #03 pc 0002db85  /system/lib/libui.so (abort_with_message(char const*)+37) (BuildId: f31a0c5690442cdc49d36cd31288cb35)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #04 pc 0002dbb5  /system/lib/libui.so (__ubsan_handle_add_overflow_minimal_abort+37) (BuildId: f31a0c5690442cdc49d36cd31288cb35)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #05 pc 00028821  /system/lib/libui.so (android::Rect::inset(int, int, int, int)+81) (BuildId: f31a0c5690442cdc49d36cd31288cb35)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #06 pc 000be914  /system/lib/libsurfaceflinger.so (android::Layer::fillInputInfo()+1012) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #07 pc 0010b385  /system/lib/libsurfaceflinger.so (_ZNSt3__110__function6__funcIZN7android14SurfaceFlinger21updateInputWindowInfoEvE4$_20NS_9allocatorIS4_EEFvPNS2_5LayerEEEclEOS8_$92f09889e8e426a5a6aaf8eb023990ee+85) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #08 pc 000bbffb  /system/lib/libsurfaceflinger.so (android::Layer::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&)+203) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #09 pc 000bbfce  /system/lib/libsurfaceflinger.so (android::Layer::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&)+158) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #10 pc 000bbfce  /system/lib/libsurfaceflinger.so (android::Layer::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&)+158) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #11 pc 000bbfce  /system/lib/libsurfaceflinger.so (android::Layer::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&)+158) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #12 pc 000bbfce  /system/lib/libsurfaceflinger.so (android::Layer::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&)+158) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #13 pc 000bbfce  /system/lib/libsurfaceflinger.so (android::Layer::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&)+158) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #14 pc 000bbfce  /system/lib/libsurfaceflinger.so (android::Layer::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&)+158) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #15 pc 000bbfce  /system/lib/libsurfaceflinger.so (android::Layer::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&)+158) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #16 pc 000c6c49  /system/lib/libsurfaceflinger.so (android::LayerVector::traverseInReverseZOrder(android::LayerVector::StateSet, std::__1::function<void (android::Layer*)> const&) const+105) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #17 pc 000eb5ff  /system/lib/libsurfaceflinger.so (android::SurfaceFlinger::onMessageReceived(int)+12095) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.253 13576 13576 F DEBUG   :       #18 pc 000d8642  /system/lib/libsurfaceflinger.so (android::impl::MessageQueue::Handler::handleMessage(android::Message const&)+66) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.254 13576 13576 F DEBUG   :       #21 pc 000d8bdb  /system/lib/libsurfaceflinger.so (android::impl::MessageQueue::waitMessage()+107) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.254 13576 13576 F DEBUG   :       #22 pc 000e785d  /system/lib/libsurfaceflinger.so (android::SurfaceFlinger::run()+45) (BuildId: 0ae307b0687c111174b134cec40e4d65)
+10-06 04:53:34.254 13576 13576 F DEBUG   :       #23 pc 00003452  /system/bin/surfaceflinger (main+1010) (BuildId: a48a548b177af7cb417c98124ab58525)
+10-06 04:53:34.406 12527 13311 W SurfaceComposerClient: ComposerService remote (surfaceflinger) died [0xe1a1e2c0]
+10-06 04:53:34.406 12479 12492 W SurfaceComposerClient: ComposerService remote (surfaceflinger) died [0xe6836100]
+10-06 04:53:34.406  9564  9587 W SurfaceComposerClient: ComposerService remote (surfaceflinger) died [0xd984f000]
+10-06 04:53:34.406 12493 12512 W SurfaceComposerClient: ComposerService remote (surfaceflinger) died [0xe1a1f840]
+10-06 04:53:34.406  9428  9468 W SurfaceComposerClient: ComposerService remote (surfaceflinger) died [0xd64bb480]
+10-06 04:53:34.406 12211 12235 W SurfaceComposerClient: ComposerService remote (surfaceflinger) died [0xd63ddb00]
+10-06 04:53:34.406  9914  9972 W SurfaceComposerClient: ComposerService remote (surfaceflinger) died [0xd983df80]
+10-06 04:53:34.406  9879  9909 W SurfaceComposerClient: ComposerService remote (surfaceflinger) died [0xc1dd8c00]
+10-06 04:53:34.407  1640  1640 I ServiceManager: service 'SurfaceFlinger' died
