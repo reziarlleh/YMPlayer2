@@ -635,5 +635,36 @@
     <string name="player_source_favorites" formatted="false">"Локальне обране"</string>
     <string name="player_source_device" formatted="false">"Пристрій / USB"</string>
     <string name="player_source_list" formatted="false">"Список треків"</string>
+    <string name="radio_2ed3c7c3be59" formatted="false">"Пошук серед усіх станцій"</string>
+    <string name="radio_bbfea2350988" formatted="false">"Вибрати місто"</string>
+    <string name="radio_c8a8a179fd86" formatted="false">"Усі міста"</string>
+    <string name="radio_edcd9c9fb541" formatted="false">"Усі жанри"</string>
+    <string name="radio_b71a4a6a4ffe" formatted="false">"Колекція"</string>
+    <string name="radio_46dff034a662" formatted="false">"Міста"</string>
+    <string name="radio_3a856dcd9b2f" formatted="false">"Жанри"</string>
+    <string name="radio_6341f756cd9c" formatted="false">"Усі станції"</string>
+    <string name="radio_2d7aa58089f8" formatted="false">"Улюблені станції"</string>
+    <string name="radio_8f602ef87466" formatted="false">"Увійдіть у Яндекс, щоб зберігати улюблені станції."</string>
+    <string name="radio_14159f0b89c5" formatted="false">"Улюблених станцій ще немає. Додавайте їх сердечком у плеєрі."</string>
+    <string name="radio_f4ab936fd2b8" formatted="false">"Результати пошуку"</string>
+    <string name="radio_b4c6c4329bde" formatted="false">"Станцій не знайдено."</string>
+    <string name="radio_6d51575566da" formatted="false">"Ще станції"</string>
+    <string name="radio_ab20e71e02cc" formatted="false">"Повторне підключення…"</string>
+    <string name="radio_40b27edf9a21" formatted="false">"Підключення…"</string>
+    <string name="radio_8a574d8cde01" formatted="false">"Прямий ефір"</string>
+    <string name="radio_e36f9cecd549" formatted="false">"Радіо"</string>
+    <string name="radio_41fc0c985c40" formatted="false">"Виберіть станцію"</string>
+    <string name="radio_3c04af3c32f2" formatted="false">"Зараз в ефірі"</string>
+    <string name="radio_2eb31705844a" formatted="false">"Інформація про ефір недоступна"</string>
+    <string name="radio_937307ee2903" formatted="false">"Вилучити з колекції"</string>
+    <string name="radio_bc5db5c7bbd8" formatted="false">"До колекції"</string>
+    <string name="radio_24d97edde7c5" formatted="false">"Увімкнути ефір"</string>
+    <string name="radio_7e81a427d259" formatted="false">"Зупинити ефір"</string>
+    <string name="radio_be36cb78e360" formatted="false">"Знайти місто"</string>
+    <string name="radio_c7770896d00c" formatted="false">"Список міст недоступний. Закрийте вікно й повторіть запит."</string>
+    <string name="radio_d44350efe996" formatted="false">"Немає зв’язку з Радіо. Перевірте мережу й повторіть."</string>
+    <string name="radio_530bbd5ef253" formatted="false">"Немає доступу до колекції Радіо. Перевірте вхід у поточному профілі."</string>
+    <string name="radio_d71dc23ce5e0" formatted="false">"Ефір цієї станції зараз недоступний."</string>
+    <string name="radio_65f7daba2df4" formatted="false">"Не вдалося прочитати відповідь Радіо. Повторіть запит."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

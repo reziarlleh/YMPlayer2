@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 /** Visual roles only. Commands, labels, hit targets and navigation stay in the UI. */
 enum class UiIcon {
-    PLAYER, LIBRARY, SEARCH, CLIPS, PROFILE, GUEST, SETTINGS, BACK, FORWARD,
+    PLAYER, LIBRARY, SEARCH, RADIO, CLIPS, PROFILE, GUEST, SETTINGS, BACK, FORWARD,
     PLAY, PAUSE, STOP, PREVIOUS, NEXT, QUEUE, NOW_PLAYING, FOLDER, EXPAND,
     CLOSE, CHECK, CHOICE_ON, CHOICE_OFF, REPEAT, REPEAT_ONE, SHUFFLE,
     EDIT, UP, DOWN, REMOVE, DRAG_HANDLE, ADD_QUEUE, CLEAR_QUEUE, ARTWORK,

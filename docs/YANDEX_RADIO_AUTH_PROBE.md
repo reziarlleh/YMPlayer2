@@ -96,7 +96,7 @@ python tools/Probe-YandexRadio.py --token-file <частный-файл> --outpu
 
 ## Проверка внутри beta на смартфоне
 
-[YandexRadioAuthProbe](../app/src/main/kotlin/dev/petrov/ymplayer2/YandexRadioAuthProbe.kt)
+[YandexRadioAuthProbe](https://github.com/reziarlleh/YMPlayer2/blob/v2.5.0beta-build86/app/src/main/kotlin/dev/petrov/ymplayer2/YandexRadioAuthProbe.kt)
 использует ту же последовательность GET и отдельный ограниченный транспорт.
 Не расширяет допущенные origins production `HttpsMusicTransport`. Через
 существующий `AccountAuth.withSession` читает токен/ID сохранённого текущего

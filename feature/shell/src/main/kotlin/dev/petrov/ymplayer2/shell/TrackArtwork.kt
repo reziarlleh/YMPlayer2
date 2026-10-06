@@ -27,7 +27,13 @@ private val coverMemory = object : LruCache<String, Bitmap>(4 * 1024 * 1024) {
 }
 
 @Composable internal fun TrackArtwork(track: Track?, modifier: Modifier = Modifier) {
-    val uri = track?.artworkUri
+    PublicArtwork(track?.artworkUri, tr(Msg.msg_70daf92e717a, track?.title.orEmpty()), modifier.clip(MaterialTheme.shapes.large), ContentScale.Crop, "track_artwork") {
+        DemoArtwork(track?.tint ?: 0, modifier.testTag("artwork_placeholder"))
+    }
+}
+
+@Composable internal fun PublicArtwork(uri: String?, label: String, modifier: Modifier, contentScale: ContentScale,
+    tag: String, placeholder: @Composable () -> Unit) {
     // Key the entire state: a previous track's cover is never shown during a new read.
     key(uri) {
         val bitmap by produceState<Bitmap?>(null, uri) {
@@ -39,8 +45,8 @@ private val coverMemory = object : LruCache<String, Bitmap>(4 * 1024 * 1024) {
                 }.getOrNull()?.also { coverMemory.put(uri, it) }
             }
         }
-        if (bitmap == null) DemoArtwork(track?.tint ?: 0, modifier.testTag("artwork_placeholder"))
-        else Image(bitmap!!.asImageBitmap(), tr(Msg.msg_70daf92e717a, track?.title.orEmpty()), modifier.clip(MaterialTheme.shapes.large).testTag("track_artwork"), contentScale = ContentScale.Crop)
+        if (bitmap == null) placeholder()
+        else Image(bitmap!!.asImageBitmap(), label, modifier.testTag(tag), contentScale = contentScale)
     }
 }
 

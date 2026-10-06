@@ -88,6 +88,14 @@ class MainActivity : ComponentActivity() {
             it.current != null -> DiagnosticEvent.PLAYBACK_PAUSED
             else -> null
         } })
+        observe(graph.radio.state.map { when {
+            it.reconnecting -> DiagnosticEvent.RADIO_RECONNECTING
+            it.issue != null -> DiagnosticEvent.RADIO_ERROR
+            it.buffering -> DiagnosticEvent.RADIO_CONNECTING
+            it.playing -> DiagnosticEvent.RADIO_STARTED
+            it.ownsOutput -> DiagnosticEvent.RADIO_STOPPED
+            else -> null
+        } })
         observe(graph.offline.state.map { when {
             it.running -> DiagnosticEvent.OFFLINE_SYNC_STARTED
             it.audioFailures > 0 || it.coverFailures > 0 -> DiagnosticEvent.OFFLINE_SYNC_ERROR
@@ -98,7 +106,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer {
-                    ShellModel(graph.library, graph.playback, createSavedStateHandle(), graph.collections, graph.accounts, graph.online, graph.taste, graph.offline, graph.audioQuality, graph.cloudPlaylists, graph.history)
+                    ShellModel(graph.library, graph.playback, createSavedStateHandle(), graph.collections, graph.accounts, graph.online, graph.taste, graph.offline, graph.audioQuality, graph.cloudPlaylists, graph.history, graph.radioCatalog)
                 }
             })
             var source by rememberSaveable { mutableStateOf(Source.LOCAL) }

@@ -208,16 +208,19 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     val collections = dev.petrov.ymplayer2.library.LocalCollections(context, library, viewModelScope)
     val history = dev.petrov.ymplayer2.library.ListeningHistory(context, viewModelScope, "fixture-history.db")
     val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi, offline, streamQuality = { audioQuality.state.value.stream }, listened = history::record)
+    val radioApi = RadioFixtureApi { fixtureTracks().first().uri!! }
+    val radio = dev.petrov.ymplayer2.playback.AndroidRadio(context, player, radioApi, viewModelScope)
+    val radioCatalog = RadioController(auth, radioApi, radio, viewModelScope)
     val systemPlayer get() = sessionPlayer(engine!!, player)
     private var engine: ExoPlayer? = null
     init { createEngine() }
     private fun createEngine() {
         engine = ExoPlayer.Builder(context).setMediaSourceFactory(DefaultMediaSourceFactory(context)
-            .setDataSourceFactory(onlineDataSourceFactory(context) { profile, track -> player.resolveStream(profile, track) })).build().also { player.attach(it) }
+            .setDataSourceFactory(onlineDataSourceFactory(context) { profile, track -> player.resolveStream(profile, track) })).build().also { player.attach(it); radio.attach(it) }
     }
-    fun restartEngine() { player.detach(); engine?.release(); createEngine() }
+    fun restartEngine() { radio.detach(); player.detach(); engine?.release(); createEngine() }
     fun checkpointText() = context.getSharedPreferences("playback", Context.MODE_PRIVATE).getString("queue:owner", "").orEmpty()
-    override fun onCleared() { player.detach(); engine?.release(); super.onCleared() }
+    override fun onCleared() { radio.detach(); player.detach(); engine?.release(); super.onCleared() }
     private fun session(id: String) = AccountSession(YandexAccount(id, "Тестовый слушатель"), OAuthCredentials("fixture-$id", null, null))
 }
 
@@ -228,7 +231,7 @@ class OnlineTestActivity : ComponentActivity() {
         dev.petrov.ymplayer2.localization.AppLanguages.initialize(this, "fixture-language", "ru"); enableEdgeToEdge()
         setContent {
             val model: ShellModel = viewModel(factory = viewModelFactory {
-                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), collections = harness.collections, accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists, history = harness.history) }
+                initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), collections = harness.collections, accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists, history = harness.history, radio = harness.radioCatalog) }
             })
             ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it })
         }

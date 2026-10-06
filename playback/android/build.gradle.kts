@@ -10,5 +10,6 @@ dependencies {
     implementation(project(":core"))
     implementation(libs.coroutines.android)
     implementation(libs.media3.exoplayer)
+    implementation(libs.media3.hls)
     implementation(libs.media3.session)
 }

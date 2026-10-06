@@ -1,0 +1,199 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.RadioPlaybackTest:
+INSTRUMENTATION_STATUS: test=rotationRetainsStationAndStreamAndPlayerControls
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rotationRetainsStationAndStreamAndPlayerControls
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=radioBorrowsEngineWithoutOverwritingMusicCheckpointAndSessionModes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Radio=RadioPlaybackState(profileId=owner, station=RadioStation(slug=one, name=Тестовое радио, logoUri=null, logoColor=null, streamSlug=moscow, regionName=Москва), onAir=RadioOnAir(title=, artist=, pollAfterMs=30000), ownsOutput=false, playing=false, buffering=false, reconnecting=false, issue=null); Music=PlaybackState(profileId=owner, queue=[Track(id=local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, title=one, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/one.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null), Track(id=local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, title=two, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/two.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null)], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=false, waveLoading=false, waveIssue=null, recommendations=false, queueOffset=0, queueTotal=2, currentTrack=Track(id=local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, title=one, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/one.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null), automaticLocal=false, automaticSource=null, queueRevision=8, referenceQueue=true, explicitQueueIds=[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef], origin=PlaybackOrigin(source=LIST, title=, wave=null), continueWave=false); requests=0
+	at dev.petrov.ymplayer2.RadioPlaybackTest.waitFor(RadioPlaybackTest.kt:21)
+	at dev.petrov.ymplayer2.RadioPlaybackTest.radioBorrowsEngineWithoutOverwritingMusicCheckpointAndSessionModes(RadioPlaybackTest.kt:57)
+	... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.RadioPlaybackTest.waitFor(RadioPlaybackTest.kt:20)
+	... 69 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in radioBorrowsEngineWithoutOverwritingMusicCheckpointAndSessionModes(dev.petrov.ymplayer2.RadioPlaybackTest):
+java.lang.AssertionError: Radio=RadioPlaybackState(profileId=owner, station=RadioStation(slug=one, name=Тестовое радио, logoUri=null, logoColor=null, streamSlug=moscow, regionName=Москва), onAir=RadioOnAir(title=, artist=, pollAfterMs=30000), ownsOutput=false, playing=false, buffering=false, reconnecting=false, issue=null); Music=PlaybackState(profileId=owner, queue=[Track(id=local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, title=one, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/one.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null), Track(id=local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, title=two, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/two.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null)], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=false, waveLoading=false, waveIssue=null, recommendations=false, queueOffset=0, queueTotal=2, currentTrack=Track(id=local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, title=one, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/one.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null), automaticLocal=false, automaticSource=null, queueRevision=8, referenceQueue=true, explicitQueueIds=[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef], origin=PlaybackOrigin(source=LIST, title=, wave=null), continueWave=false); requests=0
+	at dev.petrov.ymplayer2.RadioPlaybackTest.waitFor(RadioPlaybackTest.kt:21)
+	at dev.petrov.ymplayer2.RadioPlaybackTest.radioBorrowsEngineWithoutOverwritingMusicCheckpointAndSessionModes(RadioPlaybackTest.kt:57)
+	... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.RadioPlaybackTest.waitFor(RadioPlaybackTest.kt:20)
+	... 69 more
+
+INSTRUMENTATION_STATUS: test=radioBorrowsEngineWithoutOverwritingMusicCheckpointAndSessionModes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stopAndProfileChangeCancelPendingStreamAndReconnect
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=stopAndProfileChangeCancelPendingStreamAndReconnect
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=tabsGlobalSearchAndStationCollectionAreUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=tabsGlobalSearchAndStationCollectionAreUsable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=recoverableFailureResolvesFreshStreamAndUpdatesOnAir
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioPlaybackTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=recoverableFailureResolvesFreshStreamAndUpdatesOnAir
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioProtocolTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.RadioProtocolTest:
+INSTRUMENTATION_STATUS: test=publicCatalogCitiesGenreSearchStreamAndWidgetsUseActualApi
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioProtocolTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=publicCatalogCitiesGenreSearchStreamAndWidgetsUseActualApi
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioProtocolTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=transportRejectsInvalidOauthAndUnsafeMediaUrls
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioProtocolTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=transportRejectsInvalidOauthAndUnsafeMediaUrls
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioProtocolTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioProtocolTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioLivePlaybackTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.RadioLivePlaybackTest:
+INSTRUMENTATION_STATUS: test=publicHlsStationPlaysWithSharedAudioServiceAndStopsFromScreen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.RadioLivePlaybackTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=publicHlsStationPlaysWithSharedAudioServiceAndStopsFromScreen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.DiagnosticsScreenTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.DiagnosticsScreenTest:
+INSTRUMENTATION_STATUS: test=obsoleteRadioProbeIsRemoved
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.DiagnosticsScreenTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=obsoleteRadioProbeIsRemoved
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.DiagnosticsScreenTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=journalOpensFromSettingsAndBackReturnsOneLevel
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.DiagnosticsScreenTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=journalOpensFromSettingsAndBackReturnsOneLevel
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 83.724
+There was 1 failure:
+1) radioBorrowsEngineWithoutOverwritingMusicCheckpointAndSessionModes(dev.petrov.ymplayer2.RadioPlaybackTest)
+java.lang.AssertionError: Radio=RadioPlaybackState(profileId=owner, station=RadioStation(slug=one, name=Тестовое радио, logoUri=null, logoColor=null, streamSlug=moscow, regionName=Москва), onAir=RadioOnAir(title=, artist=, pollAfterMs=30000), ownsOutput=false, playing=false, buffering=false, reconnecting=false, issue=null); Music=PlaybackState(profileId=owner, queue=[Track(id=local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, title=one, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/one.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null), Track(id=local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef, title=two, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music / nested, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/two.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null)], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=false, waveLoading=false, waveIssue=null, recommendations=false, queueOffset=0, queueTotal=2, currentTrack=Track(id=local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, title=one, artist=Неизвестный исполнитель, album=Без альбома, source=LOCAL, durationSeconds=30, offline=true, available=true, genre=Без жанра, folder=Test Music, tint=2, uri=content://dev.petrov.ymplayer2.test.music/tree/music/document/one.wav, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1791289397000, artworkUri=null, artists=[], albumId=null), automaticLocal=false, automaticSource=null, queueRevision=8, referenceQueue=true, explicitQueueIds=[local:afffcc0d10392a08c2885cc705f43c5353ea382b0663e61ffe640254680c03b8, local:0c9d1b593c274839156e97274a0057e99b0c98b425b2646377e0b75f775068ef], origin=PlaybackOrigin(source=LIST, title=, wave=null), continueWave=false); requests=0
+	at dev.petrov.ymplayer2.RadioPlaybackTest.waitFor(RadioPlaybackTest.kt:21)
+	at dev.petrov.ymplayer2.RadioPlaybackTest.radioBorrowsEngineWithoutOverwritingMusicCheckpointAndSessionModes(RadioPlaybackTest.kt:57)
+	... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.RadioPlaybackTest.waitFor(RadioPlaybackTest.kt:20)
+	... 69 more
+
+FAILURES!!!
+Tests run: 11,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

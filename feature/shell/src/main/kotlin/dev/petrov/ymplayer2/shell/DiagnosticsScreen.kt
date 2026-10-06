@@ -13,19 +13,15 @@ import dev.petrov.ymplayer2.designsystem.prismFocus
 import kotlinx.coroutines.launch
 
 /** The shell can show diagnostics without knowing Android storage or any account data. */
-data class DiagnosticAction(val label: String, val run: suspend () -> String)
-
 interface DiagnosticsAccess {
     suspend fun snapshot(): String
     suspend fun clear(): String
     suspend fun export(): String
-    val researchActions: List<DiagnosticAction> get() = emptyList()
 }
 
 @Composable internal fun DiagnosticsScreen(access: DiagnosticsAccess) {
     var contents by remember { mutableStateOf(tr(Msg.msg_aed87524dfde)) }
     var status by remember { mutableStateOf<String?>(null) }
-    var researching by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     LaunchedEffect(access) { contents = access.snapshot() }
     LazyColumn(Modifier.fillMaxSize().testTag("diagnostics_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -36,16 +32,6 @@ interface DiagnosticsAccess {
             OutlinedButton({ scope.launch { status = access.clear(); contents = access.snapshot() } }, Modifier.prismFocus().testTag("diagnostics_clear")) { Text(tr(Msg.msg_8965271d3c97)) }
         } }
         item { OutlinedButton({ scope.launch { status = access.export() } }, Modifier.prismFocus().testTag("diagnostics_export")) { Text(tr(Msg.msg_4195b215e9f0)) } }
-        access.researchActions.forEachIndexed { index, action ->
-            item { OutlinedButton({
-                researching = true
-                status = "Проверка… Токен остаётся в приложении."
-                scope.launch {
-                    try { status = action.run(); contents = access.snapshot() }
-                    finally { researching = false }
-                }
-            }, Modifier.fillMaxWidth().prismFocus().testTag("diagnostics_research_$index"), enabled = !researching) { Text(action.label) } }
-        }
         if (status != null) item { Text(trMessage(status.orEmpty()), Modifier.testTag("diagnostics_status"), color = MaterialTheme.colorScheme.primary) }
         item { Text(contents, Modifier.fillMaxWidth().testTag("diagnostics_contents"), style = MaterialTheme.typography.bodySmall) }
     }

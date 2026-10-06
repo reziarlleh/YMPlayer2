@@ -635,5 +635,36 @@
     <string name="player_source_favorites" formatted="false">"Жергілікті таңдаулылар"</string>
     <string name="player_source_device" formatted="false">"Құрылғы / USB"</string>
     <string name="player_source_list" formatted="false">"Тректер тізімі"</string>
+    <string name="radio_2ed3c7c3be59" formatted="false">"Барлық станциялардан іздеу"</string>
+    <string name="radio_bbfea2350988" formatted="false">"Қаланы таңдау"</string>
+    <string name="radio_c8a8a179fd86" formatted="false">"Барлық қалалар"</string>
+    <string name="radio_edcd9c9fb541" formatted="false">"Барлық жанрлар"</string>
+    <string name="radio_b71a4a6a4ffe" formatted="false">"Жинақ"</string>
+    <string name="radio_46dff034a662" formatted="false">"Қалалар"</string>
+    <string name="radio_3a856dcd9b2f" formatted="false">"Жанрлар"</string>
+    <string name="radio_6341f756cd9c" formatted="false">"Барлық станциялар"</string>
+    <string name="radio_2d7aa58089f8" formatted="false">"Таңдаулы станциялар"</string>
+    <string name="radio_8f602ef87466" formatted="false">"Таңдаулы станцияларды сақтау үшін Яндекске кіріңіз."</string>
+    <string name="radio_14159f0b89c5" formatted="false">"Әзірге таңдаулы станциялар жоқ. Қосу үшін ойнатқыштағы жүрекшені басыңыз."</string>
+    <string name="radio_f4ab936fd2b8" formatted="false">"Іздеу нәтижелері"</string>
+    <string name="radio_b4c6c4329bde" formatted="false">"Станциялар табылмады."</string>
+    <string name="radio_6d51575566da" formatted="false">"Тағы станциялар"</string>
+    <string name="radio_ab20e71e02cc" formatted="false">"Қайта қосылуда…"</string>
+    <string name="radio_40b27edf9a21" formatted="false">"Қосылуда…"</string>
+    <string name="radio_8a574d8cde01" formatted="false">"Тікелей эфир"</string>
+    <string name="radio_e36f9cecd549" formatted="false">"Радио"</string>
+    <string name="radio_41fc0c985c40" formatted="false">"Станцияны таңдаңыз"</string>
+    <string name="radio_3c04af3c32f2" formatted="false">"Қазір эфирде"</string>
+    <string name="radio_2eb31705844a" formatted="false">"Эфир туралы ақпарат қолжетімсіз"</string>
+    <string name="radio_937307ee2903" formatted="false">"Жинақтан алып тастау"</string>
+    <string name="radio_bc5db5c7bbd8" formatted="false">"Жинаққа қосу"</string>
+    <string name="radio_24d97edde7c5" formatted="false">"Эфирді қосу"</string>
+    <string name="radio_7e81a427d259" formatted="false">"Эфирді тоқтату"</string>
+    <string name="radio_be36cb78e360" formatted="false">"Қаланы іздеу"</string>
+    <string name="radio_c7770896d00c" formatted="false">"Қалалар тізімі қолжетімсіз. Терезені жауып, қайта сұраңыз."</string>
+    <string name="radio_d44350efe996" formatted="false">"Радиомен байланыс жоқ. Желі қосылымын тексеріп, қайталаңыз."</string>
+    <string name="radio_530bbd5ef253" formatted="false">"Радио жинағына қолжетімділік жоқ. Қазіргі профильдегі кіруді тексеріңіз."</string>
+    <string name="radio_d71dc23ce5e0" formatted="false">"Бұл станцияның эфирі қазір қолжетімсіз."</string>
+    <string name="radio_65f7daba2df4" formatted="false">"Радио жауабын оқу мүмкін болмады. Қайта сұраңыз."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

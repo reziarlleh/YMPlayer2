@@ -10246,5 +10246,408 @@
       "es": "Lista de canciones",
       "fr": "Liste de titres"
     }
+  },
+  {
+    "key": "radio_2ed3c7c3be59",
+    "source": "Поиск по всем станциям",
+    "english": "Search all stations",
+    "translations": {
+      "be": "Пошук па ўсіх станцыях",
+      "kk": "Барлық станциялардан іздеу",
+      "uk": "Пошук серед усіх станцій",
+      "de": "Alle Sender durchsuchen",
+      "es": "Buscar en todas las emisoras",
+      "fr": "Rechercher parmi toutes les stations"
+    }
+  },
+  {
+    "key": "radio_bbfea2350988",
+    "source": "Выбрать город",
+    "english": "Choose a city",
+    "translations": {
+      "be": "Выбраць горад",
+      "kk": "Қаланы таңдау",
+      "uk": "Вибрати місто",
+      "de": "Stadt auswählen",
+      "es": "Elegir ciudad",
+      "fr": "Choisir une ville"
+    }
+  },
+  {
+    "key": "radio_c8a8a179fd86",
+    "source": "Все города",
+    "english": "All cities",
+    "translations": {
+      "be": "Усе гарады",
+      "kk": "Барлық қалалар",
+      "uk": "Усі міста",
+      "de": "Alle Städte",
+      "es": "Todas las ciudades",
+      "fr": "Toutes les villes"
+    }
+  },
+  {
+    "key": "radio_edcd9c9fb541",
+    "source": "Все жанры",
+    "english": "All genres",
+    "translations": {
+      "be": "Усе жанры",
+      "kk": "Барлық жанрлар",
+      "uk": "Усі жанри",
+      "de": "Alle Genres",
+      "es": "Todos los géneros",
+      "fr": "Tous les genres"
+    }
+  },
+  {
+    "key": "radio_b71a4a6a4ffe",
+    "source": "Коллекция",
+    "english": "Collection",
+    "translations": {
+      "be": "Калекцыя",
+      "kk": "Жинақ",
+      "uk": "Колекція",
+      "de": "Sammlung",
+      "es": "Colección",
+      "fr": "Collection"
+    }
+  },
+  {
+    "key": "radio_46dff034a662",
+    "source": "Города",
+    "english": "Cities",
+    "translations": {
+      "be": "Гарады",
+      "kk": "Қалалар",
+      "uk": "Міста",
+      "de": "Städte",
+      "es": "Ciudades",
+      "fr": "Villes"
+    }
+  },
+  {
+    "key": "radio_3a856dcd9b2f",
+    "source": "Жанры",
+    "english": "Genres",
+    "translations": {
+      "be": "Жанры",
+      "kk": "Жанрлар",
+      "uk": "Жанри",
+      "de": "Genres",
+      "es": "Géneros",
+      "fr": "Genres"
+    }
+  },
+  {
+    "key": "radio_6341f756cd9c",
+    "source": "Все станции",
+    "english": "All stations",
+    "translations": {
+      "be": "Усе станцыі",
+      "kk": "Барлық станциялар",
+      "uk": "Усі станції",
+      "de": "Alle Sender",
+      "es": "Todas las emisoras",
+      "fr": "Toutes les stations"
+    }
+  },
+  {
+    "key": "radio_2d7aa58089f8",
+    "source": "Любимые станции",
+    "english": "Favourite stations",
+    "translations": {
+      "be": "Любімыя станцыі",
+      "kk": "Таңдаулы станциялар",
+      "uk": "Улюблені станції",
+      "de": "Lieblingssender",
+      "es": "Emisoras favoritas",
+      "fr": "Stations favorites"
+    }
+  },
+  {
+    "key": "radio_8f602ef87466",
+    "source": "Войдите в Яндекс, чтобы сохранить любимые станции.",
+    "english": "Sign in to Yandex to save your favourite stations.",
+    "translations": {
+      "be": "Увайдзіце ў Яндэкс, каб захоўваць любімыя станцыі.",
+      "kk": "Таңдаулы станцияларды сақтау үшін Яндекске кіріңіз.",
+      "uk": "Увійдіть у Яндекс, щоб зберігати улюблені станції.",
+      "de": "Melde dich bei Yandex an, um deine Lieblingssender zu speichern.",
+      "es": "Inicia sesión en Yandex para guardar tus emisoras favoritas.",
+      "fr": "Connectez-vous à Yandex pour enregistrer vos stations favorites."
+    }
+  },
+  {
+    "key": "radio_14159f0b89c5",
+    "source": "Любимых станций пока нет. Добавьте их сердечком в плеере.",
+    "english": "No favourite stations yet. Tap the heart in the player to add one.",
+    "translations": {
+      "be": "Любімых станцый пакуль няма. Дадайце іх сэрцайкам у плэеры.",
+      "kk": "Әзірге таңдаулы станциялар жоқ. Қосу үшін ойнатқыштағы жүрекшені басыңыз.",
+      "uk": "Улюблених станцій ще немає. Додавайте їх сердечком у плеєрі.",
+      "de": "Noch keine Lieblingssender. Tippe im Player auf das Herz, um einen hinzuzufügen.",
+      "es": "Aún no tienes emisoras favoritas. Pulsa el corazón del reproductor para añadir una.",
+      "fr": "Aucune station favorite pour le moment. Appuyez sur le cœur du lecteur pour en ajouter une."
+    }
+  },
+  {
+    "key": "radio_f4ab936fd2b8",
+    "source": "Результаты поиска",
+    "english": "Search results",
+    "translations": {
+      "be": "Вынікі пошуку",
+      "kk": "Іздеу нәтижелері",
+      "uk": "Результати пошуку",
+      "de": "Suchergebnisse",
+      "es": "Resultados de búsqueda",
+      "fr": "Résultats de recherche"
+    }
+  },
+  {
+    "key": "radio_b4c6c4329bde",
+    "source": "Станции не найдены.",
+    "english": "No stations found.",
+    "translations": {
+      "be": "Станцыі не знойдзены.",
+      "kk": "Станциялар табылмады.",
+      "uk": "Станцій не знайдено.",
+      "de": "Keine Sender gefunden.",
+      "es": "No se han encontrado emisoras.",
+      "fr": "Aucune station trouvée."
+    }
+  },
+  {
+    "key": "radio_6d51575566da",
+    "source": "Ещё станции",
+    "english": "More stations",
+    "translations": {
+      "be": "Яшчэ станцыі",
+      "kk": "Тағы станциялар",
+      "uk": "Ще станції",
+      "de": "Weitere Sender",
+      "es": "Más emisoras",
+      "fr": "Plus de stations"
+    }
+  },
+  {
+    "key": "radio_ab20e71e02cc",
+    "source": "Переподключение…",
+    "english": "Reconnecting…",
+    "translations": {
+      "be": "Паўторнае падключэнне…",
+      "kk": "Қайта қосылуда…",
+      "uk": "Повторне підключення…",
+      "de": "Verbindung wird wiederhergestellt…",
+      "es": "Reconectando…",
+      "fr": "Reconnexion…"
+    }
+  },
+  {
+    "key": "radio_40b27edf9a21",
+    "source": "Подключение…",
+    "english": "Connecting…",
+    "translations": {
+      "be": "Падключэнне…",
+      "kk": "Қосылуда…",
+      "uk": "Підключення…",
+      "de": "Verbindung wird hergestellt…",
+      "es": "Conectando…",
+      "fr": "Connexion…"
+    }
+  },
+  {
+    "key": "radio_8a574d8cde01",
+    "source": "Прямой эфир",
+    "english": "Live",
+    "translations": {
+      "be": "Прамы эфір",
+      "kk": "Тікелей эфир",
+      "uk": "Прямий ефір",
+      "de": "Live",
+      "es": "En directo",
+      "fr": "En direct"
+    }
+  },
+  {
+    "key": "radio_e36f9cecd549",
+    "source": "Радио",
+    "english": "Radio",
+    "translations": {
+      "be": "Радыё",
+      "kk": "Радио",
+      "uk": "Радіо",
+      "de": "Radio",
+      "es": "Radio",
+      "fr": "Radio"
+    }
+  },
+  {
+    "key": "radio_41fc0c985c40",
+    "source": "Выберите станцию",
+    "english": "Choose a station",
+    "translations": {
+      "be": "Выберыце станцыю",
+      "kk": "Станцияны таңдаңыз",
+      "uk": "Виберіть станцію",
+      "de": "Wähle einen Sender",
+      "es": "Elige una emisora",
+      "fr": "Choisissez une station"
+    }
+  },
+  {
+    "key": "radio_3c04af3c32f2",
+    "source": "Сейчас в эфире",
+    "english": "On air now",
+    "translations": {
+      "be": "Зараз у эфіры",
+      "kk": "Қазір эфирде",
+      "uk": "Зараз в ефірі",
+      "de": "Jetzt auf Sendung",
+      "es": "Ahora en antena",
+      "fr": "À l’antenne"
+    }
+  },
+  {
+    "key": "radio_2eb31705844a",
+    "source": "Информация об эфире недоступна",
+    "english": "On-air information is unavailable",
+    "translations": {
+      "be": "Інфармацыя пра эфір недаступная",
+      "kk": "Эфир туралы ақпарат қолжетімсіз",
+      "uk": "Інформація про ефір недоступна",
+      "de": "Keine Informationen zur aktuellen Sendung",
+      "es": "La información de la emisión no está disponible",
+      "fr": "Informations sur l’émission indisponibles"
+    }
+  },
+  {
+    "key": "radio_937307ee2903",
+    "source": "Убрать из коллекции",
+    "english": "Remove from collection",
+    "translations": {
+      "be": "Выдаліць з калекцыі",
+      "kk": "Жинақтан алып тастау",
+      "uk": "Вилучити з колекції",
+      "de": "Aus Sammlung entfernen",
+      "es": "Quitar de la colección",
+      "fr": "Retirer de la collection"
+    }
+  },
+  {
+    "key": "radio_bc5db5c7bbd8",
+    "source": "В коллекцию",
+    "english": "Add to collection",
+    "translations": {
+      "be": "У калекцыю",
+      "kk": "Жинаққа қосу",
+      "uk": "До колекції",
+      "de": "Zur Sammlung hinzufügen",
+      "es": "Añadir a la colección",
+      "fr": "Ajouter à la collection"
+    }
+  },
+  {
+    "key": "radio_24d97edde7c5",
+    "source": "Включить эфир",
+    "english": "Play station",
+    "translations": {
+      "be": "Уключыць эфір",
+      "kk": "Эфирді қосу",
+      "uk": "Увімкнути ефір",
+      "de": "Sender abspielen",
+      "es": "Reproducir emisora",
+      "fr": "Écouter la station"
+    }
+  },
+  {
+    "key": "radio_7e81a427d259",
+    "source": "Остановить эфир",
+    "english": "Stop station",
+    "translations": {
+      "be": "Спыніць эфір",
+      "kk": "Эфирді тоқтату",
+      "uk": "Зупинити ефір",
+      "de": "Sender stoppen",
+      "es": "Detener emisora",
+      "fr": "Arrêter la station"
+    }
+  },
+  {
+    "key": "radio_be36cb78e360",
+    "source": "Найти город",
+    "english": "Search cities",
+    "translations": {
+      "be": "Знайсці горад",
+      "kk": "Қаланы іздеу",
+      "uk": "Знайти місто",
+      "de": "Stadt suchen",
+      "es": "Buscar ciudad",
+      "fr": "Rechercher une ville"
+    }
+  },
+  {
+    "key": "radio_c7770896d00c",
+    "source": "Список городов недоступен. Закройте окно и повторите запрос.",
+    "english": "The city list is unavailable. Close this window and try again.",
+    "translations": {
+      "be": "Спіс гарадоў недаступны. Зачыніце акно і паўтарыце запыт.",
+      "kk": "Қалалар тізімі қолжетімсіз. Терезені жауып, қайта сұраңыз.",
+      "uk": "Список міст недоступний. Закрийте вікно й повторіть запит.",
+      "de": "Die Städteliste ist nicht verfügbar. Schließe das Fenster und versuche es erneut.",
+      "es": "La lista de ciudades no está disponible. Cierra esta ventana y vuelve a intentarlo.",
+      "fr": "La liste des villes est indisponible. Fermez cette fenêtre et réessayez."
+    }
+  },
+  {
+    "key": "radio_d44350efe996",
+    "source": "Нет связи с Радио. Проверьте сеть и повторите.",
+    "english": "Can't connect to Radio. Check your connection and try again.",
+    "translations": {
+      "be": "Няма сувязі з Радыё. Праверце сетку і паўтарыце.",
+      "kk": "Радиомен байланыс жоқ. Желі қосылымын тексеріп, қайталаңыз.",
+      "uk": "Немає зв’язку з Радіо. Перевірте мережу й повторіть.",
+      "de": "Keine Verbindung zu Radio. Prüfe deine Internetverbindung und versuche es erneut.",
+      "es": "No se puede conectar con Radio. Comprueba tu conexión y vuelve a intentarlo.",
+      "fr": "Connexion à Radio impossible. Vérifiez votre connexion et réessayez."
+    }
+  },
+  {
+    "key": "radio_530bbd5ef253",
+    "source": "Нет доступа к коллекции Радио. Проверьте вход в текущем профиле.",
+    "english": "Can't access your Radio collection. Check the sign-in for this profile.",
+    "translations": {
+      "be": "Няма доступу да калекцыі Радыё. Праверце ўваход у бягучым профілі.",
+      "kk": "Радио жинағына қолжетімділік жоқ. Қазіргі профильдегі кіруді тексеріңіз.",
+      "uk": "Немає доступу до колекції Радіо. Перевірте вхід у поточному профілі.",
+      "de": "Kein Zugriff auf deine Radiosammlung. Prüfe die Anmeldung im aktuellen Profil.",
+      "es": "No se puede acceder a tu colección de Radio. Comprueba la sesión de este perfil.",
+      "fr": "Accès à votre collection Radio impossible. Vérifiez la connexion du profil actuel."
+    }
+  },
+  {
+    "key": "radio_d71dc23ce5e0",
+    "source": "Эфир этой станции сейчас недоступен.",
+    "english": "This station's stream is currently unavailable.",
+    "translations": {
+      "be": "Эфір гэтай станцыі зараз недаступны.",
+      "kk": "Бұл станцияның эфирі қазір қолжетімсіз.",
+      "uk": "Ефір цієї станції зараз недоступний.",
+      "de": "Der Stream dieses Senders ist derzeit nicht verfügbar.",
+      "es": "La emisión de esta emisora no está disponible en este momento.",
+      "fr": "La diffusion de cette station est actuellement indisponible."
+    }
+  },
+  {
+    "key": "radio_65f7daba2df4",
+    "source": "Не удалось прочитать ответ Радио. Повторите запрос.",
+    "english": "Couldn't read the Radio response. Try again.",
+    "translations": {
+      "be": "Не ўдалося прачытаць адказ Радыё. Паўтарыце запыт.",
+      "kk": "Радио жауабын оқу мүмкін болмады. Қайта сұраңыз.",
+      "uk": "Не вдалося прочитати відповідь Радіо. Повторіть запит.",
+      "de": "Die Antwort von Radio konnte nicht gelesen werden. Versuche es erneut.",
+      "es": "No se ha podido leer la respuesta de Radio. Vuelve a intentarlo.",
+      "fr": "Impossible de lire la réponse de Radio. Réessayez."
+    }
   }
 ]

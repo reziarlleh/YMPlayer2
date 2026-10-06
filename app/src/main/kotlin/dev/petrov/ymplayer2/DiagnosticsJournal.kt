@@ -26,19 +26,13 @@ internal enum class DiagnosticEvent {
     PLAYBACK_STARTED, PLAYBACK_PAUSED, PLAYBACK_ERROR, WAVE_ERROR,
     AUDIO_SERVICE_CREATED, AUDIO_SERVICE_DESTROYED, RESUMPTION_REQUESTED, RESUMPTION_AVAILABLE,
     OFFLINE_SYNC_STARTED, OFFLINE_SYNC_FINISHED, OFFLINE_SYNC_ERROR,
+    RADIO_STARTED, RADIO_STOPPED, RADIO_CONNECTING, RADIO_RECONNECTING, RADIO_ERROR,
     JOURNAL_CLEARED, JOURNAL_EXPORTED,
 }
 
 internal class DiagnosticsJournal(private val context: Context,
-    private val file: File = File(context.filesDir, "diagnostics-2.log"),
-    override val researchActions: List<dev.petrov.ymplayer2.shell.DiagnosticAction> = emptyList()) : DiagnosticsAccess {
+    private val file: File = File(context.filesDir, "diagnostics-2.log")) : DiagnosticsAccess {
     private val radioProbeFile = File(file.parentFile, "${file.name}.radio-probe.json")
-    suspend fun saveRadioProbe(report: RadioProbeReport) = withContext(Dispatchers.IO) {
-        synchronized(lock) { radioProbeFile.writeText(report.diagnosticText(), StandardCharsets.UTF_8) }
-    }
-    private fun radioProbeSnapshot(): String = try {
-        if (radioProbeFile.isFile && radioProbeFile.length() <= 32 * 1024) "\n\nRadio OAuth probe:\n" + radioProbeFile.readText(StandardCharsets.UTF_8) else ""
-    } catch (_: IOException) { "\n\nRadio OAuth probe: READ_ERROR" }
     private val crashes = CrashDiagnostics(context, File(file.parentFile, "${file.name}.crash"))
     fun installCrashCapture() = crashes.install()
     fun refreshEnvironment() = crashes.refreshEnvironment()
@@ -64,7 +58,7 @@ internal class DiagnosticsJournal(private val context: Context,
     }
 
     override suspend fun snapshot(): String = withContext(Dispatchers.IO) {
-        synchronized(lock) { readSnapshot() + radioProbeSnapshot() } + "\n\n" + crashes.snapshot()
+        synchronized(lock) { readSnapshot() } + "\n\n" + crashes.snapshot()
     }
 
     override suspend fun clear(): String = withContext(Dispatchers.IO) {
@@ -121,7 +115,7 @@ internal class DiagnosticsJournal(private val context: Context,
     private fun writeDocument(uri: Uri) {
         val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown"
         val header = "YMPlayer 2 $version\nExported: ${stamp()}\nAndroid API ${Build.VERSION.SDK_INT}\n\n"
-        val body = synchronized(lock) { readSnapshot() + radioProbeSnapshot() } + "\n\n" + crashes.snapshot()
+        val body = synchronized(lock) { readSnapshot() } + "\n\n" + crashes.snapshot()
         val output = context.contentResolver.openOutputStream(uri, "w") ?: throw IOException("No output")
         output.use { it.write((header + body).toByteArray(StandardCharsets.UTF_8)) }
     }

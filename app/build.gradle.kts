@@ -31,8 +31,6 @@ android {
         buildConfigField("String", "YANDEX_CLIENT_ID", yandexValue("clientId"))
         buildConfigField("String", "YANDEX_CLIENT_SECRET", yandexValue("clientSecret"))
         buildConfigField("String", "UPDATE_CHANNEL", "\"$updateChannel\"")
-        // Research tools use the existing profile only in the manually installed 2.5 beta.
-        buildConfigField("boolean", "RADIO_AUTH_PROBE", (base == "2.5.0" && channel == "beta").toString())
     }
     signingConfigs {
         if (signingInfo.isNotEmpty()) create("product") {

@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-06",
+  "version": "2.5.0beta-build87",
+  "sha256": "c90eb7f37c853c6aa302897e64cff4b05c2611f853f1680e89e44d9ae4876f8f",
+  "bytes": 6183517,
+  "certificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+  "devices": [
+    {
+      "emulator": "Android9/API28",
+      "update": "signed86 -> signed87; no uninstall/data wipe",
+      "preserved": "English and Oxide skin",
+      "liveStation": "Europa Plus",
+      "mediaSession": "PLAYING with station/title/artist",
+      "stop": "screen Stop -> STOPPED"
+    },
+    {
+      "emulator": "AndroidTV10/API29",
+      "update": "signed86 -> signed87; no uninstall/data wipe",
+      "preserved": "English and custom Blue skin",
+      "liveStation": "Europa Plus",
+      "mediaSession": "PLAYING with station/title/artist",
+      "stop": "starting a clip -> FM STOPPED"
+    }
+  ],
+  "boundaries": [
+    "Emulators, not physical owner devices",
+    "Real account station POST still pending owner acceptance",
+    "Instrumentation exercised final working-tree candidate; signed R8 APK87 tested separately",
+    "runtimeAcceptance in build.json denotes owner acceptance, not absence of emulator checks"
+  ]
+}

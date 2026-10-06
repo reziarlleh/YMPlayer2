@@ -48,11 +48,13 @@ class AudioService : MediaLibraryService() {
         // Our UI uses an in-process adapter; register for notification/foreground ownership.
         addSession(requireNotNull(session))
         playback.attach(player)
+        host.radio?.attach(player)
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? = session
 
     override fun onDestroy() {
+        host.radio?.detach()
         playback.detach()
         session?.release(); session = null
         engine?.release(); engine = null
@@ -131,7 +133,8 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
         val callback = {
             listener.onRepeatModeChanged(repeatMode)
             listener.onShuffleModeEnabledChanged(shuffleModeEnabled)
-            listener.onEvents(this, Player.Events(FlagSet.Builder().add(Player.EVENT_REPEAT_MODE_CHANGED)
+            listener.onAvailableCommandsChanged(availableCommands)
+            listener.onEvents(this, Player.Events(FlagSet.Builder().add(Player.EVENT_AVAILABLE_COMMANDS_CHANGED).add(Player.EVENT_REPEAT_MODE_CHANGED)
                 .add(Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED).build()))
         }
         modeCallbacks[listener] = callback
@@ -141,8 +144,8 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
         super.removeListener(listener)
         modeCallbacks.remove(listener)?.let(playback::removeModeListener)
     }
-    override fun getRepeatMode() = playback.sessionRepeatMode()
-    override fun getShuffleModeEnabled() = playback.sessionShuffle()
+    override fun getRepeatMode() = if (playback.radioMode) Player.REPEAT_MODE_OFF else playback.sessionRepeatMode()
+    override fun getShuffleModeEnabled() = !playback.radioMode && playback.sessionShuffle()
     private var selectedSource: String? = null
     private fun select(items: List<MediaItem>) {
         selectedSource = items.singleOrNull()?.mediaId?.takeIf { it == BrowserSources.RESUME || BrowserSources.launchItem(it) != null }
@@ -162,25 +165,30 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
         val commands = super.getAvailableCommands().buildUpon()
             .add(Player.COMMAND_SEEK_TO_NEXT).add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
             .add(Player.COMMAND_SEEK_TO_PREVIOUS).add(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
-        if (!playback.state.value.supportsQueueOrdering) commands.remove(Player.COMMAND_SET_REPEAT_MODE).remove(Player.COMMAND_SET_SHUFFLE_MODE)
+        if (playback.radioMode || !playback.state.value.supportsQueueOrdering) commands.remove(Player.COMMAND_SET_REPEAT_MODE).remove(Player.COMMAND_SET_SHUFFLE_MODE)
+        if (playback.radioMode) commands.remove(Player.COMMAND_SEEK_TO_MEDIA_ITEM).remove(Player.COMMAND_SEEK_IN_CURRENT_MEDIA_ITEM)
+            .remove(Player.COMMAND_SEEK_TO_DEFAULT_POSITION).remove(Player.COMMAND_SEEK_BACK).remove(Player.COMMAND_SEEK_FORWARD)
+            .remove(Player.COMMAND_SEEK_TO_NEXT).remove(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+            .remove(Player.COMMAND_SEEK_TO_PREVIOUS).remove(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
         return commands.build()
     }
     override fun isCommandAvailable(command: Int) = availableCommands.contains(command)
-    override fun seekToNext() { playback.skip(1) }
-    override fun seekToNextMediaItem() { playback.skip(1) }
-    override fun seekToPrevious() { playback.skip(-1) }
-    override fun seekToPreviousMediaItem() { playback.skip(-1) }
+    override fun seekToNext() { if (!playback.radioMode) playback.skip(1) }
+    override fun seekToNextMediaItem() { if (!playback.radioMode) playback.skip(1) }
+    override fun seekToPrevious() { if (!playback.radioMode) playback.skip(-1) }
+    override fun seekToPreviousMediaItem() { if (!playback.radioMode) playback.skip(-1) }
     override fun play() {
+        if (selectedSource == null && playback.radioMode) { playback.radio?.play(); return }
         when (selectedSource.also { selectedSource = null }) {
             BrowserSources.WAVE -> playback.playMyWave()
             BrowserSources.LIKED_CACHE -> playback.playOfflineLikes()
             else -> playback.sessionPlay()
         }
     }
-    override fun pause() { playback.sessionPause() }
-    override fun stop() { selectedSource = null; playback.stop() }
-    override fun setRepeatMode(repeatMode: Int) { playback.sessionRepeatMode(repeatMode) }
-    override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) { playback.setShuffle(shuffleModeEnabled) }
+    override fun pause() { if (playback.radioMode) playback.radio?.stop() else playback.sessionPause() }
+    override fun stop() { selectedSource = null; if (playback.radioMode) playback.radio?.stop() else playback.stop() }
+    override fun setRepeatMode(repeatMode: Int) { if (!playback.radioMode) playback.sessionRepeatMode(repeatMode) }
+    override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) { if (!playback.radioMode) playback.setShuffle(shuffleModeEnabled) }
     override fun setPlayWhenReady(playWhenReady: Boolean) { if (playWhenReady) play() else pause() }
 }
 

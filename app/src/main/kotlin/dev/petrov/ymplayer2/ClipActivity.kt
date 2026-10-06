@@ -34,6 +34,7 @@ class ClipActivity : ComponentActivity() {
         enableEdgeToEdge()
         hideSystemBars()
         val graph = application as PlayerApplication
+        graph.radio.release()
         graph.playback.connect()
         if (graph.playback.state.value.playing) graph.playback.toggle()
         val preloader = ClipMediaPreloader(this)

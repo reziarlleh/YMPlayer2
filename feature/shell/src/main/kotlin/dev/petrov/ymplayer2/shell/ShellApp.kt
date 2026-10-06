@@ -39,11 +39,13 @@ private val destinations get() = listOf(
     Destination("player", tr(Msg.msg_dff16f6f70a1), UiIcon.PLAYER),
     Destination("library", tr(Msg.msg_0a20ddc9928f), UiIcon.LIBRARY),
     Destination("search", tr(Msg.msg_180f58ab9753), UiIcon.SEARCH),
+    Destination("radio", trMessage("Радио"), UiIcon.RADIO),
     Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
 @Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }) {
     val playback by model.player.state.collectAsStateWithLifecycle()
+    val radioPlayback = model.radio?.playback?.collectAsStateWithLifecycle()?.value
     val library by model.library.collectAsStateWithLifecycle()
     val offlineState = model.offline?.state?.collectAsStateWithLifecycle()?.value
     val profileOfflineState = offlineState?.takeIf { it.owner?.profileId == playback.profileId }
@@ -80,9 +82,11 @@ private val destinations get() = listOf(
     val closeArtist: () -> Unit = { navigate(artistFrom) }
     val dispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val lifecycle = LocalLifecycleOwner.current.lifecycle
-    DisposableEffect(lifecycle, model.taste) {
+    val activeRoute by rememberUpdatedState(route)
+    DisposableEffect(lifecycle, model.taste, model.radio) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) exitAt = null
+            if (event == Lifecycle.Event.ON_RESUME && activeRoute == "radio") model.radio?.refreshCollection()
             if (event == Lifecycle.Event.ON_RESUME) model.taste?.let { taste ->
                 // Pick up marks changed in Yandex while this app was in the background.
                 if (taste.state.value.signedIn) TasteKind.entries.filter { !taste.state.value.shelf(it).busy }.forEach(taste::refresh)
@@ -128,13 +132,14 @@ private val destinations get() = listOf(
                     // Rail sizing uses the space remaining below the common header.
                     val compactRail = maxHeight < 380.dp || density.fontScale > 1.3f
                     val tinyRail = maxHeight < 320.dp
+                    val railItemHeight = (maxHeight / destinations.size).coerceIn(48.dp, if (compactRail) 76.dp else 80.dp)
                     Row(Modifier.fillMaxSize()) {
                         if (rail) NavigationRail(Modifier.fillMaxHeight().testTag("shell_rail").then(if (compactRail && !tinyRail) Modifier.width(112.dp) else Modifier)
                             .then(if (route != "player") Modifier.verticalScroll(rememberScrollState()) else Modifier),
                             containerColor = MaterialTheme.colorScheme.background) {
                             destinations.forEach { item ->
                                 NavigationRailItem(navigationRoute == item.route, { navigate(item.route) },
-                                    { SkinIcon(item.icon, trMessage(item.label)) }, Modifier.height(if (tinyRail) 56.dp else if (compactRail) 76.dp else if (short) 72.dp else 80.dp).testTag("nav_${item.route}").prismFocus(),
+                                    { SkinIcon(item.icon, trMessage(item.label)) }, Modifier.height(railItemHeight).testTag("nav_${item.route}").prismFocus(),
                                     label = if (tinyRail) null else ({ Text(trMessage(item.label),
                                         fontSize = if (compactRail) 10.sp else 12.sp,
                                         maxLines = 2, textAlign = TextAlign.Center) }))
@@ -198,11 +203,13 @@ private val destinations get() = listOf(
                                         "sidebar" -> sideBar?.let { SideBarScreen(it) }
                                         "updates" -> updates?.let { UpdateScreen(version, it) }
                                         "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
+                                        "radio" -> model.radio?.let { RadioScreen(it, { navigate("account") }) }
                                         "clips" -> MessageScreen(tr(Msg.msg_6daecbeea4b6), tr(Msg.msg_f8ac3be6be11), tr(Msg.msg_0a0ebb200d14), UiIcon.CLIPS)
                                     }
                                 }
                             }
-                            if (route != "player" && !typingInShortWindow) MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
+                            if (route != "radio" && !typingInShortWindow && radioPlayback?.ownsOutput == true) model.radio?.let { RadioMiniPlayer(it) { navigate("radio") } }
+                            else if (route !in listOf("player", "radio") && !typingInShortWindow) MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
                             if (!rail && !typingInShortWindow) NavigationBar(Modifier.onSizeChanged { bottomBarHeight = it.height }, containerColor = MaterialTheme.colorScheme.background) {
                                 destinations.forEach { item ->
                                     NavigationBarItem(navigationRoute == item.route, { navigate(item.route) },

@@ -31,21 +31,7 @@ class PlayerApplication : Application(), PlaybackHost {
         diagnostics.refreshEnvironment()
     }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    internal val diagnostics: DiagnosticsJournal by lazy { DiagnosticsJournal(this, researchActions =
-        if (BuildConfig.RADIO_AUTH_PROBE) listOf(dev.petrov.ymplayer2.shell.DiagnosticAction("Проверить вход в Яндекс Радио") {
-            try {
-                val report = withTimeout(120_000) {
-                    accounts.withSession(accounts.state.value.profileId) { session ->
-                        YandexRadioAuthProbe().run(session.credentials.accessToken, session.account?.id)
-                    }
-                }
-                diagnostics.saveRadioProbe(report)
-                report.summary
-            } catch (_: TimeoutCancellationException) { "Проверка не завершилась за две минуты. Проверь сеть и повтори." }
-            catch (e: CancellationException) { throw e }
-            catch (_: dev.petrov.ymplayer2.core.MusicException) { "Нужен текущий авторизованный профиль. Вход не изменён." }
-            catch (_: Exception) { "Не удалось завершить проверку Радио. Вход не изменён." }
-        }) else emptyList()) }
+    internal val diagnostics: DiagnosticsJournal by lazy { DiagnosticsJournal(this) }
     val skins by lazy { dev.petrov.ymplayer2.designsystem.skin.SkinRepository(this, scope) }
     override fun onAudioServiceEvent(event: AudioServiceEvent) {
         diagnostics.record(when (event) {
@@ -76,6 +62,9 @@ class PlayerApplication : Application(), PlaybackHost {
         saveEnabled = { offlinePrefs.edit().putBoolean("enabled", it).apply() }) }
     override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi), offline,
         streamQuality = { audioQuality.state.value.stream }, listened = history::record) }
+    private val radioApi by lazy { dev.petrov.ymplayer2.yandex.YandexRadioApi(accounts) }
+    override val radio by lazy { dev.petrov.ymplayer2.playback.AndroidRadio(this, playback, radioApi, scope) }
+    val radioCatalog by lazy { dev.petrov.ymplayer2.core.RadioController(accounts, radioApi, radio, scope) }
     val accounts by lazy { AccountAuth(library.profiles,
         YandexDeviceApi(this, BuildConfig.YANDEX_CLIENT_ID, BuildConfig.YANDEX_CLIENT_SECRET), KeystoreAccountStore(this), scope) }
 }

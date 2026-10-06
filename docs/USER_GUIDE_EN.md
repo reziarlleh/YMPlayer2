@@ -347,12 +347,9 @@ keyboard. Android11+ also provides system process-exit reasons; Android10
 does not support that part. Search text, track titles and tokens are not
 recorded. Reports stay on your device until you choose to share them.
 
-The manually installed **2.5.0beta-build86** adds a research button in Diagnostics:
-**Проверить вход в Яндекс Радио** (check Yandex Radio sign-in). It uses the existing
-account in the current profile to read favourite FM stations, then saves a
-redacted result for **Export to Downloads**. No new sign-in or token export is
-needed. The research controls are in Russian; FM playback is not implemented
-in this beta. Stable2.4.1 remains the automatic update release.
+The Radio research button has been removed in beta2.5. Use the dedicated
+Radio section instead. The journal records connection/playback/error events
+without stream URLs, station or track names, or tokens.
 
 On Android 9, export opens the system file picker instead: choose
 a destination and save the report. A toast confirms the result. Cancelling
@@ -383,6 +380,48 @@ your phone when using a TV; it leads to the same donation page as the button.
 | Custom skin will not import | Select the complete .ymskin file and check its package format. The active skin remains in place on error. |
 | No equalizer available | Install a compatible equalizer/DSP or select an available system handler. |
 | GitHub cannot be reached | Use the backup update source or the APK attached to the 4PDA topic. |
+
+
+
+
+## Radio — manually installed beta2.5
+
+**Radio** sits between **Search** and **Clips**. The public catalogue and streams
+work without sign-in. Your station collection uses the Yandex account already
+saved in the current profile; there is no separate Radio sign-in.
+
+- **Collection** shows favourite stations followed by the general catalogue.
+  The player's heart adds or removes the station, rather than liking the song
+  currently on air. Each profile has its own collection on Yandex.
+- **Cities** opens a searchable city picker. A city selects local station streams;
+  **All cities** clears this filter.
+- **Genres** filters the catalogue; **All genres** clears the filter.
+- **All stations** shows the general catalogue. **More stations** loads the next page.
+- **Search all stations** always searches the full catalogue, regardless of the
+  city or genre filter. Clear the search field to return to your filter.
+
+Selecting a station card starts its live stream. The player shows the station,
+city, and **On air now** title/artist when supplied by the station. **Stop** closes
+playback; **Play** reconnects to the current live broadcast. Radio has no seeking,
+repeat or shuffle. It retries temporary network failures; stopping, switching
+profiles or starting music/clips cancels those retries. The last station is saved
+per profile and stays stopped after restarting the app.
+
+The player stays below the catalogue in portrait and to its left in landscape.
+Touch and remote controls are supported. Background playback uses the same
+notification and media controls as music; the mini-player returns to Radio.
+Starting music or a clip stops the station. Broadcasts are not downloaded to
+Liked Songs offline. Show subscriptions and liked radio tracks are not included.
+
+Install [2.5.0beta-build87](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build87) manually over the existing app; automatic updates remain on
+stable **2.4.1-build84**. Actual station-collection writes still need user acceptance;
+see the [verification boundaries](RADIO_2_5_VERIFICATION.md).
+
+Signed beta87 on Android9, playing a real station with the English interface.
+
+![Radio / beta87](qa/radio-2-5-2026-10-06/signed87-radio-phone.png)
+
+---
 
 This guide describes released features. Earlier screenshot versions and their
 test origins are documented in [the documentation verification note](USER_GUIDE_VERIFICATION.md).

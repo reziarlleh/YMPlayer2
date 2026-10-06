@@ -12,6 +12,7 @@ val PrismIcons: Map<UiIcon, ImageVector> = mapOf(
     UiIcon.PLAYER to Icons.Default.PlayCircle,
     UiIcon.LIBRARY to Icons.Default.LibraryMusic,
     UiIcon.SEARCH to Icons.Default.Search,
+    UiIcon.RADIO to Icons.Default.Radio,
     UiIcon.CLIPS to Icons.Default.SmartDisplay,
     UiIcon.PROFILE to Icons.Default.AccountCircle,
     UiIcon.GUEST to Icons.Default.PersonOutline,

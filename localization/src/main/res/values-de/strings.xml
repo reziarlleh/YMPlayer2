@@ -635,5 +635,36 @@
     <string name="player_source_favorites" formatted="false">"Lokale Favoriten"</string>
     <string name="player_source_device" formatted="false">"Gerät / USB"</string>
     <string name="player_source_list" formatted="false">"Trackliste"</string>
+    <string name="radio_2ed3c7c3be59" formatted="false">"Alle Sender durchsuchen"</string>
+    <string name="radio_bbfea2350988" formatted="false">"Stadt auswählen"</string>
+    <string name="radio_c8a8a179fd86" formatted="false">"Alle Städte"</string>
+    <string name="radio_edcd9c9fb541" formatted="false">"Alle Genres"</string>
+    <string name="radio_b71a4a6a4ffe" formatted="false">"Sammlung"</string>
+    <string name="radio_46dff034a662" formatted="false">"Städte"</string>
+    <string name="radio_3a856dcd9b2f" formatted="false">"Genres"</string>
+    <string name="radio_6341f756cd9c" formatted="false">"Alle Sender"</string>
+    <string name="radio_2d7aa58089f8" formatted="false">"Lieblingssender"</string>
+    <string name="radio_8f602ef87466" formatted="false">"Melde dich bei Yandex an, um deine Lieblingssender zu speichern."</string>
+    <string name="radio_14159f0b89c5" formatted="false">"Noch keine Lieblingssender. Tippe im Player auf das Herz, um einen hinzuzufügen."</string>
+    <string name="radio_f4ab936fd2b8" formatted="false">"Suchergebnisse"</string>
+    <string name="radio_b4c6c4329bde" formatted="false">"Keine Sender gefunden."</string>
+    <string name="radio_6d51575566da" formatted="false">"Weitere Sender"</string>
+    <string name="radio_ab20e71e02cc" formatted="false">"Verbindung wird wiederhergestellt…"</string>
+    <string name="radio_40b27edf9a21" formatted="false">"Verbindung wird hergestellt…"</string>
+    <string name="radio_8a574d8cde01" formatted="false">"Live"</string>
+    <string name="radio_e36f9cecd549" formatted="false">"Radio"</string>
+    <string name="radio_41fc0c985c40" formatted="false">"Wähle einen Sender"</string>
+    <string name="radio_3c04af3c32f2" formatted="false">"Jetzt auf Sendung"</string>
+    <string name="radio_2eb31705844a" formatted="false">"Keine Informationen zur aktuellen Sendung"</string>
+    <string name="radio_937307ee2903" formatted="false">"Aus Sammlung entfernen"</string>
+    <string name="radio_bc5db5c7bbd8" formatted="false">"Zur Sammlung hinzufügen"</string>
+    <string name="radio_24d97edde7c5" formatted="false">"Sender abspielen"</string>
+    <string name="radio_7e81a427d259" formatted="false">"Sender stoppen"</string>
+    <string name="radio_be36cb78e360" formatted="false">"Stadt suchen"</string>
+    <string name="radio_c7770896d00c" formatted="false">"Die Städteliste ist nicht verfügbar. Schließe das Fenster und versuche es erneut."</string>
+    <string name="radio_d44350efe996" formatted="false">"Keine Verbindung zu Radio. Prüfe deine Internetverbindung und versuche es erneut."</string>
+    <string name="radio_530bbd5ef253" formatted="false">"Kein Zugriff auf deine Radiosammlung. Prüfe die Anmeldung im aktuellen Profil."</string>
+    <string name="radio_d71dc23ce5e0" formatted="false">"Der Stream dieses Senders ist derzeit nicht verfügbar."</string>
+    <string name="radio_65f7daba2df4" formatted="false">"Die Antwort von Radio konnte nicht gelesen werden. Versuche es erneut."</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

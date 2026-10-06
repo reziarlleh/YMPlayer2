@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-06",
+  "source": "https://radio.api.music.yandex.ru/radio/v1/",
+  "frontend": "https://yastatic.net/s3/music-frontend-static/radio/v1.280.0/_next/static/chunks/3p21t5ny5wnpc.js",
+  "requests": [
+    {
+      "name": "stations",
+      "path": "stations?limit=50&userRegion=moscow",
+      "status": 200,
+      "keys": [
+        "stations",
+        "hasNext",
+        "continueFrom"
+      ]
+    },
+    {
+      "name": "genres",
+      "path": "genres",
+      "status": 200,
+      "keys": [
+        "genres"
+      ]
+    },
+    {
+      "name": "cities",
+      "path": "regions",
+      "status": 200,
+      "keys": [
+        "cities"
+      ]
+    },
+    {
+      "name": "station",
+      "path": "stations/europa-plus?userRegion=moscow",
+      "status": 200,
+      "keys": [
+        "slug",
+        "name",
+        "cardInfo",
+        "genres",
+        "partner",
+        "extraInfo",
+        "streams",
+        "listeners",
+        "userDefaultStreamSlug",
+        "availableFeatures"
+      ]
+    },
+    {
+      "name": "stream",
+      "path": "stations/europa-plus/streams/moscow",
+      "status": 200,
+      "keys": [
+        "type",
+        "name",
+        "compactName",
+        "slug",
+        "shortSlug",
+        "cardInfo",
+        "compactStation",
+        "genres",
+        "possibleReactions",
+        "alternativeStreams",
+        "availableFeatures",
+        "frequency",
+        "region"
+      ]
+    },
+    {
+      "name": "url",
+      "path": "stations/europa-plus/streams/moscow/url",
+      "status": 200,
+      "keys": [
+        "url",
+        "episodeId"
+      ]
+    },
+    {
+      "name": "widgets",
+      "path": "stations/europa-plus/streams/moscow/widgets",
+      "status": 200,
+      "keys": [
+        "widgets",
+        "timestamp",
+        "pollAfterMs",
+        "widgetsHash"
+      ]
+    },
+    {
+      "name": "genre",
+      "path": "genres/rock/stations?userRegion=moscow",
+      "status": 200,
+      "keys": [
+        "genre",
+        "stations"
+      ]
+    },
+    {
+      "name": "city",
+      "path": "regions/moscow/streams",
+      "status": 200,
+      "keys": [
+        "region",
+        "streams",
+        "hasNext",
+        "continueFrom"
+      ]
+    },
+    {
+      "name": "search",
+      "path": "search?query=rock&limit=50&userRegion=moscow",
+      "status": 200,
+      "keys": [
+        "items",
+        "hasNext",
+        "continueFrom"
+      ]
+    },
+    {
+      "name": "region-required-control",
+      "path": "stations?limit=2",
+      "status": 400
+    },
+    {
+      "name": "region-default-control",
+      "path": "stations?limit=2&userRegion=",
+      "status": 200
+    },
+    {
+      "name": "full-stream-slug-control",
+      "path": "stations/europa-plus/streams/europa-plus-moscow",
+      "status": 200
+    }
+  ]
+}
