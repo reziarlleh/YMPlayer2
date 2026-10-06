@@ -42,6 +42,8 @@ class YandexRadioAuthProbeTest {
         val partial = report(uid = null)
         assertTrue(partial.getBoolean("existingTokenVerifiedForFmCollection"))
         assertFalse(partial.getBoolean("personalAccountIdentityVerified"))
+        assertTrue(YandexRadioAuthProbe(fixture("7654321")).run(token, "1234567").summary.contains("не совпали"))
+        assertTrue(YandexRadioAuthProbe(fixture(null)).run(token, "1234567").summary.contains("не вернуло UID"))
     }
     @Test fun wrongSavedProfileStopsBeforeFm() = runBlocking {
         val stopped = report(expected = "7654321")

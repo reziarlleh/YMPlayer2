@@ -56,6 +56,7 @@ internal class RadioProbeReport(private val safe: JSONObject) {
     override fun toString() = "RadioProbeReport(redacted)"
     val summary: String get() = when {
         safe.optBoolean("personalAccountIdentityVerified") -> "Вход в Радио и совпадение аккаунта подтверждены. Результат сохранён в диагностике."
+        safe.optBoolean("existingTokenVerifiedForFmCollection") && safe.optBoolean("fmUidPresent") -> "Избранные станции прочитаны, но UID Радио и Музыки не совпали. Сохрани диагностику для разбора результата."
         safe.optBoolean("existingTokenVerifiedForFmCollection") -> "Токен принят: избранные станции прочитаны. Радио не вернуло UID для отдельной сверки аккаунта. Результат в диагностике."
         else -> "Проверка завершена без подтверждения входа. Сохрани диагностику для разбора результата."
     }
