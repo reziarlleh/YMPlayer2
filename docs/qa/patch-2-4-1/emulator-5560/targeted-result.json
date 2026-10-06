@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-06",
+  "serial": "emulator-5560",
+  "api": 28,
+  "passed": 14,
+  "failed": 1,
+  "skipped": 0,
+  "completed": true,
+  "success": false,
+  "durationSeconds": 125.08,
+  "selection": "EntityWavePlaybackTest,WaveSettingsPlaybackTest,PlayerCompositionTest,ManualBetaUpdateTest",
+  "personalAccountAcceptance": false,
+  "fixtures": "Real Android UI/Media3/SAF with isolated provider fixtures"
+}

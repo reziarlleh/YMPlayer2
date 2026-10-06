@@ -1,0 +1,147 @@
+{
+  "checkedAtUtc": "2026-10-06T07:23:28.284005+00:00",
+  "rows": [
+    {
+      "version": "2.3.3-build78",
+      "sha256": "d674902193e77919c916064be8e36b7537d472fc545d3ea5ceb488282a960b47",
+      "certificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+      "schemes": [
+        "v1 scheme (JAR signing): false",
+        "v2 scheme (APK Signature Scheme v2): true",
+        "v3 scheme (APK Signature Scheme v3): false",
+        "v3.1 scheme (APK Signature Scheme v3.1): false",
+        "v4 scheme (APK Signature Scheme v4): false"
+      ],
+      "sourceStamp": "false",
+      "package": "dev.petrov.ymplayer2",
+      "minSdk": 29,
+      "targetSdk": 36,
+      "debuggable": false,
+      "permissions": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "android.permission.INTERNET",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.REQUEST_INSTALL_PACKAGES",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.WAKE_LOCK",
+        "dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "manifestXmltreeSha256": "d8d79fc8e5604a4a0e0f7f73b0144a53f376b6c92811c106597e070da7110d46",
+      "zipSignature": "504b0304",
+      "zipValid": true
+    },
+    {
+      "version": "2.3.4-build79",
+      "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f",
+      "certificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+      "schemes": [
+        "v1 scheme (JAR signing): false",
+        "v2 scheme (APK Signature Scheme v2): true",
+        "v3 scheme (APK Signature Scheme v3): false",
+        "v3.1 scheme (APK Signature Scheme v3.1): false",
+        "v4 scheme (APK Signature Scheme v4): false"
+      ],
+      "sourceStamp": "false",
+      "package": "dev.petrov.ymplayer2",
+      "minSdk": 29,
+      "targetSdk": 36,
+      "debuggable": false,
+      "permissions": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "android.permission.INTERNET",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.REQUEST_INSTALL_PACKAGES",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.WAKE_LOCK",
+        "dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "manifestXmltreeSha256": "d468b28b15c1d6f82cbd2bc42668b57b367b0b049dde679eafdea05d0a03e877",
+      "zipSignature": "504b0304",
+      "zipValid": true
+    },
+    {
+      "version": "2.4.0beta-build82",
+      "sha256": "1a7da0ec3c0ce4d59a27bbbab128c9c9df73e0afc58cf7b6f50c231501b30886",
+      "certificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+      "schemes": [
+        "v1 scheme (JAR signing): false",
+        "v2 scheme (APK Signature Scheme v2): true",
+        "v3 scheme (APK Signature Scheme v3): false",
+        "v3.1 scheme (APK Signature Scheme v3.1): false",
+        "v4 scheme (APK Signature Scheme v4): false"
+      ],
+      "sourceStamp": "false",
+      "package": "dev.petrov.ymplayer2",
+      "minSdk": 28,
+      "targetSdk": 36,
+      "debuggable": false,
+      "permissions": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "android.permission.INTERNET",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.REQUEST_INSTALL_PACKAGES",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.WAKE_LOCK",
+        "dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "manifestXmltreeSha256": "2a4edad588f63e11562824ae4fbf4830b9a808f3c3726c95249dae60bf059728",
+      "zipSignature": "504b0304",
+      "zipValid": true
+    },
+    {
+      "version": "2.4.0-build83",
+      "sha256": "b6a5936a95b28dd324d9359907ed5590b353ec22aea519a4fba88cd180d0a21c",
+      "certificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+      "schemes": [
+        "v1 scheme (JAR signing): false",
+        "v2 scheme (APK Signature Scheme v2): true",
+        "v3 scheme (APK Signature Scheme v3): false",
+        "v3.1 scheme (APK Signature Scheme v3.1): false",
+        "v4 scheme (APK Signature Scheme v4): false"
+      ],
+      "sourceStamp": "false",
+      "package": "dev.petrov.ymplayer2",
+      "minSdk": 28,
+      "targetSdk": 36,
+      "debuggable": false,
+      "permissions": [
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+        "android.permission.INTERNET",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.REQUEST_INSTALL_PACKAGES",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.WAKE_LOCK",
+        "dev.petrov.ymplayer2.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "manifestXmltreeSha256": "b796d554a1e8858652fd986ef622ee71cdc2703a29e00671172e0dbb2946f296",
+      "zipSignature": "504b0304",
+      "zipValid": true
+    }
+  ],
+  "sameCertificatePackageTargetPermissionsAndSigningSchemes": true,
+  "installerAndUpdateCoordinatorChanged": false,
+  "playProtectResult": "Exact warning unavailable. Google/HyperOS scanner not reproduced on project AOSP emulators; APK signing and installer comparison passed. External unknown-APK scan is a hypothesis.",
+  "officialReference": "https://developers.google.com/android/play-protect/warning-dev-guidance",
+  "ownerInstallPath": "Latest beta82 manually from Downloads, stable83 via in-app updater. Exact warning not retained; provider not identified.",
+  "beta82ToStable83ProductionSourcesChanged": false
+}

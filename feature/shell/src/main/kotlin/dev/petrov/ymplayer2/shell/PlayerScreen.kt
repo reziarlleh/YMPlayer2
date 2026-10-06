@@ -32,7 +32,8 @@ import kotlinx.coroutines.launch
     var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var issue by remember { mutableStateOf(false) }
-    var configureWave by remember(state.profileId) { mutableStateOf(false) }
+    val myWaveActive = state.wave && state.origin.source == PlaybackSource.MY_WAVE
+    var configureWave by remember(state.profileId, myWaveActive) { mutableStateOf(false) }
     var sourceChoice by remember(state.profileId) { mutableStateOf(false) }
     val saved = collections?.state?.collectAsStateWithLifecycle()?.value
     val favorites = saved?.profile(state.profileId)?.favorites.orEmpty()
@@ -47,7 +48,7 @@ import kotlinx.coroutines.launch
         PlaybackSource.OBJECT_WAVE -> tr(Msg.wave_source_title, state.origin.title)
     }
     val waveSettings = player.waveSettings
-    if (configureWave && waveSettings != null) WaveSettingsDialog(waveSettings, player) { configureWave = false }
+    if (configureWave && myWaveActive && waveSettings != null) WaveSettingsDialog(waveSettings, player) { configureWave = false }
     if (details && taste != null) state.current?.let { TrackTasteDialog(it, taste, artist = artist, player = player, extra = {
         playlists?.let { lists -> AddToCloudPlaylist(state.current!!, lists) { details = false } }
         HorizontalDivider()
@@ -83,7 +84,7 @@ import kotlinx.coroutines.launch
                         }, Modifier.testTag("player_source_favorites"), enabled = favorites.isNotEmpty() && saved?.ready == true)
                     }
                     }
-                    if (waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
+                    if (myWaveActive && waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
                         { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings"))
                 }
             } else Text(tr(Msg.msg_a94943f157d5), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, maxLines = 1)

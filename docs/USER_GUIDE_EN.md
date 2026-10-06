@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.4.0-build83**, Android9 and later. Reviewed on 6 October 2026.
+For **2.4.1-build84**, Android9 and later. Reviewed on 6 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -177,6 +177,9 @@ three controls are hidden during radio playback. Pause and Stop do not start
 radio; Stop keeps the source. Manually editing the queue clears its association
 with the original playlist.
 
+Settings are available only while **My Vibe** is active, including when paused.
+If another source is playing, first select My Vibe from the source button.
+Offline playback, playlists and radio based on an item do not show this button.
 Select **More (…)** on the right, inside the My Vibe
 button, to customize activities, music selection, mood and language. Available
 choices and regional language labels come from Yandex for the current account.

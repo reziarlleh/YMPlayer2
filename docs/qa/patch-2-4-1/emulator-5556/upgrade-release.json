@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-06",
+  "serial": "emulator-5556",
+  "action": "upgrade",
+  "dataCleared": false,
+  "before": {
+    "versionName": "2.4.0-build83",
+    "firstInstallTime": "2026-09-09 07:08:27"
+  },
+  "beforeLabels": [
+    "YMPlayer2",
+    "Profiles",
+    "Settings",
+    "Player",
+    "Library",
+    "Search",
+    "Clips",
+    "Queue is empty",
+    "Choose music in the library",
+    "Device / USB",
+    "Customize My Vibe",
+    "Equalizer / DSP",
+    "Queue",
+    "More actions",
+    "0:00",
+    "0:00",
+    "Previous track",
+    "Play",
+    "Next track",
+    "Stop"
+  ],
+  "after": {
+    "versionName": "2.4.1-build84",
+    "firstInstallTime": "2026-09-09 07:08:27"
+  },
+  "afterLabels": [
+    "YMPlayer2",
+    "Profiles",
+    "Settings",
+    "Player",
+    "Library",
+    "Search",
+    "Clips",
+    "Queue is empty",
+    "Choose music in the library",
+    "Device / USB",
+    "Equalizer / DSP",
+    "Queue",
+    "More actions",
+    "0:00",
+    "0:00",
+    "Previous track",
+    "Play",
+    "Next track",
+    "Stop"
+  ],
+  "passed": true
+}

@@ -28,7 +28,15 @@ class WaveSettingsPlaybackTest {
         waitFor { fixture.library.testTracks.size == 2 && fixture.taste.state.value.signedIn }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
+    private fun startMyWave() {
+        if (!player.state.value.wave || player.state.value.origin.source != PlaybackSource.MY_WAVE) {
+            compose.onNodeWithTag("my_wave").performClick()
+            compose.onNodeWithTag("player_source_wave").performClick()
+            waitFor { player.state.value.wave && player.state.value.origin.source == PlaybackSource.MY_WAVE && player.state.value.positionSeconds >= 1 }
+        }
+    }
     private fun open() {
+        startMyWave()
         compose.onNodeWithTag("my_wave_settings").performClick()
         waitFor { player.waveSettings!!.state.value.options != null && !player.waveSettings!!.state.value.loading }
         compose.onNodeWithTag("wave_settings_dialog").assertIsDisplayed()
@@ -38,11 +46,10 @@ class WaveSettingsPlaybackTest {
         compose.onNodeWithTag("wave_setting_moodEnergy_settingMoodEnergy:calm").performScrollTo().performClick()
         compose.onNodeWithTag("wave_setting_language_settingLanguage:russian").performScrollTo().performClick()
     }
-    @Test fun settingsDoNotInterruptAudioAndSelectedSeedsSurviveWaveContinuationAndPausedRestore() {
-        compose.runOnIdle { player.playQueue(fixture.library.testTracks.map(Track::id)) }
-        waitFor { player.state.value.positionSeconds >= 1 }
-        val local = player.state.value.current!!.id
-        open(); choose(); assertEquals(local, player.state.value.current!!.id); assertTrue(player.state.value.playing)
+    @Test fun settingsDoNotInterruptMyWaveAndSelectedSeedsSurviveContinuationAndPausedRestore() {
+        startMyWave()
+        val current = player.state.value.current!!.id
+        open(); choose(); assertEquals(current, player.state.value.current!!.id); assertTrue(player.state.value.playing)
         compose.onNodeWithTag("wave_settings_play").performClick()
         waitFor { player.state.value.current?.source == Source.YANDEX && player.state.value.positionSeconds >= 1 && player.state.value.queue.size == 2 }
         assertEquals("activity:road-trip", fixture.waveSelections.last().station)
@@ -60,7 +67,7 @@ class WaveSettingsPlaybackTest {
     }
     @Test fun closeResetRecreationAndProfileIsolationKeepChoicesAndQueueSeparate() {
         open(); choose(); compose.onNodeWithTag("wave_settings_close").performClick()
-        assertFalse(player.state.value.wave)
+        assertTrue(player.state.value.wave)
         compose.activityRule.scenario.recreate(); open()
         compose.onNodeWithTag("wave_setting_language_settingLanguage:russian").assertIsSelected()
         compose.onNodeWithTag("wave_settings_close").performClick()
@@ -73,16 +80,19 @@ class WaveSettingsPlaybackTest {
         compose.onNodeWithTag("wave_settings_reset").performClick()
         assertEquals(WaveRequest(), player.waveSettings!!.request())
     }
-    @Test fun failedSettingsReadCanRetryWithoutStartingWave() {
+    @Test fun failedSettingsReadCanRetryWithoutRestartingMyWave() {
+        startMyWave()
+        val sessions = fixture.waveSelections.size
         compose.runOnIdle { fixture.waveOptionsFailure = MusicFailure.NETWORK }
         compose.onNodeWithTag("my_wave_settings").performClick()
         waitFor { player.waveSettings!!.state.value.issue != null }
         compose.onNodeWithTag("wave_settings_play").assertIsNotEnabled()
-        assertFalse(player.state.value.wave)
+        assertTrue(player.state.value.wave)
         compose.runOnIdle { fixture.waveOptionsFailure = null }
         compose.onNodeWithTag("wave_settings_retry").performScrollTo().performClick()
         waitFor { player.waveSettings!!.state.value.options != null && player.waveSettings!!.state.value.issue == null }
         compose.onNodeWithTag("wave_settings_play").assertIsEnabled()
+        assertEquals(sessions, fixture.waveSelections.size)
     }
     @Test fun remoteCanSelectAnAlreadySelectedChipAndNavigateBetweenGroups() {
         open()

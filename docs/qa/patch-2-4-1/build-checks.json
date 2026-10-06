@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-06",
+  "version": "2.4.1-build84",
+  "jvm": {
+    "tests": 101,
+    "failures": 0,
+    "suites": [
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.AccountAuthTest.xml",
+        "tests": 17,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.AudioQualityTest.xml",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.CatalogQueryTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.CloudPlaylistsTest.xml",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.CollectionsTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.DemoPlaybackControllerTest.xml",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.MusicTasteTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.MyWaveTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.OfflineMusicTest.xml",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.OnlineMusicTest.xml",
+        "tests": 14,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.PlaybackOriginTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "core/build/test-results/test/TEST-dev.petrov.ymplayer2.core.WaveSettingsTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "file": "app/build/test-results/testDebugUnitTest/TEST-dev.petrov.ymplayer2.CrashFormatTest.xml",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0
+      }
+    ]
+  },
+  "lint": [
+    {
+      "file": "app/build/reports/lint-results-debug.xml",
+      "counts": {
+        "Warning": 53
+      }
+    },
+    {
+      "file": "app/build/reports/lint-results-release.xml",
+      "counts": {
+        "Warning": 52
+      }
+    }
+  ],
+  "build": "debug/instrumentation/release assembled successfully; no source edits during Gradle",
+  "sourceChanges": "PlayerScreen only: My Wave settings visibility and dialog reset"
+}

@@ -12,7 +12,7 @@ YMPlayer 2 — самостоятельное приложение. Для ра�
   <img src="docs/design/brand/tv-banner.png" width="640" alt="YMPlayer 2">
 </p>
 
-**[Скачать APK — 2.4.0-build83](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
+**[Скачать APK — 2.4.1-build84](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
 [Что нового](CHANGELOG.md) ·
 [Обсуждение и APK на 4PDA](https://4pda.to/forum/index.php?showtopic=1127108)
 

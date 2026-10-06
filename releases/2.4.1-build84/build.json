@@ -1,0 +1,11 @@
+{
+  "updateChannel": "stable",
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "stable",
+  "versionName": "2.4.1-build84",
+  "minSdk": 28,
+  "runtimeAcceptance": "Project native checks API28/TV29 and signed upgrade from83; physical owner acceptance and Google/HyperOS scanner not claimed",
+  "builtAtUtc": "2026-10-06T07:30:03.9311141Z",
+  "versionCode": 84,
+  "sha256": "c4597a814aa7d850ed44a8f1186cf9004980c32806e060a710d8649ed7daefb7"
+}

@@ -48,6 +48,7 @@ class EntityWavePlaybackTest {
             waitFor { player.state.value.connected && player.state.value.current?.id == "yandex:2:7" }
             assertFalse(player.state.value.playing); assertEquals(request, player.state.value.origin.wave)
             compose.onNodeWithTag("continue_wave_mode").assertDoesNotExist()
+            compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
         }
     }
     @Test fun lastTrackContinuesWithTheListSeedAndFiniteOriginSurvivesRestart() {
@@ -64,6 +65,7 @@ class EntityWavePlaybackTest {
         waitFor { player.state.value.connected && player.state.value.current?.id == tracks.last().id }
         assertEquals(origin, player.state.value.origin); assertTrue(player.state.value.continueWave); assertFalse(player.state.value.playing)
         compose.onNodeWithTag("my_wave").assertTextContains(origin.title)
+        compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
         compose.runOnIdle { player.toggle(); player.seek(tracks.last().durationSeconds - 1) }
         waitFor { player.state.value.wave && player.state.value.positionSeconds >= 1 && player.state.value.queueCount >= 2 }
         assertEquals("album:7", h.waveSelections.last().station); assertFalse(player.state.value.continueWave)
@@ -94,6 +96,7 @@ class EntityWavePlaybackTest {
         }
     }
     @Test fun sourcePickerSupportsFavoritesOfflineAndWaveAndNativeFocus() {
+        compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
         val id = h.library.testTracks.first().id
         assertTrue(runBlocking { h.collections.edit("owner", CollectionEdit.Favorite(id, true)) })
         compose.onNodeWithTag("my_wave").performClick()
@@ -102,6 +105,7 @@ class EntityWavePlaybackTest {
         choice.performKeyInput { pressKey(Key.Enter) }
         waitFor { player.state.value.origin.source == PlaybackSource.LOCAL_FAVORITES && player.state.value.playing }
         compose.onNodeWithTag("my_wave").assertTextContains("Локальное избранное")
+        compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
         compose.runOnIdle { h.offline.setEnabled(true) }
         waitFor { h.offline.state.value.ready && h.offline.state.value.owner != null }
         compose.runOnIdle { h.tasteLists["owner" to TasteKind.TRACK] = TasteList(setOf("1", "2")); h.taste.refresh(TasteKind.TRACK) }
@@ -112,8 +116,19 @@ class EntityWavePlaybackTest {
         compose.onNodeWithTag("player_source_offline").performClick()
         waitFor { player.state.value.origin.source == PlaybackSource.OFFLINE && player.state.value.playing }
         compose.onNodeWithTag("my_wave").assertTextContains("Оффлайн")
+        compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
         compose.onNodeWithTag("my_wave").performClick(); compose.onNodeWithTag("player_source_wave").performClick()
         waitFor { player.state.value.wave && player.state.value.positionSeconds >= 1 }
+        compose.runOnIdle { player.toggle() }
+        waitFor { !player.state.value.playing }
+        val settings = compose.onNodeWithTag("my_wave_settings")
+        settings.performSemanticsAction(SemanticsActions.RequestFocus) { it() }; settings.assertIsFocused()
+        settings.performKeyInput { pressKey(Key.DirectionCenter) }
+        compose.onNodeWithTag("wave_settings_dialog").assertIsDisplayed()
+        compose.runOnIdle { player.playQueue(h.library.testTracks.map(Track::id)) }
+        waitFor { !player.state.value.wave && player.state.value.current?.source == Source.LOCAL }
+        compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
+        compose.onNodeWithTag("wave_settings_dialog").assertDoesNotExist()
     }
     @Test fun trackArtistAlbumAndPlaylistHaveTheirOwnMenuCommands() {
         compose.runOnIdle { h.online.open(MusicEntity("7", "Album", MusicKind.ALBUMS)) }
