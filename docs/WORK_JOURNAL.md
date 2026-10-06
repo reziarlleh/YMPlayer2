@@ -258,6 +258,16 @@ JSON-флаг identity уже был false, а UI ошибочно писал, �
 production APK не менялся. Исходный отказ и успешный повтор сохранены в QA.
 Подписанная85→86/запуск на обоих passed, debug/release lint0 errors.86 имеет
 SHA256 `9578dcb14213f8f7928f757343656028ced9f09a7d219c089bac07ab35e90878`.
-Публикуется ручной prerelease86 с APK/build.json/SHA256.txt/signature.txt.
+Опубликован ручной prerelease86 с APK/build.json/SHA256.txt/signature.txt.
 Ожидается основной результат с существующим смартфонным токеном; совместимость
 и необходимость отдельного входа ещё не объявлены подтверждёнными.
+
+GitHub latest/оба stable feeds сохранены84; Check-Documentation --github passed.
+GitHub/резервный pinned jsDelivr APK скачаны,6,075,637bytes/SHA совпадают.
+Все четыре release assets сравнены с локальными. Signed UI86 проверен: кнопка
+видима/guard без аккаунта работает; первый UI-harness прокрутил её выше viewport,
+проверка после возврата вверх прошла без изменения кода. RepoWise обновлён
+структурно без prose; основной CI37449698261 passed на commit0a5f289.
+Сверены197 документов/1621 локальная ссылка, разрывов нет; release/tag/feeds и
+README blob согласованы. Закрывающий commit только docs/QA, APK/tag не меняются.
+[Публикация](qa/radio-research-2026-10-06/publication86.json).

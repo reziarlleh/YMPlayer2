@@ -1,0 +1,42 @@
+{
+  "checkedAtUtc": "2026-10-06T10:28:43.407363+00:00",
+  "beta": "2.5.0beta-build86",
+  "releaseAssetsMatchLocal": {
+    "build.json": true,
+    "SHA256.txt": true,
+    "signature.txt": true,
+    "YMPlayer-2.5.0beta-build86.apk": true
+  },
+  "backupApk": {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.0beta-build86/releases/2.5.0beta-build86/YMPlayer-2.5.0beta-build86.apk",
+    "status": 200,
+    "bytes": 6075637,
+    "sha256": "9578dcb14213f8f7928f757343656028ced9f09a7d219c089bac07ab35e90878",
+    "matches": true
+  },
+  "stableFeeds": {
+    "githubManifest": {
+      "status": 200,
+      "version": "2.4.1-build84"
+    },
+    "githubStable": {
+      "status": 200,
+      "version": "2.4.1-build84"
+    },
+    "jsDelivrStable": {
+      "status": 200,
+      "version": "2.4.1-build84"
+    }
+  },
+  "existingOwnerOAuthChecked": false,
+  "ci": {
+    "runId": 37449698261,
+    "commit": "0a5f289b0938f061ad5775554be33b980827ebdc",
+    "conclusion": "success"
+  },
+  "documentationCheck": {
+    "documents": 197,
+    "localLinks": 1621,
+    "errors": []
+  }
+}
