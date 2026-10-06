@@ -1,0 +1,22 @@
+{
+  "serial": "emulator-5556",
+  "api": 29,
+  "before": {
+    "version": "2.4.0beta-build80",
+    "code": "80",
+    "minimum": "28",
+    "firstInstall": "2026-09-09 07:08:27"
+  },
+  "after": {
+    "version": "2.4.0beta-build81",
+    "code": "81",
+    "minimum": "28",
+    "firstInstall": "2026-09-09 07:08:27"
+  },
+  "signedInstall": "Performing Streamed Install\r\nSuccess",
+  "started": true,
+  "preservedPreferenceHashes": {},
+  "privatePrefsReadable": false,
+  "firstInstallPreserved": true,
+  "physicalOwnerAcceptance": false
+}

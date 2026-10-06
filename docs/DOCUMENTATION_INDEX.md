@@ -29,6 +29,8 @@
   проверки на исходном stable79; [утверждённый план2.4 beta](PLAN_2_4.md).
 - [Проверки beta2.4](RELEASE_2_4_0_BETA_VERIFICATION.md) — API28, прежние эмуляторы,
   подпись/установка, ручной выпуск и условие допуска в auto-update.
+- [Настроить волну](WAVE_SETTINGS_2_4_VERIFICATION.md) — первый отдельный этап2.4;
+  [API и семантика](ADR_040_WAVE_SETTINGS.md).
 - [Правила4PDA](FORUM_RULES_4PDA.md), [последняя разрешённая публикация](FORUM_VERSIONS_PUBLICATION_2026_10_04.md).
 
 ## Подробные журналы и история

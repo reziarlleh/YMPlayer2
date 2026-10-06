@@ -1,0 +1,165 @@
+{
+  "date": "2026-10-06",
+  "authenticated": false,
+  "accountRegionNotVerified": true,
+  "requests": [
+    {
+      "request": "default",
+      "http": 200,
+      "options": [
+        {
+          "value": "russian",
+          "name": "Казахский",
+          "seed": "settingLanguage:russian"
+        },
+        {
+          "value": "not-russian",
+          "name": "Иностранный",
+          "seed": "settingLanguage:not-russian"
+        },
+        {
+          "value": "any",
+          "name": "Любой",
+          "seed": "settingLanguage:any"
+        },
+        {
+          "value": "without-words",
+          "name": "Без слов",
+          "seed": "settingLanguage:without-words"
+        }
+      ]
+    },
+    {
+      "request": "language_ru",
+      "http": 200,
+      "options": [
+        {
+          "value": "russian",
+          "name": "Казахский",
+          "seed": "settingLanguage:russian"
+        },
+        {
+          "value": "not-russian",
+          "name": "Иностранный",
+          "seed": "settingLanguage:not-russian"
+        },
+        {
+          "value": "any",
+          "name": "Любой",
+          "seed": "settingLanguage:any"
+        },
+        {
+          "value": "without-words",
+          "name": "Без слов",
+          "seed": "settingLanguage:without-words"
+        }
+      ]
+    },
+    {
+      "request": "country_ru",
+      "http": 200,
+      "options": [
+        {
+          "value": "russian",
+          "name": "Казахский",
+          "seed": "settingLanguage:russian"
+        },
+        {
+          "value": "not-russian",
+          "name": "Иностранный",
+          "seed": "settingLanguage:not-russian"
+        },
+        {
+          "value": "any",
+          "name": "Любой",
+          "seed": "settingLanguage:any"
+        },
+        {
+          "value": "without-words",
+          "name": "Без слов",
+          "seed": "settingLanguage:without-words"
+        }
+      ]
+    },
+    {
+      "request": "region_225",
+      "http": 200,
+      "options": [
+        {
+          "value": "russian",
+          "name": "Казахский",
+          "seed": "settingLanguage:russian"
+        },
+        {
+          "value": "not-russian",
+          "name": "Иностранный",
+          "seed": "settingLanguage:not-russian"
+        },
+        {
+          "value": "any",
+          "name": "Любой",
+          "seed": "settingLanguage:any"
+        },
+        {
+          "value": "without-words",
+          "name": "Без слов",
+          "seed": "settingLanguage:without-words"
+        }
+      ]
+    },
+    {
+      "request": "region_id_225",
+      "http": 200,
+      "options": [
+        {
+          "value": "russian",
+          "name": "Казахский",
+          "seed": "settingLanguage:russian"
+        },
+        {
+          "value": "not-russian",
+          "name": "Иностранный",
+          "seed": "settingLanguage:not-russian"
+        },
+        {
+          "value": "any",
+          "name": "Любой",
+          "seed": "settingLanguage:any"
+        },
+        {
+          "value": "without-words",
+          "name": "Без слов",
+          "seed": "settingLanguage:without-words"
+        }
+      ]
+    },
+    {
+      "request": "country_code_ru",
+      "http": 200,
+      "options": [
+        {
+          "value": "russian",
+          "name": "Казахский",
+          "seed": "settingLanguage:russian"
+        },
+        {
+          "value": "not-russian",
+          "name": "Иностранный",
+          "seed": "settingLanguage:not-russian"
+        },
+        {
+          "value": "any",
+          "name": "Любой",
+          "seed": "settingLanguage:any"
+        },
+        {
+          "value": "without-words",
+          "name": "Без слов",
+          "seed": "settingLanguage:without-words"
+        }
+      ]
+    }
+  ],
+  "independentRussianChoiceVerified": false,
+  "note": "russian is labelled Kazakh in this public wave endpoint; possible query parameters are probes, not implemented contracts. No invented seed and no duplicate label in UI."
+}

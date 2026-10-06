@@ -1,0 +1,158 @@
+{
+  "result": {
+    "blocks": [
+      {
+        "type": "contexts",
+        "items": [
+          {
+            "id": {
+              "type": "genre",
+              "tag": "dance"
+            },
+            "name": "Танцую"
+          },
+          {
+            "id": {
+              "type": "activity",
+              "tag": "wake-up"
+            },
+            "name": "Просыпаюсь"
+          },
+          {
+            "id": {
+              "type": "activity",
+              "tag": "road-trip"
+            },
+            "name": "В дороге"
+          },
+          {
+            "id": {
+              "type": "activity",
+              "tag": "work-background"
+            },
+            "name": "Работаю"
+          },
+          {
+            "id": {
+              "type": "activity",
+              "tag": "workout"
+            },
+            "name": "Тренируюсь"
+          },
+          {
+            "id": {
+              "type": "mood",
+              "tag": "relaxed"
+            },
+            "name": "Отдыхаю"
+          },
+          {
+            "id": {
+              "type": "activity",
+              "tag": "fall-asleep"
+            },
+            "name": "Засыпаю"
+          }
+        ]
+      }
+    ],
+    "settingRestrictions": {
+      "diversity": {
+        "type": "enum",
+        "name": "По характеру",
+        "possibleValues": [
+          {
+            "value": "favorite",
+            "name": "Любимое",
+            "imageUrl": "https://avatars.mds.yandex.net/get-music-misc/49997/img.69d4d4c039235242ca959c24/orig",
+            "serializedSeed": "settingDiversity:favorite"
+          },
+          {
+            "value": "discover",
+            "name": "Незнакомое",
+            "imageUrl": "https://avatars.mds.yandex.net/get-music-misc/34161/img.69d4d4be39235242ca959c22/orig",
+            "serializedSeed": "settingDiversity:discover"
+          },
+          {
+            "value": "popular",
+            "name": "Популярное",
+            "imageUrl": "https://avatars.mds.yandex.net/get-music-misc/49997/img.69d4d4bf39235242ca959c23/orig",
+            "serializedSeed": "settingDiversity:popular"
+          },
+          {
+            "value": "default",
+            "name": "Любое",
+            "unspecified": true,
+            "serializedSeed": "settingDiversity:default"
+          }
+        ]
+      },
+      "moodEnergy": {
+        "type": "enum",
+        "name": "Под настроение",
+        "possibleValues": [
+          {
+            "value": "active",
+            "name": "Бодрое",
+            "imageUrl": "https://avatars.mds.yandex.net/get-music-misc/49997/img.6144b25fc0719634c7e6a46e/orig",
+            "serializedSeed": "settingMoodEnergy:active"
+          },
+          {
+            "value": "fun",
+            "name": "Весёлое",
+            "imageUrl": "https://avatars.mds.yandex.net/get-music-misc/49997/img.6144b263c0719634c7e6a471/orig",
+            "serializedSeed": "settingMoodEnergy:fun"
+          },
+          {
+            "value": "calm",
+            "name": "Спокойное",
+            "imageUrl": "https://avatars.mds.yandex.net/get-music-misc/70850/img.6144b261c0719634c7e6a470/orig",
+            "serializedSeed": "settingMoodEnergy:calm"
+          },
+          {
+            "value": "sad",
+            "name": "Грустное",
+            "imageUrl": "https://avatars.mds.yandex.net/get-music-misc/2406661/img.6144b260c0719634c7e6a46f/orig",
+            "serializedSeed": "settingMoodEnergy:sad"
+          },
+          {
+            "value": "all",
+            "name": "Любое",
+            "unspecified": true,
+            "serializedSeed": "settingMoodEnergy:all"
+          }
+        ]
+      },
+      "language": {
+        "type": "enum",
+        "name": "По языку",
+        "possibleValues": [
+          {
+            "value": "russian",
+            "name": "Казахский",
+            "serializedSeed": "settingLanguage:russian"
+          },
+          {
+            "value": "not-russian",
+            "name": "Иностранный",
+            "serializedSeed": "settingLanguage:not-russian"
+          },
+          {
+            "value": "any",
+            "name": "Любой",
+            "unspecified": true,
+            "serializedSeed": "settingLanguage:any"
+          },
+          {
+            "value": "without-words",
+            "name": "Без слов",
+            "serializedSeed": "settingLanguage:without-words"
+          }
+        ]
+      }
+    },
+    "defaultStation": {
+      "stationId": "user:server-default-do-not-use"
+    }
+  }
+}

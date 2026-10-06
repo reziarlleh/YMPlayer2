@@ -33,6 +33,7 @@ data class PlaybackState(
 
 interface PlaybackController {
     val state: StateFlow<PlaybackState>
+    val waveSettings: WaveSettings? get() = null
     /** A page in the current logical order. Implementations may resolve metadata from disk. */
     suspend fun queuePage(offset: Int, limit: Int = 80): CatalogPage<Track> {
         require(offset >= 0 && limit in 1..500 && offset <= Int.MAX_VALUE - limit)

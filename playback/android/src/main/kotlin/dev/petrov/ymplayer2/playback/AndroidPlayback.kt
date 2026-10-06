@@ -27,6 +27,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
+    override val waveSettings = waveApi?.let { api -> online?.let { music -> WaveSettings(music.accounts, api, scope,
+        read = { key -> runCatching { JSONObject(prefs.getString("waveSettings:$key", "{}")!!).let { json ->
+            json.keys().asSequence().associateWith { json.getString(it) }
+        } }.getOrDefault(emptyMap()) },
+        write = { key, choices -> prefs.edit().putString("waveSettings:$key", JSONObject(choices).toString()).apply() }) } }
     private var engine: ExoPlayer? = null
     private var job: Job? = null
     private var updating = false
@@ -48,6 +53,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var notifiedShuffle: Boolean? = null
     private var waitingId: String? = null
     private var waveBatch: WaveBatch? = null
+    private var activeWaveRequest = WaveRequest()
     private val waveItems = linkedMapOf<String, WaveTrack>()
     private var waveJob: Job? = null
     private var waveGeneration = 0L
@@ -637,7 +643,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     override fun playMyWave() = command {
         if (waveApi == null || !remoteEnabled(state.value.profileId)) return@command
-        cancelWave(); followLibrary = false
+        val request = waveSettings?.request(state.value.profileId) ?: WaveRequest()
+        cancelWave(); followLibrary = false; activeWaveRequest = request
         mutable.value = state.value.copy(repeatMode = RepeatMode.OFF, shuffle = false)
         engine?.repeatMode = Player.REPEAT_MODE_OFF; engine?.shuffleModeEnabled = false
         load(emptyList(), 0, 0)
@@ -722,6 +729,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private fun cancelWave() {
         cancelWaveWork()
         waveBatch = null; waveItems.clear()
+        activeWaveRequest = WaveRequest()
         mutable.value = state.value.copy(wave = false, recommendations = false)
     }
     private fun feedback(id: String?, type: WaveFeedback, seconds: Int = 0) {
@@ -785,7 +793,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 taste?.requireRecommendationFilters(profile)
                 var prepared: WaveBatch? = null
                 for (attempt in 0..3) {
-                    val candidate = pendingWaveBatch ?: WaveLoader(api).load(profile, waveBatch, waveItems.values.mapTo(hashSetOf()) { it.track.tasteTarget().key }) {
+                    val candidate = pendingWaveBatch ?: WaveLoader(api).load(profile, waveBatch, waveItems.values.mapTo(hashSetOf()) { it.track.tasteTarget().key }, activeWaveRequest) {
                         taste?.state?.value?.allows(it) != false
                     }.also { pendingWaveBatch = it }
                     val item = candidate.tracks.single()
@@ -1150,9 +1158,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val position = if (queue.getOrNull(index)?.id == current) json?.optInt("position", 0) ?: 0 else 0
         mutable.value = state.value.copy(recommendations = json?.optBoolean("recommendations", false) == true)
         if (json?.optBoolean("wave", false) == true && waveApi != null) {
+            val selection = json.optJSONObject("waveSelection")
+            activeWaveRequest = selection?.let { WaveRequest(it.optString("station", "user:onyourwave"),
+                it.optString("title", "Моя волна"), it.optJSONArray("settings")?.let { seeds ->
+                    (0 until seeds.length()).map { i -> seeds.getString(i) }
+                }.orEmpty()) } ?: WaveRequest()
             val batches = json.optJSONObject("waveBatches")
-            queue.forEach { waveItems[it.id] = WaveTrack(it, batches?.optString(it.id).orEmpty()) }
-            waveBatch = WaveBatch(emptyList(), json.optString("waveSession"), json.optString("waveCursor"))
+            queue.forEach { waveItems[it.id] = WaveTrack(it, batches?.optString(it.id).orEmpty(), activeWaveRequest.station) }
+            waveBatch = WaveBatch(emptyList(), json.optString("waveSession"), json.optString("waveCursor"), activeWaveRequest)
                 .takeUnless { queue.isEmpty() && it.sessionId.isBlank() && it.cursor.isBlank() }
             queue.getOrNull(index + 1)?.let { next ->
                 pendingWaveBatch = waveBatch!!.copy(tracks = listOf(waveItems.getValue(next.id)), cursor = next.tasteTarget().key)
@@ -1310,6 +1323,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 .put("source", it.source.name).put("duration", it.durationSeconds).put("tint", it.tint).put("album", it.album).put("artwork", it.artworkUri)
                 .put("albumId", it.albumId).put("artists", JSONArray(it.artists.map { artist -> JSONObject().put("id", artist.id).put("name", artist.name) })) }))
             .put("wave", state.wave).put("waveSession", waveBatch?.sessionId).put("waveCursor", waveBatch?.cursor)
+            .put("waveSelection", if (state.wave) JSONObject().put("station", activeWaveRequest.station)
+                .put("title", activeWaveRequest.title).put("settings", JSONArray(activeWaveRequest.settings)) else JSONObject.NULL)
             .put("recommendations", state.recommendations)
             .put("waveBatches", JSONObject().apply { if (state.wave) state.queue.forEach { track -> put(track.id, waveItems[track.id]?.batchId) } })
         json.put("referenceOrder", referenceOrder != null)

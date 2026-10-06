@@ -32,6 +32,9 @@ import kotlinx.coroutines.launch
     var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var issue by remember { mutableStateOf(false) }
+    var configureWave by remember(state.profileId) { mutableStateOf(false) }
+    val waveSettings = player.waveSettings
+    if (configureWave && waveSettings != null) WaveSettingsDialog(waveSettings, player) { configureWave = false }
     if (details && taste != null) state.current?.let { TrackTasteDialog(it, taste, artist = artist, extra = {
         playlists?.let { lists -> AddToCloudPlaylist(state.current!!, lists) { details = false } }
         HorizontalDivider()
@@ -45,11 +48,19 @@ import kotlinx.coroutines.launch
     val account = taste?.state?.collectAsStateWithLifecycle()?.value
     val toolbar: @Composable () -> Unit = {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            if (taste != null) Button({ if (account?.signedIn == true) player.playMyWave() else signIn() },
-                Modifier.weight(1f).height(48.dp).prismFocus().testTag("my_wave"), enabled = !state.waveLoading,
-                contentPadding = PaddingValues(horizontal = 10.dp)) {
-                SkinIcon(UiIcon.WAVE, null); Spacer(Modifier.width(6.dp))
-                Text(tr(Msg.msg_de1ea8c09caa), maxLines = 1, overflow = TextOverflow.Ellipsis)
+            if (taste != null) Surface(Modifier.weight(1f).height(48.dp), shape = MaterialTheme.shapes.extraLarge,
+                color = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextButton({ if (account?.signedIn == true) player.playMyWave() else signIn() },
+                        Modifier.weight(1f).fillMaxHeight().prismFocus().testTag("my_wave"), enabled = !state.waveLoading,
+                        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onPrimary),
+                        contentPadding = PaddingValues(horizontal = 10.dp)) {
+                        SkinIcon(UiIcon.WAVE, null); Spacer(Modifier.width(6.dp))
+                        Text(tr(Msg.msg_de1ea8c09caa), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    }
+                    if (waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
+                        { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings"))
+                }
             } else Text(tr(Msg.msg_a94943f157d5), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, maxLines = 1)
             ActionIcon(UiIcon.EQUALIZER, tr(Msg.msg_fdc54db3a2b0), { equalizer(false) }, Modifier.testTag("player_equalizer"))
             ActionIcon(UiIcon.QUEUE, tr(Msg.msg_cb297d129add), queue, Modifier.testTag("player_queue"))

@@ -1,9 +1,9 @@
 # YMPlayer 2 — user guide
 
-For 2.3.4-build79. Reviewed on 4 October 2026.
+For 2.3.4-build79. Reviewed on 6 October 2026; the My Vibe settings section covers manual beta81.
 
-The manual [2.4.0beta-build80](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build80)
-adds Android 9 support. It is excluded from automatic updates while compatibility
+The manual [2.4.0beta-build81](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build81)
+adds Android 9 support and My Vibe settings. It is excluded from automatic updates while compatibility
 is being tested. Installing it over2.3 keeps app data. Android will not install
 build79 over a newer beta through the regular installer; uninstalling the app
 removes its private data.
@@ -151,6 +151,18 @@ Choose **Yandex Music** in the library to browse liked tracks, favorite albums,
 favorite artists and playlists. Recommendations show suggested playlists.
 **My Vibe** starts your personalized stream. It prepares the next track while
 the current one plays and requests further recommendations as needed.
+
+In the **2.4 test release**, select **More (…)** on the right, inside the My Vibe
+button, to customize activities, music selection, mood and language. Available
+choices and regional language labels come from Yandex for the current account.
+A separate Russian-only filter alongside a regional language has not yet been
+verified through the API.
+
+Choices are saved in YMPlayer2 for that account. **Close** keeps the current music
+playing and uses the choices the next time you start My Vibe; **Start My Vibe**
+starts a new session immediately. **Reset choices** returns to Any. These choices
+do not change Yandex's web player settings. All controls work with a TV remote;
+only the settings dialog scrolls when it needs more space.
 
 Likes and dislikes apply to the item shown:
 

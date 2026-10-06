@@ -596,5 +596,32 @@
     <string name="bulk_local_only" formatted="false">"У лакальны плэйліст можна дадаць толькі музыку прылады і USB."</string>
     <string name="diagnostics_choose_destination" formatted="false">"Выберыце, куды захаваць справаздачу."</string>
     <string name="diagnostics_saved_document" formatted="false">"Захавана: @0@"</string>
+    <string name="wave_settings_title" formatted="false">"Наладзіць хвалю"</string>
+    <string name="wave_settings_hint" formatted="false">"Выбар захоўваецца для гэтага акаўнта ў праграме і ўжываецца пры наступным запуску хвалі."</string>
+    <string name="wave_settings_reset" formatted="false">"Скінуць выбар"</string>
+    <string name="wave_settings_play" formatted="false">"Слухаць хвалю"</string>
+    <string name="wave_context" formatted="false">"Пад занятак"</string>
+    <string name="wave_diversity" formatted="false">"Па характары"</string>
+    <string name="wave_mood" formatted="false">"Пад настрой"</string>
+    <string name="wave_language" formatted="false">"Па мове"</string>
+    <string name="wave_any" formatted="false">"Любое"</string>
+    <string name="wave_any_language" formatted="false">"Любы"</string>
+    <string name="wave_favorite" formatted="false">"Любімае"</string>
+    <string name="wave_discover" formatted="false">"Незнаёмае"</string>
+    <string name="wave_popular" formatted="false">"Папулярнае"</string>
+    <string name="wave_active" formatted="false">"Бадзёры"</string>
+    <string name="wave_fun" formatted="false">"Вясёлы"</string>
+    <string name="wave_calm" formatted="false">"Спакойны"</string>
+    <string name="wave_sad" formatted="false">"Сумны"</string>
+    <string name="wave_kazakh" formatted="false">"Казахская"</string>
+    <string name="wave_russian" formatted="false">"Руская"</string>
+    <string name="wave_foreign" formatted="false">"Іншыя мовы"</string>
+    <string name="wave_instrumental" formatted="false">"Без слоў"</string>
+    <string name="wave_wakeup" formatted="false">"Прачынаюся"</string>
+    <string name="wave_work" formatted="false">"Працую"</string>
+    <string name="wave_workout" formatted="false">"Трэніруюся"</string>
+    <string name="wave_sleep" formatted="false">"Засынаю"</string>
+    <string name="wave_dance" formatted="false">"Танцую"</string>
+    <string name="wave_relax" formatted="false">"Адпачываю"</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

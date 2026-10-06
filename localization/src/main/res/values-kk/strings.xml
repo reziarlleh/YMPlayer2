@@ -596,5 +596,32 @@
     <string name="bulk_local_only" formatted="false">"Жергілікті плейлистке тек құрылғы мен USB музыкасын қосуға болады."</string>
     <string name="diagnostics_choose_destination" formatted="false">"Есепті сақтайтын орынды таңдаңыз."</string>
     <string name="diagnostics_saved_document" formatted="false">"Сақталды: @0@"</string>
+    <string name="wave_settings_title" formatted="false">"Толқынды баптау"</string>
+    <string name="wave_settings_hint" formatted="false">"Таңдауыңыз қолданбада осы аккаунт үшін сақталады және толқын келесі рет қосылғанда қолданылады."</string>
+    <string name="wave_settings_reset" formatted="false">"Таңдауды қалпына келтіру"</string>
+    <string name="wave_settings_play" formatted="false">"Толқынды тыңдау"</string>
+    <string name="wave_context" formatted="false">"Іс-әрекетке қарай"</string>
+    <string name="wave_diversity" formatted="false">"Музыка сипатына қарай"</string>
+    <string name="wave_mood" formatted="false">"Көңіл күйге қарай"</string>
+    <string name="wave_language" formatted="false">"Тілге қарай"</string>
+    <string name="wave_any" formatted="false">"Кез келген"</string>
+    <string name="wave_any_language" formatted="false">"Кез келген"</string>
+    <string name="wave_favorite" formatted="false">"Ұнататын музыка"</string>
+    <string name="wave_discover" formatted="false">"Жаңа музыка"</string>
+    <string name="wave_popular" formatted="false">"Танымал музыка"</string>
+    <string name="wave_active" formatted="false">"Сергек"</string>
+    <string name="wave_fun" formatted="false">"Көтеріңкі"</string>
+    <string name="wave_calm" formatted="false">"Тыныш"</string>
+    <string name="wave_sad" formatted="false">"Мұңды"</string>
+    <string name="wave_kazakh" formatted="false">"Қазақша"</string>
+    <string name="wave_russian" formatted="false">"Орысша"</string>
+    <string name="wave_foreign" formatted="false">"Басқа тілдер"</string>
+    <string name="wave_instrumental" formatted="false">"Сөзсіз"</string>
+    <string name="wave_wakeup" formatted="false">"Оянып жатырмын"</string>
+    <string name="wave_work" formatted="false">"Жұмыс істеп жатырмын"</string>
+    <string name="wave_workout" formatted="false">"Жаттығып жатырмын"</string>
+    <string name="wave_sleep" formatted="false">"Ұйқыға дайындалып жатырмын"</string>
+    <string name="wave_dance" formatted="false">"Билеп жатырмын"</string>
+    <string name="wave_relax" formatted="false">"Демалып жатырмын"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

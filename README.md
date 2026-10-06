@@ -16,9 +16,10 @@ YMPlayer 2 — самостоятельное приложение. Для ра�
 [Что нового](CHANGELOG.md) ·
 [Обсуждение и APK на 4PDA](https://4pda.to/forum/index.php?showtopic=1127108)
 
-[Тестовая 2.4.0beta-build80 для Android 9+](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build80)
+[Тестовая 2.4.0beta-build81 для Android 9+](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build81)
 устанавливается вручную. Пока проверяется совместимость, автоматическое обновление
-предлагает только стабильные версии.
+предлагает только стабильные версии. В beta можно настроить занятие, характер,
+настроение и язык волны через «…» внутри кнопки «Моя волна».
 
 ## Возможности
 

@@ -596,5 +596,32 @@
     <string name="bulk_local_only" formatted="false">"Les playlists locales ne peuvent contenir que de la musique de l’appareil et des supports USB."</string>
     <string name="diagnostics_choose_destination" formatted="false">"Choisissez où enregistrer le rapport."</string>
     <string name="diagnostics_saved_document" formatted="false">"Enregistré : @0@"</string>
+    <string name="wave_settings_title" formatted="false">"Personnaliser Ma vague"</string>
+    <string name="wave_settings_hint" formatted="false">"Vos choix sont enregistrés dans l’application pour ce compte et appliqués au prochain lancement de la vague."</string>
+    <string name="wave_settings_reset" formatted="false">"Réinitialiser les choix"</string>
+    <string name="wave_settings_play" formatted="false">"Écouter la vague"</string>
+    <string name="wave_context" formatted="false">"Activité"</string>
+    <string name="wave_diversity" formatted="false">"Sélection musicale"</string>
+    <string name="wave_mood" formatted="false">"Ambiance"</string>
+    <string name="wave_language" formatted="false">"Langue"</string>
+    <string name="wave_any" formatted="false">"Au choix"</string>
+    <string name="wave_any_language" formatted="false">"Au choix"</string>
+    <string name="wave_favorite" formatted="false">"Favoris"</string>
+    <string name="wave_discover" formatted="false">"Découvertes"</string>
+    <string name="wave_popular" formatted="false">"Populaire"</string>
+    <string name="wave_active" formatted="false">"Énergique"</string>
+    <string name="wave_fun" formatted="false">"Joyeuse"</string>
+    <string name="wave_calm" formatted="false">"Calme"</string>
+    <string name="wave_sad" formatted="false">"Mélancolique"</string>
+    <string name="wave_kazakh" formatted="false">"Kazakh"</string>
+    <string name="wave_russian" formatted="false">"Russe"</string>
+    <string name="wave_foreign" formatted="false">"Autres langues"</string>
+    <string name="wave_instrumental" formatted="false">"Instrumentale"</string>
+    <string name="wave_wakeup" formatted="false">"Au réveil"</string>
+    <string name="wave_work" formatted="false">"Au travail"</string>
+    <string name="wave_workout" formatted="false">"À l’entraînement"</string>
+    <string name="wave_sleep" formatted="false">"Pour s’endormir"</string>
+    <string name="wave_dance" formatted="false">"Pour danser"</string>
+    <string name="wave_relax" formatted="false">"Pour se détendre"</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

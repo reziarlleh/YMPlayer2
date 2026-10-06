@@ -180,6 +180,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     var waveFailuresRemaining = 0
     val waveRequests = mutableListOf<Int>()
     val waveFeedback = mutableListOf<Triple<String, WaveTrack, WaveFeedback>>()
+    val waveSelections = mutableListOf<WaveRequest>()
+    var waveOptionsFailure: MusicFailure? = null
     val waveApi = object : MyWaveApi {
         private suspend fun batch(id: Int): WaveBatch {
             waveRequests += id
@@ -188,7 +190,19 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             return WaveBatch(listOf(WaveTrack(onlineTrack(id), "batch$id")), "session", id.toString())
         }
         override suspend fun start(profileId: String) = batch(1)
-        override suspend fun next(profileId: String, previous: WaveBatch) = batch(previous.cursor.toInt() + 1)
+        override suspend fun start(profileId: String, request: WaveRequest): WaveBatch {
+            waveSelections += request
+            return batch(1).copy(request = request)
+        }
+        override suspend fun next(profileId: String, previous: WaveBatch) = batch(previous.cursor.toInt() + 1).copy(request = previous.request)
+        override suspend fun options(profileId: String, language: String): WaveOptions {
+            waveOptionsFailure?.let { throw MusicException(it) }
+            return WaveOptions(listOf(
+                WaveOptionGroup("contexts", "Под занятие", listOf(WaveOption("user:onyourwave", "Любое", true), WaveOption("activity:road-trip", "В дороге"))),
+                WaveOptionGroup("diversity", "По характеру", listOf(WaveOption("settingDiversity:default", "Любое", true), WaveOption("settingDiversity:discover", "Незнакомое"))),
+                WaveOptionGroup("moodEnergy", "Под настроение", listOf(WaveOption("settingMoodEnergy:all", "Любое", true), WaveOption("settingMoodEnergy:calm", "Спокойное"))),
+                WaveOptionGroup("language", "По языку", listOf(WaveOption("settingLanguage:any", "Любой", true), WaveOption("settingLanguage:russian", "Казахский")))))
+        }
         override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) { waveFeedback += Triple(profileId, item, type) }
     }
     val history = dev.petrov.ymplayer2.library.ListeningHistory(context, viewModelScope, "fixture-history.db")

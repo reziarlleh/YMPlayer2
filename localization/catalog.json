@@ -9610,5 +9610,437 @@
       "es": "Guardado: @0@",
       "fr": "Enregistré : @0@"
     }
+  },
+  {
+    "key": "wave_settings_title",
+    "source": "Настроить волну",
+    "english": "Customize My Vibe",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Наладзіць хвалю",
+      "kk": "Толқынды баптау",
+      "uk": "Налаштувати хвилю",
+      "de": "Meine Welle anpassen",
+      "es": "Ajustar Mi onda",
+      "fr": "Personnaliser Ma vague"
+    }
+  },
+  {
+    "key": "wave_settings_hint",
+    "source": "Выбор сохраняется для этого аккаунта в приложении и применяется при следующем запуске волны.",
+    "english": "Your choices are saved for this account in the app and used the next time you start the wave.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Выбар захоўваецца для гэтага акаўнта ў праграме і ўжываецца пры наступным запуску хвалі.",
+      "kk": "Таңдауыңыз қолданбада осы аккаунт үшін сақталады және толқын келесі рет қосылғанда қолданылады.",
+      "uk": "Вибір зберігається для цього облікового запису в застосунку й застосовується під час наступного запуску хвилі.",
+      "de": "Deine Auswahl wird in der App für dieses Konto gespeichert und beim nächsten Start der Welle verwendet.",
+      "es": "Tus preferencias se guardan en la aplicación para esta cuenta y se aplican la próxima vez que inicies la onda.",
+      "fr": "Vos choix sont enregistrés dans l’application pour ce compte et appliqués au prochain lancement de la vague."
+    }
+  },
+  {
+    "key": "wave_settings_reset",
+    "source": "Сбросить выбор",
+    "english": "Reset choices",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Скінуць выбар",
+      "kk": "Таңдауды қалпына келтіру",
+      "uk": "Скинути вибір",
+      "de": "Auswahl zurücksetzen",
+      "es": "Restablecer preferencias",
+      "fr": "Réinitialiser les choix"
+    }
+  },
+  {
+    "key": "wave_settings_play",
+    "source": "Слушать волну",
+    "english": "Start My Vibe",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Слухаць хвалю",
+      "kk": "Толқынды тыңдау",
+      "uk": "Слухати хвилю",
+      "de": "Welle starten",
+      "es": "Escuchar la onda",
+      "fr": "Écouter la vague"
+    }
+  },
+  {
+    "key": "wave_context",
+    "source": "Под занятие",
+    "english": "Activity",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Пад занятак",
+      "kk": "Іс-әрекетке қарай",
+      "uk": "Під заняття",
+      "de": "Aktivität",
+      "es": "Actividad",
+      "fr": "Activité"
+    }
+  },
+  {
+    "key": "wave_diversity",
+    "source": "По характеру",
+    "english": "Music selection",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Па характары",
+      "kk": "Музыка сипатына қарай",
+      "uk": "За характером",
+      "de": "Musikauswahl",
+      "es": "Selección musical",
+      "fr": "Sélection musicale"
+    }
+  },
+  {
+    "key": "wave_mood",
+    "source": "Под настроение",
+    "english": "Mood",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Пад настрой",
+      "kk": "Көңіл күйге қарай",
+      "uk": "Під настрій",
+      "de": "Stimmung",
+      "es": "Estado de ánimo",
+      "fr": "Ambiance"
+    }
+  },
+  {
+    "key": "wave_language",
+    "source": "По языку",
+    "english": "Language",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Па мове",
+      "kk": "Тілге қарай",
+      "uk": "За мовою",
+      "de": "Sprache",
+      "es": "Idioma",
+      "fr": "Langue"
+    }
+  },
+  {
+    "key": "wave_any",
+    "source": "Любое",
+    "english": "Any",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Любое",
+      "kk": "Кез келген",
+      "uk": "Будь-яке",
+      "de": "Beliebig",
+      "es": "Cualquiera",
+      "fr": "Au choix"
+    }
+  },
+  {
+    "key": "wave_any_language",
+    "source": "Любой",
+    "english": "Any",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Любы",
+      "kk": "Кез келген",
+      "uk": "Будь-яка",
+      "de": "Beliebig",
+      "es": "Cualquiera",
+      "fr": "Au choix"
+    }
+  },
+  {
+    "key": "wave_favorite",
+    "source": "Любимое",
+    "english": "Favourites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Любімае",
+      "kk": "Ұнататын музыка",
+      "uk": "Улюблене",
+      "de": "Lieblingsmusik",
+      "es": "Favoritos",
+      "fr": "Favoris"
+    }
+  },
+  {
+    "key": "wave_discover",
+    "source": "Незнакомое",
+    "english": "Discoveries",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Незнаёмае",
+      "kk": "Жаңа музыка",
+      "uk": "Незнайоме",
+      "de": "Entdeckungen",
+      "es": "Descubrimientos",
+      "fr": "Découvertes"
+    }
+  },
+  {
+    "key": "wave_popular",
+    "source": "Популярное",
+    "english": "Popular",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Папулярнае",
+      "kk": "Танымал музыка",
+      "uk": "Популярне",
+      "de": "Beliebt",
+      "es": "Popular",
+      "fr": "Populaire"
+    }
+  },
+  {
+    "key": "wave_active",
+    "source": "Бодрое",
+    "english": "Energetic",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Бадзёры",
+      "kk": "Сергек",
+      "uk": "Бадьорий",
+      "de": "Energiegeladen",
+      "es": "Enérgico",
+      "fr": "Énergique"
+    }
+  },
+  {
+    "key": "wave_fun",
+    "source": "Весёлое",
+    "english": "Cheerful",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Вясёлы",
+      "kk": "Көтеріңкі",
+      "uk": "Веселий",
+      "de": "Fröhlich",
+      "es": "Alegre",
+      "fr": "Joyeuse"
+    }
+  },
+  {
+    "key": "wave_calm",
+    "source": "Спокойное",
+    "english": "Calm",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Спакойны",
+      "kk": "Тыныш",
+      "uk": "Спокійний",
+      "de": "Ruhig",
+      "es": "Tranquilo",
+      "fr": "Calme"
+    }
+  },
+  {
+    "key": "wave_sad",
+    "source": "Грустное",
+    "english": "Melancholic",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Сумны",
+      "kk": "Мұңды",
+      "uk": "Сумний",
+      "de": "Melancholisch",
+      "es": "Melancólico",
+      "fr": "Mélancolique"
+    }
+  },
+  {
+    "key": "wave_kazakh",
+    "source": "Казахский",
+    "english": "Kazakh",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Казахская",
+      "kk": "Қазақша",
+      "uk": "Казахська",
+      "de": "Kasachisch",
+      "es": "Kazajo",
+      "fr": "Kazakh"
+    }
+  },
+  {
+    "key": "wave_russian",
+    "source": "Русский",
+    "english": "Russian",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Руская",
+      "kk": "Орысша",
+      "uk": "Російська",
+      "de": "Russisch",
+      "es": "Ruso",
+      "fr": "Russe"
+    }
+  },
+  {
+    "key": "wave_foreign",
+    "source": "Иностранный",
+    "english": "Other languages",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Іншыя мовы",
+      "kk": "Басқа тілдер",
+      "uk": "Інші мови",
+      "de": "Andere Sprachen",
+      "es": "Otros idiomas",
+      "fr": "Autres langues"
+    }
+  },
+  {
+    "key": "wave_instrumental",
+    "source": "Без слов",
+    "english": "Instrumental",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Без слоў",
+      "kk": "Сөзсіз",
+      "uk": "Без слів",
+      "de": "Instrumental",
+      "es": "Instrumental",
+      "fr": "Instrumentale"
+    }
+  },
+  {
+    "key": "wave_wakeup",
+    "source": "Просыпаюсь",
+    "english": "Waking up",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Прачынаюся",
+      "kk": "Оянып жатырмын",
+      "uk": "Прокидаюся",
+      "de": "Aufwachen",
+      "es": "Al despertar",
+      "fr": "Au réveil"
+    }
+  },
+  {
+    "key": "wave_work",
+    "source": "Работаю",
+    "english": "Working",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Працую",
+      "kk": "Жұмыс істеп жатырмын",
+      "uk": "Працюю",
+      "de": "Arbeiten",
+      "es": "Trabajando",
+      "fr": "Au travail"
+    }
+  },
+  {
+    "key": "wave_workout",
+    "source": "Тренируюсь",
+    "english": "Working out",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Трэніруюся",
+      "kk": "Жаттығып жатырмын",
+      "uk": "Тренуюся",
+      "de": "Trainieren",
+      "es": "Entrenando",
+      "fr": "À l’entraînement"
+    }
+  },
+  {
+    "key": "wave_sleep",
+    "source": "Засыпаю",
+    "english": "Falling asleep",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Засынаю",
+      "kk": "Ұйқыға дайындалып жатырмын",
+      "uk": "Засинаю",
+      "de": "Einschlafen",
+      "es": "Para dormir",
+      "fr": "Pour s’endormir"
+    }
+  },
+  {
+    "key": "wave_dance",
+    "source": "Танцую",
+    "english": "Dancing",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Танцую",
+      "kk": "Билеп жатырмын",
+      "uk": "Танцюю",
+      "de": "Tanzen",
+      "es": "Bailando",
+      "fr": "Pour danser"
+    }
+  },
+  {
+    "key": "wave_relax",
+    "source": "Отдыхаю",
+    "english": "Relaxing",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Адпачываю",
+      "kk": "Демалып жатырмын",
+      "uk": "Відпочиваю",
+      "de": "Entspannen",
+      "es": "Descansando",
+      "fr": "Pour se détendre"
+    }
   }
 ]

@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-06",
+  "jvm": {
+    "tests": 98,
+    "failures": 0,
+    "errors": 0
+  },
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 53,
+      "checkDependencies": true
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 52,
+      "checkDependencies": true
+    }
+  },
+  "native": [
+    {
+      "serial": "emulator-5560",
+      "api": 28,
+      "passed": 21,
+      "failed": 0,
+      "success": true,
+      "durationSeconds": 97.25,
+      "selection": [
+        "WaveSettingsAdapterTest",
+        "WaveSettingsPlaybackTest",
+        "RecommendationAdapterTest",
+        "MyWavePlaybackTest#fastStartPrefetchAutomaticContinuationAndPausedRestore",
+        "MyWavePlaybackTest#transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack",
+        "MyWavePlaybackTest#nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution",
+        "WaveQueueModeTest#stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls"
+      ],
+      "personalAccountAcceptance": false,
+      "fixtures": "Explicit fake music/auth and local audio, plus sanitized public settings JSON; no personal account token"
+    },
+    {
+      "serial": "emulator-5556",
+      "api": 29,
+      "passed": 21,
+      "failed": 0,
+      "success": true,
+      "durationSeconds": 76.91,
+      "selection": [
+        "WaveSettingsAdapterTest",
+        "WaveSettingsPlaybackTest",
+        "RecommendationAdapterTest",
+        "MyWavePlaybackTest#fastStartPrefetchAutomaticContinuationAndPausedRestore",
+        "MyWavePlaybackTest#transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack",
+        "MyWavePlaybackTest#nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution",
+        "WaveQueueModeTest#stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls"
+      ],
+      "personalAccountAcceptance": false,
+      "fixtures": "Explicit fake music/auth and local audio, plus sanitized public settings JSON; no personal account token"
+    }
+  ],
+  "personalAccountAcceptance": false,
+  "physicalDeviceAcceptance": false
+}

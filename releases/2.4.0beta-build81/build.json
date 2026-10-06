@@ -1,0 +1,11 @@
+{
+  "runtimeAcceptance": "pending",
+  "versionCode": 81,
+  "minSdk": 28,
+  "channel": "beta",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionName": "2.4.0beta-build81",
+  "builtAtUtc": "2026-10-06T03:43:32.3958350Z",
+  "updateChannel": "stable",
+  "sha256": "ce19b5d31257b2049a333fb1636b0ac4ce6f5070cb319ae668516b193b770b59"
+}

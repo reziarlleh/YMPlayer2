@@ -1,0 +1,19 @@
+{
+  "serial": "emulator-5560",
+  "api": 28,
+  "passed": 21,
+  "failed": 0,
+  "success": true,
+  "durationSeconds": 97.25,
+  "selection": [
+    "WaveSettingsAdapterTest",
+    "WaveSettingsPlaybackTest",
+    "RecommendationAdapterTest",
+    "MyWavePlaybackTest#fastStartPrefetchAutomaticContinuationAndPausedRestore",
+    "MyWavePlaybackTest#transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack",
+    "MyWavePlaybackTest#nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution",
+    "WaveQueueModeTest#stopKeepsWaveAcrossResumeAndServiceRestoreButOrdinaryListRestoresControls"
+  ],
+  "personalAccountAcceptance": false,
+  "fixtures": "Explicit fake music/auth and local audio, plus sanitized public settings JSON; no personal account token"
+}
