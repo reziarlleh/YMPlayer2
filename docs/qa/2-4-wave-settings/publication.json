@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-06",
+  "sourceCommit": "52763ee90ca777fec4d82580e33b3c21d08b16c9",
+  "prerelease": true,
+  "githubLatest": "v2.3.4-build79",
+  "assetDigest": "sha256:ce19b5d31257b2049a333fb1636b0ac4ce6f5070cb319ae668516b193b770b59",
+  "assetBytes": 6033477,
+  "betaInAutoUpdate": false,
+  "betaFeedPublicationGuardRejected": true,
+  "localFeedSha256": {
+    "manifest": "af6d3c6bf908efe85eba5fec518830d28c2f49a30dc3a987a673f7670e70eef7",
+    "stable": "af6d3c6bf908efe85eba5fec518830d28c2f49a30dc3a987a673f7670e70eef7"
+  },
+  "http": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": true
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.4.0beta-build81/YMPlayer-2.4.0beta-build81.apk",
+      "status": 200,
+      "bytes": 6033477,
+      "sha256": "ce19b5d31257b2049a333fb1636b0ac4ce6f5070cb319ae668516b193b770b59",
+      "matchesBetaApk": true,
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.0beta-build81/releases/2.4.0beta-build81/YMPlayer-2.4.0beta-build81.apk",
+      "status": 200,
+      "bytes": 6033477,
+      "sha256": "ce19b5d31257b2049a333fb1636b0ac4ce6f5070cb319ae668516b193b770b59",
+      "matchesBetaApk": true,
+      "verified": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.0beta-build81/releases/2.4.0beta-build81/YMPlayer-2.4.0beta-build81.apk",
+      "status": 200,
+      "bytes": 6033477,
+      "sha256": "ce19b5d31257b2049a333fb1636b0ac4ce6f5070cb319ae668516b193b770b59",
+      "matchesBetaApk": true,
+      "verified": true
+    }
+  ]
+}

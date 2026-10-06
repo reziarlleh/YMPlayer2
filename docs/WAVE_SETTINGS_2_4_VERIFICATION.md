@@ -93,7 +93,18 @@ Signed80→81 установлен и запущен на [Android9](qa/2-4-wave
 и [TV10](qa/2-4-wave-settings/signed-emulator-5556.json), firstInstallTime сохранён.
 Без root private prefs недоступны: совпадение их хешей и живая OAuth-приёмка
 не заявляются. Полные сценарии настроек выполнены на debug APK с fixtures.
-Публикация и сверка HTTP выполняются после signed-проверки установки.
+[Ручной prerelease опубликован](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build81),
+tag/source `52763ee90ca777fec4d82580e33b3c21d08b16c9`. Основной main не отделялся.
+[HTTP-срез 2026-10-06](qa/2-4-wave-settings/publication.json): GitHub и pinned
+jsDelivr/Gcore APK — HTTP200, размер и SHA256 совпадают. Все шесть чтений
+stable/manifest через GitHub raw и два CDN вернули79/min29; GitHub latest79.
+Prepare-UpdateManifest отклонил beta до записи feeds. [Сверка документов/GitHub](qa/2-4-wave-settings/documentation-github.json)
+прошла без ошибок; README blob совпал, manualBeta=true. Форум не изменялся.
+Приёмка прежних физических устройств и персональной выдачи остаётся отдельной.
+RepoWise index-only обновлён по source52763ee: граф перестроен,132 страницы
+перерисованы из структуры, cost_usd0/degraded[]; модели для prose не запускались.
+Сводка health была partial с пределом cascade50; её dead-code кандидаты
+не использовались как основание для удаления кода или доказательство проверок.
 
 ## Допуск
 

@@ -1,9 +1,9 @@
 # Текущий статус YMPlayer 2
 
-Сверено 4 октября 2026 года: **[2.3.4-build79](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.4-build79)**,
+Сверено 6 октября 2026 года: **[2.3.4-build79](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.4-build79)**,
 публичный `reziarlleh/YMPlayer2`, `main`, пакет `dev.petrov.ymplayer2`.
 Stable в обоих update-манифестах и GitHub latest остаётся79. С 2026-10-06
-на main подготовлена ручная **[2.4.0beta-build81 / minSdk28](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build81)** с настройками волны;
+на main опубликована ручная **[2.4.0beta-build81 / minSdk28](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build81)** с настройками волны;
 она не входит в auto-update до подтверждения работы на прежних устройствах.
 2.x — самостоятельное приложение; 1.x для работы не требуется.
 
@@ -38,7 +38,7 @@ B-007 установлен по стеку build78 и R8 retrace: повторн
 ## Открыто и следующий шаг
 
 - 2026-10-06: первый этап «Настроить волну» реализован: 98 JVM, полный lint
-  и 42 native-проверки Android9/TV10 пройдены. Подготовка публикации beta81;
+  и 42 native-проверки Android9/TV10 пройдены. Beta81 опубликована;
   [результаты и ошибки подготовки](WAVE_SETTINGS_2_4_VERIFICATION.md).
   Остальные пункты — отдельные задачи с уточнениями. Независимый русский
   фильтр API пока не подтверждён, [ADR-040](ADR_040_WAVE_SETTINGS.md).
