@@ -1,0 +1,60 @@
+{
+  "checkedAtUtc": "2026-10-06T08:14:56.199818+00:00",
+  "requestAuthorization": false,
+  "requestCookies": false,
+  "personalOAuthUsed": false,
+  "scope": "Public HTML server-rendered JSON and public JavaScript, not authenticated FM REST requests or native playback",
+  "home": {
+    "url": "https://radio.yandex.ru/",
+    "httpStatus": 200,
+    "stationPreviewCount": 50
+  },
+  "station": {
+    "url": "https://radio.yandex.ru/station/europa-plus",
+    "httpStatus": 200,
+    "slug": "europa-plus",
+    "regionalStreamsCount": 47,
+    "selectedStreamSlug": "europa-plus-moscow",
+    "type": "fm-online",
+    "availableFeatures": [
+      "widgets",
+      "recently-played",
+      "show",
+      "show-host"
+    ],
+    "genreSlugs": [
+      "dance",
+      "electronic",
+      "pop",
+      "rock"
+    ],
+    "recentlyPlayedCount": 391,
+    "someHistoryEntriesLinkMusic": true,
+    "someHistoryEntriesHaveNoMusicMatch": true,
+    "radioTrackIdsDifferFromNumericMusicIds": true
+  },
+  "availability": {
+    "hasPlus": false,
+    "isChild": false,
+    "userSessionRegionIso": "kz",
+    "geoRegionIso": "kz",
+    "serviceAvailable": true
+  },
+  "frontend": "radio/v1.280.0",
+  "publicSources": [
+    {
+      "url": "https://yastatic.net/s3/music-frontend-static/radio/v1.280.0/_next/static/chunks/077p6moz21ca1.js",
+      "sha256": "7ad86420dbb14e65f01ff177809dbde430784cc08729dc78fa22f4aa9cda1b62"
+    },
+    {
+      "url": "https://yastatic.net/s3/music-frontend-static/radio/v1.280.0/_next/static/chunks/2h9k4qxl4xbc0.js",
+      "sha256": "c2b0c9e3edfb74a69727129031a23c6d23c92f54e78092f39218fc5d3f78e812"
+    }
+  ],
+  "nativePlaybackChecked": false,
+  "audioStreamUrlResolved": false,
+  "musicOAuthForFmChecked": false,
+  "officialPublicFmApiFound": false,
+  "implemented": false,
+  "nextIfAuthorized": "One real FM stream URL/format/reconnect prototype; test existing OAuth for personal FM operations before introducing another authorization flow"
+}
