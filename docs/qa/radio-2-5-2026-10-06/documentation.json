@@ -7,7 +7,7 @@
     "stable": "2.4.1-build84"
   },
   "documents": 200,
-  "localLinks": 1684,
+  "localLinks": 1685,
   "brokenLinks": [],
   "github": {
     "isPrerelease": false,
@@ -18,8 +18,8 @@
       "tagName": "v2.5.0beta-build87",
       "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build87"
     },
-    "readmeBlob": "a007fa0071d06404e30e41d93419dc793ae6aecd",
-    "localReadmeBlob": "a007fa0071d06404e30e41d93419dc793ae6aecd"
+    "readmeBlob": "bb6d978778a9f6faa5f40101fc7b35f1a405ba30",
+    "localReadmeBlob": "bb6d978778a9f6faa5f40101fc7b35f1a405ba30"
   },
   "errors": []
 }
