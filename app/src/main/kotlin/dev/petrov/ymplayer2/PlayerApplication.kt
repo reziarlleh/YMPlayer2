@@ -31,7 +31,21 @@ class PlayerApplication : Application(), PlaybackHost {
         diagnostics.refreshEnvironment()
     }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    internal val diagnostics by lazy { DiagnosticsJournal(this) }
+    internal val diagnostics: DiagnosticsJournal by lazy { DiagnosticsJournal(this, researchActions =
+        if (BuildConfig.RADIO_AUTH_PROBE) listOf(dev.petrov.ymplayer2.shell.DiagnosticAction("Проверить вход в Яндекс Радио") {
+            try {
+                val report = withTimeout(120_000) {
+                    accounts.withSession(accounts.state.value.profileId) { session ->
+                        YandexRadioAuthProbe().run(session.credentials.accessToken, session.account?.id)
+                    }
+                }
+                diagnostics.saveRadioProbe(report)
+                report.summary
+            } catch (_: TimeoutCancellationException) { "Проверка не завершилась за две минуты. Проверь сеть и повтори." }
+            catch (e: CancellationException) { throw e }
+            catch (_: dev.petrov.ymplayer2.core.MusicException) { "Нужен текущий авторизованный профиль. Вход не изменён." }
+            catch (_: Exception) { "Не удалось завершить проверку Радио. Вход не изменён." }
+        }) else emptyList()) }
     val skins by lazy { dev.petrov.ymplayer2.designsystem.skin.SkinRepository(this, scope) }
     override fun onAudioServiceEvent(event: AudioServiceEvent) {
         diagnostics.record(when (event) {

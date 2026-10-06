@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-06",
+  "beta": "2.5.0beta-build85",
+  "stableFeedsPreserved": "2.4.1-build84",
+  "api28NativePassed": 9,
+  "tv29NativePassed": 10,
+  "lintDebug": {
+    "errors": 0,
+    "warnings": 53
+  },
+  "lintRelease": {
+    "errors": 0,
+    "warnings": 52
+  },
+  "signedUpgrade84To85": {
+    "API28": true,
+    "TV29": true
+  },
+  "minSdk": 28,
+  "targetSdk": 36,
+  "apkBytes": 6075637,
+  "apkSha256": "32b64fb87b7e227e42085f8e9e84442c03c0f3cdb82344787a7a657cfc4da078",
+  "signerSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+  "ownerSmartphoneOAuthChecked": false,
+  "fmPlaybackImplemented": false
+}

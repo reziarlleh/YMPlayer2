@@ -347,6 +347,13 @@ keyboard. Android11+ also provides system process-exit reasons; Android10
 does not support that part. Search text, track titles and tokens are not
 recorded. Reports stay on your device until you choose to share them.
 
+The manually installed **2.5.0beta-build85** adds a research button in Diagnostics:
+**Проверить вход в Яндекс Радио** (check Yandex Radio sign-in). It uses the existing
+account in the current profile to read favourite FM stations, then saves a
+redacted result for **Export to Downloads**. No new sign-in or token export is
+needed. The research controls are in Russian; FM playback is not implemented
+in this beta. Stable2.4.1 remains the automatic update release.
+
 On Android 9, export opens the system file picker instead: choose
 a destination and save the report. A toast confirms the result. Cancelling
 the picker does not save a file.

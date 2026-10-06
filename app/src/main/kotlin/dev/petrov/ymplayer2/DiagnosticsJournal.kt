@@ -30,7 +30,15 @@ internal enum class DiagnosticEvent {
 }
 
 internal class DiagnosticsJournal(private val context: Context,
-    private val file: File = File(context.filesDir, "diagnostics-2.log")) : DiagnosticsAccess {
+    private val file: File = File(context.filesDir, "diagnostics-2.log"),
+    override val researchActions: List<dev.petrov.ymplayer2.shell.DiagnosticAction> = emptyList()) : DiagnosticsAccess {
+    private val radioProbeFile = File(file.parentFile, "${file.name}.radio-probe.json")
+    suspend fun saveRadioProbe(report: RadioProbeReport) = withContext(Dispatchers.IO) {
+        synchronized(lock) { radioProbeFile.writeText(report.diagnosticText(), StandardCharsets.UTF_8) }
+    }
+    private fun radioProbeSnapshot(): String = try {
+        if (radioProbeFile.isFile && radioProbeFile.length() <= 32 * 1024) "\n\nRadio OAuth probe:\n" + radioProbeFile.readText(StandardCharsets.UTF_8) else ""
+    } catch (_: IOException) { "\n\nRadio OAuth probe: READ_ERROR" }
     private val crashes = CrashDiagnostics(context, File(file.parentFile, "${file.name}.crash"))
     fun installCrashCapture() = crashes.install()
     fun refreshEnvironment() = crashes.refreshEnvironment()
@@ -56,13 +64,14 @@ internal class DiagnosticsJournal(private val context: Context,
     }
 
     override suspend fun snapshot(): String = withContext(Dispatchers.IO) {
-        synchronized(lock) { readSnapshot() } + "\n\n" + crashes.snapshot()
+        synchronized(lock) { readSnapshot() + radioProbeSnapshot() } + "\n\n" + crashes.snapshot()
     }
 
     override suspend fun clear(): String = withContext(Dispatchers.IO) {
         synchronized(lock) {
             try {
                 crashes.clear()
+                if (radioProbeFile.exists() && !radioProbeFile.delete()) return@synchronized tr(Msg.msg_203dc0ea9f7d)
                 if (file.exists() && !file.delete()) return@synchronized tr(Msg.msg_203dc0ea9f7d)
                 record(DiagnosticEvent.JOURNAL_CLEARED)
                 tr(Msg.msg_4a1236b53aa7)
@@ -112,7 +121,7 @@ internal class DiagnosticsJournal(private val context: Context,
     private fun writeDocument(uri: Uri) {
         val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown"
         val header = "YMPlayer 2 $version\nExported: ${stamp()}\nAndroid API ${Build.VERSION.SDK_INT}\n\n"
-        val body = synchronized(lock) { readSnapshot() } + "\n\n" + crashes.snapshot()
+        val body = synchronized(lock) { readSnapshot() + radioProbeSnapshot() } + "\n\n" + crashes.snapshot()
         val output = context.contentResolver.openOutputStream(uri, "w") ?: throw IOException("No output")
         output.use { it.write((header + body).toByteArray(StandardCharsets.UTF_8)) }
     }

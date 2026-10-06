@@ -11,6 +11,17 @@ import org.junit.runner.RunWith
 class DiagnosticsScreenTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
 
+    @Test fun betaResearchActionIsVisibleWithoutStartingLogin() {
+        org.junit.Assume.assumeTrue(BuildConfig.RADIO_AUTH_PROBE)
+        compose.runOnIdle { dev.petrov.ymplayer2.localization.AppLanguages.select("ru") }
+        compose.onNodeWithTag("settings").performClick()
+        compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("settings_diagnostics"))
+        compose.onNodeWithTag("settings_diagnostics").performClick()
+        compose.onNodeWithTag("diagnostics_list").performScrollToNode(hasTestTag("diagnostics_research_0"))
+        compose.onNodeWithTag("diagnostics_research_0").assertExists().assertIsEnabled()
+        compose.onNodeWithText("Проверить вход в Яндекс Радио").assertExists()
+    }
+
     @Test fun journalOpensFromSettingsAndBackReturnsOneLevel() {
         compose.runOnIdle { dev.petrov.ymplayer2.localization.AppLanguages.select("ru") }
         compose.onNodeWithTag("settings").performClick()
