@@ -1,0 +1,14 @@
+{
+  "version": "2.4.1-build84",
+  "manualBeta": false,
+  "stableVersion": "2.4.1-build84",
+  "localFeeds": {
+    "manifest": "2.4.1-build84",
+    "stable": "2.4.1-build84"
+  },
+  "documents": 194,
+  "localLinks": 1565,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}

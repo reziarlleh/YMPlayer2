@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 83,
-  "versionName": "2.4.0-build83",
+  "versionCode": 84,
+  "versionName": "2.4.1-build84",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-06T07:03:20.4684854Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0-build83",
-  "releaseNotes": "Настройки и источники волны; продолжение после списка, бесконечный рандом и взаимоисключающие режимы; переключатель источника. Поддержка Android 9. Стабильный выпуск с сохранением данных.",
+  "publishedAt": "2026-10-06T07:37:36.0151429Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.1-build84",
+  "releaseNotes": "Настройки «Моей волны» показываются только в её режиме, включая паузу; при смене источника окно закрывается.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.4.0-build83/YMPlayer-2.4.0-build83.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.0-build83/releases/2.4.0-build83/YMPlayer-2.4.0-build83.apk",
-    "sizeBytes": 6059249,
-    "sha256": "b6a5936a95b28dd324d9359907ed5590b353ec22aea519a4fba88cd180d0a21c"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.4.1-build84/YMPlayer-2.4.1-build84.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.1-build84/releases/2.4.1-build84/YMPlayer-2.4.1-build84.apk",
+    "sizeBytes": 6059245,
+    "sha256": "c4597a814aa7d850ed44a8f1186cf9004980c32806e060a710d8649ed7daefb7"
   }
 }
