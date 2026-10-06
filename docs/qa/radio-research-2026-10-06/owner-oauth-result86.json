@@ -1,0 +1,73 @@
+{
+  "evidenceKind": "owner-provided smartphone diagnostic export",
+  "applicationVersion": "2.5.0beta-build86",
+  "androidApi": 36,
+  "androidVersion": "16",
+  "checkedAtUtc": "2026-10-06T10:49:36.255000+00:00",
+  "sourceDiagnosticSha256": "6828abd183230c7425cbad1ca6b00889bee3f35a34b726f5ffc879c1177ca848",
+  "probe": {
+    "probe": "YandexRadioExistingMusicOAuth",
+    "schema": 1,
+    "checkedAtUtcMillis": 1791283776255,
+    "readOnly": true,
+    "newTokenRequested": false,
+    "browserCookiesUsed": false,
+    "musicAccount": {
+      "status": 200,
+      "json": true
+    },
+    "musicUidPresent": true,
+    "musicUidMatchesSavedProfile": true,
+    "controls": {
+      "anonymous": {
+        "/account/about": {
+          "status": 200,
+          "json": true
+        },
+        "/radio/v1/collection/stations/slugs": {
+          "status": 401,
+          "json": true
+        },
+        "/radio/v1/collection/tracks/ids": {
+          "status": 401,
+          "json": true
+        }
+      },
+      "invalidOAuth": {
+        "/account/about": {
+          "status": 401,
+          "json": true
+        },
+        "/radio/v1/collection/stations/slugs": {
+          "status": 401,
+          "json": true
+        },
+        "/radio/v1/collection/tracks/ids": {
+          "status": 401,
+          "json": true
+        }
+      },
+      "existingMusicOAuth": {
+        "/account/about": {
+          "status": 200,
+          "json": true
+        },
+        "/radio/v1/collection/stations/slugs": {
+          "status": 200,
+          "json": true,
+          "itemCount": 0
+        },
+        "/radio/v1/collection/tracks/ids": {
+          "status": 200,
+          "json": true,
+          "itemCount": 0
+        }
+      }
+    },
+    "favouriteStationsReadableWithOAuth": true,
+    "existingTokenVerifiedForFmCollection": true,
+    "fmUidPresent": true,
+    "accountUidMatches": true,
+    "personalAccountIdentityVerified": true
+  }
+}
