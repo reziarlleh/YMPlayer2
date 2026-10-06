@@ -15,11 +15,13 @@ Toolbar проверял наличие WaveSettings, доступного вс�
 ## Проверки
 
 - [101 JVM, lint debug/release без ошибок](qa/patch-2-4-1/build-checks.json).
+  Предупреждения lint:53 debug/52 release; нулевой общий набор warnings не заявляется.
   Debug, instrumentation и release собраны. Ресурсы/исходники не менялись во время Gradle.
 - TV10/API29: [15/15 целевых native](qa/patch-2-4-1/emulator-5556/targeted-result.json).
   EntityWavePlayback, WaveSettingsPlayback, PlayerComposition и ManualBetaUpdate.
 - Android9/API28: [первично14/15](qa/patch-2-4-1/emulator-5560/targeted-result.json).
-  RequestFocus в sourcePicker до новой проверки settings не успел получить фокус.
+  assertIsFocused после RequestFocus в sourcePicker получил false, до новых
+  проверок settings. Причина первичного сбоя фокуса отдельно не установлена.
   Без изменения кода/теста [отдельный случай1/1](qa/patch-2-4-1/emulator-5560/focus-repeat-result.json)
   и [весь соседний класс6/6](qa/patch-2-4-1/emulator-5560/adjacent-repeat-result.json)
   прошли. Сбой сохранён, первый прогон не объявлен полностью успешным.
@@ -76,11 +78,25 @@ README, две пользовательские инструкции, PROJECT_ST
 FEATURE_INVENTORY/MIGRATION_MAP, VERSIONING/PLAN_2_4, BUG_REPORT,
 журнал и уроки сверены с условием в PlayerScreen. Исторические748 runtime-проверок
 относятся к83; новый patch не выдаётся за повтор всего набора.
-RepoWise использован до исходников, index-only обновляется после изменений;
+RepoWise CLI context использован до исходников; index-only обновлён за2m54s,
+47 wiki-страниц из структуры, 5049 узлов/13125 связей, без model prose;
 он не заменяет результаты сборки/тестов. Новая запись D-002 не объявлена исправлением.
 
-[HTTP/latest/feeds](qa/patch-2-4-1/publication.json) дополняется после публикации.
-Остаток текущей задачи: публикация APK/tag/stable feeds, live83→84 через резервный
-источник на AOSP/API35, GitHub CI и финальная сверка документов после push.
+[HTTP/latest/feeds](qa/patch-2-4-1/publication.json): stable84/latest/main/public;
+GitHub raw и основной jsDelivr оба feeds84/min28. Динамический Gcore всё ещё79;
+оба его старых feeds исключены из утверждения об актуальности. Три опубликованных
+APK (GitHub/cdn/Gcore pinned tag) совпали по размеру и SHA256. D-001 открыт.
+Исходники/tag ca19310, commit feeds0eb88ed; APK в теге и release совпадает.
+
+[Live83→84/API35](qa/patch-2-4-1/emulator-5562/update-release.json): приложение
+предложило84, резервная загрузка прошла собственную проверку, системный installer
+установил84, firstInstallTime сохранён. AOSP не проверяет Google/HyperOS scanner.
+GitHub CI37430847664/0eb88ed завершён успешно:
+[срез CI](qa/patch-2-4-1/ci.json). [Сверка содержания](qa/patch-2-4-1/documentation-content-audit.json)
+отделена от [проверки ссылок/версии/GitHub](qa/patch-2-4-1/documentation-github.json).
+Проверены194 документа/1572 локальные ссылки, разрывов нет. README blob совпадает с GitHub latest/main; current документы
+согласованы с кодом/APK/датированным HTTP-срезом. Исправлено B-011; D-002
+и внешняя задержка D-001 открыты. Публикация patch84 завершена; закрывающий
+commit меняет только docs/QA, без новой сборки/изменений источников/feeds.
 Далее отдельный B-006; точная причина D-002 ждёт нового сообщения владельца.
 Физические устройства и форум не затрагивались.

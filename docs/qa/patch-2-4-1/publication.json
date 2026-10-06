@@ -1,4 +1,101 @@
 {
-  "version": "2.4.1-build84",
-  "status": "pending publication/HTTP validation"
+  "checkedAtUtc": "2026-10-06T07:38:33.536472+00:00",
+  "releaseVersion": "2.4.1-build84",
+  "sourceCommit": "ca193104e2f93e74bc3f1ceb87665526eaa09ce2",
+  "prerelease": false,
+  "githubLatest": "v2.4.1-build84",
+  "public": true,
+  "defaultBranch": "main",
+  "description": "Самостоятельный плеер для Android 9+: Яндекс Музыка, настраиваемые волны по треку/артисту/альбому/плейлисту, local/USB, офлайн, клипы, Android TV, скины, восемь языков.",
+  "assetDigest": "sha256:c4597a814aa7d850ed44a8f1186cf9004980c32806e060a710d8649ed7daefb7",
+  "assetBytes": 6059245,
+  "http": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "bytes": 904,
+      "sha256": "dc6617404d466c6449a91315276798a637256348a0b7bca165b2cbfd9013e59d",
+      "version": "2.4.1-build84",
+      "channel": "stable",
+      "minimum": 28,
+      "verified": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "bytes": 904,
+      "sha256": "dc6617404d466c6449a91315276798a637256348a0b7bca165b2cbfd9013e59d",
+      "version": "2.4.1-build84",
+      "channel": "stable",
+      "minimum": 28,
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "bytes": 904,
+      "sha256": "dc6617404d466c6449a91315276798a637256348a0b7bca165b2cbfd9013e59d",
+      "version": "2.4.1-build84",
+      "channel": "stable",
+      "minimum": 28,
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 904,
+      "sha256": "dc6617404d466c6449a91315276798a637256348a0b7bca165b2cbfd9013e59d",
+      "version": "2.4.1-build84",
+      "channel": "stable",
+      "minimum": 28,
+      "verified": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": false
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 972,
+      "sha256": "853207198323cf475cc7d8981e12660ee26dfce1e4013f2223f8fa6ec61e9dd9",
+      "version": "2.3.4-build79",
+      "channel": "stable",
+      "minimum": 29,
+      "verified": false
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.4.1-build84/YMPlayer-2.4.1-build84.apk",
+      "status": 200,
+      "bytes": 6059245,
+      "sha256": "c4597a814aa7d850ed44a8f1186cf9004980c32806e060a710d8649ed7daefb7",
+      "verified": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.1-build84/releases/2.4.1-build84/YMPlayer-2.4.1-build84.apk",
+      "status": 200,
+      "bytes": 6059245,
+      "sha256": "c4597a814aa7d850ed44a8f1186cf9004980c32806e060a710d8649ed7daefb7",
+      "verified": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.1-build84/releases/2.4.1-build84/YMPlayer-2.4.1-build84.apk",
+      "status": 200,
+      "bytes": 6059245,
+      "sha256": "c4597a814aa7d850ed44a8f1186cf9004980c32806e060a710d8649ed7daefb7",
+      "verified": true
+    }
+  ],
+  "allMirrorsCurrent": false,
+  "verified": true,
+  "pendingMirrors": [
+    "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json"
+  ]
 }

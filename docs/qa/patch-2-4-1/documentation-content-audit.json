@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-06",
+  "version": "2.4.1-build84",
+  "scope": "current user/technical documentation; historical verification reports retain original dated evidence",
+  "comparisons": [
+    {
+      "claim": "My Wave settings only active MY_WAVE including pause; dismissed on source change",
+      "source": "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt:35,36,51,87",
+      "evidence": "EntityWavePlaybackTest,WaveSettingsPlaybackTest on API28/TV29",
+      "documents": [
+        "USER_GUIDE.md",
+        "USER_GUIDE_EN.md",
+        "FEATURE_INVENTORY.md",
+        "MIGRATION_MAP.md",
+        "PROJECT_STATUS.md",
+        "BUG_REPORT.md",
+        "CHANGELOG.md"
+      ]
+    },
+    {
+      "claim": "84 stable, same package/signature, min28/target36; update channel remains stable",
+      "evidence": "version.properties/build.json/signature.txt/badging.txt/HTTP publication/live update",
+      "documents": [
+        "README.md",
+        "VERSIONING.md",
+        "ROADMAP.md",
+        "PROJECT_STATUS.md",
+        "PLAN_2_4.md"
+      ]
+    },
+    {
+      "claim": "D-002 cause not established, scanner not tested on AOSP",
+      "evidence": "owner beta82 Downloads to83 in-app; exact warning unavailable; actual APK comparison",
+      "documents": [
+        "BUG_REPORT.md",
+        "PATCH_2_4_1_VERIFICATION.md",
+        "WORK_JOURNAL.md",
+        "PROJECT_STATUS.md",
+        "ROADMAP.md"
+      ]
+    },
+    {
+      "claim": "D-001 dynamic Gcore stale79; GitHub and primary jsDelivr fresh84; pinned APK hashes match",
+      "evidence": "publication.json checkedAtUtc",
+      "documents": [
+        "BUG_REPORT.md",
+        "PATCH_2_4_1_VERIFICATION.md",
+        "WORK_JOURNAL.md",
+        "PROJECT_STATUS.md"
+      ]
+    },
+    {
+      "claim": "748 historical scenarios refer to stable83; 30 unique targeted UI/platform combinations in patch84 plus recorded repeats; physical acceptance not claimed",
+      "evidence": "native results and patch verification report",
+      "documents": [
+        "PROJECT_STATUS.md",
+        "ROADMAP.md",
+        "PATCH_2_4_1_VERIFICATION.md"
+      ]
+    },
+    {
+      "claim": "B-006 next separate patch, D-002 observation, forum awaiting rights, Play deferred",
+      "evidence": "current request priorities and prior owner instructions",
+      "documents": [
+        "ROADMAP.md",
+        "PROJECT_STATUS.md",
+        "WORK_JOURNAL.md",
+        "PLAN_2_4.md"
+      ]
+    }
+  ]
+}
