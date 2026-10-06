@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-06",
+  "anonymousFreshBrowserContext": true,
+  "audioMuted": true,
+  "personalTokenUsed": false,
+  "requests": [
+    {
+      "host": "radio.api.music.yandex.ru",
+      "path": "/radio/v1/stations/europa-plus/streams/moscow/widgets",
+      "queryKeys": [
+        "extraFields"
+      ],
+      "method": "GET",
+      "status": 200,
+      "keys": [
+        "widgets",
+        "timestamp",
+        "pollAfterMs",
+        "widgetsHash"
+      ],
+      "headers": {
+        "x-yandex-music-client": "YandexMusicWebRadio/1.0.0"
+      }
+    },
+    {
+      "host": "radio.api.music.yandex.ru",
+      "path": "/radio/v1/stations/listeners-count",
+      "queryKeys": [],
+      "method": "POST",
+      "status": 200,
+      "keys": [
+        "items",
+        "pollAfterMs"
+      ],
+      "headers": {
+        "x-yandex-music-client": "YandexMusicWebRadio/1.0.0"
+      }
+    },
+    {
+      "host": "radio.api.music.yandex.ru",
+      "path": "/radio/v1/collection/shows/ids",
+      "queryKeys": [],
+      "method": "GET",
+      "status": 401,
+      "keys": [
+        "name",
+        "message",
+        "requestId",
+        "additionalParams",
+        "details"
+      ],
+      "headers": {
+        "x-yandex-music-client": "YandexMusicWebRadio/1.0.0"
+      }
+    },
+    {
+      "host": "radio.api.music.yandex.ru",
+      "path": "/radio/v1/collection/stations/slugs",
+      "queryKeys": [],
+      "method": "GET",
+      "status": 401,
+      "keys": [
+        "name",
+        "message",
+        "requestId",
+        "additionalParams",
+        "details"
+      ],
+      "headers": {
+        "x-yandex-music-client": "YandexMusicWebRadio/1.0.0"
+      }
+    },
+    {
+      "host": "radio.api.music.yandex.ru",
+      "path": "/radio/v1/collection/tracks/ids",
+      "queryKeys": [],
+      "method": "GET",
+      "status": 401,
+      "keys": [
+        "name",
+        "message",
+        "requestId",
+        "additionalParams",
+        "details"
+      ],
+      "headers": {
+        "x-yandex-music-client": "YandexMusicWebRadio/1.0.0"
+      }
+    },
+    {
+      "host": "radio.api.music.yandex.ru",
+      "path": "/account/about",
+      "queryKeys": [],
+      "method": "GET",
+      "status": 200,
+      "keys": [
+        "geoRegionIso",
+        "hasPlus",
+        "hasMusicSubscription",
+        "isChild",
+        "options",
+        "userSessionRegionIso",
+        "serviceAvailable"
+      ],
+      "headers": {
+        "x-yandex-music-client": "YandexMusicWebRadio/1.0.0"
+      }
+    }
+  ]
+}

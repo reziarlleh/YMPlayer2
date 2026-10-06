@@ -1,0 +1,81 @@
+{
+  "dateUtc": "2026-10-06T09:53:02.838243+00:00",
+  "readOnly": true,
+  "browserCookiesUsed": false,
+  "newTokenRequested": false,
+  "personalOAuthChecked": false,
+  "controls": {
+    "anonymous": {
+      "/account/about": {
+        "status": 200,
+        "json": true,
+        "shape": [
+          "invocationInfo",
+          "result"
+        ]
+      },
+      "/radio/v1/collection/stations/slugs": {
+        "status": 401,
+        "json": true,
+        "shape": [
+          "additionalParams",
+          "details",
+          "message",
+          "name",
+          "requestId"
+        ]
+      },
+      "/radio/v1/collection/tracks/ids": {
+        "status": 401,
+        "json": true,
+        "shape": [
+          "additionalParams",
+          "details",
+          "message",
+          "name",
+          "requestId"
+        ]
+      }
+    },
+    "invalidOAuth": {
+      "/account/about": {
+        "status": 401,
+        "json": true,
+        "shape": [
+          "error",
+          "message",
+          "path",
+          "requestId",
+          "status",
+          "timestamp"
+        ]
+      },
+      "/radio/v1/collection/stations/slugs": {
+        "status": 401,
+        "json": true,
+        "shape": [
+          "error",
+          "message",
+          "path",
+          "requestId",
+          "status",
+          "timestamp"
+        ]
+      },
+      "/radio/v1/collection/tracks/ids": {
+        "status": 401,
+        "json": true,
+        "shape": [
+          "error",
+          "message",
+          "path",
+          "requestId",
+          "status",
+          "timestamp"
+        ]
+      }
+    }
+  },
+  "existingTokenVerifiedForFmCollection": false,
+  "personalAccountIdentityVerified": false
+}

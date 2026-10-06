@@ -14,3 +14,4 @@ captures/
 .vscode/
 releases/**/*.apk
 releases/**/mapping.txt
+__pycache__/

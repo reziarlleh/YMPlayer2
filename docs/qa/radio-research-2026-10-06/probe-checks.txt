@@ -1,0 +1,11 @@
+test_authenticated_collection_and_matching_uid (__main__.ProbeChecks.test_authenticated_collection_and_matching_uid) ... ok
+test_http_error_body_values_not_in_report (__main__.ProbeChecks.test_http_error_body_values_not_in_report) ... ok
+test_no_identity_is_separate_from_readable_collection (__main__.ProbeChecks.test_no_identity_is_separate_from_readable_collection) ... ok
+test_public_collection_does_not_prove_auth (__main__.ProbeChecks.test_public_collection_does_not_prove_auth) ... ok
+test_redirect_is_denied (__main__.ProbeChecks.test_redirect_is_denied) ... ok
+test_wrong_account_never_full_success (__main__.ProbeChecks.test_wrong_account_never_full_success) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.024s
+
+OK
