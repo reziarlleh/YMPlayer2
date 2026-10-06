@@ -16,11 +16,14 @@ class ClipHandoffTest {
         val instrument = InstrumentationRegistry.getInstrumentation()
         val context = instrument.targetContext
         val app = context.applicationContext as PlayerApplication
-        context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         instrument.runOnMainSync { app.playback.connect(); app.playback.switchProfile("owner") }
-        waitFor { app.playback.state.value.connected && app.playback.state.value.profileId == "owner" && app.library.state.value.ready }
+        waitFor { app.playback.state.value.connected && app.playback.state.value.profileId == "owner" && app.library.state.value.ready && !app.library.state.value.scanning }
         runBlocking {
             app.library.state.value.roots.forEach { app.library.forgetFolder(it.uri) }
+        }
+        // Forgetting an existing fixture root releases its grant. Re-grant as a new picker selection.
+        context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        runBlocking {
             app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL)
         }
         waitFor { app.library.testTracks.size == 2 }

@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-06",
+  "serial": "emulator-5562",
+  "action": "snapshot",
+  "dataCleared": false,
+  "before": {
+    "versionName": "2.3.4-build79",
+    "firstInstallTime": "2026-10-06 06:53:07"
+  },
+  "beforeLabels": [
+    "YMPlayer2",
+    "Profiles",
+    "Settings",
+    "My Vibe",
+    "Equalizer / DSP",
+    "Queue",
+    "Queue is empty",
+    "Choose music in the library",
+    "More actions",
+    "0:00",
+    "0:00",
+    "Previous track",
+    "Play",
+    "Next track",
+    "Stop",
+    "Player",
+    "Library",
+    "Search",
+    "Clips"
+  ],
+  "passed": true
+}

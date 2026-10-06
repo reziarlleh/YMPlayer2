@@ -41,7 +41,8 @@ class SignedUpdateDownloadTest {
                 override fun getInputStream() = fixture.inputStream()
             }
         }, channel = "stable")
-        val release = UpdateRelease(build!!, args.getString("signedVersion")!!, "stable", 29,
+        val minimum = args.getString("signedMinSdk")?.toIntOrNull() ?: 29
+        val release = UpdateRelease(build!!, args.getString("signedVersion")!!, "stable", minimum,
             "signed fixture", "https://release.test/update.apk", "", fixture.length(),
             args.getString("signedSha256")!!, "https://release.test/stable.json")
         try {

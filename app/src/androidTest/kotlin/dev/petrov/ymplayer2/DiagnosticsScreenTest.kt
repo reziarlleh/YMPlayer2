@@ -12,6 +12,7 @@ class DiagnosticsScreenTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
 
     @Test fun journalOpensFromSettingsAndBackReturnsOneLevel() {
+        compose.runOnIdle { dev.petrov.ymplayer2.localization.AppLanguages.select("ru") }
         compose.onNodeWithTag("settings").performClick()
         compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("settings_diagnostics"))
         compose.onNodeWithTag("settings_diagnostics").performClick()

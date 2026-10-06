@@ -1,9 +1,8 @@
 # Карта переноса и модулей
 
-Стабильный срез: **2.3.4-build79**. На main с 2026-10-05 опубликована
-[ручная beta2.4 / API28](RELEASE_2_4_0_BETA_VERIFICATION.md). В build81 добавлены
-[настройки волны](WAVE_SETTINGS_2_4_VERIFICATION.md). Путь данных/модули сохраняются;
-адаптированы foreground-sync, export и lifecycle metadata retriever.
+Стабильный срез: **2.4.0-build83** / API28. Настройки/источники волн и режимы
+из beta81/82 включены в stable; [контрольный отчёт](RELEASE_2_4_0_VERIFICATION.md).
+Путь данных/модули сохраняются; адаптации API28 не изменяют алгоритмы API29+.
 Таблица фиксирует происхождение и проверку алгоритмов. Номер старого build
 в строке — момент переноса, а не текущая версия приложения.
 Fxx: [карта функций](FEATURE_INVENTORY.md); Sxx: [reference1.x](LEGACY_1X_ANALYSIS.md).
@@ -25,7 +24,7 @@ Fxx: [карта функций](FEATURE_INVENTORY.md); Sxx: [reference1.x](LEGA
 | Языки | Уточнение владельца / M14 | localization + app + shell | new | Auto и восемь языков опубликованы в72 | [Проверки](M14_ALL_LANGUAGES_VERIFICATION.md); музыкальные данные не переводятся, English guide готов |
 | F04/F05/F06 | S02 | playback + Android adapter | migration/refactor | M3.3 local | Play/pause/stop/seek/skip, repeat/shuffle, ручная очередь и checkpoints; недоступные ссылки сохраняются, возврат текущего трека на паузе. Native Media3 и фон проверены; физический USB и облачные сценарии отдельно |
 | F03 | S03/S04 | core/MyWave + provider/yandex + playback | migration/refactor | M6 verification | Session/batch/feedback, продолжение, retry и следующая рекомендация; пауза, профиль, восстановление. В build50 активная Media3-очередь сокращена до предыдущего/текущего/следующего трека; отдельная история исключения повторов остаётся. [Правила](DECISIONS/ADR-011-wave-and-taste.md) |
-| F25, источники/режимы | Прямое уточнение владельца 2026-10-06 | core/PlaybackOrigin + provider/rotor + playback + shell | extension | **2.4.0beta-build82** | [ADR-041](ADR_041_WAVE_SOURCES_AND_LIST_MODES.md), [проверки](WAVE_SOURCES_2_4_VERIFICATION.md): seed всех четырёх объектов, session/feedback, paused restore; 101 JVM/80 native, signed81→82; физическая приёмка отдельно |
+| F25, источники/режимы | Прямое уточнение владельца 2026-10-06 | core/PlaybackOrigin + provider/rotor + playback + shell | extension | **2.4.0-build83** (реализовано82) | [ADR-041](ADR_041_WAVE_SOURCES_AND_LIST_MODES.md), [проверки](WAVE_SOURCES_2_4_VERIFICATION.md): seed всех четырёх объектов, session/feedback, paused restore; 101 JVM/80 native в beta82, расширенная регрессия и signed-проверки83 — [отчёт](RELEASE_2_4_0_VERIFICATION.md); физические модели отдельно |
 | F25, настройки волны | Прямое указание владельца 2026-10-06; современный API, а не готовый модуль1.x | core/WaveSettings + provider/YandexWaveApi + playback + shell | new | Первый отдельный этап2.4 | [ADR-040](ADR_040_WAVE_SETTINGS.md), [проверки](WAVE_SETTINGS_2_4_VERIFICATION.md); выбранные seeds/станция сохраняются, профиль/UID изолированы. Остальные источники/режимы списков не включены в этот этап |
 | F07 | S03/S06 + запрос владельца | core/MusicTaste + provider/yandex + shell | migration/refactor | M6 / M7.1 verification | Раздельные реакции трека/исполнителя, любимые альбомы; unlike не является block. Постоянный кэш подключён в M7.1 только для liked tracks |
 | F08, офлайн F07 | S03/S06 | core/OfflineMusic + library:offline + app/OfflineSyncService | migration/refactor | M7.1 emulator / public API verified | Независимый ремонт аудио/обложки, отмена, unlike во время sync, profile/account scope, Media3 без сети; [перенос](DECISIONS/ADR-015-liked-offline-sync.md), [проверки](M7_1_VERIFICATION.md). Личная коллекция ожидает приёмки |

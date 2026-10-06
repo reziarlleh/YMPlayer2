@@ -22,14 +22,9 @@ class CatalogSourcesTest {
         val configuration = compose.activity.resources.configuration
         val device = if (configuration.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION) "tv" else "phone"
         val bitmap = compose.onRoot().captureToImage().asAndroidBitmap()
-        val values = android.content.ContentValues().apply {
-            put(android.provider.MediaStore.Downloads.DISPLAY_NAME, "catalog-$device-${configuration.fontScale}-$name.png")
-            put(android.provider.MediaStore.Downloads.MIME_TYPE, "image/png")
-            put(android.provider.MediaStore.Downloads.RELATIVE_PATH, "Download/YMPlayer2-QA")
-        }
-        val resolver = compose.activity.contentResolver
-        val uri = resolver.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)!!
-        resolver.openOutputStream(uri)!!.use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+        // QA screenshots are private test artifacts, including on API28 without MediaStore.Downloads.
+        java.io.File(compose.activity.getExternalFilesDir(null), "catalog-$device-${configuration.fontScale}-$name.png")
+            .outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
     }
     private fun action(tag: String) {
         compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag(tag))

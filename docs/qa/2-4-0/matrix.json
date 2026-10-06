@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-06",
+  "productionFixesAfterBeta82": false,
+  "matrix": [
+    {
+      "serial": "emulator-5554",
+      "api": 35,
+      "initialPassed": 248,
+      "initialFailed": 2,
+      "initialSkipped": 6,
+      "correctedPassed": 20,
+      "allInitialFailuresPassedOnRepeat": true,
+      "failures": [
+        {
+          "class": "dev.petrov.ymplayer2.DiagnosticsScreenTest",
+          "test": "journalOpensFromSettingsAndBackReturnsOneLevel",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalIndexMigrationTest",
+          "test": "versionOneIndexUpgradesWithoutLosingUnavailableReferences",
+          "code": -2
+        }
+      ],
+      "finalPassedDistinctScenarios": 250
+    },
+    {
+      "serial": "emulator-5556",
+      "api": 29,
+      "initialPassed": 247,
+      "initialFailed": 3,
+      "initialSkipped": 6,
+      "correctedPassed": 20,
+      "allInitialFailuresPassedOnRepeat": true,
+      "failures": [
+        {
+          "class": "dev.petrov.ymplayer2.ClipHandoffTest",
+          "test": "openingAndClosingVideoLeavesAudioPaused",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.DiagnosticsScreenTest",
+          "test": "journalOpensFromSettingsAndBackReturnsOneLevel",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalIndexMigrationTest",
+          "test": "versionOneIndexUpgradesWithoutLosingUnavailableReferences",
+          "code": -2
+        }
+      ],
+      "finalPassedDistinctScenarios": 250
+    },
+    {
+      "serial": "emulator-5560",
+      "api": 28,
+      "initialPassed": 240,
+      "initialFailed": 8,
+      "initialSkipped": 6,
+      "correctedPassed": 19,
+      "allInitialFailuresPassedOnRepeat": true,
+      "failures": [
+        {
+          "class": "dev.petrov.ymplayer2.CatalogSourcesTest",
+          "test": "sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.CatalogSourcesTest",
+          "test": "offlineSourceSearchStaysInSearchAndFiltersOnlyProfileCache",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.CatalogSourcesTest",
+          "test": "albumDetailsReturnToSharedCatalogAndGuestCannotSeeAccountRows",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipHandoffTest",
+          "test": "openingAndClosingVideoLeavesAudioPaused",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.DiagnosticsScreenTest",
+          "test": "journalOpensFromSettingsAndBackReturnsOneLevel",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalIndexMigrationTest",
+          "test": "versionOneIndexUpgradesWithoutLosingUnavailableReferences",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateAutoOfferTest",
+          "test": "launchOffersNewReleaseOnceAndRespectsDailyCheckAndOptOut",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateLifecycleTest",
+          "test": "checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests",
+          "code": -2
+        }
+      ],
+      "finalPassedDistinctScenarios": 248
+    }
+  ],
+  "finalPassedDistinctScenarios": 748,
+  "testsUseIsolatedFixtures": true,
+  "personalYandexAccountAcceptance": false
+}

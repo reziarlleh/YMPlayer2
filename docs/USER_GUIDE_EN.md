@@ -1,12 +1,8 @@
 # YMPlayer 2 — user guide
 
-For 2.3.4-build79. Reviewed on 6 October 2026; the My Vibe settings, sources and list modes sections cover manual beta82.
-
-The manual [2.4.0beta-build82](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build82)
-adds Android 9 support, My Vibe settings, radio sources and list modes. It is excluded from automatic updates while compatibility
-is being tested. Installing it over2.3 keeps app data. Android will not install
-build79 over a newer beta through the regular installer; uninstalling the app
-removes its private data.
+For **2.4.0-build83**, Android9 and later. Reviewed on 6 October 2026.
+My Vibe settings, radio sources and list modes are available in the stable release.
+Installing an update over an earlier2.x release keeps your app data.
 
 YMPlayer 2 plays music from your device and USB storage, Yandex Music and music
 videos. It supports separate profiles, offline liked tracks and custom skins.
@@ -18,7 +14,7 @@ You do not need a Yandex account to play your own files.
 
 ## Install and get started
 
-Android 10 or later is required. The same APK works on phones, tablets, Android
+Android 9 or later is required. The same APK works on phones, tablets, Android
 TV and car head units; the layout adapts to the screen.
 
 1. Download the latest APK and open it. Allow installation from that source if Android asks.
@@ -152,13 +148,13 @@ favorite artists and playlists. Recommendations show suggested playlists.
 **My Vibe** starts your personalized stream. It prepares the next track while
 the current one plays and requests further recommendations as needed.
 
-In the **2.4 test release**, the button at the top of the player shows the current
+The button at the top of the player shows the current
 source or list name. Press it to select **My Vibe**, **Offline** or **Local favorites**.
 Empty favorites and an empty or disabled cache cannot be selected. Choose
 playlists in the library; the player button displays their names.
 
 <p><img src="qa/2-4-wave-sources/emulator-5560/source-picker.png" width="300"
-alt="Source picker in beta82: My Vibe, Offline and Local favorites"></p>
+alt="Source picker: My Vibe, Offline and Local favorites"></p>
 
 Screenshot with test music on an emulator; the source menu is shown in Russian.
 
@@ -346,7 +342,7 @@ keyboard. Android11+ also provides system process-exit reasons; Android10
 does not support that part. Search text, track titles and tokens are not
 recorded. Reports stay on your device until you choose to share them.
 
-On Android9 with2.4 beta, export opens the system file picker instead: choose
+On Android 9, export opens the system file picker instead: choose
 a destination and save the report. A toast confirms the result. Cancelling
 the picker does not save a file.
 

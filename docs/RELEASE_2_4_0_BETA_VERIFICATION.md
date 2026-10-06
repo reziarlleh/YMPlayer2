@@ -1,5 +1,9 @@
 # 2.4.0beta-build80 — Android 9, ручной выпуск
 
+Исторический отчёт beta.2026-10-06 после беглого осмотра владельца и дополнительной
+регрессии разрешён stable2.4.0-build83: [актуальные проверки/выпуск](RELEASE_2_4_0_VERIFICATION.md).
+Прежнее ограничение feeds/latest ниже описывает состояние на момент этого отчёта.
+
 2026-10-05. Прямое решение владельца после [оценки API28](API_28_FEASIBILITY.md).
 База main / stable2.3.4-build79. [План и допуск](PLAN_2_4.md).
 [APK опубликован как prerelease](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0beta-build80);

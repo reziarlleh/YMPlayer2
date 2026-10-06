@@ -1,0 +1,11 @@
+{
+  "updateChannel": "stable",
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-10-06T06:55:10.4362800Z",
+  "versionName": "2.4.0-build83",
+  "sha256": "b6a5936a95b28dd324d9359907ed5590b353ec22aea519a4fba88cd180d0a21c",
+  "channel": "stable",
+  "versionCode": 83,
+  "minSdk": 28,
+  "runtimeAcceptance": "Owner brief beta82 acceptance and release authorization; project emulator checks API28/29/35 passed; full physical-device acceptance not claimed"
+}

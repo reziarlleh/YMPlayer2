@@ -34,7 +34,7 @@ class UpdateLifecycleTest {
         val build = context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode + 100
         val manifest = JSONObject().put("schemaVersion", 1).put("packageName", context.packageName)
             .put("versionCode", build).put("versionName", "2.2.1beta-build$build").put("channel", "beta")
-            .put("minSdk", 29).put("releaseNotes", "fixture").put("apk", JSONObject()
+            .put("minSdk", 28).put("releaseNotes", "fixture").put("apk", JSONObject()
                 .put("primaryUrl", "https://primary.test/update.apk").put("alternativeUrl", "https://backup.test/update.apk")
                 .put("sizeBytes", bytes.size).put("sha256", MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }))
         val client = UpdateClient(context, UpdateConnectionFactory { url ->

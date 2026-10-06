@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-06",
+  "serial": "emulator-5556",
+  "api": 29,
+  "passed": 247,
+  "failed": 3,
+  "skipped": 6,
+  "completed": true,
+  "success": false,
+  "durationSeconds": 1056.91,
+  "selection": "All Android instrumentation except opt-in SignedUpdateDownloadTest",
+  "personalAccountAcceptance": false,
+  "fixtures": "Real Android UI/Media3/SAF with isolated provider fixtures"
+}

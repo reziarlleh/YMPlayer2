@@ -30,7 +30,7 @@ class UpdateAutoOfferTest {
         val next = activity.packageManager.getPackageInfo(activity.packageName, 0).longVersionCode + 1
         val manifest = JSONObject().put("schemaVersion", 1).put("packageName", activity.packageName)
             .put("versionCode", next).put("versionName", "2.0.0beta-build$next")
-            .put("channel", "beta").put("minSdk", 29).put("releaseNotes", "Новая версия")
+            .put("channel", "beta").put("minSdk", 28).put("releaseNotes", "Новая версия")
             .put("apk", JSONObject().put("primaryUrl", "https://fixture.test/update.apk")
                 .put("alternativeUrl", "https://backup.test/update.apk")
                 .put("sizeBytes", 3).put("sha256", "a".repeat(64)))
