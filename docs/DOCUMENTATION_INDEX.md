@@ -11,6 +11,7 @@
 Текущая ручная beta87: [2.5.0beta — полноценный раздел Радио](PLAN_2_5.md).
 Выбран вариант1: [эскизы компоновки Радио](RADIO_UI_DESIGN.md).
 Реализация/проверки: [Радио2.5](RADIO_2_5_VERIFICATION.md), [ADR-042](ADR_042_FM_RADIO_SHARED_OUTPUT.md).
+Дополнительная проверка beta87: [CWG — логотип, эфирные метаданные и Pause/Play](RADIO_CWG_VERIFICATION.md).
 
 ## Текущее состояние
 

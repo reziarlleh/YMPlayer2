@@ -413,6 +413,11 @@ notification and media controls as music; the mini-player returns to Radio.
 Starting music or a clip stops the station. Broadcasts are not downloaded to
 Liked Songs offline. Show subscriptions and liked radio tracks are not included.
 
+For CWG, select YMPlayer2 as the external player and allow CWG notification access.
+In the tested CWG3.6.3-R2, long-press Play to choose a player. CWG shows the station
+logo and current song/artist. Its Pause closes the stream; Play reconnects to the
+live broadcast. The logo may appear after the text while the image downloads.
+
 Install [2.5.0beta-build87](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build87) manually over the existing app; automatic updates remain on
 stable **2.4.1-build84**. Actual station-collection writes still need user acceptance;
 see the [verification boundaries](RADIO_2_5_VERIFICATION.md).

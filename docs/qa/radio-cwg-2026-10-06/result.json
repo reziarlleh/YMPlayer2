@@ -1,0 +1,46 @@
+{
+  "checkedAtUtc": "2026-10-06T14:14:58.055712+00:00",
+  "ymplayer": {
+    "version": "2.5.0beta-build87",
+    "package": "dev.petrov.ymplayer2",
+    "installedApkSha256": "c90eb7f37c853c6aa302897e64cff4b05c2611f853f1680e89e44d9ae4876f8f",
+    "matchesPublishedApk": true,
+    "sourceChanged": false
+  },
+  "cwg": {
+    "version": "3.6.3-R2",
+    "versionCode": 184,
+    "package": "com.softartstudio.carwebguru",
+    "apkSha256": "6038591deecd4b005e3912304d0019a08fad1c8c5b463173acef10b4b7506aae",
+    "notificationAccess": true,
+    "selectedPlayer": "dev.petrov.ymplayer2"
+  },
+  "device": {
+    "type": "emulator",
+    "android": 10,
+    "api": 29,
+    "resolution": "1920x1080"
+  },
+  "observed": {
+    "station": "Europa Plus",
+    "stationLogoVisibleInCwg": true,
+    "onAirVisibleInCwg": "Tutu Turú · Siderland",
+    "onAirMatchesMediaSession": true,
+    "cwgPauseStopsRadio": true,
+    "cwgPlayReconnectsRadio": true,
+    "pausePlayCycles": 2,
+    "secondCycleStates": [
+      3,
+      0,
+      3
+    ],
+    "artworkAfterReconnect": "asynchronous; text appears before logo, logo subsequently visible",
+    "radioStoppedAtEnd": true
+  },
+  "boundaries": [
+    "Not a physical K4811 check",
+    "Not every CWG version/theme",
+    "Active session pause/play, not cold boot/service destruction",
+    "No personal collection writes"
+  ]
+}

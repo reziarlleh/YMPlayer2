@@ -1,0 +1,3 @@
+      package=dev.petrov.ymplayer2
+      state=PlaybackState {state=3, position=-1, buffered position=-1, speed=0.0, updated=39363875, actions=4451971, custom actions=[], active item id=0, error=null}
+      metadata: size=10, description=Европа Плюс, Tutu Turú · Siderland, null
