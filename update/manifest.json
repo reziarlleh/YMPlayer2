@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 79,
-  "versionName": "2.3.4-build79",
+  "versionCode": 83,
+  "versionName": "2.4.0-build83",
   "channel": "stable",
-  "minSdk": 29,
-  "publishedAt": "2026-10-04T17:00:46.6734147Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.3.4-build79",
-  "releaseNotes": "Исправлен вылет при открытии поиска (StackOverflowError). Сохранены навигация пультом и переход к выбранным пунктам строк. Данные и настройки сохраняются.",
+  "minSdk": 28,
+  "publishedAt": "2026-10-06T07:03:20.4684854Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.0-build83",
+  "releaseNotes": "Настройки и источники волны; продолжение после списка, бесконечный рандом и взаимоисключающие режимы; переключатель источника. Поддержка Android 9. Стабильный выпуск с сохранением данных.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.3.4-build79/YMPlayer-2.3.4-build79.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.3.4-build79/releases/2.3.4-build79/YMPlayer-2.3.4-build79.apk",
-    "sizeBytes": 5930165,
-    "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.4.0-build83/YMPlayer-2.4.0-build83.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.0-build83/releases/2.4.0-build83/YMPlayer-2.4.0-build83.apk",
+    "sizeBytes": 6059249,
+    "sha256": "b6a5936a95b28dd324d9359907ed5590b353ec22aea519a4fba88cd180d0a21c"
   }
 }
