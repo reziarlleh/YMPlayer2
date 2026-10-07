@@ -156,7 +156,7 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
         if (!state.busy && state.stations.isEmpty() && state.issue == null) Text(trMessage("Станции не найдены."), style = MaterialTheme.typography.bodySmall)
         state.issue?.let { Text(trMessage(it.text()), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
         state.collectionIssue?.let { Text(trMessage(it.text()), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
-        if (state.hasNext) OutlinedButton({ if (state.issue != null) radio.retryMore() else radio.more() }, Modifier.prismFocus().testTag("radio_stations_more"), enabled = !state.busy) { Text(trMessage(if (state.issue != null) "Повторить" else "Ещё станции")) }
+        if (state.hasNext && state.issue != null) OutlinedButton(radio::retryMore, Modifier.prismFocus().testTag("radio_stations_more"), enabled = !state.busy) { Text(trMessage("Повторить")) }
         else if (state.issue != null || state.collectionIssue != null) OutlinedButton(radio::refresh, Modifier.prismFocus().testTag("radio_retry")) { Text(trMessage("Повторить")) }
     }
 }
@@ -171,7 +171,6 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
     }
     LazyRow(Modifier.fillMaxWidth().testTag(tag), state = list, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         items(stations, key = { it.identity() }) { station -> StationTile(station, playback, state, radio, signIn, tag, short, targets, open, Modifier.width(136.dp)) }
-        if (more) item { OutlinedButton(loadMore, Modifier.heightIn(min = 90.dp).prismFocus().testTag("${tag}_more"), enabled = !busy) { Text(trMessage("Ещё станции")) } }
     }
 }
 

@@ -45,7 +45,7 @@ class ClipActivity : ComponentActivity() {
         graph.playback.connect()
         graph.playback.pauseForClips()
         graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, checkpoint?.playing ?: true)
-        graph.navigation.edit().putString("route", "clips").apply()
+        graph.enterClips()
         val preloader = ClipMediaPreloader(this)
         val player = preloader.player.apply {
             setAudioAttributes(AudioAttributes.DEFAULT, true)
@@ -123,6 +123,7 @@ class ClipActivity : ComponentActivity() {
     override fun finish() {
         // Explicit Back/Close is a pause; backgrounding must preserve the former play intent.
         clips?.pause()
+        (application as PlayerApplication).leaveClips()
         super.finish()
     }
     override fun onStop() {

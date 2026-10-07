@@ -51,7 +51,9 @@ private val destinations get() = listOf(
     val profileOfflineState = offlineState?.takeIf { it.owner?.profileId == playback.profileId }
     val cachedTracks = profileOfflineState?.tracks.orEmpty()
     val demo = model.local == null
-    var route by rememberSaveable { mutableStateOf(initialRoute) }
+    var savedRoute by rememberSaveable { mutableStateOf(initialRoute) }
+    // Video is a separate Activity. Keep the underlying section, including an old restored Bundle.
+    val route = if (savedRoute == "clips" && openClips != null) initialRoute.takeUnless { it == "clips" } ?: "player" else savedRoute
     var aboutOpen by rememberSaveable { mutableStateOf(false) }
     var artistFrom by rememberSaveable { mutableStateOf("player") }
     var exitAt by remember { mutableStateOf<Long?>(null) }
@@ -68,12 +70,16 @@ private val destinations get() = listOf(
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline", "history", "recent")) "library" else route
     val navigate: (String) -> Unit = {
-        if (route == "account" && it != "account") model.accounts?.cancel()
-        if (route == "artist" && it != "artist") model.online?.closeArtistCard()
-        exitAt = null
-        route = it
-        onRouteChanged(if (it == "artist") artistFrom else it)
-        if (it == "clips" && openClips != null) openClips()
+        if (it == "clips" && openClips != null) {
+            exitAt = null
+            openClips()
+        } else {
+            if (route == "account" && it != "account") model.accounts?.cancel()
+            if (route == "artist" && it != "artist") model.online?.closeArtistCard()
+            exitAt = null
+            savedRoute = it
+            onRouteChanged(if (it == "artist") artistFrom else it)
+        }
     }
     val openArtist: (ArtistRef) -> Unit = { artist ->
         model.online?.let { music ->

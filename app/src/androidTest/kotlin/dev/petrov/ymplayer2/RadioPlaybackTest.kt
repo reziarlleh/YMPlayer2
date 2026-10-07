@@ -155,8 +155,24 @@ class RadioPlaybackTest {
         val file = java.io.File(compose.activity.getExternalFilesDir(null), name)
         file.outputStream().use { (if (name == "radio-station-detail.png") compose.onNodeWithTag("radio_station_detail") else compose.onRoot()).captureToImage().asAndroidBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
     }
+    @Test fun collectionCarouselLoadsAllPagesWithoutManualMoreButton() {
+        compose.runOnIdle { f.radioApi.catalogRows = (0 until 64).map { f.radioApi.one.copy(slug = "carousel-$it", name = "Station $it") } }
+        compose.onNodeWithTag("nav_radio").performClick()
+        waitFor { f.radioCatalog.state.value.stations.size >= 20 && !f.radioCatalog.state.value.busy }
+        compose.onNodeWithTag("radio_collection").performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, 10000f) }
+        while (f.radioCatalog.state.value.hasNext) {
+            val previous = f.radioCatalog.state.value.stations.size
+            compose.onNodeWithTag("radio_stations").performScrollToIndex(previous - 1)
+            waitFor { f.radioCatalog.state.value.stations.size > previous }
+        }
+        assertEquals(64, f.radioCatalog.state.value.stations.size)
+        compose.onNodeWithTag("radio_stations_more").assertDoesNotExist()
+        capture("radio-carousel.png")
+    }
     @Test fun remoteFocusVisitsSelectedTabAndStationAndControls() {
         org.junit.Assume.assumeTrue(compose.activity.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION)
+        // Earlier touch tests can leave the device in touch mode; remote focus needs non-touch mode.
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
         compose.onNodeWithTag("nav_radio").performClick()
         compose.waitUntil(10000) { compose.onAllNodesWithTag("radio_station_one").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("radio_tab_COLLECTION").performSemanticsAction(SemanticsActions.RequestFocus) { it() }

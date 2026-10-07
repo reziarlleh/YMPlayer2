@@ -38,6 +38,22 @@ class PlayerApplication : Application(), PlaybackHost {
     val clipCheckpoints by lazy { dev.petrov.ymplayer2.clips.ClipCheckpointStore(this) }
     val navigation by lazy { getSharedPreferences("navigation", MODE_PRIVATE) }
     val radioNavigation by lazy { getSharedPreferences("radio-navigation", MODE_PRIVATE) }
+    fun shellRoute(): String {
+        val route = navigation.getString("route", "player") ?: "player"
+        return (if (route == "clips") navigation.getString("clips_return_route", "player") else route)
+            ?.takeUnless { it.isBlank() || it == "clips" } ?: "player"
+    }
+    fun enterClips() {
+        val route = navigation.getString("route", "player") ?: "player"
+        navigation.edit().apply {
+            if (route != "clips") putString("clips_return_route", route)
+            putString("route", "clips")
+        }.apply()
+    }
+    fun leaveClips() {
+        if (navigation.getString("route", "player") == "clips")
+            navigation.edit().putString("route", shellRoute()).apply()
+    }
     private var launchRestored = false
     internal var clipActivities = 0
     /** Foreground launcher only; rotation and metadata-only service starts never request playback. */

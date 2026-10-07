@@ -128,7 +128,7 @@ class MainActivity : ComponentActivity() {
                 if (uri != null) graph.skins.inspect(uri)
             }
             ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
-                initialRoute = graph.navigation.getString("route", "player") ?: "player",
+                initialRoute = graph.shellRoute(),
                 onRouteChanged = { graph.navigation.edit().putString("route", it).apply() },
                 initialOnlineSource = graph.navigation.getBoolean("online", false),
                 initialOfflineSearch = graph.navigation.getBoolean("offline", false),
