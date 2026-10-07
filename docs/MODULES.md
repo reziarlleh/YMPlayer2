@@ -202,3 +202,13 @@ Beta93: `RadioController` разделяет ошибки справочнико
 передаёт cursor и различает новую выборку/append; `YandexRadioApi` читает
 cardInfo.description как текст; `RadioScreen` хранит list/grid state за Dialog
 и возвращает FocusRequester. [Проверки](RADIO_CATALOG_2_5_VERIFICATION.md).
+
+### Возврат из внешнего видеоплеера beta94
+
+`feature:shell` сохраняет текущий Compose-раздел при openClips. `app` отделяет
+persisted route=clips (восстановление активного видео) от clips_return_route
+(экран за Activity). MainActivity получает shellRoute, ClipActivity вызывает
+enterClips/leaveClips; повторная Activity не затирает сохранённый раздел.
+Finish сохраняет паузу и возвращает раздел. Новые модули и аудиоалгоритмы не нужны.
+RadioScreen использует автоматические carousel/grid triggers; ручные More удалены,
+при issue доступны retryMore/refresh. [Проверки](CLIP_BACK_2_5_VERIFICATION.md).

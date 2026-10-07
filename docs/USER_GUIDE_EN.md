@@ -283,6 +283,11 @@ multiband equalizer.
 not play at the same time. Tap the video to show or hide controls. During playback
 the controls hide after five seconds; they remain visible when paused or on error.
 
+**← Back** and the system Back button close the video and return to the section
+you opened it from. The clip stays paused; music/radio does not resume automatically.
+In beta94, the return section also survives process termination. Older sessions
+without that record return to Player.
+
 The center button plays/pauses; the side buttons select the previous/next clip.
 The **NOW** panel shows the current title and artist, **NEXT** shows the next
 clip. Its name may be pending while the next item is being found. The current
@@ -417,7 +422,9 @@ per profile. In beta92, opening the app resumes a station that was playing;
 a stopped station stays stopped. Live radio returns to the current broadcast,
 not a saved timestamp.
 
-Collection keeps two horizontal carousels: favourites and all stations. Its
+Collection keeps two horizontal carousels: favourites and all stations. Both
+load more as you scroll, without a separate More stations button; Retry remains
+available after a loading error. Its
 player stays below them in portrait and to their left in landscape. Other pages
 use the main area for the grid, with the selected stream in the mini-player.
 Touch and remote controls are supported. Background playback uses the same
@@ -430,7 +437,7 @@ In the tested CWG3.6.3-R2, long-press Play to choose a player. CWG shows the sta
 logo and current song/artist. Its Pause closes the stream; Play reconnects to the
 live broadcast. The logo may appear after the text while the image downloads.
 
-Install [2.5.0beta-build93](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build93) manually over the existing app; automatic updates remain on
+Install [2.5.0beta-build94](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build94) manually over the existing app; automatic updates remain on
 stable **2.4.1-build84**. Actual station-collection writes still need user acceptance;
 see the [verification boundaries](RADIO_2_5_VERIFICATION.md).
 

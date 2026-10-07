@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-07",
+  "jvm": {
+    "core": {
+      "tests": 111,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 65
+  },
+  "native": {
+    "5556": {
+      "passed": 25,
+      "skipped": 2,
+      "failed": 0,
+      "runner27": true
+    },
+    "5560": {
+      "passed": 24,
+      "skipped": 3,
+      "failed": 0,
+      "runner27": true
+    }
+  },
+  "initialTvFailure": "touch mode before DPAD focus; fixture preparation corrected",
+  "physicalDevice": false,
+  "rebootMatrix": "not repeated; targeted force-stop only"
+}

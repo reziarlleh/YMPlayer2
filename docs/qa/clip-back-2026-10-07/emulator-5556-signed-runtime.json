@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-07",
+  "serial": "emulator-5556",
+  "upgrade": "93 -> 94 without uninstall",
+  "englishPreserved": true,
+  "returnSections": [
+    "Library",
+    "Search",
+    "Radio"
+  ],
+  "nativeBackButton": true,
+  "forceStopReturnAndNoReopen": true,
+  "manualMoreAbsent": true,
+  "physicalDevice": false,
+  "ownerOAuth": false
+}

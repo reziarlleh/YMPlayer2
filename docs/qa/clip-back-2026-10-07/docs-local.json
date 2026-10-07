@@ -1,0 +1,14 @@
+{
+  "version": "2.5.0beta-build94",
+  "manualBeta": true,
+  "stableVersion": "2.4.1-build84",
+  "localFeeds": {
+    "manifest": "2.4.1-build84",
+    "stable": "2.4.1-build84"
+  },
+  "documents": 204,
+  "localLinks": 1770,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}

@@ -1,0 +1,11 @@
+
+dev.petrov.ymplayer2.ClipNavigationTest:...
+dev.petrov.ymplayer2.ClipHandoffTest:..
+dev.petrov.ymplayer2.SessionRecoveryTest:...........
+dev.petrov.ymplayer2.RadioPlaybackTest:.......
+
+Time: 137.632
+
+OK (26 tests)
+
+
