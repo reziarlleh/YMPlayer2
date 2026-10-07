@@ -1,0 +1,15 @@
+{
+  "atUtc": "2026-10-07T11:22:21.765027+00:00",
+  "requests": [
+    {
+      "url": "https://purge.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "response": "{\n  \"id\": \"jiyB5tjhQQsIewnx\",\n  \"status\": \"finished\",\n  \"timestamp\": \"2026-10-07T11:22:23.346Z\",\n  \"paths\": {\n    \"/gh/reziarlleh/YMPlayer2@main/update/stable.json\": {\n      \"throttled\": false,\n      \"providers\": {\n        \"CF\": true,\n        \"FY\": true\n      }\n    }\n  }\n}"
+    },
+    {
+      "url": "https://purge.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "response": "{\n  \"id\": \"Rzg5rqYCdeVIodkV\",\n  \"status\": \"finished\",\n  \"timestamp\": \"2026-10-07T11:22:23.786Z\",\n  \"paths\": {\n    \"/gh/reziarlleh/YMPlayer2@main/update/manifest.json\": {\n      \"throttled\": false,\n      \"providers\": {\n        \"CF\": true,\n        \"FY\": true\n      }\n    }\n  }\n}"
+    }
+  ]
+}
