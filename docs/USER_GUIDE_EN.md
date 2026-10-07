@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.4.1-build84**, Android9 and later. Reviewed on 6 October 2026.
+For **2.5.0-build97**, Android9 and later. Reviewed on 7 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -163,8 +163,7 @@ Screenshot with test music on an emulator; the source menu is shown in Russian.
 A Yandex track, artist, album or playlist has **Start … radio** in its More menu.
 The track menu places artist and album radio commands next to their own names.
 The chosen source is kept for subsequent recommendations and restoration.
-The stable 2.4 app restores on pause; the manual 2.5 beta restores the previous
-playing or paused state as described below.
+The app restores the previous playing or paused state as described below.
 
 The radio icon next to repeat enables **Continue with radio when the list ends**.
 It appears for a Yandex list with an identifiable source: an album, playlist,
@@ -277,7 +276,7 @@ The player’s equalizer/DSP button opens an external app or system panel. Use
 the More menu to choose a different handler. YMPlayer 2 has no built-in
 multiband equalizer.
 
-## Internet connection — manual 2.5 beta
+## Internet connection
 
 Radio, Clips and Yandex Music allow five seconds for the connection to become
 available. If it does not, **No internet connection** and **Retry connection**
@@ -299,7 +298,7 @@ the controls hide after five seconds; they remain visible when paused or on erro
 
 **← Back** and the system Back button close the video and return to the section
 you opened it from. The clip stays paused; music/radio does not resume automatically.
-In beta94, the return section also survives process termination. Older sessions
+The return section also survives process termination. Older sessions
 without that record return to Player.
 
 The center button plays/pauses; the side buttons select the previous/next clip.
@@ -368,7 +367,7 @@ keyboard. Android11+ also provides system process-exit reasons; Android10
 does not support that part. Search text, track titles and tokens are not
 recorded. Reports stay on your device until you choose to share them.
 
-The Radio research button has been removed in beta2.5. Use the dedicated
+Use the dedicated
 Radio section instead. The journal records connection/playback/error events
 without stream URLs, station or track names, or tokens.
 
@@ -405,7 +404,7 @@ your phone when using a TV; it leads to the same donation page as the button.
 
 
 
-## Radio — manually installed beta2.5
+## Radio
 
 **Radio** sits between **Search** and **Clips**. The public catalogue and streams
 work without sign-in. Your station collection uses the Yandex account already
@@ -432,7 +431,7 @@ city, and **On air now** title/artist when supplied by the station. **Stop** clo
 playback; **Play** reconnects to the current live broadcast. Radio has no seeking,
 repeat or shuffle. It retries temporary network failures; stopping, switching
 profiles or starting music/clips cancels those retries. The last station is saved
-per profile. In beta92, opening the app resumes a station that was playing;
+per profile. Opening the app resumes a station that was playing;
 a stopped station stays stopped. Live radio returns to the current broadcast,
 not a saved timestamp.
 
@@ -451,9 +450,7 @@ In the tested CWG3.6.3-R2, long-press Play to choose a player. CWG shows the sta
 logo and current song/artist. Its Pause closes the stream; Play reconnects to the
 live broadcast. The logo may appear after the text while the image downloads.
 
-Install [2.5.0beta-build95](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build95) manually over the existing app; automatic updates remain on
-stable **2.4.1-build84**. Actual station-collection writes still need user acceptance;
-see the [verification boundaries](RADIO_2_5_VERIFICATION.md).
+[The stable release](https://github.com/reziarlleh/YMPlayer2/releases/latest) updates the existing app and keeps its data.
 
 Signed beta93 on Android9: the station grid with the English interface.
 
@@ -461,9 +458,9 @@ Signed beta93 on Android9: the station grid with the English interface.
 
 [Example of a full station card](qa/radio-catalog-2026-10-07/emulator-5560-signed93-detail.png).
 
-## Returning to your session — manual 2.5 beta
+## Returning to your session
 
-Starting with **2.5.0beta-build92**, the app remembers the selected section and
+In **2.5.0**, the app remembers the selected section and
 last player. Music and clips return to their saved position: playing content
 resumes, while paused content stays paused. Radio restores the same station
 and its playing/stopped state, using the current live broadcast. Only the last
@@ -482,6 +479,11 @@ section, that section opens; the clip position remains available when you open
 Clips again. An unavailable USB/file, missing login or network failure can prevent
 playback; select an available source or retry. Earlier builds did not save the
 new play/pause flags, but their queues, profiles and selected stations are retained.
+
+
+Missing local artist, album and genre tags use labels in the selected UI language.
+Real names remain unchanged. Older ambiguous labels are re-read from the original
+media on the next library refresh when the folder or USB drive is available; archived names are kept verbatim.
 
 ---
 

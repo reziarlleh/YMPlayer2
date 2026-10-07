@@ -1,0 +1,15 @@
+{
+  "version": "2.5.0-build97",
+  "sha256": "7467be4fd2e8a3e77fd88a58302306a323672a3d2b164682b886c053ff2e7e32",
+  "bytes": 6232145,
+  "certificate": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+  "sameCertificateAsStable84": true,
+  "removedByR8": {
+    "dev.petrov.ymplayer2.core.DemoCatalog": true,
+    "dev.petrov.ymplayer2.core.DemoPlaybackController": true
+  },
+  "messages": 666,
+  "languages": 8,
+  "productionSourceCommit": "96d01137384cde4942f3f1f07abb47bbffff094b",
+  "productionCodeFrozenAfterReleaseBuild": true
+}

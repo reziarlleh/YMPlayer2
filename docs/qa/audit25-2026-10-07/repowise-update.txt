@@ -1,0 +1,40 @@
+repowise update · YMPlayer2
+e07c1792..57869d86
+81 changed · 46 modified, 35 added
+    modified  CHANGELOG.md
+    modified  README.md
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/CatalogSourcesTest.kt
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/LocalIndexMigrationTest.kt
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/LocalPlaybackTest.kt
+       added  app/src/androidTest/kotlin/dev/petrov/ymplayer2/LocalTagLabelsTest.kt
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/RecentCatalogTest.kt
+    modified  core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt
+    modified  core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt
+    modified  core/src/main/kotlin/dev/petrov/ymplayer2/core/Radio.kt
+  +71 more (use -v to list all)
+Pages from an older renderer: 22
+Pages to regenerate: 216
+Pages to decay: 7
+Health analysis (partial): 81 changed, 176 performance-affected, 126 findings
+Dead code findings: 55
+Knowledge graph refreshed: 6 layers, 12 tour steps
+  ✓ Re-rendered 329 wiki pages from structure
+Related pages refreshed on 84 pages
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── {^ ^}  repowise index-only update complete ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                                                                                                                                                                                                                                                                                                                                              │
+│   Files changed           81                                                                                                                                                                                                                                                                                                                                                                                 │
+│   Graph                   5,758 nodes · 15,399 edges                                                                                                                                                                                                                                                                                                                                                         │
+│   Dead code               0 unreachable · 9 unused exports                                                                                                                                                                                                                                                                                                                                                   │
+│   Wiki pages              329 re-rendered from structure                                                                                                                                                                                                                                                                                                                                                     │
+│   Git history             22 files refreshed                                                                                                                                                                                                                                                                                                                                                                 │
+│   Elapsed                 6m 37s                                                                                                                                                                                                                                                                                                                                                                             │
+│                                                                                                                                                                                                                                                                                                                                                                                                              │
+│   What's next:                                                                                                                                                                                                                                                                                                                                                                                               │
+│   repowise serve              browse the index at localhost:3000                                                                                                                                                                                                                                                                                                                                             │
+│   repowise generate           upgrade the wiki to model-written prose (needs a key)                                                                                                                                                                                                                                                                                                                          │
+│                                                                                                                                                                                                                                                                                                                                                                                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  ✓ VS Code MCP configured (D:\_codex\YMPlayer2\.vscode\mcp.json)
+  ✓ VS Code extension recommended (D:\_codex\YMPlayer2\.vscode\extensions.json)

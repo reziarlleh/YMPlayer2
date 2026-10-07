@@ -1,0 +1,12 @@
+{
+  "channel": "stable",
+  "updateChannel": "stable",
+  "builtAtUtc": "2026-10-07T05:46:59.7796401Z",
+  "runtimeAcceptance": "emulator-verified; physical acceptance recorded separately",
+  "minSdk": 28,
+  "sha256": "7467be4fd2e8a3e77fd88a58302306a323672a3d2b164682b886c053ff2e7e32",
+  "versionName": "2.5.0-build97",
+  "versionCode": 97,
+  "applicationId": "dev.petrov.ymplayer2",
+  "verificationReport": "docs/AUDIT_2_5_RELEASE.md"
+}

@@ -26,6 +26,12 @@ class RadioLivePlaybackTest {
             graph.navigation.edit().clear().putString("route", "player").commit()
             graph.radioNavigation.edit().clear().commit()
             graph.launchState.write(graph.playback.state.value.profileId, dev.petrov.ymplayer2.playback.PlaybackOutput.MUSIC, false)
+            // Clearing preferences does not reset the live controller after session/search tests.
+            instrument.runOnMainSync {
+                graph.radioCatalog.search("")
+                graph.radioCatalog.filter(null)
+                graph.radioCatalog.tab(dev.petrov.ymplayer2.core.RadioTab.COLLECTION)
+            }
         }
     }
     @get:Rule val rules: RuleChain = RuleChain.outerRule(initialScreen).around(compose)

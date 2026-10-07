@@ -1,0 +1,6 @@
+emulator-5556 force-stop MUSIC playing=true: passed
+emulator-5556 force-stop MUSIC playing=false: passed
+emulator-5556 force-stop RADIO playing=true: passed
+emulator-5556 force-stop RADIO playing=false: passed
+emulator-5556 force-stop CLIPS playing=true: passed
+emulator-5556 force-stop CLIPS playing=false: passed

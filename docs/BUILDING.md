@@ -1,6 +1,6 @@
 # Сборка YMPlayer 2
 
-Актуализировано 2026-10-06: main / ручная2.5.0beta, стабильный канал2.4.1-build84. Фактические 12 модулей:
+Актуализировано 2026-10-07: main / стабильная2.5.0-build97. Фактические 12 модулей:
 app, core, designsystem, feature:shell, feature:clips, library:local, library:offline,
 playback:android, provider:yandex, headunit:sidebar, updater:android, localization. Аудиодвижок Media3 1.11.0.
 AGP 9.3.2 с built-in Kotlin, Kotlin/Compose compiler 2.3.21, Compose BOM
@@ -19,11 +19,11 @@ Build Tools 36.0.0. Значения закреплены в version catalog и 
 `<baseVersion>-internal` (сейчас `2.5.0-internal`). Он используется только локальной автоматикой, не передаётся
 как нумерованный beta APK и не расходует Build. Для передачи владельцу — команда ниже.
 
-Для ручной2.5 beta `channel=beta`, `updateChannel=stable`: маркировка версии
-и канал проверки обновлений разделены. Prepare-UpdateManifest отклоняет beta;
-подробности и условия допуска — в [PLAN_2_5](PLAN_2_5.md). `RADIO_AUTH_PROBE`
-включается только при baseVersion2.5.0/channel beta; обычный stable не показывает
-внутреннюю исследовательскую кнопку. Она не запускается автоматически.
+Текущий релиз: `channel=stable`, `updateChannel=stable`. Нумерованные APK
+собирает Build-Release; оба feeds публикуются после доступности подписанного
+APK и резервной копии. Исследовательская кнопка RADIO_AUTH_PROBE удалена
+при создании полноценного раздела Радио; debug-фикстуры в release отсутствуют.
+[План и итог2.5](PLAN_2_5.md).
 
 ```powershell
 # Только один раз для нового продукта; существующий ключ нельзя заменять.

@@ -1,10 +1,10 @@
 # Карта переноса и модулей
 
-Стабильный срез: **2.4.1-build84** / API28. Настройки/источники волн и режимы
+Стабильный срез: **2.5.0-build97** / API28. Настройки/источники волн и режимы
 из beta81/82 включены в stable; [контрольный отчёт](RELEASE_2_4_0_VERIFICATION.md).
 Patch84 ограничивает кнопку/окно настроек активной My Wave; [проверки](PATCH_2_4_1_VERIFICATION.md).
 Путь данных/модули сохраняются; адаптации API28 не изменяют алгоритмы API29+.
-Ручная beta95 (раздел реализован в87): отдельный раздел FM Радио по выбранному варианту1,
+Stable2.5.0-build97 (раздел реализован в87): отдельный раздел FM Радио по выбранному варианту1,
 через `core/RadioController`, `provider:yandex/YandexRadioApi`,
 `playback:android/AndroidRadio` и `feature:shell/RadioScreen`. Это новый FM API,
 не копия трековой очереди/rotor1.x. Авторизация использует прежний AccountAuth;
@@ -21,6 +21,11 @@ foreground-восстановление и хранит навигацию; Radi
 выборки, provider читает описание станции как простой текст, shell показывает
 сетки/карусели и модальную карточку с сохранением места/фокуса. Аудиоадаптер
 не менялся. [Проверки](RADIO_CATALOG_2_5_VERIFICATION.md).
+Stable97: LocalCatalogIndex schema4 сохраняет ID/added_at и перечитывает
+только кандидатов прежних заполнителей; реальные имена не заменяются.
+Shell LocalTagLabels переводит отсутствующие поля. Core Radio/OnlineMusic
+исправляют B-015/B-016. Старый MessageScreen клипов удалён; дизайн-подложка
+осталась как FallbackArtwork. [Аудит](AUDIT_2_5_RELEASE.md).
 Таблица фиксирует происхождение и проверку алгоритмов. Номер старого build
 в строке — момент переноса, а не текущая версия приложения.
 Fxx: [карта функций](FEATURE_INVENTORY.md); Sxx: [reference1.x](LEGACY_1X_ANALYSIS.md).
@@ -83,3 +88,6 @@ Beta95 — уточнение F18/F19/F26 без переноса нового �
 доступности и grace в core, default network adapter в app, сообщения в shell/
 native clip overlay. Локальные/USB/офлайн функции от порта не зависят;
 reconnect заменяет pending online запрос. [Проверки](INTERNET_2_5_VERIFICATION.md).
+
+Stable97: ShellApp читает route через delegated derivedStateOf: навигация и Back
+в одном кадре не используют прежний экран. [B-017](AUDIT_2_5_RELEASE.md).

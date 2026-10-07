@@ -1,0 +1,6 @@
+emulator-5556 reboot MUSIC playing=true: passed
+emulator-5556 reboot MUSIC playing=false: passed
+emulator-5556 reboot RADIO playing=true: passed
+emulator-5556 reboot RADIO playing=false: passed
+emulator-5556 reboot CLIPS playing=true: passed
+emulator-5556 reboot CLIPS playing=false: passed

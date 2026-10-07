@@ -1,21 +1,17 @@
 # Документы и рабочая память проекта
 
-Сверено 7 октября 2026 года: стабильная **2.4.1-build84**. При начале работы
-читать текущие документы, затем относящиеся к задаче решения и отчёты.
-[Контрольная регрессия и выпуск](RELEASE_2_4_0_VERIFICATION.md).
+Сверено 7 октября 2026: стабильная **2.5.0-build97**. В начале работы читать
+статус и план, затем относящиеся к задаче решения, исходники и проверки.
+[Текущий аудит, исправления, проверки и выпуск](AUDIT_2_5_RELEASE.md).
 
-Последний patch: [B-011 исправлен / D-002 наблюдение](PATCH_2_4_1_VERIFICATION.md).
-
-Последнее исследование: [Яндекс Радио — эфирные станции, rotor и авторизация](YANDEX_RADIO_FEASIBILITY.md).
-Подтверждено владельцем6 октября: [существующий Music OAuth и личное FM-избранное](YANDEX_RADIO_AUTH_PROBE.md).
-Текущая ручная beta93: [2.5.0beta — полноценный раздел Радио](PLAN_2_5.md).
-Выбран вариант1: [эскизы компоновки Радио](RADIO_UI_DESIGN.md).
-Реализация/проверки: [Радио2.5](RADIO_2_5_VERIFICATION.md), [ADR-042](ADR_042_FM_RADIO_SHARED_OUTPUT.md).
-Дополнительная проверка beta87: [CWG — логотип, эфирные метаданные и Pause/Play](RADIO_CWG_VERIFICATION.md).
-
-Завершённый этап beta92: [сохранение раздела и сеанса после выхода/force-stop/выключения](SESSION_RECOVERY_2_5_VERIFICATION.md).
-
-Последнее исправление beta93: [B-013 — справочники, догрузка и карточки станций](RADIO_CATALOG_2_5_VERIFICATION.md).
+Исторические этапы 2.5: [план](PLAN_2_5.md), [исследование API](YANDEX_RADIO_FEASIBILITY.md),
+[OAuth владельца](YANDEX_RADIO_AUTH_PROBE.md), [макет](RADIO_UI_DESIGN.md),
+[раздел Радио](RADIO_2_5_VERIFICATION.md), [CWG](RADIO_CWG_VERIFICATION.md),
+[восстановление](SESSION_RECOVERY_2_5_VERIFICATION.md),
+[каталоги](RADIO_CATALOG_2_5_VERIFICATION.md), [Back клипов](CLIP_BACK_2_5_VERIFICATION.md),
+[сеть](INTERNET_2_5_VERIFICATION.md). Это свидетельства соответствующих beta,
+а не новые прогоны build97. Прежняя стабильная линия:
+[2.4.0](RELEASE_2_4_0_VERIFICATION.md), [patch 2.4.1](PATCH_2_4_1_VERIFICATION.md).
 
 ## Текущее состояние
 

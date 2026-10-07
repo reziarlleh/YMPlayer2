@@ -1,0 +1,139 @@
+{
+  "jvm": [
+    {
+      "name": "dev.petrov.ymplayer2.core.AccountAuthTest",
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.AudioQualityTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.CatalogQueryTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.CloudPlaylistsTest",
+      "tests": "13",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.CollectionsTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.DemoPlaybackControllerTest",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.InternetConnectionTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.MusicTasteTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.MyWaveTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.OfflineMusicTest",
+      "tests": "12",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.OnlineMusicTest",
+      "tests": "16",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.PlaybackOriginTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.RadioTest",
+      "tests": "16",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.WaveSettingsTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.CrashFormatTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 66
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 65
+    }
+  },
+  "native": {
+    "emulator-5556": {
+      "passed": 283,
+      "skipped": 7,
+      "failed": 6,
+      "completed": true,
+      "lastStarted": [
+        "296"
+      ]
+    },
+    "emulator-5560": {
+      "passed": 280,
+      "skipped": 8,
+      "failed": 6,
+      "completed": true,
+      "lastStarted": [
+        "294"
+      ]
+    }
+  }
+}
