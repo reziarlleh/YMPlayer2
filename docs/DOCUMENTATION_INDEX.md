@@ -8,12 +8,14 @@
 
 Последнее исследование: [Яндекс Радио — эфирные станции, rotor и авторизация](YANDEX_RADIO_FEASIBILITY.md).
 Подтверждено владельцем6 октября: [существующий Music OAuth и личное FM-избранное](YANDEX_RADIO_AUTH_PROBE.md).
-Текущая ручная beta92: [2.5.0beta — полноценный раздел Радио](PLAN_2_5.md).
+Текущая ручная beta93: [2.5.0beta — полноценный раздел Радио](PLAN_2_5.md).
 Выбран вариант1: [эскизы компоновки Радио](RADIO_UI_DESIGN.md).
 Реализация/проверки: [Радио2.5](RADIO_2_5_VERIFICATION.md), [ADR-042](ADR_042_FM_RADIO_SHARED_OUTPUT.md).
 Дополнительная проверка beta87: [CWG — логотип, эфирные метаданные и Pause/Play](RADIO_CWG_VERIFICATION.md).
 
 Завершённый этап beta92: [сохранение раздела и сеанса после выхода/force-stop/выключения](SESSION_RECOVERY_2_5_VERIFICATION.md).
+
+Последнее исправление beta93: [B-013 — справочники, догрузка и карточки станций](RADIO_CATALOG_2_5_VERIFICATION.md).
 
 ## Текущее состояние
 

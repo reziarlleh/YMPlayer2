@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-07",
+  "jvm": {
+    "core": {
+      "tests": 111,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 64
+  },
+  "native": {
+    "5556": {
+      "passed": 26,
+      "failed": 0,
+      "skipped": 2,
+      "collectionRerunPassed": true
+    },
+    "5560": {
+      "passed": 24,
+      "failed": 1,
+      "skipped": 3,
+      "collectionRerunPassed": true
+    }
+  },
+  "accepted": {
+    "nativeUniquePassed": 51,
+    "nativeExpectedSkipped": 5,
+    "remainingFailures": 0,
+    "phoneCollectionCorrection": "collection-final-5560.txt"
+  }
+}

@@ -1,0 +1,23 @@
+* daemon not running; starting now at tcp:5037
+could not read ok from ADB Server
+* failed to start daemon
+adb.exe: cannot connect to daemon
+Traceback (most recent call last):
+  File "D:\_codex\YMPlayer2\.local-build\radio-catalog-fix\signed93.py", line 36, in <module>
+    r=dump();click(find(r,'content-desc','Play station',True));wait_state(3)
+                                                               ^^^^^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\radio-catalog-fix\signed93.py", line 27, in wait_state
+    s=session()
+      ^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\radio-catalog-fix\signed93.py", line 22, in session
+    raw=run('shell','dumpsys','media_session')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\radio-catalog-fix\signed93.py", line 7, in run
+    def run(*args):return subprocess.check_output([adb,'-s',serial,*args],text=True,encoding='utf-8',errors='replace',timeout=55)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\petro\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\petro\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['C:/Users/petro/.codex/android-sdk/platform-tools/adb.exe', '-s', 'emulator-5560', 'shell', 'dumpsys', 'media_session']' returned non-zero exit status 1.

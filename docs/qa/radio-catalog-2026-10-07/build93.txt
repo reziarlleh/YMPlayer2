@@ -1,0 +1,476 @@
+> Task :app:preBuild UP-TO-DATE
+> Task :designsystem:preBuild UP-TO-DATE
+> Task :localization:preBuild UP-TO-DATE
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :designsystem:preReleaseBuild UP-TO-DATE
+> Task :localization:preReleaseBuild UP-TO-DATE
+> Task :core:compileKotlin UP-TO-DATE
+> Task :core:compileJava NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :feature:clips:preBuild UP-TO-DATE
+> Task :feature:clips:preReleaseBuild UP-TO-DATE
+> Task :designsystem:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :localization:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :feature:shell:preBuild UP-TO-DATE
+> Task :feature:shell:preReleaseBuild UP-TO-DATE
+> Task :feature:clips:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :designsystem:mergeReleaseNativeLibs NO-SOURCE
+> Task :localization:mergeReleaseNativeLibs NO-SOURCE
+> Task :feature:shell:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :feature:clips:mergeReleaseNativeLibs NO-SOURCE
+> Task :feature:shell:mergeReleaseNativeLibs NO-SOURCE
+> Task :designsystem:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :headunit:sidebar:preBuild UP-TO-DATE
+> Task :localization:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :headunit:sidebar:preReleaseBuild UP-TO-DATE
+> Task :library:local:preBuild UP-TO-DATE
+> Task :library:local:preReleaseBuild UP-TO-DATE
+> Task :feature:clips:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :feature:shell:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :library:offline:preBuild UP-TO-DATE
+> Task :playback:android:preBuild UP-TO-DATE
+> Task :library:offline:preReleaseBuild UP-TO-DATE
+> Task :playback:android:preReleaseBuild UP-TO-DATE
+> Task :headunit:sidebar:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :headunit:sidebar:mergeReleaseNativeLibs NO-SOURCE
+> Task :library:local:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :playback:android:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :library:offline:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :library:local:mergeReleaseNativeLibs NO-SOURCE
+> Task :library:offline:mergeReleaseNativeLibs NO-SOURCE
+> Task :playback:android:mergeReleaseNativeLibs NO-SOURCE
+> Task :headunit:sidebar:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :provider:yandex:preBuild UP-TO-DATE
+> Task :provider:yandex:preReleaseBuild UP-TO-DATE
+> Task :library:local:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :updater:android:preBuild UP-TO-DATE
+> Task :updater:android:preReleaseBuild UP-TO-DATE
+> Task :provider:yandex:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :library:offline:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :playback:android:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :playback:android:generateReleaseResources UP-TO-DATE
+> Task :localization:generateReleaseResources UP-TO-DATE
+> Task :playback:android:packageReleaseResources UP-TO-DATE
+> Task :localization:packageReleaseResources UP-TO-DATE
+> Task :playback:android:processReleaseNavigationResources UP-TO-DATE
+> Task :localization:processReleaseNavigationResources UP-TO-DATE
+> Task :localization:parseReleaseLocalResources UP-TO-DATE
+> Task :provider:yandex:mergeReleaseNativeLibs NO-SOURCE
+> Task :localization:generateReleaseRFile UP-TO-DATE
+> Task :playback:android:parseReleaseLocalResources UP-TO-DATE
+> Task :playback:android:generateReleaseRFile UP-TO-DATE
+> Task :playback:android:javaPreCompileRelease UP-TO-DATE
+> Task :designsystem:generateReleaseResources UP-TO-DATE
+> Task :designsystem:packageReleaseResources UP-TO-DATE
+> Task :designsystem:processReleaseNavigationResources UP-TO-DATE
+> Task :designsystem:parseReleaseLocalResources UP-TO-DATE
+> Task :updater:android:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :provider:yandex:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :feature:shell:generateReleaseResources UP-TO-DATE
+> Task :designsystem:generateReleaseRFile UP-TO-DATE
+> Task :updater:android:mergeReleaseNativeLibs NO-SOURCE
+> Task :designsystem:javaPreCompileRelease UP-TO-DATE
+> Task :feature:shell:packageReleaseResources UP-TO-DATE
+> Task :feature:clips:generateReleaseResources UP-TO-DATE
+> Task :feature:shell:processReleaseNavigationResources UP-TO-DATE
+> Task :feature:clips:packageReleaseResources UP-TO-DATE
+> Task :updater:android:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :feature:clips:processReleaseNavigationResources UP-TO-DATE
+> Task :feature:clips:parseReleaseLocalResources UP-TO-DATE
+> Task :feature:shell:parseReleaseLocalResources UP-TO-DATE
+> Task :feature:clips:generateReleaseRFile UP-TO-DATE
+> Task :feature:shell:generateReleaseRFile UP-TO-DATE
+> Task :provider:yandex:generateReleaseResources UP-TO-DATE
+> Task :feature:shell:javaPreCompileRelease UP-TO-DATE
+> Task :feature:clips:javaPreCompileRelease UP-TO-DATE
+> Task :provider:yandex:packageReleaseResources UP-TO-DATE
+> Task :headunit:sidebar:generateReleaseResources UP-TO-DATE
+> Task :provider:yandex:processReleaseNavigationResources UP-TO-DATE
+> Task :headunit:sidebar:packageReleaseResources UP-TO-DATE
+> Task :provider:yandex:parseReleaseLocalResources UP-TO-DATE
+> Task :headunit:sidebar:processReleaseNavigationResources UP-TO-DATE
+> Task :provider:yandex:generateReleaseRFile UP-TO-DATE
+> Task :headunit:sidebar:parseReleaseLocalResources UP-TO-DATE
+> Task :headunit:sidebar:generateReleaseRFile UP-TO-DATE
+> Task :headunit:sidebar:javaPreCompileRelease UP-TO-DATE
+> Task :library:local:generateReleaseResources UP-TO-DATE
+> Task :library:local:packageReleaseResources UP-TO-DATE
+> Task :library:local:processReleaseNavigationResources UP-TO-DATE
+> Task :library:local:parseReleaseLocalResources UP-TO-DATE
+> Task :library:local:generateReleaseRFile UP-TO-DATE
+> Task :localization:compileReleaseKotlin UP-TO-DATE
+> Task :localization:javaPreCompileRelease UP-TO-DATE
+> Task :localization:compileReleaseJavaWithJavac NO-SOURCE
+> Task :localization:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :provider:yandex:compileReleaseKotlin UP-TO-DATE
+> Task :library:local:compileReleaseKotlin UP-TO-DATE
+> Task :provider:yandex:javaPreCompileRelease UP-TO-DATE
+> Task :provider:yandex:compileReleaseJavaWithJavac NO-SOURCE
+> Task :provider:yandex:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :localization:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :playback:android:compileReleaseKotlin UP-TO-DATE
+> Task :playback:android:compileReleaseJavaWithJavac NO-SOURCE
+> Task :playback:android:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :localization:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :playback:android:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :designsystem:compileReleaseKotlin UP-TO-DATE
+> Task :designsystem:compileReleaseJavaWithJavac NO-SOURCE
+> Task :designsystem:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :app:mergeReleaseNativeLibs UP-TO-DATE
+> Task :headunit:sidebar:compileReleaseKotlin UP-TO-DATE
+> Task :headunit:sidebar:compileReleaseJavaWithJavac NO-SOURCE
+> Task :app:stripReleaseDebugSymbols UP-TO-DATE
+> Task :headunit:sidebar:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :feature:clips:compileReleaseKotlin UP-TO-DATE
+> Task :feature:clips:compileReleaseJavaWithJavac NO-SOURCE
+> Task :feature:shell:compileReleaseKotlin UP-TO-DATE
+> Task :feature:shell:compileReleaseJavaWithJavac NO-SOURCE
+> Task :feature:clips:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :feature:shell:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :app:extractReleaseNativeSymbolTables UP-TO-DATE
+> Task :feature:clips:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :designsystem:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :headunit:sidebar:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :library:local:javaPreCompileRelease UP-TO-DATE
+> Task :library:local:compileReleaseJavaWithJavac NO-SOURCE
+> Task :library:local:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :feature:shell:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :library:offline:generateReleaseResources UP-TO-DATE
+> Task :provider:yandex:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :library:offline:packageReleaseResources UP-TO-DATE
+> Task :library:offline:processReleaseNavigationResources UP-TO-DATE
+> Task :library:offline:parseReleaseLocalResources UP-TO-DATE
+> Task :library:offline:generateReleaseRFile UP-TO-DATE
+> Task :library:offline:compileReleaseKotlin UP-TO-DATE
+> Task :library:offline:javaPreCompileRelease UP-TO-DATE
+> Task :library:offline:compileReleaseJavaWithJavac NO-SOURCE
+> Task :library:offline:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :designsystem:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :library:offline:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :updater:android:generateReleaseResources UP-TO-DATE
+> Task :updater:android:packageReleaseResources UP-TO-DATE
+> Task :updater:android:processReleaseNavigationResources UP-TO-DATE
+> Task :updater:android:parseReleaseLocalResources UP-TO-DATE
+> Task :updater:android:generateReleaseRFile UP-TO-DATE
+> Task :updater:android:compileReleaseKotlin UP-TO-DATE
+> Task :updater:android:javaPreCompileRelease UP-TO-DATE
+> Task :updater:android:compileReleaseJavaWithJavac NO-SOURCE
+> Task :updater:android:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :library:local:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :provider:yandex:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :feature:clips:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :feature:shell:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :headunit:sidebar:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :library:local:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :library:offline:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :playback:android:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :designsystem:prepareReleaseArtProfile UP-TO-DATE
+> Task :localization:prepareReleaseArtProfile UP-TO-DATE
+> Task :feature:clips:prepareReleaseArtProfile UP-TO-DATE
+> Task :feature:shell:prepareReleaseArtProfile UP-TO-DATE
+> Task :headunit:sidebar:prepareReleaseArtProfile UP-TO-DATE
+> Task :library:local:prepareReleaseArtProfile UP-TO-DATE
+> Task :library:offline:prepareReleaseArtProfile UP-TO-DATE
+> Task :playback:android:prepareReleaseArtProfile UP-TO-DATE
+> Task :provider:yandex:prepareReleaseArtProfile UP-TO-DATE
+> Task :designsystem:writeReleaseAarMetadata UP-TO-DATE
+> Task :localization:writeReleaseAarMetadata UP-TO-DATE
+> Task :feature:clips:writeReleaseAarMetadata UP-TO-DATE
+> Task :feature:shell:writeReleaseAarMetadata UP-TO-DATE
+> Task :headunit:sidebar:writeReleaseAarMetadata UP-TO-DATE
+> Task :library:local:writeReleaseAarMetadata UP-TO-DATE
+> Task :library:offline:writeReleaseAarMetadata UP-TO-DATE
+> Task :playback:android:writeReleaseAarMetadata UP-TO-DATE
+> Task :provider:yandex:writeReleaseAarMetadata UP-TO-DATE
+> Task :localization:extractDeepLinksRelease UP-TO-DATE
+> Task :designsystem:extractDeepLinksRelease UP-TO-DATE
+> Task :localization:processReleaseManifest UP-TO-DATE
+> Task :designsystem:processReleaseManifest UP-TO-DATE
+> Task :feature:clips:extractDeepLinksRelease UP-TO-DATE
+> Task :feature:shell:extractDeepLinksRelease UP-TO-DATE
+> Task :feature:clips:processReleaseManifest UP-TO-DATE
+> Task :feature:shell:processReleaseManifest UP-TO-DATE
+> Task :headunit:sidebar:extractDeepLinksRelease UP-TO-DATE
+> Task :library:local:extractDeepLinksRelease UP-TO-DATE
+> Task :headunit:sidebar:processReleaseManifest UP-TO-DATE
+> Task :library:local:processReleaseManifest UP-TO-DATE
+> Task :library:offline:extractDeepLinksRelease UP-TO-DATE
+> Task :playback:android:extractDeepLinksRelease UP-TO-DATE
+> Task :library:offline:processReleaseManifest UP-TO-DATE
+> Task :playback:android:processReleaseManifest UP-TO-DATE
+> Task :provider:yandex:extractDeepLinksRelease UP-TO-DATE
+> Task :provider:yandex:processReleaseManifest UP-TO-DATE
+> Task :designsystem:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :updater:android:exportReleaseConsumerProguardFiles UP-TO-DATE
+> Task :updater:android:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :updater:android:prepareReleaseArtProfile UP-TO-DATE
+> Task :updater:android:writeReleaseAarMetadata UP-TO-DATE
+> Task :updater:android:extractDeepLinksRelease UP-TO-DATE
+> Task :updater:android:processReleaseManifest UP-TO-DATE
+> Task :app:checkReleaseDuplicateClasses UP-TO-DATE
+> Task :localization:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:generateReleaseBuildConfig
+> Task :app:generateReleaseResources UP-TO-DATE
+> Task :app:packageReleaseResources UP-TO-DATE
+> Task :designsystem:compileReleaseLibraryResources UP-TO-DATE
+> Task :app:processReleaseNavigationResources UP-TO-DATE
+> Task :app:parseReleaseLocalResources UP-TO-DATE
+> Task :app:generateReleaseRFile UP-TO-DATE
+> Task :feature:clips:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :localization:compileReleaseLibraryResources UP-TO-DATE
+> Task :feature:clips:compileReleaseLibraryResources UP-TO-DATE
+> Task :feature:shell:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :headunit:sidebar:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :library:local:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :feature:shell:compileReleaseLibraryResources UP-TO-DATE
+> Task :library:local:compileReleaseLibraryResources UP-TO-DATE
+> Task :headunit:sidebar:compileReleaseLibraryResources UP-TO-DATE
+> Task :playback:android:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :provider:yandex:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :library:offline:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :playback:android:compileReleaseLibraryResources UP-TO-DATE
+> Task :provider:yandex:compileReleaseLibraryResources UP-TO-DATE
+> Task :updater:android:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :library:offline:compileReleaseLibraryResources UP-TO-DATE
+> Task :designsystem:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :localization:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :feature:clips:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :feature:shell:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :headunit:sidebar:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :library:local:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :library:offline:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :playback:android:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :provider:yandex:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :designsystem:processReleaseJavaRes UP-TO-DATE
+> Task :localization:processReleaseJavaRes UP-TO-DATE
+> Task :feature:clips:processReleaseJavaRes UP-TO-DATE
+> Task :feature:shell:processReleaseJavaRes UP-TO-DATE
+> Task :headunit:sidebar:processReleaseJavaRes UP-TO-DATE
+> Task :library:local:processReleaseJavaRes UP-TO-DATE
+> Task :library:offline:processReleaseJavaRes UP-TO-DATE
+> Task :playback:android:processReleaseJavaRes UP-TO-DATE
+> Task :provider:yandex:processReleaseJavaRes UP-TO-DATE
+> Task :designsystem:generateReleaseAssets UP-TO-DATE
+> Task :designsystem:mergeReleaseAssets UP-TO-DATE
+> Task :localization:generateReleaseAssets UP-TO-DATE
+> Task :localization:mergeReleaseAssets UP-TO-DATE
+> Task :feature:clips:generateReleaseAssets UP-TO-DATE
+> Task :feature:clips:mergeReleaseAssets UP-TO-DATE
+> Task :feature:shell:generateReleaseAssets UP-TO-DATE
+> Task :feature:shell:mergeReleaseAssets UP-TO-DATE
+> Task :headunit:sidebar:generateReleaseAssets UP-TO-DATE
+> Task :headunit:sidebar:mergeReleaseAssets UP-TO-DATE
+> Task :library:local:generateReleaseAssets UP-TO-DATE
+> Task :library:local:mergeReleaseAssets UP-TO-DATE
+> Task :library:offline:generateReleaseAssets UP-TO-DATE
+> Task :library:offline:mergeReleaseAssets UP-TO-DATE
+> Task :playback:android:generateReleaseAssets UP-TO-DATE
+> Task :playback:android:mergeReleaseAssets UP-TO-DATE
+> Task :provider:yandex:generateReleaseAssets UP-TO-DATE
+> Task :provider:yandex:mergeReleaseAssets UP-TO-DATE
+> Task :designsystem:createFullJarRelease UP-TO-DATE
+> Task :designsystem:extractProguardFiles UP-TO-DATE
+> Task :localization:createFullJarRelease UP-TO-DATE
+> Task :localization:extractProguardFiles UP-TO-DATE
+> Task :localization:generateReleaseLintModel UP-TO-DATE
+> Task :localization:prepareLintJarForPublish UP-TO-DATE
+> Task :updater:android:compileReleaseLibraryResources UP-TO-DATE
+> Task :updater:android:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :updater:android:processReleaseJavaRes UP-TO-DATE
+> Task :updater:android:generateReleaseAssets UP-TO-DATE
+> Task :updater:android:mergeReleaseAssets UP-TO-DATE
+> Task :feature:clips:createFullJarRelease UP-TO-DATE
+> Task :feature:clips:extractProguardFiles UP-TO-DATE
+> Task :provider:yandex:createFullJarRelease UP-TO-DATE
+> Task :provider:yandex:extractProguardFiles UP-TO-DATE
+> Task :provider:yandex:generateReleaseLintModel UP-TO-DATE
+> Task :provider:yandex:prepareLintJarForPublish UP-TO-DATE
+> Task :feature:clips:prepareLintJarForPublish UP-TO-DATE
+> Task :feature:shell:createFullJarRelease UP-TO-DATE
+> Task :feature:shell:extractProguardFiles UP-TO-DATE
+> Task :feature:shell:prepareLintJarForPublish UP-TO-DATE
+> Task :headunit:sidebar:createFullJarRelease UP-TO-DATE
+> Task :headunit:sidebar:extractProguardFiles UP-TO-DATE
+> Task :headunit:sidebar:prepareLintJarForPublish UP-TO-DATE
+> Task :library:local:createFullJarRelease UP-TO-DATE
+> Task :library:local:extractProguardFiles UP-TO-DATE
+> Task :library:local:generateReleaseLintModel UP-TO-DATE
+> Task :library:local:prepareLintJarForPublish UP-TO-DATE
+> Task :library:offline:createFullJarRelease UP-TO-DATE
+> Task :library:offline:extractProguardFiles UP-TO-DATE
+> Task :library:offline:generateReleaseLintModel UP-TO-DATE
+> Task :library:offline:prepareLintJarForPublish UP-TO-DATE
+> Task :playback:android:createFullJarRelease UP-TO-DATE
+> Task :playback:android:extractProguardFiles UP-TO-DATE
+> Task :playback:android:generateReleaseLintModel UP-TO-DATE
+> Task :playback:android:prepareLintJarForPublish UP-TO-DATE
+> Task :updater:android:createFullJarRelease UP-TO-DATE
+> Task :updater:android:extractProguardFiles UP-TO-DATE
+> Task :updater:android:generateReleaseLintModel UP-TO-DATE
+> Task :designsystem:generateReleaseLintModel UP-TO-DATE
+> Task :designsystem:prepareLintJarForPublish UP-TO-DATE
+> Task :updater:android:prepareLintJarForPublish UP-TO-DATE
+> Task :feature:shell:generateReleaseLintModel UP-TO-DATE
+> Task :feature:clips:generateReleaseLintModel UP-TO-DATE
+> Task :playback:android:checkReleaseAarMetadata UP-TO-DATE
+> Task :playback:android:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :headunit:sidebar:generateReleaseLintModel UP-TO-DATE
+> Task :feature:shell:checkReleaseAarMetadata UP-TO-DATE
+> Task :feature:shell:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :playback:android:extractReleaseAnnotations UP-TO-DATE
+> Task :playback:android:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :playback:android:mergeReleaseJavaResource UP-TO-DATE
+> Task :playback:android:syncReleaseLibJars UP-TO-DATE
+> Task :feature:shell:extractReleaseAnnotations UP-TO-DATE
+> Task :playback:android:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :feature:shell:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :feature:shell:mergeReleaseJavaResource UP-TO-DATE
+> Task :feature:shell:syncReleaseLibJars UP-TO-DATE
+> Task :feature:shell:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :feature:clips:checkReleaseAarMetadata UP-TO-DATE
+> Task :feature:clips:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :headunit:sidebar:checkReleaseAarMetadata UP-TO-DATE
+> Task :headunit:sidebar:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :feature:clips:extractReleaseAnnotations UP-TO-DATE
+> Task :feature:clips:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :feature:clips:mergeReleaseJavaResource UP-TO-DATE
+> Task :feature:clips:syncReleaseLibJars UP-TO-DATE
+> Task :headunit:sidebar:extractReleaseAnnotations UP-TO-DATE
+> Task :headunit:sidebar:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :feature:clips:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :headunit:sidebar:mergeReleaseJavaResource UP-TO-DATE
+> Task :headunit:sidebar:syncReleaseLibJars UP-TO-DATE
+> Task :headunit:sidebar:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :localization:checkReleaseAarMetadata UP-TO-DATE
+> Task :localization:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :designsystem:checkReleaseAarMetadata UP-TO-DATE
+> Task :designsystem:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :localization:extractReleaseAnnotations UP-TO-DATE
+> Task :localization:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :localization:mergeReleaseJavaResource UP-TO-DATE
+> Task :localization:syncReleaseLibJars UP-TO-DATE
+> Task :localization:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :library:local:checkReleaseAarMetadata UP-TO-DATE
+> Task :designsystem:extractReleaseAnnotations UP-TO-DATE
+> Task :library:local:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :designsystem:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :designsystem:mergeReleaseJavaResource UP-TO-DATE
+> Task :designsystem:syncReleaseLibJars UP-TO-DATE
+> Task :designsystem:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :library:offline:checkReleaseAarMetadata UP-TO-DATE
+> Task :library:offline:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :library:local:extractReleaseAnnotations UP-TO-DATE
+> Task :library:local:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :library:local:mergeReleaseJavaResource UP-TO-DATE
+> Task :library:local:syncReleaseLibJars UP-TO-DATE
+> Task :library:local:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :provider:yandex:checkReleaseAarMetadata UP-TO-DATE
+> Task :provider:yandex:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :library:offline:extractReleaseAnnotations UP-TO-DATE
+> Task :library:offline:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :library:offline:mergeReleaseJavaResource UP-TO-DATE
+> Task :library:offline:syncReleaseLibJars UP-TO-DATE
+> Task :library:offline:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :updater:android:checkReleaseAarMetadata UP-TO-DATE
+> Task :provider:yandex:extractReleaseAnnotations UP-TO-DATE
+> Task :updater:android:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :provider:yandex:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :provider:yandex:mergeReleaseJavaResource UP-TO-DATE
+> Task :provider:yandex:syncReleaseLibJars UP-TO-DATE
+> Task :provider:yandex:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :localization:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :updater:android:extractReleaseAnnotations UP-TO-DATE
+> Task :updater:android:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :updater:android:mergeReleaseJavaResource UP-TO-DATE
+> Task :updater:android:syncReleaseLibJars UP-TO-DATE
+> Task :updater:android:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :designsystem:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :designsystem:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :provider:yandex:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :app:mergeReleaseArtProfile UP-TO-DATE
+> Task :localization:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:compileReleaseNavigationResources UP-TO-DATE
+> Task :feature:clips:lintVitalAnalyzeRelease
+> Task :feature:clips:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :feature:shell:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :headunit:sidebar:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :headunit:sidebar:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :app:mergeReleaseResources UP-TO-DATE
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :app:processReleaseMainManifest
+> Task :app:processReleaseManifest
+> Task :app:processReleaseManifestForPackage
+> Task :library:local:lintVitalAnalyzeRelease
+> Task :library:local:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :feature:shell:lintVitalAnalyzeRelease
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:mergeReleaseStartupProfile UP-TO-DATE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets UP-TO-DATE
+> Task :app:compressReleaseAssets UP-TO-DATE
+> Task :library:offline:lintVitalAnalyzeRelease
+> Task :library:offline:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :app:extractReleaseVersionControlInfo
+> Task :playback:android:writeReleaseLintModelMetadata UP-TO-DATE
+
+> Task :app:compileReleaseKotlin
+w: file:///D:/_codex/YMPlayer2/app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt:62:95 Unnecessary safe call on a non-null receiver of type 'JSONObject'.
+
+> Task :playback:android:lintVitalAnalyzeRelease
+> Task :updater:android:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :updater:android:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :designsystem:generateReleaseLintVitalModel UP-TO-DATE
+> Task :provider:yandex:lintVitalAnalyzeRelease
+> Task :localization:generateReleaseLintVitalModel UP-TO-DATE
+> Task :feature:shell:generateReleaseLintVitalModel
+> Task :feature:clips:generateReleaseLintVitalModel
+> Task :headunit:sidebar:generateReleaseLintVitalModel UP-TO-DATE
+> Task :library:local:generateReleaseLintVitalModel
+> Task :library:offline:generateReleaseLintVitalModel
+> Task :app:compileReleaseJavaWithJavac
+> Task :playback:android:generateReleaseLintVitalModel
+> Task :provider:yandex:generateReleaseLintVitalModel
+> Task :app:processReleaseJavaRes UP-TO-DATE
+> Task :updater:android:generateReleaseLintVitalModel UP-TO-DATE
+
+> Task :app:generateReleaseLintVitalReportModel
+Warning: Lint will treat :core as an external dependency and not analyze it.
+ * Recommended Action: Apply the 'com.android.lint' plugin to java library project :core. to enable lint to analyze those sources.
+
+
+> Task :app:collectReleaseDependencies UP-TO-DATE
+> Task :app:sdkReleaseDependencyData UP-TO-DATE
+> Task :app:validateSigningRelease UP-TO-DATE
+> Task :app:writeReleaseAppMetadata UP-TO-DATE
+> Task :app:writeReleaseSigningConfigVersions UP-TO-DATE
+> Task :app:mergeReleaseJavaResource
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:lintVitalReportRelease UP-TO-DATE
+> Task :app:lintVitalRelease
+> Task :app:processReleaseResources
+> Task :app:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :app:expandReleaseArtProfileWildcards
+> Task :app:produceReleaseComposeMapping
+> Task :app:reportReleaseComposeMappingErrors
+> Task :app:minifyReleaseWithR8
+> Task :app:mergeReleaseComposeMapping
+> Task :app:convertShrunkResourcesToBinaryRelease
+> Task :app:compileReleaseArtProfile
+> Task :app:optimizeReleaseResources
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect
+> Task :app:assembleRelease
+
+BUILD SUCCESSFUL in 2m 47s
+404 actionable tasks: 35 executed, 369 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.0/userguide/configuration_cache_enabling.html
+Verified artifact: D:\_codex\YMPlayer2\releases\2.5.0beta-build93\YMPlayer-2.5.0beta-build93.apk

@@ -398,11 +398,17 @@ saved in the current profile; there is no separate Radio sign-in.
 - **Cities** opens a searchable city picker. A city selects local station streams;
   **All cities** clears this filter.
 - **Genres** filters the catalogue; **All genres** clears the filter.
-- **All stations** shows the general catalogue. **More stations** loads the next page.
+- **All stations** shows the general catalogue and loads more as you scroll.
+  Cities, genres and search results use a vertically scrolling station grid.
+  After a network error, **Retry** continues without losing the stations already loaded.
 - **Search all stations** always searches the full catalogue, regardless of the
   city or genre filter. Clear the search field to return to your filter.
 
-Selecting a station card starts its live stream. The player shows the station,
+Each station has separate heart and Play buttons: the heart adds or removes
+it from your collection, and Play starts the stream. Select its image/name to
+open a larger card with the description supplied by Yandex. **Back** returns to
+the same list, scroll position and remote-control focus. Opening the card does
+not change the stream currently playing. The player shows the station,
 city, and **On air now** title/artist when supplied by the station. **Stop** closes
 playback; **Play** reconnects to the current live broadcast. Radio has no seeking,
 repeat or shuffle. It retries temporary network failures; stopping, switching
@@ -411,7 +417,9 @@ per profile. In beta92, opening the app resumes a station that was playing;
 a stopped station stays stopped. Live radio returns to the current broadcast,
 not a saved timestamp.
 
-The player stays below the catalogue in portrait and to its left in landscape.
+Collection keeps two horizontal carousels: favourites and all stations. Its
+player stays below them in portrait and to their left in landscape. Other pages
+use the main area for the grid, with the selected stream in the mini-player.
 Touch and remote controls are supported. Background playback uses the same
 notification and media controls as music; the mini-player returns to Radio.
 Starting music or a clip stops the station. Broadcasts are not downloaded to
@@ -422,13 +430,15 @@ In the tested CWG3.6.3-R2, long-press Play to choose a player. CWG shows the sta
 logo and current song/artist. Its Pause closes the stream; Play reconnects to the
 live broadcast. The logo may appear after the text while the image downloads.
 
-Install [2.5.0beta-build92](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build92) manually over the existing app; automatic updates remain on
+Install [2.5.0beta-build93](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build93) manually over the existing app; automatic updates remain on
 stable **2.4.1-build84**. Actual station-collection writes still need user acceptance;
 see the [verification boundaries](RADIO_2_5_VERIFICATION.md).
 
-Signed beta87 on Android9, playing a real station with the English interface.
+Signed beta93 on Android9: the station grid with the English interface.
 
-![Radio / beta87](qa/radio-2-5-2026-10-06/signed87-radio-phone.png)
+![Radio / beta93](qa/radio-catalog-2026-10-07/emulator-5560-signed93-return.png)
+
+[Example of a full station card](qa/radio-catalog-2026-10-07/emulator-5560-signed93-detail.png).
 
 ## Returning to your session — manual 2.5 beta
 

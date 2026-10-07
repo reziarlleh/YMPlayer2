@@ -197,3 +197,8 @@ ClipCheckpointStore в `feature:clips`, координатор явного за
 навигации в `app`. Music/Radio сохраняют своё состояние в существующих адаптерах;
 RadioController в `core` принимает callbacks чтения/записи навигации профиля.
 [Поведение, проверка lifecycle и границы](SESSION_RECOVERY_2_5_VERIFICATION.md).
+
+Beta93: `RadioController` разделяет ошибки справочников и details generation,
+передаёт cursor и различает новую выборку/append; `YandexRadioApi` читает
+cardInfo.description как текст; `RadioScreen` хранит list/grid state за Dialog
+и возвращает FocusRequester. [Проверки](RADIO_CATALOG_2_5_VERIFICATION.md).

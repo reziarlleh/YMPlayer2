@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-07",
+  "serial": "emulator-5556",
+  "install": "92 -> 93 without uninstall",
+  "englishPreserved": true,
+  "playingAndStoppedForceStop": true,
+  "realStationDescription": true,
+  "gridAndBack": true,
+  "physicalDevice": false
+}

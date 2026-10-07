@@ -1,0 +1,4 @@
+D:\_codex\YMPlayer2\.local-build\radio-catalog-fix\signed93.py:18: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
+  (qa/f'{serial}-{name}.xml').write_text(E.tostring(r or dump(),encoding='unicode'),encoding='utf-8')
+ERROR: null root node returned by UiTestAutomationBridge.
+{"date": "2026-10-07", "serial": "emulator-5560", "install": "92 -> 93 without uninstall", "englishPreserved": true, "playingAndStoppedForceStop": true, "realStationDescription": true, "gridAndBack": true, "physicalDevice": false}
