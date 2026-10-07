@@ -90,8 +90,8 @@ Google Play Protect/HyperOS scanner.
   Реальные названия музыки и пользовательские данные не переводить.
 - Отдельный русский фильтр дополнительно к региональному не подтверждён API:
   [ADR-040](ADR_040_WAVE_SETTINGS.md). Не подменять одну настройку двумя названиями.
-- **D-001**: динамический Gcore раньше запаздывал. На [HTTP-срезе7 октября](qa/session-recovery-2026-10-07/publication.json)
-  raw GitHub, jsDelivr и Gcore manifest/stable актуальны84; pinned APK92
+- **D-001**: динамический Gcore раньше запаздывал. На [HTTP-срезе7 октября](qa/radio-catalog-2026-10-07/publication.json)
+  raw GitHub, jsDelivr и Gcore manifest/stable актуальны84; pinned APK93
   совпал с GitHub/локальным SHA256. Наблюдение остаётся: постоянная свежесть CDN не гарантируется.
 - Повторная проверка test037/SM-A145F, K4811/CWG/USB — при возможности владельца;
   независимая работа не останавливается. B-007 закрыт по стеку и native-повтору.
