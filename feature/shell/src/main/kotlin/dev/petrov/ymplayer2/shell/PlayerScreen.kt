@@ -78,7 +78,7 @@ import kotlinx.coroutines.launch
                             sourceChoice = false; if (account?.signedIn == true) player.playMyWave() else signIn()
                         }, Modifier.testTag("player_source_wave"))
                         DropdownMenuItem({ Text(tr(Msg.player_source_offline)) }, { sourceChoice = false; player.playOffline() },
-                            Modifier.testTag("player_source_offline"), enabled = cached?.enabled == true && cached.owner?.profileId == state.profileId && cached.tracks.any { it.available && it.offline })
+                            Modifier.testTag("player_source_offline"), enabled = cached?.enabled == true)
                         DropdownMenuItem({ Text(tr(Msg.player_source_favorites)) }, {
                             sourceChoice = false; player.playList(favorites.map(SavedTrack::id), origin = PlaybackOrigin(PlaybackSource.LOCAL_FAVORITES))
                         }, Modifier.testTag("player_source_favorites"), enabled = favorites.isNotEmpty() && saved?.ready == true)

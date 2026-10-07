@@ -137,7 +137,7 @@ class MainActivity : ComponentActivity() {
                 try { skinPicker.launch(arrayOf("*/*")) }
                 catch (_: ActivityNotFoundException) { graph.skins.report(tr(Msg.msg_80cedf587a28)) }
             }, diagnostics = journal, diagnosticScreen = journal::screen, sideBar = sideBar, updates = updates, openClips = {
-                startActivity(Intent(this, ClipActivity::class.java))
+                startActivity(Intent(this, ClipActivity::class.java).putExtra(ClipActivity.EXTRA_PLAY, true))
             }, addFolder = {
                 source = it; pickerIssue = null
                 try { picker.launch(null) }

@@ -18,6 +18,7 @@ data class ClipWaveState(
     val issue: String? = null,
     val canGoBack: Boolean = false,
     val preview: Boolean = false,
+    val playRequested: Boolean = false,
 )
 
 private data class QueuedClip(val clip: YandexClip, val sessionId: String)
@@ -66,7 +67,10 @@ class ClipWaveController(
         if (resume) player.play()
     }
     private val listener = object : Player.Listener {
-        override fun onEvents(player: Player, events: Player.Events) { checkpoint(force = true) }
+        override fun onEvents(player: Player, events: Player.Events) {
+            mutable.value = mutable.value.copy(playing = player.isPlaying, playRequested = player.playWhenReady)
+            checkpoint(force = true)
+        }
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             mutable.value = mutable.value.copy(playing = isPlaying)
             if (isPlaying && !reportedStart) {
@@ -197,7 +201,7 @@ class ClipWaveController(
         }
         if (backgroundPlaying != null) backgroundPlaying = playing
         mutable.value = ClipWaveState(clip = clip.clip, nextClip = upcoming(), loading = false,
-            canGoBack = cursor > 0, preview = stream.preview)
+            canGoBack = cursor > 0, preview = stream.preview, playing = player.isPlaying, playRequested = player.playWhenReady)
         checkpoint(force = true)
     }
     private fun prefetch() {

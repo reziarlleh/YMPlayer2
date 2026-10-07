@@ -43,8 +43,24 @@ class OfflinePlaybackTest {
         }
         waitFor { h.taste.state.value.shelf(TasteKind.TRACK).list.liked == setOf("1", "2") && !h.taste.state.value.shelf(TasteKind.TRACK).busy }
     }
-    @After fun cleanup() { compose.runOnIdle { cache.cancel(); h.player.stop() }; if (::sourceCover.isInitialized) sourceCover.delete() }
+    @After fun cleanup() { compose.runOnIdle { cache.cancel(); h.player.stop(); h.internet.available.value = true }; if (::sourceCover.isInitialized) sourceCover.delete() }
     private fun sync() { compose.runOnIdle { cache.sync() }; waitFor { !cache.state.value.running } }
+    @Test fun fastCatalogDoesNotAuditAllBytesButSelectedDamagedAudioIsRejected() {
+        sync()
+        val damaged = audio("1")
+        File(damaged.path + ".sha256").writeText("0".repeat(64))
+        assertEquals(2, runBlocking { h.offlineStore.catalog(owner) }.size)
+        assertNull("Playback still performs full verification", runBlocking { h.offlineStore.audio(owner, "yandex:1:7") })
+        assertEquals(listOf("2"), runBlocking { h.offlineStore.load(owner) }.map { it.tasteTarget().key })
+    }
+    @Test fun emptyOfflineSourceRemainsSelectableWithoutNetwork() {
+        compose.runOnIdle { h.internet.available.value = false }
+        compose.onNodeWithTag("my_wave").performClick()
+        compose.onNodeWithTag("player_source_offline").assertIsEnabled().performClick()
+        waitFor { h.player.state.value.origin.source == PlaybackSource.OFFLINE }
+        assertTrue(h.player.state.value.queue.isEmpty())
+        compose.runOnIdle { h.internet.available.value = true }
+    }
     private fun audio(id: String) = File(Uri.parse(cache.state.value.tracks.first { it.tasteTarget().key == id }.uri).path!!)
     private fun cover(id: String) = File(Uri.parse(cache.state.value.tracks.first { it.tasteTarget().key == id }.artworkUri).path!!)
     private fun hash(file: File) = MessageDigest.getInstance("SHA-256").digest(file.readBytes()).toList()

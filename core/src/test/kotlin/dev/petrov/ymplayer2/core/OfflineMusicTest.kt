@@ -14,8 +14,11 @@ class OfflineMusicTest {
         var beforeRetain: suspend () -> Unit = {}
         val downloaded = mutableListOf<Pair<OfflineOwner, String>>()
         var loads = 0
+        var catalogs = 0
+        var catalogGate: suspend () -> Unit = {}
         var audioReads = 0
         override suspend fun load(owner: OfflineOwner): List<Track> { loads++; return files[owner]?.values?.toList().orEmpty() }
+        override suspend fun catalog(owner: OfflineOwner): List<Track> { catalogs++; catalogGate(); return files[owner]?.values?.toList().orEmpty() }
         override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem {
             transfer(); beforeSave()
             if (!allowed()) return OfflineItem(null, false, false, false)
@@ -182,5 +185,32 @@ class OfflineMusicTest {
         h.offline.clear(); runCurrent()
         assertTrue(h.store.files[h.owner].isNullOrEmpty())
         assertFalse(h.offline.state.value.enabled); assertTrue(h.offline.state.value.ready)
+    }
+    @Test fun openingOfflineUsesLocalCatalogWithoutWaitingForWholeCacheAudit() = runTest {
+        val h = Harness(this)
+        assertEquals(1, h.store.catalogs)
+        assertEquals(0, h.store.loads)
+        val gate = CompletableDeferred<Unit>()
+        h.store.catalogGate = { gate.await() }
+        h.offline.setEnabled(false); h.offline.setEnabled(true); runCurrent()
+        val request = async { h.offline.readyTracks("owner") }; runCurrent()
+        assertFalse(request.isCompleted)
+        gate.complete(Unit); runCurrent()
+        assertTrue(request.await().isEmpty())
+        assertEquals(0, h.store.loads)
+    }
+    @Test fun pendingOfflineSelectionCannotReturnPreviousProfilesFiles() = runTest {
+        val h = Harness(this); h.offline.sync(); runCurrent()
+        val gate = CompletableDeferred<Unit>()
+        h.store.catalogGate = { gate.await() }
+        h.offline.setEnabled(false); h.offline.setEnabled(true); runCurrent()
+        val request = async { h.offline.readyTracks("owner") }; runCurrent()
+        assertFalse(request.isCompleted)
+        h.auth.activate("road"); runCurrent()
+        assertTrue(request.await().isEmpty())
+        gate.complete(Unit); runCurrent()
+        assertTrue(h.offline.tracks("owner").isEmpty())
+        h.offline.setEnabled(false); runCurrent()
+        assertTrue(h.offline.readyTracks("road").isEmpty())
     }
 }

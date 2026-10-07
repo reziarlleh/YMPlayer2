@@ -34,6 +34,26 @@ class LikedFileStore(private val context: Context) : OfflineStore {
     private class Revoked : Exception()
     private fun check(allowed: () -> Boolean) { if (!allowed()) throw Revoked() }
 
+    override suspend fun catalog(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) {
+        lock.withLock {
+            val root = root(owner)
+            root.listFiles()?.filter { it.name.endsWith(".part") && it.lastModified() < System.currentTimeMillis() - 86_400_000 }?.forEach(File::delete)
+            root.listFiles()?.filter { it.name.endsWith(".json") && it.length() < 64 * 1024 }?.mapNotNull { metadata ->
+                currentCoroutineContext().ensureActive()
+                try {
+                    val track = decode(JSONObject(metadata.readText()))
+                    val audio = part(root, track.id, ".audio")
+                    if (!audio.isFile || audio.length() !in 1..(128L * 1024 * 1024)) null else {
+                        val cover = part(root, track.id, ".cover").takeIf { it.isFile && it.length() in 1..(8L * 1024 * 1024) }
+                        track.copy(offline = true, available = true, uri = Uri.fromFile(audio).toString(),
+                            artworkUri = cover?.let { Uri.fromFile(it).toString() }, sizeBytes = audio.length() + (cover?.length() ?: 0))
+                    }
+                } catch (e: CancellationException) { throw e }
+                catch (_: Exception) { null }
+            }?.sortedWith(compareBy(Track::artist, Track::title)).orEmpty()
+        }
+    }
+
     override suspend fun load(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) {
         lock.withLock {
             val root = root(owner)

@@ -680,10 +680,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     override fun playOffline() = playOfflineLikes()
     internal fun playOfflineLikes() = diskCommand {
         val profile = state.value.profileId
-        val tracks = offline?.tracks(profile)?.filter { it.available && it.offline }.orEmpty()
-        if (tracks.isEmpty()) return@diskCommand
         cancelWave(); followLibrary = false
         mutable.value = state.value.copy(origin = PlaybackOrigin(PlaybackSource.OFFLINE))
+        load(emptyList(), 0, 0)
+        val tracks = offline?.readyTracks(profile)?.filter { it.available && it.offline }.orEmpty()
+        if (tracks.isEmpty()) { checkpoint(); return@diskCommand }
         if (library is IndexedLocalLibrary) {
             setReferences(tracks.map(PlaybackReference::from), tracks.first().id, 0, resume = true, preserveCurrent = false)
             return@diskCommand
@@ -1110,7 +1111,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     /** Called on the Media3 loader thread, never the main thread. No token or signed URI enters a MediaItem. */
     internal fun resolveStream(profile: String, trackId: String): String {
         val music = online ?: throw java.io.IOException("Online source unavailable")
-        if (profile == state.value.profileId && remoteEnabled(profile)) runBlocking { offline?.audio(profile, trackId) }?.let { return it }
+        if (profile == state.value.profileId && remoteEnabled(profile) &&
+            offline?.tracks(profile)?.any { it.tasteTarget().key == trackId.removePrefix("yandex:").substringBefore(':') } == true)
+            runBlocking { offline?.audio(profile, trackId) }?.let { return it }
+        if (profile == state.value.profileId && state.value.origin.source == PlaybackSource.OFFLINE)
+            throw java.io.IOException("Offline audio is unavailable")
         if (state.value.wave && profile == state.value.profileId && remoteEnabled(profile)) waveAudio.uri(profile, trackId)?.let { return it }
         val quality = streamQuality()
         return try { runBlocking { withTimeout(60_000) { music.api.stream(profile, trackId, quality) } } }

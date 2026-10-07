@@ -42,7 +42,9 @@ class ClipActivity : ComponentActivity() {
         val profile = graph.playback.state.value.profileId
         clipProfile = profile
         graph.accounts.activate(profile)
-        val checkpoint = graph.clipCheckpoints.read(profile)
+        val checkpoint = graph.clipCheckpoints.read(profile)?.let {
+            if (intent.getBooleanExtra(EXTRA_PLAY, false)) it.copy(playing = true) else it
+        }
         graph.radio.release()
         graph.playback.connect()
         graph.playback.pauseForClips()
@@ -72,7 +74,7 @@ class ClipActivity : ComponentActivity() {
         val controls = ClipControlsView(this, clips!!, graph.skins.state.value.active.clipPalette(), close = ::finish)
         this.controls = controls
         val connection = dev.petrov.ymplayer2.core.InternetCheck(graph.internet, lifecycleScope, {
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && graph.playback.state.value.profileId == profile &&
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) && graph.playback.state.value.profileId == profile &&
                 initialClipStarted && clips?.state?.value?.issue != null) {
                 graph.accounts.retryAccount()
                 clips?.retryFrom(graph.clipCheckpoints.read(profile) ?: checkpoint)
@@ -103,7 +105,8 @@ class ClipActivity : ComponentActivity() {
                 delay(250)
             }
         } }
-        lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            clips?.returnFromBackground()
             if (!initialClipStarted) {
                 graph.accounts.state.first { it.profileId == profile && it.phase != dev.petrov.ymplayer2.core.AuthPhase.LOADING }
                 graph.internet.available.first { it }
@@ -130,12 +133,12 @@ class ClipActivity : ComponentActivity() {
         val graph = application as PlayerApplication
         val profile = clipProfile ?: return
         if (graph.playback.state.value.profileId != profile) { finish(); return }
-        val intent = graph.clipCheckpoints.read(profile)?.playing ?: graph.launchState.read(profile).playing
+        val playIntent = if (!initialClipStarted && intent.getBooleanExtra(EXTRA_PLAY, false)) true
+            else graph.clipCheckpoints.read(profile)?.playing ?: graph.launchState.read(profile).playing
         // Music/CWG may have acquired audio while video was in the background.
         graph.radio.release()
         graph.playback.pauseForClips()
-        graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, intent)
-        clips?.returnFromBackground()
+        graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, playIntent)
     }
     override fun finish() {
         // Explicit Back/Close is a pause; backgrounding must preserve the former play intent.
@@ -156,4 +159,5 @@ class ClipActivity : ComponentActivity() {
         graph.clipActivities = (graph.clipActivities - 1).coerceAtLeast(0)
         super.onDestroy()
     }
+    companion object { internal const val EXTRA_PLAY = "play_clips" }
 }

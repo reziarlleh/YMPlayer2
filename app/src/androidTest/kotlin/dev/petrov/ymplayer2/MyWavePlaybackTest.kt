@@ -5,8 +5,9 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dev.petrov.ymplayer2.core.*
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
@@ -29,6 +30,21 @@ class MyWavePlaybackTest {
         waitFor { fixture.library.testTracks.size == 2 && fixture.taste.state.value.shelf(TasteKind.ARTIST).ready }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
+    @Test fun uncachedFirstStreamDoesNotWaitForUnrelatedOfflineAuditLock() {
+        compose.runOnIdle { fixture.offline.clear() }
+        waitFor { fixture.offline.state.value.ready && fixture.offline.state.value.tracks.isEmpty() }
+        val lock = fixture.offlineStore.javaClass.getDeclaredField("lock").apply { isAccessible = true }.get(fixture.offlineStore) as Mutex
+        runBlocking {
+            val entered = CompletableDeferred<Unit>(); val release = CompletableDeferred<Unit>()
+            val audit = launch(Dispatchers.IO) { lock.withLock { entered.complete(Unit); release.await() } }
+            entered.await()
+            try {
+                val stream = withTimeout(3000) { withContext(Dispatchers.IO) { player.resolveStream("owner", "yandex:1:7") } }
+                assertTrue(stream.startsWith("content://"))
+                assertFalse("The unrelated audit is still blocked", audit.isCompleted)
+            } finally { release.complete(Unit); audit.join() }
+        }
+    }
     private fun start() {
         compose.onNodeWithTag("my_wave").performClick()
         compose.onNodeWithTag("player_source_wave").performClick()

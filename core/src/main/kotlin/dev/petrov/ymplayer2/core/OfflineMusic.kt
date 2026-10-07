@@ -12,6 +12,8 @@ interface LikedMusicApi {
 data class OfflineItem(val track: Track?, val audioFailed: Boolean, val coverFailed: Boolean, val noCover: Boolean)
 interface OfflineStore {
     suspend fun load(owner: OfflineOwner): List<Track>
+    /** Fast local listing; audio() still verifies the selected file before opening it. */
+    suspend fun catalog(owner: OfflineOwner): List<Track> = load(owner)
     suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem
     suspend fun retain(owner: OfflineOwner, keys: Set<String>, allowed: () -> Boolean = { true })
     suspend fun audio(owner: OfflineOwner, trackId: String): String?
@@ -73,7 +75,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         val ticket = generation
         scope.launch {
             try {
-                val tracks = store.load(owner)
+                val tracks = store.catalog(owner)
                 if (valid(owner, ticket) && state.value.enabled) mutable.value = state.value.copy(ready = true, tracks = permitted(owner, tracks))
             } catch (e: CancellationException) { throw e }
             catch (_: Exception) { if (valid(owner, ticket) && state.value.enabled) mutable.value = state.value.copy(ready = true, message = "Не удалось прочитать офлайн-коллекцию. Повторите синхронизацию.") }
@@ -185,6 +187,18 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         }
     }
     fun tracks(profile: String) = state.value.takeIf { it.enabled && it.owner?.profileId == profile }?.tracks.orEmpty()
+    suspend fun readyTracks(profile: String): List<Track> {
+        if (!state.value.enabled) return emptyList()
+        val auth = accounts.state.first { it.profileId != profile || it.phase != AuthPhase.LOADING }
+        if (auth.profileId != profile || auth.phase != AuthPhase.SIGNED_IN || auth.account == null) return emptyList()
+        val owner = OfflineOwner(profile, auth.account.id)
+        val (loaded, current) = combine(state, accounts.state) { cached, current -> cached to current }.first { (cached, current) ->
+            !cached.enabled || current.profileId != profile || current.phase != AuthPhase.SIGNED_IN ||
+                current.account?.id != owner.accountId || cached.owner == owner && cached.ready
+        }
+        return loaded.takeIf { it.enabled && it.owner == owner && it.ready && current.profileId == profile &&
+            current.phase == AuthPhase.SIGNED_IN && current.account?.id == owner.accountId }?.tracks.orEmpty()
+    }
     fun decorate(profile: String, track: Track): Track {
         val cached = tracks(profile).firstOrNull { it.tasteTarget().key == track.tasteTarget().key } ?: return track
         return track.copy(offline = true, available = true, artworkUri = cached.artworkUri ?: track.artworkUri)
