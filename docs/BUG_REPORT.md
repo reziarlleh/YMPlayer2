@@ -109,6 +109,11 @@ Raw GitHub и основной jsDelivr84/min28, Gcore @main всё ещё79; в
 APK84 совпали. [Клиент stable83](qa/patch-2-4-1/emulator-5562/update-release.json)
 получил84 и установил через резервный источник без удаления данных. D-001 открыт.
 
+2026-10-07, выпуск ручной beta92: [HTTP-срез](qa/session-recovery-2026-10-07/publication.json)
+подтвердил stable84 на raw GitHub, jsDelivr и Gcore manifest/stable. Резервный
+pinned APK92 совпал с GitHub/локальным SHA256. Прежнее отставание Gcore на этом
+срезе отсутствует; D-001 сохраняется как наблюдение внешнего кэша.
+
 ## Результат исправлений
 
 B-001–B-005 закрыты в коде стабильного build74. Целевые проверки выполнены

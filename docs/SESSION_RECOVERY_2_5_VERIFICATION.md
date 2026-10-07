@@ -121,7 +121,11 @@ MediaSession PLAYING; экранный Stop → force-stop → открытие 
 GitHub latest/оба stable feeds остаются84. Поле runtimeAcceptance=pending
 в build.json относится к приёмке владельцем на физических устройствах;
 оно не отменяет выполненные эмуляторные проверки. Публикация/HTTP-сверка
-фиксируются отдельным датированным свидетельством после загрузки assets.
+проверены 7 октября: четыре GitHub assets совпали с локальными файлами,
+GitHub/pinned jsDelivr APK совпали по SHA256; GitHub latest и оба feeds
+на raw GitHub, основном jsDelivr и Gcore указывают на stable84.
+[HTTP-срез](qa/session-recovery-2026-10-07/publication.json),
+[сверка опубликованных документов](qa/session-recovery-2026-10-07/documentation-github.json).
 
 ## Остаточные границы
 
