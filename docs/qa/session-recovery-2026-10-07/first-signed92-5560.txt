@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "D:\_codex\YMPlayer2\.local-build\session-recovery\signed92.py", line 49, in <module>
+    click(find(r,"content-desc","Stop station"));wait_state(1)
+                                                 ^^^^^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\session-recovery\signed92.py", line 31, in wait_state
+    raise RuntimeError("MediaSession state did not reach "+str(state))
+RuntimeError: MediaSession state did not reach 1

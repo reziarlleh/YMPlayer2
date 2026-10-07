@@ -189,3 +189,11 @@ YandexRadioApi в `provider:yandex`, AndroidRadio/общий AudioService в
 `playback:android`, экран в `feature:shell`, композиция в `app`.
 Общая авторизация и отдельная серверная коллекция станций; эфир не является
 трековой очередью или офлайн-кэшем. [Границы и причины](ADR_042_FM_RADIO_SHARED_OUTPUT.md).
+
+### Восстановление сеанса beta92
+
+Без новых Gradle-модулей: LaunchStateStore в `playback:android`,
+ClipCheckpointStore в `feature:clips`, координатор явного запуска и preferences
+навигации в `app`. Music/Radio сохраняют своё состояние в существующих адаптерах;
+RadioController в `core` принимает callbacks чтения/записи навигации профиля.
+[Поведение, проверка lifecycle и границы](SESSION_RECOVERY_2_5_VERIFICATION.md).

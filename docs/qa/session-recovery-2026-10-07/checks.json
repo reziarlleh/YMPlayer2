@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-07",
+  "jvm": {
+    "core": {
+      "tests": 105,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "Warning": 64
+  },
+  "nativeLifecycle": {
+    "5556": {
+      "runnerTests": 15,
+      "passed": 13,
+      "skipped": 2,
+      "ok": true
+    },
+    "5560": {
+      "runnerTests": 15,
+      "passed": 13,
+      "skipped": 2,
+      "ok": true
+    }
+  },
+  "forceStop": {
+    "5556": {
+      "passedStates": 6,
+      "expected": 6
+    },
+    "5560": {
+      "passedStates": 6,
+      "expected": 6
+    }
+  },
+  "sourceArtifactCommit": "6cc9eb342f83ca968e84331f779ac127c47926f1",
+  "finalRadioReboot": {
+    "5556": true,
+    "5560": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-07",
+  "serial": "emulator-5560",
+  "install": "87 -> 92 without uninstall",
+  "liveStation": "Europa Plus",
+  "playingForceStop": "same station resumed, MediaSession PLAYING",
+  "stoppedForceStop": "same station idle, no playing MediaSession",
+  "radioRouteRestored": true,
+  "EnglishPreserved": true,
+  "physicalDevice": false,
+  "stoppedUiFreshDumpVerified": true,
+  "skinPreserved": "Oxide"
+}

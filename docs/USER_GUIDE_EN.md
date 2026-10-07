@@ -162,7 +162,9 @@ Screenshot with test music on an emulator; the source menu is shown in Russian.
 
 A Yandex track, artist, album or playlist has **Start … radio** in its More menu.
 The track menu places artist and album radio commands next to their own names.
-The chosen source is kept for subsequent recommendations and paused restoration.
+The chosen source is kept for subsequent recommendations and restoration.
+The stable 2.4 app restores on pause; the manual 2.5 beta restores the previous
+playing or paused state as described below.
 
 The radio icon next to repeat enables **Continue with radio when the list ends**.
 It appears for a Yandex list with an identifiable source: an album, playlist,
@@ -405,7 +407,9 @@ city, and **On air now** title/artist when supplied by the station. **Stop** clo
 playback; **Play** reconnects to the current live broadcast. Radio has no seeking,
 repeat or shuffle. It retries temporary network failures; stopping, switching
 profiles or starting music/clips cancels those retries. The last station is saved
-per profile and stays stopped after restarting the app.
+per profile. In beta92, opening the app resumes a station that was playing;
+a stopped station stays stopped. Live radio returns to the current broadcast,
+not a saved timestamp.
 
 The player stays below the catalogue in portrait and to its left in landscape.
 Touch and remote controls are supported. Background playback uses the same
@@ -418,13 +422,35 @@ In the tested CWG3.6.3-R2, long-press Play to choose a player. CWG shows the sta
 logo and current song/artist. Its Pause closes the stream; Play reconnects to the
 live broadcast. The logo may appear after the text while the image downloads.
 
-Install [2.5.0beta-build87](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build87) manually over the existing app; automatic updates remain on
+Install [2.5.0beta-build92](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build92) manually over the existing app; automatic updates remain on
 stable **2.4.1-build84**. Actual station-collection writes still need user acceptance;
 see the [verification boundaries](RADIO_2_5_VERIFICATION.md).
 
 Signed beta87 on Android9, playing a real station with the English interface.
 
 ![Radio / beta87](qa/radio-2-5-2026-10-06/signed87-radio-phone.png)
+
+## Returning to your session — manual 2.5 beta
+
+Starting with **2.5.0beta-build92**, the app remembers the selected section and
+last player. Music and clips return to their saved position: playing content
+resumes, while paused content stays paused. Radio restores the same station
+and its playing/stopped state, using the current live broadcast. Only the last
+source resumes, without another player starting alongside it. Radio also saves
+its selected tab, search query and filter separately for each profile.
+
+Position is saved once a second and when leaving the screen. An abrupt process
+termination can lose a short final interval; a power loss before the OS writes
+the data to storage cannot be recovered reliably. Backgrounding a clip pauses
+its video while retaining its previous play intent. Returning restores that
+intent; an explicit Pause or Close saves a paused session.
+
+Booting the device or querying media metadata does not start playback. Resume
+happens when you open the app. If you left the clip player and selected another
+section, that section opens; the clip position remains available when you open
+Clips again. An unavailable USB/file, missing login or network failure can prevent
+playback; select an available source or retry. Earlier builds did not save the
+new play/pause flags, but their queues, profiles and selected stations are retained.
 
 ---
 

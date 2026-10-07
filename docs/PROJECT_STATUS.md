@@ -1,16 +1,24 @@
 # Текущий статус YMPlayer 2
 
-Сверено 6 октября 2026 года: **[2.4.1-build84](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.1-build84)**,
+Сверено 7 октября 2026 года: **[2.4.1-build84](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.1-build84)**,
 публичный `reziarlleh/YMPlayer2`, `main`, пакет `dev.petrov.ymplayer2`, minSdk28.
 GitHub latest и оба stable feeds указывают на84. Прежние beta80–82 остаются
 историческими prerelease.2.x — самостоятельное приложение;1.x не требуется.
 
-Текущая линия — **[2.5.0beta-build87](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build87)** на той же `main`: полноценный
+Текущая линия — **[2.5.0beta-build92](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build92)** на той же `main`: полноценный
 раздел эфирного Радио, опубликованный ручной beta; стабильный канал/latest остаются на84.
 Проверочная beta86 сохраняется как исторический прототип. [План2.5](PLAN_2_5.md),
-[проверки87](RADIO_2_5_VERIFICATION.md).
+[исторические проверки87](RADIO_2_5_VERIFICATION.md),
+[восстановление сеанса92](SESSION_RECOVERY_2_5_VERIFICATION.md).
 
 ## Реализовано и опубликовано
+
+В beta92 реализовано постоянное восстановление раздела и последнего
+Music/Radio/Clip после выхода и завершения процесса. Играющий источник
+продолжается при явном открытии приложения, Pause/Stop сохраняются.
+Музыка и клипы сохраняют позицию; радио возвращается к прямому эфиру той же
+станции и сохраняет вкладку/поиск/фильтр внутри профиля. Загрузка устройства
+сама по себе не включает звук. [Результаты и границы проверки](SESSION_RECOVERY_2_5_VERIFICATION.md).
 
 - 2.0: локальная/USB и Яндекс-музыка, профили, волна, рекомендации, реакции,
   плейлисты, офлайн «Мне нравится», клипы, MediaSession, K4811 SideBar, updater.

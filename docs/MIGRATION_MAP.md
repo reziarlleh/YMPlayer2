@@ -4,12 +4,19 @@
 из beta81/82 включены в stable; [контрольный отчёт](RELEASE_2_4_0_VERIFICATION.md).
 Patch84 ограничивает кнопку/окно настроек активной My Wave; [проверки](PATCH_2_4_1_VERIFICATION.md).
 Путь данных/модули сохраняются; адаптации API28 не изменяют алгоритмы API29+.
-Ручная beta87: отдельный раздел FM Радио по выбранному варианту1,
+Ручная beta92 (раздел реализован в87): отдельный раздел FM Радио по выбранному варианту1,
 через `core/RadioController`, `provider:yandex/YandexRadioApi`,
 `playback:android/AndroidRadio` и `feature:shell/RadioScreen`. Это новый FM API,
 не копия трековой очереди/rotor1.x. Авторизация использует прежний AccountAuth;
 эфир использует общий AudioService. [ADR-042](ADR_042_FM_RADIO_SHARED_OUTPUT.md),
 [проверки](RADIO_2_5_VERIFICATION.md). Реальная запись коллекции требует приёмки.
+В beta92 LaunchStateStore (`playback:android`) хранит последний выход и play intent,
+ClipCheckpointStore (`feature:clips`) — текущий клип и позицию. `app` координирует
+foreground-восстановление и хранит навигацию; RadioController сохраняет вкладку/
+поиск/фильтр по профилю. Существующий музыкальный checkpoint переиспользован.
+Старые строки о восстановлении на паузе относятся к указанным историческим build;
+новое требование владельца продолжает ранее играющий источник при открытии.
+[Результат и границы](SESSION_RECOVERY_2_5_VERIFICATION.md).
 Таблица фиксирует происхождение и проверку алгоритмов. Номер старого build
 в строке — момент переноса, а не текущая версия приложения.
 Fxx: [карта функций](FEATURE_INVENTORY.md); Sxx: [reference1.x](LEGACY_1X_ANALYSIS.md).
