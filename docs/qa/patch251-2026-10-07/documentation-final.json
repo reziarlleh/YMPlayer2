@@ -8,12 +8,7 @@
   },
   "documents": 208,
   "localLinks": 1855,
-  "brokenLinks": [
-    {
-      "document": "docs/PATCH_2_5_1_VERIFICATION.md",
-      "target": "qa/patch251-2026-10-07/documentation-final.json"
-    }
-  ],
+  "brokenLinks": [],
   "github": {
     "isPrerelease": false,
     "tagName": "v2.5.1-build98",
@@ -21,7 +16,5 @@
     "readmeBlob": "d6ab7067ebc40070d17c2456e4c057dbad91c4c0",
     "localReadmeBlob": "d6ab7067ebc40070d17c2456e4c057dbad91c4c0"
   },
-  "errors": [
-    "1 missing local documentation targets"
-  ]
+  "errors": []
 }
