@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-07",
+  "jvm": {
+    "core": {
+      "tests": 117,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 65
+  },
+  "native": {
+    "5556": {
+      "passed": 31,
+      "skipped": 2,
+      "failed": 0,
+      "runner33": true
+    },
+    "5560": {
+      "passed": 30,
+      "skipped": 3,
+      "failed": 0,
+      "runner33": true
+    }
+  },
+  "initialUiFailure": "real sleep does not advance Compose virtual clock; timing and profile fixture corrected",
+  "physicalDevice": false,
+  "rebootMatrix": "not repeated; not repeated in95; session native scenarios and beta94 targeted force-stop retained"
+}

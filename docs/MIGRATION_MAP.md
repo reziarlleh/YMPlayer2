@@ -4,7 +4,7 @@
 из beta81/82 включены в stable; [контрольный отчёт](RELEASE_2_4_0_VERIFICATION.md).
 Patch84 ограничивает кнопку/окно настроек активной My Wave; [проверки](PATCH_2_4_1_VERIFICATION.md).
 Путь данных/модули сохраняются; адаптации API28 не изменяют алгоритмы API29+.
-Ручная beta94 (раздел реализован в87): отдельный раздел FM Радио по выбранному варианту1,
+Ручная beta95 (раздел реализован в87): отдельный раздел FM Радио по выбранному варианту1,
 через `core/RadioController`, `provider:yandex/YandexRadioApi`,
 `playback:android/AndroidRadio` и `feature:shell/RadioScreen`. Это новый FM API,
 не копия трековой очереди/rotor1.x. Авторизация использует прежний AccountAuth;
@@ -78,3 +78,8 @@ Back/Close возвращают прежний экран, disk return route п�
 Алгоритмы клипов/аудио1.x не менялись. F26/FM использует только автоматическую
 догрузку в каруселях/сетке, с явным Retry после ошибки.
 [Реализация и проверки](CLIP_BACK_2_5_VERIFICATION.md).
+
+Beta95 — уточнение F18/F19/F26 без переноса нового алгоритма1.x: общий порт
+доступности и grace в core, default network adapter в app, сообщения в shell/
+native clip overlay. Локальные/USB/офлайн функции от порта не зависят;
+reconnect заменяет pending online запрос. [Проверки](INTERNET_2_5_VERIFICATION.md).

@@ -212,3 +212,13 @@ enterClips/leaveClips; повторная Activity не затирает сох�
 Finish сохраняет паузу и возвращает раздел. Новые модули и аудиоалгоритмы не нужны.
 RadioScreen использует автоматические carousel/grid triggers; ручные More удалены,
 при issue доступны retryMore/refresh. [Проверки](CLIP_BACK_2_5_VERIFICATION.md).
+
+### Проверка интернета beta95
+
+Core InternetConnection/InternetCheck: наблюдаемый порт и отдельный5-секундный
+grace на экран. App AndroidInternetConnection: default network callbacks,
+VALIDATED и краткий HEAD fallback без OAuth при отсутствии системной проверки.
+Shell InternetNotice не включается в local/offline; OnlineMusic.reconnect
+заменяет запрос старой сети, без изменения запроса/профиля. ClipControls использует
+общий статус; ClipActivity ждёт первое подключение только в STARTED, recovery
+читает checkpoint своего профиля. [Проверки](INTERNET_2_5_VERIFICATION.md).

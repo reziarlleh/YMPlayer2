@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-07",
+  "serial": "emulator-5560",
+  "upgrade": "94 -> 95 without uninstall",
+  "englishPreserved": true,
+  "actualNetworkLossRadioAndClips": true,
+  "offlineSearchAccessible": true,
+  "noticeClearsAfterConnection": true,
+  "returnToSearchPreserved": true,
+  "ownerOAuth": false,
+  "physicalDevice": false
+}

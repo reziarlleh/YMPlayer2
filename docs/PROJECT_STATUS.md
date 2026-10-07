@@ -5,7 +5,7 @@
 GitHub latest и оба stable feeds указывают на84. Прежние beta80–82 остаются
 историческими prerelease.2.x — самостоятельное приложение;1.x не требуется.
 
-Текущая линия — **[2.5.0beta-build94](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build94)** на той же `main`: полноценный
+Текущая линия — **[2.5.0beta-build95](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build95)** на той же `main`: полноценный
 раздел эфирного Радио, опубликованный ручной beta; стабильный канал/latest остаются на84.
 Проверочная beta86 сохраняется как исторический прототип. [План2.5](PLAN_2_5.md),
 [исторические проверки87](RADIO_2_5_VERIFICATION.md),
@@ -72,8 +72,9 @@ Google Play Protect/HyperOS scanner.
 
 ## Открыто и следующий шаг
 
-- Новое уточнение7 октября в работе: общее ожидание подключения5 секунд
-  для сетевых разделов, явный Retry, local/offline исключены. [Задача](INTERNET_2_5_VERIFICATION.md).
+- Уточнение7 октября выполнено в beta95: общее ожидание подключения5 секунд,
+  «Отсутствует интернет» и повтор; local/offline исключены.121 JVM,61 native
+  passed/5 expected skip на API28/TV29. [Проверки](INTERNET_2_5_VERIFICATION.md).
 
 
 - Проверка существующего Music OAuth завершена 6 октября: экспорт владельца

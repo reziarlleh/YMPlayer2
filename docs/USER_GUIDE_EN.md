@@ -277,6 +277,20 @@ The player’s equalizer/DSP button opens an external app or system panel. Use
 the More menu to choose a different handler. YMPlayer 2 has no built-in
 multiband equalizer.
 
+## Internet connection — manual 2.5 beta
+
+Radio, Clips and Yandex Music allow five seconds for the connection to become
+available. If it does not, **No internet connection** and **Retry connection**
+appear. Retry starts a fresh five-second check. When the connection returns,
+the notice disappears and the catalogue reloads. Service errors are shown
+separately when internet access is available.
+
+Local files, USB and the offline cache stay available without internet access.
+Switching to them clears the notice. A stopped player does not start just because
+the network returns; an explicit retry can reconnect failed playback. Clips keep
+their position and paused state. If the first connection arrives while the clip
+screen is in the background, return to that screen to start the video.
+
 ## Music videos
 
 **Clips** requires Yandex sign-in and a network connection. Audio and video do
@@ -437,7 +451,7 @@ In the tested CWG3.6.3-R2, long-press Play to choose a player. CWG shows the sta
 logo and current song/artist. Its Pause closes the stream; Play reconnects to the
 live broadcast. The logo may appear after the text while the image downloads.
 
-Install [2.5.0beta-build94](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build94) manually over the existing app; automatic updates remain on
+Install [2.5.0beta-build95](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build95) manually over the existing app; automatic updates remain on
 stable **2.4.1-build84**. Actual station-collection writes still need user acceptance;
 see the [verification boundaries](RADIO_2_5_VERIFICATION.md).
 

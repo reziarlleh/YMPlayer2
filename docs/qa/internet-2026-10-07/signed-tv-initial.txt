@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "D:\_codex\YMPlayer2\.local-build\internet-grace\signed95.py", line 34, in <module>
+    radios(False);run('shell','am','force-stop','dev.petrov.ymplayer2');launch()
+    ^^^^^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\internet-grace\signed95.py", line 29, in radios
+    for kind in ['wifi','data']:run('shell','svc',kind,'enable' if enabled else 'disable')
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\internet-grace\signed95.py", line 7, in run
+    def run(*args):return subprocess.check_output([adb,'-s',serial,*args],text=True,encoding='utf-8',errors='replace',timeout=50)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\petro\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\petro\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['C:/Users/petro/.codex/android-sdk/platform-tools/adb.exe', '-s', 'emulator-5556', 'shell', 'svc', 'data', 'disable']' returned non-zero exit status 137.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\_codex\YMPlayer2\.local-build\internet-grace\signed95.py", line 55, in <module>
+    finally:radios(True)
+            ^^^^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\internet-grace\signed95.py", line 29, in radios
+    for kind in ['wifi','data']:run('shell','svc',kind,'enable' if enabled else 'disable')
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\internet-grace\signed95.py", line 7, in run
+    def run(*args):return subprocess.check_output([adb,'-s',serial,*args],text=True,encoding='utf-8',errors='replace',timeout=50)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\petro\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\petro\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['C:/Users/petro/.codex/android-sdk/platform-tools/adb.exe', '-s', 'emulator-5556', 'shell', 'svc', 'data', 'enable']' returned non-zero exit status 137.
