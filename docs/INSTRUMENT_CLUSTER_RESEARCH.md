@@ -1,138 +1,123 @@
 # Информация о треке на приборной панели
 
-Исследование 7 октября2026, исходники `aa6a5d4`, текущий stable **2.5.1-build98**.
-По запросу владельца исследуем совместимость; новый APK и изменение поведения
-не выполняются. Это не обещание поддержки всех автомобилей.
+Исследование 7 октября 2026. Текущий stable **2.5.1-build98**; приложение,
+APK, версия и каналы обновления в этом этапе не меняются.
 
-## Что сообщил пользователь
+## Сообщение и границы задачи
 
-Прочитана публичная тема1127108 прямым HTTP без входа и без публикации сообщений.
-Веб-инструмент страницу не прочитал; HTTP вернул страницу, текст декодирован
-из Windows-1251. Полный HTML оставлен только в игнорируемой `.local-build`.
+[e.panchenko, сообщение №18](https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145405384):
+на ГУ отображение и подрулевые кнопки работают; Я.Музыка и FMPLAY показывают
+название и картинку на приборке, при включении YMPlayer2 карточка исчезает.
+Прочитаны последние 20 сообщений темы публичным HTTP, без входа и публикации.
+HTML декодирован из Windows-1251 и оставлен вне Git.
 
-[e.panchenko, сообщение№18](https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145405384)
-сообщает: на ГУ отображение работает, подрулевые кнопки переключают;
-Я.Музыка и FMPLAY показывают название и картинку на приборной панели,
-при включении YMPlayer2 это окно исчезает. Это свидетельство пользователя,
-не воспроизведение на нашем стенде. В сообщениях№15/18/20 нет модели машины,
-ГУ, версии прошивки, точной версии YMPlayer и способа подключения телефона.
-Сообщения разных авторов о других ГУ нельзя считать характеристиками его машины.
-Снимок руководства показывает мультимедийный блок приборки, но сам по себе
-не устанавливает модель автомобиля или протокол связи.
+Первый план ошибочно поставил сведения об оборудовании впереди проверки
+собственного Android-экспортера. Отсутствие декларации Android Auto было
+вынесено в кандидаты без свидетельства, что автор использует этот способ запуска.
+Владелец отклонил направление: проверяем стандартную публикацию Android и
+разрешения, затем сравниваем приложения. Модель автомобиля/ГУ не является
+предварительным условием работы. Симптом на приборке пока не воспроизведён
+и не устранён; проверка Android ниже не является приёмкой конечного дисплея.
 
-## Что YMPlayer уже публикует
+## Реализация
 
-- `playback/android/.../AudioService.kt`: общий Music/Radio
-  `MediaLibrarySession`, `addSession`, `onGetSession` возвращает сессию;
-  нет собственного `onConnect` со списком разрешённых пакетов.
-- `AndroidPlayback.kt`, `Track.mediaItem`: TITLE, ARTIST, ALBUM, ARTWORK_URI.
-  Отдельные displayTitle/subtitle и metadata.durationMs здесь не заданы;
-  библиотека также использует длительность самого Player.
-- `AndroidRadio.metadata`: TITLE — станция, ARTIST — песня/исполнитель,
-  ARTWORK_URI — логотип; тип RADIO_STATION. Остановка эфира очищает media item.
-- Manifest playback/android экспортирует сервис с интерфейсами Media3 и
-  `android.media.browse.MediaBrowserService`; поддержан MEDIA_BUTTON.
-- AudioAttributes: USAGE_MEDIA / CONTENT_TYPE_MUSIC. Notification и управление
-  сессией поручены Media3; собственного автомобильного передатчика здесь нет.
-- В manifest приложения нет `com.google.android.gms.car.application` и
-  `automotive_app_desc.xml`. Полноценная интеграция Android Auto не заявлена.
-- В production Music/Radio нет старых broadcasts
-  `com.android.music.metachanged` / `playstatechanged`.
+- AudioService: общий Music/Radio MediaLibrarySession, addSession/onGetSession;
+  собственного onConnect с фильтром пакетов нет.
+- AndroidPlayback: title, artist, albumTitle, artworkUri. Display-поля отдельно
+  не заданы; длительность берётся также из Player.
+- AndroidRadio: title — станция, artist — песня/исполнитель, artworkUri — логотип;
+  тип RADIO_STATION. Stop радио очищает media item.
+- Manifest экспортирует Media3 service и android.media.browse.MediaBrowserService,
+  поддержан MEDIA_BUTTON. AudioAttributes: USAGE_MEDIA / CONTENT_TYPE_MUSIC.
+- MediaSession и MediaStyle-уведомление обслуживает Media3 **1.11.0**.
 
-Используется Media3 **1.11.0** (`gradle/libs.versions.toml`). По
-[документации MediaSession](https://developer.android.com/reference/androidx/media3/session/MediaSession)
-Media3 создаёт активную системную MediaSession, доступную platform/legacy
-контроллерам. Это не изолированная сессия, которую понимает только наш интерфейс.
-`MediaSessionLegacyStub.start` в исходниках1.11.0 вызывает setActive(true).
+[Документация MediaSession](https://developer.android.com/reference/androidx/media3/session/MediaSession)
+описывает platform/legacy совместимость. В точных исходниках 1.11.0
+MediaSessionLegacyStub.start вызывает setActive(true). Это не сессия,
+доступная исключительно нашему интерфейсу.
 
-Имеются прежние фактические свидетельства: [системные Browser/медиакнопки
-в аудите97](qa/audit25-2026-10-07/emulator-5560-native-full.txt),
-[CWG beta87](RADIO_CWG_VERIFICATION.md) и [системный снимок эфира](qa/radio-cwg-2026-10-06/playing-before.txt).
-Это проверки соответствующих версий на эмуляторах; не новые проверки98 на
-машине e.panchenko и не доказательство передачи на приборку.
+## Проверка опубликованного build98 внешним контроллером
 
-## Как данные могут попасть на приборку
+На **emulator-5562 / Android 15 / API35** прочитана framework-сессия подписанного
+dev.petrov.ymplayer2 через MediaSessionManager / MediaController. SHA-256
+установленного base.apk совпал с опубликованным локальным APK:
+`edb5ec3797f9f32c5dd248df8d264da93f2f4bcec45902a08075d27e176e6706`.
+Это обычный release, не .dev и не изменённый тестовый плеер.
 
-Нормальный общий вход — MediaSession. Служба автомобиля может получить
-активные сессии через [MediaSessionManager.getActiveSessions](https://developer.android.com/reference/android/media/session/MediaSessionManager#getActiveSessions(android.content.ComponentName)),
-подписаться на изменения MediaController и передать текст/изображение
-своей автомобильной подсистеме. Для чтения всех сессий нужны системные права
-MEDIA_CONTENT_CONTROL либо разрешённый NotificationListener. Это права
-получателя; добавление такого permission в YMPlayer не делает его передатчиком
-на приборку и не решает вопрос автоматически.
+Локальные синтетические файлы предоставлены существующим test SAF provider;
+папка выбрана штатным системным picker. Аккаунт/токен Яндекса не использовались.
+Внешний инструмент работает как **shell UID2000 на эмуляторе**, а не обычное
+приложение без прав чтения чужих сессий.
 
-Для Bluetooth есть подтверждённый стандартный путь: AOSP
-[MediaPlayerList Android10](https://android.googlesource.com/platform/packages/apps/Bluetooth/+/refs/heads/android10-dev/src/com/android/bluetooth/avrcp/MediaPlayerList.java)
-слушает активные MediaSession и получает контроллеры; далее данные использует
-AVRCP. Этот путь применим, если звук/управление действительно идут через
-Bluetooth. Наличие Android-ГУ само по себе не доказывает его использование.
+| Наблюдение | Результат |
+| --- | --- |
+| POST_NOTIFICATIONS | granted=false на протяжении проверки |
+| Play | flags=7; state=3/PLAYING; speed=1; actions=7340027 |
+| TITLE / ARTIST / ALBUM | Cover fixture / YMPlayer tests / Original test artwork |
+| Длительность | 29999 мс |
+| Bitmap | ALBUM_ART и DISPLAY_ICON: 320×320; ART отсутствует |
+| URI обложки | ART_URI, ALBUM_ART_URI, DISPLAY_ICON_URI присутствуют; значения не сохранялись |
+| DISPLAY_TITLE / DISPLAY_SUBTITLE | null |
+| Framework getDescription() | Cover fixture / YMPlayer tests; icon 320×320 |
+| Уведомление | MediaStyle, category=transport, visibility=PUBLIC; title/text заполнены |
+| Системные Pause / Play / Next | PAUSED / PLAYING и смена TITLE one → two видны внешнему контроллеру |
+| Stop музыки | state=0/NONE, speed=0; последний TITLE остаётся |
 
-Если приложения работают на телефоне через Android Auto, важна отдельная
-[декларация media support](https://developer.android.com/training/cars/media/auto).
-[Официальное описание FMPLAY](https://play.google.com/store/apps/details?id=ru.fmplay)
-заявляет Android Auto и Bluetooth. Это подтверждает возможности приложения,
-но не устанавливает способ, применённый форумным пользователем.
+Файлы one/two не имеют тегов и обложек: пустые artist/album/bitmap ожидаемы.
+Cover fixture закончился до первого Pause и очередь перешла к one: это не
+проверка Pause той же обложки. Снимки получены опросом; время первого события
+и доставка всех callbacks отдельно не измерены.
 
-От Android до автомобильной приборки требуется реализация производителя.
-Даже [Instrument Cluster API AAOS](https://source.android.com/docs/automotive/displays/cluster_api)
-требует OEM-сервиса, взаимодействующего с конкретным оборудованием, и описывает
-прежде всего вывод навигации. Его нельзя автоматически считать API передачи
-музыкальной карточки на любую обычную Android-магнитолу. Транспорт может быть
-CAN, другой канал или общий дисплей; наличие отдельного MCU пока не установлено.
+[Датированный результат](qa/instrument-cluster-2026-10-07/platform-verification.json),
+[исходник внешнего инструмента](qa/instrument-cluster-2026-10-07/PlatformMetadataProbe.java).
 
-Поэтому гипотеза владельца правдоподобна в части общего Android-источника.
-Но вывод «работает у двух приложений — значит исключительно стандартный путь
-без фильтров/ограничений производителя» из этого не следует.
+## Разрешения и различия
 
-## Конкретные различия и гипотезы
+[Медиауведомления освобождены от POST_NOTIFICATIONS](https://developer.android.com/develop/ui/compose/notifications/notification-permission#exemptions).
+Это соответствует проверке: при denied сессия, метаданные и уведомление есть.
+Не найден пропущенный пользовательский permission, блокирующий этот путь.
+[getActiveSessions](https://developer.android.com/reference/android/media/session/MediaSessionManager#getActiveSessions(android.content.ComponentName))
+требует MEDIA_CONTENT_CONTROL либо включённый NotificationListener у
+**потребителя чужих сессий**, а не у нашего плеера для публикации своих данных.
+Проверка API35 не доказывает одинаковое поведение всех внешних потребителей.
 
-| Вариант | Что уже установлено | Как отличить и какой путь исправления |
-| --- | --- | --- |
-| Android Auto | Декларации Auto в YMPlayer нет, FMPLAY заявляет поддержку | Уточнить, где запущены приложения. При Auto — отдельная интеграция manifest/browser и проверка на DHU; сам по себе metadata-tag не доказывает исправление |
-| Прошивка читает ограниченный набор полей | В Media3 есть TITLE/ARTIST и три artwork URI; bitmap записан в ALBUM_ART/DISPLAY_ICON, но не ART | Сравнить внешним platform-контроллером все ключи у трёх приложений, затем receiver/службу ГУ. Если требуется ART, адаптировать именно подтверждённый контракт |
-| Прошивка выбирает/фильтрует источники | Пакетных ограничений в нашем callback нет; правила OEM неизвестны | Проверить конфигурацию штатного media-source и список/выбор активных сессий. При whitelist одной правки метаданных недостаточно |
-| Старые уведомления о смене трека | YMPlayer их не отправляет; общий MediaSession уже есть | Искать receiver metachanged/playstatechanged в прошивке. Добавлять отдельный compatibility publisher только при доказанном получателе |
-| Неполное состояние/первое событие | Сессия активна, прежний CWG получает изменения; данных с проблемной ГУ нет | Снять cold Play, смену трека, Pause/Resume и фон: состояние, actions, speed, metadata до/после загрузки обложки. Исправлять воспроизведённое расхождение |
+В 1.x (YmpPlaybackService.java, putArtwork) bitmap публиковался в ALBUM_ART
+**и ART**. В [LegacyConversions 1.11.0](https://github.com/androidx/media/blob/1.11.0/libraries/session/src/main/java/androidx/media3/session/LegacyConversions.java)
+он идёт в ALBUM_ART и DISPLAY_ICON; runtime подтверждает различие.
+Отсутствие ART не мешает самому Android получить картинку через getDescription().
+Если иной потребитель читает только ART, это может иметь значение, но не
+объясняет доказанно исчезновение всей карточки вместе с текстом.
 
-Сравнение с1.x прочитано в `D:/_codex/YaPlay/.../YmpPlaybackService.java`:
-метод putArtwork записывает bitmap одновременно в ALBUM_ART и ART.
-[LegacyConversions1.11.0](https://github.com/androidx/media/blob/1.11.0/libraries/session/src/main/java/androidx/media3/session/LegacyConversions.java)
-в convertToMediaMetadataCompat пишет bitmap в DISPLAY_ICON и ALBUM_ART.
-Также сохраняет TITLE, ARTIST, ALBUM, длительность и три URI; отсутствие ART
-не является отсутствием обложки по Android API. Загрузка bitmap асинхронна:
-[MediaSessionLegacyStub1.11.0](https://github.com/androidx/media/blob/1.11.0/libraries/session/src/main/java/androidx/media3/session/MediaSessionLegacyStub.java)
-сначала публикует metadata, затем обновляет её при получении изображения.
-Служба ГУ, читающая только один ключ или только первое событие, могла бы
-отличаться от CWG. Это проверяемая гипотеза, не установленная причина.
+[MediaSessionLegacyStub 1.11.0](https://github.com/androidx/media/blob/1.11.0/libraries/session/src/main/java/androidx/media3/session/MediaSessionLegacyStub.java)
+загружает bitmap асинхронно и обновляет metadata после загрузки. Сравнивать
+нужно и первые данные, и изменения. Display-поля пусты, но framework корректно
+использует TITLE/ARTIST. Старые broadcasts com.android.music.metachanged /
+playstatechanged не отправляются; необходимость их добавления не установлена.
+Общий MediaSession-путь есть, в том числе для
+[AOSP Bluetooth/AVRCP](https://android.googlesource.com/platform/packages/apps/Bluetooth/+/refs/heads/android10-dev/src/com/android/bluetooth/avrcp/MediaPlayerList.java).
 
-## Следующая проверка и критерий решения
+## Следующий шаг и возможное исправление
 
-1. Узнать модель/прошивку ГУ и автомобиля, версии приложений и место их
-   запуска: ГУ, телефон/Bluetooth или Android Auto. Не подставлять K4811
-   владельца вместо неизвестного оборудования другого пользователя.
-2. На одном устройстве сравнить Я.Музыку, FMPLAY и YMPlayer с одинаковыми
-   условиями. Снимать platform MediaController: пакет/активность, TITLE,
-   ARTIST, DISPLAY_TITLE/SUBTITLE, DURATION, наличие/размеры ART, ALBUM_ART,
-   DISPLAY_ICON и URI, PlaybackState/actions/speed, callbacks после смены
-   трека и появления обложки. Только своего приложения в диагностике
-   недостаточно для определения OEM-фильтра или отличий других плееров.
-3. Разобрать штатный получатель метаданных из подходящей прошивки/APK:
-   MediaSessionManager/NotificationListener, имена broadcasts, фильтры
-   пакетов, читаемые поля и выходной вызов автомобильного сервиса.
-4. По результату сделать минимальное исправление существующего экспортера
-   либо доказанный отдельный адаптер совместимости. Не создавать вторую
-   конкурирующую MediaSession и не менять applicationId ради whitelist.
-5. Подтвердить отдельно текст, картинку, смену трека/станции, Pause/Play,
-   переход между источниками и отсутствие старой карточки после Stop.
-   Эмулятор доказывает Android-публикацию, автомобиль — конечное отображение.
+1. Сравнить FMPLAY, Я.Музыку и YMPlayer внешним framework-контроллером:
+   поля metadata, bitmap, MediaStyle, состояние/actions и порядок обновлений
+   при Play, смене трека, появлении обложки и фоновой работе. Сведения о машине
+   не ставить перед этим сравнением.
+2. Проверить обычного внешнего клиента с разрешением потребителя отдельно
+   от привилегированного shell-инструмента.
+3. При подтверждённом различии исправлять существующий экспорт — display-поля,
+   набор bitmap или обновления, если это действительно требуется. Не создавать
+   вторую конкурирующую MediaSession и не менять пакет приложения.
+4. Раздельно подтвердить текст, картинку, смену трека/станции, Pause/Play/Stop,
+   переключение источников и конечное отображение на приборке.
 
-Пока неизвестны конкретный receiver, transport и причина исчезновения окна.
-Не исследован APK именно той версии FMPLAY/Я.Музыки, которая стоит у автора.
-В этом этапе проведены HTTP-чтение, проверка актуальных исходников, сравнение
-точной версии Media3 и существующих свидетельств. Физические устройства,
-CAN/MCU и установленные приложения пользователя не изменялись.
-Код, version.properties и update feeds сохранены; stable98 остаётся последним.
-HTTP raw GitHub/основного CDN и GitHub latest сверены7 октября:
-[датированный срез и hashes источников](qa/instrument-cluster-2026-10-07/research.json).
+Сравнение runtime FMPLAY/Я.Музыки **ещё не выполнено**. Официальный сайт FMPLAY
+ссылается на Play/RuStore без прямого APK; RuStore не отдал пригодную загрузку.
+Публичная тема FMPLAY прочитана, актуальное вложение 2.4.18 вернуло защиту сайта.
+APK не установлен и не исследован; описания не заменяют системный снимок.
 
-[НаблюдениеD-003](BUG_REPORT.md) · [текущий порядок](ROADMAP.md).
+Физические устройства/настройки пользователя не изменялись. Воспроизведение
+на эмуляторе после проверки остановлено; новый APK не выпущен. Предыдущий
+[срез HTTP/исходников](qa/instrument-cluster-2026-10-07/research.json) сохраняется
+как свидетельство первого прохода, не как доказательство приёмки.
+
+[Наблюдение D-003](BUG_REPORT.md) · [текущий порядок](ROADMAP.md).

@@ -1,0 +1,174 @@
+{
+  "checkedAtUtc": "2026-10-07T17:46:56.850562+00:00",
+  "version": "2.5.1-build98",
+  "package": "dev.petrov.ymplayer2",
+  "serial": "emulator-5562",
+  "sdk": 35,
+  "consumerUid": 2000,
+  "installedApkSha256": "edb5ec3797f9f32c5dd248df8d264da93f2f4bcec45902a08075d27e176e6706",
+  "installedMatchesPublishedLocalApk": true,
+  "notificationPermissionGranted": false,
+  "productionCodeModified": false,
+  "newReleaseIssued": false,
+  "fixture": "Synthetic test SAF files selected through normal DocumentsUI picker",
+  "notification": {
+    "style": "android.app.Notification$MediaStyle",
+    "visibility": "PUBLIC",
+    "category": "transport",
+    "title": "Cover fixture",
+    "text": "YMPlayer tests"
+  },
+  "observations": {
+    "permission-denied-metadata.jsonl": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 3,
+        "speed": 1,
+        "actions": 7340027,
+        "metadata": {
+          "android.media.metadata.TITLE": "Cover fixture",
+          "android.media.metadata.ARTIST": "YMPlayer tests",
+          "android.media.metadata.ALBUM": "Original test artwork",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "duration": 29999,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": "320x320",
+          "android.media.metadata.DISPLAY_ICON": "320x320",
+          "android.media.metadata.ART_URI": true,
+          "android.media.metadata.ALBUM_ART_URI": true,
+          "android.media.metadata.DISPLAY_ICON_URI": true
+        }
+      }
+    ],
+    "permission-denied-paused.jsonl": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 2,
+        "speed": 0,
+        "actions": 7340029,
+        "metadata": {
+          "android.media.metadata.TITLE": "one",
+          "android.media.metadata.ARTIST": "",
+          "android.media.metadata.ALBUM": "",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "duration": 30000,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": null,
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        }
+      }
+    ],
+    "permission-denied-resumed.jsonl": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 3,
+        "speed": 1,
+        "actions": 7340027,
+        "metadata": {
+          "android.media.metadata.TITLE": "one",
+          "android.media.metadata.ARTIST": "",
+          "android.media.metadata.ALBUM": "",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "duration": 30000,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": null,
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        }
+      }
+    ],
+    "permission-denied-next.jsonl": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 3,
+        "speed": 1,
+        "actions": 7340027,
+        "metadata": {
+          "android.media.metadata.TITLE": "two",
+          "android.media.metadata.ARTIST": "",
+          "android.media.metadata.ALBUM": "",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "duration": 30000,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": null,
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        }
+      }
+    ],
+    "permission-denied-stop.jsonl": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 0,
+        "speed": 0,
+        "actions": 7340029,
+        "metadata": {
+          "android.media.metadata.TITLE": "two",
+          "android.media.metadata.ARTIST": "",
+          "android.media.metadata.ALBUM": "",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "duration": 30000,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": null,
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        }
+      }
+    ],
+    "permission-denied-description.jsonl": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 3,
+        "speed": 1,
+        "actions": 7340027,
+        "metadata": {
+          "android.media.metadata.TITLE": "Cover fixture",
+          "android.media.metadata.ARTIST": "YMPlayer tests",
+          "android.media.metadata.ALBUM": "Original test artwork",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "duration": 29999,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": "320x320",
+          "android.media.metadata.DISPLAY_ICON": "320x320",
+          "android.media.metadata.ART_URI": true,
+          "android.media.metadata.ALBUM_ART_URI": true,
+          "android.media.metadata.DISPLAY_ICON_URI": true
+        },
+        "description": {
+          "title": "Cover fixture",
+          "subtitle": "YMPlayer tests",
+          "icon": "320x320"
+        }
+      }
+    ]
+  },
+  "limits": [
+    "No instrument cluster acceptance",
+    "No FMPLAY or Yandex Music runtime comparison",
+    "Shell consumer is privileged; ordinary consumer not tested",
+    "Snapshots are polling, not full callback timing",
+    "Local fixture, no Yandex account or token"
+  ],
+  "endState": "Stopped using cmd media_session dispatch stop"
+}
