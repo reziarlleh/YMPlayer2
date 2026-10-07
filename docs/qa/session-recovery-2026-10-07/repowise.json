@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-07",
+  "indexedCommit": "e21a4935ff6749ed6ff6386c03a1127d76caded8",
+  "structuralPagesRegenerated": 311,
+  "mode": "deterministic/index-only/no-agents",
+  "repairPasses": [
+    171,
+    132
+  ],
+  "limitation": "CLI symbol search returned fuzzy neighbours for LaunchStateStore although the class and fresh file page exist in SQL. Verify actual source with rg; no unused-code conclusion from missing search hits.",
+  "fullMode": "--full requested an LLM provider despite --index-only; not used. Increased cascade budget with --since task base for structural refresh."
+}
