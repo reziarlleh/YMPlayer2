@@ -230,9 +230,10 @@ class CatalogSourcesTest {
     @Test fun commonSearchAndOnlineFailureKeepLocalResultsUsable() {
         compose.onNodeWithTag("nav_search").performClick()
         action("search_input")
-        compose.onNodeWithTag("search_input").performTextInput("Неизвестный")
+        // Search real metadata, not the UI-only label for an absent artist tag.
+        compose.onNodeWithTag("search_input").performTextInput("o")
         compose.onNodeWithTag("search_input").performImeAction()
-        await { fixture.online.state.value.loaded && fixture.online.state.value.request.query == "Неизвестный" }
+        await { fixture.online.state.value.loaded && fixture.online.state.value.request.query == "o" }
         val local = fixture.library.testTracks.first { it.title.contains("one", true) }
         showTrack(local.id); showTrack("yandex:1:7")
         compose.runOnIdle { fixture.failure = MusicFailure.NETWORK }

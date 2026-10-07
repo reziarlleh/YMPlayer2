@@ -53,7 +53,7 @@ class LocalIndexMigrationTest {
             assertFalse(library.pageTracks(CatalogFilter()).items.single().available)
             SQLiteDatabase.openDatabase(context.getDatabasePath("local-catalog.db").path, null,
                 SQLiteDatabase.OPEN_READONLY).use { upgraded ->
-                assertEquals(3, upgraded.version)
+                assertEquals(4, upgraded.version)
                 upgraded.rawQuery("SELECT added_at FROM tracks WHERE id='usb:kept'", null).use { cursor ->
                     assertTrue(cursor.moveToFirst())
                     assertEquals("Legacy tracks must not be dated as newly added on upgrade", 0L, cursor.getLong(0))

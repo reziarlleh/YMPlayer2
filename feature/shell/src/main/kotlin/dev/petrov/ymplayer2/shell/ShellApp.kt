@@ -53,7 +53,7 @@ private val destinations get() = listOf(
     val demo = model.local == null
     var savedRoute by rememberSaveable { mutableStateOf(initialRoute) }
     // Video is a separate Activity. Keep the underlying section, including an old restored Bundle.
-    val route = if (savedRoute == "clips" && openClips != null) initialRoute.takeUnless { it == "clips" } ?: "player" else savedRoute
+    val route = if (savedRoute == "clips") initialRoute.takeUnless { it == "clips" } ?: "player" else savedRoute
     var aboutOpen by rememberSaveable { mutableStateOf(false) }
     var artistFrom by rememberSaveable { mutableStateOf("player") }
     var exitAt by remember { mutableStateOf<Long?>(null) }
@@ -70,9 +70,9 @@ private val destinations get() = listOf(
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline", "history", "recent")) "library" else route
     val navigate: (String) -> Unit = {
-        if (it == "clips" && openClips != null) {
+        if (it == "clips") {
             exitAt = null
-            openClips()
+            openClips?.invoke()
         } else {
             if (route == "account" && it != "account") model.accounts?.cancel()
             if (route == "artist" && it != "artist") model.online?.closeArtistCard()
@@ -232,7 +232,6 @@ private val destinations get() = listOf(
                                         "updates" -> updates?.let { UpdateScreen(version, it) }
                                         "folders" -> FoldersScreen(library, addFolder, model::refresh, model::forgetFolder, folderIssue)
                                         "radio" -> model.radio?.let { RadioScreen(it, { navigate("account") }) }
-                                        "clips" -> MessageScreen(tr(Msg.msg_6daecbeea4b6), tr(Msg.msg_f8ac3be6be11), tr(Msg.msg_0a0ebb200d14), UiIcon.CLIPS)
                                     }
                                 }
                             }
@@ -273,7 +272,7 @@ private val destinations get() = listOf(
             TextButton(open, Modifier.weight(1f).prismFocus().testTag("mini_open")) {
                 Column(Modifier.fillMaxWidth()) {
                     Text(state.current?.title ?: tr(Msg.msg_39c3c9622cdc), maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Text("${state.current?.artist.orEmpty()} · ${secondsLabel(state.positionSeconds)}", style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("${state.current?.artistLabel().orEmpty()} · ${secondsLabel(state.positionSeconds)}", style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
             ActionIcon(if (state.playing) UiIcon.PAUSE else UiIcon.PLAY, if (state.playing) tr(Msg.msg_65530fd463ea) else tr(Msg.msg_bdd37eb21746), player::toggle, Modifier.testTag("mini_play"), state.current?.available == true)

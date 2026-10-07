@@ -22,7 +22,6 @@
     <string name="msg_09008d3dafef" formatted="false">"Not in favorites"</string>
     <string name="msg_0918b4ba9268" formatted="false">"Name"</string>
     <string name="msg_0928b8d4c742" formatted="false">"Album"</string>
-    <string name="msg_0a0ebb200d14" formatted="false">"Audio keeps playing as you move between sections."</string>
     <string name="msg_0a17ec91a15b" formatted="false">"Artists and album"</string>
     <string name="msg_0a20ddc9928f" formatted="false">"Library"</string>
     <string name="msg_0a813814f149" formatted="false">"Get sign-in code"</string>
@@ -560,7 +559,6 @@
     <string name="msg_f77ad0247092" formatted="false">"Sidebar enabled."</string>
     <string name="msg_f7be0cbd0b8a" formatted="false">"Could not load your library"</string>
     <string name="msg_f8480d481387" formatted="false">"Your library is empty"</string>
-    <string name="msg_f8ac3be6be11" formatted="false">"The video module is still being developed"</string>
     <string name="msg_f8ddc90b1078" formatted="false">"Hide sidebar is always the last button and cannot be disabled. If all other buttons are off, the sidebar is disabled."</string>
     <string name="msg_f91135efb9aa" formatted="false">"Delete “@0@”?"</string>
     <string name="msg_f9b80bf69b7f" formatted="false">"Requires Android API @0@"</string>

@@ -145,7 +145,7 @@ import kotlinx.coroutines.CancellationException
             item {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     if (currentDetail != null) ActionIcon(UiIcon.BACK, tr(Msg.msg_b0f0ab86be80), { detail = null })
-                    Text(currentDetail ?: if (search) tr(Msg.msg_180f58ab9753) else tr(Msg.msg_0a20ddc9928f), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                    Text(currentDetail?.let { localGroupLabel(it, currentCategory) } ?: if (search) tr(Msg.msg_180f58ab9753) else tr(Msg.msg_0a20ddc9928f), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
                     if (!grouped && !selection.active) OutlinedButton({ selection.active = true }, Modifier.prismFocus().testTag("bulk_start")) { Text(tr(Msg.bulk_select)) }
                 }
             }
@@ -250,7 +250,7 @@ import kotlinx.coroutines.CancellationException
                                 Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                                     row.local?.let { TrackArtwork(it.sample, Modifier.size(64.dp)) }
                                     Column(Modifier.weight(1f)) {
-                                        Text(row.title, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                        Text(if (row.local != null) localGroupLabel(row.title, currentCategory) else row.title, fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
                                         Text(row.local?.let { tr(Msg.msg_29c90888994f, it.count) } ?: tr(Msg.msg_43b07d243705, row.remote?.subtitle.orEmpty()), color = MaterialTheme.colorScheme.onSurfaceVariant)
                                     }
                                     row.remote?.entity?.let { EntityWaveMenu(it, player, waveStarted, "catalog") }

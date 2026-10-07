@@ -168,7 +168,7 @@ import kotlinx.coroutines.launch
             if (diskPage?.isFailure == true) item { Text(tr(Msg.msg_502d3a6bd090), color = MaterialTheme.colorScheme.error) }
             items(choices, key = Track::id) { track ->
                 TextButton({ scope.launch { busy = true; try { add(track.id) } finally { busy = false } } }, Modifier.fillMaxWidth().heightIn(min = 48.dp).prismFocus().testTag("playlist_pick_${track.id}"), enabled = !busy && state.writable && track.id !in ids) {
-                    Column(Modifier.weight(1f)) { Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis); Text(track.artist, style = MaterialTheme.typography.bodySmall, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+                    Column(Modifier.weight(1f)) { Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis); Text(track.artistLabel(), style = MaterialTheme.typography.bodySmall, maxLines = 1, overflow = TextOverflow.Ellipsis) }
                     SkinIcon(if (track.id in ids) UiIcon.CHECK else UiIcon.ADD, if (track.id in ids) tr(Msg.msg_758aa155871b) else tr(Msg.msg_71038c53bbc4))
                 }
             }

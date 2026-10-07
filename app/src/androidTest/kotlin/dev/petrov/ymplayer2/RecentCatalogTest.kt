@@ -14,6 +14,27 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class RecentCatalogTest {
+    @Test fun versionThreeTagMigrationInvalidatesCacheWithoutGuessingRealNamesOrChangingDates() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val name = "tags-test-${System.nanoTime()}.db"
+        val artwork = ArtworkCache(context.cacheDir.resolve("tags-test-artwork"))
+        val root = LibraryRoot("root", "Music", Source.USB)
+        val real = Track("real", "Real", "Неизвестный исполнитель", "Без альбома", Source.USB, 30, true,
+            genre = "Без жанра", uri = "content://real", rootId = root.uri)
+        var index = LocalCatalogIndex(context, artwork, name) { 1234L }
+        try {
+            index.replaceRoot(root, listOf(real), setOf(real.id)); index.close()
+            SQLiteDatabase.openDatabase(context.getDatabasePath(name).path, null, SQLiteDatabase.OPEN_READWRITE).use { it.version = 3 }
+            index = LocalCatalogIndex(context, artwork, name) { 9000L }
+            val checked = mutableSetOf<String>()
+            assertEquals(real.artist, index.cachedTrack(real.id, checked)!!.artist)
+            assertTrue("Tags must be re-read from media, not guessed from Russian text", checked.isEmpty())
+            assertEquals(1234L, index.readableDatabase.rawQuery("SELECT added_at FROM tracks WHERE id='real'", null).use { it.moveToFirst(); it.getLong(0) })
+            index.replaceRoot(root, listOf(real.copy(artist = "", album = "", genre = "")), setOf(real.id))
+            assertEquals("", index.tracksByIds(listOf(real.id)).getValue(real.id).artist)
+            assertEquals(1234L, index.readableDatabase.rawQuery("SELECT added_at FROM tracks WHERE id='real'", null).use { it.moveToFirst(); it.getLong(0) })
+        } finally { index.close(); context.deleteDatabase(name) }
+    }
     @Test fun versionTwoMigrationRescansUnavailableAndRestartPreserveFirstAppearance() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val name = "recent-test-${System.nanoTime()}.db"

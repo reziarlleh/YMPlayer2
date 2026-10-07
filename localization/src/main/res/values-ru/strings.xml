@@ -22,7 +22,6 @@
     <string name="msg_09008d3dafef" formatted="false">"Не в избранном"</string>
     <string name="msg_0918b4ba9268" formatted="false">"Название"</string>
     <string name="msg_0928b8d4c742" formatted="false">"Альбом"</string>
-    <string name="msg_0a0ebb200d14" formatted="false">"Аудиоплеер продолжает работать при переходе между разделами."</string>
     <string name="msg_0a17ec91a15b" formatted="false">"Исполнители и альбом"</string>
     <string name="msg_0a20ddc9928f" formatted="false">"Медиатека"</string>
     <string name="msg_0a813814f149" formatted="false">"Получить код входа"</string>
@@ -560,7 +559,6 @@
     <string name="msg_f77ad0247092" formatted="false">"Панель включена."</string>
     <string name="msg_f7be0cbd0b8a" formatted="false">"Не удалось загрузить медиатеку"</string>
     <string name="msg_f8480d481387" formatted="false">"Медиатека пока пуста"</string>
-    <string name="msg_f8ac3be6be11" formatted="false">"Видеомодуль ещё разрабатывается"</string>
     <string name="msg_f8ddc90b1078" formatted="false">"«Спрятать сайдбар» — всегда последняя кнопка и не отключается. Если все остальные кнопки выключены, SideBar отключается."</string>
     <string name="msg_f91135efb9aa" formatted="false">"Удалить «@0@»?"</string>
     <string name="msg_f9b80bf69b7f" formatted="false">"Требуется Android API @0@"</string>

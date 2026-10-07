@@ -207,7 +207,7 @@ import kotlinx.coroutines.launch
 
 @Composable internal fun ArtistNames(track: Track?, open: (ArtistRef) -> Unit, location: String, compact: Boolean = false) {
     val artists = track?.artists.orEmpty().distinctBy(ArtistRef::id)
-    if (track?.source != Source.YANDEX || artists.isEmpty()) Text(track?.artist ?: "", maxLines = 1, overflow = TextOverflow.Ellipsis,
+    if (track?.source != Source.YANDEX || artists.isEmpty()) Text(track?.artistLabel() ?: "", maxLines = 1, overflow = TextOverflow.Ellipsis,
         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
     else Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         artists.forEachIndexed { index, item ->
@@ -306,7 +306,7 @@ import kotlinx.coroutines.launch
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(0.dp)) {
                     Text(track.title, maxLines = 2, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium)
                     if (checked == null) ArtistNames(track, artist, "${location}_${track.id}", compact = true)
-                    else Text(track.artist, maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall)
+                    else Text(track.artistLabel(), maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall)
                     note?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                     if (!hasActions) Text(metadata, style = MaterialTheme.typography.labelSmall)
                 }

@@ -22,7 +22,6 @@
     <string name="msg_09008d3dafef" formatted="false">"Nicht in den Favoriten"</string>
     <string name="msg_0918b4ba9268" formatted="false">"Name"</string>
     <string name="msg_0928b8d4c742" formatted="false">"Album"</string>
-    <string name="msg_0a0ebb200d14" formatted="false">"Die Musik läuft beim Wechsel zwischen Bereichen weiter."</string>
     <string name="msg_0a17ec91a15b" formatted="false">"Künstler und Album"</string>
     <string name="msg_0a20ddc9928f" formatted="false">"Mediathek"</string>
     <string name="msg_0a813814f149" formatted="false">"Anmeldecode anfordern"</string>
@@ -560,7 +559,6 @@
     <string name="msg_f77ad0247092" formatted="false">"Seitenleiste aktiviert."</string>
     <string name="msg_f7be0cbd0b8a" formatted="false">"Mediathek konnte nicht geladen werden"</string>
     <string name="msg_f8480d481387" formatted="false">"Deine Mediathek ist leer"</string>
-    <string name="msg_f8ac3be6be11" formatted="false">"Das Videomodul wird noch entwickelt"</string>
     <string name="msg_f8ddc90b1078" formatted="false">"„Seitenleiste ausblenden“ ist immer die letzte Schaltfläche und kann nicht deaktiviert werden. Sind alle anderen Schaltflächen aus, wird die Seitenleiste deaktiviert."</string>
     <string name="msg_f91135efb9aa" formatted="false">"„@0@“ löschen?"</string>
     <string name="msg_f9b80bf69b7f" formatted="false">"Android API @0@ erforderlich"</string>

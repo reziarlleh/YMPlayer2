@@ -182,6 +182,20 @@ class OnlineMusicTest {
         assertTrue(music.tracksForPlayback("owner").any { it.id == "large-1" })
         assertTrue(music.tracksForPlayback("road").isEmpty())
     }
+    @Test fun returningToUnfinishedParentRestartsCancelledRequest() = runTest {
+        val api = Api().apply { handle = { request, _ ->
+            if (request.entity == null) delay(1000)
+            MusicPage(listOf(row(request.entity?.title ?: request.query)))
+        } }
+        val music = OnlineMusic(auth(), api, backgroundScope); runCurrent()
+        music.search("parent", debounce = false); runCurrent()
+        assertTrue(music.state.value.loading)
+        music.openArtistCard(ArtistRef("artist", "Artist")); runCurrent()
+        music.closeArtistCard(); runCurrent()
+        advanceTimeBy(1001); runCurrent()
+        assertTrue(music.state.value.loaded)
+        assertEquals("parent", music.state.value.entries.single().id)
+    }
     companion object {
         private fun row(id: String) = MusicEntry(id, id, "Artist", Track(id, id, "Artist", "Album", Source.YANDEX, 60, false))
     }

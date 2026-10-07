@@ -22,7 +22,6 @@
     <string name="msg_09008d3dafef" formatted="false">"Absent des favoris"</string>
     <string name="msg_0918b4ba9268" formatted="false">"Nom"</string>
     <string name="msg_0928b8d4c742" formatted="false">"Album"</string>
-    <string name="msg_0a0ebb200d14" formatted="false">"La musique continue pendant que vous parcourez les rubriques."</string>
     <string name="msg_0a17ec91a15b" formatted="false">"Artistes et album"</string>
     <string name="msg_0a20ddc9928f" formatted="false">"Bibliothèque"</string>
     <string name="msg_0a813814f149" formatted="false">"Obtenir un code de connexion"</string>
@@ -560,7 +559,6 @@
     <string name="msg_f77ad0247092" formatted="false">"Panneau latéral activé."</string>
     <string name="msg_f7be0cbd0b8a" formatted="false">"Impossible de charger la bibliothèque"</string>
     <string name="msg_f8480d481387" formatted="false">"Votre bibliothèque est vide"</string>
-    <string name="msg_f8ac3be6be11" formatted="false">"Le module vidéo est encore en développement"</string>
     <string name="msg_f8ddc90b1078" formatted="false">"« Masquer le panneau latéral » reste toujours le dernier bouton et ne peut pas être désactivé. Si tous les autres boutons sont désactivés, le panneau latéral est désactivé."</string>
     <string name="msg_f91135efb9aa" formatted="false">"Supprimer « @0@ » ?"</string>
     <string name="msg_f9b80bf69b7f" formatted="false">"Nécessite Android API @0@"</string>

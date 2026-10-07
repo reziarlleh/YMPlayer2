@@ -355,22 +355,6 @@
     }
   },
   {
-    "key": "msg_0a0ebb200d14",
-    "source": "Аудиоплеер продолжает работать при переходе между разделами.",
-    "english": "Audio keeps playing as you move between sections.",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
-    ],
-    "translations": {
-      "be": "Аўдыя працягвае прайгравацца пры пераходзе паміж раздзеламі.",
-      "fr": "La musique continue pendant que vous parcourez les rubriques.",
-      "de": "Die Musik läuft beim Wechsel zwischen Bereichen weiter.",
-      "kk": "Бөлімдер арасында ауысқанда аудио ойнай береді.",
-      "es": "La música sigue sonando al cambiar de sección.",
-      "uk": "Музика продовжує грати під час переходу між розділами."
-    }
-  },
-  {
     "key": "msg_0a17ec91a15b",
     "source": "Исполнители и альбом",
     "english": "Artists and album",
@@ -4549,8 +4533,7 @@
     "source": "Без альбома",
     "english": "Unknown album",
     "locations": [
-      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt",
-      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalTagLabels.kt"
     ],
     "translations": {
       "be": "Без альбома",
@@ -6168,7 +6151,7 @@
     "source": "Неизвестный исполнитель",
     "english": "Unknown artist",
     "locations": [
-      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalTagLabels.kt"
     ],
     "translations": {
       "be": "Невядомы выканаўца",
@@ -7699,8 +7682,7 @@
     "source": "Без жанра",
     "english": "Unknown genre",
     "locations": [
-      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt",
-      "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/SafLibrary.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalTagLabels.kt"
     ],
     "translations": {
       "be": "Без жанру",
@@ -9030,22 +9012,6 @@
       "kk": "Медиатека әзірге бос",
       "es": "La biblioteca está vacía",
       "uk": "Медіатека поки порожня"
-    }
-  },
-  {
-    "key": "msg_f8ac3be6be11",
-    "source": "Видеомодуль ещё разрабатывается",
-    "english": "The video module is still being developed",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt"
-    ],
-    "translations": {
-      "be": "Відэамодуль яшчэ распрацоўваецца",
-      "fr": "Le module vidéo est encore en développement",
-      "de": "Das Videomodul wird noch entwickelt",
-      "kk": "Бейне модулі әлі әзірленуде",
-      "es": "El módulo de vídeo sigue en desarrollo",
-      "uk": "Відеомодуль ще розробляється"
     }
   },
   {

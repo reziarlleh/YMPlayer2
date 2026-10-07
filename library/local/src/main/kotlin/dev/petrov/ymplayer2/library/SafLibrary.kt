@@ -225,9 +225,10 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
 
     private fun metadata(uri: Uri, id: String, root: LibraryRoot, name: String, folder: String, size: Long, modified: Long): Track {
         var title = name.substringBeforeLast('.', name)
-        var artist = "Неизвестный исполнитель"
-        var album = "Без альбома"
-        var genre = "Без жанра"
+        // Empty means the tag is missing. A real tag equal to a UI label stays verbatim.
+        var artist = ""
+        var album = ""
+        var genre = ""
         var duration = 0
         var cover: String? = null
         // Invalid tags don't hide a file: the player reports a decoding error if necessary.
@@ -258,7 +259,10 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
             LibraryRoot(it.getString("uri"), it.getString("name"), Source.valueOf(it.getString("source")))
         }
         val tracks = json.getJSONArray("tracks").objects().map {
-            if (it.optBoolean("artworkChecked")) artworkChecked += it.getString("id")
+            // Legacy JSON did not record which tag values were generated labels.
+            // Keep its metadata/cover but force one original-media read on a successful scan.
+            if (it.optBoolean("artworkChecked") && it.getString("artist") != "Неизвестный исполнитель" &&
+                it.getString("album") != "Без альбома" && it.getString("genre") != "Без жанра") artworkChecked += it.getString("id")
             Track(it.getString("id"), it.getString("title"), it.getString("artist"), it.getString("album"), Source.valueOf(it.getString("source")),
                 it.getInt("duration"), true, available = false, genre = it.getString("genre"), folder = it.getString("folder"), tint = it.getInt("tint"),
                 uri = it.getString("uri"), rootId = it.getString("root"), sizeBytes = it.getLong("size"), modifiedMillis = it.getLong("modified"), artworkUri = artwork.uri(it.optString("artwork")))

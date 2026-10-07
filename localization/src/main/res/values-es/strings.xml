@@ -22,7 +22,6 @@
     <string name="msg_09008d3dafef" formatted="false">"No está en favoritos"</string>
     <string name="msg_0918b4ba9268" formatted="false">"Nombre"</string>
     <string name="msg_0928b8d4c742" formatted="false">"Álbum"</string>
-    <string name="msg_0a0ebb200d14" formatted="false">"La música sigue sonando al cambiar de sección."</string>
     <string name="msg_0a17ec91a15b" formatted="false">"Artistas y álbum"</string>
     <string name="msg_0a20ddc9928f" formatted="false">"Biblioteca"</string>
     <string name="msg_0a813814f149" formatted="false">"Obtener código de acceso"</string>
@@ -560,7 +559,6 @@
     <string name="msg_f77ad0247092" formatted="false">"Panel lateral activado."</string>
     <string name="msg_f7be0cbd0b8a" formatted="false">"No se pudo cargar la biblioteca"</string>
     <string name="msg_f8480d481387" formatted="false">"La biblioteca está vacía"</string>
-    <string name="msg_f8ac3be6be11" formatted="false">"El módulo de vídeo sigue en desarrollo"</string>
     <string name="msg_f8ddc90b1078" formatted="false">"«Ocultar panel lateral» siempre es el último botón y no se puede desactivar. Si todos los demás botones están desactivados, el panel lateral se desactiva."</string>
     <string name="msg_f91135efb9aa" formatted="false">"¿Eliminar «@0@»?"</string>
     <string name="msg_f9b80bf69b7f" formatted="false">"Requiere Android API @0@"</string>

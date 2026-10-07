@@ -22,7 +22,6 @@
     <string name="msg_09008d3dafef" formatted="false">"Не ў абраным"</string>
     <string name="msg_0918b4ba9268" formatted="false">"Назва"</string>
     <string name="msg_0928b8d4c742" formatted="false">"Альбом"</string>
-    <string name="msg_0a0ebb200d14" formatted="false">"Аўдыя працягвае прайгравацца пры пераходзе паміж раздзеламі."</string>
     <string name="msg_0a17ec91a15b" formatted="false">"Выканаўцы і альбом"</string>
     <string name="msg_0a20ddc9928f" formatted="false">"Медыятэка"</string>
     <string name="msg_0a813814f149" formatted="false">"Атрымаць код уваходу"</string>
@@ -560,7 +559,6 @@
     <string name="msg_f77ad0247092" formatted="false">"Панэль уключана."</string>
     <string name="msg_f7be0cbd0b8a" formatted="false">"Не ўдалося загрузіць медыятэку"</string>
     <string name="msg_f8480d481387" formatted="false">"Медыятэка пакуль пустая"</string>
-    <string name="msg_f8ac3be6be11" formatted="false">"Відэамодуль яшчэ распрацоўваецца"</string>
     <string name="msg_f8ddc90b1078" formatted="false">"«Схаваць бакавую панэль» — заўсёды апошняя кнопка, яе нельга выключыць. Калі ўсе астатнія кнопкі выключаны, сайдбар адключаецца."</string>
     <string name="msg_f91135efb9aa" formatted="false">"Выдаліць «@0@»?"</string>
     <string name="msg_f9b80bf69b7f" formatted="false">"Патрэбны Android API @0@"</string>

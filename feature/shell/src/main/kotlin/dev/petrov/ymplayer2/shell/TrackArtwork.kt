@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import dev.petrov.ymplayer2.core.Track
-import dev.petrov.ymplayer2.designsystem.DemoArtwork
+import dev.petrov.ymplayer2.designsystem.FallbackArtwork
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.URL
@@ -28,7 +28,7 @@ private val coverMemory = object : LruCache<String, Bitmap>(4 * 1024 * 1024) {
 
 @Composable internal fun TrackArtwork(track: Track?, modifier: Modifier = Modifier) {
     PublicArtwork(track?.artworkUri, tr(Msg.msg_70daf92e717a, track?.title.orEmpty()), modifier.clip(MaterialTheme.shapes.large), ContentScale.Crop, "track_artwork") {
-        DemoArtwork(track?.tint ?: 0, modifier.testTag("artwork_placeholder"))
+        FallbackArtwork(track?.tint ?: 0, modifier.testTag("artwork_placeholder"))
     }
 }
 

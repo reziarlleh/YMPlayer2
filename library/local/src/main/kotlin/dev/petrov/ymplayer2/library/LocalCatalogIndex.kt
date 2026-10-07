@@ -11,7 +11,7 @@ import dev.petrov.ymplayer2.core.*
 /** Transactional metadata index. Document URIs point to the original media; audio is never copied. */
 internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkCache,
     databaseName: String = "local-catalog.db", private val now: () -> Long = System::currentTimeMillis) :
-    SQLiteOpenHelper(context, databaseName, null, 3) {
+    SQLiteOpenHelper(context, databaseName, null, 4) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
@@ -36,11 +36,17 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        require(oldVersion in 1..2 && newVersion == 3) { "Unsupported local catalog schema $oldVersion → $newVersion" }
+        require(oldVersion in 1..3 && newVersion == 4) { "Unsupported local catalog schema $oldVersion → $newVersion" }
         if (oldVersion < 2) db.execSQL("CREATE INDEX tracks_source_order ON tracks(source, title_key, id)")
         // Zero means the first appearance predates this feature, not the date of upgrading.
-        db.execSQL("ALTER TABLE tracks ADD COLUMN added_at INTEGER NOT NULL DEFAULT 0")
-        db.execSQL("CREATE INDEX tracks_recent ON tracks(added_at DESC,id)")
+        if (oldVersion < 3) {
+            db.execSQL("ALTER TABLE tracks ADD COLUMN added_at INTEGER NOT NULL DEFAULT 0")
+            db.execSQL("CREATE INDEX tracks_recent ON tracks(added_at DESC,id)")
+        }
+        // Old rows cannot distinguish a missing tag from a genuine Russian name.
+        // Re-read original media on the next complete scan; never rewrite names by string matching.
+        db.execSQL("UPDATE tracks SET artwork_checked=0 WHERE artist=? OR album=? OR genre=?",
+            arrayOf("Неизвестный исполнитель", "Без альбома", "Без жанра"))
     }
 
     fun initialized(): Boolean = readableDatabase.rawQuery("SELECT value FROM meta WHERE key='initialized'", null).use { it.moveToFirst() }

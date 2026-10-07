@@ -8,6 +8,24 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class RadioTest {
+    @Test fun duplicatePageWithChangingCursorDoesNotPaginateForever() = runTest {
+        var calls = 0
+        val api = Api().apply { catalog = { calls++; RadioPage(listOf(station), true, "page-$calls") } }
+        val c = RadioController(auth(), api, Audio(), backgroundScope); runCurrent(); c.open(); runCurrent()
+        assertTrue(c.state.value.hasNext)
+        c.more(); runCurrent()
+        assertEquals(1, c.state.value.stations.size)
+        assertFalse(c.state.value.hasNext)
+        c.more(); runCurrent(); assertEquals(2, calls)
+    }
+    @Test fun collectionDuplicatePageStopsWithoutDroppingSavedHeart() = runTest {
+        var calls = 0
+        val api = Api().apply { collection = { calls++; RadioPage(listOf(station), true, "page-$calls") } }
+        val c = RadioController(auth(), api, Audio(), backgroundScope); runCurrent(); c.open(); runCurrent()
+        c.refreshCollection(more = true); runCurrent()
+        assertEquals(listOf(station), c.state.value.favourites)
+        assertFalse(c.state.value.favouritesHaveNext)
+    }
     @Test fun navigationRestoresPerProfileWithoutRestoringPlayback() = runTest {
         val saved = mutableMapOf<String, RadioNavigation>()
         val accounts = auth()

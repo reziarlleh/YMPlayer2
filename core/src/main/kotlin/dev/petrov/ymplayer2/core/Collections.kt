@@ -4,8 +4,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 /** A reference, never a copy of audio or a playable URI from stale metadata. */
 data class SavedTrack(val id: String, val title: String, val artist: String, val source: Source, val duration: Int, val tint: Int) {
-    fun resolve(catalog: Map<String, Track>): Track = catalog[id] ?: Track(id, title, artist, "Без альбома", source, duration,
-        offline = true, available = false, tint = tint, genre = "Без жанра")
+    fun resolve(catalog: Map<String, Track>): Track = catalog[id] ?: Track(id, title, artist, "", source, duration,
+        offline = true, available = false, tint = tint, genre = "")
 }
 fun Track.saved() = SavedTrack(id, title, artist, source, durationSeconds, tint)
 data class LocalPlaylist(val id: String, val name: String, val tracks: List<SavedTrack> = emptyList())

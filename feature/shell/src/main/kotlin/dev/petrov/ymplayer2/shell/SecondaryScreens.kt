@@ -77,12 +77,3 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         }
     }
 }
-
-@Composable internal fun MessageScreen(title: String, subtitle: String, text: String, icon: UiIcon) {
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        item { Text(title, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { SkinIcon(icon, null, Modifier.size(64.dp), tint = MaterialTheme.colorScheme.primary) }
-        item { Text(subtitle, style = MaterialTheme.typography.titleLarge) }
-        item { Text(text, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    }
-}

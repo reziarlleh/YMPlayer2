@@ -138,6 +138,7 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
         val previous = parents.removeLastOrNull() ?: return false
         invalidateRequest(); mutable.value = previous
         if (parentNeedsRefresh && previous.request.entity == null) { parentNeedsRefresh = false; load(0) }
+        else if (!previous.loaded && previous.issue == null && (previous.request.collection || previous.request.entity != null || previous.request.query.isNotBlank())) load(0)
         return true
     }
     fun more() { if (!state.value.loading) state.value.nextPage?.let { load(it) } }

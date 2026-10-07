@@ -57,6 +57,16 @@ class LocalPlaybackTest {
     }
     @After fun stop() { compose.runOnIdle { player.stop() }; provider("unavailable", "false") }
 
+    @Test fun realUntaggedMediaStoresEmptyTagsAndDisplaysTranslatedArtist() {
+        val tracks = library.testTracks
+        assertTrue(tracks.all { it.artist.isEmpty() && it.album.isEmpty() && it.genre.isEmpty() })
+        compose.runOnIdle { dev.petrov.ymplayer2.localization.AppLanguages.select("en"); player.select(tracks.first().id) }
+        try {
+            compose.onAllNodesWithText("Unknown artist").onFirst().assertIsDisplayed()
+            compose.onNodeWithTag("nav_library").performClick()
+            compose.onAllNodesWithText("Unknown artist").onFirst().assertIsDisplayed()
+        } finally { compose.runOnIdle { dev.petrov.ymplayer2.localization.AppLanguages.select("ru") } }
+    }
     @Test fun historyRecordsAudiblePlaybackAndOpensFromLibraryWithConfirmedClear() {
         runBlocking { graph.history.clear("owner") }
         val track = library.testTracks.first()

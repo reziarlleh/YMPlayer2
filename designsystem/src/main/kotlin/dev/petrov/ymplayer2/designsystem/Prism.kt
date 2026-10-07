@@ -86,7 +86,7 @@ import android.app.Activity
 }
 
 /** Decorative placeholder from the current skin; provider covers will replace it when available. */
-@Composable fun DemoArtwork(tint: Int, modifier: Modifier = Modifier) {
+@Composable fun FallbackArtwork(tint: Int, modifier: Modifier = Modifier) {
     val palette = LocalSkin.current.artwork
     val color = palette.backgrounds[Math.floorMod(tint, palette.backgrounds.size)]
     Box(modifier.clip(MaterialTheme.shapes.large).background(Brush.linearGradient(listOf(color, palette.end)))) {

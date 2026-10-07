@@ -168,9 +168,12 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
                     request.tab == RadioTab.GENRES && request.filter != null -> api.genre(request.filter.slug, null, if (append) request.cursor else null)
                     else -> api.stations(region(request), if (append) request.cursor else null)
                 }
-                if (ticket == searchGeneration) mutable.value = state.value.copy(busy = false,
-                    stations = ((if (append) request.stations else emptyList()) + page.stations).distinctBy { "${it.slug}:${it.streamSlug}" },
-                    hasNext = page.hasNext && page.cursor != (if (append) request.cursor else null), cursor = page.cursor)
+                if (ticket == searchGeneration) {
+                    val rows = ((if (append) request.stations else emptyList()) + page.stations).distinctBy { "${it.slug}:${it.streamSlug}" }
+                    mutable.value = state.value.copy(busy = false, stations = rows,
+                        hasNext = page.hasNext && !page.cursor.isNullOrBlank() && page.cursor != (if (append) request.cursor else null) &&
+                            (!append || rows.size > request.stations.size), cursor = page.cursor)
+                }
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) { if (ticket == searchGeneration) mutable.value = state.value.copy(busy = false, issue = e.radioIssue()) }
         }
@@ -186,9 +189,12 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
             try {
                 val slugs = api.favouriteSlugs(request.profileId)
                 val page = api.favourites(request.profileId, null, if (more) request.favouritesCursor else null)
-                if (ticket == epoch) mutable.value = state.value.copy(favouritesBusy = false, favouriteSlugs = slugs,
-                    favourites = ((if (more) request.favourites else emptyList()) + page.stations).distinctBy { it.slug },
-                    favouritesHaveNext = page.hasNext && page.cursor != (if (more) request.favouritesCursor else null), favouritesCursor = page.cursor)
+                if (ticket == epoch) {
+                    val rows = ((if (more) request.favourites else emptyList()) + page.stations).distinctBy { it.slug }
+                    mutable.value = state.value.copy(favouritesBusy = false, favouriteSlugs = slugs, favourites = rows,
+                        favouritesHaveNext = page.hasNext && !page.cursor.isNullOrBlank() && page.cursor != (if (more) request.favouritesCursor else null) &&
+                            (!more || rows.size > request.favourites.size), favouritesCursor = page.cursor)
+                }
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) { if (ticket == epoch) mutable.value = state.value.copy(favouritesBusy = false, collectionIssue = e.radioIssue()) }
         }

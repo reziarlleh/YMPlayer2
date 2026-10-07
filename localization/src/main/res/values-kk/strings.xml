@@ -22,7 +22,6 @@
     <string name="msg_09008d3dafef" formatted="false">"Таңдаулыларда жоқ"</string>
     <string name="msg_0918b4ba9268" formatted="false">"Атауы"</string>
     <string name="msg_0928b8d4c742" formatted="false">"Альбом"</string>
-    <string name="msg_0a0ebb200d14" formatted="false">"Бөлімдер арасында ауысқанда аудио ойнай береді."</string>
     <string name="msg_0a17ec91a15b" formatted="false">"Орындаушылар мен альбом"</string>
     <string name="msg_0a20ddc9928f" formatted="false">"Медиатека"</string>
     <string name="msg_0a813814f149" formatted="false">"Кіру кодын алу"</string>
@@ -560,7 +559,6 @@
     <string name="msg_f77ad0247092" formatted="false">"Бүйірлік панель қосулы."</string>
     <string name="msg_f7be0cbd0b8a" formatted="false">"Медиатеканы жүктеу мүмкін болмады"</string>
     <string name="msg_f8480d481387" formatted="false">"Медиатека әзірге бос"</string>
-    <string name="msg_f8ac3be6be11" formatted="false">"Бейне модулі әлі әзірленуде"</string>
     <string name="msg_f8ddc90b1078" formatted="false">"«Бүйірлік панельді жасыру» әрдайым соңғы түйме болып тұрады және өшірілмейді. Қалған түймелердің бәрі өшірілсе, бүйірлік панель де өшіріледі."</string>
     <string name="msg_f91135efb9aa" formatted="false">"«@0@» жою керек пе?"</string>
     <string name="msg_f9b80bf69b7f" formatted="false">"Android API @0@ қажет"</string>
