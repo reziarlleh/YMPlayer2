@@ -12,6 +12,30 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class ClipHandoffTest {
+    @Test fun musicStartedInBackgroundStopsWhenReturningToVideo() {
+        val instrument = InstrumentationRegistry.getInstrumentation()
+        val context = instrument.targetContext
+        val app = context.applicationContext as PlayerApplication
+        instrument.runOnMainSync { app.playback.connect(); app.playback.switchProfile("owner") }
+        waitFor { app.playback.state.value.connected && app.library.state.value.ready && !app.library.state.value.scanning }
+        runBlocking { app.library.state.value.roots.forEach { app.library.forgetFolder(it.uri) } }
+        context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+        waitFor { app.library.testTracks.size == 2 }
+        val id = app.library.testTracks.first().id
+        val activity = instrument.startActivitySync(Intent(context, ClipActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) as ClipActivity
+        try {
+            instrument.runOnMainSync { activity.moveTaskToBack(true) }
+            waitFor { !activity.lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.STARTED) }
+            instrument.runOnMainSync { app.playback.playQueue(listOf(id)) }
+            waitFor { app.playback.state.value.playing }
+            context.startActivity(Intent(context, ClipActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+            waitFor { activity.lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED) }
+            waitFor { !app.playback.state.value.playing }
+            assertEquals(dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, app.launchState.read("owner").output)
+            assertFalse(app.radio.state.value.ownsOutput)
+        } finally { instrument.runOnMainSync { activity.finish(); app.playback.stop() } }
+    }
     @Test fun openingAndClosingVideoLeavesAudioPaused() {
         val instrument = InstrumentationRegistry.getInstrumentation()
         val context = instrument.targetContext

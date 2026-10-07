@@ -8,6 +8,24 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class RadioTest {
+    @Test fun navigationRestoresPerProfileWithoutRestoringPlayback() = runTest {
+        val saved = mutableMapOf<String, RadioNavigation>()
+        val accounts = auth()
+        val audio = Audio()
+        val model = RadioController(accounts, Api(), audio, backgroundScope,
+            readNavigation = saved::get, saveNavigation = { profile, state -> saved[profile] = state })
+        accounts.activate("owner"); runCurrent()
+        model.tab(RadioTab.CITIES); model.filter(RadioFilter("moscow", "Москва")); model.search("rock")
+        accounts.activate("guest"); runCurrent()
+        assertEquals(RadioTab.COLLECTION, model.state.value.tab)
+        assertEquals("", model.state.value.query)
+        assertNull(model.state.value.filter)
+        accounts.activate("owner"); runCurrent()
+        assertEquals(RadioTab.CITIES, model.state.value.tab)
+        assertEquals("rock", model.state.value.query)
+        assertEquals("moscow", model.state.value.filter?.slug)
+        assertFalse(audio.state.value.ownsOutput)
+    }
     private val station = RadioStation("one", "Station", streamSlug = "one-moscow")
     private class Api : RadioApi {
         var catalog: suspend (String?) -> RadioPage = { RadioPage(listOf(RadioStation("one", "Station"))) }

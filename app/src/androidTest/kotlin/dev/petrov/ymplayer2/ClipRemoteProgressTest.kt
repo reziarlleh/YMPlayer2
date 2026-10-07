@@ -74,6 +74,11 @@ class ClipRemoteProgressTest {
             }
             var playing = false
             waitFor("MP4 must play") { scenario.onActivity { playing = controller(it).player.isPlaying }; playing }
+            var focused = false
+            waitFor("Video window must own input before real remote events are injected") {
+                scenario.onActivity { focused = it.hasWindowFocus() }
+                focused
+            }
             // Move out of touch mode, establish focus, then let the real auto-hide run.
             key(KeyEvent.KEYCODE_DPAD_LEFT); key(KeyEvent.KEYCODE_DPAD_RIGHT)
             var hidden = false

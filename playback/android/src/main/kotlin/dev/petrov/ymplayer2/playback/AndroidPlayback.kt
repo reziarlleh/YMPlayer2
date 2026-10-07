@@ -26,6 +26,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private val streamQuality: () -> AudioQuality = { AudioQuality.AUTO },
     private val listened: (String, Track) -> Unit = { _, _ -> }) : PlaybackController {
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
+    private val launchState = LaunchStateStore(context)
+    private var userCommanded = false
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
     override val waveSettings = waveApi?.let { api -> online?.let { music -> WaveSettings(music.accounts, api, scope,
@@ -84,6 +86,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var lastAudible: Pair<String, String>? = null
 
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
+    /** Only an explicit application launch requests automatic playback; service creation stays silent. */
+    fun resumeOnLaunch() = sessionPlay()
+    fun pauseForClips() = sessionPause()
+    fun saveForExit() {
+        if (!radioMode && ready && !restoring) { publish(); checkpoint() }
+        prefs.edit().commit()
+        launchState.flush()
+    }
     fun audioSessionId(): Int = engine?.audioSessionId ?: 0
 
     override suspend fun queuePage(offset: Int, limit: Int): CatalogPage<Track> {
@@ -208,7 +218,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 // Until metadata arrives the engine may still describe the outgoing profile.
                 if (!radioMode && ready && !restoring) {
                     publish(); engine?.let(::recordAudible); maintainWave(); maintainIndexedOrder()
-                    if (state.value.playing && state.value.positionSeconds % 5 == 0) checkpoint()
+                    if (state.value.playing && lastSavedSecond != state.value.positionSeconds) checkpoint()
                 }
             }
         }
@@ -234,6 +244,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
 
     private fun command(action: () -> Unit) {
+        userCommanded = true
+        launchState.write(state.value.profileId, PlaybackOutput.MUSIC, false)
         if (radioMode) {
             radio?.release(); radioMode = false
             if (!ready && library.state.value.ready && !library.state.value.scanning) ready = true
@@ -513,6 +525,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (profileId == state.value.profileId || library.profiles.none { it.id == profileId }) return@command
         engine?.pause(); publish(); checkpoint()
         cancelWave()
+        launchState.write(profileId, PlaybackOutput.MUSIC, false)
         restore(profileId)
     }
     override fun chooseSource(source: Source?) = command {
@@ -697,7 +710,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
         else { engine?.prepare(); engine?.play() }
     }
-    internal fun sessionPause() = command { waveResume = false; engine?.pause(); publish() }
+    internal fun sessionPause() = command { waveResume = false; engine?.pause(); publish(); checkpoint() }
     internal fun sessionRepeatMode(mode: Int) = setRepeatMode(mode.toRepeatMode())
     internal fun sessionRepeatMode(): Int = state.value.repeatMode.toPlayerMode()
     internal fun sessionShuffle(): Boolean = state.value.shuffle
@@ -1343,6 +1356,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private fun checkpoint() {
         if (radioMode) return
         val state = state.value
+        if (userCommanded && !restoring && launchState.read(state.profileId).output == PlaybackOutput.MUSIC) {
+            val wanted = if (state.wave && waveAdvance) waveResume else engine?.let {
+                it.playWhenReady && it.playbackState != Player.STATE_ENDED && it.playerError == null
+            } == true
+            launchState.write(state.profileId, PlaybackOutput.MUSIC, wanted)
+        }
+        lastSavedSecond = state.positionSeconds
         val editor = prefs.edit().putString("profile", state.profileId)
             .putString("repeat:${state.profileId}", state.repeatMode.name).putBoolean("shuffle:${state.profileId}", state.shuffle)
         // An automatically followed library is reconstructed from its index. Save only
@@ -1370,6 +1390,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
         editor.putString("queue:${state.profileId}", json.toString()).apply()
     }
+    private var lastSavedSecond = -1
 }
 
 private fun Track.mediaItem(profile: String) = MediaItem.Builder().setMediaId(id).setUri(if (source == Source.YANDEX)

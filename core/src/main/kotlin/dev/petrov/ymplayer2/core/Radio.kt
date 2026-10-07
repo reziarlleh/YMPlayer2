@@ -39,6 +39,7 @@ interface RadioAudio {
     fun stop()
 }
 enum class RadioTab { COLLECTION, CITIES, GENRES, ALL }
+data class RadioNavigation(val tab: RadioTab = RadioTab.COLLECTION, val query: String = "", val filter: RadioFilter? = null)
 data class RadioCatalogState(val profileId: String = "", val signedIn: Boolean = false,
     val tab: RadioTab = RadioTab.COLLECTION, val query: String = "", val filter: RadioFilter? = null,
     val stations: List<RadioStation> = emptyList(), val favourites: List<RadioStation> = emptyList(),
@@ -51,7 +52,9 @@ data class RadioCatalogState(val profileId: String = "", val signedIn: Boolean =
     val favouritesHaveNext: Boolean = false, val favouritesCursor: String? = null)
 
 /** Commands run on the serialized UI dispatcher. Responses cannot cross a profile/logout or filter change. */
-class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: RadioAudio, private val scope: CoroutineScope) {
+class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: RadioAudio, private val scope: CoroutineScope,
+    private val readNavigation: (String) -> RadioNavigation? = { null },
+    private val saveNavigation: (String, RadioNavigation) -> Unit = { _, _ -> }) {
     private val mutable = MutableStateFlow(RadioCatalogState())
     val state = mutable.asStateFlow()
     val playback get() = audio.state
@@ -68,7 +71,9 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
                 if (profile != state.value.profileId) {
                     listJob?.cancel(); searchGeneration++
                     audio.switchProfile(profile)
-                    mutable.value = RadioCatalogState(profile, signed, cities = state.value.cities, genres = state.value.genres)
+                    val navigation = readNavigation(profile) ?: RadioNavigation()
+                    mutable.value = RadioCatalogState(profile, signed, cities = state.value.cities, genres = state.value.genres,
+                        tab = navigation.tab, query = navigation.query.take(160), filter = navigation.filter)
                     if (opened) loadList()
                 } else mutable.value = state.value.copy(signedIn = signed, favourites = emptyList(), favouriteSlugs = emptySet(),
                     pendingLikes = emptySet(), favouritesBusy = false, collectionIssue = null,
@@ -87,6 +92,7 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
         if (tab in setOf(RadioTab.CITIES, RadioTab.GENRES)) loadOptions(tab)
         if (state.value.tab == tab) return
         mutable.value = state.value.copy(tab = tab, filter = null)
+        persistNavigation()
         loadList()
         if (tab == RadioTab.COLLECTION) refreshCollection()
     }
@@ -103,12 +109,17 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
             finally { mutable.value = if (city) state.value.copy(citiesBusy = false) else state.value.copy(genresBusy = false) }
         }
     }
-    fun filter(filter: RadioFilter?) { mutable.value = state.value.copy(filter = filter); loadList() }
+    fun filter(filter: RadioFilter?) { mutable.value = state.value.copy(filter = filter); persistNavigation(); loadList() }
     fun search(query: String) {
         val value = query.take(160)
         if (value == state.value.query) return
         mutable.value = state.value.copy(query = value)
+        persistNavigation()
         loadList(debounce = true)
+    }
+    private fun persistNavigation() {
+        val state = state.value
+        if (state.profileId.isNotBlank()) saveNavigation(state.profileId, RadioNavigation(state.tab, state.query, state.filter))
     }
     fun refresh() { loadList(); refreshCollection(); if (state.value.tab in setOf(RadioTab.CITIES, RadioTab.GENRES)) loadOptions(state.value.tab) }
     fun more() { if (!state.value.busy && state.value.hasNext) loadList(append = true) }

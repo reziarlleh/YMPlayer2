@@ -10,11 +10,24 @@ import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.runner.RunWith
+import org.junit.rules.ExternalResource
+import org.junit.rules.RuleChain
+import androidx.test.platform.app.InstrumentationRegistry
 
 /** Public station, actual HTTPS/HLS and decoder. No personal credentials or favourite writes. */
 @RunWith(AndroidJUnit4::class)
 class RadioLivePlaybackTest {
-    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    private val compose = createAndroidComposeRule<MainActivity>()
+    private val initialScreen = object : ExternalResource() {
+        override fun before() {
+            val instrument = InstrumentationRegistry.getInstrumentation()
+            val graph = instrument.targetContext.applicationContext as PlayerApplication
+            instrument.runOnMainSync { graph.playback.stop() }
+            graph.navigation.edit().clear().putString("route", "player").commit()
+            graph.launchState.write(graph.playback.state.value.profileId, dev.petrov.ymplayer2.playback.PlaybackOutput.MUSIC, false)
+        }
+    }
+    @get:Rule val rules: RuleChain = RuleChain.outerRule(initialScreen).around(compose)
     @Test fun publicHlsStationPlaysWithSharedAudioServiceAndStopsFromScreen() {
         val graph = compose.activity.application as PlayerApplication
         compose.waitUntil(15000) { graph.playback.state.value.connected }

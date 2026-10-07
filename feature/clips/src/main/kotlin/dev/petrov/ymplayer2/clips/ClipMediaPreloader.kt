@@ -55,13 +55,14 @@ class ClipMediaPreloader(
         manager.invalidate()
     }
 
-    fun play(item: MediaItem): Boolean {
+    fun play(item: MediaItem, positionMs: Long = 0, playing: Boolean = true): Boolean {
         if (closed) return false
         val previous = current
         val preloaded = if (item == next) manager.getMediaSource(item) else null
         if (preloaded != null) player.setMediaSource(preloaded) else player.setMediaItem(item)
+        player.seekTo(positionMs.coerceAtLeast(0))
+        player.playWhenReady = playing
         player.prepare()
-        player.play()
         current = item
         currentRank++
         if (item != next) next?.let(manager::remove)

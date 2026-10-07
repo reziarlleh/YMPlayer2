@@ -29,6 +29,7 @@ class ClipWaveController(
     val player: ExoPlayer,
     private val scope: CoroutineScope,
     private val preloader: ClipMediaPreloader? = null,
+    private val saveCheckpoint: (ClipCheckpoint) -> Unit = {},
 ) {
     private val mutable = MutableStateFlow(ClipWaveState())
     val state = mutable.asStateFlow()
@@ -43,7 +44,29 @@ class ClipWaveController(
     private val announcedSessions = linkedSetOf<String>()
     private var reportedStart = false
     private var closed = false
+    private var backgroundPlaying: Boolean? = null
+    private var savedSecond = -1L
+    fun checkpoint(force: Boolean = false) {
+        val clip = current() ?: return
+        if (backgroundPlaying != null || closed || mutable.value.loading) return
+        val position = player.currentPosition.coerceAtLeast(0)
+        if (!force && position / 1000 == savedSecond) return
+        savedSecond = position / 1000
+        saveCheckpoint(ClipCheckpoint(clip.clip, clip.sessionId, position, player.playWhenReady))
+    }
+    fun suspendForBackground() {
+        if (backgroundPlaying != null) return
+        checkpoint(force = true)
+        backgroundPlaying = player.playWhenReady
+        player.pause()
+    }
+    fun returnFromBackground() {
+        val resume = backgroundPlaying ?: return
+        backgroundPlaying = null
+        if (resume) player.play()
+    }
     private val listener = object : Player.Listener {
+        override fun onEvents(player: Player, events: Player.Events) { checkpoint(force = true) }
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             mutable.value = mutable.value.copy(playing = isPlaying)
             if (isPlaying && !reportedStart) {
@@ -60,12 +83,22 @@ class ClipWaveController(
     }
 
     init { player.addListener(listener) }
-    fun start() {
+    fun start(checkpoint: ClipCheckpoint? = null) {
         if (closed || loadingJob?.isActive == true || sessionId.isNotEmpty()) return
         mutable.value = ClipWaveState()
         loadingJob = scope.launch {
             val generation = ++operation
             try {
+                if (checkpoint != null) {
+                    sessionId = checkpoint.sessionId
+                    val restored = QueuedClip(checkpoint.clip, checkpoint.sessionId)
+                    val stream = resolve(restored) ?: throw MusicException(MusicFailure.UNAVAILABLE)
+                    if (stale(generation)) return@launch
+                    history += restored; cursor = 0
+                    show(restored, stream, checkpoint.positionMs, checkpoint.playing)
+                    prefetch()
+                    return@launch
+                }
                 val session = api.start(profileId)
                 if (stale(generation)) return@launch
                 sessionId = session.id
@@ -81,8 +114,11 @@ class ClipWaveController(
         announcedSessions.clear()
         player.stop(); preloader?.reset(); start()
     }
-    fun pause() { player.pause() }
-    fun toggle() { if (player.isPlaying) player.pause() else if (mutable.value.clip != null) player.play() }
+    fun pause() { backgroundPlaying = null; player.pause(); checkpoint(force = true) }
+    fun toggle() {
+        if (player.playWhenReady) player.pause() else if (mutable.value.clip != null) player.play()
+        checkpoint(force = true)
+    }
     fun previous() {
         if (cursor <= 0 || closed) return
         current()?.let { send(it, ClipFeedback.SKIPPED, player.currentPosition / 1000f) }
@@ -145,20 +181,23 @@ class ClipWaveController(
         catch (e: CancellationException) { throw e }
         catch (_: Exception) { null }
     }
-    private fun show(clip: QueuedClip, stream: ClipStream) {
+    private fun show(clip: QueuedClip, stream: ClipStream, positionMs: Long = 0, playing: Boolean = true) {
         if (announcedSessions.add(clip.sessionId)) {
             send(clip, ClipFeedback.QUEUE_STARTED)
             if (announcedSessions.size > 40) announcedSessions.remove(announcedSessions.first())
         }
         reportedStart = false
         val item = mediaItem(clip.clip, stream)
-        if (preloader != null) preloader.play(item) else {
+        if (preloader != null) preloader.play(item, positionMs, playing && backgroundPlaying == null) else {
             player.setMediaItem(item)
+            player.seekTo(positionMs.coerceAtLeast(0))
+            player.playWhenReady = playing && backgroundPlaying == null
             player.prepare()
-            player.play()
         }
+        if (backgroundPlaying != null) backgroundPlaying = playing
         mutable.value = ClipWaveState(clip = clip.clip, nextClip = upcoming(), loading = false,
             canGoBack = cursor > 0, preview = stream.preview)
+        checkpoint(force = true)
     }
     private fun prefetch() {
         prefetchJob?.cancel()
@@ -200,8 +239,12 @@ class ClipWaveController(
         }
     }
     private suspend fun fetchNextBatch(generation: Int) {
-        val batch = api.next(profileId, sessionId,
-            history.filter { it.sessionId == sessionId }.takeLast(40).map { it.clip.id })
+        val batch = try { api.next(profileId, sessionId,
+            history.filter { it.sessionId == sessionId }.takeLast(40).map { it.clip.id }) }
+        catch (e: MusicException) {
+            if (e.failure !in setOf(MusicFailure.RESPONSE, MusicFailure.UNAVAILABLE)) throw e
+            ClipBatch(emptyList(), false) // An expired restored rotor gets a fresh session below.
+        }
         if (stale(generation)) return
         pending.addAll(batch.clips.filter { candidate -> history.none { it.clip.id == candidate.id } }
             .map { QueuedClip(it, sessionId) })

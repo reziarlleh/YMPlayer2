@@ -24,25 +24,39 @@ import dev.petrov.ymplayer2.designsystem.skin.clipPalette
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.flow.first
 
-/** Video owns its player and stops audio on entry; closing never resumes audio automatically. */
+/** Video owns its player. A durable checkpoint survives process death without storing stream URLs. */
 class ClipActivity : ComponentActivity() {
     private var clips: ClipWaveController? = null
     private var controls: ClipControlsView? = null
+    private var clipProfile: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         hideSystemBars()
         val graph = application as PlayerApplication
+        graph.clipActivities++
+        val profile = graph.playback.state.value.profileId
+        clipProfile = profile
+        graph.accounts.activate(profile)
+        val checkpoint = graph.clipCheckpoints.read(profile)
         graph.radio.release()
         graph.playback.connect()
-        if (graph.playback.state.value.playing) graph.playback.toggle()
+        graph.playback.pauseForClips()
+        graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, checkpoint?.playing ?: true)
+        graph.navigation.edit().putString("route", "clips").apply()
         val preloader = ClipMediaPreloader(this)
         val player = preloader.player.apply {
             setAudioAttributes(AudioAttributes.DEFAULT, true)
         }
         clips = ClipWaveController(YandexClipApi(graph.accounts), graph.playback.state.value.profileId,
-            player, lifecycleScope, preloader)
+            player, lifecycleScope, preloader) { saved ->
+                graph.clipCheckpoints.write(profile, saved)
+                if (saved.playing || graph.launchState.read(profile).output == dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS) {
+                    graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, saved.playing)
+                }
+            }
         val root = object : FrameLayout(this) {
             override fun dispatchKeyEvent(event: KeyEvent): Boolean =
                 if (controls?.handleRemoteKey(event) == true) true else super.dispatchKeyEvent(event)
@@ -72,10 +86,14 @@ class ClipActivity : ComponentActivity() {
         lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (isActive) {
                 controls.updateProgress(player.currentPosition, player.duration)
+                clips?.checkpoint()
                 delay(250)
             }
         } }
-        clips?.start()
+        lifecycleScope.launch {
+            graph.accounts.state.first { it.profileId == profile && it.phase != dev.petrov.ymplayer2.core.AuthPhase.LOADING }
+            clips?.start(checkpoint)
+        }
     }
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -90,6 +108,33 @@ class ClipActivity : ComponentActivity() {
             View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE
     }
-    override fun onStop() { clips?.pause(); super.onStop() }
-    override fun onDestroy() { controls = null; clips?.close(); clips = null; super.onDestroy() }
+    override fun onStart() {
+        super.onStart()
+        val graph = application as PlayerApplication
+        val profile = clipProfile ?: return
+        if (graph.playback.state.value.profileId != profile) { finish(); return }
+        val intent = graph.clipCheckpoints.read(profile)?.playing ?: graph.launchState.read(profile).playing
+        // Music/CWG may have acquired audio while video was in the background.
+        graph.radio.release()
+        graph.playback.pauseForClips()
+        graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, intent)
+        clips?.returnFromBackground()
+    }
+    override fun finish() {
+        // Explicit Back/Close is a pause; backgrounding must preserve the former play intent.
+        clips?.pause()
+        super.finish()
+    }
+    override fun onStop() {
+        clips?.suspendForBackground()
+        val graph = application as PlayerApplication
+        graph.clipCheckpoints.flush(); graph.launchState.flush(); graph.navigation.edit().commit()
+        super.onStop()
+    }
+    override fun onDestroy() {
+        controls = null; clips?.close(); clips = null
+        val graph = application as PlayerApplication
+        graph.clipActivities = (graph.clipActivities - 1).coerceAtLeast(0)
+        super.onDestroy()
+    }
 }

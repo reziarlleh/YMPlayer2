@@ -43,7 +43,7 @@ private val destinations get() = listOf(
     Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val radioPlayback = model.radio?.playback?.collectAsStateWithLifecycle()?.value
     val library by model.library.collectAsStateWithLifecycle()
@@ -51,7 +51,7 @@ private val destinations get() = listOf(
     val profileOfflineState = offlineState?.takeIf { it.owner?.profileId == playback.profileId }
     val cachedTracks = profileOfflineState?.tracks.orEmpty()
     val demo = model.local == null
-    var route by rememberSaveable { mutableStateOf("player") }
+    var route by rememberSaveable { mutableStateOf(initialRoute) }
     var aboutOpen by rememberSaveable { mutableStateOf(false) }
     var artistFrom by rememberSaveable { mutableStateOf("player") }
     var exitAt by remember { mutableStateOf<Long?>(null) }
@@ -61,8 +61,9 @@ private val destinations get() = listOf(
     var theme by rememberSaveable { mutableStateOf("dark") }
     var catalogState by rememberSaveable { mutableStateOf(CatalogState.READY) }
     var collectionTrack by remember(playback.profileId) { mutableStateOf<Track?>(null) }
-    var onlineSource by rememberSaveable(playback.profileId) { mutableStateOf(false) }
-    var offlineSearch by rememberSaveable(playback.profileId) { mutableStateOf(false) }
+    var onlineSource by rememberSaveable(playback.profileId) { mutableStateOf(initialOnlineSource) }
+    var offlineSearch by rememberSaveable(playback.profileId) { mutableStateOf(initialOfflineSearch) }
+    LaunchedEffect(onlineSource, offlineSearch) { saveSources(onlineSource, offlineSearch) }
     var searchQuery by rememberSaveable(playback.profileId) { mutableStateOf("") }
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline", "history", "recent")) "library" else route
@@ -70,7 +71,9 @@ private val destinations get() = listOf(
         if (route == "account" && it != "account") model.accounts?.cancel()
         if (route == "artist" && it != "artist") model.online?.closeArtistCard()
         exitAt = null
-        if (it == "clips" && openClips != null) openClips() else route = it
+        route = it
+        onRouteChanged(if (it == "artist") artistFrom else it)
+        if (it == "clips" && openClips != null) openClips()
     }
     val openArtist: (ArtistRef) -> Unit = { artist ->
         model.online?.let { music ->

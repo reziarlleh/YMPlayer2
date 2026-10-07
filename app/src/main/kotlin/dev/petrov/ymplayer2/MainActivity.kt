@@ -42,8 +42,17 @@ class MainActivity : ComponentActivity() {
         if (::updates.isInitialized) updates.detach(this)
         super.onPause()
     }
+    override fun onStop() {
+        val graph = application as PlayerApplication
+        graph.playback.saveForExit()
+        graph.radio.saveForExit()
+        graph.navigation.edit().commit()
+        graph.radioNavigation.edit().commit()
+        super.onStop()
+    }
     override fun onStart() {
         super.onStart()
+        (application as PlayerApplication).restoreLaunch(freshActivity = false)
         if (::sideBar.isInitialized) sideBar.refresh()
         (application as PlayerApplication).accounts.retryAccount()
         lifecycleScope.launch { (application as PlayerApplication).library.refresh() }
@@ -57,7 +66,7 @@ class MainActivity : ComponentActivity() {
         })[UpdateCoordinator::class.java]
         updates.checkOnLaunch()
         val graph = application as PlayerApplication
-        graph.playback.connect()
+        val restoreClips = graph.restoreLaunch(freshActivity = savedInstanceState == null)
         val journal = graph.diagnostics
         lifecycleScope.launch(Dispatchers.IO) { journal.record(DiagnosticEvent.APP_OPEN) }
         fun observe(events: kotlinx.coroutines.flow.Flow<DiagnosticEvent?>) {
@@ -118,7 +127,12 @@ class MainActivity : ComponentActivity() {
             val skinPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
                 if (uri != null) graph.skins.inspect(uri)
             }
-            ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins, importSkin = {
+            ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
+                initialRoute = graph.navigation.getString("route", "player") ?: "player",
+                onRouteChanged = { graph.navigation.edit().putString("route", it).apply() },
+                initialOnlineSource = graph.navigation.getBoolean("online", false),
+                initialOfflineSearch = graph.navigation.getBoolean("offline", false),
+                saveSources = { online, offline -> graph.navigation.edit().putBoolean("online", online).putBoolean("offline", offline).apply() }, importSkin = {
                 try { skinPicker.launch(arrayOf("*/*")) }
                 catch (_: ActivityNotFoundException) { graph.skins.report(tr(Msg.msg_80cedf587a28)) }
             }, diagnostics = journal, diagnosticScreen = journal::screen, sideBar = sideBar, updates = updates, openClips = {
@@ -132,5 +146,6 @@ class MainActivity : ComponentActivity() {
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
             })
         }
+        if (restoreClips) startActivity(Intent(this, ClipActivity::class.java))
     }
 }

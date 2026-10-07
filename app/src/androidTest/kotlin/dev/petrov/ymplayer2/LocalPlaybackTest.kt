@@ -42,6 +42,8 @@ class LocalPlaybackTest {
     private fun waitFor(condition: () -> Boolean) = compose.waitUntil(15000, condition)
 
     @Before fun fixtures() {
+        // Navigation is now durable. Each independent fixture explicitly selects its starting screen.
+        compose.onNodeWithTag("nav_player").performClick()
         waitFor { library.state.value.ready && !library.state.value.scanning && player.state.value.connected }
         compose.runOnIdle {
             player.stop()

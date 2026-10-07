@@ -15,6 +15,8 @@ import org.json.JSONObject
 class AndroidRadio(private val context: Context, private val music: AndroidPlayback, private val api: RadioApi,
     private val scope: CoroutineScope) : RadioAudio {
     private val prefs = context.getSharedPreferences("radio", Context.MODE_PRIVATE)
+    private val launchState = LaunchStateStore(context)
+    private var profileLoaded = false
     private val mutable = MutableStateFlow(RadioPlaybackState())
     override val state = mutable.asStateFlow()
     private var engine: ExoPlayer? = null
@@ -40,6 +42,7 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
             if (state.value.ownsOutput && reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS && !playWhenReady) {
                 // A permanent focus loss must not be undone by a network retry.
                 wantsPlay = false; retry?.cancel(); work?.cancel(); polling?.cancel()
+                launchState.write(state.value.profileId, PlaybackOutput.RADIO, false)
                 mutable.value = state.value.copy(playing = false, buffering = false, reconnecting = false)
             }
         }
@@ -50,11 +53,13 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
         if (pendingPlay) { pendingPlay = false; resolve() }
     }
     internal fun detach() {
-        release(); engine?.removeListener(listener); engine = null
+        halt(persist = false); mutable.value = state.value.copy(ownsOutput = false)
+        engine?.removeListener(listener); engine = null
     }
     override fun switchProfile(profile: String) {
-        if (profile == state.value.profileId) return
+        if (profile == state.value.profileId && profileLoaded) return
         release()
+        profileLoaded = true
         val saved = runCatching { JSONObject(prefs.getString("station:$profile", "")!!) }.getOrNull()
         val station = saved?.let { runCatching { RadioStation(it.getString("slug"), it.getString("name"),
             it.optString("logo").takeIf(String::isNotBlank), it.optString("color").takeIf(String::isNotBlank),
@@ -68,6 +73,7 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
         music.yieldToRadio()
         mutable.value = RadioPlaybackState(state.value.profileId, selected, ownsOutput = true, buffering = true)
         saveStation(selected)
+        launchState.write(state.value.profileId, PlaybackOutput.RADIO, true)
         if (engine == null) { pendingPlay = true; music.connect() } else resolve()
     }
     private fun resolve() {
@@ -128,7 +134,9 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
         mutable.value = state.value.copy(playing = false, buffering = false, reconnecting = true, issue = RadioIssue.NETWORK)
         retry = scope.launch { delay(wait); if (ticket == generation && wantsPlay) { retry = null; resolve() } }
     }
-    override fun stop() {
+    override fun stop() = halt(persist = true)
+    private fun halt(persist: Boolean) {
+        if (persist && state.value.ownsOutput) launchState.write(state.value.profileId, PlaybackOutput.RADIO, false)
         generation++; wantsPlay = false; pendingPlay = false
         work?.cancel(); polling?.cancel(); retry?.cancel(); work = null; polling = null; retry = null
         if (state.value.ownsOutput) engine?.let { it.stop(); it.clearMediaItems() }
@@ -136,6 +144,15 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
     }
     /** Used by music and clips before taking the output; stopping alone keeps the station resumable. */
     fun release() { stop(); mutable.value = state.value.copy(ownsOutput = false) }
+    fun restoreOnLaunch(profile: String, playing: Boolean) {
+        switchProfile(profile)
+        val station = state.value.station ?: return
+        if (playing) play(station, station.regionName) else {
+            music.yieldToRadio()
+            mutable.value = state.value.copy(ownsOutput = true)
+        }
+    }
+    fun saveForExit() { prefs.edit().commit(); launchState.flush() }
     private fun metadata(): MediaMetadata = MediaMetadata.Builder().setTitle(state.value.station?.name)
         .setArtist(listOf(state.value.onAir.title, state.value.onAir.artist).filter(String::isNotBlank).joinToString(" · "))
         .setMediaType(MediaMetadata.MEDIA_TYPE_RADIO_STATION).setIsPlayable(true)
