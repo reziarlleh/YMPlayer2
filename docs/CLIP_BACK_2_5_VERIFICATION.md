@@ -65,3 +65,8 @@ ClipActivity, закрытие вернуло Radio, следующий запу
 
 Это эмуляторные проверки, не физическая приёмка Back/94 владельцем. Новая
 обратная связь учитывается в этой же main. Следующий порядок — [ROADMAP](ROADMAP.md).
+
+Публикация94 проверена:4 assets и pinned jsDelivr совпали с локальными bytes/hash;
+все6 manifest/stable HTTP-срезов вернули84, latest84, README blob совпал.
+[Датированный срез](qa/clip-back-2026-10-07/publication.json); [сверка](qa/clip-back-2026-10-07/docs-github.json).
+RepoWise structural update225 страниц/264.89сек, индекс4e19658.

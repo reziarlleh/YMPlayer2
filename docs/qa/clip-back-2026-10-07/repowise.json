@@ -1,0 +1,9 @@
+{
+  "command": "repowise update --index-only --no-agents --cascade-budget 500",
+  "lastSyncCommit": "4e196589b1b7d77cad6b9238467daa548b8c85ca",
+  "docsMode": "deterministic",
+  "wikiPagesReRendered": 225,
+  "elapsedSeconds": 264.89,
+  "exitCode": 0,
+  "modelWrittenProse": false
+}
