@@ -32,12 +32,16 @@ class RadioTest {
         var collection: suspend (String) -> RadioPage = { RadioPage(emptyList()) }
         var write: suspend (String, String, Boolean) -> Unit = { _, _, _ -> }
         val searches = mutableListOf<Pair<String, String?>>()
+        var cityOptions: suspend () -> List<RadioFilter> = { listOf(RadioFilter("moscow", "Москва")) }
+        var genreOptions: suspend () -> List<RadioFilter> = { listOf(RadioFilter("rock", "Rock")) }
+        var card: suspend (String) -> RadioStation = { RadioStation(it, it) }
+        var cityPage: (suspend (String?) -> RadioPage)? = null
         override suspend fun stations(region: String?, cursor: String?) = catalog(cursor)
-        override suspend fun station(slug: String, region: String?) = RadioStation(slug, slug)
-        override suspend fun cities() = listOf(RadioFilter("moscow", "Москва"))
-        override suspend fun genres() = listOf(RadioFilter("rock", "Rock"))
-        override suspend fun city(slug: String) = RadioPage(listOf(RadioStation("city", slug, streamSlug = slug), RadioStation("another", "Another", streamSlug = slug)))
-        override suspend fun genre(slug: String, region: String?) = RadioPage(listOf(RadioStation("genre", slug)))
+        override suspend fun station(slug: String, region: String?) = card(slug)
+        override suspend fun cities() = cityOptions()
+        override suspend fun genres() = genreOptions()
+        override suspend fun city(slug: String, cursor: String?) = cityPage?.invoke(cursor) ?: RadioPage(listOf(RadioStation("city", slug, streamSlug = slug), RadioStation("another", "Another", streamSlug = slug)))
+        override suspend fun genre(slug: String, region: String?, cursor: String?) = RadioPage(listOf(RadioStation("genre", slug)))
         override suspend fun search(query: String, region: String?, cursor: String?): RadioPage {
             searches += query to region; return RadioPage(listOf(RadioStation(query, query)))
         }
@@ -83,6 +87,21 @@ class RadioTest {
         assertTrue(c.state.value.hasNext); c.more(); runCurrent()
         assertEquals(2, c.state.value.stations.size); assertFalse(c.state.value.hasNext)
     }
+    @Test fun freshCatalogAndCollectionKeepPaginationWhenFirstCursorMatchesPreviousList() = runTest {
+        val api = Api().apply {
+            catalog = { cursor -> RadioPage(listOf(station.copy(slug = cursor ?: "first")), true, "next") }
+            collection = { RadioPage(listOf(station), true, "next") }
+        }
+        val c = RadioController(auth(), api, Audio(), backgroundScope); runCurrent(); c.open(); runCurrent()
+        assertTrue(c.state.value.hasNext); assertTrue(c.state.value.favouritesHaveNext)
+        c.tab(RadioTab.ALL); runCurrent()
+        assertTrue(c.state.value.hasNext)
+        c.refresh(); runCurrent()
+        assertTrue(c.state.value.hasNext); assertTrue(c.state.value.favouritesHaveNext)
+        c.more(); runCurrent()
+        assertEquals(listOf("first", "next"), c.state.value.stations.map { it.slug })
+        assertFalse(c.state.value.hasNext)
+    }
     @Test fun heartWaitsForServerAndFailedWriteLeavesCollectionUnchanged() = runTest {
         val gate = CompletableDeferred<Unit>(); val api = Api().apply { write = { _, _, _ -> gate.await(); throw RadioException(RadioIssue.NETWORK) } }
         val c = RadioController(auth(), api, Audio(), backgroundScope); runCurrent(); c.open(); runCurrent()
@@ -113,4 +132,64 @@ class RadioTest {
         assertEquals(station, audio.state.value.station); assertTrue(audio.state.value.ownsOutput)
         c.like(station); runCurrent(); assertTrue(c.state.value.favourites.isEmpty())
     }
+    @Test fun parallelCityAndGenreResponsesPreserveBothResultsAndFlags() = runTest {
+        for (cityFirst in listOf(true, false)) {
+            val cities = CompletableDeferred<List<RadioFilter>>()
+            val genres = CompletableDeferred<List<RadioFilter>>()
+            val api = Api().apply { cityOptions = { cities.await() }; genreOptions = { genres.await() } }
+            val c = RadioController(auth(), api, Audio(), backgroundScope); runCurrent(); c.open(); runCurrent()
+            assertTrue(c.state.value.citiesBusy); assertTrue(c.state.value.genresBusy)
+            if (cityFirst) cities.complete(listOf(RadioFilter("moscow", "Москва"))) else genres.complete(listOf(RadioFilter("rock", "Rock")))
+            runCurrent()
+            assertEquals(!cityFirst, c.state.value.citiesBusy); assertEquals(cityFirst, c.state.value.genresBusy)
+            if (cityFirst) genres.complete(listOf(RadioFilter("rock", "Rock"))) else cities.complete(listOf(RadioFilter("moscow", "Москва")))
+            runCurrent()
+            assertFalse(c.state.value.citiesBusy); assertFalse(c.state.value.genresBusy)
+            assertEquals("moscow", c.state.value.cities.single().slug); assertEquals("rock", c.state.value.genres.single().slug)
+        }
+    }
+    @Test fun optionsAreCachedAndExplicitRetryRecoversIndependentFailure() = runTest {
+        var cityCalls = 0; var genreCalls = 0
+        val api = Api().apply {
+            cityOptions = { cityCalls++; listOf(RadioFilter("moscow", "Москва")) }
+            genreOptions = { genreCalls++; if (genreCalls == 1) throw RadioException(RadioIssue.NETWORK); listOf(RadioFilter("rock", "Rock")) }
+        }
+        val c = RadioController(auth(), api, Audio(), backgroundScope); runCurrent(); c.open(); runCurrent()
+        assertEquals(RadioIssue.NETWORK, c.state.value.genresIssue); assertNull(c.state.value.citiesIssue)
+        c.tab(RadioTab.CITIES); runCurrent(); assertEquals(1, cityCalls)
+        c.tab(RadioTab.GENRES); runCurrent(); assertNull(c.state.value.genresIssue); assertEquals(2, genreCalls)
+        c.tab(RadioTab.ALL); c.tab(RadioTab.GENRES); runCurrent(); assertEquals(2, genreCalls)
+        assertEquals("moscow", c.state.value.cities.single().slug)
+    }
+    @Test fun appendFailurePreservesRowsAndCursorWithoutAutomaticRetryLoop() = runTest {
+        var calls = 0
+        val api = Api().apply { catalog = { cursor ->
+            calls++; if (cursor != null && calls == 2) throw RadioException(RadioIssue.NETWORK)
+            if (cursor == null) RadioPage(listOf(station), true, "next") else RadioPage(listOf(station.copy(slug = "two")))
+        } }
+        val c = RadioController(auth(), api, Audio(), backgroundScope); runCurrent(); c.open(); runCurrent(); c.more(); runCurrent()
+        assertEquals(listOf(station), c.state.value.stations); assertEquals("next", c.state.value.cursor)
+        assertEquals(RadioIssue.NETWORK, c.state.value.issue)
+        repeat(3) { c.more(); runCurrent() }; assertEquals(2, calls)
+        c.retryMore(); runCurrent(); assertEquals(2, c.state.value.stations.size); assertFalse(c.state.value.hasNext)
+    }
+    @Test fun cityPaginationForwardsCursorAndKeepsSelectedFilter() = runTest {
+        val cursors = mutableListOf<String?>()
+        val api = Api().apply { cityPage = { cursor -> cursors += cursor
+            if (cursor == null) RadioPage(listOf(station), true, "city-next") else RadioPage(listOf(station.copy(slug = "two"))) } }
+        val c = RadioController(auth(), api, Audio(), backgroundScope); runCurrent(); c.open(); runCurrent()
+        c.tab(RadioTab.CITIES); c.filter(RadioFilter("moscow", "Москва")); runCurrent(); c.more(); runCurrent()
+        assertEquals(listOf(null, "city-next"), cursors); assertEquals(2, c.state.value.stations.size)
+        assertEquals("moscow", c.state.value.filter?.slug); assertFalse(c.state.value.hasNext)
+    }
+    @Test fun stationDetailsDoNotPlayAndLateResultsCannotCrossCloseOrProfile() = runTest {
+        val gate = CompletableDeferred<RadioStation>(); val auth = auth(); val audio = Audio()
+        val api = Api().apply { card = { withContext(NonCancellable) { gate.await() } } }
+        val c = RadioController(auth, api, audio, backgroundScope); runCurrent(); c.open(); runCurrent()
+        c.openStation(station); runCurrent(); assertTrue(c.state.value.detailBusy); assertFalse(audio.state.value.ownsOutput)
+        c.closeStation(); gate.complete(station.copy(description = "Full description")); runCurrent(); assertNull(c.state.value.detail)
+        api.card = { delay(100); station }; c.openStation(station); runCurrent(); auth.activate("guest"); runCurrent(); advanceTimeBy(100); runCurrent()
+        assertNull(c.state.value.detail); assertFalse(c.state.value.detailBusy)
+    }
+
 }

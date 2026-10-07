@@ -73,8 +73,8 @@ class YandexRadioApi(private val accounts: AccountAuth, private val http: RadioT
     override suspend fun station(slug: String, region: String?) = radioStation(get("stations/${encode(slug)}" + query("userRegion" to region.orEmpty())))
     override suspend fun cities() = filters(get("regions").requiredArray("cities"))
     override suspend fun genres() = filters(get("genres").requiredArray("genres"))
-    override suspend fun city(slug: String) = page(get("regions/${encode(slug)}/streams"), streams = true)
-    override suspend fun genre(slug: String, region: String?) = page(get("genres/${encode(slug)}/stations" + query("userRegion" to region.orEmpty())))
+    override suspend fun city(slug: String, cursor: String?) = page(get("regions/${encode(slug)}/streams" + query("continueFrom" to cursor)), streams = true)
+    override suspend fun genre(slug: String, region: String?, cursor: String?) = page(get("genres/${encode(slug)}/stations" + query("userRegion" to region.orEmpty(), "continueFrom" to cursor)))
     override suspend fun search(query: String, region: String?, cursor: String?): RadioPage {
         val data = get("search" + this.query("query" to query, "userRegion" to region.orEmpty(), "limit" to "50", "continueFrom" to cursor))
         val rows = data.requiredArray("items")
@@ -124,7 +124,10 @@ class YandexRadioApi(private val accounts: AccountAuth, private val http: RadioT
         return RadioStation(identity.requiredString("slug"), identity.requiredString("name"), logo,
             card?.optString("logoBackgroundColor")?.takeIf { it.matches(Regex("#[0-9a-fA-F]{6}")) },
             (if (stream) data.optString("shortSlug") else data.optString("userDefaultStreamSlug")).takeIf { it.isNotBlank() && it != "null" },
-            data.optJSONObject("region")?.optString("name"))
+            data.optJSONObject("region")?.optString("name"),
+            card?.optString("description")?.takeIf { it.isNotBlank() }?.let {
+                android.text.Html.fromHtml(it, android.text.Html.FROM_HTML_MODE_LEGACY).toString().trim()
+            })
     }
 }
 fun publicRadioUrl(value: String): Boolean = runCatching { URI(value).let {

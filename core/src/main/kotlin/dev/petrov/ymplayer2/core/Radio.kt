@@ -5,7 +5,8 @@ import kotlinx.coroutines.flow.*
 
 /** FM stations are not tracks or Music/rotor queues. No private account data or stream URL in UI state. */
 data class RadioStation(val slug: String, val name: String, val logoUri: String? = null,
-    val logoColor: String? = null, val streamSlug: String? = null, val regionName: String? = null)
+    val logoColor: String? = null, val streamSlug: String? = null, val regionName: String? = null,
+    val description: String? = null)
 data class RadioFilter(val slug: String, val name: String)
 data class RadioPage(val stations: List<RadioStation>, val hasNext: Boolean = false, val cursor: String? = null)
 data class RadioOnAir(val title: String = "", val artist: String = "", val pollAfterMs: Long = 30_000)
@@ -19,8 +20,8 @@ interface RadioApi {
     suspend fun station(slug: String, region: String?): RadioStation
     suspend fun cities(): List<RadioFilter>
     suspend fun genres(): List<RadioFilter>
-    suspend fun city(slug: String): RadioPage
-    suspend fun genre(slug: String, region: String?): RadioPage
+    suspend fun city(slug: String, cursor: String? = null): RadioPage
+    suspend fun genre(slug: String, region: String?, cursor: String? = null): RadioPage
     suspend fun search(query: String, region: String?, cursor: String? = null): RadioPage
     suspend fun favourites(profile: String, region: String?, cursor: String? = null): RadioPage
     suspend fun favouriteSlugs(profile: String): Set<String>
@@ -49,7 +50,9 @@ data class RadioCatalogState(val profileId: String = "", val signedIn: Boolean =
     val favouritesBusy: Boolean = false, val pendingLikes: Set<String> = emptySet(),
     val issue: RadioIssue? = null, val collectionIssue: RadioIssue? = null,
     val hasNext: Boolean = false, val cursor: String? = null,
-    val favouritesHaveNext: Boolean = false, val favouritesCursor: String? = null)
+    val favouritesHaveNext: Boolean = false, val favouritesCursor: String? = null,
+    val citiesIssue: RadioIssue? = null, val genresIssue: RadioIssue? = null,
+    val detail: RadioStation? = null, val detailBusy: Boolean = false, val detailIssue: RadioIssue? = null)
 
 /** Commands run on the serialized UI dispatcher. Responses cannot cross a profile/logout or filter change. */
 class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: RadioAudio, private val scope: CoroutineScope,
@@ -63,12 +66,17 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
     private var searchGeneration = 0L
     private var listJob: Job? = null
     private var collectionJob: Job? = null
+    private var citiesLoaded = false
+    private var genresLoaded = false
+    private var detailJob: Job? = null
+    private var detailGeneration = 0L
     private val likeJobs = mutableMapOf<String, Job>()
     init { scope.launch {
         accounts.state.map { Triple(it.profileId, it.phase == AuthPhase.SIGNED_IN, it.account?.id) }
             .distinctUntilChanged().collect { (profile, signed, _) ->
                 epoch++; collectionJob?.cancel(); likeJobs.values.toList().forEach(Job::cancel); likeJobs.clear()
                 if (profile != state.value.profileId) {
+                    closeStation()
                     listJob?.cancel(); searchGeneration++
                     audio.switchProfile(profile)
                     val navigation = readNavigation(profile) ?: RadioNavigation()
@@ -96,16 +104,19 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
         loadList()
         if (tab == RadioTab.COLLECTION) refreshCollection()
     }
-    private fun loadOptions(tab: RadioTab) {
+    private fun loadOptions(tab: RadioTab, refresh: Boolean = false) {
         val city = tab == RadioTab.CITIES
         if (if (city) state.value.citiesBusy else state.value.genresBusy) return
-        mutable.value = if (city) state.value.copy(citiesBusy = true) else state.value.copy(genresBusy = true)
+        if (!refresh && if (city) citiesLoaded else genresLoaded) return
+        mutable.value = if (city) state.value.copy(citiesBusy = true, citiesIssue = null) else state.value.copy(genresBusy = true, genresIssue = null)
         scope.launch {
             try {
-                if (city) mutable.value = state.value.copy(cities = api.cities())
-                else mutable.value = state.value.copy(genres = api.genres())
+                // Await first: copy's receiver must be the current state, not a pre-request snapshot.
+                val options = if (city) api.cities() else api.genres()
+                if (city) { citiesLoaded = true; mutable.value = state.value.copy(cities = options) }
+                else { genresLoaded = true; mutable.value = state.value.copy(genres = options) }
             } catch (e: CancellationException) { throw e }
-            catch (e: Exception) { if (state.value.tab == tab) mutable.value = state.value.copy(issue = e.radioIssue()) }
+            catch (e: Exception) { mutable.value = if (city) state.value.copy(citiesIssue = e.radioIssue()) else state.value.copy(genresIssue = e.radioIssue()) }
             finally { mutable.value = if (city) state.value.copy(citiesBusy = false) else state.value.copy(genresBusy = false) }
         }
     }
@@ -121,8 +132,25 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
         val state = state.value
         if (state.profileId.isNotBlank()) saveNavigation(state.profileId, RadioNavigation(state.tab, state.query, state.filter))
     }
-    fun refresh() { loadList(); refreshCollection(); if (state.value.tab in setOf(RadioTab.CITIES, RadioTab.GENRES)) loadOptions(state.value.tab) }
-    fun more() { if (!state.value.busy && state.value.hasNext) loadList(append = true) }
+    fun refresh() { loadList(); refreshCollection(); if (state.value.tab in setOf(RadioTab.CITIES, RadioTab.GENRES)) loadOptions(state.value.tab, refresh = true) }
+    fun more() { if (!state.value.busy && state.value.hasNext && state.value.issue == null) loadList(append = true) }
+    fun retryMore() { if (!state.value.busy && state.value.hasNext) loadList(append = true) }
+    fun openStation(station: RadioStation) {
+        val ticket = ++detailGeneration
+        detailJob?.cancel()
+        val profile = state.value.profileId
+        val region = region(state.value)
+        mutable.value = state.value.copy(detail = station, detailBusy = true, detailIssue = null)
+        detailJob = scope.launch {
+            try {
+                val full = api.station(station.slug, region)
+                if (ticket == detailGeneration && profile == state.value.profileId) mutable.value = state.value.copy(
+                    detail = full.copy(streamSlug = station.streamSlug ?: full.streamSlug, regionName = station.regionName ?: full.regionName), detailBusy = false)
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) { if (ticket == detailGeneration && profile == state.value.profileId) mutable.value = state.value.copy(detailBusy = false, detailIssue = e.radioIssue()) }
+        }
+    }
+    fun closeStation() { detailGeneration++; detailJob?.cancel(); mutable.value = state.value.copy(detail = null, detailBusy = false, detailIssue = null) }
     private fun region(s: RadioCatalogState) = s.filter?.slug?.takeIf { s.tab == RadioTab.CITIES }
     private fun loadList(append: Boolean = false, debounce: Boolean = false) {
         val ticket = ++searchGeneration
@@ -136,13 +164,13 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
                 if (debounce) delay(350)
                 val page = when {
                     request.query.isNotBlank() -> api.search(request.query.trim(), null, if (append) request.cursor else null)
-                    request.tab == RadioTab.CITIES && request.filter != null -> api.city(request.filter.slug)
-                    request.tab == RadioTab.GENRES && request.filter != null -> api.genre(request.filter.slug, null)
+                    request.tab == RadioTab.CITIES && request.filter != null -> api.city(request.filter.slug, if (append) request.cursor else null)
+                    request.tab == RadioTab.GENRES && request.filter != null -> api.genre(request.filter.slug, null, if (append) request.cursor else null)
                     else -> api.stations(region(request), if (append) request.cursor else null)
                 }
                 if (ticket == searchGeneration) mutable.value = state.value.copy(busy = false,
                     stations = ((if (append) request.stations else emptyList()) + page.stations).distinctBy { "${it.slug}:${it.streamSlug}" },
-                    hasNext = page.hasNext && page.cursor != request.cursor, cursor = page.cursor)
+                    hasNext = page.hasNext && page.cursor != (if (append) request.cursor else null), cursor = page.cursor)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) { if (ticket == searchGeneration) mutable.value = state.value.copy(busy = false, issue = e.radioIssue()) }
         }
@@ -160,7 +188,7 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
                 val page = api.favourites(request.profileId, null, if (more) request.favouritesCursor else null)
                 if (ticket == epoch) mutable.value = state.value.copy(favouritesBusy = false, favouriteSlugs = slugs,
                     favourites = ((if (more) request.favourites else emptyList()) + page.stations).distinctBy { it.slug },
-                    favouritesHaveNext = page.hasNext && page.cursor != request.favouritesCursor, favouritesCursor = page.cursor)
+                    favouritesHaveNext = page.hasNext && page.cursor != (if (more) request.favouritesCursor else null), favouritesCursor = page.cursor)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) { if (ticket == epoch) mutable.value = state.value.copy(favouritesBusy = false, collectionIssue = e.radioIssue()) }
         }

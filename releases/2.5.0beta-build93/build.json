@@ -1,0 +1,11 @@
+{
+  "channel": "beta",
+  "updateChannel": "stable",
+  "versionName": "2.5.0beta-build93",
+  "versionCode": 93,
+  "builtAtUtc": "2026-10-07T03:21:56.0169934Z",
+  "runtimeAcceptance": "emulator_verified_owner_pending",
+  "sha256": "495196c97b3ac501b9c256bc4fb5b5ace9c37bd313f805db32d32a00a53948c1",
+  "applicationId": "dev.petrov.ymplayer2",
+  "minSdk": 28
+}

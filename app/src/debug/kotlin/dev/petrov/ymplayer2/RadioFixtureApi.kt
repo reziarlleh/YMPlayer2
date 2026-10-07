@@ -5,18 +5,26 @@ import kotlinx.coroutines.*
 
 /** Explicit station/API fixture; media itself is decoded by the real shared Media3 engine. */
 class RadioFixtureApi(private val uri: () -> String) : RadioApi {
-    val one = RadioStation("one", "Тестовое радио", streamSlug = "moscow", regionName = "Москва")
+    val one = RadioStation("one", "Тестовое радио", streamSlug = "moscow", regionName = "Москва", description = "Описание тестовой радиостанции")
     val two = one.copy(slug = "two", name = "Рок-эфир")
     var gate: CompletableDeferred<Unit>? = null
     var failures = 0
     var requests = 0
     val likes = mutableMapOf<String, Set<String>>()
-    override suspend fun stations(region: String?, cursor: String?) = RadioPage(listOf(one, two))
-    override suspend fun station(slug: String, region: String?) = if (slug == "one") one else two
+    var catalogRows: List<RadioStation>? = null
+    val catalogCursors = mutableListOf<String?>()
+    override suspend fun stations(region: String?, cursor: String?): RadioPage {
+        catalogCursors += cursor
+        val rows = catalogRows ?: return RadioPage(listOf(one, two))
+        val offset = cursor?.toInt() ?: 0
+        val next = (offset + 20).takeIf { it < rows.size }
+        return RadioPage(rows.drop(offset).take(20), next != null, next?.toString())
+    }
+    override suspend fun station(slug: String, region: String?) = catalogRows?.firstOrNull { it.slug == slug } ?: if (slug == "one") one else two
     override suspend fun cities() = listOf(RadioFilter("moscow", "Москва"))
     override suspend fun genres() = listOf(RadioFilter("rock", "Рок"))
-    override suspend fun city(slug: String) = RadioPage(listOf(one))
-    override suspend fun genre(slug: String, region: String?) = RadioPage(listOf(two))
+    override suspend fun city(slug: String, cursor: String?) = RadioPage(listOf(one))
+    override suspend fun genre(slug: String, region: String?, cursor: String?) = RadioPage(listOf(two))
     override suspend fun search(query: String, region: String?, cursor: String?) = RadioPage(listOf(one, two).filter { it.name.contains(query, true) })
     override suspend fun favourites(profile: String, region: String?, cursor: String?) = RadioPage(listOf(one, two).filter { it.slug in likes[profile].orEmpty() })
     override suspend fun favouriteSlugs(profile: String) = likes[profile].orEmpty()
