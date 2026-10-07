@@ -666,5 +666,7 @@
     <string name="radio_530bbd5ef253" formatted="false">"No se puede acceder a tu colección de Radio. Comprueba la sesión de este perfil."</string>
     <string name="radio_d71dc23ce5e0" formatted="false">"La emisión de esta emisora no está disponible en este momento."</string>
     <string name="radio_65f7daba2df4" formatted="false">"No se ha podido leer la respuesta de Radio. Vuelve a intentarlo."</string>
+    <string name="internet_absent" formatted="false">"Sin conexión a Internet"</string>
+    <string name="internet_retry" formatted="false">"Reintentar conexión"</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

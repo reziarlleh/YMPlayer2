@@ -129,6 +129,7 @@ class MainActivity : ComponentActivity() {
             }
             ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
                 initialRoute = graph.shellRoute(),
+                internet = graph.internet,
                 onRouteChanged = { graph.navigation.edit().putString("route", it).apply() },
                 initialOnlineSource = graph.navigation.getBoolean("online", false),
                 initialOfflineSearch = graph.navigation.getBoolean("offline", false),

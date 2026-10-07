@@ -666,5 +666,7 @@
     <string name="radio_530bbd5ef253" formatted="false">"Радио жинағына қолжетімділік жоқ. Қазіргі профильдегі кіруді тексеріңіз."</string>
     <string name="radio_d71dc23ce5e0" formatted="false">"Бұл станцияның эфирі қазір қолжетімсіз."</string>
     <string name="radio_65f7daba2df4" formatted="false">"Радио жауабын оқу мүмкін болмады. Қайта сұраңыз."</string>
+    <string name="internet_absent" formatted="false">"Интернет байланысы жоқ"</string>
+    <string name="internet_retry" formatted="false">"Қайта қосылу"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

@@ -31,6 +31,8 @@ class ClipActivity : ComponentActivity() {
     private var clips: ClipWaveController? = null
     private var controls: ClipControlsView? = null
     private var clipProfile: String? = null
+    private var internetCheck: dev.petrov.ymplayer2.core.InternetCheck? = null
+    private var initialClipStarted = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -69,6 +71,14 @@ class ClipActivity : ComponentActivity() {
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         val controls = ClipControlsView(this, clips!!, graph.skins.state.value.active.clipPalette(), close = ::finish)
         this.controls = controls
+        val connection = dev.petrov.ymplayer2.core.InternetCheck(graph.internet, lifecycleScope, {
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && graph.playback.state.value.profileId == profile &&
+                initialClipStarted && clips?.state?.value?.issue != null) {
+                graph.accounts.retryAccount()
+                clips?.retryFrom(graph.clipCheckpoints.read(profile) ?: checkpoint)
+            }
+        })
+        internetCheck = connection
         root.addView(controls, FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         root.getChildAt(0).setOnClickListener { controls.toggleVisibility() }
@@ -76,6 +86,9 @@ class ClipActivity : ComponentActivity() {
         root.post { if (!root.isInTouchMode) controls.showControls() }
         lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
             clips?.state?.collect(controls::render)
+        } }
+        lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
+            connection.state.collect { controls.updateConnection(it, connection::retry) }
         } }
         lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
             graph.skins.state.collect { controls.updatePalette(it.active.clipPalette()) }
@@ -90,10 +103,14 @@ class ClipActivity : ComponentActivity() {
                 delay(250)
             }
         } }
-        lifecycleScope.launch {
-            graph.accounts.state.first { it.profileId == profile && it.phase != dev.petrov.ymplayer2.core.AuthPhase.LOADING }
-            clips?.start(checkpoint)
-        }
+        lifecycleScope.launch { repeatOnLifecycle(Lifecycle.State.STARTED) {
+            if (!initialClipStarted) {
+                graph.accounts.state.first { it.profileId == profile && it.phase != dev.petrov.ymplayer2.core.AuthPhase.LOADING }
+                graph.internet.available.first { it }
+                initialClipStarted = true
+                clips?.start(checkpoint)
+            }
+        } }
     }
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -133,6 +150,7 @@ class ClipActivity : ComponentActivity() {
         super.onStop()
     }
     override fun onDestroy() {
+        internetCheck?.close(); internetCheck = null
         controls = null; clips?.close(); clips = null
         val graph = application as PlayerApplication
         graph.clipActivities = (graph.clipActivities - 1).coerceAtLeast(0)

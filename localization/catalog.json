@@ -10649,5 +10649,39 @@
       "es": "No se ha podido leer la respuesta de Radio. Vuelve a intentarlo.",
       "fr": "Impossible de lire la réponse de Radio. Réessayez."
     }
+  },
+  {
+    "key": "internet_absent",
+    "source": "Отсутствует интернет",
+    "english": "No internet connection",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InternetNotice.kt",
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ],
+    "translations": {
+      "be": "Няма інтэрнэт-злучэння",
+      "fr": "Pas de connexion Internet",
+      "de": "Keine Internetverbindung",
+      "kk": "Интернет байланысы жоқ",
+      "es": "Sin conexión a Internet",
+      "uk": "Немає з’єднання з інтернетом"
+    }
+  },
+  {
+    "key": "internet_retry",
+    "source": "Повторить подключение",
+    "english": "Retry connection",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InternetNotice.kt",
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ],
+    "translations": {
+      "be": "Паўтарыць падключэнне",
+      "fr": "Réessayer la connexion",
+      "de": "Verbindung erneut versuchen",
+      "kk": "Қайта қосылу",
+      "es": "Reintentar conexión",
+      "uk": "Повторити підключення"
+    }
   }
 ]

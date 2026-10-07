@@ -38,6 +38,23 @@ class OnlineMusicTest {
         assertEquals("album", api.requests.single().first.query)
         assertEquals("album", music.state.value.entries.single().id)
     }
+    @Test fun reconnectReplacesPendingRequestAndIgnoresLateOldResult() = runTest {
+        val api = Api(); val oldReply = CompletableDeferred<Unit>()
+        api.handle = { request, _ ->
+            if (api.requests.size == 1) {
+                withContext(NonCancellable) { oldReply.await() }
+                MusicPage(listOf(row("stale")))
+            } else MusicPage(listOf(row(request.query)))
+        }
+        val music = OnlineMusic(auth(), api, backgroundScope); runCurrent()
+        music.search("rock"); advanceTimeBy(350); runCurrent()
+        assertTrue(music.state.value.loading)
+        music.reconnect(); runCurrent()
+        assertEquals(2, api.requests.size)
+        assertEquals("rock", music.state.value.entries.single().id)
+        oldReply.complete(Unit); runCurrent()
+        assertEquals("rock", music.state.value.entries.single().id)
+    }
     @Test fun restoredHistoryMetadataRequiresCurrentProfileAndNeverRestoresStreamUri() = runTest {
         val accounts = auth(); val music = OnlineMusic(accounts, Api(), backgroundScope); runCurrent()
         val saved = Track("history-1", "Title", "Artist", "Album", Source.YANDEX, 60, false, uri = "expired-signed-url", available = false)

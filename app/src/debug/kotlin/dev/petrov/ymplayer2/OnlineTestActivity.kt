@@ -24,6 +24,7 @@ import kotlinx.coroutines.*
 /** Explicit debug-only provider fixture. Real Media3, isolated checkpoints, no Yandex/user credentials. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class OnlineHarness(app: Application) : AndroidViewModel(app) {
+    val internet = FixtureInternetConnection()
     val library = (app as PlayerApplication).library
     private fun fixtureTracks(): List<Track> = runBlocking { library.pageTracks(CatalogFilter(), limit = 2).items }
     private val context = object : ContextWrapper(app) {
@@ -224,6 +225,12 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     private fun session(id: String) = AccountSession(YandexAccount(id, "Тестовый слушатель"), OAuthCredentials("fixture-$id", null, null))
 }
 
+class FixtureInternetConnection : InternetConnection {
+    override val available = kotlinx.coroutines.flow.MutableStateFlow(true)
+    var refreshes = 0
+    override fun refresh() { refreshes++ }
+}
+
 class OnlineTestActivity : ComponentActivity() {
     val harness get() = ViewModelProvider(this)[OnlineHarness::class.java]
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -233,7 +240,7 @@ class OnlineTestActivity : ComponentActivity() {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), collections = harness.collections, accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists, history = harness.history, radio = harness.radioCatalog) }
             })
-            ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it })
+            ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it }, internet = harness.internet)
         }
     }
 }

@@ -666,5 +666,7 @@
     <string name="radio_530bbd5ef253" formatted="false">"Няма доступу да калекцыі Радыё. Праверце ўваход у бягучым профілі."</string>
     <string name="radio_d71dc23ce5e0" formatted="false">"Эфір гэтай станцыі зараз недаступны."</string>
     <string name="radio_65f7daba2df4" formatted="false">"Не ўдалося прачытаць адказ Радыё. Паўтарыце запыт."</string>
+    <string name="internet_absent" formatted="false">"Няма інтэрнэт-злучэння"</string>
+    <string name="internet_retry" formatted="false">"Паўтарыць падключэнне"</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

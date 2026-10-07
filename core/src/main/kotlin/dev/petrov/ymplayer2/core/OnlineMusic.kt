@@ -142,6 +142,8 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
     }
     fun more() { if (!state.value.loading) state.value.nextPage?.let { load(it) } }
     fun retry() { if (!state.value.loading) load(state.value.failedPage ?: 0) }
+    /** A restored connection replaces a pending request against the old network. */
+    fun reconnect() { load(state.value.failedPage ?: 0) }
 
     private fun load(page: Int, delayMillis: Long = 0) {
         if (!state.value.signedIn) return

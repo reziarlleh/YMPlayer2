@@ -667,5 +667,7 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     radio_d44350efe996("Нет связи с Радио. Проверьте сеть и повторите.", "Can't connect to Radio. Check your connection and try again.", R.string.radio_d44350efe996),
     radio_530bbd5ef253("Нет доступа к коллекции Радио. Проверьте вход в текущем профиле.", "Can't access your Radio collection. Check the sign-in for this profile.", R.string.radio_530bbd5ef253),
     radio_d71dc23ce5e0("Эфир этой станции сейчас недоступен.", "This station's stream is currently unavailable.", R.string.radio_d71dc23ce5e0),
-    radio_65f7daba2df4("Не удалось прочитать ответ Радио. Повторите запрос.", "Couldn't read the Radio response. Try again.", R.string.radio_65f7daba2df4);
+    radio_65f7daba2df4("Не удалось прочитать ответ Радио. Повторите запрос.", "Couldn't read the Radio response. Try again.", R.string.radio_65f7daba2df4),
+    internet_absent("Отсутствует интернет", "No internet connection", R.string.internet_absent),
+    internet_retry("Повторить подключение", "Retry connection", R.string.internet_retry);
 }

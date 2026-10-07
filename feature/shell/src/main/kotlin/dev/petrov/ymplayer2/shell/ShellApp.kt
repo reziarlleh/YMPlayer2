@@ -43,7 +43,7 @@ private val destinations get() = listOf(
     Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val radioPlayback = model.radio?.playback?.collectAsStateWithLifecycle()?.value
     val library by model.library.collectAsStateWithLifecycle()
@@ -155,6 +155,25 @@ private val destinations get() = listOf(
                             }
                         }
                         Column(Modifier.weight(1f).fillMaxHeight()) {
+                            val onlinePlayer = playback.origin.source != PlaybackSource.OFFLINE &&
+                                (playback.wave || playback.origin.source == PlaybackSource.YANDEX_LIKES ||
+                                    playback.current?.let { it.source == Source.YANDEX && !it.offline } == true)
+                            val needsInternet = route == "radio" || route == "artist" || route == "account" ||
+                                route in listOf("library", "search") && onlineSource || route == "player" && onlinePlayer
+                            if (needsInternet) key(route, playback.profileId, onlineSource) {
+                                InternetNotice(internet) { manual ->
+                                    model.accounts?.retryAccount()
+                                    when (route) {
+                                        "radio" -> {
+                                            model.radio?.refresh()
+                                            if (manual && radioPlayback?.issue == RadioIssue.NETWORK)
+                                                model.radio?.audio?.play()
+                                        }
+                                        "library", "search", "artist" -> model.online?.reconnect()
+                                        "player" -> if (manual && !playback.playing && (playback.waveIssue != null || playback.error != null)) model.player.toggle()
+                                    }
+                                }
+                            }
                             Box(Modifier.weight(1f).fillMaxWidth()) {
                                 // Each route/profile owns its scroll, filters, detail and text field state.
                                 holder.SaveableStateProvider("${playback.profileId}:$route") {

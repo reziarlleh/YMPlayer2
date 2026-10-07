@@ -666,5 +666,7 @@
     <string name="radio_530bbd5ef253" formatted="false">"Kein Zugriff auf deine Radiosammlung. Prüfe die Anmeldung im aktuellen Profil."</string>
     <string name="radio_d71dc23ce5e0" formatted="false">"Der Stream dieses Senders ist derzeit nicht verfügbar."</string>
     <string name="radio_65f7daba2df4" formatted="false">"Die Antwort von Radio konnte nicht gelesen werden. Versuche es erneut."</string>
+    <string name="internet_absent" formatted="false">"Keine Internetverbindung"</string>
+    <string name="internet_retry" formatted="false">"Verbindung erneut versuchen"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

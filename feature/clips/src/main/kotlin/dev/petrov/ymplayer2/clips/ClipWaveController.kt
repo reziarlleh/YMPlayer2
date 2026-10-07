@@ -108,11 +108,12 @@ class ClipWaveController(
               catch (e: Exception) { if (!stale(generation)) fail(e) }
         }
     }
-    fun retry() {
+    fun retry() = retryFrom(null)
+    fun retryFrom(checkpoint: ClipCheckpoint?) {
         loadingJob?.cancel(); prefetchJob?.cancel(); ++operation
         sessionId = ""; pending.clear(); history.clear(); cursor = -1; prefetched = null
         announcedSessions.clear()
-        player.stop(); preloader?.reset(); start()
+        player.stop(); preloader?.reset(); start(checkpoint)
     }
     fun pause() { backgroundPlaying = null; player.pause(); checkpoint(force = true) }
     fun toggle() {

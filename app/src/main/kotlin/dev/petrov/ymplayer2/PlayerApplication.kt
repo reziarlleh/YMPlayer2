@@ -38,6 +38,7 @@ class PlayerApplication : Application(), PlaybackHost {
     val clipCheckpoints by lazy { dev.petrov.ymplayer2.clips.ClipCheckpointStore(this) }
     val navigation by lazy { getSharedPreferences("navigation", MODE_PRIVATE) }
     val radioNavigation by lazy { getSharedPreferences("radio-navigation", MODE_PRIVATE) }
+    val internet by lazy { AndroidInternetConnection(this, scope) }
     fun shellRoute(): String {
         val route = navigation.getString("route", "player") ?: "player"
         return (if (route == "clips") navigation.getString("clips_return_route", "player") else route)

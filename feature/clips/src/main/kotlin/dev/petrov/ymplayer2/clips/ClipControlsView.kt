@@ -20,11 +20,14 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.text.TextUtils
+import dev.petrov.ymplayer2.core.InternetStatus
 
 /** Native overlay stays above the video surface on Android 15 release builds. */
 class ClipControlsView(context: Context, private val controller: ClipWaveController, private var palette: ClipPalette = PrismSkin.clipPalette(), close: () -> Unit) : FrameLayout(context) {
     private val handler = Handler(Looper.getMainLooper())
-    private val hide = Runnable { if (latest.playing) { shown = false; display() } }
+    private val hide = Runnable { if (latest.playing && connectionStatus == InternetStatus.CONNECTED) { shown = false; display() } }
+    private var connectionStatus = InternetStatus.CONNECTED
+    private var connectionRetry: () -> Unit = {}
     private var latest = ClipWaveState()
     private var shown = true
     private var revealKey: Int? = null
@@ -41,7 +44,9 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private val currentCaption = infoLabel(tr(Msg.msg_c7dab06bf537), palette.accent)
     private val nextCaption = infoLabel(tr(Msg.msg_9969d130536f), palette.secondary)
     private val preview = label(tr(Msg.msg_32060a34f5be), 14f)
-    private val retry = button(tr(Msg.msg_5189135a6110), controller::retry)
+    private val retry = button(tr(Msg.msg_5189135a6110)) {
+        if (connectionStatus == InternetStatus.CONNECTED) controller.retry() else connectionRetry()
+    }
     private val previous = button("◀", controller::previous)
     private val play = button("▶", controller::toggle)
     private val next = button("▶▶", controller::next)
@@ -117,11 +122,20 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         next.contentDescription = trMessage("Следующий клип")
         render(latest)
     }
+    fun updateConnection(status: InternetStatus, retry: () -> Unit) {
+        connectionStatus = status
+        connectionRetry = retry
+        render(latest)
+    }
     fun render(state: ClipWaveState) {
         val firstClip = latest.clip == null && state.clip != null
         if (latest.clip?.id != state.clip?.id || state.loading) infoBand.setProgress(0L, 0L)
         latest = state
-        status.text = state.issue?.let(::trIssue) ?: if (state.loading) tr(Msg.msg_27681b730821) else ""
+        status.text = when (connectionStatus) {
+            InternetStatus.WAITING -> ""
+            InternetStatus.OFFLINE -> trMessage("Отсутствует интернет")
+            InternetStatus.CONNECTED -> state.issue?.let(::trIssue) ?: if (state.loading) tr(Msg.msg_27681b730821) else ""
+        }
         status.visibility = if (status.text.isNotEmpty()) VISIBLE else GONE
         title.text = state.clip?.title.orEmpty()
         artist.text = state.clip?.artist.orEmpty()
@@ -130,18 +144,19 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         nextArtist.visibility = if (nextArtist.text.isNotEmpty()) VISIBLE else GONE
         infoBand.visibility = if (state.clip != null) VISIBLE else GONE
         preview.visibility = if (state.preview) VISIBLE else GONE
-        retry.visibility = if (state.issue != null) VISIBLE else GONE
+        retry.text = trMessage(if (connectionStatus == InternetStatus.OFFLINE) "Повторить подключение" else "Повторить")
+        retry.visibility = if (connectionStatus == InternetStatus.OFFLINE || connectionStatus == InternetStatus.CONNECTED && state.issue != null) VISIBLE else GONE
         previous.isEnabled = state.canGoBack
         play.isEnabled = state.clip != null
         play.text = if (state.playing) "Ⅱ" else "▶"
         play.contentDescription = if (state.playing) tr(Msg.msg_65530fd463ea) else tr(Msg.msg_bdd37eb21746)
         next.isEnabled = state.clip != null && !state.loading
         for (control in listOf(previous, play, next)) control.alpha = if (control.isEnabled) 1f else .42f
-        if (!state.playing || state.issue != null) shown = true
+        if (!state.playing || state.issue != null || connectionStatus != InternetStatus.CONNECTED) shown = true
         display()
         if (firstClip && shown && !isInTouchMode) play.requestFocus()
         handler.removeCallbacks(hide)
-        if (shown && state.playing) handler.postDelayed(hide, 5000)
+        if (shown && state.playing && connectionStatus == InternetStatus.CONNECTED) handler.postDelayed(hide, 5000)
     }
     fun toggleVisibility() {
         if (latest.issue != null || !latest.playing) return
@@ -194,7 +209,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     }
     private fun scheduleHide() {
         handler.removeCallbacks(hide)
-        if (shown && latest.playing) handler.postDelayed(hide, 5000)
+        if (shown && latest.playing && connectionStatus == InternetStatus.CONNECTED) handler.postDelayed(hide, 5000)
     }
     /** Position polling never reschedules auto-hide or moves D-pad focus. */
     fun updateProgress(positionMs: Long, durationMs: Long) {

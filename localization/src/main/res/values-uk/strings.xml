@@ -666,5 +666,7 @@
     <string name="radio_530bbd5ef253" formatted="false">"Немає доступу до колекції Радіо. Перевірте вхід у поточному профілі."</string>
     <string name="radio_d71dc23ce5e0" formatted="false">"Ефір цієї станції зараз недоступний."</string>
     <string name="radio_65f7daba2df4" formatted="false">"Не вдалося прочитати відповідь Радіо. Повторіть запит."</string>
+    <string name="internet_absent" formatted="false">"Немає з’єднання з інтернетом"</string>
+    <string name="internet_retry" formatted="false">"Повторити підключення"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>
