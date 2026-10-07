@@ -91,11 +91,37 @@ Skip требуют opt-in подписанного APK (проверен отд
 SHA256: `7467be4fd2e8a3e77fd88a58302306a323672a3d2b164682b886c053ff2e7e32`.
 Прежний сертификат: `fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
 v2 true, v1/v3 false. [Сборка97](qa/audit25-2026-10-07/release-final-build.txt).
-Итог HTTP/latest/feeds и обновления из stable84 добавляется после публикации.
+Опубликовано: [v2.5.0-build97](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0-build97),
+release/tag9cfc8f520bec8f57ce5ce0fb6c0de2b937374bfc; feeds commit ed1783f.
+GitHub public/main/latest stable97, четыре assets: APK/build.json/SHA256/signature.
+Все вложения побайтно сверены с локальными; immutable jsDelivr/Gcore APK
+совпадают по SHA256. Raw GitHub и основной jsDelivr manifest/stable актуальны97.
+Gcore @main пока84: D-001 сохраняется. [HTTP-срез](qa/audit25-2026-10-07/publication.json),
+[обновление CDN](qa/audit25-2026-10-07/mirrors-final.txt).
+
+Клиент **stable84→97** на обеих системах получил предложение, скачал резервный
+APK и установил системным installer без очистки, сохранив firstInstallTime.
+После отдельного95→97 создана свежая стендовая84 на двух эмуляторах.
+Сам переход84→97 данные не удаляет.
+[TV](qa/audit25-2026-10-07/emulator-5556/update-release.json),
+[API28](qa/audit25-2026-10-07/emulator-5560/update-release.json).
+На API28 хост открыл Activity до окончания dexopt/PACKAGE_REPLACED;
+PackageManager завершил ранний процесс. Повтор после установки прошёл без
+изменения APK. Это ошибка времени запуска стенда, не app crash.
+В signed97 проверены Radio/Genres/All stations/Back:
+[результат](qa/audit25-2026-10-07/emulator-5560/signed97-radio-navigation.json).
+
+Check-Documentation --github:207 документов/1828 локальных ссылок, ноль
+отсутствующих целей; серверный README совпадает, props/оба feeds/latest согласованы.
+[Машинная сверка](qa/audit25-2026-10-07/documentation.json).
+GitHub описание дополнено Радио; README сохраняет пользовательское назначение.
+GitHub CI для ed1783f успешен: run37596699882. Production source96d0113
+также прошёл CI37577988853; финальные документационные коммиты код не меняют.
 
 README остаётся пользовательским описанием, история в CHANGELOG. Статус/roadmap/
 план/багрепорт/карты/модули/обе инструкции сверены; beta95 архивирована.
-Журнал/уроки сохраняют причины, память — отдельная ad_hoc note по запросу владельца.
+Журнал/уроки сохраняют причины. По запросу владельца сохранена отдельная нативная
+ad_hoc note о stable97 и доказательствах; generated MEMORY не редактировалась.
 
 Это Android9/API28 и TV10/API29 на эмуляторах. K4811/USB, системный Android/
 HyperOS scanner и физическое обесточивание не выдаются за новую приёмку.

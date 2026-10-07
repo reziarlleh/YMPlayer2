@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-07",
+  "serial": "emulator-5560",
+  "action": "snapshot",
+  "dataCleared": false,
+  "before": {
+    "versionName": "2.5.0-build97",
+    "firstInstallTime": "2026-10-07 08:53:03"
+  },
+  "beforeLabels": [
+    "YMPlayer2",
+    "Profiles",
+    "Settings",
+    "Device / USB",
+    "Equalizer / DSP",
+    "Queue",
+    "Queue is empty",
+    "Choose music in the library",
+    "More actions",
+    "0:00",
+    "0:00",
+    "Previous track",
+    "Play",
+    "Next track",
+    "Stop",
+    "Player",
+    "Library",
+    "Search",
+    "Radio",
+    "Clips"
+  ],
+  "passed": true
+}
