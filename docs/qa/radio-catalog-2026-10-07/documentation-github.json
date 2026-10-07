@@ -1,0 +1,25 @@
+{
+  "version": "2.5.0beta-build93",
+  "manualBeta": true,
+  "stableVersion": "2.4.1-build84",
+  "localFeeds": {
+    "manifest": "2.4.1-build84",
+    "stable": "2.4.1-build84"
+  },
+  "documents": 203,
+  "localLinks": 1754,
+  "brokenLinks": [],
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.4.1-build84",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.1-build84",
+    "manualBeta": {
+      "isPrerelease": true,
+      "tagName": "v2.5.0beta-build93",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0beta-build93"
+    },
+    "readmeBlob": "ebe71bcc1ff43f05995fe3b21a4b3cc4c2d32f2c",
+    "localReadmeBlob": "ebe71bcc1ff43f05995fe3b21a4b3cc4c2d32f2c"
+  },
+  "errors": []
+}

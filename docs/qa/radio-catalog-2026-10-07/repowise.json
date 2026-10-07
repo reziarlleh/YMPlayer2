@@ -1,0 +1,10 @@
+{
+  "checkedAtUtc": "2026-10-07T03:31:17.958503+00:00",
+  "command": "repowise update --index-only --no-agents --cascade-budget 500",
+  "lastSyncCommit": "d563e7c2981daa12d46673a3dcdc23e749ff8c67",
+  "docsMode": "deterministic",
+  "modelWrittenProse": false,
+  "wikiPagesReRendered": 183,
+  "elapsedSeconds": 232,
+  "exitCode": 0
+}
