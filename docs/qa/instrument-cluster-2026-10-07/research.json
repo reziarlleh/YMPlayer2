@@ -1,0 +1,34 @@
+{
+  "checkedAtUtc": "2026-10-07T17:25:09.628688+00:00",
+  "baseCommit": "aa6a5d4054835263a38203bbc0e375a3b4735ecb",
+  "scope": "Research only; production source, APK, version and update feeds unchanged",
+  "forumPost": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145405384",
+  "sources": {
+    "forum0.html": {
+      "bytes": 299758,
+      "sha256": "a103005b57cdf9817af5957aa8b7042a24e92208d09b702ed9d88f4276ed1d77"
+    },
+    "LegacyConversions.java": {
+      "bytes": 72832,
+      "sha256": "993df54e3f9044bff8f8b243f9518c5c7312247297672cb0a5d8d8c173cd784b"
+    },
+    "MediaSessionLegacyStub.java": {
+      "bytes": 94252,
+      "sha256": "2f92d591bca606b2aab2fa5658bf3b297fbeb79de8323b96efeb3300bbc622f2"
+    },
+    "AospMediaPlayerList.java": {
+      "bytes": 28206,
+      "sha256": "f99b938b1f60bdfc40026f17373e9ac0090ed94211d4c94153f08e97a6a8057e"
+    }
+  },
+  "feeds": {
+    "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json": {
+      "versionName": "2.5.1-build98",
+      "versionCode": 98
+    },
+    "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json": {
+      "versionName": "2.5.1-build98",
+      "versionCode": 98
+    }
+  }
+}
