@@ -1,0 +1,229 @@
+{
+  "jvm": [
+    {
+      "name": "dev.petrov.ymplayer2.core.AccountAuthTest",
+      "tests": "17",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.AudioQualityTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.CatalogQueryTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.CloudPlaylistsTest",
+      "tests": "13",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.CollectionsTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.DemoPlaybackControllerTest",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.InternetConnectionTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.MusicTasteTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.MyWaveTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.OfflineMusicTest",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.OnlineMusicTest",
+      "tests": "16",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.PlaybackOriginTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.RadioTest",
+      "tests": "16",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.core.WaveSettingsTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dev.petrov.ymplayer2.CrashFormatTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 66
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 65
+    }
+  },
+  "native": {
+    "emulator-5556-clip-diagnostic.txt": {
+      "passed": 3,
+      "skipped": 0,
+      "failed": 0,
+      "completed": true,
+      "started": [
+        "3"
+      ]
+    },
+    "emulator-5556-native-first.txt": {
+      "passed": 30,
+      "skipped": 0,
+      "failed": 1,
+      "completed": true,
+      "started": [
+        "31"
+      ]
+    },
+    "emulator-5556-related.txt": {
+      "passed": 42,
+      "skipped": 2,
+      "failed": 0,
+      "completed": true,
+      "started": [
+        "44"
+      ]
+    },
+    "emulator-5556-surface-cold.txt": {
+      "passed": 1,
+      "skipped": 0,
+      "failed": 0,
+      "completed": true,
+      "started": [
+        "1"
+      ]
+    },
+    "emulator-5556-surface-fresh.txt": {
+      "passed": 2,
+      "skipped": 0,
+      "failed": 0,
+      "completed": true,
+      "started": [
+        "2"
+      ]
+    },
+    "emulator-5560-clip-baseline.txt": {
+      "passed": 1,
+      "skipped": 0,
+      "failed": 1,
+      "completed": true,
+      "started": [
+        "2"
+      ]
+    },
+    "emulator-5560-clip-diagnostic.txt": {
+      "passed": 3,
+      "skipped": 0,
+      "failed": 0,
+      "completed": true,
+      "started": [
+        "3"
+      ]
+    },
+    "emulator-5560-native-final.txt": {
+      "passed": 6,
+      "skipped": 0,
+      "failed": 0,
+      "completed": true,
+      "started": [
+        "6"
+      ]
+    },
+    "emulator-5560-native-first.txt": {
+      "passed": 30,
+      "skipped": 0,
+      "failed": 1,
+      "completed": true,
+      "started": [
+        "31"
+      ]
+    },
+    "emulator-5560-related.txt": {
+      "passed": 41,
+      "skipped": 3,
+      "failed": 0,
+      "completed": true,
+      "started": [
+        "44"
+      ]
+    },
+    "emulator-5562-clip-baseline.txt": {
+      "passed": 1,
+      "skipped": 0,
+      "failed": 1,
+      "completed": true,
+      "started": [
+        "2"
+      ]
+    },
+    "emulator-5562-native-final.txt": {
+      "passed": 35,
+      "skipped": 0,
+      "failed": 0,
+      "completed": true,
+      "started": [
+        "35"
+      ]
+    }
+  }
+}

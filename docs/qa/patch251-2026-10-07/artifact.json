@@ -1,0 +1,13 @@
+{
+  "productionSourceCommit": "75ebce855e6562bc484ba6671433ec975f8c5c18",
+  "version": "2.5.1-build98",
+  "sizeBytes": 6248529,
+  "sha256": "edb5ec3797f9f32c5dd248df8d264da93f2f4bcec45902a08075d27e176e6706",
+  "certificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+  "minSdk": 28,
+  "targetSdk": 36,
+  "compileSdk": 37,
+  "debuggable": false,
+  "v2Signature": true,
+  "legacy1xSource": "7d118b4e3ec817b706748ae8d129fdc00f3a0146"
+}

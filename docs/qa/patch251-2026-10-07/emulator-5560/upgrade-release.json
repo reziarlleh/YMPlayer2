@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-07",
+  "serial": "emulator-5560",
+  "action": "upgrade",
+  "dataCleared": false,
+  "before": {
+    "versionName": "2.5.0-build97",
+    "firstInstallTime": "2026-10-07 10:43:05"
+  },
+  "beforeLabels": [
+    "YMPlayer2",
+    "Profiles",
+    "Settings",
+    "Device / USB",
+    "Equalizer / DSP",
+    "Queue",
+    "Queue is empty",
+    "Choose music in the library",
+    "More actions",
+    "0:00",
+    "0:00",
+    "Previous track",
+    "Play",
+    "Next track",
+    "Stop",
+    "Player",
+    "Library",
+    "Search",
+    "Radio",
+    "Clips"
+  ],
+  "after": {
+    "versionName": "2.5.1-build98",
+    "firstInstallTime": "2026-10-07 10:43:05"
+  },
+  "afterLabels": [
+    "YMPlayer2",
+    "Profiles",
+    "Settings",
+    "Device / USB",
+    "Equalizer / DSP",
+    "Queue",
+    "Queue is empty",
+    "Choose music in the library",
+    "More actions",
+    "0:00",
+    "0:00",
+    "Previous track",
+    "Play",
+    "Next track",
+    "Stop",
+    "Player",
+    "Library",
+    "Search",
+    "Radio",
+    "Clips"
+  ],
+  "passed": true
+}

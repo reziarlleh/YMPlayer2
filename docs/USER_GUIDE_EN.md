@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.5.0-build97**, Android9 and later. Reviewed on 7 October 2026.
+For **2.5.1-build98**, Android9 and later. Reviewed on 7 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -152,7 +152,9 @@ the current one plays and requests further recommendations as needed.
 
 The button at the top of the player shows the current
 source or list name. Press it to select **My Vibe**, **Offline** or **Local favorites**.
-Empty favorites and an empty or disabled cache cannot be selected. Choose
+Offline is available immediately, even with an empty cache and no internet.
+It is disabled only when offline caching is switched off in Settings.
+Empty local favorites cannot be selected. Choose
 playlists in the library; the player button displays their names.
 
 <p><img src="qa/2-4-wave-sources/emulator-5560/source-picker.png" width="300"
@@ -253,6 +255,10 @@ Only liked tracks and their covers are synchronized. Favorite artists, albums
 and whole playlists are not downloaded automatically. Run synchronization again
 after new likes. Downloads belong to both the profile and its Yandex account.
 
+The list opens without auditing every audio file. Each selected download is
+verified before playback. If it is damaged, synchronize again; Offline mode
+does not replace it with an online stream.
+
 You can disable the cache on an always-online TV with little storage. This stops
 synchronization and prevents new playback requests from using cached music.
 Existing downloads remain; use the delete command to reclaim space. Re-enabling
@@ -300,6 +306,10 @@ the controls hide after five seconds; they remain visible when paused or on erro
 you opened it from. The clip stays paused; music/radio does not resume automatically.
 The return section also survives process termination. Older sessions
 without that record return to Player.
+
+Selecting **Clips** again starts playback from the saved position. Restoring
+the app preserves its previous play/pause state. While a requested start is
+buffering, the button shows Pause; you do not need a second Play press.
 
 The center button plays/pauses; the side buttons select the previous/next clip.
 The **NOW** panel shows the current title and artist, **NEXT** shows the next

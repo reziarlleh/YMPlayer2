@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 97,
-  "versionName": "2.5.0-build97",
+  "versionCode": 98,
+  "versionName": "2.5.1-build98",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-07T08:51:42.1657712Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0-build97",
-  "releaseNotes": "Эфирное Радио, восстановление музыки/радио/клипа и сетевой повтор. Выпускной аудит: пагинация радио, возврат к списку, быстрый Back и отсутствующие локальные теги.",
+  "publishedAt": "2026-10-07T11:17:36.901792Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.1-build98",
+  "releaseNotes": "Клипы: первый кадр, однократный Play и сохранённая позиция. Офлайн доступен сразу; первый поток волны не ждёт проверки постороннего кэша.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.0-build97/YMPlayer-2.5.0-build97.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.0-build97/releases/2.5.0-build97/YMPlayer-2.5.0-build97.apk",
-    "sizeBytes": 6232145,
-    "sha256": "7467be4fd2e8a3e77fd88a58302306a323672a3d2b164682b886c053ff2e7e32"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.1-build98/YMPlayer-2.5.1-build98.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.1-build98/releases/2.5.1-build98/YMPlayer-2.5.1-build98.apk",
+    "sizeBytes": 6248529,
+    "sha256": "edb5ec3797f9f32c5dd248df8d264da93f2f4bcec45902a08075d27e176e6706"
   }
 }

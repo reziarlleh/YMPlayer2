@@ -1,6 +1,6 @@
 # Сборка YMPlayer 2
 
-Актуализировано 2026-10-07: main / стабильная2.5.0-build97. Фактические 12 модулей:
+Актуализировано 2026-10-07: main / стабильная2.5.1-build98. Фактические 12 модулей:
 app, core, designsystem, feature:shell, feature:clips, library:local, library:offline,
 playback:android, provider:yandex, headunit:sidebar, updater:android, localization. Аудиодвижок Media3 1.11.0.
 AGP 9.3.2 с built-in Kotlin, Kotlin/Compose compiler 2.3.21, Compose BOM

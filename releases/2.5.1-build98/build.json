@@ -1,0 +1,11 @@
+{
+  "channel": "stable",
+  "versionCode": 98,
+  "updateChannel": "stable",
+  "versionName": "2.5.1-build98",
+  "sha256": "edb5ec3797f9f32c5dd248df8d264da93f2f4bcec45902a08075d27e176e6706",
+  "applicationId": "dev.petrov.ymplayer2",
+  "runtimeAcceptance": "Patched debug native API28/TV29/API35 passed; signed97-to98 API28 passed. Physical HyperOS aspect-ratio acceptance pending.",
+  "minSdk": 28,
+  "builtAtUtc": "2026-10-07T11:12:13.4831421Z"
+}
