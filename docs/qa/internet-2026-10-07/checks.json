@@ -35,5 +35,5 @@
   },
   "initialUiFailure": "real sleep does not advance Compose virtual clock; timing and profile fixture corrected",
   "physicalDevice": false,
-  "rebootMatrix": "not repeated; not repeated in95; session native scenarios and beta94 targeted force-stop retained"
+  "rebootMatrix": "not repeated in95; current native session scenarios and beta94 targeted force-stop evidence retained"
 }
