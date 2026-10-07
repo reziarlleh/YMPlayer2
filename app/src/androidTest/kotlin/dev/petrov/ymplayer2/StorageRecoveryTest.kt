@@ -30,6 +30,8 @@ class StorageRecoveryTest {
         waitFor { player.state.value.connected }
     }
     @Before fun fixtures() {
+        // Navigation is durable; this cover/player fixture needs the Player screen.
+        compose.onNodeWithTag("nav_player").performClick()
         waitFor { library.state.value.ready && !library.state.value.scanning && player.state.value.connected }
         compose.runOnIdle { player.stop(); player.switchProfile("owner"); player.chooseSource(null); player.setRepeatMode(RepeatMode.OFF); player.setShuffle(false) }
         runBlocking { library.state.value.roots.forEach { library.forgetFolder(it.uri) } }

@@ -15,6 +15,18 @@ class NavigationTest {
     private fun nav(route: String) = compose.onNodeWithTag("nav_$route").performClick()
     private fun back() = compose.runOnUiThread { compose.activity.onBackPressedDispatcher.onBackPressed() }
 
+    @Test fun sectionSwitchAndBackInSameFrameUseCurrentRoute() {
+        val click = compose.onNodeWithTag("nav_library").fetchSemanticsNode()
+            .config[androidx.compose.ui.semantics.SemanticsActions.OnClick].action!!
+        compose.runOnUiThread {
+            click()
+            compose.activity.onBackPressedDispatcher.onBackPressed()
+        }
+        compose.onNodeWithTag("player_play").assertExists()
+        compose.onNodeWithTag("exit_hint").assertDoesNotExist()
+        assertFalse(compose.activity.isFinishing)
+    }
+
     @Test fun upUsesHierarchyAndToolbarHonorsCatalogDetail() {
         nav("library"); nav("search")
         compose.onNodeWithTag("settings").performClick()

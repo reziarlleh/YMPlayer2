@@ -64,7 +64,8 @@ class LocalPlaybackTest {
         try {
             compose.onAllNodesWithText("Unknown artist").onFirst().assertIsDisplayed()
             compose.onNodeWithTag("nav_library").performClick()
-            compose.onAllNodesWithText("Unknown artist").onFirst().assertIsDisplayed()
+            compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("track_${tracks.first().id}"))
+            compose.onNodeWithTag("track_${tracks.first().id}").assert(hasText("Unknown artist")).assertIsDisplayed()
         } finally { compose.runOnIdle { dev.petrov.ymplayer2.localization.AppLanguages.select("ru") } }
     }
     @Test fun historyRecordsAudiblePlaybackAndOpensFromLibraryWithConfirmedClear() {

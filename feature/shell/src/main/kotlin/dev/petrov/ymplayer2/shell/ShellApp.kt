@@ -53,7 +53,10 @@ private val destinations get() = listOf(
     val demo = model.local == null
     var savedRoute by rememberSaveable { mutableStateOf(initialRoute) }
     // Video is a separate Activity. Keep the underlying section, including an old restored Bundle.
-    val route = if (savedRoute == "clips") initialRoute.takeUnless { it == "clips" } ?: "player" else savedRoute
+    // Event handlers must read the latest destination even before the next UI frame.
+    val route by remember(initialRoute) { derivedStateOf {
+        if (savedRoute == "clips") initialRoute.takeUnless { it == "clips" } ?: "player" else savedRoute
+    } }
     var aboutOpen by rememberSaveable { mutableStateOf(false) }
     var artistFrom by rememberSaveable { mutableStateOf("player") }
     var exitAt by remember { mutableStateOf<Long?>(null) }
