@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 84,
-  "versionName": "2.4.1-build84",
+  "versionCode": 97,
+  "versionName": "2.5.0-build97",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-06T07:37:36.0151429Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.4.1-build84",
-  "releaseNotes": "Настройки «Моей волны» показываются только в её режиме, включая паузу; при смене источника окно закрывается.",
+  "publishedAt": "2026-10-07T08:51:42.1657712Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.0-build97",
+  "releaseNotes": "Эфирное Радио, восстановление музыки/радио/клипа и сетевой повтор. Выпускной аудит: пагинация радио, возврат к списку, быстрый Back и отсутствующие локальные теги.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.4.1-build84/YMPlayer-2.4.1-build84.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.4.1-build84/releases/2.4.1-build84/YMPlayer-2.4.1-build84.apk",
-    "sizeBytes": 6059245,
-    "sha256": "c4597a814aa7d850ed44a8f1186cf9004980c32806e060a710d8649ed7daefb7"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.0-build97/YMPlayer-2.5.0-build97.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.0-build97/releases/2.5.0-build97/YMPlayer-2.5.0-build97.apk",
+    "sizeBytes": 6232145,
+    "sha256": "7467be4fd2e8a3e77fd88a58302306a323672a3d2b164682b886c053ff2e7e32"
   }
 }
