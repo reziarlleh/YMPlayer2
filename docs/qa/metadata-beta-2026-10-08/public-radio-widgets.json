@@ -1,0 +1,13 @@
+{
+  "checkedOnUtc": "2026-10-08",
+  "source": "https://radio.api.music.yandex.ru/radio/v1/stations/europa-plus/streams/moscow/widgets",
+  "httpStatus": 200,
+  "types": [
+    "show"
+  ],
+  "showNames": [
+    "Крутой Подъём"
+  ],
+  "musicTrackPresent": false,
+  "note": "Reduced public response: descriptions and other payload omitted; live check returned no song."
+}

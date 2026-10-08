@@ -1,5 +1,9 @@
 # YMPlayer 2 — user guide
 
+A manual [2.5.2beta-build99](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.2beta-build99)
+is available to test instrument-cluster compatibility. Installing it over2.x keeps
+your data. Automatic updates remain on2.5.1-build98; the affected cluster still needs testing.
+
 For **2.5.1-build98**, Android9 and later. Reviewed on 7 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.

@@ -1,6 +1,14 @@
 import java.util.Properties
+import com.android.build.api.instrumentation.InstrumentationScope
+import com.android.build.api.instrumentation.FramesComputationMode
+import dev.petrov.build.LegacyArtworkTransform
 
 plugins { alias(libs.plugins.android.application); alias(libs.plugins.compose.compiler) }
+require(libs.versions.media3.get() == "1.11.0") { "Re-audit the Media3 ART compatibility patch before changing Media3." }
+androidComponents.onVariants { variant ->
+    variant.instrumentation.transformClassesWith(LegacyArtworkTransform::class.java, InstrumentationScope.ALL) {}
+    variant.instrumentation.setAsmFramesComputationMode(FramesComputationMode.COMPUTE_FRAMES_FOR_INSTRUMENTED_METHODS)
+}
 val versionInfo = Properties().apply { rootProject.file("version.properties").inputStream().use(::load) }
 val issuedBuild = providers.gradleProperty("issuedBuildNumber").orNull?.toInt()
 val base = versionInfo.getProperty("baseVersion")

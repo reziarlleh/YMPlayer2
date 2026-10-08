@@ -1,0 +1,4 @@
+
+      package=dev.petrov.ymplayer2
+      state=PlaybackState {state=0, position=0, buffered position=0, speed=0.0, updated=454039, actions=4451973, custom actions=[], active item id=0, error=null}
+      metadata: size=2, description=null, null, null

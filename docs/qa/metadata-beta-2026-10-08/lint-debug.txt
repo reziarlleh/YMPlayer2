@@ -1,0 +1,436 @@
+D:\_codex\YMPlayer2\playback\android\src\main\kotlin\dev\petrov\ymplayer2\playback\AndroidPlayback.kt:94: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+        prefs.edit().commit()
+                     ~~~~~~~~
+D:\_codex\YMPlayer2\playback\android\src\main\kotlin\dev\petrov\ymplayer2\playback\AndroidRadio.kt:155: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+    fun saveForExit() { prefs.edit().commit(); launchState.flush() }
+                                     ~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\ClipActivity.kt:152: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+        graph.clipCheckpoints.flush(); graph.launchState.flush(); graph.navigation.edit().commit()
+                                                                                          ~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\MainActivity.kt:49: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+        graph.navigation.edit().commit()
+                                ~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\MainActivity.kt:50: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+        graph.radioNavigation.edit().commit()
+                                     ~~~~~~~~
+D:\_codex\YMPlayer2\app\src\debug\kotlin\dev\petrov\ymplayer2\OnlineTestActivity.kt:34: Warning: Consider using apply() instead; commit writes its data to persistent storage immediately, whereas apply will handle it in the background [ApplySharedPref]
+    init { context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit() }
+                                                                                         ~~~~~~~~
+
+   Explanation for issues of type "ApplySharedPref":
+   Consider using apply() instead of commit on shared preferences. Whereas
+   commit blocks and writes its data to persistent storage immediately, apply
+   will handle it in the background.
+
+D:\_codex\YMPlayer2\app\build.gradle.kts:35: Warning: Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details. [OldTargetApi]
+        targetSdk = 36
+        ~~~~~~~~~~~~~~
+
+   Explanation for issues of type "OldTargetApi":
+   When your application or sdk runs on a version of Android that is more
+   recent than your targetSdk specifies that it has been tested with, various
+   compatibility modes kick in. This ensures that your application continues
+   to work, but it may look out of place. For example, if the targetSdk is
+   less than 14, your app may get an option button in the UI.
+
+   To fix this issue, set the targetSdk to the highest available value. Then
+   test your app to make sure everything works correctly. You may want to
+   consult the compatibility notes to see what changes apply to each version
+   you are adding support for:
+   https://developer.android.com/reference/android/os/Build.VERSION_CODES.html
+   as well as follow this guide:
+   https://developer.android.com/distribute/best-practices/develop/target-sdk.
+   html
+
+   https://developer.android.com/distribute/best-practices/develop/target-sdk.html
+
+D:\_codex\YMPlayer2\gradle\wrapper\gradle-wrapper.properties:3: Warning: A newer version of Gradle than 9.5.0 is available: 9.8.0 [AndroidGradlePluginVersion]
+distributionUrl=https\://services.gradle.org/distributions/gradle-9.5.0-bin.zip
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:2: Warning: A newer version of com.android.application than 9.3.2 is available: 9.4.1. (There is also a newer version of 9.3.𝑥 available, if upgrading to 9.4.1 is difficult: 9.3.3) [AndroidGradlePluginVersion]
+agp = "9.3.2"
+      ~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:2: Warning: A newer version of com.android.library than 9.3.2 is available: 9.4.1. (There is also a newer version of 9.3.𝑥 available, if upgrading to 9.4.1 is difficult: 9.3.3) [AndroidGradlePluginVersion]
+agp = "9.3.2"
+      ~~~~~~~
+
+   Explanation for issues of type "AndroidGradlePluginVersion":
+   This detector looks for usage of the Android Gradle Plugin where the
+   version you are using is not the current stable release. Using older
+   versions is fine, and there are cases where you deliberately want to stick
+   with an older version. However, you may simply not be aware that a more
+   recent version is available, and that is what this lint check helps find.
+
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:4: Warning: A newer version of androidx.compose:compose-bom than 2026.08.00 is available: 2026.09.00 [GradleDependency]
+compose = "2026.08.00"
+          ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:6: Warning: A newer version of androidx.lifecycle:lifecycle-runtime-compose than 2.10.0 is available: 2.11.0 [GradleDependency]
+lifecycle = "2.10.0"
+            ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:6: Warning: A newer version of androidx.lifecycle:lifecycle-viewmodel-compose than 2.10.0 is available: 2.11.0 [GradleDependency]
+lifecycle = "2.10.0"
+            ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:8: Warning: A newer version of androidx.media3:media3-exoplayer than 1.11.0 is available: 1.11.1 [GradleDependency]
+media3 = "1.11.0"
+         ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:8: Warning: A newer version of androidx.media3:media3-exoplayer-dash than 1.11.0 is available: 1.11.1 [GradleDependency]
+media3 = "1.11.0"
+         ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:8: Warning: A newer version of androidx.media3:media3-exoplayer-hls than 1.11.0 is available: 1.11.1 [GradleDependency]
+media3 = "1.11.0"
+         ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:8: Warning: A newer version of androidx.media3:media3-session than 1.11.0 is available: 1.11.1 [GradleDependency]
+media3 = "1.11.0"
+         ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:8: Warning: A newer version of androidx.media3:media3-ui than 1.11.0 is available: 1.11.1 [GradleDependency]
+media3 = "1.11.0"
+         ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:11: Warning: A newer version of androidx.core:core than 1.19.0 is available: 1.19.1 [GradleDependency]
+android-core = { module = "androidx.core:core", version = "1.19.0" }
+                                                          ~~~~~~~~
+
+   Explanation for issues of type "GradleDependency":
+   This detector looks for usages of libraries where the version you are using
+   is not the current stable release. Using older versions is fine, and there
+   are cases where you deliberately want to stick with an older version.
+   However, you may simply not be aware that a more recent version is
+   available, and that is what this lint check helps find.
+
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:3: Warning: A newer version of org.jetbrains.kotlin.jvm than 2.3.21 is available: 2.4.20 [NewerVersionAvailable]
+kotlin = "2.3.21"
+         ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:3: Warning: A newer version of org.jetbrains.kotlin.plugin.compose than 2.3.21 is available: 2.4.20 [NewerVersionAvailable]
+kotlin = "2.3.21"
+         ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:7: Warning: A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-android than 1.10.2 is available: 1.11.0 [NewerVersionAvailable]
+coroutines = "1.10.2"
+             ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:7: Warning: A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-core than 1.10.2 is available: 1.11.0 [NewerVersionAvailable]
+coroutines = "1.10.2"
+             ~~~~~~~~
+D:\_codex\YMPlayer2\gradle\libs.versions.toml:7: Warning: A newer version of org.jetbrains.kotlinx:kotlinx-coroutines-test than 1.10.2 is available: 1.11.0 [NewerVersionAvailable]
+coroutines = "1.10.2"
+             ~~~~~~~~
+
+   Explanation for issues of type "NewerVersionAvailable":
+   This detector checks with a central repository to see if there are newer
+   versions available for the dependencies used by this project. This is
+   similar to the GradleDependency check, which checks for newer versions
+   available in the Android SDK tools and libraries, but this works with any
+   MavenCentral dependency, and connects to the library every time, which
+   makes it more flexible but also much slower.
+
+D:\_codex\YMPlayer2\feature\shell\src\main\kotlin\dev\petrov\ymplayer2\shell\TasteControls.kt:153: Warning: Using Configuration.screenHeightDp instead of LocalWindowInfo.current.containerSize [ConfigurationScreenWidthHeight from androidx.compose.ui]
+    if (LocalConfiguration.current.screenHeightDp < 480 || LocalDensity.current.fontScale > 1.3f) {
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "ConfigurationScreenWidthHeight":
+   Configuration.screenWidthDp and Configuration.screenHeightDp have different
+   insets behaviour depending on target SDK version, and are rounded to the
+   nearest Dp. This means that using these values in composition to size a
+   layout can result in issues, as these values do not accurately represent
+   the actual available window size. Instead it is recommended to use
+   WindowInfo.containerSize which accurately represents the window size.
+
+   Vendor: Jetpack Compose
+   Identifier: androidx.compose.ui
+   Feedback: https://issuetracker.google.com/issues/new?component=612128
+
+D:\_codex\YMPlayer2\feature\shell\src\main\kotlin\dev\petrov\ymplayer2\shell\TasteControls.kt:170: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
+@Composable internal fun WaveButton(player: PlaybackController, signedIn: Boolean, signIn: () -> Unit, started: () -> Unit = {}, modifier: Modifier = Modifier) {
+                                                                                                                                 ~~~~~~~~
+
+   Explanation for issues of type "ModifierParameter":
+   The first (or only) Modifier parameter in a Composable function should
+   follow the following rules:
+   - Be named modifier
+   - Have a type of Modifier
+   - Either have no default value, or have a default value of Modifier
+   - If optional, be the first optional parameter in the parameter list
+
+   Vendor: Jetpack Compose
+   Identifier: androidx.compose.ui
+   Feedback: https://issuetracker.google.com/issues/new?component=612128
+
+D:\_codex\YMPlayer2\playback\android\src\main\AndroidManifest.xml:6: Warning: Exported service does not require permission [ExportedService]
+        <service android:name="dev.petrov.ymplayer2.playback.AudioService" android:exported="true" android:foregroundServiceType="mediaPlayback">
+         ~~~~~~~
+
+   Explanation for issues of type "ExportedService":
+   Exported services (services which either set exported=true or contain an
+   intent-filter and do not specify exported=false) should define a permission
+   that an entity must have in order to launch the service or bind to it.
+   Without this, any application can use this service.
+
+   https://goo.gle/ExportedService
+
+D:\_codex\YMPlayer2\app\src\main\AndroidManifest.xml:15: Warning: The attribute android:dataExtractionRules only applies for Android 12 and higher; since minSdkVersion is API 28 you should also set android:fullBackupContent [DataExtractionRules]
+        android:allowBackup="false" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true">
+                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "DataExtractionRules":
+   Before Android 12, the attributes android:allowBackup and
+   android:fullBackupContent were used to configure all forms of backup,
+   including cloud backups, device-to-device transfers and adb backup.
+
+   In Android 12 and higher, these attributes have been deprecated and will
+   only apply to cloud backups. You should instead use the attribute
+   android:dataExtractionRules, specifying an @xml resource that configures
+   which files to back up, for cloud backups and for device-to-device
+   transfers, separately. If your minSdkVersion supports older versions,
+   you'll still want to specify an android:fullBackupContent resource if the
+   default behavior is not right for your app.
+
+   https://developer.android.com/about/versions/12/backup-restore#xml-changes
+   https://goo.gle/DataExtractionRules
+
+D:\_codex\YMPlayer2\app\src\main\res\mipmap-anydpi-v26: Warning: This folder configuration (v26) is unnecessary; minSdkVersion is 28. Merge all the resources in this folder into mipmap-anydpi. [ObsoleteSdkInt]
+
+   Explanation for issues of type "ObsoleteSdkInt":
+   This check flags version checks that are not necessary, because the
+   minSdkVersion (or surrounding known API level) is already at least as high
+   as the version checked for.
+
+   Similarly, it also looks for resources in -vNN folders, such as values-v14
+   where the version qualifier is less than or equal to the minSdkVersion,
+   where the contents should be merged into the best folder.
+
+D:\_codex\YMPlayer2\localization\src\main\kotlin\dev\petrov\ymplayer2\localization\AppLanguages.kt:14: Warning: Do not place Android context classes in static fields (static reference to AppLanguages which has field context pointing to Context); this is a memory leak [StaticFieldLeak]
+/** Device-wide UI preference. Does not recreate Activities or touch player/profile data. */
+^
+D:\_codex\YMPlayer2\localization\src\main\kotlin\dev\petrov\ymplayer2\localization\AppLanguages.kt:17: Warning: Do not place Android context classes in static fields; this is a memory leak [StaticFieldLeak]
+    private var context: Context? = null
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\debug\kotlin\dev\petrov\ymplayer2\OnlineTestActivity.kt:30: Warning: This field leaks a context object [StaticFieldLeak]
+    private val context = object : ContextWrapper(app) {
+    ^
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\UpdateCoordinator.kt:31: Warning: This field leaks a context object [StaticFieldLeak]
+    private val context = context.applicationContext
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "StaticFieldLeak":
+   A static field will leak contexts.
+
+   Non-static inner classes have an implicit reference to their outer class.
+   If that outer class is for example a Fragment or Activity, then this
+   reference means that the long-running handler/loader/task will hold a
+   reference to the activity which prevents it from getting garbage
+   collected.
+
+   Similarly, direct field references to activities and fragments from these
+   longer running instances can cause leaks.
+
+   ViewModel classes should never point to Views or non-application Contexts.
+
+D:\_codex\YMPlayer2\designsystem\src\main\res\drawable\ym_wide_black.xml:11: Warning: Very long vector path (7533 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector. [VectorPath]
+            <path android:fillColor="#000000" android:pathData="M14.766809668977789 0.0H48.66721894592186Q59.742253052333865 0.0 64.61050518105677 5.267394270122782Q69.47875730977967 10.534788540245565 68.28474864659289 20.259208731241472Q67.05757307609538 30.253751705320596 60.35636391685325 35.88130968622101Q53.655154757611115 41.50886766712142 41.319547663477415 41.50886766712142H30.154472629371003L27.147339699863576 66.0H6.663028649386085ZM31.796234541252815 28.137789904502043H36.79350602829238Q42.69118679227601 28.137789904502043 45.32878708995092 26.089358799454295Q47.966387387625836 24.040927694406548 48.358862457469634 20.844474761255114Q48.74028189154319 17.73806275579809 46.93467581305779 15.577080491132332Q45.12906973457238 13.416098226466573 39.41147082597757 13.416098226466573H33.60383098968835ZM80.85685059667219 0.0H99.22519984633114L91.12141882673943 66.0H72.7530695770805ZM123.49830475584369 33.675306957708045 106.2119848525717 31.829467939972716Q107.76627248149282 27.237380627557982 109.95799907743151 24.60368349249659Q112.14972567337018 21.969986357435197 115.89901802251237 20.034106412005457Q118.5915263523946 18.63847203274215 123.09750471346763 17.873124147339695Q127.60348307454066 17.10777626193724 132.73581595312183 17.10777626193724Q140.97456083716003 17.10777626193724 145.85851205755455 18.030695770804908Q150.74246327794907 18.953615279672576 153.71466944010905 21.879945429740786Q155.80698175533306 23.905866302864936 156.70155069522644 27.620054570259207Q157.5961196351198 31.334242837653477 157.1815332937355 34.710777626193725L154.58898670561237 55.825375170532055Q154.17440036422806 59.2019099590723 154.36716251065872 61.11527967257844Q154.5599246570894 63.02864938608458 155.63574351978173 66.0H138.43792633015008Q137.62909619495449 64.15416098226467 137.4328010325542 63.1862210095498Q137.23650587015396 62.218281036834924 137.17564224593926 60.14733969986357Q133.14836316100843 63.61391541609822 129.4093285268703 65.09959072305594Q124.30389444442689 67.08049113233288 117.86596811427681 67.08049113233288Q109.3120799833082 67.08049113233288 105.36401226824958 63.11869031377899Q101.41594455319097 59.1568894952251 102.12903306037195 53.349249658935875Q102.79789902447195 47.90177353342428 106.42552175266304 44.39017735334242Q110.05314448085414 40.87858117326057 118.86211015530469 39.167803547066846Q129.42607599902993 37.096862210095495 132.58973217151456 36.26398362892223Q135.75338834399918 35.43110504774897 139.34077813294033 34.08049113233288Q139.75536447432464 30.703956343792633 138.52556463161505 29.353342428376536Q137.29576478890547 28.002728512960438 133.78416860882362 28.002728512960438Q129.2821222241033 28.002728512960438 126.85420885941915 29.44338335607094Q124.96021532225012 30.56889495225102 123.49830475584369 33.675306957708045ZM138.2075754664899 43.30968622100955Q134.26002196677112 44.66030013642565 130.03601994531778 45.69577080491132Q124.27106443805549 47.18144611186903 122.60849895877381 48.62210095497954Q120.89538519775981 50.107776261937246 120.6632168465846 51.998635743519785Q120.39788158809866 54.15961800818554 121.73746868148368 55.53274215552524Q123.07705577486871 56.905866302864936 126.00338592493694 56.905866302864936Q129.06477746654676 56.905866302864936 131.88089259181726 55.420190995907234Q134.69700771708773 53.934515688949524 136.06258043088758 51.79604365620737Q137.42815314468746 49.65757162346521 137.84826730395687 46.23601637107777ZM164.8828209023236 18.18826739427012H184.241620356621L190.1929346943759 50.017735334242836L203.2402561001408 18.18826739427012H221.2934621028693L196.06577352358107 69.28649386084584Q191.75190345686838 78.02046384720327 187.9994770521397 81.0818553888131Q182.69663736736425 85.40381991814462 172.92719671252115 85.40381991814462Q168.96539589396727 85.40381991814462 160.81429817532484 84.32332878581173L160.94354361158952 71.537517053206Q164.75056552935993 72.79809004092769 169.6127756248579 72.79809004092769Q172.85424902185653 72.79809004092769 175.04007765326617 71.31241473396999Q177.2259062846758 69.82673942701228 179.09140518417465 66.0ZM274.5256656469471 46.64120054570259H237.78896714762922Q237.74246609720632 51.053206002728516 239.3679903203029 53.21418826739427Q241.64277825321435 56.320600272851294 245.91972231869863 56.320600272851294Q248.62095014953084 56.320600272851294 251.21788973383354 54.9699863574352Q252.8085935806086 54.11459754433834 254.78470646528828 51.953615279672576L272.6333832062672 53.6193724420191Q267.60704967070467 60.822646657571624 261.3702060275521 63.95156889495225Q255.1333623843996 67.08049113233288 244.19338966952918 67.08049113233288Q234.6940717977693 67.08049113233288 229.57550083642258 64.40177353342429Q224.45692987507584 61.723055934515685 221.59365541534675 55.89290586630286Q218.73038095561765 50.06275579809004 219.69774908551432 42.18417462482947Q221.07417573891018 30.97407912687585 229.1062236768482 24.040927694406545Q237.13827161478622 17.10777626193724 249.78902195585033 17.10777626193724Q260.05368771301266 17.10777626193724 265.61496950676997 20.214188267394267Q271.17625130052727 23.320600272851294 273.55851916303305 29.218281036834924Q275.94078702553884 35.11596180081855 274.7799452696628 44.570259208731244ZM256.9651181018041 37.86221009549796Q257.0771550460823 32.54979536152796 255.04051987009262 30.253751705320596Q253.003884694103 27.95770804911323 249.22216573093792 27.95770804911323Q244.8551807377592 27.95770804911323 241.81835185746687 31.42428376534788Q239.8872594366344 33.58526603001364 238.91191209907558 37.86221009549796ZM286.61815514516127 18.18826739427012H303.77095187094574L302.80911155893415 26.02182810368349Q305.90988049154936 20.934515688949517 308.7785098867285 19.02114597544338Q311.64713928190764 17.10777626193724 315.51889917276714 17.10777626193724Q319.5707409190154 17.10777626193724 324.07837274909923 19.62892223738063L316.8027271176657 32.684856753069575Q313.72708825722077 31.334242837653477 311.83622877563823 31.334242837653477Q308.234591667862 31.334242837653477 305.88885527816683 34.305593451568896Q302.5384789924765 38.492496589358794 301.1288854317699 49.972714870395635L299.1609822646658 66.0H280.74761255115965ZM373.39972714870396 66.0H318.3847203274216Q320.3306851054203 57.851296043656205 326.0070514578247 50.670532060027284Q331.6834178102291 43.48976807639836 346.0739501985316 33.720327421555254Q354.86781300590246 27.732605729877214 357.5002556323362 24.62619372442019Q360.1326982587699 21.519781718963166 360.47542296764755 18.72851296043656Q360.84578676595083 15.71214188267394 358.87984515505764 13.573669849931786Q356.9139035441645 11.435197817189632 353.53736875562424 11.435197817189632Q350.0257725755424 11.435197817189632 347.5263965387348 13.641200545702592Q345.02702050192715 15.847203274215552 343.5762231987693 21.429740791268756L325.39029193931947 19.944065484311047Q327.4215677478937 12.200545702592088 330.8363118600291 7.85607094133697Q334.2510559721646 3.5115961800818525 339.7806226314476 1.1930422919508814Q345.3101892907307 -1.1255115961800897 354.5844048432546 -1.1255115961800897Q364.2638045704033 -1.1255115961800897 369.372886923773 1.0804911323328739Q374.48196927714275 3.2864938608458374 377.0047975353361 7.85607094133697Q379.5276257935294 12.425648021828103 378.8311207400038 18.098226466575717Q378.0903931433972 24.13096862210095 373.8818929494066 29.623465211459752Q369.67339275541605 35.11596180081855 359.54709532781686 41.68894952251023Q353.5397137543753 45.51568894952251 351.48341869662215 47.046384720327424Q349.42712363886903 48.577080491132335 346.60194767974383 51.053206002728516H375.23496268656515Z" />
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\designsystem\src\main\res\drawable\ym_wide_white.xml:11: Warning: Very long vector path (7533 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector. [VectorPath]
+            <path android:fillColor="#FFFFFF" android:pathData="M14.766809668977789 0.0H48.66721894592186Q59.742253052333865 0.0 64.61050518105677 5.267394270122782Q69.47875730977967 10.534788540245565 68.28474864659289 20.259208731241472Q67.05757307609538 30.253751705320596 60.35636391685325 35.88130968622101Q53.655154757611115 41.50886766712142 41.319547663477415 41.50886766712142H30.154472629371003L27.147339699863576 66.0H6.663028649386085ZM31.796234541252815 28.137789904502043H36.79350602829238Q42.69118679227601 28.137789904502043 45.32878708995092 26.089358799454295Q47.966387387625836 24.040927694406548 48.358862457469634 20.844474761255114Q48.74028189154319 17.73806275579809 46.93467581305779 15.577080491132332Q45.12906973457238 13.416098226466573 39.41147082597757 13.416098226466573H33.60383098968835ZM80.85685059667219 0.0H99.22519984633114L91.12141882673943 66.0H72.7530695770805ZM123.49830475584369 33.675306957708045 106.2119848525717 31.829467939972716Q107.76627248149282 27.237380627557982 109.95799907743151 24.60368349249659Q112.14972567337018 21.969986357435197 115.89901802251237 20.034106412005457Q118.5915263523946 18.63847203274215 123.09750471346763 17.873124147339695Q127.60348307454066 17.10777626193724 132.73581595312183 17.10777626193724Q140.97456083716003 17.10777626193724 145.85851205755455 18.030695770804908Q150.74246327794907 18.953615279672576 153.71466944010905 21.879945429740786Q155.80698175533306 23.905866302864936 156.70155069522644 27.620054570259207Q157.5961196351198 31.334242837653477 157.1815332937355 34.710777626193725L154.58898670561237 55.825375170532055Q154.17440036422806 59.2019099590723 154.36716251065872 61.11527967257844Q154.5599246570894 63.02864938608458 155.63574351978173 66.0H138.43792633015008Q137.62909619495449 64.15416098226467 137.4328010325542 63.1862210095498Q137.23650587015396 62.218281036834924 137.17564224593926 60.14733969986357Q133.14836316100843 63.61391541609822 129.4093285268703 65.09959072305594Q124.30389444442689 67.08049113233288 117.86596811427681 67.08049113233288Q109.3120799833082 67.08049113233288 105.36401226824958 63.11869031377899Q101.41594455319097 59.1568894952251 102.12903306037195 53.349249658935875Q102.79789902447195 47.90177353342428 106.42552175266304 44.39017735334242Q110.05314448085414 40.87858117326057 118.86211015530469 39.167803547066846Q129.42607599902993 37.096862210095495 132.58973217151456 36.26398362892223Q135.75338834399918 35.43110504774897 139.34077813294033 34.08049113233288Q139.75536447432464 30.703956343792633 138.52556463161505 29.353342428376536Q137.29576478890547 28.002728512960438 133.78416860882362 28.002728512960438Q129.2821222241033 28.002728512960438 126.85420885941915 29.44338335607094Q124.96021532225012 30.56889495225102 123.49830475584369 33.675306957708045ZM138.2075754664899 43.30968622100955Q134.26002196677112 44.66030013642565 130.03601994531778 45.69577080491132Q124.27106443805549 47.18144611186903 122.60849895877381 48.62210095497954Q120.89538519775981 50.107776261937246 120.6632168465846 51.998635743519785Q120.39788158809866 54.15961800818554 121.73746868148368 55.53274215552524Q123.07705577486871 56.905866302864936 126.00338592493694 56.905866302864936Q129.06477746654676 56.905866302864936 131.88089259181726 55.420190995907234Q134.69700771708773 53.934515688949524 136.06258043088758 51.79604365620737Q137.42815314468746 49.65757162346521 137.84826730395687 46.23601637107777ZM164.8828209023236 18.18826739427012H184.241620356621L190.1929346943759 50.017735334242836L203.2402561001408 18.18826739427012H221.2934621028693L196.06577352358107 69.28649386084584Q191.75190345686838 78.02046384720327 187.9994770521397 81.0818553888131Q182.69663736736425 85.40381991814462 172.92719671252115 85.40381991814462Q168.96539589396727 85.40381991814462 160.81429817532484 84.32332878581173L160.94354361158952 71.537517053206Q164.75056552935993 72.79809004092769 169.6127756248579 72.79809004092769Q172.85424902185653 72.79809004092769 175.04007765326617 71.31241473396999Q177.2259062846758 69.82673942701228 179.09140518417465 66.0ZM274.5256656469471 46.64120054570259H237.78896714762922Q237.74246609720632 51.053206002728516 239.3679903203029 53.21418826739427Q241.64277825321435 56.320600272851294 245.91972231869863 56.320600272851294Q248.62095014953084 56.320600272851294 251.21788973383354 54.9699863574352Q252.8085935806086 54.11459754433834 254.78470646528828 51.953615279672576L272.6333832062672 53.6193724420191Q267.60704967070467 60.822646657571624 261.3702060275521 63.95156889495225Q255.1333623843996 67.08049113233288 244.19338966952918 67.08049113233288Q234.6940717977693 67.08049113233288 229.57550083642258 64.40177353342429Q224.45692987507584 61.723055934515685 221.59365541534675 55.89290586630286Q218.73038095561765 50.06275579809004 219.69774908551432 42.18417462482947Q221.07417573891018 30.97407912687585 229.1062236768482 24.040927694406545Q237.13827161478622 17.10777626193724 249.78902195585033 17.10777626193724Q260.05368771301266 17.10777626193724 265.61496950676997 20.214188267394267Q271.17625130052727 23.320600272851294 273.55851916303305 29.218281036834924Q275.94078702553884 35.11596180081855 274.7799452696628 44.570259208731244ZM256.9651181018041 37.86221009549796Q257.0771550460823 32.54979536152796 255.04051987009262 30.253751705320596Q253.003884694103 27.95770804911323 249.22216573093792 27.95770804911323Q244.8551807377592 27.95770804911323 241.81835185746687 31.42428376534788Q239.8872594366344 33.58526603001364 238.91191209907558 37.86221009549796ZM286.61815514516127 18.18826739427012H303.77095187094574L302.80911155893415 26.02182810368349Q305.90988049154936 20.934515688949517 308.7785098867285 19.02114597544338Q311.64713928190764 17.10777626193724 315.51889917276714 17.10777626193724Q319.5707409190154 17.10777626193724 324.07837274909923 19.62892223738063L316.8027271176657 32.684856753069575Q313.72708825722077 31.334242837653477 311.83622877563823 31.334242837653477Q308.234591667862 31.334242837653477 305.88885527816683 34.305593451568896Q302.5384789924765 38.492496589358794 301.1288854317699 49.972714870395635L299.1609822646658 66.0H280.74761255115965ZM373.39972714870396 66.0H318.3847203274216Q320.3306851054203 57.851296043656205 326.0070514578247 50.670532060027284Q331.6834178102291 43.48976807639836 346.0739501985316 33.720327421555254Q354.86781300590246 27.732605729877214 357.5002556323362 24.62619372442019Q360.1326982587699 21.519781718963166 360.47542296764755 18.72851296043656Q360.84578676595083 15.71214188267394 358.87984515505764 13.573669849931786Q356.9139035441645 11.435197817189632 353.53736875562424 11.435197817189632Q350.0257725755424 11.435197817189632 347.5263965387348 13.641200545702592Q345.02702050192715 15.847203274215552 343.5762231987693 21.429740791268756L325.39029193931947 19.944065484311047Q327.4215677478937 12.200545702592088 330.8363118600291 7.85607094133697Q334.2510559721646 3.5115961800818525 339.7806226314476 1.1930422919508814Q345.3101892907307 -1.1255115961800897 354.5844048432546 -1.1255115961800897Q364.2638045704033 -1.1255115961800897 369.372886923773 1.0804911323328739Q374.48196927714275 3.2864938608458374 377.0047975353361 7.85607094133697Q379.5276257935294 12.425648021828103 378.8311207400038 18.098226466575717Q378.0903931433972 24.13096862210095 373.8818929494066 29.623465211459752Q369.67339275541605 35.11596180081855 359.54709532781686 41.68894952251023Q353.5397137543753 45.51568894952251 351.48341869662215 47.046384720327424Q349.42712363886903 48.577080491132335 346.60194767974383 51.053206002728516H375.23496268656515Z" />
+                                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "VectorPath":
+   Using long vector paths is bad for performance. There are several ways to
+   make the pathData shorter:
+   * Using less precision
+   * Removing some minor details
+   * Using the Android Studio vector conversion tool
+   * Rasterizing the image (converting to PNG)
+
+D:\_codex\YMPlayer2\library\offline\src\main\kotlin\dev\petrov\ymplayer2\offline\LikedFileStore.kt:148: Warning: Consider also using StorageManager#getAllocatableBytes and allocateBytes which will consider clearable cached data [UsableSpace]
+        if (root.usableSpace < 32L * 1024 * 1024) throw OfflineException("Недостаточно свободного места для офлайн-музыки.")
+                 ~~~~~~~~~~~
+D:\_codex\YMPlayer2\library\offline\src\main\kotlin\dev\petrov\ymplayer2\offline\LikedFileStore.kt:156: Warning: Consider also using StorageManager#getAllocatableBytes and allocateBytes which will consider clearable cached data [UsableSpace]
+            if (length > root.usableSpace - 16L * 1024 * 1024) throw OfflineException("Недостаточно свободного места для офлайн-музыки.")
+                              ~~~~~~~~~~~
+D:\_codex\YMPlayer2\library\offline\src\main\kotlin\dev\petrov\ymplayer2\offline\LikedFileStore.kt:166: Warning: Consider also using StorageManager#getAllocatableBytes and allocateBytes which will consider clearable cached data [UsableSpace]
+                    if (root.usableSpace < 16L * 1024 * 1024) throw OfflineException("Недостаточно свободного места для офлайн-музыки.")
+                             ~~~~~~~~~~~
+
+   Explanation for issues of type "UsableSpace":
+   When you need to allocate disk space for large files, consider using the
+   new allocateBytes(FileDescriptor, long) API, which will automatically clear
+   cached files belonging to other apps (as needed) to meet your request.
+
+   When deciding if the device has enough disk space to hold your new data,
+   call getAllocatableBytes(UUID) instead of using getUsableSpace(), since the
+   former will consider any cached data that the system is willing to clear on
+   your behalf.
+
+   Note that these methods require API level 26. If your app is running on
+   older devices, you will probably need to use both APIs, conditionally
+   switching on Build.VERSION.SDK_INT. Lint only looks in the same compilation
+   unit to see if you are already using both APIs, so if it warns even though
+   you are already using the new API, consider moving the calls to the same
+   file or suppressing the warning.
+
+D:\_codex\YMPlayer2\feature\clips\src\main\kotlin\dev\petrov\ymplayer2\clips\ClipControlsView.kt:26: Warning: Custom view ClipControlsView is missing constructor used by tools: (Context) or (Context,AttributeSet) or (Context,AttributeSet,int) [ViewConstructor]
+class ClipControlsView(context: Context, private val controller: ClipWaveController, private var palette: ClipPalette = PrismSkin.clipPalette(), close: () -> Unit) : FrameLayout(context) {
+      ~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\feature\clips\src\main\kotlin\dev\petrov\ymplayer2\clips\ClipControlsView.kt:269: Warning: Custom view DiagonalClipInfoBand is missing constructor used by tools: (Context) or (Context,AttributeSet) or (Context,AttributeSet,int) [ViewConstructor]
+private class DiagonalClipInfoBand(context: Context, private var palette: ClipPalette) : FrameLayout(context) {
+              ~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "ViewConstructor":
+   Some layout tools (such as the Android layout editor) need to find a
+   constructor with one of the following signatures:
+   * View(Context context)
+   * View(Context context, AttributeSet attrs)
+   * View(Context context, AttributeSet attrs, int defStyle)
+
+   If your custom view needs to perform initialization which does not apply
+   when used in a layout editor, you can surround the given code with a check
+   to see if View#isInEditMode() is false, since that method will return false
+   at runtime but true within a user interface editor.
+
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\AudioQualitySettings.kt:10: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        prefs.edit().putString("stream", it.stream.key).putString("cache", it.cache.key).apply()
+        ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\ClipActivity.kt:152: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        graph.clipCheckpoints.flush(); graph.launchState.flush(); graph.navigation.edit().commit()
+                                                                  ~~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\CrashDiagnostics.kt:98: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        check(prefs.edit().putLong("clearedAfter", System.currentTimeMillis()).commit())
+              ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\EqualizerLauncher.kt:27: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+            if (launch(manager.getLaunchIntentForPackage(packageName) ?: manager.getLeanbackLaunchIntentForPackage(packageName))) prefs.edit().putString("package", packageName).apply()
+                                                                                                                                  ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\MainActivity.kt:50: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        graph.radioNavigation.edit().commit()
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\MainActivity.kt:133: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+                onRouteChanged = { graph.navigation.edit().putString("route", it).apply() },
+                                   ~~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\MainActivity.kt:136: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+                saveSources = { online, offline -> graph.navigation.edit().putBoolean("online", online).putBoolean("offline", offline).apply() }, importSkin = {
+                                                   ~~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\PlayerApplication.kt:49: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        navigation.edit().apply {
+        ~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\PlayerApplication.kt:56: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+            navigation.edit().putString("route", shellRoute()).apply()
+            ~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\PlayerApplication.kt:118: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        offlinePrefs.getBoolean("wifiOnly", true), { offlinePrefs.edit().putBoolean("wifiOnly", it).apply() }, { wifi ->
+                                                     ~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\PlayerApplication.kt:125: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        saveEnabled = { offlinePrefs.edit().putBoolean("enabled", it).apply() }) }
+                        ~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\PlayerApplication.kt:141: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+            radioNavigation.edit().putString(profile, data.toString()).apply()
+            ~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\feature\shell\src\main\kotlin\dev\petrov\ymplayer2\shell\RadioScreen.kt:240: Warning: Use the KTX extension function String.toColorInt instead? [UseKtx]
+    val color = station?.logoColor?.let { runCatching { Color(android.graphics.Color.parseColor(it)) }.getOrNull() } ?: MaterialTheme.colorScheme.surfaceVariant
+                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\designsystem\src\main\kotlin\dev\petrov\ymplayer2\designsystem\skin\SkinRepository.kt:43: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+            prefs.edit().putString("active", "prism").commit()
+            ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\designsystem\src\main\kotlin\dev\petrov\ymplayer2\designsystem\skin\SkinRepository.kt:77: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        check(prefs.edit().putString("active", preview.skin.id).commit()) { "Не удалось сохранить выбор оформления" }
+              ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\designsystem\src\main\kotlin\dev\petrov\ymplayer2\designsystem\skin\SkinRepository.kt:82: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        check(prefs.edit().putString("active", "prism").commit()) { "Не удалось сохранить выбор оформления" }
+              ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\feature\shell\src\main\kotlin\dev\petrov\ymplayer2\shell\TrackArtwork.kt:42: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+                    val parsed = Uri.parse(uri)
+                                 ~~~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\UpdateCoordinator.kt:63: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        prefs.edit().putBoolean("auto_check", enabled).apply()
+        ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\UpdateCoordinator.kt:74: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+                prefs.edit().putLong("last_check", System.currentTimeMillis()).apply()
+                ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\UpdateCoordinator.kt:127: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+                    prefs.edit().remove("pending").apply()
+                    ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\UpdateCoordinator.kt:147: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+            prefs.edit().remove("pending").apply()
+            ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\app\src\main\kotlin\dev\petrov\ymplayer2\UpdateCoordinator.kt:161: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+        prefs.edit().putString("pending", data.toString()).apply()
+        ~~~~~~~~~~~~
+D:\_codex\YMPlayer2\updater\android\src\main\kotlin\dev\petrov\ymplayer2\updater\UpdateInstaller.kt:20: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+                Uri.parse("package:${activity.packageName}"))
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UseKtx":
+   The Android KTX libraries decorates the Android platform SDK as well as
+   various libraries with more convenient extension functions available from
+   Kotlin, allowing you to use default parameters, named parameters, and
+   more.
+
+   Available options:
+
+   **remove-defaults** (default is true):
+   Whether to skip arguments that match the defaults provided by the extension.
+
+   Extensions often provide default values for some of the parameters. For example:
+   ```kotlin
+   fun Path.readLines(charset: Charset = Charsets.UTF_8): List<String> { return Files.readAllLines(this, charset) }
+   ```
+   This lint check will by default automatically omit parameters that match the default, so if your code was calling
+
+   ```kotlin
+   Files.readAllLines(file, Charset.UTF_8)
+   ```
+   lint would replace this with
+   ```kotlin
+   file.readLines()
+   ```
+   rather than
+
+   ```kotlin
+   file.readLines(Charset.UTF_8
+   ```
+   You can turn this behavior off using this option.
+
+   To configure this option, use a `lint.xml` file with an <option> like this:
+
+   ```xml
+   <lint>
+       <issue id="UseKtx">
+           <option name="remove-defaults" value="true" />
+       </issue>
+   </lint>
+   ```
+
+   **require-present** (default is true):
+   Whether to only offer extensions already available.
+
+   This option lets you only have lint suggest extension replacements if those extensions are already available on the class path (in other words, you're already depending on the library containing the extension method.)
+
+   To configure this option, use a `lint.xml` file with an <option> like this:
+
+   ```xml
+   <lint>
+       <issue id="UseKtx">
+           <option name="require-present" value="true" />
+       </issue>
+   </lint>
+   ```
+
+D:\_codex\YMPlayer2\localization\build.gradle.kts:10: Warning: Use version catalog instead [UseTomlInstead]
+    implementation("androidx.compose.runtime:runtime")
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UseTomlInstead":
+   If your project is using a libs.versions.toml file, you should place all
+   Gradle dependencies in the TOML file. This lint check looks for version
+   declarations outside of the TOML file and suggests moving them (and in the
+   IDE, provides a quickfix to performing the operation automatically).
+
+D:\_codex\YMPlayer2\headunit\sidebar\src\main\kotlin\dev\petrov\ymplayer2\sidebar\SideBarService.kt:124: Warning: onTouch lambda should call View#performClick when a click is detected [ClickableViewAccessibility]
+            setOnTouchListener { _, event ->
+                               ^
+D:\_codex\YMPlayer2\headunit\sidebar\src\main\kotlin\dev\petrov\ymplayer2\sidebar\SideBarService.kt:222: Warning: Custom view Handle overrides onTouchEvent but not performClick [ClickableViewAccessibility]
+        override fun onTouchEvent(event: MotionEvent): Boolean {
+                     ~~~~~~~~~~~~
+
+   Explanation for issues of type "ClickableViewAccessibility":
+   If a View that overrides onTouchEvent or uses an OnTouchListener does not
+   also implement performClick and call it when clicks are detected, the View
+   may not handle accessibility actions properly. Logic handling the click
+   actions should ideally be placed in View#performClick as some accessibility
+   services invoke performClick when a click action should occur.
+
+0 errors, 66 warnings

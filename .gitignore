@@ -8,6 +8,11 @@
 .provider/
 local.properties
 **/build/
+# Source package name, not generated Gradle output.
+!buildSrc/src/main/java/dev/petrov/build/
+!buildSrc/src/main/java/dev/petrov/build/*.java
+!buildSrc/src/test/java/dev/petrov/build/
+!buildSrc/src/test/java/dev/petrov/build/*.java
 captures/
 *.iml
 .idea/

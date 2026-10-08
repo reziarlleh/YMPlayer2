@@ -1,5 +1,11 @@
 # Карта переноса и модулей
 
+2.5.2beta-build99: адаптеры AndroidPlayback/AndroidRadio дополняют стандартный
+экспорт DISPLAY_*. buildSrc дополняет ART в единственном Media3 converter
+при сборке; это не новый runtime-модуль и не перенос OEM-логики1.x.
+[ADR-043](ADR_043_PLATFORM_METADATA_COMPATIBILITY.md),
+[проверки](PATCH_2_5_2_BETA_VERIFICATION.md). Stable2.5.1-build98 сохранён.
+
 Стабильный срез: **2.5.1-build98** / API28. Настройки/источники волн и режимы
 из beta81/82 включены в stable; [контрольный отчёт](RELEASE_2_4_0_VERIFICATION.md).
 Patch84 ограничивает кнопку/окно настроек активной My Wave; [проверки](PATCH_2_4_1_VERIFICATION.md).

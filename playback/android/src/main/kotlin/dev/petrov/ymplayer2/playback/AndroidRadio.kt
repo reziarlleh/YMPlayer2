@@ -153,10 +153,15 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
         }
     }
     fun saveForExit() { prefs.edit().commit(); launchState.flush() }
-    private fun metadata(): MediaMetadata = MediaMetadata.Builder().setTitle(state.value.station?.name)
-        .setArtist(listOf(state.value.onAir.title, state.value.onAir.artist).filter(String::isNotBlank).joinToString(" · "))
-        .setMediaType(MediaMetadata.MEDIA_TYPE_RADIO_STATION).setIsPlayable(true)
-        .setArtworkUri(state.value.station?.logoUri?.let(Uri::parse)).build()
+    private fun metadata(): MediaMetadata {
+        val station = state.value.station
+        val onAir = listOf(state.value.onAir.title, state.value.onAir.artist)
+            .filter(String::isNotBlank).joinToString(" · ")
+        return MediaMetadata.Builder().setTitle(station?.name).setArtist(onAir).setAlbumTitle(station?.name)
+            .setDisplayTitle(station?.name).setSubtitle(onAir).setDescription(station?.regionName)
+            .setMediaType(MediaMetadata.MEDIA_TYPE_RADIO_STATION).setIsPlayable(true)
+            .setArtworkUri(station?.logoUri?.let(Uri::parse)).build()
+    }
     private fun saveStation(station: RadioStation) {
         val data = JSONObject().put("slug", station.slug).put("name", station.name).put("logo", station.logoUri.orEmpty())
             .put("color", station.logoColor.orEmpty()).put("stream", station.streamSlug.orEmpty()).put("region", station.regionName.orEmpty())

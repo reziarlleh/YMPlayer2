@@ -4,9 +4,11 @@
 статус и план, затем относящиеся к задаче решения, исходники и проверки.
 [Текущий аудит, исправления, проверки и выпуск](AUDIT_2_5_RELEASE.md).
 [Текущий патч клипов/офлайна/волны после97](PATCH_2_5_1_VERIFICATION.md).
-[Текущее исследование совместимости с приборной панелью](INSTRUMENT_CLUSTER_RESEARCH.md)
+[Исследование совместимости с приборной панелью](INSTRUMENT_CLUSTER_RESEARCH.md)
 и [сравнение FMPLAY/YMPlayer на одном эмуляторе](FMPLAY_COMPARISON.md)
-— D-003, без изменения APK/версии.
+— историческое исследование D-003 на signed98.
+[Ручная 2.5.2beta-build99: реализация, проверки и остаток](PATCH_2_5_2_BETA_VERIFICATION.md),
+[ADR-043](ADR_043_PLATFORM_METADATA_COMPATIBILITY.md) — DISPLAY_* и ART в той же сессии.
 
 Исторические этапы 2.5: [план](PLAN_2_5.md), [исследование API](YANDEX_RADIO_FEASIBILITY.md),
 [OAuth владельца](YANDEX_RADIO_AUTH_PROBE.md), [макет](RADIO_UI_DESIGN.md),

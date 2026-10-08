@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-08",
+  "version": "2.5.2beta-build99",
+  "jvmTransformTests": 4,
+  "nativeFinal": {
+    "API28": {
+      "passed": 8,
+      "failed": 0
+    },
+    "API35": {
+      "passed": 8,
+      "failed": 0
+    }
+  },
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 66
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 65
+    }
+  },
+  "signedUpgrade": "98 to99 API35: data, folder grant, language and paused position retained",
+  "installedApkSha256": "f5b8bf0456908cfc093b371371cc9a241ba7cbd4fc67442eda98615bef8f3b7f",
+  "cwg": {
+    "version": "3.6.3-R2",
+    "api": 29,
+    "station": "Европа Плюс",
+    "logo": true,
+    "stopPlayCycles": 2,
+    "liveSongNotAvailable": true
+  },
+  "physicalDeviceTested": false,
+  "clusterResult": "pending",
+  "stableFeeds": "2.5.1-build98"
+}

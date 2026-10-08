@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.petrov.build.LegacyArtworkVisitorTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-08T02:25:24.665Z" hostname="REZIARLLEH-NB" time="0.051">
+  <properties/>
+  <testcase name="rejectsChangedBitmapArgument" classname="dev.petrov.build.LegacyArtworkVisitorTest" time="0.039"/>
+  <testcase name="retainsAlbumArtAndAddsExactlyOneArtBitmap" classname="dev.petrov.build.LegacyArtworkVisitorTest" time="0.001"/>
+  <testcase name="rejectsChangedSignature" classname="dev.petrov.build.LegacyArtworkVisitorTest" time="0.001"/>
+  <testcase name="rejectsUpstreamArtOrRepeatedInstrumentation" classname="dev.petrov.build.LegacyArtworkVisitorTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

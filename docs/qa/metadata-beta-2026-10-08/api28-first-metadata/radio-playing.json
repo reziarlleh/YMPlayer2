@@ -1,0 +1,12 @@
+{
+  "state": 3,
+  "android.media.metadata.TITLE": "Тестовое радио",
+  "android.media.metadata.ARTIST": "Тестовая композиция · Тестовый исполнитель",
+  "android.media.metadata.ALBUM": "Original test artwork",
+  "android.media.metadata.DISPLAY_TITLE": "Тестовое радио",
+  "android.media.metadata.DISPLAY_SUBTITLE": "Тестовая композиция · Тестовый исполнитель",
+  "android.media.metadata.DISPLAY_DESCRIPTION": "Москва",
+  "android.media.metadata.ART": "320x320",
+  "android.media.metadata.ALBUM_ART": "320x320",
+  "android.media.metadata.DISPLAY_ICON": "320x320"
+}

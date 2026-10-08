@@ -6,8 +6,11 @@
 
 ## Действующее правило после 2.1
 
-7 октября2026 владелец разрешил stable после аудита. Выпущена **2.5.0-build97**,
-`channel=stable`, `updateChannel=stable`; GitHub latest и оба feeds97.
+Актуальный stable — **2.5.1-build98**, GitHub latest и оба feeds98.
+8 октября2026 владелец разрешил ручную **2.5.2beta-build99** для проверки
+совместимости системных метаданных. channel=beta, updateChannel=stable,
+prerelease/latest=false на той же main; stable98 и feeds не заменяются.
+[Проверки](PATCH_2_5_2_BETA_VERIFICATION.md).
 Прежние beta86–95 — ручные исторические prerelease на той же main; номера88–91
 не опубликованы и не переиспользуются. [Результат](AUDIT_2_5_RELEASE.md).
 

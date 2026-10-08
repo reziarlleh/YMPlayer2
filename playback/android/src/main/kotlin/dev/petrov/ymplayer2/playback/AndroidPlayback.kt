@@ -133,9 +133,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (item == null && !wave) return null
         val title = item?.optString("title")?.takeIf { it.isNotBlank() } ?: "Моя волна"
         val artist = item?.optString("artist")?.takeIf { it.isNotBlank() }
+        val album = item?.optString("album")?.takeIf { it.isNotBlank() }
         return MediaItem.Builder().setMediaId(BrowserSources.RESUME)
             .setUri("ymplayer2://browser/${BrowserSources.RESUME}")
             .setMediaMetadata(MediaMetadata.Builder().setTitle(title).setArtist(artist)
+                .setAlbumTitle(album).setDisplayTitle(title).setSubtitle(artist).setDescription(album)
                 .setIsPlayable(true).build()).build()
     }
 
@@ -1400,7 +1402,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
 private fun Track.mediaItem(profile: String) = MediaItem.Builder().setMediaId(id).setUri(if (source == Source.YANDEX)
     Uri.Builder().scheme("ymplayer2").authority("yandex").appendPath(profile).appendPath(id).build().toString() else uri)
-    .setMediaMetadata(MediaMetadata.Builder().setTitle(title).setArtist(artist).setAlbumTitle(album).setArtworkUri(artworkUri?.let(Uri::parse)).build()).build()
+    .setMediaMetadata(MediaMetadata.Builder().setTitle(title).setArtist(artist).setAlbumTitle(album)
+        .setDisplayTitle(title).setSubtitle(artist).setDescription(album)
+        .setArtworkUri(artworkUri?.let(Uri::parse)).build()).build()
 private fun RepeatMode.toPlayerMode() = when (this) { RepeatMode.OFF -> Player.REPEAT_MODE_OFF; RepeatMode.ALL -> Player.REPEAT_MODE_ALL; RepeatMode.ONE -> Player.REPEAT_MODE_ONE }
 private fun Int.toRepeatMode() = when (this) { Player.REPEAT_MODE_ALL -> RepeatMode.ALL; Player.REPEAT_MODE_ONE -> RepeatMode.ONE; else -> RepeatMode.OFF }
 

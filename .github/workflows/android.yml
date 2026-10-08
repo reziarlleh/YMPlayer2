@@ -26,3 +26,5 @@ jobs:
         run: python3 tools/Generate-Translations.py --check
       - name: Unit tests, APK compilation and lint
         run: bash gradlew :core:test :app:testDebugUnitTest :app:assembleDebug :app:assembleDebugAndroidTest :app:lintDebug --console=plain
+      - name: Metadata transformation contract
+        run: bash gradlew -p buildSrc test --console=plain

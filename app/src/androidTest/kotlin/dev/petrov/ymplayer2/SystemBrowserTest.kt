@@ -121,7 +121,11 @@ class SystemBrowserTest {
             main { browser.play() }
             Thread.sleep(800)
             assertFalse("An empty cache must not resume the old queue", app.playback.state.value.playing)
-            assertEquals(id, app.playback.state.value.current?.id)
+            // Since build98 an explicit Offline selection immediately replaces the old queue,
+            // including an empty cache. Keep the stronger no-fallback/source assertions.
+            assertEquals(dev.petrov.ymplayer2.core.PlaybackSource.OFFLINE, app.playback.state.value.origin.source)
+            assertNull(app.playback.state.value.current)
+            assertTrue(app.playback.state.value.queue.isEmpty())
 
             val connected = CountDownLatch(1)
             val legacy = main { PlatformBrowser(context, service, object : PlatformBrowser.ConnectionCallback() {
@@ -135,6 +139,8 @@ class SystemBrowserTest {
                 main { PlatformController(context, legacy.sessionToken).transportControls.playFromMediaId("ymp_liked_cache", null) }
                 Thread.sleep(800)
                 assertFalse("Legacy playFromMediaId must use the empty cache, not the old queue", app.playback.state.value.playing)
+                assertEquals(dev.petrov.ymplayer2.core.PlaybackSource.OFFLINE, app.playback.state.value.origin.source)
+                assertNull(app.playback.state.value.current)
             } finally {
                 main { legacy.disconnect() }
             }
