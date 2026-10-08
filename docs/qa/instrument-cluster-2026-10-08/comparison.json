@@ -1,0 +1,405 @@
+{
+  "checkedAtUtc": "2026-10-08T01:56:20.100730+00:00",
+  "clientDate": "2026-10-08",
+  "serial": "emulator-5560",
+  "sdk": 28,
+  "consumerUid": 0,
+  "fmplay": {
+    "package": "ru.fmplay",
+    "version": "2.4.18",
+    "versionCode": 260801220,
+    "certificateSha256": "326a90c73289ec2400c641c888082a8b5a931ec4fb333809e23b538329bda71b",
+    "apks": {
+      "arm64-8a": {
+        "name": "FMPLAY_v.2.4.18(260801220)(4.1-17.0)(arm64-8a).apk",
+        "bytes": 6873282,
+        "sha256": "812153928a8c91c10f13fc50b8657ab9552d434cd34966ae320fbd67581478ae",
+        "dexSha256": "75e90937faaebf44f231225bf65700bf5e57fc8d94e321e91c92a2ba0f74baaf"
+      },
+      "x86": {
+        "name": "FMPLAY_v.2.4.18(260801220)(4.1-17.0)(x86).apk",
+        "bytes": 6914209,
+        "sha256": "9bd53205c3a90f6c4f6708c72067cec14906135ee515d06321749d65124aa75d",
+        "dexSha256": "75e90937faaebf44f231225bf65700bf5e57fc8d94e321e91c92a2ba0f74baaf"
+      }
+    }
+  },
+  "ymplayer": {
+    "package": "dev.petrov.ymplayer2",
+    "version": "2.5.1-build98",
+    "installedApkSha256": "edb5ec3797f9f32c5dd248df8d264da93f2f4bcec45902a08075d27e176e6706"
+  },
+  "dexIdenticalAcrossFmplayAbis": true,
+  "observations": {
+    "fmplay-playing-api28": [
+      {
+        "package": "ru.fmplay",
+        "flags": 3,
+        "state": 3,
+        "speed": 1,
+        "actions": 52786,
+        "metadata": {
+          "android.media.metadata.TITLE": "Прямой эфир",
+          "android.media.metadata.ARTIST": "Серебряный дождь",
+          "android.media.metadata.ALBUM": "Серебряный Дождь",
+          "android.media.metadata.DISPLAY_TITLE": "Прямой эфир",
+          "android.media.metadata.DISPLAY_SUBTITLE": "Серебряный дождь",
+          "android.media.metadata.DISPLAY_DESCRIPTION": "Серебряный Дождь",
+          "duration": -1,
+          "android.media.metadata.ART": "600x600",
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": "336x336",
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "Прямой эфир",
+          "subtitle": "Серебряный дождь",
+          "icon": "336x336"
+        },
+        "observedAtElapsedMs": 165738
+      }
+    ],
+    "fmplay-paused-api28": [
+      {
+        "package": "ru.fmplay",
+        "flags": 3,
+        "state": 2,
+        "speed": 0,
+        "actions": 52788,
+        "metadata": {
+          "android.media.metadata.TITLE": "Серебряный Дождь",
+          "android.media.metadata.ARTIST": null,
+          "android.media.metadata.ALBUM": null,
+          "android.media.metadata.DISPLAY_TITLE": "Серебряный Дождь",
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "android.media.metadata.DISPLAY_DESCRIPTION": null,
+          "duration": -1,
+          "android.media.metadata.ART": "600x600",
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": "336x336",
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "Серебряный Дождь",
+          "subtitle": null,
+          "icon": "336x336"
+        },
+        "observedAtElapsedMs": 205452
+      }
+    ],
+    "fmplay-resumed-api28": [
+      {
+        "package": "ru.fmplay",
+        "flags": 3,
+        "state": 3,
+        "speed": 1,
+        "actions": 52786,
+        "metadata": {
+          "android.media.metadata.TITLE": "Прямой эфир",
+          "android.media.metadata.ARTIST": "Серебряный дождь",
+          "android.media.metadata.ALBUM": "Серебряный Дождь",
+          "android.media.metadata.DISPLAY_TITLE": "Прямой эфир",
+          "android.media.metadata.DISPLAY_SUBTITLE": "Серебряный дождь",
+          "android.media.metadata.DISPLAY_DESCRIPTION": "Серебряный Дождь",
+          "duration": -1,
+          "android.media.metadata.ART": "600x600",
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": "336x336",
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "Прямой эфир",
+          "subtitle": "Серебряный дождь",
+          "icon": "336x336"
+        },
+        "observedAtElapsedMs": 206550
+      }
+    ],
+    "fmplay-station-change-api28": [
+      {
+        "package": "ru.fmplay",
+        "flags": 3,
+        "state": 3,
+        "speed": 1,
+        "actions": 52786,
+        "metadata": {
+          "android.media.metadata.TITLE": "Lo-Fi Radio",
+          "android.media.metadata.ARTIST": null,
+          "android.media.metadata.ALBUM": null,
+          "android.media.metadata.DISPLAY_TITLE": "Lo-Fi Radio",
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "android.media.metadata.DISPLAY_DESCRIPTION": null,
+          "duration": -1,
+          "android.media.metadata.ART": "600x600",
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": "336x336",
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "Lo-Fi Radio",
+          "subtitle": null,
+          "icon": "336x336"
+        },
+        "observedAtElapsedMs": 209837
+      },
+      {
+        "package": "ru.fmplay",
+        "flags": 3,
+        "state": 3,
+        "speed": 1,
+        "actions": 52786,
+        "metadata": {
+          "android.media.metadata.TITLE": "Stop chasing Sam",
+          "android.media.metadata.ARTIST": "Faded Amber",
+          "android.media.metadata.ALBUM": "Lo-Fi Radio",
+          "android.media.metadata.DISPLAY_TITLE": "Stop chasing Sam",
+          "android.media.metadata.DISPLAY_SUBTITLE": "Faded Amber",
+          "android.media.metadata.DISPLAY_DESCRIPTION": "Lo-Fi Radio",
+          "duration": -1,
+          "android.media.metadata.ART": "600x600",
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": "336x336",
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "Stop chasing Sam",
+          "subtitle": "Faded Amber",
+          "icon": "336x336"
+        },
+        "observedAtElapsedMs": 209951
+      }
+    ],
+    "fmplay-stopped-api28": [
+      {
+        "package": "ru.fmplay",
+        "flags": 3,
+        "state": 2,
+        "speed": 0,
+        "actions": 52788,
+        "metadata": {
+          "android.media.metadata.TITLE": "Lo-Fi Radio",
+          "android.media.metadata.ARTIST": null,
+          "android.media.metadata.ALBUM": null,
+          "android.media.metadata.DISPLAY_TITLE": "Lo-Fi Radio",
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "android.media.metadata.DISPLAY_DESCRIPTION": null,
+          "duration": -1,
+          "android.media.metadata.ART": "600x600",
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": "336x336",
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "Lo-Fi Radio",
+          "subtitle": null,
+          "icon": "336x336"
+        },
+        "observedAtElapsedMs": 213608
+      }
+    ],
+    "fmplay-background": [
+      {
+        "package": "ru.fmplay",
+        "flags": 3,
+        "state": 3,
+        "speed": 1,
+        "actions": 52786,
+        "metadata": {
+          "android.media.metadata.TITLE": "Flower Kingdom",
+          "android.media.metadata.ARTIST": "Mossdeep",
+          "android.media.metadata.ALBUM": "Lo-Fi Radio",
+          "android.media.metadata.DISPLAY_TITLE": "Flower Kingdom",
+          "android.media.metadata.DISPLAY_SUBTITLE": "Mossdeep",
+          "android.media.metadata.DISPLAY_DESCRIPTION": "Lo-Fi Radio",
+          "duration": -1,
+          "android.media.metadata.ART": "600x600",
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": "336x336",
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "Flower Kingdom",
+          "subtitle": "Mossdeep",
+          "icon": "336x336"
+        },
+        "observedAtElapsedMs": 546889
+      },
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 0,
+        "speed": 0,
+        "actions": 7340029,
+        "metadata": {
+          "android.media.metadata.TITLE": "one",
+          "android.media.metadata.ARTIST": "",
+          "android.media.metadata.ALBUM": "",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "android.media.metadata.DISPLAY_DESCRIPTION": null,
+          "duration": 30000,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": null,
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "one",
+          "subtitle": null,
+          "icon": null
+        },
+        "observedAtElapsedMs": 546890
+      }
+    ],
+    "ymplayer-playing-api28": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 3,
+        "speed": 1,
+        "actions": 7340027,
+        "metadata": {
+          "android.media.metadata.TITLE": "Cover fixture",
+          "android.media.metadata.ARTIST": "YMPlayer tests",
+          "android.media.metadata.ALBUM": "Original test artwork",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "android.media.metadata.DISPLAY_DESCRIPTION": null,
+          "duration": 29999,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": "320x320",
+          "android.media.metadata.DISPLAY_ICON": "320x320",
+          "android.media.metadata.ART_URI": true,
+          "android.media.metadata.ALBUM_ART_URI": true,
+          "android.media.metadata.DISPLAY_ICON_URI": true
+        },
+        "description": {
+          "title": "Cover fixture",
+          "subtitle": "YMPlayer tests",
+          "icon": "320x320"
+        },
+        "observedAtElapsedMs": 433768
+      }
+    ],
+    "ymplayer-paused-api28": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 2,
+        "speed": 0,
+        "actions": 7340029,
+        "metadata": {
+          "android.media.metadata.TITLE": "Cover fixture",
+          "android.media.metadata.ARTIST": "YMPlayer tests",
+          "android.media.metadata.ALBUM": "Original test artwork",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "android.media.metadata.DISPLAY_DESCRIPTION": null,
+          "duration": 29999,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": "320x320",
+          "android.media.metadata.DISPLAY_ICON": "320x320",
+          "android.media.metadata.ART_URI": true,
+          "android.media.metadata.ALBUM_ART_URI": true,
+          "android.media.metadata.DISPLAY_ICON_URI": true
+        },
+        "description": {
+          "title": "Cover fixture",
+          "subtitle": "YMPlayer tests",
+          "icon": "320x320"
+        },
+        "observedAtElapsedMs": 435765
+      }
+    ],
+    "ymplayer-resumed-api28": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 3,
+        "speed": 1,
+        "actions": 7340027,
+        "metadata": {
+          "android.media.metadata.TITLE": "Cover fixture",
+          "android.media.metadata.ARTIST": "YMPlayer tests",
+          "android.media.metadata.ALBUM": "Original test artwork",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "android.media.metadata.DISPLAY_DESCRIPTION": null,
+          "duration": 29999,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": "320x320",
+          "android.media.metadata.DISPLAY_ICON": "320x320",
+          "android.media.metadata.ART_URI": true,
+          "android.media.metadata.ALBUM_ART_URI": true,
+          "android.media.metadata.DISPLAY_ICON_URI": true
+        },
+        "description": {
+          "title": "Cover fixture",
+          "subtitle": "YMPlayer tests",
+          "icon": "320x320"
+        },
+        "observedAtElapsedMs": 436931
+      }
+    ],
+    "ymplayer-next-api28": [
+      {
+        "package": "dev.petrov.ymplayer2",
+        "flags": 7,
+        "state": 3,
+        "speed": 1,
+        "actions": 7340027,
+        "metadata": {
+          "android.media.metadata.TITLE": "one",
+          "android.media.metadata.ARTIST": "",
+          "android.media.metadata.ALBUM": "",
+          "android.media.metadata.DISPLAY_TITLE": null,
+          "android.media.metadata.DISPLAY_SUBTITLE": null,
+          "android.media.metadata.DISPLAY_DESCRIPTION": null,
+          "duration": 30000,
+          "android.media.metadata.ART": null,
+          "android.media.metadata.ALBUM_ART": null,
+          "android.media.metadata.DISPLAY_ICON": null,
+          "android.media.metadata.ART_URI": false,
+          "android.media.metadata.ALBUM_ART_URI": false,
+          "android.media.metadata.DISPLAY_ICON_URI": false
+        },
+        "description": {
+          "title": "one",
+          "subtitle": null,
+          "icon": null
+        },
+        "observedAtElapsedMs": 438025
+      }
+    ]
+  },
+  "limits": [
+    "Root emulator consumer, not ordinary third-party app",
+    "Polling, not complete callback timing",
+    "FMPLAY uses public radio; YMPlayer uses synthetic SAF tracks without Yandex token",
+    "No instrument cluster acceptance",
+    "Yandex Music APK not compared",
+    "No production changes, no new release"
+  ],
+  "failedResearchAttempts": [
+    "ARM64 install on AOSP x86_64: NO_MATCHING_ABIS",
+    "API28 shell lacks active-session reading permission; root consumer used",
+    "API28 cmd media_session dispatch unsupported; KEYCODE_MEDIA_* used",
+    "Intermittent null UI root: stale XML rejected, fresh snapshots retried"
+  ]
+}

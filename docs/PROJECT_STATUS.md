@@ -1,6 +1,6 @@
 # Текущий статус YMPlayer 2
 
-Сверено 7 октября 2026: **[2.5.1-build98](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.1-build98)**,
+Сверено 8 октября 2026: **[2.5.1-build98](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.1-build98)**,
 публичный `reziarlleh/YMPlayer2`, одна линия `main`, `dev.petrov.ymplayer2`,
 Android 9/API28 и новее. GitHub latest и оба stable feeds указывают на98;
 beta86–95 остаются историческими prerelease. 2.x — самостоятельное приложение,
@@ -64,8 +64,10 @@ API35, force-stop клипов и подписанное обновление. �
   и разрешения, без предварительного запроса модели машины/ГУ. Signed98/API35:
   внешний framework-контроллер видит текст, обложку и команды; denied
   POST_NOTIFICATIONS не блокирует MediaStyle. Причина исчезновения карточки
-  пока неизвестна; сравнение FMPLAY ещё не выполнено. D-003,
-  [результаты и план](INSTRUMENT_CLUSTER_RESEARCH.md).
+  пока неизвестна. 8 октября FMPLAY2.4.18 и signed98 сравнены на одном API28:
+  подтверждены DISPLAY_* и ART у FMPLAY при их отсутствии у YMPlayer,
+  системная сессия/MediaStyle и Play/Pause работают у обоих. D-003,
+  [исследование](INSTRUMENT_CLUSTER_RESEARCH.md), [сравнение/путь прототипа](FMPLAY_COMPARISON.md).
 - B-019/B-020 исправлены98; B-018 — запуск исправлен, геометрия скорректирована
   и проверена на эмуляторе, физическая приёмка HyperOS ещё не выполнена.
   Подписи старого недоступного носителя сохраняются до чтения оригинальных тегов;
