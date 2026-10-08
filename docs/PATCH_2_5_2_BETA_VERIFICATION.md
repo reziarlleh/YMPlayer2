@@ -39,7 +39,9 @@ runtime reflection, дополнительных разрешений или OEM
 
 ## Подписанный APK и CWG
 
-На API35 signed98 обновлён до signed99 без очистки. FirstInstallTime,
+На API35 signed98 обновлён до signed99 без очистки.
+[Версия/дата установки до](qa/metadata-beta-2026-10-08/upgrade-api35-before.txt)
+и [после](qa/metadata-beta-2026-10-08/upgrade-api35-after.txt): FirstInstallTime,
 English, разрешение SAF, выбранный Cover fixture и пауза на0:02 сохранены.
 После открытия восстановленный элемент ещё не подготовлен (framework state0),
 поэтому это не объявляется сразу готовым state2. Внешние Play/Pause/Next дают
@@ -89,10 +91,22 @@ state3/2/3; следующий трек one не наследует bitmap/URI �
 
 ## Публикация и остаток
 
-Выпуск — GitHub prerelease v2.5.2beta-build99, latest=false; вручную поверх2.x.
+Опубликован [GitHub prerelease v2.5.2beta-build99](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.2beta-build99),
+latest=false; вручную поверх 2.x. [Проверка публикации](qa/metadata-beta-2026-10-08/publication.json):
+четыре вложения (APK/build.json/SHA256.txt/signature.txt) скачаны и совпадают
+с локальными SHA256. Резервный pinned jsDelivr APK также совпал.
+Raw GitHub manifest/stable, основной jsDelivr и Gcore stable вернули 2.5.1-build98
+8 октября 2026. Это датированный срез, не гарантия будущей свежести CDN.
 Stable2.5.1-build98 и update/manifest.json + stable.json остаются прежними.
 Оба package/channel относятся к тому же проекту/main, отдельной ветки нет.
 Системные поля/обложка/команды проверены; причина скрытия приборки не доказана.
 D-003 остаётся открытым до результата пользователя. Физические устройства
 не подключались; 4PDA не редактировалась. Следующий шаг — результат установки beta
 на проблемном устройстве и при необходимости адресная доработка текущей2.5.x.
+
+[Сверка документов/GitHub](qa/metadata-beta-2026-10-08/documentation.json):
+214 документов, локальные ссылки и README blob без расхождений.
+[GitHub Actions](https://github.com/reziarlleh/YMPlayer2/actions/runs/37722770744)
+завершился успешно на release commit c02bf28: каталог переводов,
+JVM, сборка debug/test APK, lint и отдельные проверки buildSrc.
+[Снимок CI](qa/metadata-beta-2026-10-08/ci.json). Это не дополнительная физическая приёмка.

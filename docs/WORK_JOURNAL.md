@@ -22,6 +22,16 @@ framework с непустыми полями проверен фикстурой
 [ADR-043](ADR_043_PLATFORM_METADATA_COMPATIBILITY.md).
 Следующий шаг — пользовательский результат beta на проблемном устройстве.
 Новый функциональный этап, 4PDA и физические проверки не запускались.
+Публикация: commit c02bf28, prerelease v2.5.2beta-build99/latest=false,
+четыре вложения скачаны и проверены, pinned APK совпал. Все проверенные
+stable endpoints, включая Gcore, вернули98. Первая попытка release с коротким
+target SHA отвергнута GitHub422; повтор с полным commit SHA успешен.
+[HTTP/вложения](qa/metadata-beta-2026-10-08/publication.json),
+[документы/GitHub](qa/metadata-beta-2026-10-08/documentation.json).
+GitHub Actions37722770744 завершился success: переводы, JVM, APK/lint и buildSrc.
+RepoWise index-only update завершён для67 изменённых файлов; исходники
+преобразования сохранены, generated build-каталоги остаются игнорируемыми.
+Открытых сборочных ошибок нет; остаток — физический результат D-003.
 
 ### 2026-10-08 — FMPLAY2.4.18: сравнение с signed98 / D-003
 

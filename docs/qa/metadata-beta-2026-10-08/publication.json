@@ -1,0 +1,66 @@
+{
+  "checkedAtUtc": "2026-10-08T03:28:18.587771+00:00",
+  "release": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.2beta-build99",
+  "prerelease": true,
+  "latest": "v2.5.1-build98",
+  "assets": [
+    {
+      "name": "build.json",
+      "bytes": 344,
+      "sha256": "cf54f225e0a78068bd43624fc174986f8d11d5c171d2ec45ee26aa9612a4cfb2",
+      "matchesLocal": true
+    },
+    {
+      "name": "SHA256.txt",
+      "bytes": 97,
+      "sha256": "18e5ff02e30b8e58357418c094b3d1ece50f8589c28b9534216a3f0f6b4e18de",
+      "matchesLocal": true
+    },
+    {
+      "name": "signature.txt",
+      "bytes": 978,
+      "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1",
+      "matchesLocal": true
+    },
+    {
+      "name": "YMPlayer-2.5.2beta-build99.apk",
+      "bytes": 6248537,
+      "sha256": "f5b8bf0456908cfc093b371371cc9a241ba7cbd4fc67442eda98615bef8f3b7f",
+      "matchesLocal": true
+    }
+  ],
+  "http": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "bytes": 951,
+      "versionName": "2.5.1-build98"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "bytes": 951,
+      "versionName": "2.5.1-build98"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 951,
+      "versionName": "2.5.1-build98"
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "bytes": 951,
+      "versionName": "2.5.1-build98"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.2beta-build99/releases/2.5.2beta-build99/YMPlayer-2.5.2beta-build99.apk",
+      "status": 200,
+      "bytes": 6248537,
+      "sha256": "f5b8bf0456908cfc093b371371cc9a241ba7cbd4fc67442eda98615bef8f3b7f",
+      "matchesApk": true
+    }
+  ],
+  "stableLocalFeedsUnchanged": true
+}
