@@ -54,6 +54,23 @@ Signed102→103/API35 и signed99→103/Android TV API29 установлены 
 не являются приёмкой приборной панели или полной проверкой пользовательских
 данных и настроек. Debug native-сценарии выше проверены отдельно.
 
+## Публикация и остаток
+
+Опубликован [GitHub prerelease v2.5.5beta-build103](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.5beta-build103)
+с APK, build.json, SHA256.txt и signature.txt. Tag указывает на commit
+`3c2b4c8`, содержащий APK и код эксперимента. Скачанный с GitHub release APK
+побайтно совпал с локальным по SHA-256. GitHub asset digest также совпал.
+
+Срез 9 октября 2026, 18:31 UTC: GitHub Latest — прежний stable102; default
+branch `main` остаётся `d15f6cd`. Raw GitHub и основной jsDelivr `@main`
+вернули build102 в `update/manifest.json` и `update/stable.json`.
+Эксперимент не вошёл в stable feeds и основные документы.
+
+Следующий шаг — результат на реальном TENET T8. При отрицательном результате
+сравнить один отчёт Media Monitor для YMPlayer103 и работающего FMPLAY на
+том же ГУ: тексты, token, group, flags, порядок изменения уведомлений и
+состояние приборки. Без этой приёмки причина OEM-моста остаётся гипотезой.
+
 Это Android-сторона, а не физическая приёмка TENET. Если панель по-прежнему
 не показывает данные, нужна запись с проблемного ГУ, например уже выпущенным
 отдельным Media Monitor, и сравнение с работающим FMPLAY на том же устройстве.
