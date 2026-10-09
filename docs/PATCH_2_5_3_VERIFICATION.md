@@ -82,7 +82,22 @@ GitHub v2.5.3-build101 опубликован как latest (prerelease=false), 
 build.json, SHA256.txt и signature.txt. Исходный tag bc3e30b включает APK
 для pinned CDN. Оба feeds переведены на101. Исторические99 и отдельный
 эксперимент не изменены. HTTP/CDN, документы --github и экран обновлений98
-проверяются после push; их результат будет дописан отдельно.
+проверены после push.
+
+HTTP-срез 2026-10-09T05:08:05.525638+00:00: GitHub raw manifest/stable101, cdn.jsdelivr.net
+manifest/stable101, gcore.jsdelivr.net manifest101. Gcore stable.json
+по-прежнему98 после purge и повторной проверки — известная задержка D-001,
+не объявляется свежим зеркалом. Основной резервный CDN актуален.
+APK загружен полностью с GitHub и pinned cdn.jsdelivr.net; обе копии имеют
+тот же SHA-256 daa9e371702d840cd8473020565470140895a749efe65af8401038ba19cc0790.
+Сам установленный stable98/API28 при запуске предложил101 (автоматический
+диалог Version2.5.3-build101/Download), установка из его диалога не выполнялась.
+Проверка tools/Check-Documentation.py --github:220 документов,1955 локальных
+ссылок, brokenLinks/errors пусты, README blob совпадает с GitHub.
+Main/latest/оба feeds согласованы. RepoWise обновлён структурно,56 страниц,
+без model prose/$0;237.4сек. После этого context на новые ThemePreferences
+и WaveHistory возвращает актуальные определения. Физический USB чужого ГУ
+и однообразие конкретного аккаунта остаются дополнительными отзывами.
 
 Источники ограничений Android, прочитаны9 октября2026:
 [SAF и persistable permission](https://developer.android.com/training/data-storage/shared/documents-files),

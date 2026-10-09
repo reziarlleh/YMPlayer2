@@ -17,5 +17,19 @@
   },
   "lintErrors": 0,
   "localizationMessages": 675,
-  "physicalAcceptance": "HU USB and account wave diversity unverified"
+  "physicalAcceptance": "HU USB and account wave diversity unverified",
+  "publishedAtVerificationUtc": "2026-10-09T05:08:05.525638+00:00",
+  "updates": {
+    "githubLatest": "v2.5.3-build101",
+    "githubFeeds": 101,
+    "jsdelivrFeeds": 101,
+    "gcoreManifest": 101,
+    "gcoreStable": 98,
+    "stable98Api28Offer": 101
+  },
+  "documentation": {
+    "documents": 220,
+    "localLinks": 1955,
+    "errors": 0
+  }
 }
