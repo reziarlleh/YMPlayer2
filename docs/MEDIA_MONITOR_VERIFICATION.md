@@ -40,6 +40,12 @@ apksigner verify: v1/v2 успешно; v3/v4 отсутствуют, допол
 исключён из latest. Stable2.5.1-build98, manual2.5.2beta-build99,
 `version.properties` и два feeds остаются прежними.
 
+Публикация проверена9 октября, 03:56 UTC: GitHub helper prerelease с четырьмя
+вложениями, downloaded APK и GitHub asset digest совпали с локальным SHA-256.
+`Check-Documentation.py --github`: 219 документов, 1980 локальных ссылок,
+0 ошибок; README blob совпадает. GitHub latest сохранился v2.5.1-build98,
+manual beta — v2.5.2beta-build99. Исходники/документы опубликованы на main.
+
 ## Выполненные проверки
 
 | Проверка | Результат и границы |
