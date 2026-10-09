@@ -1,0 +1,21 @@
+{
+  "version": "2.5.3-build101",
+  "jvm": {
+    "core": 125,
+    "buildSrc": 4
+  },
+  "native": {
+    "initial": {
+      "API28": 24,
+      "TV29": 24
+    },
+    "followup": {
+      "API28": 7,
+      "TV29": 7
+    },
+    "API35": 5
+  },
+  "lintErrors": 0,
+  "localizationMessages": 675,
+  "physicalAcceptance": "HU USB and account wave diversity unverified"
+}

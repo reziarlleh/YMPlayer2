@@ -1,12 +1,15 @@
 # Карта переноса и модулей
 
-2.5.2beta-build99: адаптеры AndroidPlayback/AndroidRadio дополняют стандартный
-экспорт DISPLAY_*. buildSrc дополняет ART в единственном Media3 converter
-при сборке; это не новый runtime-модуль и не перенос OEM-логики1.x.
-[ADR-043](ADR_043_PLATFORM_METADATA_COMPATIBILITY.md),
-[проверки](PATCH_2_5_2_BETA_VERIFICATION.md). Stable2.5.1-build98 сохранён.
+2.5.3-build101: ThemePreferences в designsystem, загрузка/сохранение в MainActivity,
+ShellApp получает режим снаружи. SafLibrary поддерживает read-only file roots
+наравне с SAF; MountedFolderPicker только выбирает папку API28/29.
+WaveHistory в core сохраняет ключи вне короткой очереди AndroidPlayback;
+YandexWaveApi остаётся адаптером протокола1.x. [Подробный отчёт](PATCH_2_5_3_VERIFICATION.md).
 
-Стабильный срез: **2.5.1-build98** / API28. Настройки/источники волн и режимы
+Системные DISPLAY_*/ART из99 сохранены без дополнительной доработки.
+Сам ручной APK99 не изменён; D-003 отложен. [ADR-043](ADR_043_PLATFORM_METADATA_COMPATIBILITY.md).
+
+Стабильный срез: **2.5.3-build101** / API28. Настройки/источники волн и режимы
 из beta81/82 включены в stable; [контрольный отчёт](RELEASE_2_4_0_VERIFICATION.md).
 Patch84 ограничивает кнопку/окно настроек активной My Wave; [проверки](PATCH_2_4_1_VERIFICATION.md).
 
@@ -72,7 +75,7 @@ Fxx: [карта функций](FEATURE_INVENTORY.md); Sxx: [reference1.x](LEGA
 | F10/F12 | S01/S03/S04 | core/OnlineMusic + provider/yandex + playback + shell | migration/refactor | M5 verification | Чтение/запуск списков, поиск четырёх типов, детали и страницы; изоляция запросов и очередь. [Проверки](M5_VERIFICATION.md). Создание, append и удаление своих облачных списков F10 — [M7.3](M7_3_VERIFICATION.md), core/CloudPlaylists + YandexPlaylistApi; серверная приёмка отдельно |
 | F11 | Запрос владельца + протокол клиента Яндекса, не реализация 1.x | core/CloudPlaylists + YandexPlaylistApi + shell | new | M7.4 verification | Переименование, удаление конкретного вхождения, перемещение одним diff; revision, сохранение повторов и перечитывание результата. [Решение](DECISIONS/ADR-018-cloud-playlist-editor.md), [проверки](M7_4_VERIFICATION.md); реальную запись принимает владелец |
 | F25, прежний объём M6 | ROADMAP + запрос владельца | provider capability extensions | new | M6 partial verification | Рекомендованные плейлисты и любимые исполнители/альбомы реализованы; реальный аккаунт принимает владелец. Настройки настроения добавлены в beta81 (строка выше); волны по четырём объектам, режимы и переключатель реализованы в beta82; строка источников выше и [отчёт](WAVE_SOURCES_2_4_VERIFICATION.md) |
-| F13/F14/F15 | S05 | local source + library | migration/refactor | M3.3 local | SAF, rescan, unavailable; собственные плейлисты/избранное, встроенные обложки и ограниченный кэш без изменения оригиналов. Возврат источника проверен через DocumentsProvider; физический hot-plug отдельно |
+| F13/F14/F15 | S05 | local source + library | migration/refactor | M3.3 local | SAF + mounted-folder API28/29, rescan, unavailable; собственные плейлисты/избранное, встроенные обложки и ограниченный кэш без изменения оригиналов. Возврат источника проверен через DocumentsProvider; физический hot-plug отдельно |
 | F18 | S07 / ClipWaveActivity | provider/yandex + feature:clips | migration/refactor | M9.1–M9.5 реализованы; [M9.6](M9_6_VERIFICATION.md) проверяет сегменты и 60 естественных окончаний на Android 15/TV | Сохранён владелец rotor-сессии для feedback, один следующий медиаресурс, повторный start после пустого /next и история до 40. Собственные HLS/DASH читаются Media3 до и после перехода. API-фикстуры и локальные сегменты не выдаются за новую live-приёмку Яндекса |
 | F20 | S02 | playback/android MediaLibrarySession | migration/refactor | M8.1–M8.2/build22–23, эмуляторы; [M8.4](M8_4_VERIFICATION.md) boot emulator; CWG открыт | Media3 и platform MediaBrowser публикуют два источника 1.x; запуск и защита внешних URI проверены. MediaButtonReceiver запускает остановленную службу; восстановление после перезагрузки Android/TV эмуляторов проверено. Физические кнопки/boot/CWG ещё открыты. [Браузер](M8_1_VERIFICATION.md), [кнопки и фокус](M8_2_VERIFICATION.md) |
 | F21/F22 | S09/ROADMAP | headunit/sidebar + shell/SideBarAccess | migration/refactor | [M10.1/build34](M10_1_VERIFICATION.md), [M10.2/build36](M10_2_VERIFICATION.md), [M10.3/build37](M10_3_VERIFICATION.md), [M10.4/build38](M10_4_VERIFICATION.md), [M10.5/build43](M10_5_VERIFICATION.md), Android 15 | Встроенное окно и разрешение реализованы. Зоны захвата невидимы, находятся под IME и пересчитываются при повороте; внешний контур со скосами 45° содержит круглые кнопки. Девять команд выбираются отдельно; сон и перезагрузка стоят перед обязательным сворачиванием, пустой набор выключает SideBar. K4811 volume/mute/Home/Back/меню/сон используют NWD-команды, Play/Pause — системную медиакоманду. Перезагрузка переносит подтверждение, однократный Binder transaction 0x1c/type 2 и обработку неизвестного результата из рабочего сценария 1.x. Владелец подтвердил его на K4811 в 1.x; физическая приёмка переноса в 2.x открыта; EQ/DSP относится к главному плееру, TS18-эвристика 1.x не переносится |

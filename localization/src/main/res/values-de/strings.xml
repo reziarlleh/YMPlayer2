@@ -666,5 +666,14 @@
     <string name="radio_65f7daba2df4" formatted="false">"Die Antwort von Radio konnte nicht gelesen werden. Versuche es erneut."</string>
     <string name="internet_absent" formatted="false">"Keine Internetverbindung"</string>
     <string name="internet_retry" formatted="false">"Verbindung erneut versuchen"</string>
+    <string name="msg_c5d8b34667e5" formatted="false">"Speicherordner"</string>
+    <string name="msg_2eab61192b5f" formatted="false">"Speicher auswählen"</string>
+    <string name="msg_7758ab0d2031" formatted="false">"Speicher nicht verfügbar. Schließe ihn an oder nutze die System-Ordnerauswahl."</string>
+    <string name="msg_c7e24c134a4e" formatted="false">"System-Ordnerauswahl"</string>
+    <string name="msg_f3f88d26dec9" formatted="false">"Diesen Ordner verwenden"</string>
+    <string name="msg_8429277fdf48" formatted="false">"Erlaube YMPlayer den Lesezugriff oder nutze die System-Ordnerauswahl."</string>
+    <string name="msg_0e5d03ee4234" formatted="false">"Wenn die Systemauswahl den USB-Speicher nicht anzeigt, wähle den Ordner direkt auf dem Speicher aus."</string>
+    <string name="msg_10e1623cae3c" formatted="false">"Eine Ebene höher"</string>
+    <string name="msg_d45556f3a844" formatted="false">"Ordner hinzufügen"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

@@ -666,5 +666,14 @@
     <string name="radio_65f7daba2df4" formatted="false">"Не ўдалося прачытаць адказ Радыё. Паўтарыце запыт."</string>
     <string name="internet_absent" formatted="false">"Няма інтэрнэт-злучэння"</string>
     <string name="internet_retry" formatted="false">"Паўтарыць падключэнне"</string>
+    <string name="msg_c5d8b34667e5" formatted="false">"Папка на назапашвальніку"</string>
+    <string name="msg_2eab61192b5f" formatted="false">"Выберыце назапашвальнік"</string>
+    <string name="msg_7758ab0d2031" formatted="false">"Назапашвальнік недаступны. Падключыце яго або скарыстайцеся сістэмным выбарам папкі."</string>
+    <string name="msg_c7e24c134a4e" formatted="false">"Сістэмны выбар папкі"</string>
+    <string name="msg_f3f88d26dec9" formatted="false">"Выбраць гэту папку"</string>
+    <string name="msg_8429277fdf48" formatted="false">"Дазвольце YMPlayer чытаць назапашвальнік або скарыстайцеся сістэмным выбарам папкі."</string>
+    <string name="msg_0e5d03ee4234" formatted="false">"Калі сістэмны выбар не паказвае USB, выберыце папку на назапашвальніку наўпрост."</string>
+    <string name="msg_10e1623cae3c" formatted="false">"На ўзровень вышэй"</string>
+    <string name="msg_d45556f3a844" formatted="false">"Дадаць папку"</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

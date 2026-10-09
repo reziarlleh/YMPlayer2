@@ -43,7 +43,7 @@ private val destinations get() = listOf(
     Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null, initialTheme: String = "dark", saveTheme: (String) -> Unit = {}) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val radioPlayback = model.radio?.playback?.collectAsStateWithLifecycle()?.value
     val library by model.library.collectAsStateWithLifecycle()
@@ -63,7 +63,7 @@ private val destinations get() = listOf(
     var libraryUpRequest by rememberSaveable { mutableIntStateOf(0) }
     var bottomBarHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
-    var theme by rememberSaveable { mutableStateOf("dark") }
+    var theme by rememberSaveable { mutableStateOf(initialTheme) }
     var catalogState by rememberSaveable { mutableStateOf(CatalogState.READY) }
     var collectionTrack by remember(playback.profileId) { mutableStateOf<Track?>(null) }
     var onlineSource by rememberSaveable(playback.profileId) { mutableStateOf(initialOnlineSource) }
@@ -227,7 +227,7 @@ private val destinations get() = listOf(
                                         "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                         "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
                                         "offline_settings" -> model.offline?.let { OfflineSettingsScreen(it, syncOffline, { navigate("account") }) }
-                                        "settings" -> SettingsScreen(version, theme, { theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true }, language = { navigate("language") })
+                                        "settings" -> SettingsScreen(version, theme, { saveTheme(it); theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true }, language = { navigate("language") })
                                         "language" -> LanguageScreen()
                                         "skins" -> skins?.let { SkinsScreen(it, importSkin) }
                                         "diagnostics" -> diagnostics?.let { DiagnosticsScreen(it) }

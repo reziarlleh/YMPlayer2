@@ -667,5 +667,14 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     radio_d71dc23ce5e0("Эфир этой станции сейчас недоступен.", "This station's stream is currently unavailable.", R.string.radio_d71dc23ce5e0),
     radio_65f7daba2df4("Не удалось прочитать ответ Радио. Повторите запрос.", "Couldn't read the Radio response. Try again.", R.string.radio_65f7daba2df4),
     internet_absent("Отсутствует интернет", "No internet connection", R.string.internet_absent),
-    internet_retry("Повторить подключение", "Retry connection", R.string.internet_retry);
+    internet_retry("Повторить подключение", "Retry connection", R.string.internet_retry),
+    msg_c5d8b34667e5("Папка на накопителе", "Folder on storage", R.string.msg_c5d8b34667e5),
+    msg_2eab61192b5f("Выберите накопитель", "Choose a storage device", R.string.msg_2eab61192b5f),
+    msg_7758ab0d2031("Накопитель недоступен. Подключите его или используйте системный выбор папки.", "Storage is unavailable. Connect it or use the system folder picker.", R.string.msg_7758ab0d2031),
+    msg_c7e24c134a4e("Системный выбор папки", "System folder picker", R.string.msg_c7e24c134a4e),
+    msg_f3f88d26dec9("Выбрать эту папку", "Use this folder", R.string.msg_f3f88d26dec9),
+    msg_8429277fdf48("Разрешите чтение накопителя для YMPlayer или используйте системный выбор папки.", "Allow YMPlayer to read storage, or use the system folder picker.", R.string.msg_8429277fdf48),
+    msg_0e5d03ee4234("Если системный выбор не видит USB, выберите папку на накопителе напрямую.", "If the system picker does not show USB storage, choose a folder on the device directly.", R.string.msg_0e5d03ee4234),
+    msg_10e1623cae3c("На уровень вверх", "Up one level", R.string.msg_10e1623cae3c),
+    msg_d45556f3a844("Добавить папку", "Add folder", R.string.msg_d45556f3a844);
 }

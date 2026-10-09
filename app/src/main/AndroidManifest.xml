@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -12,7 +13,7 @@
     </queries>
     <application android:name=".PlayerApplication" android:label="YMPlayer 2" android:icon="@mipmap/ic_launcher"
         android:banner="@drawable/tv_banner" android:theme="@style/AppTheme"
-        android:allowBackup="false" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true">
+        android:allowBackup="false" android:requestLegacyExternalStorage="true" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true">
         <service android:name=".OfflineSyncService" android:exported="false" android:foregroundServiceType="dataSync" />
         <provider android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.update_files" android:exported="false"

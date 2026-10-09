@@ -18,7 +18,7 @@ import java.io.File
 import java.security.MessageDigest
 import java.util.concurrent.atomic.AtomicLong
 
-/** Read-only SAF index. A failed root scan never replaces its last complete snapshot. */
+/** Read-only SAF/mounted-folder index. Failed scans preserve their last complete snapshot. */
 class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary {
     private val resolver = context.applicationContext.contentResolver
     private val file = AtomicFile(File(context.filesDir, "local-library.json"))
@@ -106,11 +106,13 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     override suspend fun addFolder(uri: String, source: Source) = operation {
         require(source != Source.YANDEX)
         val tree = Uri.parse(uri)
-        require(tree.scheme == "content" && Documents.isTreeUri(tree))
-        resolver.takePersistableUriPermission(tree, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        val direct = tree.scheme == "file"
+        require(direct || tree.scheme == "content" && Documents.isTreeUri(tree))
+        if (direct) check(File(requireNotNull(tree.path)).isDirectory)
+        else resolver.takePersistableUriPermission(tree, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         if (state.value.roots.none { it.uri == uri }) {
-            val doc = Documents.buildDocumentUriUsingTree(tree, Documents.getTreeDocumentId(tree))
-            val name = resolver.query(doc, arrayOf(Documents.Document.COLUMN_DISPLAY_NAME), null, null, null)?.use {
+            val doc = if (direct) tree else Documents.buildDocumentUriUsingTree(tree, Documents.getTreeDocumentId(tree))
+            val name = if (direct) File(requireNotNull(tree.path)).name else resolver.query(doc, arrayOf(Documents.Document.COLUMN_DISPLAY_NAME), null, null, null)?.use {
                 if (it.moveToFirst()) it.getString(0) else null
             } ?: "Музыка"
             mutable.value = state.value.copy(roots = state.value.roots + LibraryRoot(uri, name, source))
@@ -178,6 +180,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
 
     private suspend fun scan(root: LibraryRoot): List<Track> {
         val tree = Uri.parse(root.uri)
+        if (tree.scheme == "file") return scanMounted(root, File(requireNotNull(tree.path)))
         check(resolver.persistedUriPermissions.any { it.uri == tree && it.isReadPermission })
         val result = linkedMapOf<String, Track>()
         val pending = ArrayDeque<Pair<String, String>>()
@@ -221,6 +224,47 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
             }
         }
         return result.values.toList()
+    }
+
+    private suspend fun scanMounted(root: LibraryRoot, selected: File): List<Track> {
+        val boundary = selected.canonicalFile
+        check(boundary.isDirectory && boundary.canRead())
+        val pending = ArrayDeque<Pair<File, String>>()
+        val seen = mutableSetOf<String>()
+        val result = mutableListOf<Track>()
+        pending.add(boundary to root.name)
+        var entries = 0
+        while (pending.isNotEmpty()) {
+            currentCoroutineContext().ensureActive()
+            val (directory, folder) = pending.removeFirst()
+            if (!seen.add(directory.canonicalPath)) continue
+            check(seen.size <= 5000) { "Directory limit" }
+            // An unreadable subdirectory must not erase a previously complete index.
+            val children = directory.listFiles() ?: error("Unreadable directory")
+            for (entry in children) {
+                currentCoroutineContext().ensureActive()
+                check(++entries <= 50000) { "Entry limit" }
+                val canonical = entry.canonicalFile
+                // Do not follow links outside the folder chosen by the user.
+                if (!canonical.toPath().startsWith(boundary.toPath())) continue
+                if (entry.isDirectory) {
+                    // Shared Android/data and obb contain app-private files, not music folders.
+                    if (directory.name == "Android" && entry.name in setOf("data", "obb")) continue
+                    pending.add(canonical to "$folder / ${entry.name}")
+                } else if (entry.isFile && entry.extension.lowercase(java.util.Locale.ROOT) in extensions) {
+                    check(entry.canRead())
+                    val uri = Uri.fromFile(canonical)
+                    val id = "local:" + MessageDigest.getInstance("SHA-256").digest(uri.toString().toByteArray()).joinToString("") { "%02x".format(it) }
+                    val size = entry.length(); val modified = entry.lastModified()
+                    val cached = index.cachedTrack(id, artworkChecked)?.takeIf { track ->
+                        modified > 0 && track.modifiedMillis == modified && track.sizeBytes == size && id in artworkChecked && artwork.present(track.artworkUri)
+                    }
+                    result.add(cached?.copy(available = true, folder = folder, source = root.source)
+                        ?: metadata(uri, id, root, entry.name, folder, size, modified))
+                }
+            }
+        }
+        return result.distinctBy(Track::id)
     }
 
     private fun metadata(uri: Uri, id: String, root: LibraryRoot, name: String, folder: String, size: Long, modified: Long): Track {

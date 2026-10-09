@@ -180,6 +180,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     var waveFailure: MusicFailure? = null
     var waveFailuresRemaining = 0
     val waveRequests = mutableListOf<Int>()
+    var waveEchoOnce: Int? = null
     val waveFeedback = mutableListOf<Triple<String, WaveTrack, WaveFeedback>>()
     val waveSelections = mutableListOf<WaveRequest>()
     var waveOptionsFailure: MusicFailure? = null
@@ -195,7 +196,11 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             waveSelections += request
             return batch(1).copy(request = request)
         }
-        override suspend fun next(profileId: String, previous: WaveBatch) = batch(previous.cursor.toInt() + 1).copy(request = previous.request)
+        override suspend fun next(profileId: String, previous: WaveBatch): WaveBatch {
+            val id = waveEchoOnce ?: previous.cursor.toInt() + 1
+            waveEchoOnce = null
+            return batch(id).copy(request = previous.request)
+        }
         override suspend fun options(profileId: String, language: String): WaveOptions {
             waveOptionsFailure?.let { throw MusicException(it) }
             return WaveOptions(listOf(

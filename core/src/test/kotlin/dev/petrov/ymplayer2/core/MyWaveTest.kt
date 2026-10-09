@@ -16,7 +16,7 @@ class MyWaveTest {
     @Test fun skipsDuplicateTrackAcrossAlbumsAndBlockedArtistsBeforeReturning() = runTest {
         val api = Api(); val result = WaveLoader(api).load("owner", null, setOf("1")) { it.artists.none { a -> a.id == "2" } }
         assertEquals("yandex:3:7", result.tracks.single().track.id)
-        assertEquals(2, api.starts); assertEquals(1, api.continuations)
+        assertEquals(1, api.starts); assertEquals(2, api.continuations)
         assertEquals("batch3", result.tracks.single().batchId)
     }
     @Test fun brokenSessionRecoversWithNewSession() = runTest {
@@ -50,7 +50,26 @@ class MyWaveTest {
     @Test fun repeatedHistoryEntryRecoversInsteadOfCirclingOldCursors() = runTest {
         val api = Api().apply { handle = { if (it == 1) batch(1) else batch(3) } }
         val next = WaveLoader(api).load("owner", batch(2), setOf("1", "2")) { true }
-        assertEquals("3", next.cursor); assertEquals(1, api.starts)
+        assertEquals("3", next.cursor); assertEquals(0, api.starts)
+    }
+    @Test fun oldCursorCanDrainHistoryWithoutRestartingPersonalizedSession() = runTest {
+        val api = Api().apply { handle = { batch(if (it == 1) 1 else 3).copy(sessionId = "same") } }
+        val next = WaveLoader(api).load("owner", batch(2).copy(sessionId = "same"), setOf("1", "2")) { true }
+        assertEquals("same", next.sessionId)
+        assertEquals(0, api.starts); assertEquals(2, api.continuations)
+    }
+    @Test fun trulyStuckCursorStillRecovers() = runTest {
+        val api = Api().apply { handle = { if (it <= 2) batch(1) else batch(3) } }
+        assertEquals("3", WaveLoader(api).load("owner", batch(2), setOf("1", "2")) { true }.cursor)
+        assertEquals(1, api.starts); assertEquals(2, api.continuations)
+    }
+    @Test fun boundedHistoryRestoresAcrossRestartWithoutAlbumDuplicates() {
+        val history = WaveHistory(3)
+        listOf("1", "2", "3", "3", "4").forEach(history::remember)
+        assertEquals(listOf("2", "3", "4"), history.seen.toList())
+        val restored = WaveHistory(3); restored.restore(history.seen.toList())
+        assertEquals(history.seen, restored.seen)
+        restored.clear(); assertTrue(restored.seen.isEmpty())
     }
     @Test fun recoveryDelaysAreBoundedAndFatalAuthNeverRetries() {
         val retry = WaveRecovery()

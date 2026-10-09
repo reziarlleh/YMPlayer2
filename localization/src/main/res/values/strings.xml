@@ -666,5 +666,14 @@
     <string name="radio_65f7daba2df4" formatted="false">"Couldn\'t read the Radio response. Try again."</string>
     <string name="internet_absent" formatted="false">"No internet connection"</string>
     <string name="internet_retry" formatted="false">"Retry connection"</string>
+    <string name="msg_c5d8b34667e5" formatted="false">"Folder on storage"</string>
+    <string name="msg_2eab61192b5f" formatted="false">"Choose a storage device"</string>
+    <string name="msg_7758ab0d2031" formatted="false">"Storage is unavailable. Connect it or use the system folder picker."</string>
+    <string name="msg_c7e24c134a4e" formatted="false">"System folder picker"</string>
+    <string name="msg_f3f88d26dec9" formatted="false">"Use this folder"</string>
+    <string name="msg_8429277fdf48" formatted="false">"Allow YMPlayer to read storage, or use the system folder picker."</string>
+    <string name="msg_0e5d03ee4234" formatted="false">"If the system picker does not show USB storage, choose a folder on the device directly."</string>
+    <string name="msg_10e1623cae3c" formatted="false">"Up one level"</string>
+    <string name="msg_d45556f3a844" formatted="false">"Add folder"</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

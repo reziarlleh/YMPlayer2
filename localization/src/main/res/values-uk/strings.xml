@@ -666,5 +666,14 @@
     <string name="radio_65f7daba2df4" formatted="false">"Не вдалося прочитати відповідь Радіо. Повторіть запит."</string>
     <string name="internet_absent" formatted="false">"Немає з’єднання з інтернетом"</string>
     <string name="internet_retry" formatted="false">"Повторити підключення"</string>
+    <string name="msg_c5d8b34667e5" formatted="false">"Папка на накопичувачі"</string>
+    <string name="msg_2eab61192b5f" formatted="false">"Виберіть накопичувач"</string>
+    <string name="msg_7758ab0d2031" formatted="false">"Накопичувач недоступний. Підключіть його або скористайтеся системним вибором папки."</string>
+    <string name="msg_c7e24c134a4e" formatted="false">"Системний вибір папки"</string>
+    <string name="msg_f3f88d26dec9" formatted="false">"Вибрати цю папку"</string>
+    <string name="msg_8429277fdf48" formatted="false">"Дозвольте YMPlayer читати накопичувач або скористайтеся системним вибором папки."</string>
+    <string name="msg_0e5d03ee4234" formatted="false">"Якщо системний вибір не показує USB, виберіть папку на накопичувачі напряму."</string>
+    <string name="msg_10e1623cae3c" formatted="false">"На рівень вище"</string>
+    <string name="msg_d45556f3a844" formatted="false">"Додати папку"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

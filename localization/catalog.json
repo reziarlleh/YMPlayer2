@@ -10649,5 +10649,149 @@
       "es": "Reintentar conexión",
       "uk": "Повторити підключення"
     }
+  },
+  {
+    "key": "msg_c5d8b34667e5",
+    "source": "Папка на накопителе",
+    "english": "Folder on storage",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Папка на назапашвальніку",
+      "de": "Speicherordner",
+      "es": "Carpeta del dispositivo",
+      "fr": "Dossier du stockage",
+      "kk": "Жинақтауыштағы қалта",
+      "uk": "Папка на накопичувачі"
+    }
+  },
+  {
+    "key": "msg_2eab61192b5f",
+    "source": "Выберите накопитель",
+    "english": "Choose a storage device",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Выберыце назапашвальнік",
+      "de": "Speicher auswählen",
+      "es": "Elige un dispositivo de almacenamiento",
+      "fr": "Choisissez un support de stockage",
+      "kk": "Жинақтауышты таңдаңыз",
+      "uk": "Виберіть накопичувач"
+    }
+  },
+  {
+    "key": "msg_7758ab0d2031",
+    "source": "Накопитель недоступен. Подключите его или используйте системный выбор папки.",
+    "english": "Storage is unavailable. Connect it or use the system folder picker.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Назапашвальнік недаступны. Падключыце яго або скарыстайцеся сістэмным выбарам папкі.",
+      "de": "Speicher nicht verfügbar. Schließe ihn an oder nutze die System-Ordnerauswahl.",
+      "es": "El almacenamiento no está disponible. Conéctalo o usa el selector de carpetas del sistema.",
+      "fr": "Le stockage est inaccessible. Connectez-le ou utilisez le sélecteur de dossiers du système.",
+      "kk": "Жинақтауыш қолжетімсіз. Оны қосыңыз немесе жүйенің қалта таңдау терезесін пайдаланыңыз.",
+      "uk": "Накопичувач недоступний. Підключіть його або скористайтеся системним вибором папки."
+    }
+  },
+  {
+    "key": "msg_c7e24c134a4e",
+    "source": "Системный выбор папки",
+    "english": "System folder picker",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Сістэмны выбар папкі",
+      "de": "System-Ordnerauswahl",
+      "es": "Selector de carpetas del sistema",
+      "fr": "Sélecteur de dossiers du système",
+      "kk": "Жүйелік қалта таңдау",
+      "uk": "Системний вибір папки"
+    }
+  },
+  {
+    "key": "msg_f3f88d26dec9",
+    "source": "Выбрать эту папку",
+    "english": "Use this folder",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Выбраць гэту папку",
+      "de": "Diesen Ordner verwenden",
+      "es": "Usar esta carpeta",
+      "fr": "Utiliser ce dossier",
+      "kk": "Осы қалтаны таңдау",
+      "uk": "Вибрати цю папку"
+    }
+  },
+  {
+    "key": "msg_8429277fdf48",
+    "source": "Разрешите чтение накопителя для YMPlayer или используйте системный выбор папки.",
+    "english": "Allow YMPlayer to read storage, or use the system folder picker.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Дазвольце YMPlayer чытаць назапашвальнік або скарыстайцеся сістэмным выбарам папкі.",
+      "de": "Erlaube YMPlayer den Lesezugriff oder nutze die System-Ordnerauswahl.",
+      "es": "Permite que YMPlayer lea el almacenamiento o usa el selector de carpetas del sistema.",
+      "fr": "Autorisez YMPlayer à lire le stockage ou utilisez le sélecteur de dossiers du système.",
+      "kk": "YMPlayer қолданбасына жинақтауышты оқуға рұқсат беріңіз немесе жүйелік қалта таңдауды пайдаланыңыз.",
+      "uk": "Дозвольте YMPlayer читати накопичувач або скористайтеся системним вибором папки."
+    }
+  },
+  {
+    "key": "msg_0e5d03ee4234",
+    "source": "Если системный выбор не видит USB, выберите папку на накопителе напрямую.",
+    "english": "If the system picker does not show USB storage, choose a folder on the device directly.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Калі сістэмны выбар не паказвае USB, выберыце папку на назапашвальніку наўпрост.",
+      "de": "Wenn die Systemauswahl den USB-Speicher nicht anzeigt, wähle den Ordner direkt auf dem Speicher aus.",
+      "es": "Si el selector del sistema no muestra la unidad USB, elige directamente una carpeta de la unidad.",
+      "fr": "Si le sélecteur du système ne montre pas le support USB, choisissez directement un dossier sur le support.",
+      "kk": "Жүйелік терезеде USB көрінбесе, жинақтауыштағы қалтаны тікелей таңдаңыз.",
+      "uk": "Якщо системний вибір не показує USB, виберіть папку на накопичувачі напряму."
+    }
+  },
+  {
+    "key": "msg_10e1623cae3c",
+    "source": "На уровень вверх",
+    "english": "Up one level",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "На ўзровень вышэй",
+      "de": "Eine Ebene höher",
+      "es": "Subir un nivel",
+      "fr": "Dossier parent",
+      "kk": "Бір деңгей жоғары",
+      "uk": "На рівень вище"
+    }
+  },
+  {
+    "key": "msg_d45556f3a844",
+    "source": "Добавить папку",
+    "english": "Add folder",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Дадаць папку",
+      "de": "Ordner hinzufügen",
+      "es": "Añadir carpeta",
+      "fr": "Ajouter un dossier",
+      "kk": "Қалта қосу",
+      "uk": "Додати папку"
+    }
   }
 ]

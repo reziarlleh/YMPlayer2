@@ -81,6 +81,21 @@ class MyWavePlaybackTest {
         waitFor { "yandex:3:7" in player.bufferedWaveAudioIds() }
         assertTrue(player.state.value.wave)
     }
+    @Test fun restartDoesNotForgetTracksOutsideTheSmallPlaybackQueue() {
+        start()
+        for (id in 2..3) {
+            waitFor { player.state.value.queue.size - player.state.value.index == 2 }
+            compose.runOnIdle { player.skip(1) }
+            waitFor { player.state.value.current?.id == "yandex:$id:7" && player.state.value.positionSeconds >= 1 }
+        }
+        waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:4:7" && !player.state.value.waveLoading }
+        assertFalse(player.state.value.queue.any { it.id == "yandex:1:7" })
+        compose.runOnIdle { player.toggle(); fixture.restartEngine() }
+        waitFor { player.state.value.connected && !player.state.value.waveLoading }
+        compose.runOnIdle { fixture.waveEchoOnce = 1; player.select("yandex:4:7") }
+        waitFor { player.state.value.current?.id == "yandex:4:7" && player.state.value.queue.lastOrNull()?.id == "yandex:5:7" }
+        assertFalse(player.state.value.queue.any { it.id == "yandex:1:7" })
+    }
     @Test fun transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack() {
         start()
         compose.runOnIdle { fixture.waveFailuresRemaining = 3; player.seek(player.state.value.current!!.durationSeconds - 1) }

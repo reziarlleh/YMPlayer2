@@ -19,6 +19,8 @@ class WaveLoader(private val api: MyWaveApi) {
         var cursor = previous
         var lastFailure: Exception? = null
         var failures = 0
+        val drained = mutableSetOf<String>()
+        previous?.cursor?.takeIf(String::isNotBlank)?.let { drained.add(it) }
         repeat(8) {
             try {
                 val response = if (cursor == null) api.start(profile, request) else api.next(profile, cursor!!)
@@ -30,7 +32,9 @@ class WaveLoader(private val api: MyWaveApi) {
                     return batch.copy(tracks = listOf(next), cursor = next.track.tasteTarget().key)
                 }
                 // Walk past already seen/blocked entries instead of repeatedly requesting the same cursor.
-                cursor = if (batch.cursor.isBlank() || batch.cursor == cursor?.cursor || batch.cursor in seen) null else batch
+                // A cursor can be old without being stuck: the server may echo history.
+                // Reset only after the same cursor is returned twice during this drain.
+                cursor = if (batch.cursor.isBlank() || !drained.add(batch.cursor)) null else batch
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 lastFailure = e

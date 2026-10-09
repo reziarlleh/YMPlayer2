@@ -666,5 +666,14 @@
     <string name="radio_65f7daba2df4" formatted="false">"Impossible de lire la réponse de Radio. Réessayez."</string>
     <string name="internet_absent" formatted="false">"Pas de connexion Internet"</string>
     <string name="internet_retry" formatted="false">"Réessayer la connexion"</string>
+    <string name="msg_c5d8b34667e5" formatted="false">"Dossier du stockage"</string>
+    <string name="msg_2eab61192b5f" formatted="false">"Choisissez un support de stockage"</string>
+    <string name="msg_7758ab0d2031" formatted="false">"Le stockage est inaccessible. Connectez-le ou utilisez le sélecteur de dossiers du système."</string>
+    <string name="msg_c7e24c134a4e" formatted="false">"Sélecteur de dossiers du système"</string>
+    <string name="msg_f3f88d26dec9" formatted="false">"Utiliser ce dossier"</string>
+    <string name="msg_8429277fdf48" formatted="false">"Autorisez YMPlayer à lire le stockage ou utilisez le sélecteur de dossiers du système."</string>
+    <string name="msg_0e5d03ee4234" formatted="false">"Si le sélecteur du système ne montre pas le support USB, choisissez directement un dossier sur le support."</string>
+    <string name="msg_10e1623cae3c" formatted="false">"Dossier parent"</string>
+    <string name="msg_d45556f3a844" formatted="false">"Ajouter un dossier"</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

@@ -124,10 +124,41 @@ class MainActivity : ComponentActivity() {
                 if (uri != null) model.addFolder(uri.toString(), source)
             }
             val skinState by graph.skins.state.collectAsStateWithLifecycle()
+            val appearance = remember { dev.petrov.ymplayer2.designsystem.ThemePreferences(applicationContext) }
+            var folderMethods by remember { mutableStateOf(false) }
+            var mountedPicker by remember { mutableStateOf(false) }
+            val storagePermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+                if (granted) mountedPicker = true
+                else pickerIssue = trMessage("Разрешите чтение накопителя для YMPlayer или используйте системный выбор папки.")
+            }
+            val openSystemFolder: () -> Unit = {
+                folderMethods = false; mountedPicker = false
+                try { picker.launch(null) }
+                catch (_: ActivityNotFoundException) {
+                    if (android.os.Build.VERSION.SDK_INT <= 29) folderMethods = true
+                    pickerIssue = tr(Msg.msg_5e9967fcef8f)
+                }
+            }
+            if (folderMethods || mountedPicker) dev.petrov.ymplayer2.designsystem.PrismTheme(appearance.read(), skinState.active) {
+            if (folderMethods) androidx.compose.material3.AlertDialog(onDismissRequest = { folderMethods = false },
+                title = { androidx.compose.material3.Text(trMessage("Добавить папку")) },
+                text = { androidx.compose.material3.Text(trMessage("Если системный выбор не видит USB, выберите папку на накопителе напрямую.")) },
+                confirmButton = { androidx.compose.material3.TextButton(onClick = openSystemFolder) {
+                    androidx.compose.material3.Text(trMessage("Системный выбор папки"))
+                } }, dismissButton = { androidx.compose.material3.TextButton(onClick = {
+                    folderMethods = false
+                    storagePermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                }) { androidx.compose.material3.Text(trMessage("Папка на накопителе")) } })
+            if (mountedPicker) MountedFolderPicker({ mountedPicker = false }, openSystemFolder) { folder ->
+                mountedPicker = false
+                model.addFolder(android.net.Uri.fromFile(folder).toString(), source)
+            }
+            }
             val skinPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
                 if (uri != null) graph.skins.inspect(uri)
             }
             ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
+                initialTheme = appearance.read(), saveTheme = appearance::save,
                 initialRoute = graph.shellRoute(),
                 internet = graph.internet,
                 onRouteChanged = { graph.navigation.edit().putString("route", it).apply() },
@@ -140,8 +171,7 @@ class MainActivity : ComponentActivity() {
                 startActivity(Intent(this, ClipActivity::class.java).putExtra(ClipActivity.EXTRA_PLAY, true))
             }, addFolder = {
                 source = it; pickerIssue = null
-                try { picker.launch(null) }
-                catch (_: ActivityNotFoundException) { pickerIssue = tr(Msg.msg_5e9967fcef8f) }
+                if (android.os.Build.VERSION.SDK_INT <= 29) folderMethods = true else openSystemFolder()
             }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
                 try { startForegroundService(android.content.Intent(this, OfflineSyncService::class.java)) }
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }

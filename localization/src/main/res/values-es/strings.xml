@@ -666,5 +666,14 @@
     <string name="radio_65f7daba2df4" formatted="false">"No se ha podido leer la respuesta de Radio. Vuelve a intentarlo."</string>
     <string name="internet_absent" formatted="false">"Sin conexión a Internet"</string>
     <string name="internet_retry" formatted="false">"Reintentar conexión"</string>
+    <string name="msg_c5d8b34667e5" formatted="false">"Carpeta del dispositivo"</string>
+    <string name="msg_2eab61192b5f" formatted="false">"Elige un dispositivo de almacenamiento"</string>
+    <string name="msg_7758ab0d2031" formatted="false">"El almacenamiento no está disponible. Conéctalo o usa el selector de carpetas del sistema."</string>
+    <string name="msg_c7e24c134a4e" formatted="false">"Selector de carpetas del sistema"</string>
+    <string name="msg_f3f88d26dec9" formatted="false">"Usar esta carpeta"</string>
+    <string name="msg_8429277fdf48" formatted="false">"Permite que YMPlayer lea el almacenamiento o usa el selector de carpetas del sistema."</string>
+    <string name="msg_0e5d03ee4234" formatted="false">"Si el selector del sistema no muestra la unidad USB, elige directamente una carpeta de la unidad."</string>
+    <string name="msg_10e1623cae3c" formatted="false">"Subir un nivel"</string>
+    <string name="msg_d45556f3a844" formatted="false">"Añadir carpeta"</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

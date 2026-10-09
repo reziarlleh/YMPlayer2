@@ -1,0 +1,11 @@
+{
+  "versionName": "2.5.3-build101",
+  "channel": "stable",
+  "updateChannel": "stable",
+  "sha256": "daa9e371702d840cd8473020565470140895a749efe65af8401038ba19cc0790",
+  "minSdk": 28,
+  "runtimeAcceptance": "Targeted debug native API28/TV29/API35 passed; shared storage reads/plays with READ only on API28/29. Signed99-to101 API35 passed; system appearance survives force-stop and follows night mode. Physical HU USB and account-specific wave diversity pending.",
+  "versionCode": 101,
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-10-09T04:53:20.8787762Z"
+}

@@ -61,6 +61,28 @@ class WaveSettingsAdapterTest {
         api.next("owner", first); api.feedback("owner", first.tracks.single(), WaveFeedback.STARTED)
         assertEquals(3, requests.size); assertTrue(requests[1].contains("custom-session/tracks"))
     }
+    @Test fun echoedWholeBatchAdvancesItsLastCursorWithoutStartingANewSession() = runBlocking {
+        val cursors = mutableListOf<String>()
+        val transport = object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String): String {
+                assertTrue(url.endsWith("/kept-session/tracks"))
+                val cursor = JSONObject(body).getJSONArray("queue").getString(0)
+                cursors.add(cursor)
+                val ids = if (cursor == "3") listOf(1, 2) else listOf(3, 4)
+                val sequence = org.json.JSONArray(ids.map { id -> JSONObject().put("track", JSONObject()
+                    .put("id", id).put("title", "Track $id").put("available", true)
+                    .put("durationMs", 30000).put("artists", org.json.JSONArray()).put("albums", org.json.JSONArray())) })
+                return JSONObject().put("result", JSONObject().put("batchId", "echo")
+                    .put("sequence", sequence)).toString()
+            }
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String = error("No legacy reset")
+        }
+        val api = YandexWaveApi(YandexMusicApi(auth(this), transport))
+        val next = WaveLoader(api).load("owner", WaveBatch(emptyList(), "kept-session", "3"), setOf("1", "2", "3")) { true }
+        assertEquals("4", next.tracks.single().track.tasteTarget().key)
+        assertEquals(listOf("3", "2"), cursors)
+        assertEquals("kept-session", next.sessionId)
+    }
     @Test fun failedCustomSessionDoesNotFallBackToUnfilteredWave() = runBlocking {
         var legacyRequests = 0
         val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {

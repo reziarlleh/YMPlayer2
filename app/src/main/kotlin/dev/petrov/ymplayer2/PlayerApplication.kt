@@ -124,7 +124,10 @@ class PlayerApplication : Application(), PlaybackHost {
         enabled = offlinePrefs.getBoolean("enabled", true),
         saveEnabled = { offlinePrefs.edit().putBoolean("enabled", it).apply() }) }
     override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi), offline,
-        streamQuality = { audioQuality.state.value.stream }, listened = history::record) }
+        streamQuality = { audioQuality.state.value.stream }, listened = history::record,
+        waveFeedbackResult = { success -> scope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            diagnostics.record(if (success) DiagnosticEvent.WAVE_FEEDBACK_SENT else DiagnosticEvent.WAVE_FEEDBACK_FAILED)
+        } }) }
     private val radioApi by lazy { dev.petrov.ymplayer2.yandex.YandexRadioApi(accounts) }
     override val radio by lazy { dev.petrov.ymplayer2.playback.AndroidRadio(this, playback, radioApi, scope) }
     val radioCatalog by lazy { dev.petrov.ymplayer2.core.RadioController(accounts, radioApi, radio, scope,

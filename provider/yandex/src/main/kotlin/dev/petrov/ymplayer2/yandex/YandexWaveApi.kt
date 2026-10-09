@@ -54,7 +54,7 @@ class YandexWaveApi(private val music: YandexMusicApi) : MyWaveApi {
         val unresolved = candidates.filterValues { it == null }.keys.toList()
         val resolved = if (unresolved.isEmpty()) emptyMap() else music.tracks(token, unresolved).associateBy { it.tasteTarget().key }
         val tracks = candidates.mapNotNull { (id, track) -> (track ?: resolved[id])?.let { WaveTrack(it, batch, request.station) } }
-        return WaveBatch(tracks, session, tracks.firstOrNull()?.track?.tasteTarget()?.key ?: skip, request)
+        return WaveBatch(tracks, session, tracks.lastOrNull()?.track?.tasteTarget()?.key ?: skip, request)
     }
     override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) {
         if (item.batchId.isBlank()) return

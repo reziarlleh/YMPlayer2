@@ -666,5 +666,14 @@
     <string name="radio_65f7daba2df4" formatted="false">"Радио жауабын оқу мүмкін болмады. Қайта сұраңыз."</string>
     <string name="internet_absent" formatted="false">"Интернет байланысы жоқ"</string>
     <string name="internet_retry" formatted="false">"Қайта қосылу"</string>
+    <string name="msg_c5d8b34667e5" formatted="false">"Жинақтауыштағы қалта"</string>
+    <string name="msg_2eab61192b5f" formatted="false">"Жинақтауышты таңдаңыз"</string>
+    <string name="msg_7758ab0d2031" formatted="false">"Жинақтауыш қолжетімсіз. Оны қосыңыз немесе жүйенің қалта таңдау терезесін пайдаланыңыз."</string>
+    <string name="msg_c7e24c134a4e" formatted="false">"Жүйелік қалта таңдау"</string>
+    <string name="msg_f3f88d26dec9" formatted="false">"Осы қалтаны таңдау"</string>
+    <string name="msg_8429277fdf48" formatted="false">"YMPlayer қолданбасына жинақтауышты оқуға рұқсат беріңіз немесе жүйелік қалта таңдауды пайдаланыңыз."</string>
+    <string name="msg_0e5d03ee4234" formatted="false">"Жүйелік терезеде USB көрінбесе, жинақтауыштағы қалтаны тікелей таңдаңыз."</string>
+    <string name="msg_10e1623cae3c" formatted="false">"Бір деңгей жоғары"</string>
+    <string name="msg_d45556f3a844" formatted="false">"Қалта қосу"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>
