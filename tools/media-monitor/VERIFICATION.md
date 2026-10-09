@@ -7,7 +7,7 @@
 
 ## Реализация и выпуск
 
-- [Исходники и инструкция](../tools/media-monitor/README.md), собственный пакет
+- [Исходники и инструкция](README.md), собственный пакет
   `dev.petrov.mediamonitor`; независимый Gradle-проект в том же репозитории/main.
   Не включён в сборку/модули/автоматическое обновление YMPlayer.
 - Native Activity + системная NotificationListenerService + MediaSessionManager.
@@ -27,10 +27,10 @@
 - Собственный счётчик утилиты: build1, не YMPlayer build100.
   Declared min23 / target36 / compile37; это не подтверждение работы на Android6.
 
-Подписанный [APK](../releases/media-monitor/1.0.0beta-build1/MediaMonitor-1.0.0beta-build1.apk),
-[SHA256](../releases/media-monitor/1.0.0beta-build1/SHA256.txt),
-[подпись](../releases/media-monitor/1.0.0beta-build1/signature.txt),
-[build.json](../releases/media-monitor/1.0.0beta-build1/build.json).
+Подписанный [APK](../../releases/media-monitor/1.0.0beta-build1/MediaMonitor-1.0.0beta-build1.apk),
+[SHA256](../../releases/media-monitor/1.0.0beta-build1/SHA256.txt),
+[подпись](../../releases/media-monitor/1.0.0beta-build1/signature.txt),
+[build.json](../../releases/media-monitor/1.0.0beta-build1/build.json).
 APK SHA-256: `a7eab2c93de6949d41bcbda323b67ba5a849f0ca312586a56add6f0fa09da425`.
 Сертификат: `fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
 apksigner verify: v1/v2 успешно; v3/v4 отсутствуют, дополнительных требований
@@ -83,4 +83,9 @@ D-003 по этой разработке или выдавать лаборат�
 Следующий шаг: пользователь записывает на проблемном ГУ один сеанс трёх плееров,
 присылает `.txt`; сопоставить notification/session порядок, group/subText,
 bitmap/token присутствие и отметки приборки, затем выбрать проверяемое изменение.
-[Действующий план](ROADMAP.md), [продолжение D-003](INSTRUMENT_CLUSTER_FOLLOWUP.md).
+[Действующий план](../../docs/ROADMAP.md), [продолжение D-003](../../docs/INSTRUMENT_CLUSTER_FOLLOWUP.md).
+
+Позднее9 октября владелец указал не включать эту одноразовую утилиту в общие
+документы проекта. Упоминания убраны из README, общего журнала, карт функций/
+модулей и указателя; отчёт перенесён сюда из docs. В действующем плане остаётся
+только исследование D-003, без расширения самого плеера и развития сборщика.

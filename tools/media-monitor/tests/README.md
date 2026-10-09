@@ -22,4 +22,4 @@ Stop без новых событий, отмену доступа, экспор
 постороннего canary/package. Нельзя нажимать команду реальной отправки в chooser
 во время тестов; достаточно чтения экспортированного файла.
 
-Датированные результаты: [MEDIA_MONITOR_VERIFICATION](../../../docs/MEDIA_MONITOR_VERIFICATION.md).
+Датированные результаты: [VERIFICATION](../VERIFICATION.md).
