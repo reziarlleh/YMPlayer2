@@ -9,6 +9,8 @@
 — историческое исследование D-003 на signed98.
 [Ручная 2.5.2beta-build99: реализация, проверки и остаток](PATCH_2_5_2_BETA_VERIFICATION.md),
 [ADR-043](ADR_043_PLATFORM_METADATA_COMPATIBILITY.md) — DISPLAY_* и ART в той же сессии.
+[Оценка Android8/API26 и Android6/API23](API_23_26_FEASIBILITY.md):
+зависимости допускают23, адаптация собственного кода ещё не реализована.
 
 Исторические этапы 2.5: [план](PLAN_2_5.md), [исследование API](YANDEX_RADIO_FEASIBILITY.md),
 [OAuth владельца](YANDEX_RADIO_AUTH_PROBE.md), [макет](RADIO_UI_DESIGN.md),
