@@ -1,0 +1,19 @@
+Verifies
+Verified using v1 scheme (JAR signing): true
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): false
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=YMPlayer 2, OU=Android, O=YMPlayer 2
+Signer #1 certificate SHA-256 digest: fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec
+Signer #1 certificate SHA-1 digest: 8a2a6e66d797b303b6f7aa8b7c31e696f9c78dd5
+Signer #1 certificate MD5 digest: ac291803d85ab0f6aafb4b24e1dd5ab9
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 3072
+Signer #1 public key SHA-256 digest: 10e1df7507e90fa3a5989479247fa54b27c467152cdb72d8164eff73e7189592
+Signer #1 public key SHA-1 digest: a06b1640ae97c50d9e281adab828c55f9bf9fe90
+Signer #1 public key MD5 digest: 6feb925b046793c404d07bbbf967e6c0
+WARNING: META-INF/com/android/build/gradle/app-metadata.properties not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.
+WARNING: META-INF/version-control-info.textproto not protected by signature. Unauthorized modifications to this JAR entry will not be detected. Delete or move the entry outside of META-INF/.

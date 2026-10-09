@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <queries>
+        <package android:name="dev.petrov.ymplayer2" />
+        <package android:name="ru.fmplay" />
+        <package android:name="ru.yandex.music" />
+    </queries>
+    <application android:label="Media Monitor" android:icon="@drawable/ic_monitor"
+        android:theme="@android:style/Theme.Material.NoActionBar"
+        android:allowBackup="false" android:dataExtractionRules="@xml/extraction_rules" android:supportsRtl="true" android:usesCleartextTraffic="false">
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+        </activity>
+        <service android:name=".MonitorService" android:exported="true"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter><action android:name="android.service.notification.NotificationListenerService" /></intent-filter>
+        </service>
+        <provider android:name=".ReportProvider" android:authorities="${applicationId}.reports"
+            android:exported="false" android:grantUriPermissions="true" />
+    </application>
+</manifest>

@@ -1,5 +1,10 @@
 # Карта переноса и модулей
 
+9 октября: [Media Monitor](../tools/media-monitor/README.md) — отдельная утилита
+для исследования приборки D-003 на ГУ, не runtime-модуль плеера и не новая ветка.
+Свои package/Gradle/версия; продукт, его данные и feeds не меняются.
+[Реализация/границы проверок](MEDIA_MONITOR_VERIFICATION.md).
+
 2.5.2beta-build99: адаптеры AndroidPlayback/AndroidRadio дополняют стандартный
 экспорт DISPLAY_*. buildSrc дополняет ART в единственном Media3 converter
 при сборке; это не новый runtime-модуль и не перенос OEM-логики1.x.

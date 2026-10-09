@@ -1,0 +1,11 @@
+{
+  "applicationId": "dev.petrov.mediamonitor",
+  "versionName": "1.0.0beta-build1",
+  "versionCode": 1,
+  "purpose": "Instrument cluster diagnostics on the affected Android head unit",
+  "minSdk": 23,
+  "targetSdk": 36,
+  "sha256": "a7eab2c93de6949d41bcbda323b67ba5a849f0ca312586a56add6f0fa09da425",
+  "certificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+  "ymplayerUpdateEligible": false
+}
