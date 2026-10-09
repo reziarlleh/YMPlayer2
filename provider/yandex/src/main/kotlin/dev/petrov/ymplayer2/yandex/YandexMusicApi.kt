@@ -196,16 +196,19 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
 
     internal fun trackEntry(item: JSONObject, fallbackAlbum: JSONObject? = null): MusicEntry? {
         val rawId = item.optString("id")
-        if (!rawId.matches(NUMERIC)) return null
+        if (!validYandexTrackId(rawId)) return null
         val album = item.optJSONArray("albums")?.optJSONObject(0) ?: fallbackAlbum
         val albumId = album?.optString("id")?.takeIf { it.matches(NUMERIC) }
-        val title = item.optString("title").ifBlank { rawId }.take(500)
+        val metadata = item.optJSONObject("metaData")
+        val title = item.optString("title").ifBlank { item.optString("filename") }.ifBlank { rawId }.take(500)
         val cover = item.optString("coverUri").ifBlank { album?.optString("coverUri").orEmpty() }
         val artwork = cover.takeIf { it.isNotBlank() }?.let { runCatching { secureUrl(it.replace("%%", "400x400")) }.getOrNull() }
         val track = Track("yandex:$rawId" + albumId?.let { ":$it" }.orEmpty(), title,
-            artists(item).ifBlank { album?.let(::artists).orEmpty() }, album?.optString("title").orEmpty().take(500),
+            artists(item).ifBlank { album?.let(::artists).orEmpty() },
+            album?.optString("title").orEmpty().ifBlank { metadata?.optString("album").orEmpty() }.take(500),
             Source.YANDEX, (item.optLong("durationMs", item.optLong("duration", 0)) / 1000).coerceIn(0, Int.MAX_VALUE.toLong()).toInt(),
-            offline = false, available = item.optBoolean("available", true), genre = album?.optString("genre").orEmpty(), folder = "Яндекс Музыка", artworkUri = artwork,
+            offline = false, available = item.optBoolean("available", item.optString("state").let { it.isBlank() || it == "playable" }),
+            genre = album?.optString("genre").orEmpty().ifBlank { metadata?.optString("genre").orEmpty() }, folder = "Яндекс Музыка", artworkUri = artwork,
             artists = artistRefs(item).ifEmpty { album?.let(::artistRefs).orEmpty() }, albumId = albumId)
         return asEntry(track)
     }
@@ -216,12 +219,12 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         val id = it.optString("id"); val name = it.optString("name").take(500)
         if (id.matches(NUMERIC) && name.isNotBlank()) ArtistRef(id, name) else null
     }?.distinctBy(ArtistRef::id).orEmpty()
-    private fun key(item: JSONObject): String? = item.optString("id").takeIf { it.matches(NUMERIC) }?.let { id ->
-        id + item.optString("albumId").takeIf { it.matches(NUMERIC) }?.let { ":$it" }.orEmpty()
+    private fun key(item: JSONObject): String? = item.optString("id").takeIf(::validYandexTrackKey)?.let { id ->
+        if (':' in id) id else id + item.optString("albumId").takeIf { it.matches(NUMERIC) }?.let { ":$it" }.orEmpty()
     }
     private fun next(page: Int, count: Int) = if ((page.toLong() + 1) * PAGE_SIZE < count) page + 1 else null
     private fun numeric(value: String): String { require(value.matches(NUMERIC)); return value }
-    private fun trackKey(value: String): String { require(value.matches(Regex("[0-9]+(:[0-9]+)?")) && value.length <= 80); return value }
+    private fun trackKey(value: String): String { require(validYandexTrackKey(value)); return value }
     private fun encode(value: String) = URLEncoder.encode(value, "UTF-8")
     private suspend fun <T> safe(action: suspend () -> T): T = try { action() }
         catch (e: CancellationException) { throw e }

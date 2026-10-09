@@ -15,13 +15,15 @@ class YandexTasteApi(private val music: YandexMusicApi) : MusicTasteApi {
         val result = music.api(token, "/users/$uid/$collection/${type}s?if-modified-since-revision=0&rich=true&with-timestamps=true")
         val rows = if (kind == TasteKind.TRACK) (result as JSONObject).getJSONObject("library").getJSONArray("tracks") else result as JSONArray
         return rows.objects().mapNotNull { row ->
-            (row.optJSONObject(type) ?: row).optString("id").takeIf { it.matches(Regex("[0-9]+")) }
+            (row.optJSONObject(type) ?: row).optString("id").takeIf {
+                if (kind == TasteKind.TRACK) validYandexTrackKey(it) else it.matches(Regex("[0-9]+"))
+            }?.substringBefore(':')
         }.toSet()
     }
     override suspend fun react(profileId: String, target: TasteTarget, action: TasteAction) = music.account(profileId) { token, uid ->
         val type = target.kind.name.lowercase()
         val id = target.id.removePrefix("yandex:")
-        require(id.matches(if (target.kind == TasteKind.TRACK) Regex("[0-9]+(:[0-9]+)?") else Regex("[0-9]+")))
+        require(if (target.kind == TasteKind.TRACK) validYandexTrackKey(id) else id.matches(Regex("[0-9]+")))
         require(target.kind != TasteKind.ALBUM || action in setOf(TasteAction.LIKE, TasteAction.UNLIKE))
         suspend fun write(collection: String, remove: Boolean) {
             val form = listOf("$type-ids" to id)

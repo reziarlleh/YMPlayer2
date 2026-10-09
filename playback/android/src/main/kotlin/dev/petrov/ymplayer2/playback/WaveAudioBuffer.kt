@@ -86,15 +86,16 @@ internal class WaveAudioBuffer(private val context: Context) {
             } ?: throw MusicException(MusicFailure.UNAVAILABLE)
             extractor.selectTrack(index)
             var buffer = ByteBuffer.allocate(64 * 1024)
-            var first = -1L; var last = -1L; var delta = 0L; var packets = 0
-            while (extractor.sampleTime >= 0) {
+            var first = 0L; var last = 0L; var delta = 0L; var packets = 0
+            // AAC encoder priming may precede zero; an absent sample track indicates EOS.
+            while (extractor.sampleTrackIndex >= 0) {
                 currentCoroutineContext().ensureActive()
                 val size = extractor.sampleSize
                 if (size <= 0 || size > 4 * 1024 * 1024) throw MusicException(MusicFailure.UNAVAILABLE)
                 if (buffer.capacity() < size) buffer = ByteBuffer.allocate(size.toInt())
                 buffer.clear()
-                if (extractor.readSampleData(buffer, 0).toLong() != size || extractor.sampleTime < last) throw MusicException(MusicFailure.UNAVAILABLE)
-                if (first < 0) first = extractor.sampleTime else delta = extractor.sampleTime - last
+                if (extractor.readSampleData(buffer, 0).toLong() != size || packets > 0 && extractor.sampleTime < last) throw MusicException(MusicFailure.UNAVAILABLE)
+                if (packets == 0) first = extractor.sampleTime else delta = extractor.sampleTime - last
                 last = extractor.sampleTime; packets++
                 if (!extractor.advance()) break
             }

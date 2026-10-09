@@ -1,5 +1,16 @@
 # Журнал работы
 
+### 2026-10-09 — новые отзывы101, заставка/UGC; работа продолжается
+
+RepoWise context сверён с ClipActivity/ClipVideoView/YandexMusicApi/PlaylistApi.
+Найдены отсутствие screen-on политики TextureView и числовые ограничения
+track IDs, которых нет у чтения редактора/parseTrack1.x. Добавлена политика
+Play/buffering и сквозная поддержка безопасных непрозрачных ID. Первичные
+источники протокола сверены; приватный UGC ответ пользователя недоступен.
+Добавлены regression fixtures и проверки реального ClipActivity pause/background.
+Идут debug/JVM/lint; следующий шаг — native и проверка постоянного UGC-кэша,
+затем stable patch/публикация/feeds. [Подробности](PATCH_2_5_4_VERIFICATION.md).
+
 ### 2026-10-09 — исправления темы, USB и волны; stable101
 
 B-021: выбор оформления сохраняется сразу, system переживает force-stop и

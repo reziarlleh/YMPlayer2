@@ -1,6 +1,13 @@
 # Карта переноса и модулей
 
-2.5.3-build101: ThemePreferences в designsystem, загрузка/сохранение в MainActivity,
+2.5.4-build102: ClipVideoView явно удерживает экран по событиям ExoPlayer.
+YandexMusicApi/PlaylistApi/TasteApi/LikedMusicApi допускают непрозрачный track ID;
+account/artist/album/playlist остаются числовыми. LikedFileStore хранит UGC
+под прежними hash-именами; оба аудиовалидатора используют sampleTrackIndex,
+а не знак PTS. parseTrack/getDirectUrl1.x сверены;1.x не менялся.
+[Причины и проверки](PATCH_2_5_4_VERIFICATION.md).
+
+Предыдущий патч2.5.3-build101: ThemePreferences в designsystem, загрузка/сохранение в MainActivity,
 ShellApp получает режим снаружи. SafLibrary поддерживает read-only file roots
 наравне с SAF; MountedFolderPicker только выбирает папку API28/29.
 WaveHistory в core сохраняет ключи вне короткой очереди AndroidPlayback;
@@ -9,7 +16,7 @@ YandexWaveApi остаётся адаптером протокола1.x. [Под
 Системные DISPLAY_*/ART из99 сохранены без дополнительной доработки.
 Сам ручной APK99 не изменён; D-003 отложен. [ADR-043](ADR_043_PLATFORM_METADATA_COMPATIBILITY.md).
 
-Стабильный срез: **2.5.3-build101** / API28. Настройки/источники волн и режимы
+Стабильный срез: **2.5.4-build102** / API28. Настройки/источники волн и режимы
 из beta81/82 включены в stable; [контрольный отчёт](RELEASE_2_4_0_VERIFICATION.md).
 Patch84 ограничивает кнопку/окно настроек активной My Wave; [проверки](PATCH_2_4_1_VERIFICATION.md).
 

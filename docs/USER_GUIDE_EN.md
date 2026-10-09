@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.5.3-build101**, Android9 and later. Reviewed on 9 October 2026.
+For **2.5.4-build102**, Android9 and later. Reviewed on 9 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -153,6 +153,12 @@ The guest profile can play local files without signing in.
 
 Choose **Yandex Music** in the library to browse liked tracks, favorite albums,
 favorite artists and playlists. Recommendations show suggested playlists.
+
+Songs you uploaded to your playlist on the Yandex Music website also appear
+in the normal track list. Access depends on your account; other users' private
+uploads are not playable. An uploaded song's artist may have no Yandex catalog
+page. To download a song for offline listening, like it and synchronize the
+offline cache, just as you would with other tracks.
 **My Vibe** starts your personalized stream. It prepares the next track while
 the current one plays and requests further recommendations as needed.
 
@@ -316,6 +322,10 @@ without that record return to Player.
 Selecting **Clips** again starts playback from the saved position. Restoring
 the app preserves its previous play/pause state. While a requested start is
 buffering, the button shows Pause; you do not need a second Play press.
+
+The screen stays awake while a clip plays or buffers, preventing the Android TV
+screensaver from covering the video. Pausing or leaving the video player restores
+the device's normal idle timer.
 
 The center button plays/pauses; the side buttons select the previous/next clip.
 The **NOW** panel shows the current title and artist, **NEXT** shows the next

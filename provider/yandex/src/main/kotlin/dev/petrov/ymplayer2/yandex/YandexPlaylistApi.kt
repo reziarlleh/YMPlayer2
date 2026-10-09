@@ -74,7 +74,7 @@ class YandexPlaylistApi(private val music: YandexMusicApi) : CloudPlaylistApi {
     }
     override suspend fun load(owner: PlaylistOwner, playlist: CloudPlaylist): CloudPlaylistSnapshot {
         val snapshot = read(owner, playlist)
-        val missing = snapshot.tracks.filter { it.title.isBlank() && it.id.matches(Regex("[0-9]+")) }
+        val missing = snapshot.tracks.filter { it.title.isBlank() && validYandexTrackId(it.id) }
             .map { it.id + (it.albumId?.let { album -> ":$album" } ?: "") }.distinct()
         val metadata = missing.chunked(50).flatMap { ids -> owned(owner) { token, _ -> music.tracks(token, ids) } }
             .associateBy { it.id.removePrefix("yandex:").substringBefore(':') }

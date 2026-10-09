@@ -64,12 +64,27 @@ class ClipStartupTest {
                         val player = (field.get(it) as ClipWaveController).player
                         assertEquals("Explicit entry starts; restored pause stays paused", explicit, player.playWhenReady)
                         assertEquals(explicit, player.isPlaying)
+                        val root = it.findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup
+                        assertEquals("Video must block idle screensavers only while playing", explicit, root.getChildAt(0).keepScreenOn)
                     }
                     if (explicit) {
+                        lateinit var videoView: android.view.View
+                        scenario.onActivity {
+                            videoView = (it.findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup).getChildAt(0)
+                            (field.get(it) as ClipWaveController).pause()
+                        }
+                        waitFor("Pause permits the screensaver") {
+                            instrument.runOnMainSync { ready = !videoView.keepScreenOn }; ready
+                        }
+                        scenario.onActivity { (field.get(it) as ClipWaveController).toggle() }
+                        waitFor("Play blocks the screensaver again") {
+                            instrument.runOnMainSync { ready = videoView.keepScreenOn }; ready
+                        }
                         scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
+                        instrument.runOnMainSync { assertFalse("Background does not keep the TV awake", videoView.keepScreenOn) }
                         scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
                         waitFor("Foreground return resumes video") {
-                            scenario.onActivity { ready = (field.get(it) as ClipWaveController).player.isPlaying }
+                            scenario.onActivity { ready = (field.get(it) as ClipWaveController).player.isPlaying && videoView.keepScreenOn }
                             ready
                         }
                     }

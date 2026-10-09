@@ -10,6 +10,12 @@ import androidx.media3.exoplayer.ExoPlayer
 /** A plain texture has no PlayerView shutter; native controls stay above the video layer. */
 fun clipVideoView(context: Context, player: ExoPlayer): TextureView = TextureView(context).apply {
     var size = player.videoSize
+    fun updateScreenAwake() {
+        // TextureView has no PlayerView policy. Keep TV dreams off during playback/buffering;
+        // pause, failure and background suspension restore Android's normal idle behaviour.
+        keepScreenOn = player.playWhenReady && player.playerError == null &&
+            player.playbackState in listOf(Player.STATE_BUFFERING, Player.STATE_READY)
+    }
     fun fit() {
         if (width == 0 || height == 0 || size.width == 0 || size.height == 0) return
         val videoRatio = size.width * size.pixelWidthHeightRatio / size.height
@@ -20,8 +26,10 @@ fun clipVideoView(context: Context, player: ExoPlayer): TextureView = TextureVie
     }
     addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> fit(); post { fit() } }
     player.addListener(object : Player.Listener {
+        override fun onEvents(player: Player, events: Player.Events) { updateScreenAwake() }
         override fun onVideoSizeChanged(videoSize: VideoSize) { size = videoSize; fit() }
         override fun onRenderedFirstFrame() { size = player.videoSize; fit() }
     })
+    updateScreenAwake()
     player.setVideoTextureView(this)
 }

@@ -28,7 +28,10 @@ class LikedFileStore(private val context: Context) : OfflineStore {
     private fun hash(value: String) = digest(value.toByteArray())
     private fun digest(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
     private fun root(owner: OfflineOwner) = File(context.filesDir, "offline-liked/v1/" + hash(owner.profileId + "\u0000" + owner.accountId))
-    private fun key(id: String) = id.removePrefix("yandex:").substringBefore(':').also { require(it.matches(Regex("[0-9]{1,30}"))) }
+    // UGC uploads have opaque IDs too. Disk names are SHA256 hashes, never raw identifiers.
+    private fun key(id: String) = id.removePrefix("yandex:").substringBefore(':').also {
+        require(it != "null" && it.matches(Regex("[A-Za-z0-9_-]{1,256}")))
+    }
     private fun part(root: File, id: String, extension: String) = File(root, hash(key(id)) + extension)
     private fun checksum(file: File) = File(file.path + ".sha256")
     private class Revoked : Exception()
@@ -209,15 +212,16 @@ class LikedFileStore(private val context: Context) : OfflineStore {
             val format = extractor.getTrackFormat(index)
             val duration = expectedMillis.takeIf { it > 0 } ?: if (format.containsKey(MediaFormat.KEY_DURATION)) format.getLong(MediaFormat.KEY_DURATION) / 1000 else 0
             var buffer = ByteBuffer.allocate(64 * 1024)
-            var first = -1L; var last = -1L; var delta = 0L; var samples = 0
-            while (extractor.sampleTime >= 0) {
+            var first = 0L; var last = 0L; var delta = 0L; var samples = 0
+            // Negative AAC priming timestamps are valid. Track index, not PTS sign, marks EOS.
+            while (extractor.sampleTrackIndex >= 0) {
                 currentCoroutineContext().ensureActive()
                 val size = extractor.sampleSize
-                if (size <= 0 || size > 4 * 1024 * 1024 || extractor.sampleTime < last) return false
+                if (size <= 0 || size > 4 * 1024 * 1024 || samples > 0 && extractor.sampleTime < last) return false
                 if (size > buffer.capacity()) buffer = ByteBuffer.allocate(size.toInt())
                 buffer.clear()
                 if (extractor.readSampleData(buffer, 0).toLong() != size) return false
-                if (first < 0) first = extractor.sampleTime else delta = extractor.sampleTime - last
+                if (samples == 0) first = extractor.sampleTime else delta = extractor.sampleTime - last
                 last = extractor.sampleTime; samples++
                 if (!extractor.advance()) break
             }

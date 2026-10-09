@@ -11,8 +11,8 @@ class YandexLikedMusicApi(private val music: YandexMusicApi) : LikedMusicApi {
         return (0 until rows.length()).map { index ->
             val row = rows.getJSONObject(index)
             val id = row.getString("id")
-            require(id.matches(Regex("[0-9]{1,30}")))
-            id + row.optString("albumId").takeIf { it.matches(Regex("[0-9]{1,30}")) }?.let { ":$it" }.orEmpty()
+            require(validYandexTrackKey(id))
+            if (':' in id) id else id + row.optString("albumId").takeIf { it.matches(Regex("[0-9]{1,30}")) }?.let { ":$it" }.orEmpty()
         }.distinctBy { it.substringBefore(':') }
     }
     override suspend fun keys(profileId: String): Set<String> = music.account(profileId) { token, uid -> rows(token, uid).mapTo(linkedSetOf()) { it.substringBefore(':') } }
