@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 98,
-  "versionName": "2.5.1-build98",
+  "versionCode": 101,
+  "versionName": "2.5.3-build101",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-07T11:17:36.901792Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.1-build98",
-  "releaseNotes": "Клипы: первый кадр, однократный Play и сохранённая позиция. Офлайн доступен сразу; первый поток волны не ждёт проверки постороннего кэша.",
+  "publishedAt": "2026-10-09T05:03:38.0839720Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.3-build101",
+  "releaseNotes": "Сохраняется оформление «Как в системе». На Android 9–10 добавлен прямой выбор папки на накопителе. Исправлены сохранение истории и обход старых ответов волны; результат feedback виден в диагностике.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.1-build98/YMPlayer-2.5.1-build98.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.1-build98/releases/2.5.1-build98/YMPlayer-2.5.1-build98.apk",
-    "sizeBytes": 6248529,
-    "sha256": "edb5ec3797f9f32c5dd248df8d264da93f2f4bcec45902a08075d27e176e6706"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.3-build101/YMPlayer-2.5.3-build101.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.3-build101/releases/2.5.3-build101/YMPlayer-2.5.3-build101.apk",
+    "sizeBytes": 6273933,
+    "sha256": "daa9e371702d840cd8473020565470140895a749efe65af8401038ba19cc0790"
   }
 }

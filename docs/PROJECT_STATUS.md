@@ -1,6 +1,7 @@
 # Текущий статус YMPlayer 2
 
-Сверено 9 октября2026. Подготовлен **2.5.3-build101**, публикация выполняется.
+Сверено 9 октября2026. Опубликован **[2.5.3-build101](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.3-build101)**.
+GitHub latest и оба stable feeds указывают101.
 Одна линия main, публичный reziarlleh/YMPlayer2, dev.petrov.ymplayer2,
 Android9/API28 и новее. 2.x — самостоятельное приложение, 1.x не требуется.
 
