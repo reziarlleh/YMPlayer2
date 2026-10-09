@@ -33,6 +33,7 @@ class AudioService : MediaLibraryService() {
 
     override fun onCreate() {
         super.onCreate()
+        setMediaNotificationProvider(ClusterMediaNotificationProvider(this))
         host.onAudioServiceEvent(AudioServiceEvent.CREATED)
         val source = onlineDataSourceFactory(this, playback::resolveStream)
         val player = ExoPlayer.Builder(this).setMediaSourceFactory(DefaultMediaSourceFactory(this).setDataSourceFactory(source))
@@ -167,6 +168,9 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
     override fun prepare() { if (selectedSource == null) super.prepare() }
     override fun getAvailableCommands(): Player.Commands {
         val commands = super.getAvailableCommands().buildUpon()
+            // addMediaItem(s) are intentionally no-ops. Do not advertise queue editing
+            // to legacy controllers, which turns on FLAG_HANDLES_QUEUE_COMMANDS.
+            .remove(Player.COMMAND_CHANGE_MEDIA_ITEMS)
             .add(Player.COMMAND_SEEK_TO_NEXT).add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
             .add(Player.COMMAND_SEEK_TO_PREVIOUS).add(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
         if (playback.radioMode || !playback.state.value.supportsQueueOrdering) commands.remove(Player.COMMAND_SET_REPEAT_MODE).remove(Player.COMMAND_SET_SHUFFLE_MODE)

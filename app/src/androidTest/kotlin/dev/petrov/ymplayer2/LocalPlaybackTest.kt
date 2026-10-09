@@ -1,6 +1,8 @@
 @file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 package dev.petrov.ymplayer2
 
+import android.app.Notification
+import android.app.NotificationManager
 import android.content.Intent
 import android.content.ComponentName
 import android.content.Context
@@ -8,6 +10,8 @@ import android.content.ContextWrapper
 import android.media.AudioAttributes
 import android.media.AudioFocusRequest
 import android.media.AudioManager
+import android.media.session.MediaController
+import android.media.session.MediaSession
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.Lifecycle
@@ -56,6 +60,46 @@ class LocalPlaybackTest {
         waitFor { library.testTracks.size == 2 && player.state.value.queue.size == 2 }
     }
     @After fun stop() { compose.runOnIdle { player.stop() }; provider("unavailable", "false") }
+
+    @Test fun clusterBetaPublishesUngroupedMediaNotificationAndClassicSessionFlags() {
+        provider("artwork"); runBlocking { library.refresh() }
+        waitFor { library.testTracks.any { it.title == "Cover fixture" } }
+        val cover = library.testTracks.single { it.title == "Cover fixture" }
+        compose.runOnIdle { player.playQueue(listOf(cover.id), cover.id) }
+        val manager = compose.activity.getSystemService(NotificationManager::class.java)
+        fun current() = manager.activeNotifications.map { it.notification }.firstOrNull {
+            it.extras.getParcelable<MediaSession.Token>("android.mediaSession") != null
+        }
+        waitFor { player.state.value.playing }
+        try { waitFor { current() != null } } catch (timeout: Throwable) {
+            val seen = manager.activeNotifications.joinToString { posted ->
+                "id=${posted.id} title=${posted.notification.extras.getCharSequence(Notification.EXTRA_TITLE)} " +
+                    "group=${posted.notification.group} category=${posted.notification.category} " +
+                    "extras=${posted.notification.extras.keySet()}"
+            }
+            throw AssertionError("No media notification; active=[$seen]", timeout)
+        }
+        try { waitFor { current()?.getLargeIcon() != null } } catch (timeout: Throwable) {
+            val posted = current()
+            throw AssertionError("Notification has no large icon: bitmap=${posted?.largeIcon != null} " +
+                "icon=${posted?.getLargeIcon() != null} extras=${posted?.extras?.keySet()} " +
+                "artworkUri=${cover.artworkUri}", timeout)
+        }
+        val notification = requireNotNull(current())
+        val token = requireNotNull(notification.extras.getParcelable<MediaSession.Token>("android.mediaSession"))
+        val controller = MediaController(compose.activity, token)
+        assertEquals(3L, controller.flags)
+        assertNull(notification.group)
+        assertEquals(Notification.CATEGORY_TRANSPORT, notification.category)
+        assertEquals(cover.title, notification.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+        assertEquals(cover.artist, notification.extras.getCharSequence(Notification.EXTRA_TEXT)?.toString())
+        assertEquals(cover.album, notification.extras.getCharSequence(Notification.EXTRA_SUB_TEXT)?.toString())
+        assertEquals(3, notification.actions.size)
+        notification.actions[1].actionIntent.send()
+        waitFor { !player.state.value.playing }
+        requireNotNull(current()).actions[1].actionIntent.send()
+        waitFor { player.state.value.playing }
+    }
 
     @Test fun realUntaggedMediaStoresEmptyTagsAndDisplaysTranslatedArtist() {
         val tracks = library.testTracks
