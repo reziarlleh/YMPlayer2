@@ -1,6 +1,6 @@
 # Журнал работы
 
-### 2026-10-09 — новые отзывы101, заставка/UGC; работа продолжается
+### 2026-10-09 — заставка/UGC/AAC; stable102 подготовлен
 
 RepoWise context сверён с ClipActivity/ClipVideoView/YandexMusicApi/PlaylistApi.
 Найдены отсутствие screen-on политики TextureView и числовые ограничения
@@ -8,8 +8,15 @@ track IDs, которых нет у чтения редактора/parseTrack1.
 Play/buffering и сквозная поддержка безопасных непрозрачных ID. Первичные
 источники протокола сверены; приватный UGC ответ пользователя недоступен.
 Добавлены regression fixtures и проверки реального ClipActivity pause/background.
-Идут debug/JVM/lint; следующий шаг — native и проверка постоянного UGC-кэша,
-затем stable patch/публикация/feeds. [Подробности](PATCH_2_5_4_VERIFICATION.md).
+При native API35 найден настоящий B-026: первый AAC PTS=-23219µs;
+два валидатора принимали отрицательный timestamp за EOS. Исправлены, проверены
+постоянный/временный кэш, reload, decoder и отказ повреждённого файла.
+TV29 56/56, API35 8/8, API28 55/56 плюс успешные1/1 и14/14 повторов волны.
+Неверное имя TasteAdapterTest в первоначальном runner и исходный timeout
+сохранены; они не скрываются. Core125/buildSrc4 результаты UP-TO-DATE,
+lint0 errors/66 warnings,675 сообщений/8 пакетов. Signed101→102/API35
+сохранил язык/system/Settings/трек и firstInstallTime. Историческая beta99
+не изменена. Следующий шаг — публикация102, feeds/HTTP/docs и финальный срез. [Подробности](PATCH_2_5_4_VERIFICATION.md).
 
 ### 2026-10-09 — исправления темы, USB и волны; stable101
 

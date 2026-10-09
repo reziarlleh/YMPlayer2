@@ -1,0 +1,56 @@
+{
+  "version": "2.5.4-build102",
+  "date": "2026-10-09",
+  "sourceCommit": "fe53ff9",
+  "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2",
+  "signerSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+  "core": {
+    "tests": 125,
+    "gradleStatus": "UP-TO-DATE"
+  },
+  "buildSrc": {
+    "tests": 4,
+    "gradleStatus": "UP-TO-DATE"
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 66
+  },
+  "native": {
+    "api28": {
+      "initialTests": 56,
+      "initialPassed": 55,
+      "isolatedRepeatPassed": 1,
+      "waveClassRepeatPassed": 14
+    },
+    "tv29": {
+      "tests": 56,
+      "passed": 56
+    },
+    "api35": {
+      "tests": 8,
+      "passed": 8
+    },
+    "successfulScenarioApiPairs": 120,
+    "successfulInvocations": 134,
+    "finalAndRepeatInvocations": 135,
+    "initialRunnerErrors": "Two initial selections referenced missing TasteAdapterTest; corrected selection retained.",
+    "firstAacFailure": "API35 AAC first PTS -23219us incorrectly interpreted as EOS; both validators fixed.",
+    "repeatCaveat": "Initial API28 wave timeout did not recur in isolated and class repeats; cause not proven."
+  },
+  "signedUpdate": {
+    "platform": "API35",
+    "from": 101,
+    "to": 102,
+    "clearedData": false,
+    "preserved": [
+      "firstInstallTime",
+      "Settings section",
+      "English UI",
+      "Follow system checked",
+      "local track two"
+    ]
+  },
+  "physicalAcceptance": "not claimed: reporter private uploads and Aerial Views are not accessible",
+  "publication": "pending"
+}
