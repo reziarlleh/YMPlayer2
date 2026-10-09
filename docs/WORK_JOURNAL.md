@@ -1,6 +1,6 @@
 # Журнал работы
 
-### 2026-10-09 — заставка/UGC/AAC; stable102 подготовлен
+### 2026-10-09 — заставка/UGC/AAC; stable102
 
 RepoWise context сверён с ClipActivity/ClipVideoView/YandexMusicApi/PlaylistApi.
 Найдены отсутствие screen-on политики TextureView и числовые ограничения
@@ -16,7 +16,8 @@ TV29 56/56, API35 8/8, API28 55/56 плюс успешные1/1 и14/14 повт
 сохранены; они не скрываются. Core125/buildSrc4 результаты UP-TO-DATE,
 lint0 errors/66 warnings,675 сообщений/8 пакетов. Signed101→102/API35
 сохранил язык/system/Settings/трек и firstInstallTime. Историческая beta99
-не изменена. Следующий шаг — публикация102, feeds/HTTP/docs и финальный срез. [Подробности](PATCH_2_5_4_VERIFICATION.md).
+не изменена. Опубликован102/latest/tag9676d72 с четырьмя assets, оба feeds102.
+Следующий шаг — live HTTP/docs и финальный срез. [Подробности](PATCH_2_5_4_VERIFICATION.md).
 
 ### 2026-10-09 — исправления темы, USB и волны; stable101
 

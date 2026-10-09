@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 101,
-  "versionName": "2.5.3-build101",
+  "versionCode": 102,
+  "versionName": "2.5.4-build102",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-09T05:03:38.0839720Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.3-build101",
-  "releaseNotes": "Сохраняется оформление «Как в системе». На Android 9–10 добавлен прямой выбор папки на накопителе. Исправлены сохранение истории и обход старых ответов волны; результат feedback виден в диагностике.",
+  "publishedAt": "2026-10-09T17:36:05.8599875Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.4-build102",
+  "releaseNotes": "Клипы удерживают экран на Android TV. Исправлены загруженные песни Яндекса в плейлистах и проверка AAC в кэше/предзагрузке. Данные сохраняются при обновлении.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.3-build101/YMPlayer-2.5.3-build101.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.3-build101/releases/2.5.3-build101/YMPlayer-2.5.3-build101.apk",
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.4-build102/YMPlayer-2.5.4-build102.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.4-build102/releases/2.5.4-build102/YMPlayer-2.5.4-build102.apk",
     "sizeBytes": 6273933,
-    "sha256": "daa9e371702d840cd8473020565470140895a749efe65af8401038ba19cc0790"
+    "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2"
   }
 }
