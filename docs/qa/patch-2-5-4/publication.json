@@ -1,0 +1,117 @@
+{
+  "version": "2.5.4-build102",
+  "checks": [
+    {
+      "name": "raw/manifest",
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "checkedAtUtc": "2026-10-09T17:42:41.821038+00:00",
+      "httpStatus": 200,
+      "version": "2.5.4-build102",
+      "channel": "stable",
+      "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2"
+    },
+    {
+      "name": "raw/stable",
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "checkedAtUtc": "2026-10-09T17:42:41.821038+00:00",
+      "httpStatus": 200,
+      "version": "2.5.4-build102",
+      "channel": "stable",
+      "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2"
+    },
+    {
+      "name": "cdn/manifest",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "checkedAtUtc": "2026-10-09T17:42:41.822544+00:00",
+      "httpStatus": 200,
+      "version": "2.5.4-build102",
+      "channel": "stable",
+      "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2"
+    },
+    {
+      "name": "cdn/stable",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "checkedAtUtc": "2026-10-09T17:42:41.823555+00:00",
+      "httpStatus": 200,
+      "version": "2.5.3-build101",
+      "channel": "stable",
+      "sha256": "daa9e371702d840cd8473020565470140895a749efe65af8401038ba19cc0790"
+    },
+    {
+      "name": "gcore/manifest",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "checkedAtUtc": "2026-10-09T17:42:41.823555+00:00",
+      "httpStatus": 200,
+      "version": "2.5.4-build102",
+      "channel": "stable",
+      "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2"
+    },
+    {
+      "name": "gcore/stable",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "checkedAtUtc": "2026-10-09T17:42:42.187036+00:00",
+      "httpStatus": 200,
+      "version": "2.5.3-build101",
+      "channel": "stable",
+      "sha256": "daa9e371702d840cd8473020565470140895a749efe65af8401038ba19cc0790"
+    },
+    {
+      "name": "github/apk",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.4-build102/YMPlayer-2.5.4-build102.apk",
+      "checkedAtUtc": "2026-10-09T17:42:42.189022+00:00",
+      "httpStatus": 200,
+      "bytes": 6273933,
+      "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2",
+      "matchesLocalApk": true
+    },
+    {
+      "name": "cdn/apk",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.4-build102/releases/2.5.4-build102/YMPlayer-2.5.4-build102.apk",
+      "checkedAtUtc": "2026-10-09T17:42:42.192432+00:00",
+      "httpStatus": 200,
+      "bytes": 6273933,
+      "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2",
+      "matchesLocalApk": true
+    },
+    {
+      "name": "gcore/apk",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.4-build102/releases/2.5.4-build102/YMPlayer-2.5.4-build102.apk",
+      "checkedAtUtc": "2026-10-09T17:42:42.194993+00:00",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "name": "github/repository",
+      "url": "https://api.github.com/repos/reziarlleh/YMPlayer2",
+      "checkedAtUtc": "2026-10-09T17:42:42.230324+00:00",
+      "httpStatus": 200,
+      "defaultBranch": "main",
+      "private": false
+    },
+    {
+      "name": "github/latest",
+      "url": "https://api.github.com/repos/reziarlleh/YMPlayer2/releases/latest",
+      "checkedAtUtc": "2026-10-09T17:42:42.445611+00:00",
+      "httpStatus": 200,
+      "tag": "v2.5.4-build102",
+      "prerelease": false,
+      "assets": [
+        {
+          "name": "build.json",
+          "digest": "sha256:5a1d9d3a44f93dcc4520cc1a26656616d52c2b3295de36e6a95eeefe77bbda6e"
+        },
+        {
+          "name": "SHA256.txt",
+          "digest": "sha256:b13dca74116137fdab0733d778148015b270e837dfddca5fc0f1a13690a55e4c"
+        },
+        {
+          "name": "signature.txt",
+          "digest": "sha256:54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1"
+        },
+        {
+          "name": "YMPlayer-2.5.4-build102.apk",
+          "digest": "sha256:5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2"
+        }
+      ]
+    }
+  ]
+}

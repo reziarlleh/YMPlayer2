@@ -260,6 +260,15 @@ Build73 зарезервирован и собран, но отклонён до
 
 ## D-001 — задержка отдельного зеркала
 
+2026-10-09, 17:42 UTC, patch102: [HTTP-срез](qa/patch-2-5-4/publication.json).
+Raw manifest/stable и CDN/Gcore manifest102; CDN/Gcore stable местами ещё101.
+Purge ранее дал102 для основного stable, однако последующий запрос другим
+HTTP-клиентом снова получил101; один успешный ответ не доказывает сходимость CDN.
+GitHub и основной pinned CDN APK102 скачаны, SHA256 совпал; дополнительный
+Gcore pinned APK вернул403. Реальный updater98/API28 предлагает102; при
+доступном raw GitHub обновление обнаруживается. Доступность только старого
+CDN stable не гарантирует обнаружение102. D-001 остаётся наблюдением.
+
 2026-10-07, patch98: [HTTP-срез](qa/patch251-2026-10-07/publication.json).
 Raw GitHub/основной jsDelivr manifest/stable98, динамический Gcore @main84.
 Оба pinned APK98 совпали с локальным SHA256. Реальный updater97 на API35

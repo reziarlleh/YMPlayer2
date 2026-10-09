@@ -52,5 +52,36 @@
     ]
   },
   "physicalAcceptance": "not claimed: reporter private uploads and Aerial Views are not accessible",
-  "publication": "pending"
+  "publication": {
+    "status": "published",
+    "tag": "v2.5.4-build102",
+    "tagCommit": "9676d72",
+    "latest": true,
+    "prerelease": false,
+    "defaultBranch": "main",
+    "public": true,
+    "httpEvidence": "docs/qa/patch-2-5-4/publication.json",
+    "apkDownloadsVerified": [
+      "GitHub",
+      "cdn.jsdelivr.net pinned tag"
+    ],
+    "cdnCaveat": "CDN stable responses can still return101; Gcore pinned APK returned403 on2026-10-09T17:42Z",
+    "liveUpdater": {
+      "installed": 98,
+      "offered": 102,
+      "api": 28,
+      "installedUpdate": false
+    },
+    "documentation": {
+      "documents": 221,
+      "localLinks": 1969,
+      "errors": 0,
+      "githubReadmeMatches": true
+    },
+    "repowise": {
+      "indexUpdatedTo": "9676d72",
+      "changedFiles": 32,
+      "sourceContextVerified": true
+    }
+  }
 }
