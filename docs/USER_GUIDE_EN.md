@@ -2,7 +2,7 @@
 
 A manual [2.5.2beta-build99](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.2beta-build99)
 is available to test instrument-cluster compatibility. Installing it over2.x keeps
-your data. Automatic updates remain on2.5.1-build98; the affected cluster still needs testing.
+your data. Automatic updates remain on2.5.1-build98; the user reports that beta99 did not resolve the affected cluster's display issue.
 
 For **2.5.1-build98**, Android9 and later. Reviewed on 7 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
