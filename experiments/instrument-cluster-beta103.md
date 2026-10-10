@@ -94,3 +94,29 @@ branch `main` остаётся `d15f6cd`. Raw GitHub и основной jsDeliv
 Beta и stable имеют один package и сертификат; установка версии с меньшим
 versionCode поверх beta103 штатно не выполняется. Возврат без удаления данных
 возможен с более новым stable Build.
+
+## Отзыв о Media Monitor, 10 октября 2026
+
+На присланном владельцем скриншоте ГУ видит установленный
+`dev.petrov.mediamonitor`, но обычный экран разрешений пишет, что приложению
+нечего выдавать. Это ожидаемо для manifest утилиты: доступ к уведомлениям
+является отдельным системным доступом Notification Listener, а не runtime
+permission. Сообщение «не получается запустить» не уточняет, отсутствует ли
+значок, не открывается ли Activity или недоступен экран выдачи доступа;
+по одному снимку причину запуска определить нельзя.
+
+На лабораторном Android TV API29 опубликованный signed build1 разрешает и
+открывает `MainActivity` через `am start`, без аварийного завершения. При этом
+`android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS` на этом стенде не
+имеет обработчика. Команда `cmd notification allow_listener` на стенде включает
+службу; обратная команда вернула исходный список listeners. Это не доказательство
+поведения физического ГУ и не означает, что там можно выдать доступ.
+
+Дальнейшая проверка принадлежит владельцу ГУ, если у него уже есть разрешённый
+ADB: `am start -W -n dev.petrov.mediamonitor/.MainActivity` разделит сбой
+запуска и отсутствие ярлыка; отдельный запуск системного intent покажет,
+доступен ли экран Notification access. При согласии владельца можно проверить
+`cmd notification allow_listener dev.petrov.mediamonitor/.MonitorService` и
+прочитать `enabled_notification_listeners`. Если утилита на прошивке всё равно
+непригодна, готовый `tools/Collect-MediaBridge.ps1` снимает только чтением
+парные media session/notification snapshots через ADB без её установки.
