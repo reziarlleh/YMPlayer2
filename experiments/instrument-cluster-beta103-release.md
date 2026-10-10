@@ -21,6 +21,10 @@ Latest остаются на 2.5.4-build102. У beta versionCode 103, поэто
 приборку при запуске, Pause/Play и смене трека. Сообщите, какие поля и обложка
 появились. Если карточки нет, полезен один отчёт отдельного
 [Media Monitor](https://github.com/reziarlleh/YMPlayer2/releases/tag/media-monitor-v1.0.0beta-build1)
-для YMPlayer и работающего FMPLAY на том же ГУ; компьютер и ADB не нужны.
+для YMPlayer и работающего FMPLAY на том же ГУ. Утилите нужен системный
+доступ Notification Listener, который может отсутствовать в прошивке ГУ.
+Если выдать его нельзя, сравнение собирается с компьютера через
+[ADB-скрипт](https://github.com/reziarlleh/YMPlayer2/blob/main/tools/Collect-MediaBridge.ps1)
+без установки Media Monitor.
 
 SHA-256 APK: `1180826c1e4d3fc74ed7de0bd98876168e670bd44a24c9d48addec98b3d889d7`.

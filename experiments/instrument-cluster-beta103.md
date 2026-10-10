@@ -89,7 +89,8 @@ branch `main` остаётся `d15f6cd`. Raw GitHub и основной jsDeliv
 Зафиксировать, появилась ли карточка, какие поля и обложка видны, а также
 версию установленного приложения. Для диагностики можно использовать
 [Media Monitor](https://github.com/reziarlleh/YMPlayer2/releases/tag/media-monitor-v1.0.0beta-build1)
-по его отдельной инструкции. ADB, root и Android Auto не требуются.
+по его отдельной инструкции, если прошивка позволяет включить Notification
+Listener. При недоступном доступе используется отдельный ADB-сборщик ниже.
 
 Beta и stable имеют один package и сертификат; установка версии с меньшим
 versionCode поверх beta103 штатно не выполняется. Возврат без удаления данных
@@ -99,11 +100,12 @@ versionCode поверх beta103 штатно не выполняется. Во�
 
 На присланном владельцем скриншоте ГУ видит установленный
 `dev.petrov.mediamonitor`, но обычный экран разрешений пишет, что приложению
-нечего выдавать. Это ожидаемо для manifest утилиты: доступ к уведомлениям
-является отдельным системным доступом Notification Listener, а не runtime
-permission. Сообщение «не получается запустить» не уточняет, отсутствует ли
-значок, не открывается ли Activity или недоступен экран выдачи доступа;
-по одному снимку причину запуска определить нельзя.
+нечего выдавать. Утилита не запрашивает runtime permissions; объявленное на
+её службе `BIND_NOTIFICATION_LISTENER_SERVICE` не выдаётся через этот экран
+или `pm grant`. Для чтения сессий других плееров Android требует активный
+Notification Listener либо привилегированное `MEDIA_CONTENT_CONTROL`.
+Следовательно, без такого доступа Media Monitor не выполнит свою задачу,
+независимо от того, удаётся ли открыть его Activity.
 
 На лабораторном Android TV API29 опубликованный signed build1 разрешает и
 открывает `MainActivity` через `am start`, без аварийного завершения. При этом
@@ -112,11 +114,13 @@ permission. Сообщение «не получается запустить» 
 службу; обратная команда вернула исходный список listeners. Это не доказательство
 поведения физического ГУ и не означает, что там можно выдать доступ.
 
-Дальнейшая проверка принадлежит владельцу ГУ, если у него уже есть разрешённый
-ADB: `am start -W -n dev.petrov.mediamonitor/.MainActivity` разделит сбой
-запуска и отсутствие ярлыка; отдельный запуск системного intent покажет,
-доступен ли экран Notification access. При согласии владельца можно проверить
-`cmd notification allow_listener dev.petrov.mediamonitor/.MonitorService` и
-прочитать `enabled_notification_listeners`. Если утилита на прошивке всё равно
-непригодна, готовый `tools/Collect-MediaBridge.ps1` снимает только чтением
-парные media session/notification snapshots через ADB без её установки.
+Если владелец ГУ уже подключил разрешённый ADB и согласен предоставить
+утилите доступ к уведомлениям, точная команда Android 10:
+`adb shell cmd notification allow_listener dev.petrov.mediamonitor/.MonitorService`.
+Результат проверяется через
+`adb shell settings get secure enabled_notification_listeners` и статус
+подключения службы в утилите. Это не `pm grant`; успех на эмуляторе не
+гарантирует успеха на прошивке TENET. Если доступ так и не появляется,
+готовый `tools/Collect-MediaBridge.ps1` снимает парные media
+session/notification snapshots через ADB без Media Monitor и без выдачи
+каких-либо разрешений приложению.
