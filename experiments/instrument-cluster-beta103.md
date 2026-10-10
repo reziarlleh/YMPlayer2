@@ -66,6 +66,12 @@ branch `main` остаётся `d15f6cd`. Raw GitHub и основной jsDeliv
 вернули build102 в `update/manifest.json` и `update/stable.json`.
 Эксперимент не вошёл в stable feeds и основные документы.
 
+`tools/Check-Documentation.py --github` проверил 223 документа и 1969
+локальных ссылок без битых ссылок, подтвердил prerelease и прежний stable102
+как GitHub Latest. Его итоговый код — 1 из-за двух ожидаемых замечаний:
+`PROJECT_STATUS.md` и `ROADMAP.md` не объявляют beta103. Эти документы
+намеренно не изменены по прямому требованию владельца об изоляции опыта.
+
 Следующий шаг — результат на реальном TENET T8. При отрицательном результате
 сравнить один отчёт Media Monitor для YMPlayer103 и работающего FMPLAY на
 том же ГУ: тексты, token, group, flags, порядок изменения уведомлений и
