@@ -24,7 +24,9 @@ Latest остаются на 2.5.4-build102. У beta versionCode 103, поэто
 для YMPlayer и работающего FMPLAY на том же ГУ. Утилите нужен системный
 доступ Notification Listener, который может отсутствовать в прошивке ГУ.
 Если выдать его нельзя, сравнение собирается с компьютера через
-[ADB-скрипт](https://github.com/reziarlleh/YMPlayer2/blob/main/tools/Collect-MediaBridge.ps1)
-без установки Media Monitor.
+[архив ClusterMedia-ADB.zip](https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.5beta-build103/ClusterMedia-ADB.zip)
+без установки Media Monitor. Внутри — PowerShell-скрипт и русская инструкция.
+Нужны разрешённое ADB-подключение к **тому же ГУ** и `adb.exe` из Android
+Platform Tools. Скрипт сам не меняет права и настройки, не управляет плеерами.
 
 SHA-256 APK: `1180826c1e4d3fc74ed7de0bd98876168e670bd44a24c9d48addec98b3d889d7`.
