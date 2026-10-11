@@ -1,0 +1,91 @@
+{
+  "repo": {
+    "defaultBranch": "main",
+    "private": false
+  },
+  "latest": {
+    "isPrerelease": false,
+    "tagName": "v2.5.5-build104",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.5-build104"
+  },
+  "results": [
+    {
+      "name": "github-stable",
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "checkedAtUtc": "2026-10-11T19:27:21.787608+00:00",
+      "http": 200,
+      "versionName": "2.5.5-build104",
+      "versionCode": 104,
+      "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b",
+      "matches": true
+    },
+    {
+      "name": "github-manifest",
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "checkedAtUtc": "2026-10-11T19:27:21.788608+00:00",
+      "http": 200,
+      "versionName": "2.5.5-build104",
+      "versionCode": 104,
+      "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b",
+      "matches": true
+    },
+    {
+      "name": "cdn.jsdelivr.net-stable",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "checkedAtUtc": "2026-10-11T19:27:21.790113+00:00",
+      "http": 200,
+      "versionName": "2.5.5-build104",
+      "versionCode": 104,
+      "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b",
+      "matches": true
+    },
+    {
+      "name": "cdn.jsdelivr.net-manifest",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "checkedAtUtc": "2026-10-11T19:27:21.791119+00:00",
+      "http": 200,
+      "versionName": "2.5.5-build104",
+      "versionCode": 104,
+      "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b",
+      "matches": true
+    },
+    {
+      "name": "gcore.jsdelivr.net-stable",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "checkedAtUtc": "2026-10-11T19:27:21.791119+00:00",
+      "http": 200,
+      "versionName": "2.5.4-build102",
+      "versionCode": 102,
+      "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2",
+      "matches": false
+    },
+    {
+      "name": "gcore.jsdelivr.net-manifest",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "checkedAtUtc": "2026-10-11T19:27:21.792120+00:00",
+      "http": 200,
+      "versionName": "2.5.5-build104",
+      "versionCode": 104,
+      "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b",
+      "matches": true
+    },
+    {
+      "name": "github-apk",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.5-build104/YMPlayer-2.5.5-build104.apk",
+      "checkedAtUtc": "2026-10-11T19:27:21.792120+00:00",
+      "http": 200,
+      "sizeBytes": 6293633,
+      "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b",
+      "matches": true
+    },
+    {
+      "name": "cdn-apk",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.5-build104/releases/2.5.5-build104/YMPlayer-2.5.5-build104.apk",
+      "checkedAtUtc": "2026-10-11T19:27:21.793515+00:00",
+      "http": 200,
+      "sizeBytes": 6293633,
+      "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b",
+      "matches": true
+    }
+  ]
+}

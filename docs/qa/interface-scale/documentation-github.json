@@ -1,0 +1,20 @@
+{
+  "version": "2.5.5-build104",
+  "manualBeta": false,
+  "stableVersion": "2.5.5-build104",
+  "localFeeds": {
+    "manifest": "2.5.5-build104",
+    "stable": "2.5.5-build104"
+  },
+  "documents": 222,
+  "localLinks": 1996,
+  "brokenLinks": [],
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.5.5-build104",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.5-build104",
+    "readmeBlob": "5d0f7cbc2f13b1501746ec05176c8b55d5b50310",
+    "localReadmeBlob": "5d0f7cbc2f13b1501746ec05176c8b55d5b50310"
+  },
+  "errors": []
+}
