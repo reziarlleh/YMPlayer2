@@ -121,7 +121,7 @@ APK: проверены публичные feeds/оба APK и install-r пов�
 не подменяются более ранней проверкой updater98→102.
 
 [Сверка после push](qa/interface-scale/documentation-github.json):222 документа,
-1993 локальные ссылки,0 ошибок; README blob совпадает с GitHub, latest104.
+1996 локальные ссылки,0 ошибок; README blob совпадает с GitHub, latest104.
 Историческая ссылка M1 на непубличный local APK заменена явным пояснением;
 старые metadata/хеш не изменены. RepoWise refresh0.49.0 завершился exit0.
 При подготовке Git снят проверенный пустой40-минутный worktree index.lock
