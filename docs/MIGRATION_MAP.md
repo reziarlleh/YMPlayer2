@@ -1,5 +1,11 @@
 # Карта переноса и модулей
 
+2.5.5-build104: InterfaceScalePreferences/InterfaceScale/PlayerViewportFit
+в designsystem; InterfaceScaleScreen и маршрут interface_scale в shell.
+MainActivity меняет Compose density и Configuration совместно; ClipActivity
+создаёт scaled context только для ClipControlsView. Playback/core/API/SideBar
+не изменялись. [Проверки](INTERFACE_SCALE_2_5_5_VERIFICATION.md).
+
 2.5.4-build102: ClipVideoView явно удерживает экран по событиям ExoPlayer.
 YandexMusicApi/PlaylistApi/TasteApi/LikedMusicApi допускают непрозрачный track ID;
 account/artist/album/playlist остаются числовыми. LikedFileStore хранит UGC
@@ -16,7 +22,7 @@ YandexWaveApi остаётся адаптером протокола1.x. [Под
 Системные DISPLAY_*/ART из99 сохранены без дополнительной доработки.
 Сам ручной APK99 не изменён; D-003 отложен. [ADR-043](ADR_043_PLATFORM_METADATA_COMPATIBILITY.md).
 
-Стабильный срез: **2.5.4-build102** / API28. Настройки/источники волн и режимы
+Стабильный срез: **2.5.5-build104** / API28. Настройки/источники волн и режимы
 из beta81/82 включены в stable; [контрольный отчёт](RELEASE_2_4_0_VERIFICATION.md).
 Patch84 ограничивает кнопку/окно настроек активной My Wave; [проверки](PATCH_2_4_1_VERIFICATION.md).
 

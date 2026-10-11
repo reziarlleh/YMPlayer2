@@ -675,5 +675,8 @@
     <string name="msg_0e5d03ee4234" formatted="false">"Жүйелік терезеде USB көрінбесе, жинақтауыштағы қалтаны тікелей таңдаңыз."</string>
     <string name="msg_10e1623cae3c" formatted="false">"Бір деңгей жоғары"</string>
     <string name="msg_d45556f3a844" formatted="false">"Қалта қосу"</string>
+    <string name="interface_scale_hint" formatted="false">"Мәтіннің, түймелердің және аралықтардың өлшемі өзгереді. Өзгерістер бірден қолданылады және қолданбаны қайта ашқанда сақталады."</string>
+    <string name="interface_scale_reset" formatted="false">"100%-ға қайтару"</string>
+    <string name="interface_scale_title" formatted="false">"Интерфейс өлшемі"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

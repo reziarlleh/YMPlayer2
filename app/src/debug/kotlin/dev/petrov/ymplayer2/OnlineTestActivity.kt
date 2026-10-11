@@ -241,11 +241,11 @@ class OnlineTestActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dev.petrov.ymplayer2.localization.AppLanguages.initialize(this, "fixture-language", "ru"); enableEdgeToEdge()
-        setContent {
+        setContent { dev.petrov.ymplayer2.designsystem.InterfaceScale {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), collections = harness.collections, accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists, history = harness.history, radio = harness.radioCatalog) }
             })
             ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it }, internet = harness.internet)
-        }
+        } }
     }
 }

@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.5.4-build102**, Android9 and later. Reviewed on 9 October 2026.
+For **2.5.5-build104**, Android9 and later. Reviewed on 12 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -364,6 +364,28 @@ or change their actions, the launcher/TV logo or the K4811 sidebar’s styling.
 See [skin packages](../skins/README.md) and the [author guide](SKIN_AUTHOR_GUIDE.md).
 
 <p align="center"><img src="publication/4pda/phone-skins.png" width="300" alt="Skins, package import and previews"></p>
+
+## Interface size
+
+Open **Settings → Interface size**. Use the slider or **− / +** to adjust text,
+buttons and spacing from **50 to 200%** in **10%** steps. The default is 100%;
+**Reset to 100%** restores it. On a remote, Left/Right adjust the slider and
+Up/Down move focus to other controls.
+
+The preview updates immediately. The editor keeps its size so the slider stays
+under your finger. Leaving the editor applies the selected size to other pages
+without restarting the app or interrupting music. The device-wide choice survives
+app restarts and is independent of your profile, theme and skin. Android's display
+resolution and font-size settings are unchanged.
+
+The main player does not scroll. On a tight screen its enlargement is limited
+to keep the main controls visible. Other pages can scroll. Video controls and
+text use the selected size when opened; the video's aspect ratio is preserved.
+The separate K4811 sidebar keeps its own dimensions.
+
+<p align="center"><img src="qa/interface-scale/signed-api28/editor-130.png" width="260" alt="Interface size:130%"></p>
+
+Signed104/API28: interface size at130%.
 
 ## K4811 sidebar
 

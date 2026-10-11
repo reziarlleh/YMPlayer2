@@ -71,7 +71,7 @@ class ClipActivity : ComponentActivity() {
         }
         root.addView(clipVideoView(this, player), FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-        val controls = ClipControlsView(this, clips!!, graph.skins.state.value.active.clipPalette(), close = ::finish)
+        val controls = ClipControlsView(dev.petrov.ymplayer2.designsystem.InterfaceScalePreferences(this).controlsContext(this), clips!!, graph.skins.state.value.active.clipPalette(), close = ::finish)
         this.controls = controls
         val connection = dev.petrov.ymplayer2.core.InternetCheck(graph.internet, lifecycleScope, {
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) && graph.playback.state.value.profileId == profile &&

@@ -1,0 +1,17 @@
+[
+  {
+    "case": "native",
+    "serial": "emulator-5560",
+    "api": 28,
+    "passed": 11,
+    "failed": 0,
+    "success": true,
+    "seconds": 104.05,
+    "classes": [
+      "InterfaceScaleTest",
+      "InterfaceScalePlaybackTest",
+      "InterfaceScaleClipsTest",
+      "NavigationTest"
+    ]
+  }
+]

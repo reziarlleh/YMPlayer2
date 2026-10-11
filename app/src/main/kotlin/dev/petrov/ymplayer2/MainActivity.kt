@@ -112,7 +112,7 @@ class MainActivity : ComponentActivity() {
             else -> null
         } })
         val equalizer = EqualizerLauncher(this, graph.playback::audioSessionId)
-        setContent {
+        setContent { dev.petrov.ymplayer2.designsystem.InterfaceScale {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer {
                     ShellModel(graph.library, graph.playback, createSavedStateHandle(), graph.collections, graph.accounts, graph.online, graph.taste, graph.offline, graph.audioQuality, graph.cloudPlaylists, graph.history, graph.radioCatalog)
@@ -176,7 +176,7 @@ class MainActivity : ComponentActivity() {
                 try { startForegroundService(android.content.Intent(this, OfflineSyncService::class.java)) }
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
             })
-        }
+        } }
         if (restoreClips) startActivity(Intent(this, ClipActivity::class.java))
     }
 }

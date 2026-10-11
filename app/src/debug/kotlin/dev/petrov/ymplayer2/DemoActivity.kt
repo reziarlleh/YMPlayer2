@@ -19,7 +19,7 @@ class DemoActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         dev.petrov.ymplayer2.localization.AppLanguages.initialize(this, "fixture-language", "ru")
         enableEdgeToEdge()
-        setContent {
+        setContent { dev.petrov.ymplayer2.designsystem.InterfaceScale {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer {
                     val catalog = DemoCatalog()
@@ -28,6 +28,6 @@ class DemoActivity : ComponentActivity() {
                 }
             })
             ShellApp(model, BuildConfig.VERSION_NAME, onExit = ::finish)
-        }
+        } }
     }
 }

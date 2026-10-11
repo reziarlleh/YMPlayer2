@@ -675,5 +675,8 @@
     <string name="msg_0e5d03ee4234" formatted="false">"Калі сістэмны выбар не паказвае USB, выберыце папку на назапашвальніку наўпрост."</string>
     <string name="msg_10e1623cae3c" formatted="false">"На ўзровень вышэй"</string>
     <string name="msg_d45556f3a844" formatted="false">"Дадаць папку"</string>
+    <string name="interface_scale_hint" formatted="false">"Змяняюцца тэкст, кнопкі і адступы. Змены бачныя адразу і захоўваюцца для наступных запускаў."</string>
+    <string name="interface_scale_reset" formatted="false">"Скінуць да 100%"</string>
+    <string name="interface_scale_title" formatted="false">"Маштаб інтэрфейсу"</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

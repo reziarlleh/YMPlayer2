@@ -10793,5 +10793,53 @@
       "kk": "Қалта қосу",
       "uk": "Додати папку"
     }
+  },
+  {
+    "key": "interface_scale_hint",
+    "source": "Меняются текст, кнопки и отступы. Изменения видны сразу и сохраняются для следующих запусков.",
+    "english": "Adjusts text, buttons and spacing. Changes take effect immediately and are kept when you reopen the app.",
+    "translations": {
+      "be": "Змяняюцца тэкст, кнопкі і адступы. Змены бачныя адразу і захоўваюцца для наступных запускаў.",
+      "kk": "Мәтіннің, түймелердің және аралықтардың өлшемі өзгереді. Өзгерістер бірден қолданылады және қолданбаны қайта ашқанда сақталады.",
+      "uk": "Змінюються текст, кнопки та відступи. Зміни видно одразу, і вони зберігаються для наступних запусків.",
+      "de": "Passt Text, Schaltflächen und Abstände an. Änderungen werden sofort angezeigt und bleiben beim erneuten Öffnen erhalten.",
+      "es": "Ajusta el texto, los botones y los espacios. Los cambios se aplican al instante y se conservan al volver a abrir la aplicación.",
+      "fr": "Ajuste le texte, les boutons et les espacements. Les changements sont immédiats et conservés à la réouverture de l’application."
+    },
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
+    ]
+  },
+  {
+    "key": "interface_scale_reset",
+    "source": "Сбросить к 100%",
+    "english": "Reset to 100%",
+    "translations": {
+      "be": "Скінуць да 100%",
+      "kk": "100%-ға қайтару",
+      "uk": "Скинути до 100%",
+      "de": "Auf 100% zurücksetzen",
+      "es": "Restablecer al 100%",
+      "fr": "Rétablir à 100%"
+    },
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
+    ]
+  },
+  {
+    "key": "interface_scale_title",
+    "source": "Масштаб интерфейса",
+    "english": "Interface size",
+    "translations": {
+      "be": "Маштаб інтэрфейсу",
+      "kk": "Интерфейс өлшемі",
+      "uk": "Масштаб інтерфейсу",
+      "de": "Oberflächengröße",
+      "es": "Tamaño de la interfaz",
+      "fr": "Taille de l’interface"
+    },
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
+    ]
   }
 ]

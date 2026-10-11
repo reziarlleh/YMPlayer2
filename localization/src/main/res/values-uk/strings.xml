@@ -675,5 +675,8 @@
     <string name="msg_0e5d03ee4234" formatted="false">"Якщо системний вибір не показує USB, виберіть папку на накопичувачі напряму."</string>
     <string name="msg_10e1623cae3c" formatted="false">"На рівень вище"</string>
     <string name="msg_d45556f3a844" formatted="false">"Додати папку"</string>
+    <string name="interface_scale_hint" formatted="false">"Змінюються текст, кнопки та відступи. Зміни видно одразу, і вони зберігаються для наступних запусків."</string>
+    <string name="interface_scale_reset" formatted="false">"Скинути до 100%"</string>
+    <string name="interface_scale_title" formatted="false">"Масштаб інтерфейсу"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

@@ -44,10 +44,11 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
 }
 
-@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null, skins: (() -> Unit)? = null, about: () -> Unit = {}, language: () -> Unit = {}) {
+@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null, skins: (() -> Unit)? = null, about: () -> Unit = {}, language: () -> Unit = {}, scale: () -> Unit = {}) {
     LazyColumn(Modifier.fillMaxSize().testTag("settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text(tr(Msg.msg_985b5e0f2ccf), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
         item { OutlinedButton(language, Modifier.fillMaxWidth().prismFocus().testTag("settings_language")) { Text(trMessage("Язык приложения")) } }
+        item { OutlinedButton(scale, Modifier.fillMaxWidth().prismFocus().testTag("settings_scale")) { Text(trMessage("Масштаб интерфейса")) } }
         if (quality != null) item { OutlinedButton(quality, Modifier.fillMaxWidth().prismFocus().testTag("settings_quality")) { Text(tr(Msg.msg_995011f87d4b)) } }
         item { Text(tr(Msg.msg_1731619efa3a), style = MaterialTheme.typography.titleMedium) }
         if (skins != null) item { OutlinedButton(skins, Modifier.fillMaxWidth().prismFocus().testTag("settings_skins")) { Text(tr(Msg.msg_6dd43bf971fd)) } }

@@ -110,7 +110,7 @@ private val destinations get() = listOf(
     LaunchedEffect(exitAt) { if (exitAt != null) { delay(2000); exitAt = null } }
     BackHandler {
         when (route) {
-            "quality", "diagnostics", "sidebar", "updates", "skins", "offline_settings", "language" -> navigate("settings")
+            "quality", "diagnostics", "sidebar", "updates", "skins", "offline_settings", "language", "interface_scale" -> navigate("settings")
             "account" -> navigate("profiles")
             "playlists", "favorites", "folders", "offline", "history", "recent" -> { libraryUpRequest++; navigate("library") }
             "player" -> {
@@ -121,9 +121,15 @@ private val destinations get() = listOf(
             else -> navigate("player")
         }
     }
+    // Keep the scale editor, including its navigation, stable during a drag.
+    // Its explicit preview uses the selected size; every other page uses it directly.
+    CompositionLocalProvider(
+        LocalDensity provides (if (route == "interface_scale") LocalUnscaledDensity.current ?: density else density),
+        androidx.compose.ui.platform.LocalConfiguration provides (if (route == "interface_scale") LocalUnscaledConfiguration.current
+            ?: androidx.compose.ui.platform.LocalConfiguration.current else androidx.compose.ui.platform.LocalConfiguration.current)) {
     PrismTheme(theme, skin) {
         BoxWithConstraints(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).safeDrawingPadding()) {
-            val rail = maxWidth >= 600.dp
+            val rail = maxWidth >= 600.dp || (LocalUnscaledConfiguration.current?.screenWidthDp ?: maxWidth.value.toInt()) >= 480 && maxWidth > maxHeight * 1.3f
             val widePlayer = maxWidth >= 960.dp && maxHeight >= 500.dp
             val short = maxHeight < 480.dp
             // Give text entry room on short windows; playback continues while its bar is hidden.
@@ -144,7 +150,7 @@ private val destinations get() = listOf(
                     // Rail sizing uses the space remaining below the common header.
                     val compactRail = maxHeight < 380.dp || density.fontScale > 1.3f
                     val tinyRail = maxHeight < 320.dp
-                    val railItemHeight = (maxHeight / destinations.size).coerceIn(48.dp, if (compactRail) 76.dp else 80.dp)
+                    val railItemHeight = (maxHeight / destinations.size).coerceIn(0.dp, if (compactRail) 76.dp else 80.dp)
                     Row(Modifier.fillMaxSize()) {
                         if (rail) NavigationRail(Modifier.fillMaxHeight().testTag("shell_rail").then(if (compactRail && !tinyRail) Modifier.width(112.dp) else Modifier)
                             .then(if (route != "player") Modifier.verticalScroll(rememberScrollState()) else Modifier),
@@ -181,7 +187,7 @@ private val destinations get() = listOf(
                                 // Each route/profile owns its scroll, filters, detail and text field state.
                                 holder.SaveableStateProvider("${playback.profileId}:$route") {
                                     when (route) {
-                                        "player" -> PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists, model.collections, model.offline)
+                                        "player" -> PlayerViewportFit { PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists, model.collections, model.offline) }
                                         "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists) }
                                         "library", "search" -> Column(Modifier.fillMaxSize()) {
                                             if (route == "library") Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -227,8 +233,9 @@ private val destinations get() = listOf(
                                         "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                         "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
                                         "offline_settings" -> model.offline?.let { OfflineSettingsScreen(it, syncOffline, { navigate("account") }) }
-                                        "settings" -> SettingsScreen(version, theme, { saveTheme(it); theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true }, language = { navigate("language") })
+                                        "settings" -> SettingsScreen(version, theme, { saveTheme(it); theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true }, language = { navigate("language") }, scale = { navigate("interface_scale") })
                                         "language" -> LanguageScreen()
+                                        "interface_scale" -> InterfaceScaleScreen()
                                         "skins" -> skins?.let { SkinsScreen(it, importSkin) }
                                         "diagnostics" -> diagnostics?.let { DiagnosticsScreen(it) }
                                         "sidebar" -> sideBar?.let { SideBarScreen(it) }
@@ -238,8 +245,8 @@ private val destinations get() = listOf(
                                     }
                                 }
                             }
-                            if (route != "radio" && !typingInShortWindow && radioPlayback?.ownsOutput == true) model.radio?.let { RadioMiniPlayer(it) { navigate("radio") } }
-                            else if (route !in listOf("player", "radio") && !typingInShortWindow) MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
+                            if (route !in listOf("radio", "interface_scale") && !typingInShortWindow && radioPlayback?.ownsOutput == true) model.radio?.let { RadioMiniPlayer(it) { navigate("radio") } }
+                            else if (route !in listOf("player", "radio", "interface_scale") && !typingInShortWindow) MiniPlayer(playback, model.player, { navigate("player") }, { navigate("queue") })
                             if (!rail && !typingInShortWindow) NavigationBar(Modifier.onSizeChanged { bottomBarHeight = it.height }, containerColor = MaterialTheme.colorScheme.background) {
                                 destinations.forEach { item ->
                                     NavigationBarItem(navigationRoute == item.route, { navigate(item.route) },
@@ -266,7 +273,7 @@ private val destinations get() = listOf(
             val offer = updateState.offer
             if (updateState.prompt && offer != null) UpdatePrompt(updates, offer)
         }
-    }
+    } }
 }
 
 @Composable private fun MiniPlayer(state: PlaybackState, player: PlaybackController, open: () -> Unit, queue: () -> Unit) {

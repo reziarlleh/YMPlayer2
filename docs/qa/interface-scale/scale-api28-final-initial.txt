@@ -1,0 +1,117 @@
+{"case": "native", "serial": "emulator-5560", "api": 28, "passed": 10, "failed": 1, "success": false, "seconds": 86.16, "classes": ["InterfaceScaleTest", "InterfaceScalePlaybackTest", "InterfaceScaleClipsTest", "NavigationTest"]}
+rent thread: 'Instr: androidx.test.runner.AndroidJUnitRunner'
+Expected thread: 'main'
+See https://developer.android.com/guide/topics/media/issues/player-accessed-on-wrong-thread
+	at androidx.media3.exoplayer.ExoPlayerImpl.verifyApplicationThread(ExoPlayerImpl.java:3150)
+	at androidx.media3.exoplayer.ExoPlayerImpl.getCurrentTimeline(ExoPlayerImpl.java:1426)
+	at androidx.media3.common.BasePlayer.getCurrentMediaItem(BasePlayer.java:293)
+	at androidx.media3.common.ForwardingPlayer.getCurrentMediaItem(ForwardingPlayer.java:551)
+	at dev.petrov.ymplayer2.InterfaceScalePlaybackTest.liveScalePreservesRealAudioPositionQueueAndEngine(InterfaceScalePlaybackTest.kt:46)
+
+INSTRUMENTATION_STATUS: stream=
+Error in liveScalePreservesRealAudioPositionQueueAndEngine(dev.petrov.ymplayer2.InterfaceScalePlaybackTest):
+java.lang.IllegalStateException: Player is accessed on the wrong thread.
+Current thread: 'Instr: androidx.test.runner.AndroidJUnitRunner'
+Expected thread: 'main'
+See https://developer.android.com/guide/topics/media/issues/player-accessed-on-wrong-thread
+	at androidx.media3.exoplayer.ExoPlayerImpl.verifyApplicationThread(ExoPlayerImpl.java:3150)
+	at androidx.media3.exoplayer.ExoPlayerImpl.getCurrentTimeline(ExoPlayerImpl.java:1426)
+	at androidx.media3.common.BasePlayer.getCurrentMediaItem(BasePlayer.java:293)
+	at androidx.media3.common.ForwardingPlayer.getCurrentMediaItem(ForwardingPlayer.java:551)
+	at dev.petrov.ymplayer2.InterfaceScalePlaybackTest.liveScalePreservesRealAudioPositionQueueAndEngine(InterfaceScalePlaybackTest.kt:46)
+
+INSTRUMENTATION_STATUS: test=liveScalePreservesRealAudioPositionQueueAndEngine
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.InterfaceScaleClipsTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.InterfaceScaleClipsTest:
+INSTRUMENTATION_STATUS: test=enlargedNativeControlsKeepOneTapPlaybackScreenPolicyAndVideoAspect
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.InterfaceScaleClipsTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=enlargedNativeControlsKeepOneTapPlaybackScreenPolicyAndVideoAspect
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.NavigationTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.NavigationTest:
+INSTRUMENTATION_STATUS: test=exitPromptExpiresAndNavigationRecreationAndBackgroundResetIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.NavigationTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=exitPromptExpiresAndNavigationRecreationAndBackgroundResetIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.NavigationTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sectionSwitchAndBackInSameFrameUseCurrentRoute
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.NavigationTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sectionSwitchAndBackInSameFrameUseCurrentRoute
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.NavigationTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=twoRootBackPressesFinishTheActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.NavigationTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=twoRootBackPressesFinishTheActivity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.NavigationTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=upUsesHierarchyAndToolbarHonorsCatalogDetail
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.NavigationTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=upUsesHierarchyAndToolbarHonorsCatalogDetail
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 79.819
+There was 1 failure:
+1) liveScalePreservesRealAudioPositionQueueAndEngine(dev.petrov.ymplayer2.InterfaceScalePlaybackTest)
+java.lang.IllegalStateException: Player is accessed on the wrong thread.
+Current thread: 'Instr: androidx.test.runner.AndroidJUnitRunner'
+Expected thread: 'main'
+See https://developer.android.com/guide/topics/media/issues/player-accessed-on-wrong-thread
+	at androidx.media3.exoplayer.ExoPlayerImpl.verifyApplicationThread(ExoPlayerImpl.java:3150)
+	at androidx.media3.exoplayer.ExoPlayerImpl.getCurrentTimeline(ExoPlayerImpl.java:1426)
+	at androidx.media3.common.BasePlayer.getCurrentMediaItem(BasePlayer.java:293)
+	at androidx.media3.common.ForwardingPlayer.getCurrentMediaItem(ForwardingPlayer.java:551)
+	at dev.petrov.ymplayer2.InterfaceScalePlaybackTest.liveScalePreservesRealAudioPositionQueueAndEngine(InterfaceScalePlaybackTest.kt:46)
+
+FAILURES!!!
+Tests run: 11,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
+

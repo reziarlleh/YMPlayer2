@@ -676,5 +676,8 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     msg_8429277fdf48("Разрешите чтение накопителя для YMPlayer или используйте системный выбор папки.", "Allow YMPlayer to read storage, or use the system folder picker.", R.string.msg_8429277fdf48),
     msg_0e5d03ee4234("Если системный выбор не видит USB, выберите папку на накопителе напрямую.", "If the system picker does not show USB storage, choose a folder on the device directly.", R.string.msg_0e5d03ee4234),
     msg_10e1623cae3c("На уровень вверх", "Up one level", R.string.msg_10e1623cae3c),
-    msg_d45556f3a844("Добавить папку", "Add folder", R.string.msg_d45556f3a844);
+    msg_d45556f3a844("Добавить папку", "Add folder", R.string.msg_d45556f3a844),
+    interface_scale_hint("Меняются текст, кнопки и отступы. Изменения видны сразу и сохраняются для следующих запусков.", "Adjusts text, buttons and spacing. Changes take effect immediately and are kept when you reopen the app.", R.string.interface_scale_hint),
+    interface_scale_reset("Сбросить к 100%", "Reset to 100%", R.string.interface_scale_reset),
+    interface_scale_title("Масштаб интерфейса", "Interface size", R.string.interface_scale_title);
 }

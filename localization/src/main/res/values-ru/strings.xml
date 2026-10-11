@@ -675,5 +675,8 @@
     <string name="msg_0e5d03ee4234" formatted="false">"Если системный выбор не видит USB, выберите папку на накопителе напрямую."</string>
     <string name="msg_10e1623cae3c" formatted="false">"На уровень вверх"</string>
     <string name="msg_d45556f3a844" formatted="false">"Добавить папку"</string>
+    <string name="interface_scale_hint" formatted="false">"Меняются текст, кнопки и отступы. Изменения видны сразу и сохраняются для следующих запусков."</string>
+    <string name="interface_scale_reset" formatted="false">"Сбросить к 100%"</string>
+    <string name="interface_scale_title" formatted="false">"Масштаб интерфейса"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

@@ -675,5 +675,8 @@
     <string name="msg_0e5d03ee4234" formatted="false">"Si le sélecteur du système ne montre pas le support USB, choisissez directement un dossier sur le support."</string>
     <string name="msg_10e1623cae3c" formatted="false">"Dossier parent"</string>
     <string name="msg_d45556f3a844" formatted="false">"Ajouter un dossier"</string>
+    <string name="interface_scale_hint" formatted="false">"Ajuste le texte, les boutons et les espacements. Les changements sont immédiats et conservés à la réouverture de l’application."</string>
+    <string name="interface_scale_reset" formatted="false">"Rétablir à 100%"</string>
+    <string name="interface_scale_title" formatted="false">"Taille de l’interface"</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

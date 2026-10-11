@@ -1,0 +1,19 @@
+{
+  "core": {
+    "tests": 125,
+    "failures": 0,
+    "errors": 0,
+    "files": 14
+  },
+  "buildSrc": {
+    "tests": 0,
+    "failures": 0,
+    "errors": 0,
+    "files": 0
+  },
+  "lint": "0 errors, 66 warnings",
+  "localization": {
+    "messages": 678,
+    "languages": 8
+  }
+}

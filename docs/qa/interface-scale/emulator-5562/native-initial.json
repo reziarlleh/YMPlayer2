@@ -1,0 +1,14 @@
+[
+  {
+    "case": "native",
+    "serial": "emulator-5562",
+    "api": 35,
+    "passed": 0,
+    "failed": 1,
+    "success": false,
+    "seconds": 19.06,
+    "classes": [
+      "InterfaceScaleTest#controlsRemainInsideViewportAcrossScaleRange"
+    ]
+  }
+]

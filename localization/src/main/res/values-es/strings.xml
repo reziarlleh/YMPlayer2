@@ -675,5 +675,8 @@
     <string name="msg_0e5d03ee4234" formatted="false">"Si el selector del sistema no muestra la unidad USB, elige directamente una carpeta de la unidad."</string>
     <string name="msg_10e1623cae3c" formatted="false">"Subir un nivel"</string>
     <string name="msg_d45556f3a844" formatted="false">"Añadir carpeta"</string>
+    <string name="interface_scale_hint" formatted="false">"Ajusta el texto, los botones y los espacios. Los cambios se aplican al instante y se conservan al volver a abrir la aplicación."</string>
+    <string name="interface_scale_reset" formatted="false">"Restablecer al 100%"</string>
+    <string name="interface_scale_title" formatted="false">"Tamaño de la interfaz"</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

@@ -12,11 +12,11 @@ YMPlayer 2 — самостоятельное приложение. Для ра�
   <img src="docs/design/brand/tv-banner.png" width="640" alt="YMPlayer 2">
 </p>
 
-**[Скачать APK — 2.5.4-build102](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
+**[Скачать APK — 2.5.5-build104](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
 [Что нового](CHANGELOG.md) ·
 [Обсуждение и APK на 4PDA](https://4pda.to/forum/index.php?showtopic=1127108)
 
-[Резервная загрузка APK](https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.4-build102/releases/2.5.4-build102/YMPlayer-2.5.4-build102.apk) ·
+[Резервная загрузка APK](https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.5-build104/releases/2.5.5-build104/YMPlayer-2.5.5-build104.apk) ·
 [Как пользоваться Радио](docs/USER_GUIDE.md#радио).
 
 ## Возможности
@@ -45,6 +45,7 @@ YMPlayer 2 — самостоятельное приложение. Для ра�
 - **Клипы.** Волна видеоклипов, управление пультом, информация о текущем
   и следующем клипе.
 - **Оформление.** Светлая и тёмная темы, готовые скины и импорт собственного оформления.
+  Ручной масштаб текста, кнопок и отступов от 50 до 200% с шагом 10%.
 - **Боковая панель для K4811.** Настраиваемые кнопки громкости, плеера,
   навигации, сна и перезагрузки.
 - **Обновления.** Проверка при запуске и вручную, резервный источник загрузки APK.

@@ -1,0 +1,52 @@
+{
+  "serial": "emulator-5560",
+  "startVersion": "2.5.1-build98",
+  "beforeVersion": "2.5.4-build102",
+  "beforeSettings": [
+    "Music with you",
+    "Settings",
+    "App language",
+    "Audio quality",
+    "Appearance",
+    "Skins",
+    "Dark",
+    "Light",
+    "Follow system",
+    "one",
+    "Unknown artist · 0:00",
+    "Player",
+    "Library",
+    "Search",
+    "Radio",
+    "Clips"
+  ],
+  "beforeSelected": [
+    ""
+  ],
+  "afterVersion": "2.5.5-build104",
+  "afterSettings": [
+    "Music with you",
+    "Settings",
+    "App language",
+    "Interface size",
+    "Audio quality",
+    "Appearance",
+    "Skins",
+    "Dark",
+    "Light",
+    "one",
+    "Unknown artist · 0:00",
+    "Player",
+    "Library",
+    "Search",
+    "Radio",
+    "Clips"
+  ],
+  "afterSelected": [
+    ""
+  ],
+  "freshProcessPreservedScaleAndRoute": true,
+  "reset": true,
+  "backToSettings": true,
+  "passed": true
+}

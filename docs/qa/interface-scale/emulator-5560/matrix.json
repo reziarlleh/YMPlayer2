@@ -1,0 +1,74 @@
+[
+  {
+    "case": "800x480-mdpi",
+    "serial": "emulator-5560",
+    "api": 28,
+    "passed": 1,
+    "failed": 0,
+    "success": true,
+    "seconds": 13.12,
+    "classes": [
+      "InterfaceScaleTest#controlsRemainInsideViewportAcrossScaleRange"
+    ]
+  },
+  {
+    "case": "1024x600-mdpi",
+    "serial": "emulator-5560",
+    "api": 28,
+    "passed": 1,
+    "failed": 0,
+    "success": true,
+    "seconds": 9.3,
+    "classes": [
+      "InterfaceScaleTest#controlsRemainInsideViewportAcrossScaleRange"
+    ]
+  },
+  {
+    "case": "1280x720-hdpi",
+    "serial": "emulator-5560",
+    "api": 28,
+    "passed": 1,
+    "failed": 0,
+    "success": true,
+    "seconds": 9.73,
+    "classes": [
+      "InterfaceScaleTest#controlsRemainInsideViewportAcrossScaleRange"
+    ]
+  },
+  {
+    "case": "1920x720-mdpi",
+    "serial": "emulator-5560",
+    "api": 28,
+    "passed": 1,
+    "failed": 0,
+    "success": true,
+    "seconds": 12.19,
+    "classes": [
+      "InterfaceScaleTest#controlsRemainInsideViewportAcrossScaleRange"
+    ]
+  },
+  {
+    "case": "1920x1080-tv",
+    "serial": "emulator-5560",
+    "api": 28,
+    "passed": 1,
+    "failed": 0,
+    "success": true,
+    "seconds": 14.45,
+    "classes": [
+      "InterfaceScaleTest#controlsRemainInsideViewportAcrossScaleRange"
+    ]
+  },
+  {
+    "case": "720x1280-phone",
+    "serial": "emulator-5560",
+    "api": 28,
+    "passed": 1,
+    "failed": 0,
+    "success": true,
+    "seconds": 10.22,
+    "classes": [
+      "InterfaceScaleTest#controlsRemainInsideViewportAcrossScaleRange"
+    ]
+  }
+]

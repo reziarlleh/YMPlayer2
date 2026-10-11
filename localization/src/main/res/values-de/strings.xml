@@ -675,5 +675,8 @@
     <string name="msg_0e5d03ee4234" formatted="false">"Wenn die Systemauswahl den USB-Speicher nicht anzeigt, wähle den Ordner direkt auf dem Speicher aus."</string>
     <string name="msg_10e1623cae3c" formatted="false">"Eine Ebene höher"</string>
     <string name="msg_d45556f3a844" formatted="false">"Ordner hinzufügen"</string>
+    <string name="interface_scale_hint" formatted="false">"Passt Text, Schaltflächen und Abstände an. Änderungen werden sofort angezeigt und bleiben beim erneuten Öffnen erhalten."</string>
+    <string name="interface_scale_reset" formatted="false">"Auf 100% zurücksetzen"</string>
+    <string name="interface_scale_title" formatted="false">"Oberflächengröße"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>
