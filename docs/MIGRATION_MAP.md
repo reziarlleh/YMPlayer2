@@ -6,7 +6,7 @@ MainActivity меняет Compose density и Configuration совместно; C
 создаёт scaled context только для ClipControlsView. Playback/core/API/SideBar
 не изменялись. [Проверки](INTERFACE_SCALE_2_5_5_VERIFICATION.md).
 
-2.5.4-build102: ClipVideoView явно удерживает экран по событиям ExoPlayer.
+Исторический патч2.5.4-build102: ClipVideoView явно удерживает экран по событиям ExoPlayer.
 YandexMusicApi/PlaylistApi/TasteApi/LikedMusicApi допускают непрозрачный track ID;
 account/artist/album/playlist остаются числовыми. LikedFileStore хранит UGC
 под прежними hash-именами; оба аудиовалидатора используют sampleTrackIndex,
