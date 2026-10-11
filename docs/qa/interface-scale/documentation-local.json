@@ -1,0 +1,14 @@
+{
+  "version": "2.5.5-build104",
+  "manualBeta": false,
+  "stableVersion": "2.5.5-build104",
+  "localFeeds": {
+    "manifest": "2.5.5-build104",
+    "stable": "2.5.5-build104"
+  },
+  "documents": 222,
+  "localLinks": 1993,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}

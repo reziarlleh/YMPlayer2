@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 102,
-  "versionName": "2.5.4-build102",
+  "versionCode": 104,
+  "versionName": "2.5.5-build104",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-09T17:36:05.8599875Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.4-build102",
-  "releaseNotes": "Клипы удерживают экран на Android TV. Исправлены загруженные песни Яндекса в плейлистах и проверка AAC в кэше/предзагрузке. Данные сохраняются при обновлении.",
+  "publishedAt": "2026-10-11T19:25:43.1700905Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.5.5-build104",
+  "releaseNotes": "Ручной масштаб интерфейса 50–200% с шагом 10%, живым предпросмотром и сохранением. Управление пультом, сброс к 100%; музыка продолжает играть при настройке.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.4-build102/YMPlayer-2.5.4-build102.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.4-build102/releases/2.5.4-build102/YMPlayer-2.5.4-build102.apk",
-    "sizeBytes": 6273933,
-    "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.5.5-build104/YMPlayer-2.5.5-build104.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.5.5-build104/releases/2.5.5-build104/YMPlayer-2.5.5-build104.apk",
+    "sizeBytes": 6293633,
+    "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b"
   }
 }

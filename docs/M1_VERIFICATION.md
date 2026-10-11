@@ -4,7 +4,8 @@
 
 ## Артефакт
 
-- [YMPlayer-2.0.0beta-build1.apk](../releases/2.0.0beta-build1/YMPlayer-2.0.0beta-build1.apk)
+- Локальный `releases/2.0.0beta-build1/YMPlayer-2.0.0beta-build1.apk` не публиковался
+  и не хранится в Git; ссылка на скачивание для этого прототипа не предоставляется.
 - applicationId: `dev.petrov.ymplayer2`; versionCode: `1`;
   versionName: `2.0.0beta-build1`; minSdk: 29, targetSdk: 36, compileSdk: 37.
 - Размер: 2 321 250 байт. R8 и resource shrinking включены; APK не debuggable.
