@@ -9,4 +9,5 @@ dependencies {
     implementation(project(":core"))
     implementation(libs.coroutines.android)
     implementation(libs.media3.exoplayer)
+    implementation("de.sciss:jump3r:1.0.5")
 }

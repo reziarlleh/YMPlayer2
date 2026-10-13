@@ -157,6 +157,25 @@ class MainActivity : ComponentActivity() {
             val skinPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
                 if (uri != null) graph.skins.inspect(uri)
             }
+            val startTransfer: (String, String?) -> Unit = { action, destination ->
+                try { startForegroundService(Intent(this, FileTransferService::class.java).setAction(action).putExtra("destination", destination)) }
+                catch (_: Exception) {
+                    if (action == FileTransferService.MOVE) graph.cacheLocation.report("Не удалось запустить перенос кэша.")
+                    else graph.audioExporter.report("Не удалось запустить экспорт MP3.")
+                }
+            }
+            val cachePicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+                if (uri != null) try {
+                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    startTransfer(FileTransferService.MOVE, uri.toString())
+                } catch (_: Exception) { graph.cacheLocation.report("Не удалось получить доступ к выбранной папке.") }
+            }
+            val exportPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+                if (uri != null) try {
+                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    startTransfer(FileTransferService.EXPORT, uri.toString())
+                } catch (_: Exception) { graph.audioExporter.report("Не удалось получить доступ к выбранной папке.") }
+            }
             ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
                 initialTheme = appearance.read(), saveTheme = appearance::save,
                 initialRoute = graph.shellRoute(),
@@ -172,7 +191,15 @@ class MainActivity : ComponentActivity() {
             }, addFolder = {
                 source = it; pickerIssue = null
                 if (android.os.Build.VERSION.SDK_INT <= 29) folderMethods = true else openSystemFolder()
-            }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
+            }, cacheLocation = graph.cacheLocation, exporter = graph.audioExporter,
+                pickCacheFolder = {
+                    try { cachePicker.launch(null) }
+                    catch (_: ActivityNotFoundException) { graph.cacheLocation.report("Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.") }
+                }, resetCacheFolder = { startTransfer(FileTransferService.MOVE, null) },
+                pickExportFolder = {
+                    try { exportPicker.launch(null) }
+                    catch (_: ActivityNotFoundException) { graph.audioExporter.report("Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.") }
+                }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
                 try { startForegroundService(android.content.Intent(this, OfflineSyncService::class.java)) }
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
             })

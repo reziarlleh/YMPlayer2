@@ -43,8 +43,9 @@ private val destinations get() = listOf(
     Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null, initialTheme: String = "dark", saveTheme: (String) -> Unit = {}) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null, initialTheme: String = "dark", saveTheme: (String) -> Unit = {}, cacheLocation: CacheLocationAccess? = null, pickCacheFolder: () -> Unit = {}, resetCacheFolder: () -> Unit = {}, exporter: AudioExportAccess? = null, pickExportFolder: () -> Unit = {}) {
     val playback by model.player.state.collectAsStateWithLifecycle()
+    val exporting = exporter?.state?.collectAsStateWithLifecycle()?.value?.running == true
     val radioPlayback = model.radio?.playback?.collectAsStateWithLifecycle()?.value
     val library by model.library.collectAsStateWithLifecycle()
     val offlineState = model.offline?.state?.collectAsStateWithLifecycle()?.value
@@ -188,7 +189,7 @@ private val destinations get() = listOf(
                                 holder.SaveableStateProvider("${playback.profileId}:$route") {
                                     when (route) {
                                         "player" -> PlayerViewportFit { PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists, model.collections, model.offline) }
-                                        "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists) }
+                                        "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists, exporter = exporter) }
                                         "library", "search" -> Column(Modifier.fillMaxSize()) {
                                             if (route == "library") Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                                 if (model.history != null) OutlinedButton({ navigate("history") }, Modifier.prismFocus().testTag("open_history")) { Text(tr(Msg.history_title)) }
@@ -206,7 +207,7 @@ private val destinations get() = listOf(
                                             }
                                             val cacheOnly = route == "search" && offlineSearch
                                             if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, route == "search", { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist, playlists = model.cloudPlaylists,
-                                                searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it })
+                                                searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it }, exporter = exporter)
                                             else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else emptyList(), model.player, route == "search", if (demo) catalogState else CatalogState.READY,
                                             demo = demo, folders = { navigate("folders") }, scanning = if (cacheOnly) profileOfflineState?.ready == false else library.scanning, issue = if (cacheOnly) profileOfflineState?.message else library.issue,
                                             collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
@@ -224,7 +225,7 @@ private val destinations get() = listOf(
                                         }
                                         "playlists", "favorites" -> model.collections?.let { CollectionsScreen(it, playback.profileId, if (demo) library.tracks else emptyList(), model.player, route == "favorites", model.local as? IndexedLocalLibrary) }
                                         "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
-                                        "offline" -> model.offline?.let { OfflineScreen(it, model.player) }
+                                        "offline" -> model.offline?.let { offline -> OfflineScreen(offline, model.player, exporter?.let { e -> { e.ask(AudioExportRequest(playback.profileId, trMessage("Мне нравится · офлайн"), tracks = offline.tracks(playback.profileId))) } }) }
                                         "history" -> HistoryScreen(model, openArtist)
                                         "recent" -> RecentScreen(model) { collectionTrack = it }
                                         "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
@@ -232,7 +233,7 @@ private val destinations get() = listOf(
                                         }
                                         "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
                                         "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
-                                        "offline_settings" -> model.offline?.let { OfflineSettingsScreen(it, syncOffline, { navigate("account") }) }
+                                        "offline_settings" -> model.offline?.let { OfflineSettingsScreen(it, syncOffline, { navigate("account") }, cacheLocation, pickCacheFolder, resetCacheFolder, exporting) }
                                         "settings" -> SettingsScreen(version, theme, { saveTheme(it); theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true }, language = { navigate("language") }, scale = { navigate("interface_scale") })
                                         "language" -> LanguageScreen()
                                         "interface_scale" -> InterfaceScaleScreen()
@@ -268,6 +269,7 @@ private val destinations get() = listOf(
             }
         }
         if (aboutOpen) AboutDialog(version) { aboutOpen = false }
+        if (exporter != null) AudioExportDialog(exporter, pickExportFolder)
         if (updates != null) {
             val updateState by updates.state.collectAsStateWithLifecycle()
             val offer = updateState.offer

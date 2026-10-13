@@ -55,6 +55,7 @@ internal const val PROJECT_URL = "https://github.com/reziarlleh/YMPlayer2"
                         } else { details(); Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { qr() } }
                         if (browserIssue) Text(tr(Msg.msg_9debd4812638), color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("about_browser_issue"))
                         Button({ open(DONATION_URL) }, Modifier.fillMaxWidth().prismFocus().testTag("about_donate")) { Text(tr(Msg.msg_3b024cce3b59)) }
+                        TextButton({ open("$PROJECT_URL/blob/main/docs/THIRD_PARTY.md") }, Modifier.prismFocus().testTag("about_licenses")) { Text("Jump3r / LAME · LGPL 2.1+") }
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             OutlinedButton({ open(PROJECT_URL) }, Modifier.prismFocus().testTag("about_github")) { Text("GitHub") }
                             TextButton(dismiss, Modifier.focusRequester(closeFocus).prismFocus().testTag("about_close")) { Text(tr(Msg.msg_a7a4033657e8)) }

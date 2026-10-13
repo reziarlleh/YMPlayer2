@@ -1,5 +1,10 @@
 # Карта переноса и модулей
 
+Этап2.6 в работе: core/FileTransfers, library/offline StorageNode/CacheDirectories/
+AudioExporter/Mp3AudioWriter; app FileTransferService/SAF pickers; shell окна
+и действия экспорта. Формат cache v1 и independent package/signing сохраняются.
+[ADR-044](ADR_044_CACHE_LOCATION_AND_MP3_EXPORT.md), [проверки](FILE_TRANSFERS_2_6_VERIFICATION.md).
+
 2.5.5-build104: InterfaceScalePreferences/InterfaceScale/PlayerViewportFit
 в designsystem; InterfaceScaleScreen и маршрут interface_scale в shell.
 MainActivity меняет Compose density и Configuration совместно; ClipActivity

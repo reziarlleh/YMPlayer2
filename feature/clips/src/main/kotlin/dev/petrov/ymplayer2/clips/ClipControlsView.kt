@@ -47,9 +47,9 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private val retry = button(tr(Msg.msg_5189135a6110)) {
         if (connectionStatus == InternetStatus.CONNECTED) controller.retry() else connectionRetry()
     }
-    private val previous = button("◀", controller::previous)
+    private val previous = button("⏮", controller::previous)
     private val play = button("▶", controller::toggle)
-    private val next = button("▶▶", controller::next)
+    private val next = button("⏭", controller::next)
 
     init {
         isClickable = false

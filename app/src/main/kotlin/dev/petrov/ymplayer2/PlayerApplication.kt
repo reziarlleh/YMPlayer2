@@ -114,7 +114,10 @@ class PlayerApplication : Application(), PlaybackHost {
     val taste by lazy { MusicTaste(accounts, YandexTasteApi(musicApi), scope, online::refreshCollection) }
     private val offlinePrefs by lazy { getSharedPreferences("offline", MODE_PRIVATE) }
     val audioQuality by lazy { loadAudioQuality(this) }
-    val offline by lazy { OfflineMusic(accounts, taste, YandexLikedMusicApi(musicApi), musicApi, LikedFileStore(this), scope,
+    val offlineStore by lazy { LikedFileStore(this) }
+    val cacheLocation: dev.petrov.ymplayer2.offline.CacheLocationController by lazy { dev.petrov.ymplayer2.offline.CacheLocationController(offlineStore, offline, scope) { audioExporter.state.value.running } }
+    val audioExporter: dev.petrov.ymplayer2.offline.AudioExporter by lazy { dev.petrov.ymplayer2.offline.AudioExporter(this, accounts, musicApi, offline, cacheLocation, scope) }
+    val offline by lazy { OfflineMusic(accounts, taste, YandexLikedMusicApi(musicApi), musicApi, offlineStore, scope,
         offlinePrefs.getBoolean("wifiOnly", true), { offlinePrefs.edit().putBoolean("wifiOnly", it).apply() }, { wifi ->
             val manager = getSystemService(android.net.ConnectivityManager::class.java)
             val caps = manager.getNetworkCapabilities(manager.activeNetwork)

@@ -14,15 +14,31 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.prismFocus
 
-@Composable internal fun OfflineSettingsScreen(offline: OfflineMusic, start: () -> Unit, account: () -> Unit) {
+@Composable internal fun OfflineSettingsScreen(offline: OfflineMusic, start: () -> Unit, account: () -> Unit,
+    location: CacheLocationAccess? = null, pickFolder: () -> Unit = {}, resetFolder: () -> Unit = {}, transferBusy: Boolean = false) {
     val state by offline.state.collectAsStateWithLifecycle()
     var confirmClear by remember(state.owner) { mutableStateOf(false) }
+    val storage = location?.state?.collectAsStateWithLifecycle()?.value
     LazyColumn(Modifier.fillMaxSize().testTag("offline_settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text(tr(Msg.msg_fd6e72f72d55), style = MaterialTheme.typography.headlineSmall) }
         item { Text(tr(Msg.msg_d65fb9be6155)) }
+        if (storage != null) item {
+            Text(trMessage("Папка офлайн-кэша"), style = MaterialTheme.typography.titleMedium)
+            Text(trMessage(storage.label), Modifier.testTag("cache_location"))
+            if (storage.moving) {
+                LinearProgressIndicator(Modifier.fillMaxWidth())
+                Text("${storage.copiedBytes / 1048576} / ${storage.totalBytes / 1048576} MB")
+                OutlinedButton({ location.cancel() }, Modifier.fillMaxWidth().prismFocus().testTag("cache_move_cancel")) { Text(trMessage("Отменить перенос")) }
+            } else {
+                OutlinedButton(pickFolder, Modifier.fillMaxWidth().prismFocus().testTag("cache_choose_folder"), enabled = !transferBusy) { Text(trMessage("Выбрать папку кэша")) }
+                if (storage.external) TextButton(resetFolder, Modifier.fillMaxWidth().prismFocus().testTag("cache_internal"), enabled = !transferBusy) { Text(trMessage("Перенести во внутреннюю память")) }
+            }
+            Text(trMessage("Перед переносом проверяется свободное место. Исходный кэш удаляется только после проверки копии."), style = MaterialTheme.typography.bodySmall)
+            storage.message?.let { Text(trMessage(it), Modifier.testTag("cache_location_status")) }
+        }
         item { Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(tr(Msg.msg_074cc2ac4332), Modifier.weight(1f))
-            Switch(state.enabled, offline::setEnabled, Modifier.prismFocus().testTag("offline_enabled"))
+            Switch(state.enabled, offline::setEnabled, Modifier.prismFocus().testTag("offline_enabled"), enabled = storage?.moving != true && !transferBusy)
         } }
         item { Text(tr(Msg.msg_17b7c023b762),
             style = MaterialTheme.typography.bodySmall) }
@@ -37,7 +53,7 @@ import dev.petrov.ymplayer2.designsystem.prismFocus
             } }
             item {
                 if (state.running) OutlinedButton(offline::cancel, Modifier.fillMaxWidth().prismFocus().testTag("offline_cancel")) { Text(tr(Msg.msg_cb4cd68cb5f3)) }
-                else Button(start, Modifier.fillMaxWidth().prismFocus().testTag("offline_sync"), enabled = state.enabled && state.ready) { Text(tr(Msg.msg_ca48a1a553cc)) }
+                else Button(start, Modifier.fillMaxWidth().prismFocus().testTag("offline_sync"), enabled = state.enabled && state.ready && storage?.moving != true && !transferBusy) { Text(tr(Msg.msg_ca48a1a553cc)) }
             }
             if (state.enabled && (!state.ready || state.running)) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
             if (!state.enabled) item { Text(tr(Msg.msg_94117e81a588), Modifier.testTag("offline_disabled")) }
@@ -45,7 +61,7 @@ import dev.petrov.ymplayer2.designsystem.prismFocus
             if (state.audioFailures + state.coverFailures + state.noCover > 0) item {
                 Text(tr(Msg.msg_7003237eb243, state.audioFailures, state.coverFailures, state.noCover))
             }
-            item { TextButton({ confirmClear = true }, Modifier.fillMaxWidth().prismFocus().testTag("offline_clear"), enabled = state.ready) { Text(tr(Msg.msg_5277d2953e7b)) } }
+            item { TextButton({ confirmClear = true }, Modifier.fillMaxWidth().prismFocus().testTag("offline_clear"), enabled = state.ready && storage?.moving != true && !transferBusy) { Text(tr(Msg.msg_5277d2953e7b)) } }
 
         }
     }

@@ -33,6 +33,8 @@ class AudioService : MediaLibraryService() {
 
     override fun onCreate() {
         super.onCreate()
+        // STOP leaves a resumable checkpoint, not an active TV notification card.
+        setShowNotificationForIdlePlayer(SHOW_NOTIFICATION_FOR_IDLE_PLAYER_NEVER)
         host.onAudioServiceEvent(AudioServiceEvent.CREATED)
         val source = onlineDataSourceFactory(this, playback::resolveStream)
         val player = ExoPlayer.Builder(this).setMediaSourceFactory(DefaultMediaSourceFactory(this).setDataSourceFactory(source))

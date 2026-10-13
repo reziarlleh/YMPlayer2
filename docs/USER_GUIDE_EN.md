@@ -278,6 +278,52 @@ the cache makes retained downloads available again. The switch applies to the
 device, while downloaded collections remain account/profile-specific. My Vibe’s
 temporary next-track preparation is separate from this permanent cache.
 
+## Cache location and MP3 export — planned for 2.6
+
+These commands are not included in 2.5.5-build104; this section describes the
+next release under verification.
+
+Open **Settings → Offline cache settings → Choose cache folder** and select
+a device or USB folder in the system picker. The app creates its own
+YMPlayer2-offline-… subfolder. It checks access and free space, copies every
+profile/account’s audio, covers and metadata, verifies each copy, then removes
+the original cache. Other files in the selected folder are not touched.
+Keep the drive connected. **Cancel move** preserves the original until the
+location has been committed. Use **Move to internal storage** to return.
+The current track may keep playing; the next cache read can wait for the move.
+
+In **Library → Offline → …**, or the **…** menu of a Yandex album/playlist,
+select **Export MP3 (to USB / folder)**. Edit the filename template, check the
+preview and choose **Choose folder and export**. The template is saved;
+**?** opens the variable reference.
+
+| Variable | Value |
+| --- | --- |
+| `{number}` | Position in the exported list, starting at 01 |
+| `{artist}` | Original artist name |
+| `{title}` | Original track title |
+| `{album}` | Album name, if available |
+| `{id}` | Track ID |
+
+Example: `{number}. {artist} - {title}`. The .mp3 extension is automatic.
+Unsupported filename characters are replaced; slashes do not create subfolders.
+Existing files are kept and collisions receive (2), (3)… suffixes.
+
+All pages are exported in list order. Export does not add entire albums or
+playlists to the permanent liked cache. Verified downloads in the current
+account are used first; other tracks require a connection and an available full
+source. MP3 is copied without recompression; supported AAC/other formats are
+converted locally to 320 kbit/s, 44.1 kHz MP3 with track tags. Protected or unavailable
+tracks are not replaced with previews. Conversion cannot improve source quality.
+The output is independent of YMPlayer; an older hardware player must also support
+the drive, filesystem and this MP3 format.
+
+Transfers continue in the background with a notification. **Stop export** removes
+the current temporary file and keeps completed MP3 files. The result shows
+completed/failed counts. After process termination, start export again. A writable
+SAF folder with measurable free space is required; a file manager must support
+the system folder picker, rather than merely being able to browse USB itself.
+
 ## Audio quality and equalizer
 
 **Settings → Audio quality** has independent choices for **Online playback**

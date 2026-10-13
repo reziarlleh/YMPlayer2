@@ -24,6 +24,56 @@ import java.util.concurrent.atomic.AtomicReference
 
 @RunWith(AndroidJUnit4::class)
 class SystemBrowserTest {
+    @Test fun tvDismissalStopsRadioAndDoesNotRestartItsRetryOrOnAirPolling() {
+        val app = context.applicationContext as PlayerApplication
+        context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        val browser = MediaBrowser.Builder(context, SessionToken(context, service)).buildAsync().get(20, TimeUnit.SECONDS)
+        val field = dev.petrov.ymplayer2.playback.AndroidRadio::class.java.getDeclaredField("api").apply { isAccessible = true }
+        val api = field.get(app.radio) as dev.petrov.ymplayer2.core.RadioApi
+        val calls = java.util.concurrent.atomic.AtomicInteger()
+        val station = dev.petrov.ymplayer2.core.RadioStation("system-stop-fixture", "Radio fixture")
+        val audio = android.provider.DocumentsContract.buildDocumentUriUsingTree(TestMusicProvider.tree, "one.wav").toString()
+        val fixture = object : dev.petrov.ymplayer2.core.RadioApi by api {
+            override suspend fun stream(station: dev.petrov.ymplayer2.core.RadioStation, region: String?) = dev.petrov.ymplayer2.core.RadioStream(station, "fixture", audio)
+            override suspend fun onAir(stationSlug: String, streamSlug: String): dev.petrov.ymplayer2.core.RadioOnAir {
+                calls.incrementAndGet(); return dev.petrov.ymplayer2.core.RadioOnAir("On air", "Fixture", 1000)
+            }
+        }
+        val notifications = context.getSystemService(android.app.NotificationManager::class.java)
+        try {
+            awaitState { app.playback.state.value.connected }
+            main { field.set(app.radio, fixture); app.radio.switchProfile("owner"); app.radio.play(station) }
+            awaitState { app.radio.state.value.playing && notifications.activeNotifications.any { it.notification.deleteIntent != null } }
+            val card = notifications.activeNotifications.first { it.notification.deleteIntent != null }
+            card.notification.deleteIntent.send()
+            awaitState { !app.radio.state.value.playing && !app.radio.state.value.buffering && !app.radio.state.value.reconnecting && notifications.activeNotifications.none { it.id == card.id } }
+            val stoppedCalls = calls.get(); Thread.sleep(1300)
+            assertEquals(stoppedCalls, calls.get())
+            assertFalse(app.radio.state.value.playing)
+            main { app.radio.play(station) }; awaitState { app.radio.state.value.playing }
+            main { browser.stop() }; awaitState { !app.radio.state.value.playing && notifications.activeNotifications.none { it.id == card.id } }
+        } finally { main { app.radio.release(); field.set(app.radio, api); browser.release() } }
+    }
+    @Test fun notificationDismissalStopsPlaybackRemovesCardAndAllowsNextPlay() {
+        val app = context.applicationContext as PlayerApplication
+        context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+        val browser = MediaBrowser.Builder(context, SessionToken(context, service)).buildAsync().get(20, TimeUnit.SECONDS)
+        val notifications = context.getSystemService(android.app.NotificationManager::class.java)
+        try {
+            awaitState { app.playback.state.value.connected && app.library.testTracks.isNotEmpty() }
+            val id = app.library.testTracks.first().id
+            main { app.playback.playQueue(listOf(id)) }
+            awaitState { app.playback.state.value.playing && notifications.activeNotifications.any { it.notification.deleteIntent != null } }
+            val card = notifications.activeNotifications.first { it.notification.deleteIntent != null }
+            card.notification.deleteIntent.send()
+            awaitState { !app.playback.state.value.playing && notifications.activeNotifications.none { it.id == card.id } }
+            main { app.playback.playQueue(listOf(id)) }
+            awaitState { app.playback.state.value.playing && notifications.activeNotifications.any { it.id == card.id } }
+            main { browser.stop() }
+            awaitState { !app.playback.state.value.playing && notifications.activeNotifications.none { it.id == card.id } }
+        } finally { main { app.playback.stop(); browser.release() }; runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) } }
+    }
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
     private val service get() = ComponentName(context, AudioService::class.java)

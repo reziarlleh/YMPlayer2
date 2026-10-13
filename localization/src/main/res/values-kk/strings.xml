@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="bulk_count" formatted="false">"Таңдалғаны: @0@"</string>
+    <string name="bulk_local_only" formatted="false">"Жергілікті плейлистке тек құрылғы мен USB музыкасын қосуға болады."</string>
+    <string name="bulk_playlist" formatted="false">"Жергілікті плейлистке қосу"</string>
+    <string name="bulk_queue" formatted="false">"Кезекке қосу"</string>
+    <string name="bulk_select" formatted="false">"Тректерді таңдау"</string>
+    <string name="diagnostics_choose_destination" formatted="false">"Есепті сақтайтын орынды таңдаңыз."</string>
+    <string name="diagnostics_saved_document" formatted="false">"Сақталды: @0@"</string>
+    <string name="history_clear_description" formatted="false">"Тек тыңдау тарихы өшіріледі. Файлдар, кэш пен плейлисттер сақталады."</string>
+    <string name="history_clear_title" formatted="false">"Осы профильдің тыңдау тарихын тазалау керек пе?"</string>
+    <string name="history_description" formatted="false">"Осы профильде тыңдалған соңғы 500 трек. Қайта тыңдалған трек тізімнің басына ауысады."</string>
+    <string name="history_empty" formatted="false">"Осы профильде тыңдаған тректеріңіз осында көрсетіледі."</string>
+    <string name="history_failure" formatted="false">"Тыңдау тарихын оқу не сақтау мүмкін болмады. Қайталау"</string>
+    <string name="history_title" formatted="false">"Тыңдау тарихы"</string>
+    <string name="interface_scale_hint" formatted="false">"Мәтіннің, түймелердің және аралықтардың өлшемі өзгереді. Өзгерістер бірден қолданылады және қолданбаны қайта ашқанда сақталады."</string>
+    <string name="interface_scale_reset" formatted="false">"100%-ға қайтару"</string>
+    <string name="interface_scale_title" formatted="false">"Интерфейс өлшемі"</string>
+    <string name="internet_absent" formatted="false">"Интернет байланысы жоқ"</string>
+    <string name="internet_retry" formatted="false">"Қайта қосылу"</string>
     <string name="msg_001dda282241" formatted="false">"Осы профильде Yandex аккаунтына кіріңіз. Кіру деректері сақталған болса, аккаунт мәліметтерін жаңартыңыз."</string>
     <string name="msg_00231affc201" formatted="false">"Барлық музыка"</string>
     <string name="msg_003022fabb87" formatted="false">"Келесі клип"</string>
@@ -11,6 +29,7 @@
     <string name="msg_037174d58809" formatted="false">"Орындаушы"</string>
     <string name="msg_04080c05e46f" formatted="false">"Белгішенің viewport мәні жарамсыз"</string>
     <string name="msg_042185cacc93" formatted="false">"Тректер"</string>
+    <string name="msg_05421b0f9b67" formatted="false">"Үлгі айнымалылары"</string>
     <string name="msg_05f7734c7fbc" formatted="false">"Таңдаулыларға қосу"</string>
     <string name="msg_066903b7f6fa" formatted="false">"K4811 қызметі дайын. Құрылғыны қайта іске қосу керек пе?"</string>
     <string name="msg_06a1b25395b9" formatted="false">"Сүйікті альбомдардан алып тастау"</string>
@@ -31,11 +50,16 @@
     <string name="msg_0d19ca3fd269" formatted="false">"Орнатуды күтіп тұрған APK тексеруден өтпеді: @0@"</string>
     <string name="msg_0df38a907fd2" formatted="false">"Ашу: @0@"</string>
     <string name="msg_0e04e96eb049" formatted="false">"Осы аккаунттың ағымдағы профильдегі аудио файлдары мен мұқабалары жойылады. Yandex сервисіндегі ұнатуларыңыз сақталады."</string>
+    <string name="msg_0e2277432226" formatted="false">"Трек атауы"</string>
+    <string name="msg_0e5d03ee4234" formatted="false">"Жүйелік терезеде USB көрінбесе, жинақтауыштағы қалтаны тікелей таңдаңыз."</string>
     <string name="msg_0f0e734fb752" formatted="false">"Кезекке қосу: @0@"</string>
     <string name="msg_0fad384ca45b" formatted="false">"Орын ауыстыру мүмкін емес"</string>
     <string name="msg_0fd3fe573609" formatted="false">"Таңдаулыларда"</string>
     <string name="msg_100f3d517847" formatted="false">"Басқа қолданбаның пакеті"</string>
     <string name="msg_103bc2f65ee8" formatted="false">"Іске қосқанда тексеру"</string>
+    <string name="msg_108db2c27f47" formatted="false">"Қазіргі офлайн кэштен тыс қалтаны таңдаңыз."</string>
+    <string name="msg_10e1623cae3c" formatted="false">"Бір деңгей жоғары"</string>
+    <string name="msg_11aec46fd5f8" formatted="false">"Кэшті көшіру мүмкін болмады. Бастапқы қалта сақталды."</string>
     <string name="msg_122f71765026" formatted="false">"Мәзір"</string>
     <string name="msg_126edfaa6bc7" formatted="false">"Трек атауы · Орындаушы"</string>
     <string name="msg_1298b5e04346" formatted="false">"Yandex Music радиосы"</string>
@@ -44,6 +68,7 @@
     <string name="msg_1478970270d1" formatted="false">"Бір деңгей жоғары"</string>
     <string name="msg_1484585c1931" formatted="false">"Сақталған скиндердің бірі бүлінген. Оны қайта импорттауға болады."</string>
     <string name="msg_14b10e3e0473" formatted="false">"Yandex плейлистін жасау"</string>
+    <string name="msg_1565060b1d72" formatted="false">"Офлайн кэш көшірілуде…"</string>
     <string name="msg_16e5a7c68a87" formatted="false">"Бүйірлік панельді жасыру"</string>
     <string name="msg_1718e90d59c5" formatted="false">"Аудио"</string>
     <string name="msg_1731619efa3a" formatted="false">"Безендіру"</string>
@@ -92,13 +117,16 @@
     <string name="msg_29f6f8d9dd3e" formatted="false">"Ойнатқышта құпиясөз енгізбей, код арқылы кіріңіз. Әр профильдің аккаунты бөлек сақталады."</string>
     <string name="msg_29ff5117d5b1" formatted="false">"Жанрлар мен қалталар құрылғыдағы және USB-дегі файлдарға қатысты."</string>
     <string name="msg_2a6b5f7278c0" formatted="false">"Таңдаулыларға қосу"</string>
+    <string name="msg_2abefa329d5d" formatted="false">".mp3 кеңейтімі автоматты түрде қосылады. Бар файлдар қайта жазылмайды."</string>
     <string name="msg_2afb36246c80" formatted="false">"Белгіше жолы жарамсыз"</string>
     <string name="msg_2b7d2f3f797d" formatted="false">"Ең соңғы нұсқа орнатылған."</string>
     <string name="msg_2c38faa8cf7e" formatted="false">"Ортақ жергілікті каталог · аккаунтсыз"</string>
     <string name="msg_2cea82c66c45" formatted="false">"Манифест көлемі тым үлкен"</string>
     <string name="msg_2d6b68932448" formatted="false">"Осы профиль үшін кіру деректері сақталған. Yandex музыкасы медиатека мен іздеуде қолжетімді."</string>
     <string name="msg_2dc14ee8f6a2" formatted="false">"Журналды оқу мүмкін болмады."</string>
+    <string name="msg_2eab61192b5f" formatted="false">"Жинақтауышты таңдаңыз"</string>
     <string name="msg_2efea0f8794f" formatted="false">"Плейлисттер"</string>
+    <string name="msg_2f23d7c2628a" formatted="false">"Экспортты тоқтату"</string>
     <string name="msg_2f4f45e427e6" formatted="false">"Аудио дайындалуда…"</string>
     <string name="msg_2f8a1650c543" formatted="false">"Жүктеп алуды аяқтау мүмкін болмады"</string>
     <string name="msg_2f9654f4d1a1" formatted="false">"Әзірге ештеңе жоқ. Басқа сұрауды немесе бөлімді көріңіз."</string>
@@ -119,10 +147,13 @@
     <string name="msg_350c510572ad" formatted="false">"Құрылғы / USB: @0@ · Yandex: @1@ көрсетілді"</string>
     <string name="msg_35619086cdfe" formatted="false">"Алғашқы плейлистіңізді «+» батырмасымен жасаңыз."</string>
     <string name="msg_35864bdf26cb" formatted="false">"Ұнаған тректер · офлайн"</string>
+    <string name="msg_3605c85705cf" formatted="false">"Бұл тректі қайта ұсыну"</string>
     <string name="msg_3628da5ba5a2" formatted="false">"Сақталған кіру деректерін жою"</string>
+    <string name="msg_3680d7bd4a53" formatted="false">"Экспорт тоқтатылды. Дайын MP3 файлдары сақталды."</string>
     <string name="msg_36cf98277e5f" formatted="false">"Жаңа ағындар мен «Менің толқыным» тректерін алдын ала жүктеу үшін."</string>
     <string name="msg_372ccd2e8254" formatted="false">"; жаңартылуда…"</string>
     <string name="msg_379116d4b4d4" formatted="false">"Пакетте қолданылмайтын файлдар бар"</string>
+    <string name="msg_37a4c450bcf5" formatted="false">"Офлайн кэшті көшіруге бос орын жеткіліксіз."</string>
     <string name="msg_38aa13198a8b" formatted="false">"Жаңа плейлист"</string>
     <string name="msg_392a2bb860f8" formatted="false">"Бұл ID кірістірілген скинге тиесілі. Манифесттегі id мәнін өзгертіңіз."</string>
     <string name="msg_39bbc8689a90" formatted="false">"Кіруге рұқсат берілмеді. Қайта көріңіз."</string>
@@ -159,11 +190,14 @@
     <string name="msg_44d4090ae9e4" formatted="false">"қате"</string>
     <string name="msg_44d8126b8321" formatted="false">"Менің плейлисттерім"</string>
     <string name="msg_44f6f4d66ea4" formatted="false">"Демо профиль"</string>
+    <string name="msg_455ace36a5e6" formatted="false">"MP3 экспорттау"</string>
     <string name="msg_460213556ee1" formatted="false">"APK тексерілді@0@."</string>
     <string name="msg_467a1857a936" formatted="false">"APK көлемі немесе SHA-256 мәні жарамсыз"</string>
     <string name="msg_468ba659166c" formatted="false">"Барлық батырма өшірулі — бүйірлік панель өшірулі."</string>
     <string name="msg_46da7285528f" formatted="false">"Келесі трек"</string>
+    <string name="msg_4786024008f6" formatted="false">"Офлайн кэш көшірілді."</string>
     <string name="msg_480fae1c4bc9" formatted="false">"Ештеңе табылмады"</string>
+    <string name="msg_48899862c608" formatted="false">"MP3 экспорттауды аяқтау мүмкін болмады. Қалтаға қолжетімділікті, желіні және бос орынды тексеріңіз."</string>
     <string name="msg_48b5898b7140" formatted="false">"Yandex плейлистін жою"</string>
     <string name="msg_48f1c04f18bc" formatted="false">"Төмен жылжыту: @0@"</string>
     <string name="msg_4a1236b53aa7" formatted="false">"Журнал тазартылды."</string>
@@ -173,6 +207,7 @@
     <string name="msg_4cffda4eecf8" formatted="false">"Бұл жинақта Yandex аккаунтына кіру қолжетімсіз. Жергілікті музыка жұмыс істей береді."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"«@0@» трегін (@1@-орын) «@2@» тізімінен алып тастау керек пе? Осы тректің басқа көшірмелері тізімде қалады."</string>
     <string name="msg_4e882842072f" formatted="false">"Сақталған кіру деректері тек осы құрылғыдағы «@0@» профилінен жойылады. Жергілікті файлдар, кезек және плейлисттер сақталады."</string>
+    <string name="msg_4ecc369d7d0e" formatted="false">"Файлдарды тасымалдау"</string>
     <string name="msg_4f41558e776b" formatted="false">"Плейлистті жою керек пе?"</string>
     <string name="msg_4f5782c26416" formatted="false">"APK файлын оқу мүмкін емес"</string>
     <string name="msg_501cfd0b1690" formatted="false">"Қате / ескерту"</string>
@@ -219,9 +254,11 @@
     <string name="msg_5e66b30bc941" formatted="false">"Музыка жаныңызда · Beta"</string>
     <string name="msg_5e9967fcef8f" formatted="false">"Құрылғыда жүйелік қалта таңдау құралы жоқ. Storage Access Framework қолдайтын файл менеджері қажет."</string>
     <string name="msg_5ed92773c808" formatted="false">"Yandex"</string>
+    <string name="msg_5ee9591513e4" formatted="false">"Офлайн кэш қалтасы"</string>
     <string name="msg_5fbef357e55e" formatted="false">"Yandex сервисіндегі музыкам"</string>
     <string name="msg_601de107e288" formatted="false">"Жаңа орны: 1–@0@"</string>
     <string name="msg_603e460bf59c" formatted="false">"Жаңарту"</string>
+    <string name="msg_60aee1c09b2f" formatted="false">"Ішкі жадқа көшіру"</string>
     <string name="msg_60bbcc5198aa" formatted="false">"@0@ · @1|track@"</string>
     <string name="msg_612f724ec00f" formatted="false">"Аккаунтты ашу"</string>
     <string name="msg_61ab32792577" formatted="false">"K4811 қайта іске қосу қызметі қолжетімсіз. Сұрау жіберілген жоқ."</string>
@@ -234,6 +271,7 @@
     <string name="msg_62ed32eb225c" formatted="false">"Тексерілуде…"</string>
     <string name="msg_6518414d5226" formatted="false">"Трек плейлисттен алып тасталды."</string>
     <string name="msg_653f03c94726" formatted="false">"Ағымдағы трек"</string>
+    <string name="msg_6541ee6cd051" formatted="false">"Кэш көшірілді. Ескі қалтаны жою мүмкін болмады."</string>
     <string name="msg_65530fd463ea" formatted="false">"Кідірту"</string>
     <string name="msg_655f2cc9a551" formatted="false">"Синхрондау аяқталды."</string>
     <string name="msg_659afa619e2b" formatted="false">"APK көлемі немесе SHA-256 мәні сәйкес келмейді"</string>
@@ -257,6 +295,7 @@
     <string name="msg_6c2b14d954bb" formatted="false">"Эквалайзер / DSP таңдау"</string>
     <string name="msg_6c32e04d2392" formatted="false">"Келесі клип әлі таңдалған жоқ"</string>
     <string name="msg_6cbc48f41e6f" formatted="false">"Офлайн музыканы оқу мүмкін болмады. Синхрондауды қайталаңыз."</string>
+    <string name="msg_6d41ea47365d" formatted="false">"Бұл тректі ешқашан ұсынбау"</string>
     <string name="msg_6d6a9bb2179b" formatted="false">"Менің музыкам және Yandex ұсынымдары"</string>
     <string name="msg_6daecbeea4b6" formatted="false">"Клиптер"</string>
     <string name="msg_6dccc4a3f564" formatted="false">"Жаңартуды жүктеп алу мүмкін болмады: @0@"</string>
@@ -276,16 +315,20 @@
     <string name="msg_71ff8690cd03" formatted="false">"Кіру деректері сақталуда…"</string>
     <string name="msg_723b195d5744" formatted="false">"APK қолтаңбасы орнатылған қолданбанікімен сәйкес келмейді"</string>
     <string name="msg_729dc1568fdf" formatted="false">"Тек Wi-Fi арқылы жүктеп алу"</string>
+    <string name="msg_7393216b96da" formatted="false">"Қолданбаның ішкі жады"</string>
     <string name="msg_73cec4b1fa25" formatted="false">"Орнатқышты ашу мүмкін болмады: @0@"</string>
     <string name="msg_73e0d3beed31" formatted="false">" · демо каталог"</string>
     <string name="msg_73f6917759ca" formatted="false">"Қалта қолжетімсіз немесе сканерлеу аяқталмады. Тасымалдағышты қосып, жаңартыңыз."</string>
     <string name="msg_741ca2439e4d" formatted="false">"Онлайн музыка үшін осы профильде Yandex аккаунтына кіріңіз. Жергілікті музыка кірусіз қолжетімді."</string>
     <string name="msg_7435626dd379" formatted="false">"8 секундтан кейін жасыру"</string>
+    <string name="msg_745f3d9426a5" formatted="false">"Кэш қалтасын таңдау"</string>
     <string name="msg_7493e161cb03" formatted="false">"Альбомсыз"</string>
     <string name="msg_749a9ca9d90f" formatted="false">"Офлайн файлдарды жою мүмкін болмады."</string>
     <string name="msg_758aa155871b" formatted="false">"Қосылды"</string>
+    <string name="msg_75df34bc25d9" formatted="false">"Файл атауының үлгісі"</string>
     <string name="msg_760c9665ad62" formatted="false">"Стандарт · 192 кбит/с"</string>
     <string name="msg_767475640343" formatted="false">"Yandex плейлистіне қосу"</string>
+    <string name="msg_7758ab0d2031" formatted="false">"Жинақтауыш қолжетімсіз. Оны қосыңыз немесе жүйенің қалта таңдау терезесін пайдаланыңыз."</string>
     <string name="msg_778b704b5c1e" formatted="false">"Қалтаны ашу немесе сақтау мүмкін болмады. Рұқсаттарды тексеріп, қайталаңыз."</string>
     <string name="msg_7796e6a8c011" formatted="false">"желі қатесі"</string>
     <string name="msg_77f1e6d43b19" formatted="false">"Жаңартулар қалтасын жасау мүмкін болмады"</string>
@@ -304,25 +347,39 @@
     <string name="msg_7e57673a5d4c" formatted="false">"Алғашқы іске қосу демонстрациясы."</string>
     <string name="msg_7e59467db9e7" formatted="false">"← Артқа"</string>
     <string name="msg_7e6258d504ba" formatted="false">"Орындаушылар мен альбом: @0@"</string>
+    <string name="msg_7f805c3068f0" formatted="false">"Таңдалған қалтаға қол жеткізу мүмкін болмады."</string>
     <string name="msg_7f89cdaad39e" formatted="false">"Үнемдеу · 128 кбит/с"</string>
     <string name="msg_8086aac760a1" formatted="false">"Файлды ойнату мүмкін болмады. Тасымалдағышты тексеріңіз немесе басқа тректі таңдаңыз."</string>
     <string name="msg_80cedf587a28" formatted="false">"Құрылғыда жүйелік файл таңдау құралы жоқ. Storage Access Framework қолдайтын файл менеджері қажет."</string>
+    <string name="msg_81af4b2ad75c" formatted="false">"Кэшті көшіруді бастау мүмкін болмады."</string>
     <string name="msg_8208dc91519d" formatted="false">"«Мәзір» K4811 қолданбалар тізімін ашады. «Ойнату / кідірту» белсенді ойнатқышты басқарады. «Ұйқы режимі» мультимедиа жүйесін ұйықтатады, «Қайта іске қосу» алдымен растауды сұрайды."</string>
     <string name="msg_834ec28c8644" formatted="false">"Скин табылмады"</string>
     <string name="msg_83cc61451837" formatted="false">"Қосалқы дереккөзден жүктеп алу"</string>
     <string name="msg_840370e3fad2" formatted="false">"Ұнаған тректер"</string>
+    <string name="msg_8429277fdf48" formatted="false">"YMPlayer қолданбасына жинақтауышты оқуға рұқсат беріңіз немесе жүйелік қалта таңдауды пайдаланыңыз."</string>
     <string name="msg_8491940b48e2" formatted="false">"Жүктелген ұнаған тректер"</string>
+    <string name="msg_8495ebd49bf7" formatted="false">"Бос орынды анықтау мүмкін болмады. Құрылғыдан немесе USB жинақтауыштан қалта таңдаңыз."</string>
     <string name="msg_84a795ddbe75" formatted="false">"16 скин сақталған. Импорттамас бұрын қажетсізін жойыңыз."</string>
     <string name="msg_8514965e4ae0" formatted="false">"Офлайн қолжетімді"</string>
     <string name="msg_857db5eccf13" formatted="false">"Медиатекадағы «Кезекке қосу» батырмасымен тректер қосыңыз."</string>
     <string name="msg_85a21c8d0f56" formatted="false">"Плейлисттерді жаңарту"</string>
+    <string name="msg_85c31cb864bd" formatted="false">"MP3 экспорттауға орын жеткіліксіз."</string>
     <string name="msg_85dd88927aea" formatted="false">"«@0@» плейлисті жойылды."</string>
+    <string name="msg_86c1228b2946" formatted="false">"{number} — тізімдегі нөмірі
+{artist} — орындаушы
+{title} — трек атауы
+{album} — альбом
+{id} — тректің ID-і
+
+Айнымалылардың арасына өз мәтініңізді қосуға болады. Мысалы: {number}. {artist} - {title}"</string>
     <string name="msg_8727c0e6695b" formatted="false">"Yandex Музыка аккаунтына қолжетімділікті растау мүмкін болмады."</string>
     <string name="msg_88d4beca1549" formatted="false">"APK көлемі тым үлкен"</string>
+    <string name="msg_8903462888b5" formatted="false">"Көшірілген файл тексеруден өтпеді."</string>
     <string name="msg_895c5b8f961d" formatted="false">"Орнатылған: @0@"</string>
     <string name="msg_8965271d3c97" formatted="false">"Тазарту"</string>
     <string name="msg_8cd421f138ac" formatted="false">"«Тректер қосу» батырмасымен музыка қосыңыз."</string>
     <string name="msg_8dca2f783130" formatted="false">"Авто"</string>
+    <string name="msg_8edd38cdc6bf" formatted="false">"Қалтаны таңдап, экспорттау"</string>
     <string name="msg_8f458964546a" formatted="false">"Музыка қалталары"</string>
     <string name="msg_8f88b95463e2" formatted="false">"Аралас рет"</string>
     <string name="msg_8f88e588534f" formatted="false">"@0@ қолжетімді."</string>
@@ -360,6 +417,9 @@
     <string name="msg_9cbbe230cb66" formatted="false">"Көрсетілген тректерді тыңдау"</string>
     <string name="msg_9debd4812638" formatted="false">"Браузерді ашу мүмкін болмады. QR кодын немесе жоғарыдағы мекенжайды қолданыңыз."</string>
     <string name="msg_9e0859f700e2" formatted="false">"Растауды тексеру мүмкін болмады. Код сақталған, сұрау қайталануда. Растағаннан кейін қолданбаға оралыңыз."</string>
+    <string name="msg_9e2b82682442" formatted="false">"Экспорт қателермен аяқталды. Дайын MP3 файлдары сақталды."</string>
+    <string name="msg_9f7d2a5e5c0f" formatted="false">"Офлайн музыкаға бос орын жеткіліксіз."</string>
+    <string name="msg_9fa46545e616" formatted="false">"Қолдау көрсетілетін айнымалыларды пайдаланыңыз. Үлгі бос болмауы керек."</string>
     <string name="msg_9fcd67f23799" formatted="false">"Жоғары жылжыту: @0@"</string>
     <string name="msg_9fe9ae8fbc17" formatted="false">"@0@ — қайта ұсыну"</string>
     <string name="msg_a033d47afec5" formatted="false">"Тізімді ойнату"</string>
@@ -373,6 +433,8 @@
     <string name="msg_a41905aacd11" formatted="false">"Жергілікті каталог ортақ. Yandex аккаунтына кіру деректері, кезек және плейлисттер таңдалған профильге тиесілі. Қонақ аккаунтсыз жұмыс істейді."</string>
     <string name="msg_a4e0d6a1b648" formatted="false">"Ортақ жергілікті каталог · бөлек кезек"</string>
     <string name="msg_a4ee02a4c189" formatted="false">"Кіруді болдырмау"</string>
+    <string name="msg_a50932471cdc" formatted="false">"Кэштің алдыңғы көшірілуін аяқтау мүмкін болмады."</string>
+    <string name="msg_a5495ebce14d" formatted="false">"Офлайн кэшті көшіру"</string>
     <string name="msg_a55d09b73e40" formatted="false">"Скин ID мәні жарамсыз"</string>
     <string name="msg_a55fc5d0f320" formatted="false">"Құрылғыдағы музыка кірусіз қолжетімді. Yandex үшін осы профильде кіріңіз."</string>
     <string name="msg_a5e1aeda4ccc" formatted="false">"Онлайн дыбыс сапасы"</string>
@@ -385,6 +447,7 @@
     <string name="msg_a94943f157d5" formatted="false">"Қазір ойнап жатыр"</string>
     <string name="msg_a94f8a5da271" formatted="false">"Қайта іске қосу"</string>
     <string name="msg_a9bb9fcb7d94" formatted="false">"Ұнатулар мен бұғаттаулар тексерілуде…"</string>
+    <string name="msg_a9d3153aa273" formatted="false">"Кэшті көшіруге дайындалуда…"</string>
     <string name="msg_a9ec4c4c914a" formatted="false">"Yandexпен байланыс жоқ. Желі байланысын тексеріп, қайта кіріңіз."</string>
     <string name="msg_aa07f084155c" formatted="false">"Офлайн"</string>
     <string name="msg_aa59e4f43e97" formatted="false">"Орындаушылардың идентификаторлары жоқ. Тректі іздеуден немесе медиатекадан қайта ашыңыз."</string>
@@ -416,6 +479,7 @@
     <string name="msg_b5c15a505a62" formatted="false">"Метадеректерді оқу мүмкін болмады. Қалталар каталогын жаңартыңыз."</string>
     <string name="msg_b86ab3d74350" formatted="false">"Сүйікті альбомдар"</string>
     <string name="msg_b8ad90801037" formatted="false">"Тректерді «…» арқылы қосыңыз. Ретін «Орны» түймесімен өзгертіңіз. Өзгерістер Yandex сервисінде сақталады."</string>
+    <string name="msg_ba5e1073112c" formatted="false">"MP3 экспорттауға дайындалуда…"</string>
     <string name="msg_ba700b6d4845" formatted="false">"K4811 қайта іске қосу"</string>
     <string name="msg_bb35de568dc0" formatted="false">"Сақталған музыка ашылуда…"</string>
     <string name="msg_bb7c04530661" formatted="false">"Кіру сәтті аяқталды"</string>
@@ -434,12 +498,16 @@
     <string name="msg_c05d6b17ae05" formatted="false">"Алдын ала қарау: @0@"</string>
     <string name="msg_c06f71ebf142" formatted="false">"Браузер қолжетімсіз. Көрсетілген мекенжайды телефонда ашып, кодты енгізіңіз."</string>
     <string name="msg_c09a1e9f0c59" formatted="false">"Жарамсыз өріс: @0@"</string>
+    <string name="msg_c0c419b5947a" formatted="false">"Бұл орындаушыны ешқашан ұсынбау"</string>
+    <string name="msg_c1c8687fe0cd" formatted="false">"Көшіру алдында бос орын тексеріледі. Бастапқы кэш көшірме тексерілгеннен кейін ғана жойылады."</string>
     <string name="msg_c25691d01a87" formatted="false">"Тректерді жанындағы мәзір арқылы Таңдаулыларға қосыңыз."</string>
     <string name="msg_c39959813ccd" formatted="false">"Yandex Music"</string>
     <string name="msg_c40f97ca1831" formatted="false">"K4811 қызметіне қосылуда…"</string>
     <string name="msg_c46e9d43cea9" formatted="false">"Синхрондауды аяқтау мүмкін болмады. Жүктелген файлдар сақталды. Қайталап көріңіз."</string>
     <string name="msg_c57bc34167f4" formatted="false">"Қайта іске қосу сұрауы жіберілуде…"</string>
     <string name="msg_c59e474ea979" formatted="false">"Плейлисттерді оқу мүмкін болмады. Деректер дискіде сақталған, бірақ өңдеу уақытша қолжетімсіз. Қайта ашып көріңіз."</string>
+    <string name="msg_c5d260f02840" formatted="false">"Дайын: @1@ файлдың @0@-і. Қателер: @2@."</string>
+    <string name="msg_c5d8b34667e5" formatted="false">"Жинақтауыштағы қалта"</string>
     <string name="msg_c6087f7e1289" formatted="false">"Каталогты қайта жаңартыңыз."</string>
     <string name="msg_c61eb3c4706a" formatted="false">"эквалайзер"</string>
     <string name="msg_c6504f6cb73b" formatted="false">"Оксид"</string>
@@ -449,6 +517,7 @@
     <string name="msg_c722f8b4c671" formatted="false">"Аудиофайлдар оқылуда…"</string>
     <string name="msg_c78b1aee4241" formatted="false">"Қазіргі Yandex аккаунтында жеке плейлист жасалады."</string>
     <string name="msg_c7dab06bf537" formatted="false">"ҚАЗІР ОЙНАУДА"</string>
+    <string name="msg_c7e24c134a4e" formatted="false">"Жүйелік қалта таңдау"</string>
     <string name="msg_c85975db07b1" formatted="false">"Жаңарту нұсқасы жарамсыз"</string>
     <string name="msg_c8c0e3b9e7a0" formatted="false">"Ұнаған тректер жүктелуде…"</string>
     <string name="msg_c8dbba7583c2" formatted="false">"Ойнату көзі"</string>
@@ -457,6 +526,7 @@
     <string name="msg_c989e98d6470" formatted="false">"Келесі трек таңдалуда…"</string>
     <string name="msg_ca3bbeeee26d" formatted="false">"Android ұзақ синхрондауды тоқтатты. Жүктелген файлдар сақталды."</string>
     <string name="msg_ca48a1a553cc" formatted="false">"Ұнаған тректерді синхрондау"</string>
+    <string name="msg_cac09069271e" formatted="false">"Көшіру тоқтатылды. Бастапқы кэш сақталды."</string>
     <string name="msg_cb297d129add" formatted="false">"Кезек"</string>
     <string name="msg_cb3d171cdbfd" formatted="false">"Атауы ↓"</string>
     <string name="msg_cb4cd68cb5f3" formatted="false">"Синхрондауды тоқтату"</string>
@@ -464,15 +534,18 @@
     <string name="msg_cd40e18eeede" formatted="false">"Трек «@0@» плейлистіне қосылды."</string>
     <string name="msg_cd70228cba41" formatted="false">"трек"</string>
     <string name="msg_cdb3ca001d96" formatted="false">"Бұғатталмаған"</string>
+    <string name="msg_cddcc88ed95f" formatted="false">"MP3 экспорттауды бастау мүмкін болмады."</string>
     <string name="msg_ce1456ccd84b" formatted="false">"Плейлисттен алып тастау: @0@"</string>
     <string name="msg_ce1e647fd722" formatted="false">"Қайталау өшірулі"</string>
     <string name="msg_cfdce86cac0a" formatted="false">"Жүйе басқа қолданбалардың үстінен көрсету баптауларын ашуға рұқсат бермеді."</string>
     <string name="msg_cfde40242cd9" formatted="false">"Yandex плейлисттері"</string>
+    <string name="msg_d0673fb04781" formatted="false">"Кэштің орналасуын сақтау мүмкін болмады."</string>
     <string name="msg_d18c1c114691" formatted="false">"Скин пакетін оқу мүмкін болмады. ZIP және JSON файлдарын тексеріңіз"</string>
     <string name="msg_d1df132336f2" formatted="false">"Алдыңғы клип"</string>
     <string name="msg_d1edd7d2a9e2" formatted="false">"Қайта бағыттау мекенжайы жоқ"</string>
     <string name="msg_d32a29ef600e" formatted="false">"Дыбысты көтеру"</string>
     <string name="msg_d3dacfa5bb27" formatted="false">"@0@ нұсқасы қолжетімді."</string>
+    <string name="msg_d45556f3a844" formatted="false">"Қалта қосу"</string>
     <string name="msg_d4998bc84141" formatted="false">"Алдын ала қарау"</string>
     <string name="msg_d555eba48a2d" formatted="false">"Басқа сұрау енгізіңіз немесе сүзгілерді қалпына келтіріңіз."</string>
     <string name="msg_d585770173b3" formatted="false">"Yandex Music ұнату және бұғаттау белгілері"</string>
@@ -484,11 +557,13 @@
     <string name="msg_d7ad8e4ee48a" formatted="false">"Авто — жүйе тілі"</string>
     <string name="msg_d7b587c84b68" formatted="false">"Бүйірлік панель өшірулі."</string>
     <string name="msg_d7c74665073a" formatted="false">"Тек плейлист жойылады. Файлдар мен қазіргі кезек сақталады."</string>
+    <string name="msg_d8462717244f" formatted="false">"Бұл орындаушыны қайта ұсыну"</string>
     <string name="msg_d8987908d58b" formatted="false">"Көздер мен қалталар"</string>
     <string name="msg_d8cafee5a654" formatted="false">"YMPlayer 2 арқылы орнатуға рұқсат беріңіз. Қайтып келгенде жүйелік орнатқыш ашылады."</string>
     <string name="msg_d96f9192c384" formatted="false">"Ұнаған тректер офлайн"</string>
     <string name="msg_d9b2fa928b6a" formatted="false">"Кодтың мерзімі аяқталды. Жаңа код алыңыз."</string>
     <string name="msg_da28911d8b6d" formatted="false">"Қайта іске қосу"</string>
+    <string name="msg_da36a9bd36fb" formatted="false">"Кэш қалтасын жасау мүмкін болмады."</string>
     <string name="msg_da4da4e3527c" formatted="false">"Диагностика"</string>
     <string name="msg_db66cedc69fc" formatted="false">"Бүкіл жинақ"</string>
     <string name="msg_dba20ab53801" formatted="false">"Құрылғы"</string>
@@ -505,6 +580,7 @@
     <string name="msg_de13383c3766" formatted="false">"Қазір: @0@"</string>
     <string name="msg_de1ea8c09caa" formatted="false">"Менің толқыным"</string>
     <string name="msg_de2242264b20" formatted="false">"Белгіше 1–64 контурдан тұруы керек"</string>
+    <string name="msg_deaf03369090" formatted="false">"MP3 экспорттау (USB-ге / қалтаға)"</string>
     <string name="msg_ded8b330175a" formatted="false">"Желі жоқ · қолжетімді офлайн тректер көрсетілген"</string>
     <string name="msg_defc1856ad78" formatted="false">"Медиатеканы оқу мүмкін болмады. Музыка қалталарын жаңартып, қайта таңдаңыз."</string>
     <string name="msg_df19962e1865" formatted="false">"Қолданба тілі"</string>
@@ -520,12 +596,15 @@
     <string name="msg_e25ae5e8d071" formatted="false">"Yandex ашу"</string>
     <string name="msg_e261fc0388e8" formatted="false">"Дайындалуда…"</string>
     <string name="msg_e2be34974ae4" formatted="false">"Жасау"</string>
+    <string name="msg_e2ce86b38fd5" formatted="false">"Түсінікті"</string>
     <string name="msg_e2e513b12b0d" formatted="false">"Әзірге сақталған тректер жоқ. Синхрондау офлайн кэш баптауларында қолжетімді."</string>
     <string name="msg_e30fc8a5eb01" formatted="false">"Ұнаған тректердің офлайн кэші"</string>
     <string name="msg_e349032e2682" formatted="false">"Жеке кезек пен ойнату орны"</string>
     <string name="msg_e3c30e30adb9" formatted="false">"Қате үлгісі. Қазіргі кезек сақталды."</string>
     <string name="msg_e4c1d01c5c8f" formatted="false">"Таңдаулылар"</string>
     <string name="msg_e4e4b9b0d2df" formatted="false">"Ұнаған тректерден алып тастау"</string>
+    <string name="msg_e54a9fe87695" formatted="false">"MP3 экспорттау аяқталды."</string>
+    <string name="msg_e63badad247d" formatted="false">"MP3 экспортталуда…"</string>
     <string name="msg_e6b3d4be516a" formatted="false">"@0@: әрекет қолжетімсіз"</string>
     <string name="msg_e85848addc52" formatted="false">"APK мекенжайы жоқ"</string>
     <string name="msg_e8c693109156" formatted="false">"YMPlayer 2 бүйірлік панелі"</string>
@@ -534,6 +613,7 @@
     <string name="msg_ea172f78eb4c" formatted="false">"Скин пакетіндегі жол жарамсыз"</string>
     <string name="msg_ea183e546bb0" formatted="false">"Әзірлеуді қолдауға арналған QR код"</string>
     <string name="msg_ea1f40824607" formatted="false">"Ашу"</string>
+    <string name="msg_ea98e2104f5c" formatted="false">"Көшіруден бас тарту"</string>
     <string name="msg_eabc559b5eaa" formatted="false">"Медиатекадан музыка таңдаңыз"</string>
     <string name="msg_eb2c88237bfa" formatted="false">"Жергілікті және онлайн музыка. Yandex аккаунтына Профильдер бөлімінен кіріңіз. Сақталған ұнаған тректер «Офлайн» бөлімінде."</string>
     <string name="msg_eb9946b15efd" formatted="false">"Қайта оқу"</string>
@@ -550,10 +630,13 @@
     <string name="msg_f0a7fd0c1884" formatted="false">"Тректі қайталау"</string>
     <string name="msg_f0cd3a603372" formatted="false">"Ашық"</string>
     <string name="msg_f1d8f4cb696f" formatted="false">"Осы профильде Yandex аккаунтына кіріңіз."</string>
+    <string name="msg_f2ba15a0b4d8" formatted="false">"Жүйелік қалта таңдағышы табылмады. DocumentsUI немесе үйлесімді файл менеджерін орнатыңыз."</string>
+    <string name="msg_f3f88d26dec9" formatted="false">"Осы қалтаны таңдау"</string>
     <string name="msg_f413b50444c7" formatted="false">"орындаушының"</string>
     <string name="msg_f434aef91735" formatted="false">"Жаңартуларды тексеру мүмкін болмады: @0@"</string>
     <string name="msg_f4d6290e6f4b" formatted="false">"Музыка жаныңда"</string>
     <string name="msg_f4e26aa3eef6" formatted="false">"Ойнату / кідірту"</string>
+    <string name="msg_f53e106cfc4e" formatted="false">"Таңдалған қалта қолжетімсіз."</string>
     <string name="msg_f5a7276edc18" formatted="false">"Пакеттің түбірінде manifest.json жоқ"</string>
     <string name="msg_f6e01d413ff6" formatted="false">"Басты экран"</string>
     <string name="msg_f77ad0247092" formatted="false">"Бүйірлік панель қосулы."</string>
@@ -573,110 +656,79 @@
     <string name="msg_fede8859c53f" formatted="false">"Yandex Music іздеу"</string>
     <string name="msg_ff5436e417d8" formatted="false">"Скинде тым көп файл бар"</string>
     <string name="msg_ffdf574befa9" formatted="false">"Ретімен"</string>
-    <string name="msg_6d41ea47365d" formatted="false">"Бұл тректі ешқашан ұсынбау"</string>
-    <string name="msg_c0c419b5947a" formatted="false">"Бұл орындаушыны ешқашан ұсынбау"</string>
-    <string name="msg_3605c85705cf" formatted="false">"Бұл тректі қайта ұсыну"</string>
-    <string name="msg_d8462717244f" formatted="false">"Бұл орындаушыны қайта ұсыну"</string>
-    <string name="history_title" formatted="false">"Тыңдау тарихы"</string>
-    <string name="history_description" formatted="false">"Осы профильде тыңдалған соңғы 500 трек. Қайта тыңдалған трек тізімнің басына ауысады."</string>
-    <string name="history_empty" formatted="false">"Осы профильде тыңдаған тректеріңіз осында көрсетіледі."</string>
-    <string name="history_failure" formatted="false">"Тыңдау тарихын оқу не сақтау мүмкін болмады. Қайталау"</string>
-    <string name="history_clear_title" formatted="false">"Осы профильдің тыңдау тарихын тазалау керек пе?"</string>
-    <string name="history_clear_description" formatted="false">"Тек тыңдау тарихы өшіріледі. Файлдар, кэш пен плейлисттер сақталады."</string>
-    <string name="recent_title" formatted="false">"Жақында қосылған"</string>
+    <string name="player_source_device" formatted="false">"Құрылғы / USB"</string>
+    <string name="player_source_favorites" formatted="false">"Жергілікті таңдаулылар"</string>
+    <string name="player_source_list" formatted="false">"Тректер тізімі"</string>
+    <string name="player_source_offline" formatted="false">"Офлайн"</string>
+    <string name="radio_14159f0b89c5" formatted="false">"Әзірге таңдаулы станциялар жоқ. Қосу үшін ойнатқыштағы жүрекшені басыңыз."</string>
+    <string name="radio_24d97edde7c5" formatted="false">"Эфирді қосу"</string>
+    <string name="radio_2d7aa58089f8" formatted="false">"Таңдаулы станциялар"</string>
+    <string name="radio_2eb31705844a" formatted="false">"Эфир туралы ақпарат қолжетімсіз"</string>
+    <string name="radio_2ed3c7c3be59" formatted="false">"Барлық станциялардан іздеу"</string>
+    <string name="radio_3a856dcd9b2f" formatted="false">"Жанрлар"</string>
+    <string name="radio_3c04af3c32f2" formatted="false">"Қазір эфирде"</string>
+    <string name="radio_40b27edf9a21" formatted="false">"Қосылуда…"</string>
+    <string name="radio_41fc0c985c40" formatted="false">"Станцияны таңдаңыз"</string>
+    <string name="radio_46dff034a662" formatted="false">"Қалалар"</string>
+    <string name="radio_530bbd5ef253" formatted="false">"Радио жинағына қолжетімділік жоқ. Қазіргі профильдегі кіруді тексеріңіз."</string>
+    <string name="radio_6341f756cd9c" formatted="false">"Барлық станциялар"</string>
+    <string name="radio_65f7daba2df4" formatted="false">"Радио жауабын оқу мүмкін болмады. Қайта сұраңыз."</string>
+    <string name="radio_6d51575566da" formatted="false">"Тағы станциялар"</string>
+    <string name="radio_7e81a427d259" formatted="false">"Эфирді тоқтату"</string>
+    <string name="radio_8a574d8cde01" formatted="false">"Тікелей эфир"</string>
+    <string name="radio_8f602ef87466" formatted="false">"Таңдаулы станцияларды сақтау үшін Яндекске кіріңіз."</string>
+    <string name="radio_937307ee2903" formatted="false">"Жинақтан алып тастау"</string>
+    <string name="radio_ab20e71e02cc" formatted="false">"Қайта қосылуда…"</string>
+    <string name="radio_b4c6c4329bde" formatted="false">"Станциялар табылмады."</string>
+    <string name="radio_b71a4a6a4ffe" formatted="false">"Жинақ"</string>
+    <string name="radio_bbfea2350988" formatted="false">"Қаланы таңдау"</string>
+    <string name="radio_bc5db5c7bbd8" formatted="false">"Жинаққа қосу"</string>
+    <string name="radio_be36cb78e360" formatted="false">"Қаланы іздеу"</string>
+    <string name="radio_c7770896d00c" formatted="false">"Қалалар тізімі қолжетімсіз. Терезені жауып, қайта сұраңыз."</string>
+    <string name="radio_c8a8a179fd86" formatted="false">"Барлық қалалар"</string>
+    <string name="radio_d44350efe996" formatted="false">"Радиомен байланыс жоқ. Желі қосылымын тексеріп, қайталаңыз."</string>
+    <string name="radio_d71dc23ce5e0" formatted="false">"Бұл станцияның эфирі қазір қолжетімсіз."</string>
+    <string name="radio_e36f9cecd549" formatted="false">"Радио"</string>
+    <string name="radio_edcd9c9fb541" formatted="false">"Барлық жанрлар"</string>
+    <string name="radio_f4ab936fd2b8" formatted="false">"Іздеу нәтижелері"</string>
     <string name="recent_description" formatted="false">"Құрылғы мен USB музыкасы: медиатекаға жаңадан қосылған тректер бірінші көрсетіледі. Қайта сканерлеу ретті өзгертпейді."</string>
     <string name="recent_empty" formatted="false">"Жаңа тректер әлі жоқ. Бұл бөлім пайда болғанға дейін қосылған музыка әдеттегі медиатекада қалады."</string>
     <string name="recent_failure" formatted="false">"Тізім жүктелмеді. Қайталау"</string>
-    <string name="bulk_select" formatted="false">"Тректерді таңдау"</string>
-    <string name="bulk_count" formatted="false">"Таңдалғаны: @0@"</string>
-    <string name="bulk_queue" formatted="false">"Кезекке қосу"</string>
-    <string name="bulk_playlist" formatted="false">"Жергілікті плейлистке қосу"</string>
-    <string name="bulk_local_only" formatted="false">"Жергілікті плейлистке тек құрылғы мен USB музыкасын қосуға болады."</string>
-    <string name="diagnostics_choose_destination" formatted="false">"Есепті сақтайтын орынды таңдаңыз."</string>
-    <string name="diagnostics_saved_document" formatted="false">"Сақталды: @0@"</string>
-    <string name="wave_settings_title" formatted="false">"Толқынды баптау"</string>
-    <string name="wave_settings_hint" formatted="false">"Таңдауыңыз қолданбада осы аккаунт үшін сақталады және толқын келесі рет қосылғанда қолданылады."</string>
-    <string name="wave_settings_reset" formatted="false">"Таңдауды қалпына келтіру"</string>
-    <string name="wave_settings_play" formatted="false">"Толқынды тыңдау"</string>
-    <string name="wave_context" formatted="false">"Іс-әрекетке қарай"</string>
-    <string name="wave_diversity" formatted="false">"Музыка сипатына қарай"</string>
-    <string name="wave_mood" formatted="false">"Көңіл күйге қарай"</string>
-    <string name="wave_language" formatted="false">"Тілге қарай"</string>
+    <string name="recent_title" formatted="false">"Жақында қосылған"</string>
+    <string name="wave_active" formatted="false">"Сергек"</string>
     <string name="wave_any" formatted="false">"Кез келген"</string>
     <string name="wave_any_language" formatted="false">"Кез келген"</string>
-    <string name="wave_favorite" formatted="false">"Ұнататын музыка"</string>
-    <string name="wave_discover" formatted="false">"Жаңа музыка"</string>
-    <string name="wave_popular" formatted="false">"Танымал музыка"</string>
-    <string name="wave_active" formatted="false">"Сергек"</string>
-    <string name="wave_fun" formatted="false">"Көтеріңкі"</string>
+    <string name="wave_by_album" formatted="false">"Альбом бойынша толқынды тыңдау"</string>
+    <string name="wave_by_artist" formatted="false">"Орындаушы бойынша толқынды тыңдау"</string>
+    <string name="wave_by_playlist" formatted="false">"Плейлист бойынша толқынды тыңдау"</string>
+    <string name="wave_by_track" formatted="false">"Трек бойынша толқынды тыңдау"</string>
     <string name="wave_calm" formatted="false">"Тыныш"</string>
-    <string name="wave_sad" formatted="false">"Мұңды"</string>
-    <string name="wave_kazakh" formatted="false">"Қазақша"</string>
-    <string name="wave_russian" formatted="false">"Орысша"</string>
+    <string name="wave_context" formatted="false">"Іс-әрекетке қарай"</string>
+    <string name="wave_continue_action" formatted="false">"Тізім аяқталғанда толқынды жалғастыру"</string>
+    <string name="wave_continue_off" formatted="false">"Толқынмен жалғастыру өшірулі"</string>
+    <string name="wave_continue_on" formatted="false">"Толқынмен жалғастыру қосулы"</string>
+    <string name="wave_dance" formatted="false">"Билеп жатырмын"</string>
+    <string name="wave_discover" formatted="false">"Жаңа музыка"</string>
+    <string name="wave_diversity" formatted="false">"Музыка сипатына қарай"</string>
+    <string name="wave_favorite" formatted="false">"Ұнататын музыка"</string>
     <string name="wave_foreign" formatted="false">"Басқа тілдер"</string>
+    <string name="wave_fun" formatted="false">"Көтеріңкі"</string>
     <string name="wave_instrumental" formatted="false">"Сөзсіз"</string>
+    <string name="wave_kazakh" formatted="false">"Қазақша"</string>
+    <string name="wave_language" formatted="false">"Тілге қарай"</string>
+    <string name="wave_mood" formatted="false">"Көңіл күйге қарай"</string>
+    <string name="wave_popular" formatted="false">"Танымал музыка"</string>
+    <string name="wave_relax" formatted="false">"Демалып жатырмын"</string>
+    <string name="wave_russian" formatted="false">"Орысша"</string>
+    <string name="wave_sad" formatted="false">"Мұңды"</string>
+    <string name="wave_settings_hint" formatted="false">"Таңдауыңыз қолданбада осы аккаунт үшін сақталады және толқын келесі рет қосылғанда қолданылады."</string>
+    <string name="wave_settings_play" formatted="false">"Толқынды тыңдау"</string>
+    <string name="wave_settings_reset" formatted="false">"Таңдауды қалпына келтіру"</string>
+    <string name="wave_settings_title" formatted="false">"Толқынды баптау"</string>
+    <string name="wave_sleep" formatted="false">"Ұйқыға дайындалып жатырмын"</string>
+    <string name="wave_source_title" formatted="false">"Толқын · @0@"</string>
     <string name="wave_wakeup" formatted="false">"Оянып жатырмын"</string>
     <string name="wave_work" formatted="false">"Жұмыс істеп жатырмын"</string>
     <string name="wave_workout" formatted="false">"Жаттығып жатырмын"</string>
-    <string name="wave_sleep" formatted="false">"Ұйқыға дайындалып жатырмын"</string>
-    <string name="wave_dance" formatted="false">"Билеп жатырмын"</string>
-    <string name="wave_relax" formatted="false">"Демалып жатырмын"</string>
-    <string name="wave_by_track" formatted="false">"Трек бойынша толқынды тыңдау"</string>
-    <string name="wave_by_artist" formatted="false">"Орындаушы бойынша толқынды тыңдау"</string>
-    <string name="wave_by_album" formatted="false">"Альбом бойынша толқынды тыңдау"</string>
-    <string name="wave_by_playlist" formatted="false">"Плейлист бойынша толқынды тыңдау"</string>
-    <string name="wave_source_title" formatted="false">"Толқын · @0@"</string>
-    <string name="wave_continue_action" formatted="false">"Тізім аяқталғанда толқынды жалғастыру"</string>
-    <string name="wave_continue_on" formatted="false">"Толқынмен жалғастыру қосулы"</string>
-    <string name="wave_continue_off" formatted="false">"Толқынмен жалғастыру өшірулі"</string>
-    <string name="player_source_offline" formatted="false">"Офлайн"</string>
-    <string name="player_source_favorites" formatted="false">"Жергілікті таңдаулылар"</string>
-    <string name="player_source_device" formatted="false">"Құрылғы / USB"</string>
-    <string name="player_source_list" formatted="false">"Тректер тізімі"</string>
-    <string name="radio_2ed3c7c3be59" formatted="false">"Барлық станциялардан іздеу"</string>
-    <string name="radio_bbfea2350988" formatted="false">"Қаланы таңдау"</string>
-    <string name="radio_c8a8a179fd86" formatted="false">"Барлық қалалар"</string>
-    <string name="radio_edcd9c9fb541" formatted="false">"Барлық жанрлар"</string>
-    <string name="radio_b71a4a6a4ffe" formatted="false">"Жинақ"</string>
-    <string name="radio_46dff034a662" formatted="false">"Қалалар"</string>
-    <string name="radio_3a856dcd9b2f" formatted="false">"Жанрлар"</string>
-    <string name="radio_6341f756cd9c" formatted="false">"Барлық станциялар"</string>
-    <string name="radio_2d7aa58089f8" formatted="false">"Таңдаулы станциялар"</string>
-    <string name="radio_8f602ef87466" formatted="false">"Таңдаулы станцияларды сақтау үшін Яндекске кіріңіз."</string>
-    <string name="radio_14159f0b89c5" formatted="false">"Әзірге таңдаулы станциялар жоқ. Қосу үшін ойнатқыштағы жүрекшені басыңыз."</string>
-    <string name="radio_f4ab936fd2b8" formatted="false">"Іздеу нәтижелері"</string>
-    <string name="radio_b4c6c4329bde" formatted="false">"Станциялар табылмады."</string>
-    <string name="radio_6d51575566da" formatted="false">"Тағы станциялар"</string>
-    <string name="radio_ab20e71e02cc" formatted="false">"Қайта қосылуда…"</string>
-    <string name="radio_40b27edf9a21" formatted="false">"Қосылуда…"</string>
-    <string name="radio_8a574d8cde01" formatted="false">"Тікелей эфир"</string>
-    <string name="radio_e36f9cecd549" formatted="false">"Радио"</string>
-    <string name="radio_41fc0c985c40" formatted="false">"Станцияны таңдаңыз"</string>
-    <string name="radio_3c04af3c32f2" formatted="false">"Қазір эфирде"</string>
-    <string name="radio_2eb31705844a" formatted="false">"Эфир туралы ақпарат қолжетімсіз"</string>
-    <string name="radio_937307ee2903" formatted="false">"Жинақтан алып тастау"</string>
-    <string name="radio_bc5db5c7bbd8" formatted="false">"Жинаққа қосу"</string>
-    <string name="radio_24d97edde7c5" formatted="false">"Эфирді қосу"</string>
-    <string name="radio_7e81a427d259" formatted="false">"Эфирді тоқтату"</string>
-    <string name="radio_be36cb78e360" formatted="false">"Қаланы іздеу"</string>
-    <string name="radio_c7770896d00c" formatted="false">"Қалалар тізімі қолжетімсіз. Терезені жауып, қайта сұраңыз."</string>
-    <string name="radio_d44350efe996" formatted="false">"Радиомен байланыс жоқ. Желі қосылымын тексеріп, қайталаңыз."</string>
-    <string name="radio_530bbd5ef253" formatted="false">"Радио жинағына қолжетімділік жоқ. Қазіргі профильдегі кіруді тексеріңіз."</string>
-    <string name="radio_d71dc23ce5e0" formatted="false">"Бұл станцияның эфирі қазір қолжетімсіз."</string>
-    <string name="radio_65f7daba2df4" formatted="false">"Радио жауабын оқу мүмкін болмады. Қайта сұраңыз."</string>
-    <string name="internet_absent" formatted="false">"Интернет байланысы жоқ"</string>
-    <string name="internet_retry" formatted="false">"Қайта қосылу"</string>
-    <string name="msg_c5d8b34667e5" formatted="false">"Жинақтауыштағы қалта"</string>
-    <string name="msg_2eab61192b5f" formatted="false">"Жинақтауышты таңдаңыз"</string>
-    <string name="msg_7758ab0d2031" formatted="false">"Жинақтауыш қолжетімсіз. Оны қосыңыз немесе жүйенің қалта таңдау терезесін пайдаланыңыз."</string>
-    <string name="msg_c7e24c134a4e" formatted="false">"Жүйелік қалта таңдау"</string>
-    <string name="msg_f3f88d26dec9" formatted="false">"Осы қалтаны таңдау"</string>
-    <string name="msg_8429277fdf48" formatted="false">"YMPlayer қолданбасына жинақтауышты оқуға рұқсат беріңіз немесе жүйелік қалта таңдауды пайдаланыңыз."</string>
-    <string name="msg_0e5d03ee4234" formatted="false">"Жүйелік терезеде USB көрінбесе, жинақтауыштағы қалтаны тікелей таңдаңыз."</string>
-    <string name="msg_10e1623cae3c" formatted="false">"Бір деңгей жоғары"</string>
-    <string name="msg_d45556f3a844" formatted="false">"Қалта қосу"</string>
-    <string name="interface_scale_hint" formatted="false">"Мәтіннің, түймелердің және аралықтардың өлшемі өзгереді. Өзгерістер бірден қолданылады және қолданбаны қайта ашқанда сақталады."</string>
-    <string name="interface_scale_reset" formatted="false">"100%-ға қайтару"</string>
-    <string name="interface_scale_title" formatted="false">"Интерфейс өлшемі"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

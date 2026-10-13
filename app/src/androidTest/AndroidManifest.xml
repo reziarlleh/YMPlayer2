@@ -10,5 +10,8 @@
             <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER" /></intent-filter>
         </provider>
         <provider android:name="dev.petrov.ymplayer2.TestControlProvider" android:authorities="dev.petrov.ymplayer2.test.control" android:exported="true" />
+        <provider android:name="dev.petrov.ymplayer2.TestStorageProvider" android:authorities="dev.petrov.ymplayer2.test.storage" android:exported="true" android:grantUriPermissions="true" android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER" /></intent-filter>
+        </provider>
     </application>
 </manifest>

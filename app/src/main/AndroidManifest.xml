@@ -15,6 +15,7 @@
         android:banner="@drawable/tv_banner" android:theme="@style/AppTheme"
         android:allowBackup="false" android:requestLegacyExternalStorage="true" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true">
         <service android:name=".OfflineSyncService" android:exported="false" android:foregroundServiceType="dataSync" />
+        <service android:name=".FileTransferService" android:exported="false" android:foregroundServiceType="dataSync" />
         <provider android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.update_files" android:exported="false"
             android:grantUriPermissions="true">

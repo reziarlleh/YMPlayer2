@@ -16,10 +16,20 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.prismFocus
 
-@Composable internal fun OfflineScreen(offline: OfflineMusic, player: PlaybackController) {
+@Composable internal fun OfflineScreen(offline: OfflineMusic, player: PlaybackController, export: (() -> Unit)? = null) {
     val state by offline.state.collectAsStateWithLifecycle()
+    var options by remember { mutableStateOf(false) }
     LazyColumn(Modifier.fillMaxSize().testTag("offline_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        item { Text(tr(Msg.msg_35864bdf26cb), style = MaterialTheme.typography.headlineSmall) }
+        item { Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(tr(Msg.msg_35864bdf26cb), Modifier.weight(1f), style = MaterialTheme.typography.headlineSmall)
+            if (export != null) Box {
+                TextButton({ options = true }, Modifier.prismFocus().testTag("offline_options")) { Text("⋮") }
+                DropdownMenu(options, { options = false }) {
+                    DropdownMenuItem({ Text(trMessage("Экспорт MP3 (на USB / в папку)")) }, { options = false; export() },
+                        Modifier.testTag("offline_export"), enabled = state.ready && state.tracks.isNotEmpty())
+                }
+            }
+        } }
         if (state.tracks.isNotEmpty()) {
             item { Text(tr(Msg.msg_5e4ea237ce6b, state.tracks.size, state.bytes / (1024 * 1024)), Modifier.testTag("offline_summary")) }
             item { OutlinedButton({ player.playOffline() }, Modifier.fillMaxWidth().prismFocus().testTag("offline_play_all")) { Text(tr(Msg.msg_dc9712a122a9)) } }

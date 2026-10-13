@@ -116,6 +116,14 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         generation++; job?.cancel(); job = null; passKeys = null
         mutable.value = state.value.copy(running = false, message = "Синхронизация остановлена. Готовые файлы сохранены.")
     }
+    /** Re-read URIs after a committed location change without changing membership or account. */
+    fun reloadCache() {
+        cancel()
+        if (state.value.enabled) state.value.owner?.let { owner ->
+            mutable.value = state.value.copy(ready = false, tracks = emptyList())
+            load(owner)
+        }
+    }
     fun sync() {
         val owner = state.value.owner ?: return
         if (!state.value.enabled || !state.value.ready || state.value.running) return

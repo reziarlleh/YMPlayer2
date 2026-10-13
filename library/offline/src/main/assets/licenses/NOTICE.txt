@@ -1,0 +1,8 @@
+YMPlayer2 MP3 export uses Jump3r 1.0.5 (de.sciss:jump3r:1.0.5), a Java port of LAME.
+Copyright: The L.A.M.E. project, Ken Handel, Vadym Vikulin, Hanns Holger Rutz,
+and the authors named in the enclosed source files.
+Jump3r is distributed under GNU LGPL version 2.1 or later, without warranty.
+The unmodified library sources and license are enclosed in this directory.
+Source: https://git.iem.at/sciss/jump3r
+Application source, adapter and rebuild instructions:
+https://github.com/reziarlleh/YMPlayer2/blob/main/docs/THIRD_PARTY.md

@@ -1,5 +1,295 @@
 [
   {
+    "key": "bulk_count",
+    "source": "Выбрано: @0@",
+    "english": "Selected: @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "Выбрана: @0@",
+      "fr": "Sélection : @0@",
+      "de": "Ausgewählt: @0@",
+      "kk": "Таңдалғаны: @0@",
+      "es": "Seleccionados: @0@",
+      "uk": "Вибрано: @0@"
+    }
+  },
+  {
+    "key": "bulk_local_only",
+    "source": "В локальный плейлист можно добавить только музыку устройства и USB.",
+    "english": "Local playlists can contain device and USB music only.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "У лакальны плэйліст можна дадаць толькі музыку прылады і USB.",
+      "fr": "Les playlists locales ne peuvent contenir que de la musique de l’appareil et des supports USB.",
+      "de": "Lokale Playlists können nur Musik vom Gerät und von USB enthalten.",
+      "kk": "Жергілікті плейлистке тек құрылғы мен USB музыкасын қосуға болады.",
+      "es": "Las listas locales solo pueden contener música del dispositivo y de USB.",
+      "uk": "До локального плейлиста можна додати лише музику пристрою та USB."
+    }
+  },
+  {
+    "key": "bulk_playlist",
+    "source": "В локальный плейлист",
+    "english": "Add to local playlist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "У лакальны плэйліст",
+      "fr": "Ajouter à une playlist locale",
+      "de": "Zur lokalen Playlist",
+      "kk": "Жергілікті плейлистке қосу",
+      "es": "Añadir a una lista local",
+      "uk": "До локального плейлиста"
+    }
+  },
+  {
+    "key": "bulk_queue",
+    "source": "В очередь",
+    "english": "Add to queue",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "У чаргу",
+      "fr": "Ajouter à la file",
+      "de": "Zur Warteschlange",
+      "kk": "Кезекке қосу",
+      "es": "Añadir a la cola",
+      "uk": "До черги"
+    }
+  },
+  {
+    "key": "bulk_select",
+    "source": "Выбрать треки",
+    "english": "Select tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+    ],
+    "translations": {
+      "be": "Выбраць трэкі",
+      "fr": "Sélectionner des titres",
+      "de": "Titel auswählen",
+      "kk": "Тректерді таңдау",
+      "es": "Seleccionar temas",
+      "uk": "Вибрати треки"
+    }
+  },
+  {
+    "key": "diagnostics_choose_destination",
+    "source": "Выберите место для сохранения отчёта.",
+    "english": "Choose where to save the report.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ],
+    "translations": {
+      "be": "Выберыце, куды захаваць справаздачу.",
+      "kk": "Есепті сақтайтын орынды таңдаңыз.",
+      "uk": "Виберіть, куди зберегти звіт.",
+      "de": "Wähle aus, wo du den Bericht speichern möchtest.",
+      "es": "Elige dónde guardar el informe.",
+      "fr": "Choisissez où enregistrer le rapport."
+    }
+  },
+  {
+    "key": "diagnostics_saved_document",
+    "source": "Сохранено: @0@",
+    "english": "Saved: @0@",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
+    ],
+    "translations": {
+      "be": "Захавана: @0@",
+      "kk": "Сақталды: @0@",
+      "uk": "Збережено: @0@",
+      "de": "Gespeichert: @0@",
+      "es": "Guardado: @0@",
+      "fr": "Enregistré : @0@"
+    }
+  },
+  {
+    "key": "history_clear_description",
+    "source": "Удалится только история прослушивания. Файлы, кэш и плейлисты останутся.",
+    "english": "Only the listening history will be cleared. Files, cached music and playlists will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Выдаліцца толькі гісторыя праслухоўвання. Файлы, кэш і плэйлісты застануцца.",
+      "fr": "Seul l’historique d’écoute sera effacé. Les fichiers, le cache et les playlists seront conservés.",
+      "de": "Nur der Hörverlauf wird gelöscht. Dateien, Cache und Playlists bleiben erhalten.",
+      "kk": "Тек тыңдау тарихы өшіріледі. Файлдар, кэш пен плейлисттер сақталады.",
+      "es": "Solo se borrará el historial de escucha. Se conservarán los archivos, la música en caché y las listas.",
+      "uk": "Видалиться лише історія прослуховування. Файли, кеш і плейлисти залишаться."
+    }
+  },
+  {
+    "key": "history_clear_title",
+    "source": "Очистить историю этого профиля?",
+    "english": "Clear this profile’s listening history?",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Ачысціць гісторыю гэтага профілю?",
+      "fr": "Effacer l’historique de ce profil ?",
+      "de": "Hörverlauf dieses Profils löschen?",
+      "kk": "Осы профильдің тыңдау тарихын тазалау керек пе?",
+      "es": "¿Borrar el historial de este perfil?",
+      "uk": "Очистити історію цього профілю?"
+    }
+  },
+  {
+    "key": "history_description",
+    "source": "Последние 500 треков этого профиля. Повторное прослушивание поднимает трек в начало.",
+    "english": "The last 500 tracks played in this profile. Playing a track again moves it to the top.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Апошнія 500 трэкаў гэтага профілю. Паўторнае праслухоўванне пераносіць трэк у пачатак.",
+      "fr": "Les 500 derniers titres écoutés dans ce profil. Réécouter un titre le place en tête de liste.",
+      "de": "Die letzten 500 Titel dieses Profils. Erneut abgespielte Titel stehen wieder ganz oben.",
+      "kk": "Осы профильде тыңдалған соңғы 500 трек. Қайта тыңдалған трек тізімнің басына ауысады.",
+      "es": "Los últimos 500 temas reproducidos en este perfil. Al volver a escuchar un tema, pasa al principio.",
+      "uk": "Останні 500 треків цього профілю. Повторне прослуховування переміщує трек на початок."
+    }
+  },
+  {
+    "key": "history_empty",
+    "source": "Здесь появятся треки, которые вы слушали в этом профиле.",
+    "english": "Tracks you play in this profile will appear here.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Тут з’явяцца трэкі, якія вы слухалі ў гэтым профілі.",
+      "fr": "Les titres écoutés dans ce profil apparaîtront ici.",
+      "de": "Hier erscheinen die Titel, die du in diesem Profil abspielst.",
+      "kk": "Осы профильде тыңдаған тректеріңіз осында көрсетіледі.",
+      "es": "Aquí aparecerán los temas que escuches en este perfil.",
+      "uk": "Тут з’являться треки, які ви слухали в цьому профілі."
+    }
+  },
+  {
+    "key": "history_failure",
+    "source": "Не удалось прочитать или сохранить историю. Повторить",
+    "english": "Could not read or save the listening history. Retry",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Не ўдалося прачытаць або захаваць гісторыю. Паўтарыць",
+      "fr": "Impossible de lire ou d’enregistrer l’historique. Réessayer",
+      "de": "Der Hörverlauf konnte nicht gelesen oder gespeichert werden. Erneut versuchen",
+      "kk": "Тыңдау тарихын оқу не сақтау мүмкін болмады. Қайталау",
+      "es": "No se pudo leer o guardar el historial. Reintentar",
+      "uk": "Не вдалося прочитати або зберегти історію. Повторити"
+    }
+  },
+  {
+    "key": "history_title",
+    "source": "История прослушивания",
+    "english": "Listening history",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
+    ],
+    "translations": {
+      "be": "Гісторыя праслухоўвання",
+      "fr": "Historique d’écoute",
+      "de": "Hörverlauf",
+      "kk": "Тыңдау тарихы",
+      "es": "Historial de escucha",
+      "uk": "Історія прослуховування"
+    }
+  },
+  {
+    "key": "interface_scale_hint",
+    "source": "Меняются текст, кнопки и отступы. Изменения видны сразу и сохраняются для следующих запусков.",
+    "english": "Adjusts text, buttons and spacing. Changes take effect immediately and are kept when you reopen the app.",
+    "translations": {
+      "be": "Змяняюцца тэкст, кнопкі і адступы. Змены бачныя адразу і захоўваюцца для наступных запускаў.",
+      "kk": "Мәтіннің, түймелердің және аралықтардың өлшемі өзгереді. Өзгерістер бірден қолданылады және қолданбаны қайта ашқанда сақталады.",
+      "uk": "Змінюються текст, кнопки та відступи. Зміни видно одразу, і вони зберігаються для наступних запусків.",
+      "de": "Passt Text, Schaltflächen und Abstände an. Änderungen werden sofort angezeigt und bleiben beim erneuten Öffnen erhalten.",
+      "es": "Ajusta el texto, los botones y los espacios. Los cambios se aplican al instante y se conservan al volver a abrir la aplicación.",
+      "fr": "Ajuste le texte, les boutons et les espacements. Les changements sont immédiats et conservés à la réouverture de l’application."
+    },
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
+    ]
+  },
+  {
+    "key": "interface_scale_reset",
+    "source": "Сбросить к 100%",
+    "english": "Reset to 100%",
+    "translations": {
+      "be": "Скінуць да 100%",
+      "kk": "100%-ға қайтару",
+      "uk": "Скинути до 100%",
+      "de": "Auf 100% zurücksetzen",
+      "es": "Restablecer al 100%",
+      "fr": "Rétablir à 100%"
+    },
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
+    ]
+  },
+  {
+    "key": "interface_scale_title",
+    "source": "Масштаб интерфейса",
+    "english": "Interface size",
+    "translations": {
+      "be": "Маштаб інтэрфейсу",
+      "kk": "Интерфейс өлшемі",
+      "uk": "Масштаб інтерфейсу",
+      "de": "Oberflächengröße",
+      "es": "Tamaño de la interfaz",
+      "fr": "Taille de l’interface"
+    },
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
+    ]
+  },
+  {
+    "key": "internet_absent",
+    "source": "Отсутствует интернет",
+    "english": "No internet connection",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InternetNotice.kt",
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ],
+    "translations": {
+      "be": "Няма інтэрнэт-злучэння",
+      "fr": "Pas de connexion Internet",
+      "de": "Keine Internetverbindung",
+      "kk": "Интернет байланысы жоқ",
+      "es": "Sin conexión a Internet",
+      "uk": "Немає з’єднання з інтернетом"
+    }
+  },
+  {
+    "key": "internet_retry",
+    "source": "Повторить подключение",
+    "english": "Retry connection",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InternetNotice.kt",
+      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
+    ],
+    "translations": {
+      "be": "Паўтарыць падключэнне",
+      "fr": "Réessayer la connexion",
+      "de": "Verbindung erneut versuchen",
+      "kk": "Қайта қосылу",
+      "es": "Reintentar conexión",
+      "uk": "Повторити підключення"
+    }
+  },
+  {
     "key": "msg_001dda282241",
     "source": "Войдите в Яндекс в этом профиле. Если вход уже сохранён, обновите сведения об аккаунте.",
     "english": "Sign in to Yandex in this profile. If you have already signed in, refresh your account details.",
@@ -174,6 +464,22 @@
       "kk": "Тректер",
       "es": "Canciones",
       "uk": "Треки"
+    }
+  },
+  {
+    "key": "msg_05421b0f9b67",
+    "source": "Переменные шаблона",
+    "english": "Template variables",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Зменныя шаблона",
+      "de": "Variablen der Vorlage",
+      "es": "Variables de la plantilla",
+      "fr": "Variables du modèle",
+      "kk": "Үлгі айнымалылары",
+      "uk": "Змінні шаблону"
     }
   },
   {
@@ -500,6 +806,38 @@
     }
   },
   {
+    "key": "msg_0e2277432226",
+    "source": "Название трека",
+    "english": "Track title",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Назва трэка",
+      "de": "Tracktitel",
+      "es": "Título de la pista",
+      "fr": "Titre du morceau",
+      "kk": "Трек атауы",
+      "uk": "Назва треку"
+    }
+  },
+  {
+    "key": "msg_0e5d03ee4234",
+    "source": "Если системный выбор не видит USB, выберите папку на накопителе напрямую.",
+    "english": "If the system picker does not show USB storage, choose a folder on the device directly.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Калі сістэмны выбар не паказвае USB, выберыце папку на назапашвальніку наўпрост.",
+      "de": "Wenn die Systemauswahl den USB-Speicher nicht anzeigt, wähle den Ordner direkt auf dem Speicher aus.",
+      "es": "Si el selector del sistema no muestra la unidad USB, elige directamente una carpeta de la unidad.",
+      "fr": "Si le sélecteur du système ne montre pas le support USB, choisissez directement un dossier sur le support.",
+      "kk": "Жүйелік терезеде USB көрінбесе, жинақтауыштағы қалтаны тікелей таңдаңыз.",
+      "uk": "Якщо системний вибір не показує USB, виберіть папку на накопичувачі напряму."
+    }
+  },
+  {
     "key": "msg_0f0e734fb752",
     "source": "В очередь: @0@",
     "english": "Add to queue: @0@",
@@ -577,6 +915,54 @@
       "kk": "Іске қосқанда тексеру",
       "es": "Comprobar al iniciar",
       "uk": "Перевіряти під час запуску"
+    }
+  },
+  {
+    "key": "msg_108db2c27f47",
+    "source": "Выберите папку вне текущего офлайн-кэша.",
+    "english": "Choose a folder outside the current offline cache.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Выберыце папку па-за бягучым афлайн-кэшам.",
+      "de": "Wähle einen Ordner außerhalb des aktuellen Offline-Caches.",
+      "es": "Elige una carpeta fuera de la caché sin conexión actual.",
+      "fr": "Choisissez un dossier en dehors du cache hors ligne actuel.",
+      "kk": "Қазіргі офлайн кэштен тыс қалтаны таңдаңыз.",
+      "uk": "Виберіть папку поза поточним офлайн-кешем."
+    }
+  },
+  {
+    "key": "msg_10e1623cae3c",
+    "source": "На уровень вверх",
+    "english": "Up one level",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "На ўзровень вышэй",
+      "de": "Eine Ebene höher",
+      "es": "Subir un nivel",
+      "fr": "Dossier parent",
+      "kk": "Бір деңгей жоғары",
+      "uk": "На рівень вище"
+    }
+  },
+  {
+    "key": "msg_11aec46fd5f8",
+    "source": "Не удалось перенести кэш. Исходная папка сохранена.",
+    "english": "Could not move the cache. The original folder is intact.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося перанесці кэш. Зыходная папка захавана.",
+      "de": "Cache konnte nicht verschoben werden. Der ursprüngliche Ordner ist erhalten.",
+      "es": "No se pudo trasladar la caché. La carpeta original se conserva.",
+      "fr": "Impossible de déplacer le cache. Le dossier d’origine est conservé.",
+      "kk": "Кэшті көшіру мүмкін болмады. Бастапқы қалта сақталды.",
+      "uk": "Не вдалося перенести кеш. Початкову папку збережено."
     }
   },
   {
@@ -708,6 +1094,22 @@
       "kk": "Yandex плейлистін жасау",
       "es": "Crear lista de Yandex",
       "uk": "Створити плейлист Яндекса"
+    }
+  },
+  {
+    "key": "msg_1565060b1d72",
+    "source": "Перенос офлайн-кэша…",
+    "english": "Moving offline cache…",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Перанос афлайн-кэша…",
+      "de": "Offline-Cache wird verschoben…",
+      "es": "Trasladando la caché sin conexión…",
+      "fr": "Déplacement du cache hors ligne…",
+      "kk": "Офлайн кэш көшірілуде…",
+      "uk": "Перенесення офлайн-кешу…"
     }
   },
   {
@@ -1483,6 +1885,22 @@
     }
   },
   {
+    "key": "msg_2abefa329d5d",
+    "source": "Расширение .mp3 добавляется автоматически. Существующие файлы не перезаписываются.",
+    "english": "The .mp3 extension is added automatically. Existing files are never overwritten.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Пашырэнне .mp3 дадаецца аўтаматычна. Існыя файлы не перазапісваюцца.",
+      "de": "Die Endung .mp3 wird automatisch hinzugefügt. Bestehende Dateien werden nicht überschrieben.",
+      "es": "La extensión .mp3 se añade automáticamente. Los archivos existentes no se sobrescriben.",
+      "fr": "L’extension .mp3 est ajoutée automatiquement. Les fichiers existants ne sont pas écrasés.",
+      "kk": ".mp3 кеңейтімі автоматты түрде қосылады. Бар файлдар қайта жазылмайды.",
+      "uk": "Розширення .mp3 додається автоматично. Наявні файли не перезаписуються."
+    }
+  },
+  {
     "key": "msg_2afb36246c80",
     "source": "Недопустимый путь значка",
     "english": "Invalid icon path",
@@ -1579,6 +1997,22 @@
     }
   },
   {
+    "key": "msg_2eab61192b5f",
+    "source": "Выберите накопитель",
+    "english": "Choose a storage device",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Выберыце назапашвальнік",
+      "de": "Speicher auswählen",
+      "es": "Elige un dispositivo de almacenamiento",
+      "fr": "Choisissez un support de stockage",
+      "kk": "Жинақтауышты таңдаңыз",
+      "uk": "Виберіть накопичувач"
+    }
+  },
+  {
     "key": "msg_2efea0f8794f",
     "source": "Плейлисты",
     "english": "Playlists",
@@ -1593,6 +2027,22 @@
       "kk": "Плейлисттер",
       "es": "Listas",
       "uk": "Плейлисти"
+    }
+  },
+  {
+    "key": "msg_2f23d7c2628a",
+    "source": "Остановить экспорт",
+    "english": "Stop export",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Спыніць экспарт",
+      "de": "Export stoppen",
+      "es": "Detener exportación",
+      "fr": "Arrêter l’export",
+      "kk": "Экспортты тоқтату",
+      "uk": "Зупинити експорт"
     }
   },
   {
@@ -1919,6 +2369,22 @@
     }
   },
   {
+    "key": "msg_3605c85705cf",
+    "source": "Снова предлагать этот трек",
+    "english": "Recommend this track again",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ],
+    "translations": {
+      "be": "Зноў прапаноўваць гэты трэк",
+      "fr": "Recommander à nouveau ce titre",
+      "de": "Diesen Titel wieder empfehlen",
+      "kk": "Бұл тректі қайта ұсыну",
+      "es": "Volver a recomendar esta canción",
+      "uk": "Знову пропонувати цей трек"
+    }
+  },
+  {
     "key": "msg_3628da5ba5a2",
     "source": "Удалить сохранённый вход",
     "english": "Remove saved sign-in",
@@ -1932,6 +2398,22 @@
       "kk": "Сақталған кіру деректерін жою",
       "es": "Eliminar la sesión guardada",
       "uk": "Видалити збережений вхід"
+    }
+  },
+  {
+    "key": "msg_3680d7bd4a53",
+    "source": "Экспорт отменён. Готовые MP3 сохранены.",
+    "english": "Export cancelled. Completed MP3 files have been kept.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Экспарт скасаваны. Гатовыя MP3 захаваны.",
+      "de": "Export abgebrochen. Fertige MP3-Dateien wurden behalten.",
+      "es": "Exportación cancelada. Los MP3 completados se conservan.",
+      "fr": "Export annulé. Les fichiers MP3 terminés sont conservés.",
+      "kk": "Экспорт тоқтатылды. Дайын MP3 файлдары сақталды.",
+      "uk": "Експорт скасовано. Готові MP3 збережено."
     }
   },
   {
@@ -1980,6 +2462,22 @@
       "kk": "Пакетте қолданылмайтын файлдар бар",
       "es": "El paquete del tema contiene archivos sin usar",
       "uk": "Пакет містить невикористані файли"
+    }
+  },
+  {
+    "key": "msg_37a4c450bcf5",
+    "source": "Недостаточно свободного места для переноса офлайн-кэша.",
+    "english": "Not enough free space to move the offline cache.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Недастаткова вольнага месца для пераносу афлайн-кэша.",
+      "de": "Nicht genug freier Speicher zum Verschieben des Offline-Caches.",
+      "es": "No hay espacio suficiente para trasladar la caché sin conexión.",
+      "fr": "Espace libre insuffisant pour déplacer le cache hors ligne.",
+      "kk": "Офлайн кэшті көшіруге бос орын жеткіліксіз.",
+      "uk": "Недостатньо вільного місця для перенесення офлайн-кешу."
     }
   },
   {
@@ -2562,6 +3060,22 @@
     }
   },
   {
+    "key": "msg_455ace36a5e6",
+    "source": "Экспорт MP3",
+    "english": "Export MP3",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Экспарт MP3",
+      "de": "MP3 exportieren",
+      "es": "Exportar MP3",
+      "fr": "Exporter en MP3",
+      "kk": "MP3 экспорттау",
+      "uk": "Експорт MP3"
+    }
+  },
+  {
     "key": "msg_460213556ee1",
     "source": "APK проверен@0@.",
     "english": "APK verified@0@.",
@@ -2626,6 +3140,22 @@
     }
   },
   {
+    "key": "msg_4786024008f6",
+    "source": "Офлайн-кэш перенесён.",
+    "english": "Offline cache moved.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Афлайн-кэш перанесены.",
+      "de": "Offline-Cache verschoben.",
+      "es": "Caché sin conexión trasladada.",
+      "fr": "Cache hors ligne déplacé.",
+      "kk": "Офлайн кэш көшірілді.",
+      "uk": "Офлайн-кеш перенесено."
+    }
+  },
+  {
     "key": "msg_480fae1c4bc9",
     "source": "Ничего не найдено",
     "english": "No results",
@@ -2639,6 +3169,22 @@
       "kk": "Ештеңе табылмады",
       "es": "Sin resultados",
       "uk": "Нічого не знайдено"
+    }
+  },
+  {
+    "key": "msg_48899862c608",
+    "source": "Не удалось завершить экспорт MP3. Проверьте доступ к папке, сеть и свободное место.",
+    "english": "Could not finish MP3 export. Check folder access, your connection and free space.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося завяршыць экспарт MP3. Праверце доступ да папкі, сетку і вольнае месца.",
+      "de": "MP3-Export konnte nicht abgeschlossen werden. Prüfe Ordnerzugriff, Verbindung und freien Speicher.",
+      "es": "No se pudo finalizar la exportación MP3. Comprueba el acceso a la carpeta, la conexión y el espacio libre.",
+      "fr": "Impossible de terminer l’export MP3. Vérifiez l’accès au dossier, la connexion et l’espace libre.",
+      "kk": "MP3 экспорттауды аяқтау мүмкін болмады. Қалтаға қолжетімділікті, желіні және бос орынды тексеріңіз.",
+      "uk": "Не вдалося завершити експорт MP3. Перевірте доступ до папки, мережу й вільне місце."
     }
   },
   {
@@ -2784,6 +3330,22 @@
       "kk": "Сақталған кіру деректері тек осы құрылғыдағы «@0@» профилінен жойылады. Жергілікті файлдар, кезек және плейлисттер сақталады.",
       "es": "La sesión guardada se eliminará solo del perfil «@0@» de este dispositivo. Se conservarán los archivos locales, la cola y las listas.",
       "uk": "Збережений вхід буде видалено лише з профілю «@0@» на цьому пристрої. Локальні файли, черга й плейлисти залишаться."
+    }
+  },
+  {
+    "key": "msg_4ecc369d7d0e",
+    "source": "Файловые операции",
+    "english": "File transfers",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Файлавыя аперацыі",
+      "de": "Dateiübertragungen",
+      "es": "Transferencias de archivos",
+      "fr": "Transferts de fichiers",
+      "kk": "Файлдарды тасымалдау",
+      "uk": "Файлові операції"
     }
   },
   {
@@ -3526,6 +4088,22 @@
     }
   },
   {
+    "key": "msg_5ee9591513e4",
+    "source": "Папка офлайн-кэша",
+    "english": "Offline cache folder",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Папка афлайн-кэша",
+      "de": "Ordner für den Offline-Cache",
+      "es": "Carpeta de la caché sin conexión",
+      "fr": "Dossier du cache hors ligne",
+      "kk": "Офлайн кэш қалтасы",
+      "uk": "Папка офлайн-кешу"
+    }
+  },
+  {
     "key": "msg_5fbef357e55e",
     "source": "Моя музыка в Яндексе",
     "english": "My Yandex music",
@@ -3572,6 +4150,22 @@
       "kk": "Жаңарту",
       "es": "Actualizar",
       "uk": "Оновити"
+    }
+  },
+  {
+    "key": "msg_60aee1c09b2f",
+    "source": "Перенести во внутреннюю память",
+    "english": "Move to internal storage",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Перанесці ва ўнутраную памяць",
+      "de": "In den internen Speicher verschieben",
+      "es": "Mover al almacenamiento interno",
+      "fr": "Déplacer vers le stockage interne",
+      "kk": "Ішкі жадқа көшіру",
+      "uk": "Перенести у внутрішню пам’ять"
     }
   },
   {
@@ -3768,6 +4362,22 @@
       "kk": "Ағымдағы трек",
       "es": "Canción actual",
       "uk": "Поточний трек"
+    }
+  },
+  {
+    "key": "msg_6541ee6cd051",
+    "source": "Кэш перенесён. Старую папку не удалось удалить.",
+    "english": "Cache moved. The old folder could not be removed.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Кэш перанесены. Старую папку не ўдалося выдаліць.",
+      "de": "Cache verschoben. Der alte Ordner konnte nicht gelöscht werden.",
+      "es": "Caché trasladada. No se pudo eliminar la carpeta anterior.",
+      "fr": "Cache déplacé. L’ancien dossier n’a pas pu être supprimé.",
+      "kk": "Кэш көшірілді. Ескі қалтаны жою мүмкін болмады.",
+      "uk": "Кеш перенесено. Стару папку не вдалося видалити."
     }
   },
   {
@@ -4141,6 +4751,22 @@
     }
   },
   {
+    "key": "msg_6d41ea47365d",
+    "source": "Никогда не предлагать этот трек",
+    "english": "Never recommend this track",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ],
+    "translations": {
+      "be": "Ніколі не прапаноўваць гэты трэк",
+      "fr": "Ne plus recommander ce titre",
+      "de": "Diesen Titel nie empfehlen",
+      "kk": "Бұл тректі ешқашан ұсынбау",
+      "es": "No recomendar nunca esta canción",
+      "uk": "Ніколи не пропонувати цей трек"
+    }
+  },
+  {
     "key": "msg_6d6a9bb2179b",
     "source": "Моя музыка и рекомендации Яндекса",
     "english": "My music and Yandex recommendations",
@@ -4449,6 +5075,22 @@
     }
   },
   {
+    "key": "msg_7393216b96da",
+    "source": "Внутренняя память приложения",
+    "english": "App internal storage",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Унутраная памяць праграмы",
+      "de": "Interner App-Speicher",
+      "es": "Almacenamiento interno de la app",
+      "fr": "Stockage interne de l’application",
+      "kk": "Қолданбаның ішкі жады",
+      "uk": "Внутрішня пам’ять застосунку"
+    }
+  },
+  {
     "key": "msg_73cec4b1fa25",
     "source": "Не удалось открыть установку: @0@",
     "english": "Could not open the installer: @0@",
@@ -4529,6 +5171,22 @@
     }
   },
   {
+    "key": "msg_745f3d9426a5",
+    "source": "Выбрать папку кэша",
+    "english": "Choose cache folder",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Выбраць папку кэша",
+      "de": "Cache-Ordner wählen",
+      "es": "Elegir carpeta de caché",
+      "fr": "Choisir le dossier du cache",
+      "kk": "Кэш қалтасын таңдау",
+      "uk": "Вибрати папку кешу"
+    }
+  },
+  {
     "key": "msg_7493e161cb03",
     "source": "Без альбома",
     "english": "Unknown album",
@@ -4577,6 +5235,22 @@
     }
   },
   {
+    "key": "msg_75df34bc25d9",
+    "source": "Шаблон имени файла",
+    "english": "Filename template",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Шаблон імя файла",
+      "de": "Vorlage für Dateinamen",
+      "es": "Plantilla de nombre de archivo",
+      "fr": "Modèle de nom de fichier",
+      "kk": "Файл атауының үлгісі",
+      "uk": "Шаблон імені файлу"
+    }
+  },
+  {
     "key": "msg_760c9665ad62",
     "source": "Стандарт · 192 кбит/с",
     "english": "Standard · 192 kbps",
@@ -4606,6 +5280,22 @@
       "kk": "Yandex плейлистіне қосу",
       "es": "Añadir a lista de Yandex",
       "uk": "Додати до плейлиста Яндекса"
+    }
+  },
+  {
+    "key": "msg_7758ab0d2031",
+    "source": "Накопитель недоступен. Подключите его или используйте системный выбор папки.",
+    "english": "Storage is unavailable. Connect it or use the system folder picker.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Назапашвальнік недаступны. Падключыце яго або скарыстайцеся сістэмным выбарам папкі.",
+      "de": "Speicher nicht verfügbar. Schließe ihn an oder nutze die System-Ordnerauswahl.",
+      "es": "El almacenamiento no está disponible. Conéctalo o usa el selector de carpetas del sistema.",
+      "fr": "Le stockage est inaccessible. Connectez-le ou utilisez le sélecteur de dossiers du système.",
+      "kk": "Жинақтауыш қолжетімсіз. Оны қосыңыз немесе жүйенің қалта таңдау терезесін пайдаланыңыз.",
+      "uk": "Накопичувач недоступний. Підключіть його або скористайтеся системним вибором папки."
     }
   },
   {
@@ -4898,6 +5588,22 @@
     }
   },
   {
+    "key": "msg_7f805c3068f0",
+    "source": "Не удалось получить доступ к выбранной папке.",
+    "english": "Could not access the selected folder.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося атрымаць доступ да выбранай папкі.",
+      "de": "Kein Zugriff auf den gewählten Ordner.",
+      "es": "No se pudo acceder a la carpeta elegida.",
+      "fr": "Impossible d’accéder au dossier sélectionné.",
+      "kk": "Таңдалған қалтаға қол жеткізу мүмкін болмады.",
+      "uk": "Не вдалося отримати доступ до вибраної папки."
+    }
+  },
+  {
     "key": "msg_7f89cdaad39e",
     "source": "Экономия · 128 кбит/с",
     "english": "Data saver · 128 kbps",
@@ -4943,6 +5649,22 @@
       "kk": "Құрылғыда жүйелік файл таңдау құралы жоқ. Storage Access Framework қолдайтын файл менеджері қажет.",
       "es": "El dispositivo no tiene selector de archivos del sistema. Necesitas un gestor de archivos compatible con Storage Access Framework.",
       "uk": "На пристрої немає системного вибору файлу. Потрібен файловий менеджер із підтримкою Storage Access Framework."
+    }
+  },
+  {
+    "key": "msg_81af4b2ad75c",
+    "source": "Не удалось запустить перенос кэша.",
+    "english": "Could not start the cache move.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося пачаць перанос кэша.",
+      "de": "Verschieben des Caches konnte nicht gestartet werden.",
+      "es": "No se pudo iniciar el traslado de la caché.",
+      "fr": "Impossible de lancer le déplacement du cache.",
+      "kk": "Кэшті көшіруді бастау мүмкін болмады.",
+      "uk": "Не вдалося почати перенесення кешу."
     }
   },
   {
@@ -5010,6 +5732,22 @@
     }
   },
   {
+    "key": "msg_8429277fdf48",
+    "source": "Разрешите чтение накопителя для YMPlayer или используйте системный выбор папки.",
+    "english": "Allow YMPlayer to read storage, or use the system folder picker.",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Дазвольце YMPlayer чытаць назапашвальнік або скарыстайцеся сістэмным выбарам папкі.",
+      "de": "Erlaube YMPlayer den Lesezugriff oder nutze die System-Ordnerauswahl.",
+      "es": "Permite que YMPlayer lea el almacenamiento o usa el selector de carpetas del sistema.",
+      "fr": "Autorisez YMPlayer à lire le stockage ou utilisez le sélecteur de dossiers du système.",
+      "kk": "YMPlayer қолданбасына жинақтауышты оқуға рұқсат беріңіз немесе жүйелік қалта таңдауды пайдаланыңыз.",
+      "uk": "Дозвольте YMPlayer читати накопичувач або скористайтеся системним вибором папки."
+    }
+  },
+  {
     "key": "msg_8491940b48e2",
     "source": "Скачанные треки «Мне нравится»",
     "english": "Downloaded liked tracks",
@@ -5023,6 +5761,22 @@
       "kk": "Жүктелген ұнаған тректер",
       "es": "Canciones favoritas descargadas",
       "uk": "Завантажені вподобані треки"
+    }
+  },
+  {
+    "key": "msg_8495ebd49bf7",
+    "source": "Не удалось определить свободное место. Выберите папку на устройстве или USB.",
+    "english": "Could not determine free space. Choose a folder on the device or USB drive.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося вызначыць вольнае месца. Выберыце папку на прыладзе або USB-назапашвальніку.",
+      "de": "Freier Speicher konnte nicht ermittelt werden. Wähle einen Ordner auf dem Gerät oder USB-Laufwerk.",
+      "es": "No se pudo comprobar el espacio libre. Elige una carpeta del dispositivo o de una unidad USB.",
+      "fr": "Impossible de déterminer l’espace libre. Choisissez un dossier sur l’appareil ou une clé USB.",
+      "kk": "Бос орынды анықтау мүмкін болмады. Құрылғыдан немесе USB жинақтауыштан қалта таңдаңыз.",
+      "uk": "Не вдалося визначити вільне місце. Виберіть папку на пристрої або USB-накопичувачі."
     }
   },
   {
@@ -5090,6 +5844,22 @@
     }
   },
   {
+    "key": "msg_85c31cb864bd",
+    "source": "Недостаточно места для экспорта MP3.",
+    "english": "Not enough space to export MP3.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Недастаткова месца для экспарту MP3.",
+      "de": "Nicht genug Speicher für den MP3-Export.",
+      "es": "No hay espacio suficiente para exportar MP3.",
+      "fr": "Espace insuffisant pour l’export MP3.",
+      "kk": "MP3 экспорттауға орын жеткіліксіз.",
+      "uk": "Недостатньо місця для експорту MP3."
+    }
+  },
+  {
     "key": "msg_85dd88927aea",
     "source": "Плейлист «@0@» удалён.",
     "english": "Playlist “@0@” deleted.",
@@ -5103,6 +5873,22 @@
       "kk": "«@0@» плейлисті жойылды.",
       "es": "Lista «@0@» eliminada.",
       "uk": "Плейлист «@0@» видалено."
+    }
+  },
+  {
+    "key": "msg_86c1228b2946",
+    "source": "{number} — номер в списке\\n{artist} — исполнитель\\n{title} — название трека\\n{album} — альбом\\n{id} — ID трека\\n\\nМожно добавлять свой текст между переменными. Например: {number}. {artist} - {title}",
+    "english": "{number} — list position\\n{artist} — artist\\n{title} — track title\\n{album} — album\\n{id} — track ID\\n\\nYou can add your own text between variables. Example: {number}. {artist} - {title}",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "{number} — нумар у спісе\\n{artist} — выканаўца\\n{title} — назва трэка\\n{album} — альбом\\n{id} — ID трэка\\n\\nМожна дадаваць свой тэкст паміж зменнымі. Напрыклад: {number}. {artist} - {title}",
+      "de": "{number} — Position in der Liste\\n{artist} — Interpret\\n{title} — Tracktitel\\n{album} — Album\\n{id} — Track-ID\\n\\nDu kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {artist} - {title}",
+      "es": "{number} — posición en la lista\\n{artist} — artista\\n{title} — título de la pista\\n{album} — álbum\\n{id} — ID de la pista\\n\\nPuedes añadir tu propio texto entre las variables. Ejemplo: {number}. {artist} - {title}",
+      "fr": "{number} — position dans la liste\\n{artist} — artiste\\n{title} — titre du morceau\\n{album} — album\\n{id} — ID du morceau\\n\\nVous pouvez ajouter du texte entre les variables. Exemple: {number}. {artist} - {title}",
+      "kk": "{number} — тізімдегі нөмірі\\n{artist} — орындаушы\\n{title} — трек атауы\\n{album} — альбом\\n{id} — тректің ID-і\\n\\nАйнымалылардың арасына өз мәтініңізді қосуға болады. Мысалы: {number}. {artist} - {title}",
+      "uk": "{number} — номер у списку\\n{artist} — виконавець\\n{title} — назва треку\\n{album} — альбом\\n{id} — ID треку\\n\\nМожна додавати власний текст між змінними. Наприклад: {number}. {artist} - {title}"
     }
   },
   {
@@ -5135,6 +5921,22 @@
       "kk": "APK көлемі тым үлкен",
       "es": "El APK es demasiado grande",
       "uk": "APK завеликий"
+    }
+  },
+  {
+    "key": "msg_8903462888b5",
+    "source": "Проверка перенесённого файла не пройдена.",
+    "english": "A copied file failed verification.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Перанесены файл не прайшоў праверку.",
+      "de": "Eine kopierte Datei hat die Prüfung nicht bestanden.",
+      "es": "Un archivo copiado no ha superado la verificación.",
+      "fr": "La vérification d’un fichier copié a échoué.",
+      "kk": "Көшірілген файл тексеруден өтпеді.",
+      "uk": "Перенесений файл не пройшов перевірку."
     }
   },
   {
@@ -5199,6 +6001,22 @@
       "kk": "Авто",
       "es": "Auto",
       "uk": "Авто"
+    }
+  },
+  {
+    "key": "msg_8edd38cdc6bf",
+    "source": "Выбрать папку и экспортировать",
+    "english": "Choose folder and export",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Выбраць папку і экспартаваць",
+      "de": "Ordner wählen und exportieren",
+      "es": "Elegir carpeta y exportar",
+      "fr": "Choisir un dossier et exporter",
+      "kk": "Қалтаны таңдап, экспорттау",
+      "uk": "Вибрати папку й експортувати"
     }
   },
   {
@@ -5805,6 +6623,54 @@
     }
   },
   {
+    "key": "msg_9e2b82682442",
+    "source": "Экспорт завершён с ошибками. Готовые MP3 сохранены.",
+    "english": "Export finished with errors. Completed MP3 files have been kept.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Экспарт завершаны з памылкамі. Гатовыя MP3 захаваны.",
+      "de": "Export mit Fehlern beendet. Fertige MP3-Dateien wurden behalten.",
+      "es": "La exportación terminó con errores. Los MP3 completados se conservan.",
+      "fr": "Export terminé avec des erreurs. Les fichiers MP3 terminés sont conservés.",
+      "kk": "Экспорт қателермен аяқталды. Дайын MP3 файлдары сақталды.",
+      "uk": "Експорт завершено з помилками. Готові MP3 збережено."
+    }
+  },
+  {
+    "key": "msg_9f7d2a5e5c0f",
+    "source": "Недостаточно свободного места для офлайн-музыки.",
+    "english": "Not enough free space for offline music.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Недастаткова вольнага месца для афлайн-музыкі.",
+      "de": "Nicht genug freier Speicher für Offline-Musik.",
+      "es": "No hay espacio suficiente para la música sin conexión.",
+      "fr": "Espace libre insuffisant pour la musique hors ligne.",
+      "kk": "Офлайн музыкаға бос орын жеткіліксіз.",
+      "uk": "Недостатньо вільного місця для офлайн-музики."
+    }
+  },
+  {
+    "key": "msg_9fa46545e616",
+    "source": "Используйте известные переменные и непустой шаблон.",
+    "english": "Use supported variables and a non-empty template.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Выкарыстоўвайце вядомыя зменныя і непусты шаблон.",
+      "de": "Verwende unterstützte Variablen und eine nicht leere Vorlage.",
+      "es": "Usa variables admitidas y una plantilla que no esté vacía.",
+      "fr": "Utilisez les variables disponibles et un modèle non vide.",
+      "kk": "Қолдау көрсетілетін айнымалыларды пайдаланыңыз. Үлгі бос болмауы керек.",
+      "uk": "Використовуйте відомі змінні та непорожній шаблон."
+    }
+  },
+  {
     "key": "msg_9fcd67f23799",
     "source": "Выше: @0@",
     "english": "Move up: @0@",
@@ -6014,6 +6880,38 @@
     }
   },
   {
+    "key": "msg_a50932471cdc",
+    "source": "Не удалось завершить предыдущий перенос кэша.",
+    "english": "Could not finish the previous cache move.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося завяршыць папярэдні перанос кэша.",
+      "de": "Das vorherige Verschieben des Caches konnte nicht abgeschlossen werden.",
+      "es": "No se pudo finalizar el traslado anterior de la caché.",
+      "fr": "Impossible de terminer le déplacement précédent du cache.",
+      "kk": "Кэштің алдыңғы көшірілуін аяқтау мүмкін болмады.",
+      "uk": "Не вдалося завершити попереднє перенесення кешу."
+    }
+  },
+  {
+    "key": "msg_a5495ebce14d",
+    "source": "Перенос офлайн-кэша",
+    "english": "Move offline cache",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Перанос афлайн-кэша",
+      "de": "Offline-Cache verschieben",
+      "es": "Traslado de la caché sin conexión",
+      "fr": "Déplacement du cache hors ligne",
+      "kk": "Офлайн кэшті көшіру",
+      "uk": "Перенесення офлайн-кешу"
+    }
+  },
+  {
     "key": "msg_a55d09b73e40",
     "source": "Недопустимый ID скина",
     "english": "Invalid skin ID",
@@ -6208,6 +7106,22 @@
       "kk": "Ұнатулар мен бұғаттаулар тексерілуде…",
       "es": "Comprobando Me gusta y bloqueos…",
       "uk": "Перевіряємо позначки…"
+    }
+  },
+  {
+    "key": "msg_a9d3153aa273",
+    "source": "Подготовка переноса кэша…",
+    "english": "Preparing to move the cache…",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Падрыхтоўка да пераносу кэша…",
+      "de": "Verschieben des Caches wird vorbereitet…",
+      "es": "Preparando el traslado de la caché…",
+      "fr": "Préparation du déplacement du cache…",
+      "kk": "Кэшті көшіруге дайындалуда…",
+      "uk": "Підготовка до перенесення кешу…"
     }
   },
   {
@@ -6707,6 +7621,22 @@
     }
   },
   {
+    "key": "msg_ba5e1073112c",
+    "source": "Подготовка экспорта MP3…",
+    "english": "Preparing MP3 export…",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Падрыхтоўка экспарту MP3…",
+      "de": "MP3-Export wird vorbereitet…",
+      "es": "Preparando la exportación MP3…",
+      "fr": "Préparation de l’export MP3…",
+      "kk": "MP3 экспорттауға дайындалуда…",
+      "uk": "Підготовка експорту MP3…"
+    }
+  },
+  {
     "key": "msg_ba700b6d4845",
     "source": "Перезагрузка K4811",
     "english": "Restart K4811",
@@ -6999,6 +7929,38 @@
     }
   },
   {
+    "key": "msg_c0c419b5947a",
+    "source": "Никогда не предлагать этого исполнителя",
+    "english": "Never recommend this artist",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ],
+    "translations": {
+      "be": "Ніколі не прапаноўваць гэтага выканаўцу",
+      "fr": "Ne plus recommander cet artiste",
+      "de": "Diesen Künstler nie empfehlen",
+      "kk": "Бұл орындаушыны ешқашан ұсынбау",
+      "es": "No recomendar nunca este artista",
+      "uk": "Ніколи не пропонувати цього виконавця"
+    }
+  },
+  {
+    "key": "msg_c1c8687fe0cd",
+    "source": "Перед переносом проверяется свободное место. Исходный кэш удаляется только после проверки копии.",
+    "english": "Free space is checked before moving. The original cache is removed only after the copy has been verified.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Перад пераносам правяраецца вольнае месца. Зыходны кэш выдаляецца толькі пасля праверкі копіі.",
+      "de": "Vor dem Verschieben wird der freie Speicher geprüft. Der ursprüngliche Cache wird erst nach Prüfung der Kopie gelöscht.",
+      "es": "Antes del traslado se comprueba el espacio libre. La caché original solo se elimina tras verificar la copia.",
+      "fr": "L’espace libre est vérifié avant le déplacement. Le cache d’origine n’est supprimé qu’après vérification de la copie.",
+      "kk": "Көшіру алдында бос орын тексеріледі. Бастапқы кэш көшірме тексерілгеннен кейін ғана жойылады.",
+      "uk": "Перед перенесенням перевіряється вільне місце. Початковий кеш видаляється лише після перевірки копії."
+    }
+  },
+  {
     "key": "msg_c25691d01a87",
     "source": "Добавляйте треки в избранное через меню рядом с треком.",
     "english": "Add tracks to favorites from the menu next to a track.",
@@ -7097,6 +8059,38 @@
       "kk": "Плейлисттерді оқу мүмкін болмады. Деректер дискіде сақталған, бірақ өңдеу уақытша қолжетімсіз. Қайта ашып көріңіз.",
       "es": "No se pudieron leer las listas. Los datos siguen guardados en el disco, pero la edición no está disponible temporalmente. Vuelve a cargarlas.",
       "uk": "Не вдалося прочитати плейлисти. Дані збережено на диску, але редагування тимчасово недоступне. Повторіть читання."
+    }
+  },
+  {
+    "key": "msg_c5d260f02840",
+    "source": "Готово: @0@ из @1@. Ошибок: @2@.",
+    "english": "Completed: @0@ of @1@. Failed: @2@.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Гатова: @0@ з @1@. Памылак: @2@.",
+      "de": "Fertig: @0@ von @1@. Fehler: @2@.",
+      "es": "Completados: @0@ de @1@. Errores: @2@.",
+      "fr": "Terminés : @0@ sur @1@. Échecs : @2@.",
+      "kk": "Дайын: @1@ файлдың @0@-і. Қателер: @2@.",
+      "uk": "Готово: @0@ з @1@. Помилок: @2@."
+    }
+  },
+  {
+    "key": "msg_c5d8b34667e5",
+    "source": "Папка на накопителе",
+    "english": "Folder on storage",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Папка на назапашвальніку",
+      "de": "Speicherordner",
+      "es": "Carpeta del dispositivo",
+      "fr": "Dossier du stockage",
+      "kk": "Жинақтауыштағы қалта",
+      "uk": "Папка на накопичувачі"
     }
   },
   {
@@ -7244,6 +8238,22 @@
     }
   },
   {
+    "key": "msg_c7e24c134a4e",
+    "source": "Системный выбор папки",
+    "english": "System folder picker",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Сістэмны выбар папкі",
+      "de": "System-Ordnerauswahl",
+      "es": "Selector de carpetas del sistema",
+      "fr": "Sélecteur de dossiers du système",
+      "kk": "Жүйелік қалта таңдау",
+      "uk": "Системний вибір папки"
+    }
+  },
+  {
     "key": "msg_c85975db07b1",
     "source": "Неверная версия обновления",
     "english": "Invalid update version",
@@ -7372,6 +8382,22 @@
     }
   },
   {
+    "key": "msg_cac09069271e",
+    "source": "Перенос отменён. Исходный кэш сохранён.",
+    "english": "Move cancelled. The original cache is intact.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Перанос скасаваны. Зыходны кэш захаваны.",
+      "de": "Verschieben abgebrochen. Der ursprüngliche Cache ist erhalten.",
+      "es": "Traslado cancelado. La caché original se conserva.",
+      "fr": "Déplacement annulé. Le cache d’origine est conservé.",
+      "kk": "Көшіру тоқтатылды. Бастапқы кэш сақталды.",
+      "uk": "Перенесення скасовано. Початковий кеш збережено."
+    }
+  },
+  {
     "key": "msg_cb297d129add",
     "source": "Очередь",
     "english": "Queue",
@@ -7485,6 +8511,22 @@
     }
   },
   {
+    "key": "msg_cddcc88ed95f",
+    "source": "Не удалось запустить экспорт MP3.",
+    "english": "Could not start MP3 export.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося пачаць экспарт MP3.",
+      "de": "MP3-Export konnte nicht gestartet werden.",
+      "es": "No se pudo iniciar la exportación MP3.",
+      "fr": "Impossible de lancer l’export MP3.",
+      "kk": "MP3 экспорттауды бастау мүмкін болмады.",
+      "uk": "Не вдалося почати експорт MP3."
+    }
+  },
+  {
     "key": "msg_ce1456ccd84b",
     "source": "Убрать из плейлиста: @0@",
     "english": "Remove from playlist: @0@",
@@ -7547,6 +8589,22 @@
       "kk": "Yandex плейлисттері",
       "es": "Listas de Yandex",
       "uk": "Плейлисти Яндекса"
+    }
+  },
+  {
+    "key": "msg_d0673fb04781",
+    "source": "Не удалось сохранить папку кэша.",
+    "english": "Could not save the cache location.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося захаваць размяшчэнне кэша.",
+      "de": "Cache-Speicherort konnte nicht gespeichert werden.",
+      "es": "No se pudo guardar la ubicación de la caché.",
+      "fr": "Impossible d’enregistrer l’emplacement du cache.",
+      "kk": "Кэштің орналасуын сақтау мүмкін болмады.",
+      "uk": "Не вдалося зберегти розташування кешу."
     }
   },
   {
@@ -7627,6 +8685,22 @@
       "kk": "@0@ нұсқасы қолжетімді.",
       "es": "La versión @0@ está disponible.",
       "uk": "Доступна версія @0@."
+    }
+  },
+  {
+    "key": "msg_d45556f3a844",
+    "source": "Добавить папку",
+    "english": "Add folder",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Дадаць папку",
+      "de": "Ordner hinzufügen",
+      "es": "Añadir carpeta",
+      "fr": "Ajouter un dossier",
+      "kk": "Қалта қосу",
+      "uk": "Додати папку"
     }
   },
   {
@@ -7806,6 +8880,22 @@
     }
   },
   {
+    "key": "msg_d8462717244f",
+    "source": "Снова предлагать этого исполнителя",
+    "english": "Recommend this artist again",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+    ],
+    "translations": {
+      "be": "Зноў прапаноўваць гэтага выканаўцу",
+      "fr": "Recommander à nouveau cet artiste",
+      "de": "Diesen Künstler wieder empfehlen",
+      "kk": "Бұл орындаушыны қайта ұсыну",
+      "es": "Volver a recomendar este artista",
+      "uk": "Знову пропонувати цього виконавця"
+    }
+  },
+  {
     "key": "msg_d8987908d58b",
     "source": "Источник и папки",
     "english": "Sources and folders",
@@ -7883,6 +8973,22 @@
       "kk": "Қайта іске қосу",
       "es": "Reiniciar",
       "uk": "Перезавантажити"
+    }
+  },
+  {
+    "key": "msg_da36a9bd36fb",
+    "source": "Не удалось создать папку кэша.",
+    "english": "Could not create the cache folder.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Не ўдалося стварыць папку кэша.",
+      "de": "Cache-Ordner konnte nicht erstellt werden.",
+      "es": "No se pudo crear la carpeta de caché.",
+      "fr": "Impossible de créer le dossier du cache.",
+      "kk": "Кэш қалтасын жасау мүмкін болмады.",
+      "uk": "Не вдалося створити папку кешу."
     }
   },
   {
@@ -8146,6 +9252,22 @@
     }
   },
   {
+    "key": "msg_deaf03369090",
+    "source": "Экспорт MP3 (на USB / в папку)",
+    "english": "Export MP3 (to USB / folder)",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Экспарт MP3 (на USB / у папку)",
+      "de": "MP3 exportieren (auf USB / in Ordner)",
+      "es": "Exportar MP3 (a USB / carpeta)",
+      "fr": "Exporter en MP3 (vers USB / dossier)",
+      "kk": "MP3 экспорттау (USB-ге / қалтаға)",
+      "uk": "Експорт MP3 (на USB / у папку)"
+    }
+  },
+  {
     "key": "msg_ded8b330175a",
     "source": "Нет сети · показаны доступные офлайн треки",
     "english": "No connection · showing available offline tracks",
@@ -8386,6 +9508,22 @@
     }
   },
   {
+    "key": "msg_e2ce86b38fd5",
+    "source": "Понятно",
+    "english": "Got it",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Зразумела",
+      "de": "Verstanden",
+      "es": "Entendido",
+      "fr": "Compris",
+      "kk": "Түсінікті",
+      "uk": "Зрозуміло"
+    }
+  },
+  {
     "key": "msg_e2e513b12b0d",
     "source": "Сохранённых треков пока нет. Синхронизация доступна в настройках офлайн-кэша.",
     "english": "No downloaded tracks yet. Sync your music in Offline cache settings.",
@@ -8480,6 +9618,38 @@
       "kk": "Ұнаған тректерден алып тастау",
       "es": "Quitar de canciones favoritas",
       "uk": "Прибрати з «Мені подобається»"
+    }
+  },
+  {
+    "key": "msg_e54a9fe87695",
+    "source": "Экспорт MP3 завершён.",
+    "english": "MP3 export complete.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Экспарт MP3 завершаны.",
+      "de": "MP3-Export abgeschlossen.",
+      "es": "Exportación MP3 completada.",
+      "fr": "Export MP3 terminé.",
+      "kk": "MP3 экспорттау аяқталды.",
+      "uk": "Експорт MP3 завершено."
+    }
+  },
+  {
+    "key": "msg_e63badad247d",
+    "source": "Экспорт MP3…",
+    "english": "Exporting MP3…",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Экспарт MP3…",
+      "de": "MP3 wird exportiert…",
+      "es": "Exportando MP3…",
+      "fr": "Export MP3 en cours…",
+      "kk": "MP3 экспортталуда…",
+      "uk": "Експорт MP3…"
     }
   },
   {
@@ -8608,6 +9778,22 @@
       "kk": "Ашу",
       "es": "Abrir",
       "uk": "Відкрити"
+    }
+  },
+  {
+    "key": "msg_ea98e2104f5c",
+    "source": "Отменить перенос",
+    "english": "Cancel move",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Скасаваць перанос",
+      "de": "Verschieben abbrechen",
+      "es": "Cancelar traslado",
+      "fr": "Annuler le déplacement",
+      "kk": "Көшіруден бас тарту",
+      "uk": "Скасувати перенесення"
     }
   },
   {
@@ -8870,6 +10056,38 @@
     }
   },
   {
+    "key": "msg_f2ba15a0b4d8",
+    "source": "Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.",
+    "english": "The system folder picker is unavailable. Install DocumentsUI or a compatible file manager.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Сістэмны выбар папкі недаступны. Усталюйце DocumentsUI або сумяшчальны файлавы менеджар.",
+      "de": "Die System-Ordnerauswahl ist nicht verfügbar. Installiere DocumentsUI oder einen kompatiblen Dateimanager.",
+      "es": "El selector de carpetas del sistema no está disponible. Instala DocumentsUI o un gestor de archivos compatible.",
+      "fr": "Le sélecteur de dossiers du système est indisponible. Installez DocumentsUI ou un gestionnaire de fichiers compatible.",
+      "kk": "Жүйелік қалта таңдағышы табылмады. DocumentsUI немесе үйлесімді файл менеджерін орнатыңыз.",
+      "uk": "Системний вибір папки недоступний. Установіть DocumentsUI або сумісний файловий менеджер."
+    }
+  },
+  {
+    "key": "msg_f3f88d26dec9",
+    "source": "Выбрать эту папку",
+    "english": "Use this folder",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
+    ],
+    "translations": {
+      "be": "Выбраць гэту папку",
+      "de": "Diesen Ordner verwenden",
+      "es": "Usar esta carpeta",
+      "fr": "Utiliser ce dossier",
+      "kk": "Осы қалтаны таңдау",
+      "uk": "Вибрати цю папку"
+    }
+  },
+  {
     "key": "msg_f413b50444c7",
     "source": "исполнителя",
     "english": "artist",
@@ -8932,6 +10150,22 @@
       "kk": "Ойнату / кідірту",
       "es": "Reproducir / pausar",
       "uk": "Відтворення / пауза"
+    }
+  },
+  {
+    "key": "msg_f53e106cfc4e",
+    "source": "Выбранная папка недоступна.",
+    "english": "The selected folder is unavailable.",
+    "locations": [
+      "docs/PLAN_2_6.md"
+    ],
+    "translations": {
+      "be": "Выбраная папка недаступная.",
+      "de": "Der gewählte Ordner ist nicht verfügbar.",
+      "es": "La carpeta elegida no está disponible.",
+      "fr": "Le dossier sélectionné est inaccessible.",
+      "kk": "Таңдалған қалта қолжетімсіз.",
+      "uk": "Вибрана папка недоступна."
     }
   },
   {
@@ -9242,179 +10476,474 @@
     }
   },
   {
-    "key": "msg_6d41ea47365d",
-    "source": "Никогда не предлагать этот трек",
-    "english": "Never recommend this track",
+    "key": "player_source_device",
+    "source": "Устройство / USB",
+    "english": "Device / USB",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Ніколі не прапаноўваць гэты трэк",
-      "fr": "Ne plus recommander ce titre",
-      "de": "Diesen Titel nie empfehlen",
-      "kk": "Бұл тректі ешқашан ұсынбау",
-      "es": "No recomendar nunca esta canción",
-      "uk": "Ніколи не пропонувати цей трек"
+      "be": "Прылада / USB",
+      "kk": "Құрылғы / USB",
+      "uk": "Пристрій / USB",
+      "de": "Gerät / USB",
+      "es": "Dispositivo / USB",
+      "fr": "Appareil / USB"
     }
   },
   {
-    "key": "msg_c0c419b5947a",
-    "source": "Никогда не предлагать этого исполнителя",
-    "english": "Never recommend this artist",
+    "key": "player_source_favorites",
+    "source": "Локальное избранное",
+    "english": "Local favorites",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Ніколі не прапаноўваць гэтага выканаўцу",
-      "fr": "Ne plus recommander cet artiste",
-      "de": "Diesen Künstler nie empfehlen",
-      "kk": "Бұл орындаушыны ешқашан ұсынбау",
-      "es": "No recomendar nunca este artista",
-      "uk": "Ніколи не пропонувати цього виконавця"
+      "be": "Лакальнае абранае",
+      "kk": "Жергілікті таңдаулылар",
+      "uk": "Локальне обране",
+      "de": "Lokale Favoriten",
+      "es": "Favoritos locales",
+      "fr": "Favoris locaux"
     }
   },
   {
-    "key": "msg_3605c85705cf",
-    "source": "Снова предлагать этот трек",
-    "english": "Recommend this track again",
+    "key": "player_source_list",
+    "source": "Список треков",
+    "english": "Track list",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Зноў прапаноўваць гэты трэк",
-      "fr": "Recommander à nouveau ce titre",
-      "de": "Diesen Titel wieder empfehlen",
-      "kk": "Бұл тректі қайта ұсыну",
-      "es": "Volver a recomendar esta canción",
-      "uk": "Знову пропонувати цей трек"
+      "be": "Спіс трэкаў",
+      "kk": "Тректер тізімі",
+      "uk": "Список треків",
+      "de": "Trackliste",
+      "es": "Lista de canciones",
+      "fr": "Liste de titres"
     }
   },
   {
-    "key": "msg_d8462717244f",
-    "source": "Снова предлагать этого исполнителя",
-    "english": "Recommend this artist again",
+    "key": "player_source_offline",
+    "source": "Оффлайн",
+    "english": "Offline",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Зноў прапаноўваць гэтага выканаўцу",
-      "fr": "Recommander à nouveau cet artiste",
-      "de": "Diesen Künstler wieder empfehlen",
-      "kk": "Бұл орындаушыны қайта ұсыну",
-      "es": "Volver a recomendar este artista",
-      "uk": "Знову пропонувати цього виконавця"
+      "be": "Афлайн",
+      "kk": "Офлайн",
+      "uk": "Офлайн",
+      "de": "Offline",
+      "es": "Sin conexión",
+      "fr": "Hors connexion"
     }
   },
   {
-    "key": "history_title",
-    "source": "История прослушивания",
-    "english": "Listening history",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
-    ],
+    "key": "radio_14159f0b89c5",
+    "source": "Любимых станций пока нет. Добавьте их сердечком в плеере.",
+    "english": "No favourite stations yet. Tap the heart in the player to add one.",
     "translations": {
-      "be": "Гісторыя праслухоўвання",
-      "fr": "Historique d’écoute",
-      "de": "Hörverlauf",
-      "kk": "Тыңдау тарихы",
-      "es": "Historial de escucha",
-      "uk": "Історія прослуховування"
+      "be": "Любімых станцый пакуль няма. Дадайце іх сэрцайкам у плэеры.",
+      "kk": "Әзірге таңдаулы станциялар жоқ. Қосу үшін ойнатқыштағы жүрекшені басыңыз.",
+      "uk": "Улюблених станцій ще немає. Додавайте їх сердечком у плеєрі.",
+      "de": "Noch keine Lieblingssender. Tippe im Player auf das Herz, um einen hinzuzufügen.",
+      "es": "Aún no tienes emisoras favoritas. Pulsa el corazón del reproductor para añadir una.",
+      "fr": "Aucune station favorite pour le moment. Appuyez sur le cœur du lecteur pour en ajouter une."
     }
   },
   {
-    "key": "history_description",
-    "source": "Последние 500 треков этого профиля. Повторное прослушивание поднимает трек в начало.",
-    "english": "The last 500 tracks played in this profile. Playing a track again moves it to the top.",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
-    ],
+    "key": "radio_24d97edde7c5",
+    "source": "Включить эфир",
+    "english": "Play station",
     "translations": {
-      "be": "Апошнія 500 трэкаў гэтага профілю. Паўторнае праслухоўванне пераносіць трэк у пачатак.",
-      "fr": "Les 500 derniers titres écoutés dans ce profil. Réécouter un titre le place en tête de liste.",
-      "de": "Die letzten 500 Titel dieses Profils. Erneut abgespielte Titel stehen wieder ganz oben.",
-      "kk": "Осы профильде тыңдалған соңғы 500 трек. Қайта тыңдалған трек тізімнің басына ауысады.",
-      "es": "Los últimos 500 temas reproducidos en este perfil. Al volver a escuchar un tema, pasa al principio.",
-      "uk": "Останні 500 треків цього профілю. Повторне прослуховування переміщує трек на початок."
+      "be": "Уключыць эфір",
+      "kk": "Эфирді қосу",
+      "uk": "Увімкнути ефір",
+      "de": "Sender abspielen",
+      "es": "Reproducir emisora",
+      "fr": "Écouter la station"
     }
   },
   {
-    "key": "history_empty",
-    "source": "Здесь появятся треки, которые вы слушали в этом профиле.",
-    "english": "Tracks you play in this profile will appear here.",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
-    ],
+    "key": "radio_2d7aa58089f8",
+    "source": "Любимые станции",
+    "english": "Favourite stations",
     "translations": {
-      "be": "Тут з’явяцца трэкі, якія вы слухалі ў гэтым профілі.",
-      "fr": "Les titres écoutés dans ce profil apparaîtront ici.",
-      "de": "Hier erscheinen die Titel, die du in diesem Profil abspielst.",
-      "kk": "Осы профильде тыңдаған тректеріңіз осында көрсетіледі.",
-      "es": "Aquí aparecerán los temas que escuches en este perfil.",
-      "uk": "Тут з’являться треки, які ви слухали в цьому профілі."
+      "be": "Любімыя станцыі",
+      "kk": "Таңдаулы станциялар",
+      "uk": "Улюблені станції",
+      "de": "Lieblingssender",
+      "es": "Emisoras favoritas",
+      "fr": "Stations favorites"
     }
   },
   {
-    "key": "history_failure",
-    "source": "Не удалось прочитать или сохранить историю. Повторить",
-    "english": "Could not read or save the listening history. Retry",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
-    ],
+    "key": "radio_2eb31705844a",
+    "source": "Информация об эфире недоступна",
+    "english": "On-air information is unavailable",
     "translations": {
-      "be": "Не ўдалося прачытаць або захаваць гісторыю. Паўтарыць",
-      "fr": "Impossible de lire ou d’enregistrer l’historique. Réessayer",
-      "de": "Der Hörverlauf konnte nicht gelesen oder gespeichert werden. Erneut versuchen",
-      "kk": "Тыңдау тарихын оқу не сақтау мүмкін болмады. Қайталау",
-      "es": "No se pudo leer o guardar el historial. Reintentar",
-      "uk": "Не вдалося прочитати або зберегти історію. Повторити"
+      "be": "Інфармацыя пра эфір недаступная",
+      "kk": "Эфир туралы ақпарат қолжетімсіз",
+      "uk": "Інформація про ефір недоступна",
+      "de": "Keine Informationen zur aktuellen Sendung",
+      "es": "La información de la emisión no está disponible",
+      "fr": "Informations sur l’émission indisponibles"
     }
   },
   {
-    "key": "history_clear_title",
-    "source": "Очистить историю этого профиля?",
-    "english": "Clear this profile’s listening history?",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
-    ],
+    "key": "radio_2ed3c7c3be59",
+    "source": "Поиск по всем станциям",
+    "english": "Search all stations",
     "translations": {
-      "be": "Ачысціць гісторыю гэтага профілю?",
-      "fr": "Effacer l’historique de ce profil ?",
-      "de": "Hörverlauf dieses Profils löschen?",
-      "kk": "Осы профильдің тыңдау тарихын тазалау керек пе?",
-      "es": "¿Borrar el historial de este perfil?",
-      "uk": "Очистити історію цього профілю?"
+      "be": "Пошук па ўсіх станцыях",
+      "kk": "Барлық станциялардан іздеу",
+      "uk": "Пошук серед усіх станцій",
+      "de": "Alle Sender durchsuchen",
+      "es": "Buscar en todas las emisoras",
+      "fr": "Rechercher parmi toutes les stations"
     }
   },
   {
-    "key": "history_clear_description",
-    "source": "Удалится только история прослушивания. Файлы, кэш и плейлисты останутся.",
-    "english": "Only the listening history will be cleared. Files, cached music and playlists will be kept.",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/HistoryScreen.kt"
-    ],
+    "key": "radio_3a856dcd9b2f",
+    "source": "Жанры",
+    "english": "Genres",
     "translations": {
-      "be": "Выдаліцца толькі гісторыя праслухоўвання. Файлы, кэш і плэйлісты застануцца.",
-      "fr": "Seul l’historique d’écoute sera effacé. Les fichiers, le cache et les playlists seront conservés.",
-      "de": "Nur der Hörverlauf wird gelöscht. Dateien, Cache und Playlists bleiben erhalten.",
-      "kk": "Тек тыңдау тарихы өшіріледі. Файлдар, кэш пен плейлисттер сақталады.",
-      "es": "Solo se borrará el historial de escucha. Se conservarán los archivos, la música en caché y las listas.",
-      "uk": "Видалиться лише історія прослуховування. Файли, кеш і плейлисти залишаться."
+      "be": "Жанры",
+      "kk": "Жанрлар",
+      "uk": "Жанри",
+      "de": "Genres",
+      "es": "Géneros",
+      "fr": "Genres"
     }
   },
   {
-    "key": "recent_title",
-    "source": "Недавно добавлено",
-    "english": "Recently added",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/RecentScreen.kt"
-    ],
+    "key": "radio_3c04af3c32f2",
+    "source": "Сейчас в эфире",
+    "english": "On air now",
     "translations": {
-      "be": "Нядаўна дададзена",
-      "fr": "Ajouts récents",
-      "de": "Zuletzt hinzugefügt",
-      "kk": "Жақында қосылған",
-      "es": "Añadido recientemente",
-      "uk": "Нещодавно додано"
+      "be": "Зараз у эфіры",
+      "kk": "Қазір эфирде",
+      "uk": "Зараз в ефірі",
+      "de": "Jetzt auf Sendung",
+      "es": "Ahora en antena",
+      "fr": "À l’antenne"
+    }
+  },
+  {
+    "key": "radio_40b27edf9a21",
+    "source": "Подключение…",
+    "english": "Connecting…",
+    "translations": {
+      "be": "Падключэнне…",
+      "kk": "Қосылуда…",
+      "uk": "Підключення…",
+      "de": "Verbindung wird hergestellt…",
+      "es": "Conectando…",
+      "fr": "Connexion…"
+    }
+  },
+  {
+    "key": "radio_41fc0c985c40",
+    "source": "Выберите станцию",
+    "english": "Choose a station",
+    "translations": {
+      "be": "Выберыце станцыю",
+      "kk": "Станцияны таңдаңыз",
+      "uk": "Виберіть станцію",
+      "de": "Wähle einen Sender",
+      "es": "Elige una emisora",
+      "fr": "Choisissez une station"
+    }
+  },
+  {
+    "key": "radio_46dff034a662",
+    "source": "Города",
+    "english": "Cities",
+    "translations": {
+      "be": "Гарады",
+      "kk": "Қалалар",
+      "uk": "Міста",
+      "de": "Städte",
+      "es": "Ciudades",
+      "fr": "Villes"
+    }
+  },
+  {
+    "key": "radio_530bbd5ef253",
+    "source": "Нет доступа к коллекции Радио. Проверьте вход в текущем профиле.",
+    "english": "Can't access your Radio collection. Check the sign-in for this profile.",
+    "translations": {
+      "be": "Няма доступу да калекцыі Радыё. Праверце ўваход у бягучым профілі.",
+      "kk": "Радио жинағына қолжетімділік жоқ. Қазіргі профильдегі кіруді тексеріңіз.",
+      "uk": "Немає доступу до колекції Радіо. Перевірте вхід у поточному профілі.",
+      "de": "Kein Zugriff auf deine Radiosammlung. Prüfe die Anmeldung im aktuellen Profil.",
+      "es": "No se puede acceder a tu colección de Radio. Comprueba la sesión de este perfil.",
+      "fr": "Accès à votre collection Radio impossible. Vérifiez la connexion du profil actuel."
+    }
+  },
+  {
+    "key": "radio_6341f756cd9c",
+    "source": "Все станции",
+    "english": "All stations",
+    "translations": {
+      "be": "Усе станцыі",
+      "kk": "Барлық станциялар",
+      "uk": "Усі станції",
+      "de": "Alle Sender",
+      "es": "Todas las emisoras",
+      "fr": "Toutes les stations"
+    }
+  },
+  {
+    "key": "radio_65f7daba2df4",
+    "source": "Не удалось прочитать ответ Радио. Повторите запрос.",
+    "english": "Couldn't read the Radio response. Try again.",
+    "translations": {
+      "be": "Не ўдалося прачытаць адказ Радыё. Паўтарыце запыт.",
+      "kk": "Радио жауабын оқу мүмкін болмады. Қайта сұраңыз.",
+      "uk": "Не вдалося прочитати відповідь Радіо. Повторіть запит.",
+      "de": "Die Antwort von Radio konnte nicht gelesen werden. Versuche es erneut.",
+      "es": "No se ha podido leer la respuesta de Radio. Vuelve a intentarlo.",
+      "fr": "Impossible de lire la réponse de Radio. Réessayez."
+    }
+  },
+  {
+    "key": "radio_6d51575566da",
+    "source": "Ещё станции",
+    "english": "More stations",
+    "translations": {
+      "be": "Яшчэ станцыі",
+      "kk": "Тағы станциялар",
+      "uk": "Ще станції",
+      "de": "Weitere Sender",
+      "es": "Más emisoras",
+      "fr": "Plus de stations"
+    }
+  },
+  {
+    "key": "radio_7e81a427d259",
+    "source": "Остановить эфир",
+    "english": "Stop station",
+    "translations": {
+      "be": "Спыніць эфір",
+      "kk": "Эфирді тоқтату",
+      "uk": "Зупинити ефір",
+      "de": "Sender stoppen",
+      "es": "Detener emisora",
+      "fr": "Arrêter la station"
+    }
+  },
+  {
+    "key": "radio_8a574d8cde01",
+    "source": "Прямой эфир",
+    "english": "Live",
+    "translations": {
+      "be": "Прамы эфір",
+      "kk": "Тікелей эфир",
+      "uk": "Прямий ефір",
+      "de": "Live",
+      "es": "En directo",
+      "fr": "En direct"
+    }
+  },
+  {
+    "key": "radio_8f602ef87466",
+    "source": "Войдите в Яндекс, чтобы сохранить любимые станции.",
+    "english": "Sign in to Yandex to save your favourite stations.",
+    "translations": {
+      "be": "Увайдзіце ў Яндэкс, каб захоўваць любімыя станцыі.",
+      "kk": "Таңдаулы станцияларды сақтау үшін Яндекске кіріңіз.",
+      "uk": "Увійдіть у Яндекс, щоб зберігати улюблені станції.",
+      "de": "Melde dich bei Yandex an, um deine Lieblingssender zu speichern.",
+      "es": "Inicia sesión en Yandex para guardar tus emisoras favoritas.",
+      "fr": "Connectez-vous à Yandex pour enregistrer vos stations favorites."
+    }
+  },
+  {
+    "key": "radio_937307ee2903",
+    "source": "Убрать из коллекции",
+    "english": "Remove from collection",
+    "translations": {
+      "be": "Выдаліць з калекцыі",
+      "kk": "Жинақтан алып тастау",
+      "uk": "Вилучити з колекції",
+      "de": "Aus Sammlung entfernen",
+      "es": "Quitar de la colección",
+      "fr": "Retirer de la collection"
+    }
+  },
+  {
+    "key": "radio_ab20e71e02cc",
+    "source": "Переподключение…",
+    "english": "Reconnecting…",
+    "translations": {
+      "be": "Паўторнае падключэнне…",
+      "kk": "Қайта қосылуда…",
+      "uk": "Повторне підключення…",
+      "de": "Verbindung wird wiederhergestellt…",
+      "es": "Reconectando…",
+      "fr": "Reconnexion…"
+    }
+  },
+  {
+    "key": "radio_b4c6c4329bde",
+    "source": "Станции не найдены.",
+    "english": "No stations found.",
+    "translations": {
+      "be": "Станцыі не знойдзены.",
+      "kk": "Станциялар табылмады.",
+      "uk": "Станцій не знайдено.",
+      "de": "Keine Sender gefunden.",
+      "es": "No se han encontrado emisoras.",
+      "fr": "Aucune station trouvée."
+    }
+  },
+  {
+    "key": "radio_b71a4a6a4ffe",
+    "source": "Коллекция",
+    "english": "Collection",
+    "translations": {
+      "be": "Калекцыя",
+      "kk": "Жинақ",
+      "uk": "Колекція",
+      "de": "Sammlung",
+      "es": "Colección",
+      "fr": "Collection"
+    }
+  },
+  {
+    "key": "radio_bbfea2350988",
+    "source": "Выбрать город",
+    "english": "Choose a city",
+    "translations": {
+      "be": "Выбраць горад",
+      "kk": "Қаланы таңдау",
+      "uk": "Вибрати місто",
+      "de": "Stadt auswählen",
+      "es": "Elegir ciudad",
+      "fr": "Choisir une ville"
+    }
+  },
+  {
+    "key": "radio_bc5db5c7bbd8",
+    "source": "В коллекцию",
+    "english": "Add to collection",
+    "translations": {
+      "be": "У калекцыю",
+      "kk": "Жинаққа қосу",
+      "uk": "До колекції",
+      "de": "Zur Sammlung hinzufügen",
+      "es": "Añadir a la colección",
+      "fr": "Ajouter à la collection"
+    }
+  },
+  {
+    "key": "radio_be36cb78e360",
+    "source": "Найти город",
+    "english": "Search cities",
+    "translations": {
+      "be": "Знайсці горад",
+      "kk": "Қаланы іздеу",
+      "uk": "Знайти місто",
+      "de": "Stadt suchen",
+      "es": "Buscar ciudad",
+      "fr": "Rechercher une ville"
+    }
+  },
+  {
+    "key": "radio_c7770896d00c",
+    "source": "Список городов недоступен. Закройте окно и повторите запрос.",
+    "english": "The city list is unavailable. Close this window and try again.",
+    "translations": {
+      "be": "Спіс гарадоў недаступны. Зачыніце акно і паўтарыце запыт.",
+      "kk": "Қалалар тізімі қолжетімсіз. Терезені жауып, қайта сұраңыз.",
+      "uk": "Список міст недоступний. Закрийте вікно й повторіть запит.",
+      "de": "Die Städteliste ist nicht verfügbar. Schließe das Fenster und versuche es erneut.",
+      "es": "La lista de ciudades no está disponible. Cierra esta ventana y vuelve a intentarlo.",
+      "fr": "La liste des villes est indisponible. Fermez cette fenêtre et réessayez."
+    }
+  },
+  {
+    "key": "radio_c8a8a179fd86",
+    "source": "Все города",
+    "english": "All cities",
+    "translations": {
+      "be": "Усе гарады",
+      "kk": "Барлық қалалар",
+      "uk": "Усі міста",
+      "de": "Alle Städte",
+      "es": "Todas las ciudades",
+      "fr": "Toutes les villes"
+    }
+  },
+  {
+    "key": "radio_d44350efe996",
+    "source": "Нет связи с Радио. Проверьте сеть и повторите.",
+    "english": "Can't connect to Radio. Check your connection and try again.",
+    "translations": {
+      "be": "Няма сувязі з Радыё. Праверце сетку і паўтарыце.",
+      "kk": "Радиомен байланыс жоқ. Желі қосылымын тексеріп, қайталаңыз.",
+      "uk": "Немає зв’язку з Радіо. Перевірте мережу й повторіть.",
+      "de": "Keine Verbindung zu Radio. Prüfe deine Internetverbindung und versuche es erneut.",
+      "es": "No se puede conectar con Radio. Comprueba tu conexión y vuelve a intentarlo.",
+      "fr": "Connexion à Radio impossible. Vérifiez votre connexion et réessayez."
+    }
+  },
+  {
+    "key": "radio_d71dc23ce5e0",
+    "source": "Эфир этой станции сейчас недоступен.",
+    "english": "This station's stream is currently unavailable.",
+    "translations": {
+      "be": "Эфір гэтай станцыі зараз недаступны.",
+      "kk": "Бұл станцияның эфирі қазір қолжетімсіз.",
+      "uk": "Ефір цієї станції зараз недоступний.",
+      "de": "Der Stream dieses Senders ist derzeit nicht verfügbar.",
+      "es": "La emisión de esta emisora no está disponible en este momento.",
+      "fr": "La diffusion de cette station est actuellement indisponible."
+    }
+  },
+  {
+    "key": "radio_e36f9cecd549",
+    "source": "Радио",
+    "english": "Radio",
+    "translations": {
+      "be": "Радыё",
+      "kk": "Радио",
+      "uk": "Радіо",
+      "de": "Radio",
+      "es": "Radio",
+      "fr": "Radio"
+    }
+  },
+  {
+    "key": "radio_edcd9c9fb541",
+    "source": "Все жанры",
+    "english": "All genres",
+    "translations": {
+      "be": "Усе жанры",
+      "kk": "Барлық жанрлар",
+      "uk": "Усі жанри",
+      "de": "Alle Genres",
+      "es": "Todos los géneros",
+      "fr": "Tous les genres"
+    }
+  },
+  {
+    "key": "radio_f4ab936fd2b8",
+    "source": "Результаты поиска",
+    "english": "Search results",
+    "translations": {
+      "be": "Вынікі пошуку",
+      "kk": "Іздеу нәтижелері",
+      "uk": "Результати пошуку",
+      "de": "Suchergebnisse",
+      "es": "Resultados de búsqueda",
+      "fr": "Résultats de recherche"
     }
   },
   {
@@ -9466,243 +10995,35 @@
     }
   },
   {
-    "key": "bulk_select",
-    "source": "Выбрать треки",
-    "english": "Select tracks",
+    "key": "recent_title",
+    "source": "Недавно добавлено",
+    "english": "Recently added",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/RecentScreen.kt"
     ],
     "translations": {
-      "be": "Выбраць трэкі",
-      "fr": "Sélectionner des titres",
-      "de": "Titel auswählen",
-      "kk": "Тректерді таңдау",
-      "es": "Seleccionar temas",
-      "uk": "Вибрати треки"
+      "be": "Нядаўна дададзена",
+      "fr": "Ajouts récents",
+      "de": "Zuletzt hinzugefügt",
+      "kk": "Жақында қосылған",
+      "es": "Añadido recientemente",
+      "uk": "Нещодавно додано"
     }
   },
   {
-    "key": "bulk_count",
-    "source": "Выбрано: @0@",
-    "english": "Selected: @0@",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
-    ],
-    "translations": {
-      "be": "Выбрана: @0@",
-      "fr": "Sélection : @0@",
-      "de": "Ausgewählt: @0@",
-      "kk": "Таңдалғаны: @0@",
-      "es": "Seleccionados: @0@",
-      "uk": "Вибрано: @0@"
-    }
-  },
-  {
-    "key": "bulk_queue",
-    "source": "В очередь",
-    "english": "Add to queue",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
-    ],
-    "translations": {
-      "be": "У чаргу",
-      "fr": "Ajouter à la file",
-      "de": "Zur Warteschlange",
-      "kk": "Кезекке қосу",
-      "es": "Añadir a la cola",
-      "uk": "До черги"
-    }
-  },
-  {
-    "key": "bulk_playlist",
-    "source": "В локальный плейлист",
-    "english": "Add to local playlist",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
-    ],
-    "translations": {
-      "be": "У лакальны плэйліст",
-      "fr": "Ajouter à une playlist locale",
-      "de": "Zur lokalen Playlist",
-      "kk": "Жергілікті плейлистке қосу",
-      "es": "Añadir a una lista local",
-      "uk": "До локального плейлиста"
-    }
-  },
-  {
-    "key": "bulk_local_only",
-    "source": "В локальный плейлист можно добавить только музыку устройства и USB.",
-    "english": "Local playlists can contain device and USB music only.",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TrackSelection.kt"
-    ],
-    "translations": {
-      "be": "У лакальны плэйліст можна дадаць толькі музыку прылады і USB.",
-      "fr": "Les playlists locales ne peuvent contenir que de la musique de l’appareil et des supports USB.",
-      "de": "Lokale Playlists können nur Musik vom Gerät und von USB enthalten.",
-      "kk": "Жергілікті плейлистке тек құрылғы мен USB музыкасын қосуға болады.",
-      "es": "Las listas locales solo pueden contener música del dispositivo y de USB.",
-      "uk": "До локального плейлиста можна додати лише музику пристрою та USB."
-    }
-  },
-  {
-    "key": "diagnostics_choose_destination",
-    "source": "Выберите место для сохранения отчёта.",
-    "english": "Choose where to save the report.",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
-    ],
-    "translations": {
-      "be": "Выберыце, куды захаваць справаздачу.",
-      "kk": "Есепті сақтайтын орынды таңдаңыз.",
-      "uk": "Виберіть, куди зберегти звіт.",
-      "de": "Wähle aus, wo du den Bericht speichern möchtest.",
-      "es": "Elige dónde guardar el informe.",
-      "fr": "Choisissez où enregistrer le rapport."
-    }
-  },
-  {
-    "key": "diagnostics_saved_document",
-    "source": "Сохранено: @0@",
-    "english": "Saved: @0@",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt"
-    ],
-    "translations": {
-      "be": "Захавана: @0@",
-      "kk": "Сақталды: @0@",
-      "uk": "Збережено: @0@",
-      "de": "Gespeichert: @0@",
-      "es": "Guardado: @0@",
-      "fr": "Enregistré : @0@"
-    }
-  },
-  {
-    "key": "wave_settings_title",
-    "source": "Настроить волну",
-    "english": "Customize My Vibe",
+    "key": "wave_active",
+    "source": "Бодрое",
+    "english": "Energetic",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
     ],
     "translations": {
-      "be": "Наладзіць хвалю",
-      "kk": "Толқынды баптау",
-      "uk": "Налаштувати хвилю",
-      "de": "Meine Welle anpassen",
-      "es": "Ajustar Mi onda",
-      "fr": "Personnaliser Ma vague"
-    }
-  },
-  {
-    "key": "wave_settings_hint",
-    "source": "Выбор сохраняется для этого аккаунта в приложении и применяется при следующем запуске волны.",
-    "english": "Your choices are saved for this account in the app and used the next time you start the wave.",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Выбар захоўваецца для гэтага акаўнта ў праграме і ўжываецца пры наступным запуску хвалі.",
-      "kk": "Таңдауыңыз қолданбада осы аккаунт үшін сақталады және толқын келесі рет қосылғанда қолданылады.",
-      "uk": "Вибір зберігається для цього облікового запису в застосунку й застосовується під час наступного запуску хвилі.",
-      "de": "Deine Auswahl wird in der App für dieses Konto gespeichert und beim nächsten Start der Welle verwendet.",
-      "es": "Tus preferencias se guardan en la aplicación para esta cuenta y se aplican la próxima vez que inicies la onda.",
-      "fr": "Vos choix sont enregistrés dans l’application pour ce compte et appliqués au prochain lancement de la vague."
-    }
-  },
-  {
-    "key": "wave_settings_reset",
-    "source": "Сбросить выбор",
-    "english": "Reset choices",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Скінуць выбар",
-      "kk": "Таңдауды қалпына келтіру",
-      "uk": "Скинути вибір",
-      "de": "Auswahl zurücksetzen",
-      "es": "Restablecer preferencias",
-      "fr": "Réinitialiser les choix"
-    }
-  },
-  {
-    "key": "wave_settings_play",
-    "source": "Слушать волну",
-    "english": "Start My Vibe",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Слухаць хвалю",
-      "kk": "Толқынды тыңдау",
-      "uk": "Слухати хвилю",
-      "de": "Welle starten",
-      "es": "Escuchar la onda",
-      "fr": "Écouter la vague"
-    }
-  },
-  {
-    "key": "wave_context",
-    "source": "Под занятие",
-    "english": "Activity",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Пад занятак",
-      "kk": "Іс-әрекетке қарай",
-      "uk": "Під заняття",
-      "de": "Aktivität",
-      "es": "Actividad",
-      "fr": "Activité"
-    }
-  },
-  {
-    "key": "wave_diversity",
-    "source": "По характеру",
-    "english": "Music selection",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Па характары",
-      "kk": "Музыка сипатына қарай",
-      "uk": "За характером",
-      "de": "Musikauswahl",
-      "es": "Selección musical",
-      "fr": "Sélection musicale"
-    }
-  },
-  {
-    "key": "wave_mood",
-    "source": "Под настроение",
-    "english": "Mood",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Пад настрой",
-      "kk": "Көңіл күйге қарай",
-      "uk": "Під настрій",
-      "de": "Stimmung",
-      "es": "Estado de ánimo",
-      "fr": "Ambiance"
-    }
-  },
-  {
-    "key": "wave_language",
-    "source": "По языку",
-    "english": "Language",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Па мове",
-      "kk": "Тілге қарай",
-      "uk": "За мовою",
-      "de": "Sprache",
-      "es": "Idioma",
-      "fr": "Langue"
+      "be": "Бадзёры",
+      "kk": "Сергек",
+      "uk": "Бадьорий",
+      "de": "Energiegeladen",
+      "es": "Enérgico",
+      "fr": "Énergique"
     }
   },
   {
@@ -9738,83 +11059,71 @@
     }
   },
   {
-    "key": "wave_favorite",
-    "source": "Любимое",
-    "english": "Favourites",
+    "key": "wave_by_album",
+    "source": "Слушать волну по альбому",
+    "english": "Start album radio",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Любімае",
-      "kk": "Ұнататын музыка",
-      "uk": "Улюблене",
-      "de": "Lieblingsmusik",
-      "es": "Favoritos",
-      "fr": "Favoris"
+      "be": "Слухаць хвалю па альбоме",
+      "kk": "Альбом бойынша толқынды тыңдау",
+      "uk": "Слухати хвилю за альбомом",
+      "de": "Album-Radio starten",
+      "es": "Iniciar radio del álbum",
+      "fr": "Lancer la radio de l’album"
     }
   },
   {
-    "key": "wave_discover",
-    "source": "Незнакомое",
-    "english": "Discoveries",
+    "key": "wave_by_artist",
+    "source": "Слушать волну по исполнителю",
+    "english": "Start artist radio",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Незнаёмае",
-      "kk": "Жаңа музыка",
-      "uk": "Незнайоме",
-      "de": "Entdeckungen",
-      "es": "Descubrimientos",
-      "fr": "Découvertes"
+      "be": "Слухаць хвалю па выканаўцы",
+      "kk": "Орындаушы бойынша толқынды тыңдау",
+      "uk": "Слухати хвилю за виконавцем",
+      "de": "Künstler-Radio starten",
+      "es": "Iniciar radio del artista",
+      "fr": "Lancer la radio de l’artiste"
     }
   },
   {
-    "key": "wave_popular",
-    "source": "Популярное",
-    "english": "Popular",
+    "key": "wave_by_playlist",
+    "source": "Слушать волну по плейлисту",
+    "english": "Start playlist radio",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Папулярнае",
-      "kk": "Танымал музыка",
-      "uk": "Популярне",
-      "de": "Beliebt",
-      "es": "Popular",
-      "fr": "Populaire"
+      "be": "Слухаць хвалю па плэйлісце",
+      "kk": "Плейлист бойынша толқынды тыңдау",
+      "uk": "Слухати хвилю за плейлістом",
+      "de": "Playlist-Radio starten",
+      "es": "Iniciar radio de la lista",
+      "fr": "Lancer la radio de la playlist"
     }
   },
   {
-    "key": "wave_active",
-    "source": "Бодрое",
-    "english": "Energetic",
+    "key": "wave_by_track",
+    "source": "Слушать волну по треку",
+    "english": "Start track radio",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Бадзёры",
-      "kk": "Сергек",
-      "uk": "Бадьорий",
-      "de": "Energiegeladen",
-      "es": "Enérgico",
-      "fr": "Énergique"
-    }
-  },
-  {
-    "key": "wave_fun",
-    "source": "Весёлое",
-    "english": "Cheerful",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Вясёлы",
-      "kk": "Көтеріңкі",
-      "uk": "Веселий",
-      "de": "Fröhlich",
-      "es": "Alegre",
-      "fr": "Joyeuse"
+      "be": "Слухаць хвалю па трэку",
+      "kk": "Трек бойынша толқынды тыңдау",
+      "uk": "Слухати хвилю за треком",
+      "de": "Track-Radio starten",
+      "es": "Iniciar radio de la canción",
+      "fr": "Lancer la radio du titre"
     }
   },
   {
@@ -9834,51 +11143,134 @@
     }
   },
   {
-    "key": "wave_sad",
-    "source": "Грустное",
-    "english": "Melancholic",
+    "key": "wave_context",
+    "source": "Под занятие",
+    "english": "Activity",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
     ],
     "translations": {
-      "be": "Сумны",
-      "kk": "Мұңды",
-      "uk": "Сумний",
-      "de": "Melancholisch",
-      "es": "Melancólico",
-      "fr": "Mélancolique"
+      "be": "Пад занятак",
+      "kk": "Іс-әрекетке қарай",
+      "uk": "Під заняття",
+      "de": "Aktivität",
+      "es": "Actividad",
+      "fr": "Activité"
     }
   },
   {
-    "key": "wave_kazakh",
-    "source": "Казахский",
-    "english": "Kazakh",
+    "key": "wave_continue_action",
+    "source": "После списка продолжить волну",
+    "english": "Continue with radio when the list ends",
     "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
     ],
     "translations": {
-      "be": "Казахская",
-      "kk": "Қазақша",
-      "uk": "Казахська",
-      "de": "Kasachisch",
-      "es": "Kazajo",
-      "fr": "Kazakh"
+      "be": "Пасля спіса працягнуць хвалю",
+      "kk": "Тізім аяқталғанда толқынды жалғастыру",
+      "uk": "Після списку продовжити хвилю",
+      "de": "Nach der Liste mit Radio weiterspielen",
+      "es": "Continuar con la radio al terminar la lista",
+      "fr": "Continuer avec la radio à la fin de la liste"
     }
   },
   {
-    "key": "wave_russian",
-    "source": "Русский",
-    "english": "Russian",
+    "key": "wave_continue_off",
+    "source": "Продолжение волной выключено",
+    "english": "Radio continuation off",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Працяг хваляй выключаны",
+      "kk": "Толқынмен жалғастыру өшірулі",
+      "uk": "Продовження хвилею вимкнено",
+      "de": "Radio-Fortsetzung aus",
+      "es": "Continuación con radio desactivada",
+      "fr": "Continuation avec la radio désactivée"
+    }
+  },
+  {
+    "key": "wave_continue_on",
+    "source": "Продолжение волной включено",
+    "english": "Radio continuation on",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Працяг хваляй уключаны",
+      "kk": "Толқынмен жалғастыру қосулы",
+      "uk": "Продовження хвилею ввімкнено",
+      "de": "Radio-Fortsetzung an",
+      "es": "Continuación con radio activada",
+      "fr": "Continuation avec la radio activée"
+    }
+  },
+  {
+    "key": "wave_dance",
+    "source": "Танцую",
+    "english": "Dancing",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
     ],
     "translations": {
-      "be": "Руская",
-      "kk": "Орысша",
-      "uk": "Російська",
-      "de": "Russisch",
-      "es": "Ruso",
-      "fr": "Russe"
+      "be": "Танцую",
+      "kk": "Билеп жатырмын",
+      "uk": "Танцюю",
+      "de": "Tanzen",
+      "es": "Bailando",
+      "fr": "Pour danser"
+    }
+  },
+  {
+    "key": "wave_discover",
+    "source": "Незнакомое",
+    "english": "Discoveries",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Незнаёмае",
+      "kk": "Жаңа музыка",
+      "uk": "Незнайоме",
+      "de": "Entdeckungen",
+      "es": "Descubrimientos",
+      "fr": "Découvertes"
+    }
+  },
+  {
+    "key": "wave_diversity",
+    "source": "По характеру",
+    "english": "Music selection",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Па характары",
+      "kk": "Музыка сипатына қарай",
+      "uk": "За характером",
+      "de": "Musikauswahl",
+      "es": "Selección musical",
+      "fr": "Sélection musicale"
+    }
+  },
+  {
+    "key": "wave_favorite",
+    "source": "Любимое",
+    "english": "Favourites",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Любімае",
+      "kk": "Ұнататын музыка",
+      "uk": "Улюблене",
+      "de": "Lieblingsmusik",
+      "es": "Favoritos",
+      "fr": "Favoris"
     }
   },
   {
@@ -9898,6 +11290,22 @@
     }
   },
   {
+    "key": "wave_fun",
+    "source": "Весёлое",
+    "english": "Cheerful",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Вясёлы",
+      "kk": "Көтеріңкі",
+      "uk": "Веселий",
+      "de": "Fröhlich",
+      "es": "Alegre",
+      "fr": "Joyeuse"
+    }
+  },
+  {
     "key": "wave_instrumental",
     "source": "Без слов",
     "english": "Instrumental",
@@ -9911,6 +11319,215 @@
       "de": "Instrumental",
       "es": "Instrumental",
       "fr": "Instrumentale"
+    }
+  },
+  {
+    "key": "wave_kazakh",
+    "source": "Казахский",
+    "english": "Kazakh",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Казахская",
+      "kk": "Қазақша",
+      "uk": "Казахська",
+      "de": "Kasachisch",
+      "es": "Kazajo",
+      "fr": "Kazakh"
+    }
+  },
+  {
+    "key": "wave_language",
+    "source": "По языку",
+    "english": "Language",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Па мове",
+      "kk": "Тілге қарай",
+      "uk": "За мовою",
+      "de": "Sprache",
+      "es": "Idioma",
+      "fr": "Langue"
+    }
+  },
+  {
+    "key": "wave_mood",
+    "source": "Под настроение",
+    "english": "Mood",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Пад настрой",
+      "kk": "Көңіл күйге қарай",
+      "uk": "Під настрій",
+      "de": "Stimmung",
+      "es": "Estado de ánimo",
+      "fr": "Ambiance"
+    }
+  },
+  {
+    "key": "wave_popular",
+    "source": "Популярное",
+    "english": "Popular",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Папулярнае",
+      "kk": "Танымал музыка",
+      "uk": "Популярне",
+      "de": "Beliebt",
+      "es": "Popular",
+      "fr": "Populaire"
+    }
+  },
+  {
+    "key": "wave_relax",
+    "source": "Отдыхаю",
+    "english": "Relaxing",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Адпачываю",
+      "kk": "Демалып жатырмын",
+      "uk": "Відпочиваю",
+      "de": "Entspannen",
+      "es": "Descansando",
+      "fr": "Pour se détendre"
+    }
+  },
+  {
+    "key": "wave_russian",
+    "source": "Русский",
+    "english": "Russian",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Руская",
+      "kk": "Орысша",
+      "uk": "Російська",
+      "de": "Russisch",
+      "es": "Ruso",
+      "fr": "Russe"
+    }
+  },
+  {
+    "key": "wave_sad",
+    "source": "Грустное",
+    "english": "Melancholic",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Сумны",
+      "kk": "Мұңды",
+      "uk": "Сумний",
+      "de": "Melancholisch",
+      "es": "Melancólico",
+      "fr": "Mélancolique"
+    }
+  },
+  {
+    "key": "wave_settings_hint",
+    "source": "Выбор сохраняется для этого аккаунта в приложении и применяется при следующем запуске волны.",
+    "english": "Your choices are saved for this account in the app and used the next time you start the wave.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Выбар захоўваецца для гэтага акаўнта ў праграме і ўжываецца пры наступным запуску хвалі.",
+      "kk": "Таңдауыңыз қолданбада осы аккаунт үшін сақталады және толқын келесі рет қосылғанда қолданылады.",
+      "uk": "Вибір зберігається для цього облікового запису в застосунку й застосовується під час наступного запуску хвилі.",
+      "de": "Deine Auswahl wird in der App für dieses Konto gespeichert und beim nächsten Start der Welle verwendet.",
+      "es": "Tus preferencias se guardan en la aplicación para esta cuenta y se aplican la próxima vez que inicies la onda.",
+      "fr": "Vos choix sont enregistrés dans l’application pour ce compte et appliqués au prochain lancement de la vague."
+    }
+  },
+  {
+    "key": "wave_settings_play",
+    "source": "Слушать волну",
+    "english": "Start My Vibe",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Слухаць хвалю",
+      "kk": "Толқынды тыңдау",
+      "uk": "Слухати хвилю",
+      "de": "Welle starten",
+      "es": "Escuchar la onda",
+      "fr": "Écouter la vague"
+    }
+  },
+  {
+    "key": "wave_settings_reset",
+    "source": "Сбросить выбор",
+    "english": "Reset choices",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Скінуць выбар",
+      "kk": "Таңдауды қалпына келтіру",
+      "uk": "Скинути вибір",
+      "de": "Auswahl zurücksetzen",
+      "es": "Restablecer preferencias",
+      "fr": "Réinitialiser les choix"
+    }
+  },
+  {
+    "key": "wave_settings_title",
+    "source": "Настроить волну",
+    "english": "Customize My Vibe",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Наладзіць хвалю",
+      "kk": "Толқынды баптау",
+      "uk": "Налаштувати хвилю",
+      "de": "Meine Welle anpassen",
+      "es": "Ajustar Mi onda",
+      "fr": "Personnaliser Ma vague"
+    }
+  },
+  {
+    "key": "wave_sleep",
+    "source": "Засыпаю",
+    "english": "Falling asleep",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
+    ],
+    "translations": {
+      "be": "Засынаю",
+      "kk": "Ұйқыға дайындалып жатырмын",
+      "uk": "Засинаю",
+      "de": "Einschlafen",
+      "es": "Para dormir",
+      "fr": "Pour s’endormir"
+    }
+  },
+  {
+    "key": "wave_source_title",
+    "source": "Волна · @0@",
+    "english": "Radio · @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
+    ],
+    "translations": {
+      "be": "Хваля · @0@",
+      "kk": "Толқын · @0@",
+      "uk": "Хвиля · @0@",
+      "de": "Radio · @0@",
+      "es": "Radio · @0@",
+      "fr": "Radio · @0@"
     }
   },
   {
@@ -9960,886 +11577,5 @@
       "es": "Entrenando",
       "fr": "À l’entraînement"
     }
-  },
-  {
-    "key": "wave_sleep",
-    "source": "Засыпаю",
-    "english": "Falling asleep",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Засынаю",
-      "kk": "Ұйқыға дайындалып жатырмын",
-      "uk": "Засинаю",
-      "de": "Einschlafen",
-      "es": "Para dormir",
-      "fr": "Pour s’endormir"
-    }
-  },
-  {
-    "key": "wave_dance",
-    "source": "Танцую",
-    "english": "Dancing",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Танцую",
-      "kk": "Билеп жатырмын",
-      "uk": "Танцюю",
-      "de": "Tanzen",
-      "es": "Bailando",
-      "fr": "Pour danser"
-    }
-  },
-  {
-    "key": "wave_relax",
-    "source": "Отдыхаю",
-    "english": "Relaxing",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/WaveSettingsDialog.kt"
-    ],
-    "translations": {
-      "be": "Адпачываю",
-      "kk": "Демалып жатырмын",
-      "uk": "Відпочиваю",
-      "de": "Entspannen",
-      "es": "Descansando",
-      "fr": "Pour se détendre"
-    }
-  },
-  {
-    "key": "wave_by_track",
-    "source": "Слушать волну по треку",
-    "english": "Start track radio",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Слухаць хвалю па трэку",
-      "kk": "Трек бойынша толқынды тыңдау",
-      "uk": "Слухати хвилю за треком",
-      "de": "Track-Radio starten",
-      "es": "Iniciar radio de la canción",
-      "fr": "Lancer la radio du titre"
-    }
-  },
-  {
-    "key": "wave_by_artist",
-    "source": "Слушать волну по исполнителю",
-    "english": "Start artist radio",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Слухаць хвалю па выканаўцы",
-      "kk": "Орындаушы бойынша толқынды тыңдау",
-      "uk": "Слухати хвилю за виконавцем",
-      "de": "Künstler-Radio starten",
-      "es": "Iniciar radio del artista",
-      "fr": "Lancer la radio de l’artiste"
-    }
-  },
-  {
-    "key": "wave_by_album",
-    "source": "Слушать волну по альбому",
-    "english": "Start album radio",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Слухаць хвалю па альбоме",
-      "kk": "Альбом бойынша толқынды тыңдау",
-      "uk": "Слухати хвилю за альбомом",
-      "de": "Album-Radio starten",
-      "es": "Iniciar radio del álbum",
-      "fr": "Lancer la radio de l’album"
-    }
-  },
-  {
-    "key": "wave_by_playlist",
-    "source": "Слушать волну по плейлисту",
-    "english": "Start playlist radio",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Слухаць хвалю па плэйлісце",
-      "kk": "Плейлист бойынша толқынды тыңдау",
-      "uk": "Слухати хвилю за плейлістом",
-      "de": "Playlist-Radio starten",
-      "es": "Iniciar radio de la lista",
-      "fr": "Lancer la radio de la playlist"
-    }
-  },
-  {
-    "key": "wave_source_title",
-    "source": "Волна · @0@",
-    "english": "Radio · @0@",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Хваля · @0@",
-      "kk": "Толқын · @0@",
-      "uk": "Хвиля · @0@",
-      "de": "Radio · @0@",
-      "es": "Radio · @0@",
-      "fr": "Radio · @0@"
-    }
-  },
-  {
-    "key": "wave_continue_action",
-    "source": "После списка продолжить волну",
-    "english": "Continue with radio when the list ends",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Пасля спіса працягнуць хвалю",
-      "kk": "Тізім аяқталғанда толқынды жалғастыру",
-      "uk": "Після списку продовжити хвилю",
-      "de": "Nach der Liste mit Radio weiterspielen",
-      "es": "Continuar con la radio al terminar la lista",
-      "fr": "Continuer avec la radio à la fin de la liste"
-    }
-  },
-  {
-    "key": "wave_continue_on",
-    "source": "Продолжение волной включено",
-    "english": "Radio continuation on",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Працяг хваляй уключаны",
-      "kk": "Толқынмен жалғастыру қосулы",
-      "uk": "Продовження хвилею ввімкнено",
-      "de": "Radio-Fortsetzung an",
-      "es": "Continuación con radio activada",
-      "fr": "Continuation avec la radio activée"
-    }
-  },
-  {
-    "key": "wave_continue_off",
-    "source": "Продолжение волной выключено",
-    "english": "Radio continuation off",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Працяг хваляй выключаны",
-      "kk": "Толқынмен жалғастыру өшірулі",
-      "uk": "Продовження хвилею вимкнено",
-      "de": "Radio-Fortsetzung aus",
-      "es": "Continuación con radio desactivada",
-      "fr": "Continuation avec la radio désactivée"
-    }
-  },
-  {
-    "key": "player_source_offline",
-    "source": "Оффлайн",
-    "english": "Offline",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Афлайн",
-      "kk": "Офлайн",
-      "uk": "Офлайн",
-      "de": "Offline",
-      "es": "Sin conexión",
-      "fr": "Hors connexion"
-    }
-  },
-  {
-    "key": "player_source_favorites",
-    "source": "Локальное избранное",
-    "english": "Local favorites",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Лакальнае абранае",
-      "kk": "Жергілікті таңдаулылар",
-      "uk": "Локальне обране",
-      "de": "Lokale Favoriten",
-      "es": "Favoritos locales",
-      "fr": "Favoris locaux"
-    }
-  },
-  {
-    "key": "player_source_device",
-    "source": "Устройство / USB",
-    "english": "Device / USB",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Прылада / USB",
-      "kk": "Құрылғы / USB",
-      "uk": "Пристрій / USB",
-      "de": "Gerät / USB",
-      "es": "Dispositivo / USB",
-      "fr": "Appareil / USB"
-    }
-  },
-  {
-    "key": "player_source_list",
-    "source": "Список треков",
-    "english": "Track list",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/EntityWaveMenu.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt"
-    ],
-    "translations": {
-      "be": "Спіс трэкаў",
-      "kk": "Тректер тізімі",
-      "uk": "Список треків",
-      "de": "Trackliste",
-      "es": "Lista de canciones",
-      "fr": "Liste de titres"
-    }
-  },
-  {
-    "key": "radio_2ed3c7c3be59",
-    "source": "Поиск по всем станциям",
-    "english": "Search all stations",
-    "translations": {
-      "be": "Пошук па ўсіх станцыях",
-      "kk": "Барлық станциялардан іздеу",
-      "uk": "Пошук серед усіх станцій",
-      "de": "Alle Sender durchsuchen",
-      "es": "Buscar en todas las emisoras",
-      "fr": "Rechercher parmi toutes les stations"
-    }
-  },
-  {
-    "key": "radio_bbfea2350988",
-    "source": "Выбрать город",
-    "english": "Choose a city",
-    "translations": {
-      "be": "Выбраць горад",
-      "kk": "Қаланы таңдау",
-      "uk": "Вибрати місто",
-      "de": "Stadt auswählen",
-      "es": "Elegir ciudad",
-      "fr": "Choisir une ville"
-    }
-  },
-  {
-    "key": "radio_c8a8a179fd86",
-    "source": "Все города",
-    "english": "All cities",
-    "translations": {
-      "be": "Усе гарады",
-      "kk": "Барлық қалалар",
-      "uk": "Усі міста",
-      "de": "Alle Städte",
-      "es": "Todas las ciudades",
-      "fr": "Toutes les villes"
-    }
-  },
-  {
-    "key": "radio_edcd9c9fb541",
-    "source": "Все жанры",
-    "english": "All genres",
-    "translations": {
-      "be": "Усе жанры",
-      "kk": "Барлық жанрлар",
-      "uk": "Усі жанри",
-      "de": "Alle Genres",
-      "es": "Todos los géneros",
-      "fr": "Tous les genres"
-    }
-  },
-  {
-    "key": "radio_b71a4a6a4ffe",
-    "source": "Коллекция",
-    "english": "Collection",
-    "translations": {
-      "be": "Калекцыя",
-      "kk": "Жинақ",
-      "uk": "Колекція",
-      "de": "Sammlung",
-      "es": "Colección",
-      "fr": "Collection"
-    }
-  },
-  {
-    "key": "radio_46dff034a662",
-    "source": "Города",
-    "english": "Cities",
-    "translations": {
-      "be": "Гарады",
-      "kk": "Қалалар",
-      "uk": "Міста",
-      "de": "Städte",
-      "es": "Ciudades",
-      "fr": "Villes"
-    }
-  },
-  {
-    "key": "radio_3a856dcd9b2f",
-    "source": "Жанры",
-    "english": "Genres",
-    "translations": {
-      "be": "Жанры",
-      "kk": "Жанрлар",
-      "uk": "Жанри",
-      "de": "Genres",
-      "es": "Géneros",
-      "fr": "Genres"
-    }
-  },
-  {
-    "key": "radio_6341f756cd9c",
-    "source": "Все станции",
-    "english": "All stations",
-    "translations": {
-      "be": "Усе станцыі",
-      "kk": "Барлық станциялар",
-      "uk": "Усі станції",
-      "de": "Alle Sender",
-      "es": "Todas las emisoras",
-      "fr": "Toutes les stations"
-    }
-  },
-  {
-    "key": "radio_2d7aa58089f8",
-    "source": "Любимые станции",
-    "english": "Favourite stations",
-    "translations": {
-      "be": "Любімыя станцыі",
-      "kk": "Таңдаулы станциялар",
-      "uk": "Улюблені станції",
-      "de": "Lieblingssender",
-      "es": "Emisoras favoritas",
-      "fr": "Stations favorites"
-    }
-  },
-  {
-    "key": "radio_8f602ef87466",
-    "source": "Войдите в Яндекс, чтобы сохранить любимые станции.",
-    "english": "Sign in to Yandex to save your favourite stations.",
-    "translations": {
-      "be": "Увайдзіце ў Яндэкс, каб захоўваць любімыя станцыі.",
-      "kk": "Таңдаулы станцияларды сақтау үшін Яндекске кіріңіз.",
-      "uk": "Увійдіть у Яндекс, щоб зберігати улюблені станції.",
-      "de": "Melde dich bei Yandex an, um deine Lieblingssender zu speichern.",
-      "es": "Inicia sesión en Yandex para guardar tus emisoras favoritas.",
-      "fr": "Connectez-vous à Yandex pour enregistrer vos stations favorites."
-    }
-  },
-  {
-    "key": "radio_14159f0b89c5",
-    "source": "Любимых станций пока нет. Добавьте их сердечком в плеере.",
-    "english": "No favourite stations yet. Tap the heart in the player to add one.",
-    "translations": {
-      "be": "Любімых станцый пакуль няма. Дадайце іх сэрцайкам у плэеры.",
-      "kk": "Әзірге таңдаулы станциялар жоқ. Қосу үшін ойнатқыштағы жүрекшені басыңыз.",
-      "uk": "Улюблених станцій ще немає. Додавайте їх сердечком у плеєрі.",
-      "de": "Noch keine Lieblingssender. Tippe im Player auf das Herz, um einen hinzuzufügen.",
-      "es": "Aún no tienes emisoras favoritas. Pulsa el corazón del reproductor para añadir una.",
-      "fr": "Aucune station favorite pour le moment. Appuyez sur le cœur du lecteur pour en ajouter une."
-    }
-  },
-  {
-    "key": "radio_f4ab936fd2b8",
-    "source": "Результаты поиска",
-    "english": "Search results",
-    "translations": {
-      "be": "Вынікі пошуку",
-      "kk": "Іздеу нәтижелері",
-      "uk": "Результати пошуку",
-      "de": "Suchergebnisse",
-      "es": "Resultados de búsqueda",
-      "fr": "Résultats de recherche"
-    }
-  },
-  {
-    "key": "radio_b4c6c4329bde",
-    "source": "Станции не найдены.",
-    "english": "No stations found.",
-    "translations": {
-      "be": "Станцыі не знойдзены.",
-      "kk": "Станциялар табылмады.",
-      "uk": "Станцій не знайдено.",
-      "de": "Keine Sender gefunden.",
-      "es": "No se han encontrado emisoras.",
-      "fr": "Aucune station trouvée."
-    }
-  },
-  {
-    "key": "radio_6d51575566da",
-    "source": "Ещё станции",
-    "english": "More stations",
-    "translations": {
-      "be": "Яшчэ станцыі",
-      "kk": "Тағы станциялар",
-      "uk": "Ще станції",
-      "de": "Weitere Sender",
-      "es": "Más emisoras",
-      "fr": "Plus de stations"
-    }
-  },
-  {
-    "key": "radio_ab20e71e02cc",
-    "source": "Переподключение…",
-    "english": "Reconnecting…",
-    "translations": {
-      "be": "Паўторнае падключэнне…",
-      "kk": "Қайта қосылуда…",
-      "uk": "Повторне підключення…",
-      "de": "Verbindung wird wiederhergestellt…",
-      "es": "Reconectando…",
-      "fr": "Reconnexion…"
-    }
-  },
-  {
-    "key": "radio_40b27edf9a21",
-    "source": "Подключение…",
-    "english": "Connecting…",
-    "translations": {
-      "be": "Падключэнне…",
-      "kk": "Қосылуда…",
-      "uk": "Підключення…",
-      "de": "Verbindung wird hergestellt…",
-      "es": "Conectando…",
-      "fr": "Connexion…"
-    }
-  },
-  {
-    "key": "radio_8a574d8cde01",
-    "source": "Прямой эфир",
-    "english": "Live",
-    "translations": {
-      "be": "Прамы эфір",
-      "kk": "Тікелей эфир",
-      "uk": "Прямий ефір",
-      "de": "Live",
-      "es": "En directo",
-      "fr": "En direct"
-    }
-  },
-  {
-    "key": "radio_e36f9cecd549",
-    "source": "Радио",
-    "english": "Radio",
-    "translations": {
-      "be": "Радыё",
-      "kk": "Радио",
-      "uk": "Радіо",
-      "de": "Radio",
-      "es": "Radio",
-      "fr": "Radio"
-    }
-  },
-  {
-    "key": "radio_41fc0c985c40",
-    "source": "Выберите станцию",
-    "english": "Choose a station",
-    "translations": {
-      "be": "Выберыце станцыю",
-      "kk": "Станцияны таңдаңыз",
-      "uk": "Виберіть станцію",
-      "de": "Wähle einen Sender",
-      "es": "Elige una emisora",
-      "fr": "Choisissez une station"
-    }
-  },
-  {
-    "key": "radio_3c04af3c32f2",
-    "source": "Сейчас в эфире",
-    "english": "On air now",
-    "translations": {
-      "be": "Зараз у эфіры",
-      "kk": "Қазір эфирде",
-      "uk": "Зараз в ефірі",
-      "de": "Jetzt auf Sendung",
-      "es": "Ahora en antena",
-      "fr": "À l’antenne"
-    }
-  },
-  {
-    "key": "radio_2eb31705844a",
-    "source": "Информация об эфире недоступна",
-    "english": "On-air information is unavailable",
-    "translations": {
-      "be": "Інфармацыя пра эфір недаступная",
-      "kk": "Эфир туралы ақпарат қолжетімсіз",
-      "uk": "Інформація про ефір недоступна",
-      "de": "Keine Informationen zur aktuellen Sendung",
-      "es": "La información de la emisión no está disponible",
-      "fr": "Informations sur l’émission indisponibles"
-    }
-  },
-  {
-    "key": "radio_937307ee2903",
-    "source": "Убрать из коллекции",
-    "english": "Remove from collection",
-    "translations": {
-      "be": "Выдаліць з калекцыі",
-      "kk": "Жинақтан алып тастау",
-      "uk": "Вилучити з колекції",
-      "de": "Aus Sammlung entfernen",
-      "es": "Quitar de la colección",
-      "fr": "Retirer de la collection"
-    }
-  },
-  {
-    "key": "radio_bc5db5c7bbd8",
-    "source": "В коллекцию",
-    "english": "Add to collection",
-    "translations": {
-      "be": "У калекцыю",
-      "kk": "Жинаққа қосу",
-      "uk": "До колекції",
-      "de": "Zur Sammlung hinzufügen",
-      "es": "Añadir a la colección",
-      "fr": "Ajouter à la collection"
-    }
-  },
-  {
-    "key": "radio_24d97edde7c5",
-    "source": "Включить эфир",
-    "english": "Play station",
-    "translations": {
-      "be": "Уключыць эфір",
-      "kk": "Эфирді қосу",
-      "uk": "Увімкнути ефір",
-      "de": "Sender abspielen",
-      "es": "Reproducir emisora",
-      "fr": "Écouter la station"
-    }
-  },
-  {
-    "key": "radio_7e81a427d259",
-    "source": "Остановить эфир",
-    "english": "Stop station",
-    "translations": {
-      "be": "Спыніць эфір",
-      "kk": "Эфирді тоқтату",
-      "uk": "Зупинити ефір",
-      "de": "Sender stoppen",
-      "es": "Detener emisora",
-      "fr": "Arrêter la station"
-    }
-  },
-  {
-    "key": "radio_be36cb78e360",
-    "source": "Найти город",
-    "english": "Search cities",
-    "translations": {
-      "be": "Знайсці горад",
-      "kk": "Қаланы іздеу",
-      "uk": "Знайти місто",
-      "de": "Stadt suchen",
-      "es": "Buscar ciudad",
-      "fr": "Rechercher une ville"
-    }
-  },
-  {
-    "key": "radio_c7770896d00c",
-    "source": "Список городов недоступен. Закройте окно и повторите запрос.",
-    "english": "The city list is unavailable. Close this window and try again.",
-    "translations": {
-      "be": "Спіс гарадоў недаступны. Зачыніце акно і паўтарыце запыт.",
-      "kk": "Қалалар тізімі қолжетімсіз. Терезені жауып, қайта сұраңыз.",
-      "uk": "Список міст недоступний. Закрийте вікно й повторіть запит.",
-      "de": "Die Städteliste ist nicht verfügbar. Schließe das Fenster und versuche es erneut.",
-      "es": "La lista de ciudades no está disponible. Cierra esta ventana y vuelve a intentarlo.",
-      "fr": "La liste des villes est indisponible. Fermez cette fenêtre et réessayez."
-    }
-  },
-  {
-    "key": "radio_d44350efe996",
-    "source": "Нет связи с Радио. Проверьте сеть и повторите.",
-    "english": "Can't connect to Radio. Check your connection and try again.",
-    "translations": {
-      "be": "Няма сувязі з Радыё. Праверце сетку і паўтарыце.",
-      "kk": "Радиомен байланыс жоқ. Желі қосылымын тексеріп, қайталаңыз.",
-      "uk": "Немає зв’язку з Радіо. Перевірте мережу й повторіть.",
-      "de": "Keine Verbindung zu Radio. Prüfe deine Internetverbindung und versuche es erneut.",
-      "es": "No se puede conectar con Radio. Comprueba tu conexión y vuelve a intentarlo.",
-      "fr": "Connexion à Radio impossible. Vérifiez votre connexion et réessayez."
-    }
-  },
-  {
-    "key": "radio_530bbd5ef253",
-    "source": "Нет доступа к коллекции Радио. Проверьте вход в текущем профиле.",
-    "english": "Can't access your Radio collection. Check the sign-in for this profile.",
-    "translations": {
-      "be": "Няма доступу да калекцыі Радыё. Праверце ўваход у бягучым профілі.",
-      "kk": "Радио жинағына қолжетімділік жоқ. Қазіргі профильдегі кіруді тексеріңіз.",
-      "uk": "Немає доступу до колекції Радіо. Перевірте вхід у поточному профілі.",
-      "de": "Kein Zugriff auf deine Radiosammlung. Prüfe die Anmeldung im aktuellen Profil.",
-      "es": "No se puede acceder a tu colección de Radio. Comprueba la sesión de este perfil.",
-      "fr": "Accès à votre collection Radio impossible. Vérifiez la connexion du profil actuel."
-    }
-  },
-  {
-    "key": "radio_d71dc23ce5e0",
-    "source": "Эфир этой станции сейчас недоступен.",
-    "english": "This station's stream is currently unavailable.",
-    "translations": {
-      "be": "Эфір гэтай станцыі зараз недаступны.",
-      "kk": "Бұл станцияның эфирі қазір қолжетімсіз.",
-      "uk": "Ефір цієї станції зараз недоступний.",
-      "de": "Der Stream dieses Senders ist derzeit nicht verfügbar.",
-      "es": "La emisión de esta emisora no está disponible en este momento.",
-      "fr": "La diffusion de cette station est actuellement indisponible."
-    }
-  },
-  {
-    "key": "radio_65f7daba2df4",
-    "source": "Не удалось прочитать ответ Радио. Повторите запрос.",
-    "english": "Couldn't read the Radio response. Try again.",
-    "translations": {
-      "be": "Не ўдалося прачытаць адказ Радыё. Паўтарыце запыт.",
-      "kk": "Радио жауабын оқу мүмкін болмады. Қайта сұраңыз.",
-      "uk": "Не вдалося прочитати відповідь Радіо. Повторіть запит.",
-      "de": "Die Antwort von Radio konnte nicht gelesen werden. Versuche es erneut.",
-      "es": "No se ha podido leer la respuesta de Radio. Vuelve a intentarlo.",
-      "fr": "Impossible de lire la réponse de Radio. Réessayez."
-    }
-  },
-  {
-    "key": "internet_absent",
-    "source": "Отсутствует интернет",
-    "english": "No internet connection",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InternetNotice.kt",
-      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
-    ],
-    "translations": {
-      "be": "Няма інтэрнэт-злучэння",
-      "fr": "Pas de connexion Internet",
-      "de": "Keine Internetverbindung",
-      "kk": "Интернет байланысы жоқ",
-      "es": "Sin conexión a Internet",
-      "uk": "Немає з’єднання з інтернетом"
-    }
-  },
-  {
-    "key": "internet_retry",
-    "source": "Повторить подключение",
-    "english": "Retry connection",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InternetNotice.kt",
-      "feature/clips/src/main/kotlin/dev/petrov/ymplayer2/clips/ClipControlsView.kt"
-    ],
-    "translations": {
-      "be": "Паўтарыць падключэнне",
-      "fr": "Réessayer la connexion",
-      "de": "Verbindung erneut versuchen",
-      "kk": "Қайта қосылу",
-      "es": "Reintentar conexión",
-      "uk": "Повторити підключення"
-    }
-  },
-  {
-    "key": "msg_c5d8b34667e5",
-    "source": "Папка на накопителе",
-    "english": "Folder on storage",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "Папка на назапашвальніку",
-      "de": "Speicherordner",
-      "es": "Carpeta del dispositivo",
-      "fr": "Dossier du stockage",
-      "kk": "Жинақтауыштағы қалта",
-      "uk": "Папка на накопичувачі"
-    }
-  },
-  {
-    "key": "msg_2eab61192b5f",
-    "source": "Выберите накопитель",
-    "english": "Choose a storage device",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "Выберыце назапашвальнік",
-      "de": "Speicher auswählen",
-      "es": "Elige un dispositivo de almacenamiento",
-      "fr": "Choisissez un support de stockage",
-      "kk": "Жинақтауышты таңдаңыз",
-      "uk": "Виберіть накопичувач"
-    }
-  },
-  {
-    "key": "msg_7758ab0d2031",
-    "source": "Накопитель недоступен. Подключите его или используйте системный выбор папки.",
-    "english": "Storage is unavailable. Connect it or use the system folder picker.",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "Назапашвальнік недаступны. Падключыце яго або скарыстайцеся сістэмным выбарам папкі.",
-      "de": "Speicher nicht verfügbar. Schließe ihn an oder nutze die System-Ordnerauswahl.",
-      "es": "El almacenamiento no está disponible. Conéctalo o usa el selector de carpetas del sistema.",
-      "fr": "Le stockage est inaccessible. Connectez-le ou utilisez le sélecteur de dossiers du système.",
-      "kk": "Жинақтауыш қолжетімсіз. Оны қосыңыз немесе жүйенің қалта таңдау терезесін пайдаланыңыз.",
-      "uk": "Накопичувач недоступний. Підключіть його або скористайтеся системним вибором папки."
-    }
-  },
-  {
-    "key": "msg_c7e24c134a4e",
-    "source": "Системный выбор папки",
-    "english": "System folder picker",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "Сістэмны выбар папкі",
-      "de": "System-Ordnerauswahl",
-      "es": "Selector de carpetas del sistema",
-      "fr": "Sélecteur de dossiers du système",
-      "kk": "Жүйелік қалта таңдау",
-      "uk": "Системний вибір папки"
-    }
-  },
-  {
-    "key": "msg_f3f88d26dec9",
-    "source": "Выбрать эту папку",
-    "english": "Use this folder",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "Выбраць гэту папку",
-      "de": "Diesen Ordner verwenden",
-      "es": "Usar esta carpeta",
-      "fr": "Utiliser ce dossier",
-      "kk": "Осы қалтаны таңдау",
-      "uk": "Вибрати цю папку"
-    }
-  },
-  {
-    "key": "msg_8429277fdf48",
-    "source": "Разрешите чтение накопителя для YMPlayer или используйте системный выбор папки.",
-    "english": "Allow YMPlayer to read storage, or use the system folder picker.",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "Дазвольце YMPlayer чытаць назапашвальнік або скарыстайцеся сістэмным выбарам папкі.",
-      "de": "Erlaube YMPlayer den Lesezugriff oder nutze die System-Ordnerauswahl.",
-      "es": "Permite que YMPlayer lea el almacenamiento o usa el selector de carpetas del sistema.",
-      "fr": "Autorisez YMPlayer à lire le stockage ou utilisez le sélecteur de dossiers du système.",
-      "kk": "YMPlayer қолданбасына жинақтауышты оқуға рұқсат беріңіз немесе жүйелік қалта таңдауды пайдаланыңыз.",
-      "uk": "Дозвольте YMPlayer читати накопичувач або скористайтеся системним вибором папки."
-    }
-  },
-  {
-    "key": "msg_0e5d03ee4234",
-    "source": "Если системный выбор не видит USB, выберите папку на накопителе напрямую.",
-    "english": "If the system picker does not show USB storage, choose a folder on the device directly.",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "Калі сістэмны выбар не паказвае USB, выберыце папку на назапашвальніку наўпрост.",
-      "de": "Wenn die Systemauswahl den USB-Speicher nicht anzeigt, wähle den Ordner direkt auf dem Speicher aus.",
-      "es": "Si el selector del sistema no muestra la unidad USB, elige directamente una carpeta de la unidad.",
-      "fr": "Si le sélecteur du système ne montre pas le support USB, choisissez directement un dossier sur le support.",
-      "kk": "Жүйелік терезеде USB көрінбесе, жинақтауыштағы қалтаны тікелей таңдаңыз.",
-      "uk": "Якщо системний вибір не показує USB, виберіть папку на накопичувачі напряму."
-    }
-  },
-  {
-    "key": "msg_10e1623cae3c",
-    "source": "На уровень вверх",
-    "english": "Up one level",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "На ўзровень вышэй",
-      "de": "Eine Ebene höher",
-      "es": "Subir un nivel",
-      "fr": "Dossier parent",
-      "kk": "Бір деңгей жоғары",
-      "uk": "На рівень вище"
-    }
-  },
-  {
-    "key": "msg_d45556f3a844",
-    "source": "Добавить папку",
-    "english": "Add folder",
-    "locations": [
-      "app/src/main/kotlin/dev/petrov/ymplayer2/MountedFolderPicker.kt"
-    ],
-    "translations": {
-      "be": "Дадаць папку",
-      "de": "Ordner hinzufügen",
-      "es": "Añadir carpeta",
-      "fr": "Ajouter un dossier",
-      "kk": "Қалта қосу",
-      "uk": "Додати папку"
-    }
-  },
-  {
-    "key": "interface_scale_hint",
-    "source": "Меняются текст, кнопки и отступы. Изменения видны сразу и сохраняются для следующих запусков.",
-    "english": "Adjusts text, buttons and spacing. Changes take effect immediately and are kept when you reopen the app.",
-    "translations": {
-      "be": "Змяняюцца тэкст, кнопкі і адступы. Змены бачныя адразу і захоўваюцца для наступных запускаў.",
-      "kk": "Мәтіннің, түймелердің және аралықтардың өлшемі өзгереді. Өзгерістер бірден қолданылады және қолданбаны қайта ашқанда сақталады.",
-      "uk": "Змінюються текст, кнопки та відступи. Зміни видно одразу, і вони зберігаються для наступних запусків.",
-      "de": "Passt Text, Schaltflächen und Abstände an. Änderungen werden sofort angezeigt und bleiben beim erneuten Öffnen erhalten.",
-      "es": "Ajusta el texto, los botones y los espacios. Los cambios se aplican al instante y se conservan al volver a abrir la aplicación.",
-      "fr": "Ajuste le texte, les boutons et les espacements. Les changements sont immédiats et conservés à la réouverture de l’application."
-    },
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
-    ]
-  },
-  {
-    "key": "interface_scale_reset",
-    "source": "Сбросить к 100%",
-    "english": "Reset to 100%",
-    "translations": {
-      "be": "Скінуць да 100%",
-      "kk": "100%-ға қайтару",
-      "uk": "Скинути до 100%",
-      "de": "Auf 100% zurücksetzen",
-      "es": "Restablecer al 100%",
-      "fr": "Rétablir à 100%"
-    },
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
-    ]
-  },
-  {
-    "key": "interface_scale_title",
-    "source": "Масштаб интерфейса",
-    "english": "Interface size",
-    "translations": {
-      "be": "Маштаб інтэрфейсу",
-      "kk": "Интерфейс өлшемі",
-      "uk": "Масштаб інтерфейсу",
-      "de": "Oberflächengröße",
-      "es": "Tamaño de la interfaz",
-      "fr": "Taille de l’interface"
-    },
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/InterfaceScaleScreen.kt"
-    ]
   }
 ]

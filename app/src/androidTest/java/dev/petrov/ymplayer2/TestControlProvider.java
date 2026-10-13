@@ -18,7 +18,7 @@ public class TestControlProvider extends ContentProvider {
             result.putInt("content", p.getInt("content", -1)); return result;
         }
         long identity = Binder.clearCallingIdentity();
-        try { return getContext().getContentResolver().call(TestMusicProvider.tree, method, arg, extras); }
+        try { return getContext().getContentResolver().call(method.startsWith("storage-") ? TestStorageProvider.tree : TestMusicProvider.tree, method, arg, extras); }
         finally { Binder.restoreCallingIdentity(identity); }
     }
     @Override public Cursor query(Uri uri, String[] projection, String selection, String[] args, String sort) { throw new UnsupportedOperationException(); }

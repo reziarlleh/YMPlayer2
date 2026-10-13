@@ -17,8 +17,10 @@ import dev.petrov.ymplayer2.localization.*
     }
 }
 
-@Composable internal fun EntityWaveMenu(entity: MusicEntity, player: PlaybackController, started: () -> Unit, location: String) {
-    val request = entity.waveRequest() ?: return
+@Composable internal fun EntityWaveMenu(entity: MusicEntity, player: PlaybackController, started: () -> Unit, location: String, export: ((MusicEntity) -> Unit)? = null) {
+    val request = entity.waveRequest()
+    val exportable = export != null && entity.kind in listOf(MusicKind.ALBUMS, MusicKind.PLAYLISTS)
+    if (request == null && !exportable) return
     var open by remember(entity) { mutableStateOf(false) }
     val label = when (entity.kind) {
         MusicKind.TRACKS -> Msg.wave_by_track
@@ -29,8 +31,10 @@ import dev.petrov.ymplayer2.localization.*
     Box {
         ActionIcon(UiIcon.MORE, tr(Msg.msg_7075085d9334), { open = true }, Modifier.testTag("${location}_wave_menu_${entity.kind}_${entity.id}"))
         DropdownMenu(open, { open = false }) {
-            DropdownMenuItem({ Text(tr(label)) }, { open = false; player.playWave(request); started() },
+            if (request != null) DropdownMenuItem({ Text(tr(label)) }, { open = false; player.playWave(request); started() },
                 Modifier.testTag("wave_by_${request.station}"))
+            if (exportable) DropdownMenuItem({ Text(trMessage("Экспорт MP3 (на USB / в папку)")) }, { open = false; export?.invoke(entity) },
+                Modifier.testTag("entity_export_${entity.kind}_${entity.id}"))
         }
     }
 }

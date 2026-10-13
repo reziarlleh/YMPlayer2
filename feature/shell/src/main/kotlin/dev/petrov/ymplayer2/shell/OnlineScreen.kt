@@ -26,7 +26,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit, taste: MusicTaste? = null, waveStarted: () -> Unit = {},
     artist: (ArtistRef) -> Unit = { music.open(MusicEntity(it.id, it.name, MusicKind.ARTISTS)) }, standalone: Boolean = false, closeArtist: () -> Unit = {}, playlists: CloudPlaylists? = null,
-    searchQuery: String? = null, onSearchQueryChange: (String) -> Unit = {}) {
+    searchQuery: String? = null, onSearchQueryChange: (String) -> Unit = {}, exporter: AudioExportAccess? = null) {
     val state by music.state.collectAsStateWithLifecycle()
     val playback by player.state.collectAsStateWithLifecycle()
     val cloudState = playlists?.state?.collectAsStateWithLifecycle()?.value
@@ -69,7 +69,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 Box(Modifier.weight(1f)) {
                     if (state.signedIn && taste != null && target != null) Column { TasteLabel(taste, target, "detail", title) } else title()
                 }
-                if (state.signedIn && detail != null) EntityWaveMenu(detail, player, waveStarted, "detail")
+                if (state.signedIn && detail != null) EntityWaveMenu(detail, player, waveStarted, "detail", exporter?.let { e -> { entity -> e.ask(AudioExportRequest(state.profileId, entity.title, entity)) } })
             }
         }
         if (!state.signedIn) {
@@ -151,7 +151,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                     val target = entity.tasteTarget()
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(Modifier.weight(1f)) { if (taste != null && target != null) Column { TasteLabel(taste, target, "catalog", label) } else label() }
-                        EntityWaveMenu(entity, player, waveStarted, "catalog")
+                        EntityWaveMenu(entity, player, waveStarted, "catalog", exporter?.let { e -> { entity -> e.ask(AudioExportRequest(state.profileId, entity.title, entity)) } })
                     }
                 }
             }
