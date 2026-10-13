@@ -1,0 +1,9 @@
+{
+  "serial": "emulator-5564",
+  "api": 29,
+  "passed": 10,
+  "failed": 1,
+  "success": false,
+  "seconds": 70.05,
+  "log": "D:\\_codex\\YMPlayer2\\.local-build\\transfers-qa\\emulator-5564\\SystemBrowserTest-TvNotificationActionsTest-TvNotificationArtworkTest.txt"
+}

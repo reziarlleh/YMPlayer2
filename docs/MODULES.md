@@ -1,5 +1,11 @@
 # Границы модулей
 
+Дополнение13 октября2026: TV notification/sessionActivity — playback/android;
+MainActivity обрабатывает пользовательский Open, shell принимает событие
+навигации без Play. Стандартный Media3 provider сохранён за TV decorator;
+network/radio/wave алгоритмы не переносятся в UI.
+[Проверки2.6.2](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
 Дополнение8 октября2026: `buildSrc` — только сборочные Java/ASM-классы для
 контролируемого ART-преобразования Media3; не отдельная runtime-служба.
 AndroidPlayback/AndroidRadio отвечают за DISPLAY_* публичной системной сессии.

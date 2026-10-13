@@ -1,0 +1,37 @@
+repowise update · YMPlayer2
+c106aaba..61662a72
+13 changed · 7 modified, 6 added
+       added  docs/AUTO_RESUME_2_6_1_REVIEW.md
+    modified  docs/BUG_REPORT.md
+    modified  docs/DOCUMENTATION_INDEX.md
+    modified  docs/PATCH_2_6_1_VERIFICATION.md
+    modified  docs/PLAN_2_6_1.md
+    modified  docs/PROJECT_STATUS.md
+    modified  docs/ROADMAP.md
+    modified  docs/WORK_JOURNAL.md
+       added  docs/qa/patch261/documentation-final.json
+       added  docs/qa/patch261/http-initial.json
+  +3 more (use -v to list all)
+Pages from an older renderer: 13
+Pages to regenerate: 26
+2026-10-13 22:19:38 [debug    ] duplication_incremental_splice changed=22 deleted=0 pairs=199331 touched_buckets=3115
+Health analysis (partial): 13 changed, 12 performance-affected, 0 findings
+Dead code findings: 199
+Knowledge graph refreshed: 6 layers, 12 tour steps
+  ✓ Re-rendered 45 wiki pages from structure
+Related pages refreshed on 55 pages
+
+┌────────────────────────── {^ ^}  repowise index-only update complete ───────────────────────────┐
+│                                                                                                 │
+│   Files changed           13                                                                    │
+│   Graph                   12,238 nodes · 38,454 edges                                           │
+│   Dead code               0 unreachable · 0 unused exports                                      │
+│   Wiki pages              45 re-rendered from structure                                         │
+│   Elapsed                 7m 7s                                                                 │
+│                                                                                                 │
+│   What's next:                                                                                  │
+│   repowise serve              browse the index at localhost:3000                                │
+│   repowise generate           upgrade the wiki to model-written prose (needs a key)             │
+│                                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+

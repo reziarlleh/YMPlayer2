@@ -1,0 +1,40 @@
+repowise update · YMPlayer2
+61662a72..43615288
+11 changed · 7 modified, 4 added
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/SystemBrowserTest.kt
+       added  app/src/androidTest/kotlin/dev/petrov/ymplayer2/TvFrameworkPauseTest.kt
+       added  app/src/androidTest/kotlin/dev/petrov/ymplayer2/TvNotificationActionsTest.kt
+       added  app/src/androidTest/kotlin/dev/petrov/ymplayer2/TvNotificationArtworkTest.kt
+    modified  app/src/debug/kotlin/dev/petrov/ymplayer2/RadioFixtureApi.kt
+    modified  app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt
+    modified  feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt
+    modified  playback/android/build.gradle.kts
+    modified  playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt
+       added  
+playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/TvMediaNotificationProvider.kt
+  +1 more (use -v to list all)
+Pages from an older renderer: 9
+Pages to regenerate: 129
+Pages to decay: 18
+2026-10-13 22:33:35 [debug    ] duplication_incremental_splice changed=16 deleted=0 pairs=199328 touched_buckets=16780
+Health analysis (partial): 11 changed, 211 performance-affected, 57 findings
+Dead code findings: 199
+Knowledge graph refreshed: 6 layers, 12 tour steps
+  ✓ Re-rendered 273 wiki pages from structure
+Related pages refreshed on 81 pages
+
+┌────────────────────────── {^ ^}  repowise index-only update complete ───────────────────────────┐
+│                                                                                                 │
+│   Files changed           11                                                                    │
+│   Graph                   12,250 nodes · 38,464 edges                                           │
+│   Dead code               1 unreachable · 0 unused exports                                      │
+│   Wiki pages              273 re-rendered from structure                                        │
+│   Git history             10 files refreshed                                                    │
+│   Elapsed                 6m 23s                                                                │
+│                                                                                                 │
+│   What's next:                                                                                  │
+│   repowise serve              browse the index at localhost:3000                                │
+│   repowise generate           upgrade the wiki to model-written prose (needs a key)             │
+│                                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+

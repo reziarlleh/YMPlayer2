@@ -1,0 +1,25 @@
+{
+  "serial": "emulator-5560",
+  "api": 28,
+  "beforeVersion": "2.6.1-build107",
+  "fullAccountGrantTested": false,
+  "beforeTheme": [
+    ""
+  ],
+  "beforeScale": [
+    "100%"
+  ],
+  "beforeCacheChoices": [
+    ""
+  ],
+  "afterVersion": "2.6.2-build109",
+  "afterCacheChoices": [
+    ""
+  ],
+  "cacheChoicesPreserved": true,
+  "routeRestoredAfterForceStop": true,
+  "afterTheme": [
+    ""
+  ],
+  "afterScale": []
+}

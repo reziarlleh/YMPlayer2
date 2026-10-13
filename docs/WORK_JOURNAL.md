@@ -1,5 +1,58 @@
 # Журнал работы
 
+### 2026-10-13 — финальный код TV, проверки и signed109 готовы
+
+Source4361528: явные TV content/delete intents, default available=true,
+сохранение channel/suppress/artwork/token, явный immutable sessionActivity/API35
+creator opt-in, MainActivity onCreate/onNewIntent → shell player/radio без Play.
+TV29 13/13, API28/API35 по12/12+1 TV UI skip. Release lint0 errors/82 warnings.
+Signed107→109 API28 сохраняет route/scale100 и исходный firstInstallTime.
+Первичный UI dump signed helper устарел на переходе; свежий dump подтвердил
+значение без изменения настроек. Первичные отказы/повторные логи сохранены,
+пустые labels checkbox не объявляем доказательством всех настроек.
+
+Кандидат108 не опубликован: флаг availability исправлен до выпуска, номер
+не переиспользован. Финальный109/7001921 bytes, прежний cert/min28/package.
+RepoWise после source commit завершён:11 files/273 structural pages/6м23с,
+findings не заменяют native tests и не стали поводом удалить callbacks.
+README, RU/EN, карты, versioning/BUG_REPORT приведены к109. Следующий шаг —
+artifact/tag/release, оба feeds, HTTP/hash и финальная сверка GitHub документов.
+Клипы/utility/beta приборки/1.x не менялись, свои AVD остановлены.
+[Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
+### 2026-10-13 — уточнён настоящий путь системной карточки Android TV
+
+Владелец уточнил Android TV, не Google TV. На TV29 bytecode системного
+tvrecommendations показал отдельную background-card4321/TransportControls.pause.
+Open использует sessionActivity. Новый тест требовал отсутствия app-card1001
+после Pause и ошибочно падал при уже остановленном звуке; исправлена проверка
+системной4321, исходные логи сохранены. Две direct PendingIntent UI проверки
+и async artwork уже прошли. Добавлены framework Pause для late-wave prefetch
+и radio polling/reconnect. Идёт расширенный native13, затем API35/28 и релиз.
+[Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md). Source во время Gradle не менялся.
+
+### 2026-10-13 — TV red доказан, новые обработчики реализованы
+
+Contract test на исходном107/TV29 упал на отсутствии TV-specific Open intent.
+Добавлены decorator Media3 (включая callback обложки), TV COMMAND_STOP,
+явный immutable Activity intent/creator opt-in API35, Open event для новой и
+существующей MainActivity → player/radio без Play. Новые native Home/Open/Stop/
+position/not-repost/no-autoplay/polling и deferred artwork проверки добавлены.
+Первый compiler требовал non-null NotificationChannelInfo в текущем Media3;
+исправлено. Идёт green build2; source во время Gradle не редактируется.
+Далее итоговые native/подписанный patch/публикация. [Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
+### 2026-10-13 — переоткрыт B-028: физическая TV-карточка не останавливает
+
+Отзыв владельца после107: TV Stop скрывает карточку на несколько секунд без
+остановки музыки; Open не действует. Прежние native отправляли generic
+notification.deleteIntent и browser.stop, а не TV-specific intents. Эта граница
+не была учтена в выводе о закрытии. Найдено отсутствие TvExtender в provider;
+документы Android описывают отдельные content/delete intents и fallback.
+Точная реализация лаунчера владельца не получена, не объявлять этот путь
+доказанной физической причиной до приёмки. Добавлен red contract test,
+идёт исходная debug/test сборка; [план и точка продолжения](PLAN_2_6_2.md).
+
 ### 2026-10-13 — анализ ответа про холодный автозапуск
 
 Выполнена статическая сверка build107 через RepoWise context и актуальные

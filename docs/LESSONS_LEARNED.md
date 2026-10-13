@@ -1,5 +1,35 @@
 # Ошибочные решения и правила повторного использования
 
+### 2026-10-13 — TV extender: конструктор чтения не включает доступность
+
+TvExtender(notification) читает flags существующего extension. Если Media3
+notification ещё не имел extension, flags остаются0; одни content/delete intents
+не включают доступность на TV. Для новой публикации использовать TvExtender()
+с default FLAG_AVAILABLE_ON_TV, затем переносить optional channel/suppress
+и действия. Проверять isAvailableOnTv в первой и поздней публикации обложки.
+Ошибка найдена до публикации кандидата108, финальный номер109. Источник:
+[AndroidX TvExtender](https://github.com/androidx/androidx/blob/androidx-main/core/core/src/main/java/androidx/core/app/NotificationCompat.java).
+
+### 2026-10-13 — две разные карточки Android TV
+
+У Android TV Home системная карточка фонового аудио4321 принадлежит
+tvrecommendations и использует framework Pause. App notification1001 и его
+TvExtender/deleteIntent — другой путь. Требование исчезновения1001 после
+системной Pause давало ложный отказ: звук уже остановлен, но обычное paused
+уведомление допустимо. Проверять реальную кнопку, звук/позицию, persisted intent
+и именно системную карточку; отдельно — app notification dismissal.
+Не называть Android TV Home платформой Google TV из-за имени пакета Google.
+[Доказательства/первичные отказы](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
+### 2026-10-13 — generic deleteIntent не доказывает работу TV-карточки
+
+Native вызывал notification.deleteIntent и MediaBrowser.stop напрямую.
+Физический TV-отзыв показал, что кнопки Open/Stop всё ещё не работают.
+Проверять TvExtender content/delete paths, отложенные updates обложки и
+реальное открытие экрана; отличать Android-контракт от приёмки OEM-лаунчера.
+Не называть generic pending-intent проверку действием кнопки TV-карточки.
+[План корректировки](PLAN_2_6_2.md).
+
 ### 2026-10-13 — pending actions и естественный конец списка
 
 Server verifiedRevision не меняется при queued offline unlike. Кэш должен

@@ -1,5 +1,11 @@
 # Карта переноса и модулей
 
+**2.6.2-build109**: playback/android — TvMediaNotificationProvider и явный
+immutable sessionActivity с API35 creator opt-in; app/MainActivity — Open
+onCreate/onNewIntent; shell — внешнее событие маршрута player/radio.
+Алгоритмы Music/Radio и provider API не менялись; 1.x не затронута.
+[Проверки и границы](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
 **2.6.1-build107**: core WaveLoader/WaveHistory/PlaybackState/MusicTaste/OfflineMusic/
 OperationDiagnostic; provider YandexWaveApi/AndroidTasteStore/HTTP transports;
 AndroidPlayback/MediaSession; LikedFileStore/AudioExporter/Mp3AudioWriter;
