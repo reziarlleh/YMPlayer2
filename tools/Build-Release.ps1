@@ -4,6 +4,8 @@ $projectRoot = Split-Path $PSScriptRoot -Parent
 if (-not $env:JAVA_HOME) { throw 'Set JAVA_HOME to JDK 17.' }
 if (-not $Sdk) { throw 'Set ANDROID_HOME or pass -Sdk.' }
 if (-not (Test-Path -LiteralPath (Join-Path $projectRoot '.signing\signing.properties'))) { throw 'Run Initialize-Signing.ps1 once, or restore the existing product key.' }
+# Fail before reserving a Build when a linked checkout lacks its ignored OAuth configuration.
+& (Join-Path $PSScriptRoot 'Check-ReleaseOAuth.ps1')
 Push-Location $projectRoot
 $lock = $null
 try {
@@ -30,6 +32,7 @@ try {
     & .\gradlew.bat :app:assembleRelease "-PissuedBuildNumber=$number" --console=plain
     if ($LASTEXITCODE -ne 0) { throw "Build $number failed and remains reserved." }
     $apk = Join-Path $projectRoot 'app\build\outputs\apk\release\app-release.apk'
+    & (Join-Path $PSScriptRoot 'Check-ReleaseOAuth.ps1') -Apk $apk
     $buildTools = Join-Path $Sdk 'build-tools\36.0.0'
     $badging = & (Join-Path $buildTools 'aapt.exe') dump badging $apk
     if ($LASTEXITCODE -ne 0 -or $badging[0] -notmatch "name='dev.petrov.ymplayer2' versionCode='$number' versionName='$([regex]::Escape($versionName))'") { throw 'APK identity/version verification failed.' }

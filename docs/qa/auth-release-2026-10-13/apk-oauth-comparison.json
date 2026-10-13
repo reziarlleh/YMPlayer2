@@ -1,0 +1,20 @@
+[
+  {
+    "version": "2.5.4-build102",
+    "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2",
+    "clientIdMatches": true,
+    "clientSecretMatches": true
+  },
+  {
+    "version": "2.5.5-build104",
+    "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b",
+    "clientIdMatches": false,
+    "clientSecretMatches": false
+  },
+  {
+    "version": "2.6.0-build106",
+    "sha256": "ed60e14c677078410e2fd8300bc1cdeca033334e5ba60488afe21e516ca52e11",
+    "clientIdMatches": true,
+    "clientSecretMatches": true
+  }
+]

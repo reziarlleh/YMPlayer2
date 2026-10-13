@@ -1,0 +1,10 @@
+{
+  "missingRejected": true,
+  "emptyRejected": true,
+  "invalidRejected": true,
+  "validAccepted": true,
+  "apk104Rejected": true,
+  "apk102Accepted": true,
+  "apk106Accepted": true,
+  "gradleReleaseDryRunPassed": true
+}

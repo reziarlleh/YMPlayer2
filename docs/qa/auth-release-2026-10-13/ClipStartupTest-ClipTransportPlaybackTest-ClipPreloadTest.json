@@ -1,0 +1,9 @@
+{
+  "serial": "emulator-5560",
+  "api": 28,
+  "passed": 6,
+  "failed": 0,
+  "success": true,
+  "seconds": 23.66,
+  "log": "D:\\_codex\\YMPlayer2\\.local-build\\transfers-qa\\emulator-5560\\ClipStartupTest-ClipTransportPlaybackTest-ClipPreloadTest.txt"
+}

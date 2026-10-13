@@ -76,6 +76,9 @@ gradle.taskGraph.whenReady {
     if (allTasks.any { it.path == ":app:assembleRelease" || it.path == ":app:bundleRelease" }) {
         require(issuedBuild != null && issuedBuild > 0) { "Issue a build using tools/Build-Release.ps1." }
         require(signingInfo.isNotEmpty()) { "Configure the independent 2.x signing key first." }
+        require(!yandexInfo.getProperty("clientId", "").isBlank()) {
+            "Release requires .provider/yandex.properties with a nonempty clientId. Fresh Yandex sign-in must remain available."
+        }
     }
 }
 dependencies {
