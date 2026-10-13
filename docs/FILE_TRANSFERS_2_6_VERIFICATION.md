@@ -111,7 +111,7 @@ GitHub release latest/non-prerelease/4 assets, default main и README прове
 13 октября03:30UTC: GitHub и pinned резервный APK скачаны,6861085байт, SHA256
 совпал с локальным106. Raw GitHub, основной jsDelivr и Gcore manifest/stable106
 проверены независимо — все8 запросов прошли. [HTTP-срез](qa/file-transfers/http-verification.json).
-Check-Documentation --github:228 документов/2040 ссылок,0 ошибок;724 сообщения/8 пакетов
+Check-Documentation --github:228 документов/2042 ссылок,0 ошибок;724 сообщения/8 пакетов
 актуальны. Source tag8192f25, feeds e4a8ed9; последующие commits закрывают документы,
 не меняют APK. Кандидат105 не публиковался. Этот срез не обещает постоянную свежесть CDN.
 [Native API28](qa/file-transfers/native/api28.txt), [TV29](qa/file-transfers/native/tv29.txt),
