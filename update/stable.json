@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 107,
-  "versionName": "2.6.1-build107",
+  "versionCode": 109,
+  "versionName": "2.6.2-build109",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-13T13:03:18.0085485Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.1-build107",
-  "releaseNotes": "Исправлены продолжение Моей волны и переход в волну после списка. Доступность предыдущего/следующего, автоматический кэш лайков и отложенные действия без сети. MP3: 128/192/256/320 кбит/с. Расширенная диагностика; все восемь языков.",
+  "publishedAt": "2026-10-13T17:42:54.4601077Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.2-build109",
+  "releaseNotes": "Исправлена совместимость кнопок Открыть/Остановить системной карточки Android TV. Открыть возвращает в плеер или радио без изменения воспроизведения; TV-команды сохраняются после загрузки обложки.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.1-build107/YMPlayer-2.6.1-build107.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.1-build107/releases/2.6.1-build107/YMPlayer-2.6.1-build107.apk",
-    "sizeBytes": 6924113,
-    "sha256": "512bf84647a7490eed7db15ec73a4cb2b22d794c57d713221b8692ec2f3975f5"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build109/YMPlayer-2.6.2-build109.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build109/releases/2.6.2-build109/YMPlayer-2.6.2-build109.apk",
+    "sizeBytes": 7001921,
+    "sha256": "79b98812563358fd6bc87064d3f8c0d53de86b388479d6f83a6c87086eafaa11"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "version": "2.6.2-build109",
+  "manualBeta": false,
+  "stableVersion": "2.6.2-build109",
+  "localFeeds": {
+    "manifest": "2.6.2-build109",
+    "stable": "2.6.2-build109"
+  },
+  "documents": 234,
+  "localLinks": 2124,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}
