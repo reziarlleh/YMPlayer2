@@ -1,0 +1,9 @@
+{
+  "serial": "emulator-5562",
+  "api": 35,
+  "passed": 39,
+  "failed": 1,
+  "success": false,
+  "seconds": 231.7,
+  "log": "api35-batch.txt"
+}

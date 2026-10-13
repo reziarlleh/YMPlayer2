@@ -41,9 +41,11 @@ internal class DiagnosticsJournal(private val context: Context,
     private val maxBytes = 96 * 1024
     private val keepBytes = 64 * 1024
 
-    fun record(event: DiagnosticEvent) = synchronized(lock) {
+    fun record(event: DiagnosticEvent) = recordLine(event.name)
+    fun record(event: dev.petrov.ymplayer2.core.OperationDiagnostic) = recordLine(event.line())
+    private fun recordLine(line: String) = synchronized(lock) {
         try {
-            file.appendText("${stamp()} ${event.name}\n", StandardCharsets.UTF_8)
+            file.appendText("${stamp()} $line\n", StandardCharsets.UTF_8)
             if (file.length() > maxBytes) {
                 val bytes = file.readBytes()
                 val cut = (bytes.size - keepBytes).coerceAtLeast(0)

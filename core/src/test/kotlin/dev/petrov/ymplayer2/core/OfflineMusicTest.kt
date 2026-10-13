@@ -13,6 +13,9 @@ class OfflineMusicTest {
         var beforeSave: suspend () -> Unit = {}
         var beforeRetain: suspend () -> Unit = {}
         val downloaded = mutableListOf<Pair<OfflineOwner, String>>()
+        private val pending = mutableMapOf<OfflineOwner, Set<String>>()
+        override suspend fun pendingDownloads(owner: OfflineOwner) = pending[owner].orEmpty()
+        override suspend fun pendingDownloads(owner: OfflineOwner, keys: Set<String>) { pending[owner] = keys }
         var loads = 0
         var catalogs = 0
         var catalogGate: suspend () -> Unit = {}
@@ -45,19 +48,28 @@ class OfflineMusicTest {
             override suspend fun write(profileId: String, session: AccountSession?) { if (session == null) sessions.remove(profileId) else sessions[profileId] = session }
         }, scope.backgroundScope)
         var liked = setOf("1", "2")
+        var blocked = emptySet<String>()
+        var failMutation = false
         var failedSnapshot = false
         var snapshots = 0
         var savedEnabled = enabled
         var gate: suspend () -> Unit = {}
         var finalKeys: Set<String>? = null
         val kinds = mutableListOf<TasteKind>()
-        val taste = MusicTaste(auth, object : MusicTasteApi {
+        val taste: MusicTaste = MusicTaste(auth, object : MusicTasteApi {
             override suspend fun taste(profileId: String, kind: TasteKind): TasteList {
                 kinds += kind
-                return TasteList(if (kind == TasteKind.TRACK) liked else setOf("999"))
+                return TasteList(if (kind == TasteKind.TRACK) liked else setOf("999"), if (kind == TasteKind.TRACK) blocked else emptySet())
             }
-            override suspend fun react(profileId: String, target: TasteTarget, action: TasteAction) { if (target.kind == TasteKind.TRACK && action == TasteAction.UNLIKE) liked = liked - target.key }
-        }, scope.backgroundScope)
+            override suspend fun react(profileId: String, target: TasteTarget, action: TasteAction) {
+                if (failMutation) throw MusicException(MusicFailure.NETWORK)
+                if (target.kind == TasteKind.TRACK) when (action) {
+                TasteAction.LIKE -> { liked = liked + target.key; blocked = blocked - target.key }
+                TasteAction.UNLIKE -> liked = liked - target.key
+                TasteAction.BLOCK -> { liked = liked - target.key; blocked = blocked + target.key }
+                TasteAction.UNBLOCK -> blocked = blocked - target.key
+            } }
+        }, scope.backgroundScope, confirmed = { owner, target, action -> offline.confirmedReaction(owner, target, action) })
         val api = object : LikedMusicApi {
             override suspend fun snapshot(profileId: String): LikedSnapshot {
                 snapshots++
@@ -74,7 +86,7 @@ class OfflineMusicTest {
         }
         val store = Store()
         var network = true
-        val offline = OfflineMusic(auth, taste, api, online, store, scope.backgroundScope, network = { network },
+        val offline: OfflineMusic = OfflineMusic(auth, taste, api, online, store, scope.backgroundScope, network = { network },
             enabled = enabled, saveEnabled = { savedEnabled = it })
         init { auth.activate("owner"); scope.runCurrent() }
     }
@@ -84,6 +96,45 @@ class OfflineMusicTest {
         assertEquals(2, h.offline.state.value.noCover); assertEquals(0, h.offline.state.value.audioFailures)
         assertFalse(h.offline.state.value.running)
         assertFalse(h.store.downloaded.any { "999" in it.second })
+    }
+    @Test fun confirmedLikeAutomaticallyDownloadsOnlyThatTrackAndDislikeRemovesIt() = runTest {
+        val h = Harness(this)
+        h.taste.react(track("3").tasteTarget(), TasteAction.LIKE); runCurrent()
+        assertEquals(listOf(h.owner to "yandex:3:7"), h.store.downloaded)
+        assertTrue(h.store.pendingDownloads(h.owner).isEmpty())
+        h.taste.react(TasteTarget(TasteKind.ARTIST, "55", "Artist"), TasteAction.LIKE); runCurrent()
+        assertEquals(1, h.store.downloaded.size)
+        h.taste.react(track("3").tasteTarget(), TasteAction.BLOCK); runCurrent()
+        assertFalse("3" in h.liked); assertTrue(h.offline.state.value.tracks.isEmpty())
+        assertTrue(h.store.files[h.owner].orEmpty().isEmpty())
+    }
+    @Test fun downloadIntentWaitsForNetworkAndDisabledCacheNeverQueuesNewLikes() = runTest {
+        val h = Harness(this); h.network = false
+        h.taste.react(track("3").tasteTarget(), TasteAction.LIKE); runCurrent()
+        assertEquals(setOf("3"), h.store.pendingDownloads(h.owner)); assertTrue(h.store.downloaded.isEmpty())
+        h.network = true; h.offline.retryAutomatic(); runCurrent()
+        assertEquals(listOf(h.owner to "yandex:3:7"), h.store.downloaded)
+        h.offline.setEnabled(false)
+        h.taste.react(track("4").tasteTarget(), TasteAction.LIKE); runCurrent()
+        assertTrue(h.store.pendingDownloads(h.owner).isEmpty()); assertEquals(1, h.store.downloaded.size)
+    }
+    @Test fun fullSyncCannotResurrectAnUnlikeWaitingForServerConfirmation() = runTest {
+        val h = Harness(this); h.offline.sync(); runCurrent()
+        val before = h.store.downloaded.size
+        h.failMutation = true
+        h.taste.react(track("1").tasteTarget(), TasteAction.UNLIKE); runCurrent()
+        assertFalse(h.offline.state.value.tracks.any { it.tasteTarget().key == "1" })
+        h.offline.sync(); runCurrent()
+        assertFalse(h.offline.state.value.tracks.any { it.tasteTarget().key == "1" })
+        assertFalse(h.store.downloaded.drop(before).any { it.second == "yandex:1:7" })
+        assertFalse("1" in h.store.files[h.owner].orEmpty())
+    }
+    @Test fun explicitCacheClearCancelsOldAutomaticDownloadIntent() = runTest {
+        val h = Harness(this); h.network = false
+        h.taste.react(track("3").tasteTarget(), TasteAction.LIKE); runCurrent()
+        assertFalse(h.store.pendingDownloads(h.owner).isEmpty())
+        h.offline.clear(); runCurrent(); h.network = true; h.offline.retryAutomatic(); runCurrent()
+        assertTrue(h.store.pendingDownloads(h.owner).isEmpty()); assertTrue(h.store.downloaded.isEmpty())
     }
     @Test fun unlikeDuringNonCancellableDownloadCannotResurrectAFile() = runTest {
         val h = Harness(this); h.store.beforeSave = { withContext(NonCancellable) { delay(1000) } }

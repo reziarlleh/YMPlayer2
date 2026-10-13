@@ -12,13 +12,17 @@ interface CacheLocationAccess {
 
 data class AudioExportRequest(val profile: String, val title: String, val entity: MusicEntity? = null,
     val tracks: List<Track>? = null)
+enum class Mp3Quality(val kbps: Int) { KBPS128(128), KBPS192(192), KBPS256(256), KBPS320(320);
+    companion object { fun from(kbps: Int) = entries.firstOrNull { it.kbps == kbps } ?: KBPS320 }
+}
 data class AudioExportState(val request: AudioExportRequest? = null, val template: String = ExportFileName.DEFAULT,
     val running: Boolean = false, val total: Int = 0, val completed: Int = 0, val failed: Int = 0,
-    val current: String = "", val message: String? = null)
+    val current: String = "", val message: String? = null, val quality: Mp3Quality = Mp3Quality.KBPS320)
 interface AudioExportAccess {
     val state: StateFlow<AudioExportState>
     fun ask(request: AudioExportRequest)
     fun template(value: String)
+    fun quality(value: Mp3Quality) = Unit
     fun start(destination: String)
     fun cancel()
     fun dismiss()

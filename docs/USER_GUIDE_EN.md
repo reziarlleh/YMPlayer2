@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.6.0-build106**, Android9 and later. Reviewed on 13 October 2026.
+For **2.6.1-build107**, Android9 and later. Reviewed on 13 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -157,7 +157,8 @@ favorite artists and playlists. Recommendations show suggested playlists.
 Songs you uploaded to your playlist on the Yandex Music website also appear
 in the normal track list. Access depends on your account; other users' private
 uploads are not playable. An uploaded song's artist may have no Yandex catalog
-page. To download a song for offline listening, like it and synchronize the
+page. To download a song for offline listening, enable the cache and like it.
+You can also synchronize the
 offline cache, just as you would with other tracks.
 **My Vibe** starts your personalized stream. It prepares the next track while
 the current one plays and requests further recommendations as needed.
@@ -214,9 +215,15 @@ Likes and dislikes apply to the item shown:
 - An album can be added to favorite albums. Favoriting an album does not like every track on it.
 - A track dislike means do not recommend that track; an artist dislike means do not recommend that artist.
 
-The buttons show the current server state. If that state is unknown, refresh it
+The buttons show server marks or saved marks with pending changes. If the state is unknown, refresh it
 before interpreting an unfilled icon as an unliked item. Artist actions are
 available through the track’s More menu or the artist page.
+
+Saved marks are available offline for this profile/account. Changes made without
+a connection are kept across restarts and sent to Yandex when the connection
+returns. Unliking or blocking a track removes its download locally; blocking also
+removes it from Liked tracks. A track like queues a download only when the cache
+is enabled. Artist and album likes do not download their entire catalogs.
 
 ## Queue and playlists
 
@@ -264,8 +271,13 @@ are separate pages.
 3. Open **Library → Offline** and play the list or a track.
 
 Only liked tracks and their covers are synchronized. Favorite artists, albums
-and whole playlists are not downloaded automatically. Run synchronization again
-after new likes. Downloads belong to both the profile and its Yandex account.
+and whole playlists are not downloaded automatically. New track likes queue a
+download once Yandex confirms the change, provided the cache is enabled and the
+connection meets the Wi-Fi-only setting. Pending downloads survive a restart and
+resume when a suitable connection returns. Unliking or blocking a track removes
+its cached file and cancels a pending download. Use synchronization for likes made
+outside YMPlayer or to retry missing downloads. Collections remain specific to
+both the profile and its Yandex account.
 
 The list opens without auditing every audio file. Each selected download is
 verified before playback. If it is damaged, synchronize again; Offline mode
@@ -290,7 +302,9 @@ location has been committed. Use **Move to internal storage** to return.
 The current track may keep playing; the next cache read can wait for the move.
 
 In **Library → Offline → …**, or the **…** menu of a Yandex album/playlist,
-select **Export MP3 (to USB / folder)**. Edit the filename template, check the
+select **Export MP3 (to USB / folder)**. Choose **128, 192, 256 or 320 kbps**
+(320 by default; no Auto option). This saved choice controls output files,
+independently of streaming and cache quality. Edit the filename template, check the
 preview and choose **Choose folder and export**. The template is saved;
 **?** opens the variable reference.
 
@@ -302,9 +316,9 @@ preview and choose **Choose folder and export**. The template is saved;
 | `{album}` | Album name, if available |
 | `{id}` | Track ID |
 
-<p align="center"><img src="qa/file-transfers/phone-export-en.png" width="300" alt="MP3 export filename template and help"></p>
+<p align="center"><img src="qa/patch261/api35/export-en.png" width="300" alt="MP3 export filename template and help"></p>
 
-*Android15 emulator, isolated fixture names; the106 export interface.*
+*Android 15 emulator, isolated fixture names; the 2.6.1 export interface.*
 
 Example: `{number}. {artist} - {title}`. The .mp3 extension is automatic.
 Unsupported filename characters are replaced; slashes do not create subfolders.
@@ -313,8 +327,9 @@ Existing files are kept and collisions receive (2), (3)… suffixes.
 All pages are exported in list order. Export does not add entire albums or
 playlists to the permanent liked cache. Verified downloads in the current
 account are used first; other tracks require a connection and an available full
-source. MP3 is copied without recompression; supported AAC/other formats are
-converted locally to 320 kbit/s, 44.1 kHz MP3 with track tags. Protected or unavailable
+source. An MP3 with the selected bitrate may be copied without recompression.
+MP3 at another bitrate, supported AAC and other sources are converted locally
+to MP3 at the selected constant bitrate, 44.1 kHz, with track tags. Protected or unavailable
 tracks are not replaced with previews. Conversion cannot improve source quality.
 The output is independent of YMPlayer; an older hardware player must also support
 the drive, filesystem and this MP3 format.
@@ -457,6 +472,13 @@ Android’s installation prompt. If GitHub is unavailable, choose the backup
 download when offered. The APK is checked before the installer opens.
 Automatic checking does not mean silent installation.
 
+New events identify the operation and result category: network, server, access,
+unavailable item, response format, no new tracks, decoder, storage or application.
+Where available, they include the HTTP status, DNS/TLS/timeout cause, Media3 code,
+returned/accepted track counts and wave recovery attempts. These help separate
+causes; an error code alone does not prove a server fault. Secrets, stream URLs
+and API response bodies are excluded.
+
 **Settings → Diagnostics** lets you inspect, refresh, clear and export the
 error journal to Downloads. After a crash, reopen the app and export the log
 before clearing it. From2.3.3, it includes the last Java exception type and
@@ -493,7 +515,7 @@ your phone when using a TV; it leads to the same donation page as the button.
 | Code accepted in the browser, sign-in still pending | Return to the account page; check network/profile and request a new code if it expired. |
 | No device tracks | Add the folder through Music folders, grant access and refresh the library. |
 | USB entries unavailable | Reconnect storage and check folder access. Playlist/history metadata is not a substitute for the source file. |
-| Offline search is empty | Check the cache switch, profile and synchronization. A like alone does not mean downloaded. |
+| Offline search is empty | Check the cache switch, profile and synchronization. Check pending downloads and the Wi-Fi-only setting; a queued like may still be waiting for a connection or a successful transfer. |
 | Downloads sound unchanged after changing quality | The setting affects new downloads. Delete the cache and synchronize again to replace it. |
 | Custom skin will not import | Select the complete .ymskin file and check its package format. The active skin remains in place on error. |
 | No equalizer available | Install a compatible equalizer/DSP or select an available system handler. |

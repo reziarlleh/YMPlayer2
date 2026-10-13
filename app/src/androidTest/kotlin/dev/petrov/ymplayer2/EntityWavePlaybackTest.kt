@@ -70,6 +70,47 @@ class EntityWavePlaybackTest {
         waitFor { player.state.value.wave && player.state.value.positionSeconds >= 1 && player.state.value.queueCount >= 2 }
         assertEquals("album:7", h.waveSelections.last().station); assertFalse(player.state.value.continueWave)
     }
+    @Test fun longListContinuesOnlyAfterItsFinalTrackAcrossDiskWindowTransitions() {
+        compose.activity.contentResolver.call(android.net.Uri.parse("content://dev.petrov.ymplayer2.test.control"), "bulk", "12", null)
+        runBlocking { h.library.refresh() }
+        waitFor { h.library.testTracks.size == 14 } // twelve bulk files plus the two original fixtures
+        val ids = runBlocking { h.library.pageTracks(CatalogFilter(), offset = 0, limit = 20).items.map(Track::id) }
+        val seed = WaveRequest("playlist:1_3", "Long list")
+        compose.runOnIdle { player.playList(ids, ids[9], PlaybackOrigin(PlaybackSource.LIST, seed.title, seed)); player.setContinueWave(true) }
+        waitFor { player.state.value.current?.id == ids[9] && player.state.value.playing }
+        for (id in ids.drop(10)) {
+            compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
+            waitFor { player.state.value.current?.id == id && player.state.value.playing }
+            assertFalse(player.state.value.wave)
+        }
+        compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
+        waitFor { player.state.value.wave && player.state.value.positionSeconds >= 1 }
+        assertEquals(seed, h.waveSelections.last())
+    }
+    @Test fun metadataRefreshAfterNaturalEndCannotEraseContinuationIntent() {
+        val ids = h.library.testTracks.map(Track::id)
+        val seed = WaveRequest("album:7", "End refresh")
+        compose.runOnIdle { player.playList(ids, ids.last(), PlaybackOrigin(PlaybackSource.LIST, seed.title, seed)); player.setContinueWave(true) }
+        waitFor { player.state.value.current?.id == ids.last() && player.state.value.playing && !player.state.value.canSkipNext }
+        val ready = player.javaClass.getDeclaredField("ready").apply { isAccessible = true }
+        val raw = h.javaClass.getDeclaredField("engine").apply { isAccessible = true }.get(h) as androidx.media3.exoplayer.ExoPlayer
+        compose.runOnIdle { ready.setBoolean(player, false); raw.seekTo(player.state.value.current!!.durationSeconds * 1000L) }
+        waitFor {
+            var ended = false
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                ended = raw.playbackState == androidx.media3.common.Player.STATE_ENDED
+            }
+            ended
+        }
+        compose.runOnIdle {
+            // A source refresh can replace the same item after EOF while disk selection is gated.
+            val item = raw.currentMediaItem!!
+            raw.setMediaItem(item); raw.prepare()
+            ready.setBoolean(player, true)
+        }
+        compose.waitUntil(8_000) { player.state.value.wave && player.state.value.positionSeconds >= 1 }
+        assertEquals(seed, h.waveSelections.last())
+    }
     @Test fun remoteOrderingAndContinuationExcludeEachOtherWithoutSeeking() {
         compose.runOnIdle { player.playList(h.library.testTracks.map(Track::id), origin = PlaybackOrigin(PlaybackSource.LIST, "Fixture", WaveRequest("playlist:1_3", "Fixture"))); player.seek(7); player.toggle() }
         waitFor { !player.state.value.playing && player.state.value.positionSeconds == 7 }
@@ -101,6 +142,7 @@ class EntityWavePlaybackTest {
         assertTrue(runBlocking { h.collections.edit("owner", CollectionEdit.Favorite(id, true)) })
         compose.onNodeWithTag("my_wave").performClick()
         val choice = compose.onNodeWithTag("player_source_favorites")
+        choice.performKeyInput { pressKey(Key.DirectionDown) }
         choice.performSemanticsAction(SemanticsActions.RequestFocus) { it() }; choice.assertIsFocused()
         choice.performKeyInput { pressKey(Key.Enter) }
         waitFor { player.state.value.origin.source == PlaybackSource.LOCAL_FAVORITES && player.state.value.playing }

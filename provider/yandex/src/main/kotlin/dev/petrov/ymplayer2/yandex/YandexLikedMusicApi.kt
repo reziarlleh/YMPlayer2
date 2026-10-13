@@ -16,6 +16,7 @@ class YandexLikedMusicApi(private val music: YandexMusicApi) : LikedMusicApi {
         }.distinctBy { it.substringBefore(':') }
     }
     override suspend fun keys(profileId: String): Set<String> = music.account(profileId) { token, uid -> rows(token, uid).mapTo(linkedSetOf()) { it.substringBefore(':') } }
+    override suspend fun tracks(profileId: String, keys: Set<String>): List<Track> = music.account(profileId) { token, _ -> music.tracks(token, keys.toList()) }
     override suspend fun snapshot(profileId: String): LikedSnapshot = music.account(profileId) { token, uid ->
         val ids = rows(token, uid)
         LikedSnapshot(ids.mapTo(linkedSetOf()) { it.substringBefore(':') }, music.tracks(token, ids))

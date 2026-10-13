@@ -9,7 +9,8 @@ import java.security.MessageDigest
 import javax.xml.parsers.DocumentBuilderFactory
 
 /** Provider catalog and the same download-info/XML signing protocol as the working 1.x. */
-class YandexMusicApi(private val accounts: AccountAuth, private val transport: MusicTransport = HttpsMusicTransport()) : OnlineMusicApi {
+class YandexMusicApi(private val accounts: AccountAuth, private val transport: MusicTransport = HttpsMusicTransport(),
+    private val diagnostic: (OperationDiagnostic) -> Unit = {}) : OnlineMusicApi {
     override suspend fun page(profileId: String, request: MusicRequest, page: Int): MusicPage = safe {
         require(page in 0..1000)
         accounts.withSession(profileId) { session ->
@@ -25,12 +26,28 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
     }
 
     internal suspend fun api(token: String, path: String, form: List<Pair<String, String>>? = null, json: JSONObject? = null): Any {
+        val operation = when {
+            path.endsWith("/session/new") -> DiagnosticOperation.WAVE_START
+            path.contains("/rotor/") && path.contains("/feedback") -> DiagnosticOperation.WAVE_FEEDBACK
+            path.contains("/rotor/") && path.contains("/tracks") -> DiagnosticOperation.WAVE_NEXT
+            path.contains("/likes/") || path.contains("/dislikes/") -> if (form == null) DiagnosticOperation.TASTE_READ else DiagnosticOperation.TASTE_WRITE
+            else -> DiagnosticOperation.HTTP
+        }
+        try {
         val text = if (json != null) transport.json("https://api.music.yandex.net$path", token, json.toString())
             else transport.request("https://api.music.yandex.net$path", token, form)
         if (text.trim().equals("ok", true)) return "ok"
         val root = JSONObject(text)
-        if (root.has("error")) throw MusicException(MusicFailure.ACCESS)
+        if (root.has("error")) {
+            val name = root.optJSONObject("error")?.optString("name")?.lowercase().orEmpty()
+            throw MusicException(if (name in setOf("unauthorized", "forbidden", "not-authorized", "invalid-token")) MusicFailure.ACCESS else MusicFailure.RESPONSE)
+        }
         return root.opt("result")?.takeUnless { it == JSONObject.NULL } ?: throw MusicException(MusicFailure.RESPONSE)
+        } catch (e: CancellationException) { throw e }
+          catch (e: Exception) {
+              val classified = if (e is org.json.JSONException || e is ClassCastException) MusicException(MusicFailure.RESPONSE) else e
+              diagnostic(diagnosticFailure(operation, classified)); throw classified
+          }
     }
     /** The working 1.x delete accepts a successful HTTP response, including an empty body. */
     internal suspend fun acknowledge(token: String, path: String, form: List<Pair<String, String>>) {

@@ -79,13 +79,79 @@ class MusicTasteTest {
         assertEquals("road", taste.state.value.profileId)
         assertTrue(taste.state.value.shelf(TasteKind.ARTIST).list.liked.isEmpty())
     }
-    @Test fun failedVerificationDisablesWritesUntilRefresh() = runTest {
+    @Test fun failedVerificationRetainsDurableIntentUntilRefresh() = runTest {
         val api = Api(); val taste = MusicTaste(auth(), api, backgroundScope); runCurrent()
         api.failRead = true
         taste.react(TasteTarget(TasteKind.TRACK, "1", "Song"), TasteAction.LIKE); runCurrent()
-        assertFalse(taste.state.value.shelf(TasteKind.TRACK).ready)
+        assertTrue(taste.state.value.shelf(TasteKind.TRACK).ready)
         assertNotNull(taste.state.value.shelf(TasteKind.TRACK).issue)
         api.failRead = false; taste.refresh(TasteKind.TRACK); runCurrent()
         assertEquals(setOf("1"), taste.state.value.shelf(TasteKind.TRACK).list.liked)
+    }
+    @Test fun offlineActionsSurviveRestartAndKeepBlockUnlikeOrderWithoutCrossAccountWrites() = runTest {
+        val auth = auth(); val api = Api(); val store = MemoryTasteStore()
+        val connection = kotlinx.coroutines.flow.MutableStateFlow(true)
+        val firstScope = CoroutineScope(SupervisorJob() + StandardTestDispatcher(testScheduler))
+        val first = MusicTaste(auth, api, firstScope, store = store, connection = connection); runCurrent()
+        val target = TasteTarget(TasteKind.TRACK, "1", "Song")
+        first.react(target, TasteAction.LIKE); runCurrent()
+        connection.value = false; runCurrent()
+        first.react(target, TasteAction.BLOCK); runCurrent()
+        first.react(target, TasteAction.UNBLOCK); runCurrent()
+        assertEquals(TasteList(), first.state.value.shelf(TasteKind.TRACK).list)
+        firstScope.cancel(); runCurrent()
+        val second = MusicTaste(auth, api, backgroundScope, store = store, connection = connection); runCurrent()
+        assertEquals(TasteList(), second.state.value.shelf(TasteKind.TRACK).list)
+        assertEquals(2, store.read(OfflineOwner("owner", "owner")).pending.size)
+        auth.activate("road"); runCurrent(); connection.value = true; runCurrent()
+        assertFalse(api.writes.any { it.first == "road" })
+        auth.activate("owner"); runCurrent()
+        assertEquals(listOf(TasteAction.LIKE, TasteAction.BLOCK, TasteAction.UNBLOCK), api.writes.map { it.third })
+        assertTrue(store.read(OfflineOwner("owner", "owner")).pending.isEmpty())
+        assertEquals(TasteList(), second.state.value.shelf(TasteKind.TRACK).list)
+    }
+    @Test fun oldOfflineCacheEnablesQueuedUnlikeButNeverPretendsToKnowServerFilters() = runTest {
+        val auth = auth(); val api = Api(); val connection = kotlinx.coroutines.flow.MutableStateFlow(false)
+        val store = MemoryTasteStore()
+        val taste = MusicTaste(auth, api, backgroundScope, store = store, connection = connection); runCurrent()
+        taste.seedCachedTrackLikes(OfflineOwner("owner", "owner"), setOf("1"))
+        assertTrue(taste.state.value.shelf(TasteKind.TRACK).ready)
+        assertEquals(0, taste.state.value.shelf(TasteKind.TRACK).verifiedRevision)
+        taste.react(TasteTarget(TasteKind.TRACK, "1", "Old cached track"), TasteAction.UNLIKE); runCurrent()
+        assertTrue(taste.state.value.shelf(TasteKind.TRACK).list.liked.isEmpty())
+        assertTrue(api.writes.isEmpty()); assertEquals(1, store.read(OfflineOwner("owner", "owner")).pending.size)
+        try { taste.requireRecommendationFilters("owner"); fail() }
+        catch (e: MusicException) { assertEquals(MusicFailure.NETWORK, e.failure) }
+    }
+    @Test fun delayedSnapshotReadCannotEraseTheLegacyCacheBootstrap() = runTest {
+        val store = object : TasteStore {
+            override suspend fun read(owner: OfflineOwner): TasteSnapshot { delay(1000); return TasteSnapshot() }
+            override suspend fun write(owner: OfflineOwner, snapshot: TasteSnapshot) = Unit
+        }
+        val taste = MusicTaste(auth(), Api(), backgroundScope, store = store,
+            connection = kotlinx.coroutines.flow.MutableStateFlow(false)); runCurrent()
+        taste.seedCachedTrackLikes(OfflineOwner("owner", "owner"), setOf("1", "2"))
+        advanceTimeBy(1001); runCurrent()
+        assertEquals(setOf("1", "2"), taste.state.value.shelf(TasteKind.TRACK).list.liked)
+        assertTrue(taste.state.value.shelf(TasteKind.TRACK).ready)
+    }
+    @Test fun oneFailedPersistenceDoesNotEraseAnotherKindsConcurrentIntent() = runTest {
+        val backing = MemoryTasteStore(); var failTrack = true
+        val store = object : TasteStore {
+            override suspend fun read(owner: OfflineOwner) = backing.read(owner)
+            override suspend fun write(owner: OfflineOwner, snapshot: TasteSnapshot) {
+                if (failTrack && snapshot.pending.any { it.target.kind == TasteKind.TRACK }) {
+                    failTrack = false; delay(1000); throw java.io.IOException("Fixture write failure")
+                }
+                backing.write(owner, snapshot)
+            }
+        }
+        val api = Api(); val taste = MusicTaste(auth(), api, backgroundScope, store = store); runCurrent()
+        taste.react(TasteTarget(TasteKind.TRACK, "1", "Track"), TasteAction.LIKE); runCurrent()
+        taste.react(TasteTarget(TasteKind.ARTIST, "55", "Artist"), TasteAction.LIKE); runCurrent()
+        advanceTimeBy(1001); runCurrent()
+        assertEquals(setOf("55"), taste.state.value.shelf(TasteKind.ARTIST).list.liked)
+        assertTrue(taste.state.value.shelf(TasteKind.TRACK).list.liked.isEmpty())
+        assertEquals(listOf(TasteKind.ARTIST), api.writes.map { it.second.kind })
     }
 }

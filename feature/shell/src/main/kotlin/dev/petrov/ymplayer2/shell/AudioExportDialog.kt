@@ -40,6 +40,15 @@ import dev.petrov.ymplayer2.localization.trMessage
               } else {
                 Text(trMessage("Экспорт MP3"), style = MaterialTheme.typography.titleLarge)
                 Text(request.title)
+                Text(trMessage("Качество MP3"), style = MaterialTheme.typography.titleMedium)
+                for (quality in Mp3Quality.entries) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(state.quality == quality, { exporter.quality(quality) }, enabled = !state.running,
+                            modifier = Modifier.prismFocus().testTag("export_quality_${quality.kbps}"))
+                        Text(trMessage("Битрейт: ${quality.kbps} кбит/с"))
+                    }
+                }
+                Text(trMessage("Более высокий битрейт увеличивает размер файла, но не улучшает качество исходной записи."), style = MaterialTheme.typography.bodySmall)
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     OutlinedTextField(state.template, exporter::template, Modifier.weight(1f).testTag("export_template"),
                         label = { Text(trMessage("Шаблон имени файла")) }, enabled = !state.running, isError = !valid, singleLine = true)

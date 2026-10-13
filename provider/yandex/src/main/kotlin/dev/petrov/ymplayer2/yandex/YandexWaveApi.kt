@@ -8,7 +8,7 @@ import java.net.URLEncoder
 import java.util.Locale
 
 /** Port of 1.x getMyWaveFastStart / getMoreMyWave / rotorStationFeedback. */
-class YandexWaveApi(private val music: YandexMusicApi) : MyWaveApi {
+class YandexWaveApi(private val music: YandexMusicApi, private val diagnostic: (OperationDiagnostic) -> Unit = {}) : MyWaveApi {
     override suspend fun start(profileId: String): WaveBatch = start(profileId, WaveRequest())
     override suspend fun start(profileId: String, request: WaveRequest): WaveBatch = music.account(profileId) { token, _ ->
         try {
@@ -37,24 +37,39 @@ class YandexWaveApi(private val music: YandexMusicApi) : MyWaveApi {
         val result = music.api(token, "/rotor/station/${stationPath(request.station)}/tracks?settings2=True" + if (cursor.isBlank()) "" else "&queue=${encode(cursor)}") as JSONObject
         return parse(token, result, "", request, cursor)
     }
+    override suspend fun recover(profileId: String, previous: WaveBatch?, request: WaveRequest): WaveBatch = music.account(profileId) { token, _ ->
+        diagnostic(OperationDiagnostic(DiagnosticOperation.WAVE_RECOVER, session = previous?.sessionId?.isNotBlank() == true))
+        // The verified 1.x station path also recovers modern sessions that only echo their first batch.
+        // Selected setting seeds must never be silently dropped by this fallback.
+        if (request.settings.isEmpty()) legacy(token, previous?.cursor.orEmpty(), request)
+        else {
+            val body = JSONObject().put("seeds", JSONArray(request.seeds)).put("queue", JSONArray(listOfNotNull(previous?.cursor?.takeIf(String::isNotBlank))))
+                .put("includeTracksInResponse", true).put("includeWaveModel", true).put("interactive", true)
+            val result = music.api(token, "/rotor/session/new", json = body) as JSONObject
+            parse(token, result, result.optString("radioSessionId"), request)
+        }
+    }
     private suspend fun parse(token: String, result: JSONObject, session: String, request: WaveRequest, skip: String = ""): WaveBatch {
         val batch = result.optString("batchId").ifBlank { result.optString("batch_id") }
         val sequence = result.optJSONArray("sequence")?.objects().orEmpty()
         // Preserve the returned candidates for core to exclude the whole listening history.
         // Returning only the first candidate can hide a new item behind an older echoed item.
         val candidates = linkedMapOf<String, Track?>()
+        var continuation = skip
         for (row in sequence) {
             val embedded = row.optJSONObject("track")
             val id = (listOf("id", "trackId", "track_id", "realId").map { embedded?.optString(it).orEmpty() } +
                 listOf(row.optString("trackId"), row.optString("track"))).firstOrNull { it.isNotBlank() }.orEmpty().substringBefore(':')
-            if (!id.matches(Regex("[0-9]+")) || id == skip) continue
+            if (!id.matches(Regex("[0-9]+"))) continue
+            continuation = id
+            if (id == skip) continue
             val direct = embedded?.takeIf { it.optString("title").isNotBlank() && it.optString("id") == id }?.let { music.trackEntry(it)?.track }
             candidates.putIfAbsent(id, direct)
         }
         val unresolved = candidates.filterValues { it == null }.keys.toList()
         val resolved = if (unresolved.isEmpty()) emptyMap() else music.tracks(token, unresolved).associateBy { it.tasteTarget().key }
         val tracks = candidates.mapNotNull { (id, track) -> (track ?: resolved[id])?.let { WaveTrack(it, batch, request.station) } }
-        return WaveBatch(tracks, session, tracks.lastOrNull()?.track?.tasteTarget()?.key ?: skip, request)
+        return WaveBatch(tracks, session, continuation, request)
     }
     override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) {
         if (item.batchId.isBlank()) return

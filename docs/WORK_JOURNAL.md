@@ -1,5 +1,61 @@
 # Журнал работы
 
+### 2026-10-13 — финальные проверки исходников 2.6.1
+
+141 JVM без ошибок; release lint 0 errors/67 warnings. API28 55/55,
+TV29 28/28. API35 39/40: системная STOP/прекращение polling прошли,
+повторный запуск радио в общем прогоне не успел; отдельно1/1 и весь блок6/6
+прошли без edits. Первичный отказ сохранён, причинный диагноз не выдуман.
+RU/EN экспорт визуально осмотрен, все8 языков проверены в native UI.
+Подписан107 с прежними cert/package/min28, OAuth guard прошёл.
+
+Точка продолжения: signed106→107, device-code, source/artifact/tag/release,
+feeds/HTTP/hash/CDN, RepoWise и финальная сверка документов.
+[Подробный отчёт](PATCH_2_6_1_VERIFICATION.md).
+
+### 2026-10-13 —2.6.1: проверены bitrate/recovery и воспроизведена EOT-гонка
+
+MP3 native проверил все4 фактических битрейта, включая MP3→MP3. API28 wave:
+32(31 pass/1 focus fail), расширенный55(54 pass/1 focus fail). Длинный список
+заканчивается правильным seed; metadata refresh после EOF отдельно доказал
+потерю intent до фикса(8сек timeout) и pass после. Неверные setup (не main thread,
+MediaSession wrapper вместо raw engine) не выдаются за баг приложения.
+
+Core138→139 без ошибок. Новый regression выявил потерю pending unlike в кэше:
+одной server revision недостаточно, добавлено desired membership comparison и
+запрет resurrect при manual sync. Cache clear отменяет старую download queue.
+Cold upgrade с owned cache bootstrap позволяет unlike без сети; перед волной
+полный server filter всё равно подтверждается. Added snapshot-read и concurrent
+persistence tests. UI/детали errors во всех8 языках,735 сообщений.
+
+Идёт build11+release lint. Следом native API28 с финальным фокусом,35/TV29,
+artifact/signing/upgrade/device-code, stable publication и documents/feeds.
+[Подробные результаты и ошибочные подходы](PATCH_2_6_1_VERIFICATION.md).
+### 2026-10-13 — активная цель2.6.1: все6 замечаний
+
+Изучены actual WaveLoader/YandexWaveApi/AndroidPlayback и getMyWaveFastStart,
+getMoreMyWave/getMyWaveLegacy/YmpRepository1.x (read-only). Добавлены recovery
+через station при зацикленной session (без потери выбранных setting seeds),
+raw continuation cursor и отдельная история Моей волны по профилю/учётке.
+Реальный серверный отказ на десятой песне ещё не воспроизведён под учёткой;
+новый тест моделирует возвращение тех же10 и переход на11 через recovery.
+
+Prev/Next получили доступность в state/UI/MediaSession; MP3 —128/192/256/320,
+выбор передаётся LAME и сохраняется, добавлен decode/bitrate native-тест.
+MusicTaste теперь сохраняет cached lists/ordered intents отдельно от OAuth,
+перепроверяет итог частичных write и повторяет при подключении. OfflineMusic
+имеет долговечную очередь автоматического скачивания только track likes.
+Добавлены typed diagnostic category/HTTP/network/media code и bounded журнал.
+9 новых текстов,733 сообщения/8 полных языков; генерация прошла.
+
+Первый build выявил устаревший тест «проверка не удалась → запретить действия»:
+новое требование сохраняет intent вместо его потери. Дополнен restart/account
+тестом. Compiler увидел старую сигнатуру core во время редактирования зависимых
+исходников: последующие build запускаются только после завершения правок.
+Исправлены явные типы взаимозависимых fixture свойств и imports. Build4 идёт.
+Точка продолжения: дождаться build4, native EntityWave/MyWave/MP3/кэш/диагностика,
+разобрать натуральный конец длинного списка; release пока не выпускался.
+[План](PLAN_2_6_1.md).
 ### 2026-10-13 — свежая авторизация104/106 и отказ клипов
 
 Жалоба4PDA на104 подтверждена: OAuth client_id в APK пуст;102/106 содержат

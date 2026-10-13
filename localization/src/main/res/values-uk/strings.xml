@@ -730,5 +730,16 @@
     <string name="wave_wakeup" formatted="false">"Прокидаюся"</string>
     <string name="wave_work" formatted="false">"Працюю"</string>
     <string name="wave_workout" formatted="false">"Тренуюся"</string>
+    <string name="taste_pending_detail" formatted="false">"Зміну збережено. Надішлемо її в Яндекс після відновлення зв’язку. @0@"</string>
+    <string name="export_quality" formatted="false">"Якість MP3"</string>
+    <string name="export_bitrate" formatted="false">"Бітрейт: @0@ кбіт/с"</string>
+    <string name="export_quality_hint" formatted="false">"Вищий бітрейт збільшує розмір файлу, але не покращує якість початкового запису."</string>
+    <string name="taste_pending" formatted="false">"Зміну збережено. Надішлемо її в Яндекс після відновлення зв’язку."</string>
+    <string name="taste_pending_failure" formatted="false">"Не вдалося зберегти відкладену зміну."</string>
+    <string name="offline_auto_saving" formatted="false">"Зберігаємо вподобані треки для прослуховування офлайн…"</string>
+    <string name="offline_auto_complete" formatted="false">"Автоматичне збереження офлайн завершено. Невдалі завантаження залишаються в черзі для повтору."</string>
+    <string name="offline_auto_wait_wifi" formatted="false">"Трек уподобано. Завантаження почнеться після підключення до Wi-Fi."</string>
+    <string name="offline_auto_wait_network" formatted="false">"Трек уподобано. Завантаження почнеться після відновлення інтернет-з’єднання."</string>
+    <string name="wave_no_progress" formatted="false">"Яндекс не надіслав нових треків для хвилі. Спробуйте пізніше."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

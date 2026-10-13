@@ -11577,5 +11577,181 @@
       "es": "Entrenando",
       "fr": "À l’entraînement"
     }
+  },
+  {
+    "key": "taste_pending_detail",
+    "source": "Изменение сохранено. Отправим его в Яндекс после восстановления связи. @0@",
+    "english": "Change saved. It will be sent to Yandex when the connection is restored. @0@",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt"
+    ],
+    "translations": {
+      "be": "Змена захавана. Адправім яе ў Яндэкс, калі сувязь адновіцца. @0@",
+      "kk": "Өзгеріс сақталды. Байланыс қалпына келгенде ол Yandex-ке жіберіледі. @0@",
+      "uk": "Зміну збережено. Надішлемо її в Яндекс після відновлення зв’язку. @0@",
+      "de": "Änderung gespeichert. Sie wird an Yandex gesendet, sobald die Verbindung wiederhergestellt ist. @0@",
+      "es": "Cambio guardado. Se enviará a Yandex cuando se restablezca la conexión. @0@",
+      "fr": "Modification enregistrée. Elle sera envoyée à Yandex lorsque la connexion sera rétablie. @0@"
+    }
+  },
+  {
+    "key": "export_quality",
+    "source": "Качество MP3",
+    "english": "MP3 quality",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioExportDialog.kt"
+    ],
+    "translations": {
+      "be": "Якасць MP3",
+      "kk": "MP3 сапасы",
+      "uk": "Якість MP3",
+      "de": "MP3-Qualität",
+      "es": "Calidad de MP3",
+      "fr": "Qualité MP3"
+    }
+  },
+  {
+    "key": "export_bitrate",
+    "source": "Битрейт: @0@ кбит/с",
+    "english": "Bit rate: @0@ kbps",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioExportDialog.kt"
+    ],
+    "translations": {
+      "be": "Бітрэйт: @0@ кбіт/с",
+      "kk": "Битрейт: @0@ кбит/с",
+      "uk": "Бітрейт: @0@ кбіт/с",
+      "de": "Bitrate: @0@ kbit/s",
+      "es": "Tasa de bits: @0@ kbps",
+      "fr": "Débit : @0@ kbit/s"
+    }
+  },
+  {
+    "key": "export_quality_hint",
+    "source": "Более высокий битрейт увеличивает размер файла, но не улучшает качество исходной записи.",
+    "english": "A higher bit rate produces a larger file, but cannot improve the original recording.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioExportDialog.kt"
+    ],
+    "translations": {
+      "be": "Вышэйшы бітрэйт павялічвае памер файла, але не паляпшае якасць зыходнага запісу.",
+      "kk": "Жоғары битрейт файл көлемін ұлғайтады, бірақ бастапқы жазбаның сапасын жақсартпайды.",
+      "uk": "Вищий бітрейт збільшує розмір файлу, але не покращує якість початкового запису.",
+      "de": "Eine höhere Bitrate vergrößert die Datei, verbessert aber nicht die Qualität der Originalaufnahme.",
+      "es": "Una tasa de bits mayor aumenta el tamaño del archivo, pero no mejora la grabación original.",
+      "fr": "Un débit plus élevé augmente la taille du fichier, sans améliorer la qualité de l’enregistrement d’origine."
+    }
+  },
+  {
+    "key": "taste_pending",
+    "source": "Изменение сохранено. Отправим его в Яндекс после восстановления связи.",
+    "english": "Change saved. It will be sent to Yandex when the connection is restored.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt"
+    ],
+    "translations": {
+      "be": "Змена захавана. Адправім яе ў Яндэкс, калі сувязь адновіцца.",
+      "kk": "Өзгеріс сақталды. Байланыс қалпына келгенде ол Yandex-ке жіберіледі.",
+      "uk": "Зміну збережено. Надішлемо її в Яндекс після відновлення зв’язку.",
+      "de": "Änderung gespeichert. Sie wird an Yandex gesendet, sobald die Verbindung wiederhergestellt ist.",
+      "es": "Cambio guardado. Se enviará a Yandex cuando se restablezca la conexión.",
+      "fr": "Modification enregistrée. Elle sera envoyée à Yandex lorsque la connexion sera rétablie."
+    }
+  },
+  {
+    "key": "taste_pending_failure",
+    "source": "Не удалось сохранить отложенное изменение.",
+    "english": "Could not save the pending change.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt"
+    ],
+    "translations": {
+      "be": "Не ўдалося захаваць адкладзеную змену.",
+      "kk": "Кейін жіберілетін өзгерісті сақтау мүмкін болмады.",
+      "uk": "Не вдалося зберегти відкладену зміну.",
+      "de": "Die ausstehende Änderung konnte nicht gespeichert werden.",
+      "es": "No se pudo guardar el cambio pendiente.",
+      "fr": "Impossible d’enregistrer la modification en attente."
+    }
+  },
+  {
+    "key": "offline_auto_saving",
+    "source": "Сохраняем отмеченные треки офлайн…",
+    "english": "Saving liked tracks for offline listening…",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ],
+    "translations": {
+      "be": "Захоўваем упадабаныя трэкі для праслухоўвання без інтэрнэту…",
+      "kk": "Ұнаған тректер офлайн тыңдау үшін сақталып жатыр…",
+      "uk": "Зберігаємо вподобані треки для прослуховування офлайн…",
+      "de": "Titel mit „Gefällt mir“ werden für die Offline-Wiedergabe gespeichert…",
+      "es": "Guardando las canciones que te gustan para escucharlas sin conexión…",
+      "fr": "Enregistrement des titres aimés pour l’écoute hors connexion…"
+    }
+  },
+  {
+    "key": "offline_auto_complete",
+    "source": "Автоматическое сохранение офлайн завершено. Неудачные загрузки остаются в очереди для повтора.",
+    "english": "Automatic offline saving has finished. Failed downloads remain queued for another attempt.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ],
+    "translations": {
+      "be": "Аўтаматычнае захаванне офлайн завершана. Няўдалыя спампоўванні застаюцца ў чарзе для паўтору.",
+      "kk": "Автоматты офлайн сақтау аяқталды. Жүктелмеген тректер қайталап жүктеу кезегінде қалады.",
+      "uk": "Автоматичне збереження офлайн завершено. Невдалі завантаження залишаються в черзі для повтору.",
+      "de": "Das automatische Offline-Speichern ist abgeschlossen. Fehlgeschlagene Downloads bleiben für einen erneuten Versuch in der Warteschlange.",
+      "es": "Se ha completado el guardado automático sin conexión. Las descargas fallidas permanecen en la cola para reintentarlas.",
+      "fr": "L’enregistrement automatique hors connexion est terminé. Les téléchargements échoués restent en attente d’une nouvelle tentative."
+    }
+  },
+  {
+    "key": "offline_auto_wait_wifi",
+    "source": "Трек отмечен. Скачивание начнётся при подключении к Wi-Fi.",
+    "english": "Track liked. Downloading will start when Wi-Fi is available.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ],
+    "translations": {
+      "be": "Трэк упадабаны. Спампоўванне пачнецца пры падключэнні да Wi-Fi.",
+      "kk": "Трек ұнағандарға қосылды. Wi-Fi қосылғанда жүктеле бастайды.",
+      "uk": "Трек уподобано. Завантаження почнеться після підключення до Wi-Fi.",
+      "de": "Titel mit „Gefällt mir“ markiert. Der Download beginnt, sobald WLAN verfügbar ist.",
+      "es": "Canción marcada como favorita. Se descargará cuando haya conexión Wi-Fi.",
+      "fr": "Titre ajouté aux favoris. Le téléchargement commencera dès qu’une connexion Wi-Fi sera disponible."
+    }
+  },
+  {
+    "key": "offline_auto_wait_network",
+    "source": "Трек отмечен. Скачивание начнётся после восстановления интернета.",
+    "english": "Track liked. Downloading will start when the internet connection is restored.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ],
+    "translations": {
+      "be": "Трэк упадабаны. Спампоўванне пачнецца, калі інтэрнэт-злучэнне адновіцца.",
+      "kk": "Трек ұнағандарға қосылды. Интернет байланысы қалпына келгенде жүктеле бастайды.",
+      "uk": "Трек уподобано. Завантаження почнеться після відновлення інтернет-з’єднання.",
+      "de": "Titel mit „Gefällt mir“ markiert. Der Download beginnt, sobald die Internetverbindung wiederhergestellt ist.",
+      "es": "Canción marcada como favorita. Se descargará cuando se restablezca la conexión a internet.",
+      "fr": "Titre ajouté aux favoris. Le téléchargement commencera lorsque la connexion Internet sera rétablie."
+    }
+  },
+  {
+    "key": "wave_no_progress",
+    "source": "Яндекс не прислал новых треков для волны. Повторите попытку позже.",
+    "english": "Yandex returned no new tracks for the wave. Try again later.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ],
+    "translations": {
+      "be": "Яндэкс не даслаў новых трэкаў для хвалі. Паспрабуйце пазней.",
+      "kk": "Yandex толқын үшін жаңа тректер жібермеді. Кейінірек қайталап көріңіз.",
+      "uk": "Яндекс не надіслав нових треків для хвилі. Спробуйте пізніше.",
+      "de": "Yandex hat keine neuen Titel für die Welle geliefert. Versuche es später erneut.",
+      "es": "Yandex no ha devuelto canciones nuevas para la onda. Inténtalo de nuevo más tarde.",
+      "fr": "Yandex n’a fourni aucun nouveau titre pour la vague. Réessayez plus tard."
+    }
   }
 ]

@@ -9,6 +9,7 @@ import android.net.Uri
 import de.sciss.jump3r.mp3.*
 import de.sciss.jump3r.mpg.*
 import dev.petrov.ymplayer2.core.Track
+import dev.petrov.ymplayer2.core.Mp3Quality
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import java.io.ByteArrayOutputStream
@@ -19,7 +20,7 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 /** A desktop-Java sound wrapper is deliberately not used on Android. Encoder core is Jump3r/LAME LGPL2.1+. */
-internal class PcmMp3Encoder(rate: Int, channels: Int) : AutoCloseable {
+internal class PcmMp3Encoder(rate: Int, channels: Int, bitrate: Int = 320) : AutoCloseable {
     private val lame = Lame()
     private val flags: LameGlobalFlags
     private val output = ByteArray(32 * 1024)
@@ -33,7 +34,7 @@ internal class PcmMp3Encoder(rate: Int, channels: Int) : AutoCloseable {
         reservoir.setModules(bits); take.setModules(qpv); vbr.setModules(lame, bits, version)
         mpg.setModules(inter, common); inter.setModules(vbr, common)
         flags = lame.lame_init().apply {
-            num_channels = channels; in_samplerate = rate; out_samplerate = 44100; brate = 320
+            num_channels = channels; in_samplerate = rate; out_samplerate = 44100; brate = bitrate
             mode = if (channels == 1) MPEGMode.MONO else MPEGMode.JOINT_STEREO
             VBR = VbrMode.vbr_off; quality = 3; bWriteVbrTag = false; write_id3tag_automatic = false
         }
@@ -59,7 +60,7 @@ internal class Mp3AudioWriter(private val context: Context) {
         if (parsed.scheme in listOf("https", "http")) extractor.setDataSource(uri, mapOf("User-Agent" to "Yandex-Music-API"))
         else extractor.setDataSource(context, parsed, null)
     }
-    suspend fun write(uri: String, track: Track, index: Int, count: Int, output: OutputStream) {
+    suspend fun write(uri: String, track: Track, index: Int, count: Int, output: OutputStream, quality: Mp3Quality = Mp3Quality.KBPS320) {
         val extractor = MediaExtractor()
         try {
             open(extractor, uri)
@@ -70,8 +71,9 @@ internal class Mp3AudioWriter(private val context: Context) {
             val format = extractor.getTrackFormat(audio)
             if (format.containsKey("crypto-key")) throw IOException("Protected audio")
             output.write(tags(track, index, count))
-            if (format.getString(MediaFormat.KEY_MIME) == "audio/mpeg") copyMp3(extractor, output)
-            else transcode(extractor, format, output)
+            val sameBitrate = format.containsKey(MediaFormat.KEY_BIT_RATE) && format.getInteger(MediaFormat.KEY_BIT_RATE) == quality.kbps * 1000
+            if (format.getString(MediaFormat.KEY_MIME) == "audio/mpeg" && sameBitrate) copyMp3(extractor, output)
+            else transcode(extractor, format, output, quality.kbps)
         } finally { extractor.release() }
     }
     private suspend fun copyMp3(extractor: MediaExtractor, output: OutputStream) {
@@ -89,7 +91,7 @@ internal class Mp3AudioWriter(private val context: Context) {
         }
         if (packets == 0) throw IOException("Empty MP3")
     }
-    private suspend fun transcode(extractor: MediaExtractor, input: MediaFormat, destination: OutputStream) {
+    private suspend fun transcode(extractor: MediaExtractor, input: MediaFormat, destination: OutputStream, bitrate: Int) {
         val decoder = MediaCodec.createDecoderByType(input.getString(MediaFormat.KEY_MIME)!!)
         var encoder: PcmMp3Encoder? = null
         try {
@@ -121,7 +123,7 @@ internal class Mp3AudioWriter(private val context: Context) {
                             val sampleBytes = when (pcmEncoding) { AudioFormat.ENCODING_PCM_16BIT -> 2; AudioFormat.ENCODING_PCM_FLOAT, AudioFormat.ENCODING_PCM_32BIT -> 4; AudioFormat.ENCODING_PCM_24BIT_PACKED -> 3; else -> throw IOException("Unsupported PCM encoding") }
                             val buffer = decoder.getOutputBuffer(slot)!!.duplicate().order(ByteOrder.LITTLE_ENDIAN)
                             buffer.position(info.offset); buffer.limit(info.offset + info.size)
-                            if (encoder == null) encoder = PcmMp3Encoder(rate, minOf(channels, 2))
+                            if (encoder == null) encoder = PcmMp3Encoder(rate, minOf(channels, 2), bitrate)
                             val left = IntArray(8192); val right = IntArray(8192)
                             while (buffer.remaining() >= channels * sampleBytes) {
                                 currentCoroutineContext().ensureActive()

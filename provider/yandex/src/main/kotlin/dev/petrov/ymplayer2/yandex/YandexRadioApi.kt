@@ -38,11 +38,11 @@ class HttpsRadioTransport(private val open: (String) -> HttpsURLConnection = { U
                     val bytes = body.toByteArray(Charsets.UTF_8); c.setFixedLengthStreamingMode(bytes.size)
                     c.outputStream.use { it.write(bytes) }
                 }
-                when (c.responseCode) {
-                    401, 403 -> throw RadioException(RadioIssue.ACCESS)
-                    404, 451 -> throw RadioException(RadioIssue.UNAVAILABLE)
-                    408, 429, in 500..599 -> throw RadioException(RadioIssue.NETWORK)
-                    !in 200..299 -> throw RadioException(RadioIssue.RESPONSE)
+                when (val status = c.responseCode) {
+                    401, 403 -> throw RadioException(RadioIssue.ACCESS, status)
+                    404, 451 -> throw RadioException(RadioIssue.UNAVAILABLE, status)
+                    408, 429, in 500..599 -> throw RadioException(RadioIssue.NETWORK, status)
+                    !in 200..299 -> throw RadioException(RadioIssue.RESPONSE, status)
                 }
                 val bytes = ByteArrayOutputStream()
                 c.inputStream.use { input ->
@@ -55,7 +55,14 @@ class HttpsRadioTransport(private val open: (String) -> HttpsURLConnection = { U
                 }
                 if (continuation.isActive) continuation.resume(bytes.toString("UTF-8"))
             } catch (e: Exception) { if (continuation.isActive) continuation.resumeWithException(
-                if (e is RadioException) e else RadioException(if (e is IOException) RadioIssue.NETWORK else RadioIssue.RESPONSE)) }
+                if (e is RadioException) e else RadioException(if (e is IOException) RadioIssue.NETWORK else RadioIssue.RESPONSE,
+                    networkIssue = when (e) {
+                        is java.net.UnknownHostException -> NetworkIssue.DNS
+                        is java.net.SocketTimeoutException -> NetworkIssue.TIMEOUT
+                        is javax.net.ssl.SSLException -> NetworkIssue.TLS
+                        is IOException -> NetworkIssue.CONNECTION
+                        else -> null
+                    })) }
             finally { connection?.disconnect() }
         }
     }

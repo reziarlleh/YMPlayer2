@@ -171,6 +171,8 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
         val commands = super.getAvailableCommands().buildUpon()
             .add(Player.COMMAND_SEEK_TO_NEXT).add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
             .add(Player.COMMAND_SEEK_TO_PREVIOUS).add(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
+        if (!playback.state.value.canSkipNext) commands.remove(Player.COMMAND_SEEK_TO_NEXT).remove(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+        if (!playback.state.value.canSkipPrevious) commands.remove(Player.COMMAND_SEEK_TO_PREVIOUS).remove(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
         if (playback.radioMode || !playback.state.value.supportsQueueOrdering) commands.remove(Player.COMMAND_SET_REPEAT_MODE).remove(Player.COMMAND_SET_SHUFFLE_MODE)
         if (playback.radioMode) commands.remove(Player.COMMAND_SEEK_TO_MEDIA_ITEM).remove(Player.COMMAND_SEEK_IN_CURRENT_MEDIA_ITEM)
             .remove(Player.COMMAND_SEEK_TO_DEFAULT_POSITION).remove(Player.COMMAND_SEEK_BACK).remove(Player.COMMAND_SEEK_FORWARD)

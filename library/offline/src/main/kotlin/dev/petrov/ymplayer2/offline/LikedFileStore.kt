@@ -23,7 +23,15 @@ import java.security.MessageDigest
 /** Permanent, account-scoped files. Audio, genuine artwork and checksums are independent.
  * Port of 1.x cacheLiked/CacheFileIntegrity/CachedMediaValidator; never writes a logo as a cover. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-class LikedFileStore(private val context: Context) : OfflineStore {
+class LikedFileStore(private val context: Context, private val diagnostic: (OperationDiagnostic) -> Unit = {}) : OfflineStore {
+    private val automatic = context.applicationContext.getSharedPreferences("offline-downloads", Context.MODE_PRIVATE)
+    private fun automaticKey(owner: OfflineOwner) = hash("${owner.profileId}\u0000${owner.accountId}")
+    override suspend fun pendingDownloads(owner: OfflineOwner): Set<String> = withContext(Dispatchers.IO) {
+        automatic.getStringSet(automaticKey(owner), emptySet())!!.toSet()
+    }
+    override suspend fun pendingDownloads(owner: OfflineOwner, keys: Set<String>) = withContext(Dispatchers.IO) {
+        if (!automatic.edit().putStringSet(automaticKey(owner), keys.toSet()).commit()) throw IOException("Download queue persistence failed")
+    }
     private val lock = Mutex()
     // A location lease prevents moving a download's destination. Network IO never holds the read lock.
     private val locationLease = Mutex()
@@ -105,7 +113,7 @@ class LikedFileStore(private val context: Context) : OfflineStore {
             } catch (e: CancellationException) { throw e }
             catch (e: Revoked) { throw e }
             catch (e: OfflineException) { throw e }
-            catch (_: Exception) { audioFailed = true }
+            catch (e: Exception) { reportFailure(e); audioFailed = true }
             try {
                 val valid = lock.withLock { valid(cover, 0, false) }
                 if (!valid) {
@@ -116,10 +124,15 @@ class LikedFileStore(private val context: Context) : OfflineStore {
             } catch (e: CancellationException) { throw e }
             catch (e: Revoked) { throw e }
             catch (e: OfflineException) { throw e }
-            catch (_: Exception) { coverFailed = true }
+            catch (e: Exception) { reportFailure(e); coverFailed = true }
             lock.withLock { check(allowed); OfflineItem(cached(root, track), audioFailed, coverFailed, noCover) }
         } catch (_: Revoked) { OfflineItem(null, false, false, false) }
     } }
+    private fun reportFailure(error: Throwable) {
+        val status = generateSequence(error) { it.cause }.take(20)
+            .filterIsInstance<HttpDataSource.InvalidResponseCodeException>().firstOrNull()?.responseCode
+        diagnostic(diagnosticFailure(DiagnosticOperation.OFFLINE_DOWNLOAD, error, httpStatus = status))
+    }
 
     override suspend fun retain(owner: OfflineOwner, keys: Set<String>, allowed: () -> Boolean) = withContext(Dispatchers.IO) {
         lock.withLock {

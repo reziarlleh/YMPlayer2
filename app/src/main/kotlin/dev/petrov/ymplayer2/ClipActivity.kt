@@ -54,8 +54,8 @@ class ClipActivity : ComponentActivity() {
         val player = preloader.player.apply {
             setAudioAttributes(AudioAttributes.DEFAULT, true)
         }
-        clips = ClipWaveController(YandexClipApi(graph.accounts), graph.playback.state.value.profileId,
-            player, lifecycleScope, preloader) { saved ->
+        clips = ClipWaveController(YandexClipApi(graph.accounts, diagnostic = graph.diagnostics::record), graph.playback.state.value.profileId,
+            player, lifecycleScope, preloader, diagnostic = graph.diagnostics::record) { saved ->
                 graph.clipCheckpoints.write(profile, saved)
                 if (saved.playing || graph.launchState.read(profile).output == dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS) {
                     graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, saved.playing)

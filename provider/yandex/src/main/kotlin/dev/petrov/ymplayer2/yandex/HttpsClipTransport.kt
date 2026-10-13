@@ -2,6 +2,7 @@ package dev.petrov.ymplayer2.yandex
 
 import dev.petrov.ymplayer2.core.MusicException
 import dev.petrov.ymplayer2.core.MusicFailure
+import dev.petrov.ymplayer2.core.NetworkIssue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -63,7 +64,12 @@ class HttpsClipTransport(private val open: (String) -> HttpsURLConnection = { UR
             }
             output.toString("UTF-8")
         } catch (e: MusicException) { throw e }
-          catch (_: IOException) { throw MusicException(MusicFailure.NETWORK) }
+          catch (e: IOException) { throw MusicException(MusicFailure.NETWORK, networkIssue = when (e) {
+              is java.net.UnknownHostException -> NetworkIssue.DNS
+              is java.net.SocketTimeoutException -> NetworkIssue.TIMEOUT
+              is javax.net.ssl.SSLException -> NetworkIssue.TLS
+              else -> NetworkIssue.CONNECTION
+          }) }
           catch (_: Exception) { throw MusicException(MusicFailure.RESPONSE) }
         finally { connection.disconnect() }
     }

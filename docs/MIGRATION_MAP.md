@@ -1,5 +1,12 @@
 # Карта переноса и модулей
 
+**2.6.1-build107**: core WaveLoader/WaveHistory/PlaybackState/MusicTaste/OfflineMusic/
+OperationDiagnostic; provider YandexWaveApi/AndroidTasteStore/HTTP transports;
+AndroidPlayback/MediaSession; LikedFileStore/AudioExporter/Mp3AudioWriter;
+shell кнопки и выбор битрейта. Курсор station сверён с getMoreMyWave/getMyWaveLegacy
+1.x, исходники 1.x не менялись. Cache v1, package и подпись сохранены.
+[Проверки и границы](PATCH_2_6_1_VERIFICATION.md).
+
 **2.6.0-build106**: core/FileTransfers, library/offline StorageNode/CacheDirectories/
 AudioExporter/Mp3AudioWriter; app FileTransferService/SAF pickers; shell окна
 и действия экспорта. Формат cache v1 и independent package/signing сохраняются.

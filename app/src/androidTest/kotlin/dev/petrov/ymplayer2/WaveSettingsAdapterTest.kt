@@ -93,6 +93,22 @@ class WaveSettingsAdapterTest {
         catch (e: MusicException) { assertEquals(MusicFailure.NETWORK, e.failure) }
         assertEquals(0, legacyRequests)
     }
+    @Test fun repeatedTenTrackSessionUsesLegacyRecoveryWithOriginalStationAndCursor() = runBlocking {
+        var legacy = 0
+        fun batch(ids: List<Int>) = JSONObject().put("result", JSONObject().put("batchId", "fixture")
+            .put("sequence", org.json.JSONArray(ids.map { id -> JSONObject().put("track", JSONObject().put("id", id)
+                .put("title", "Track $id").put("available", true).put("durationMs", 30000)
+                .put("artists", org.json.JSONArray()).put("albums", org.json.JSONArray())) }))).toString()
+        val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String) = batch((1..10).toList())
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                assertTrue(url.contains("/rotor/station/user:onyourwave/tracks")); assertTrue(url.contains("queue=10"))
+                legacy++; return batch(listOf(11))
+            }
+        }))
+        val next = WaveLoader(api).load("owner", WaveBatch(emptyList(), "stuck", "10"), (1..10).map { it.toString() }.toSet()) { true }
+        assertEquals("11", next.cursor); assertEquals(1, legacy)
+    }
     @Test fun objectSessionAndLegacyFallbackNeverReplaceTheRequestedSeed() = runBlocking {
         for (seed in listOf("track:7", "artist:8", "album:9", "playlist:100_3")) {
             var modern = 0; var legacy = 0

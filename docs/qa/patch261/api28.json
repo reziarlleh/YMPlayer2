@@ -1,0 +1,9 @@
+{
+  "serial": "emulator-5560",
+  "api": 28,
+  "passed": 55,
+  "failed": 0,
+  "success": true,
+  "seconds": 242.7,
+  "log": "api28.txt"
+}

@@ -10,23 +10,29 @@ interface MyWaveApi {
     suspend fun start(profileId: String, request: WaveRequest): WaveBatch = start(profileId).copy(request = request)
     suspend fun options(profileId: String, language: String): WaveOptions = throw MusicException(MusicFailure.UNAVAILABLE)
     suspend fun next(profileId: String, previous: WaveBatch): WaveBatch
+    suspend fun recover(profileId: String, previous: WaveBatch?, request: WaveRequest): WaveBatch = start(profileId, request)
     suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int = 0)
 }
 
 /** 1.x fast first track + continuation/recovery, with bounded duplicate/blocked-track draining. */
-class WaveLoader(private val api: MyWaveApi) {
+class WaveLoader(private val api: MyWaveApi, private val diagnostic: (OperationDiagnostic) -> Unit = {}) {
     suspend fun load(profile: String, previous: WaveBatch?, seen: Set<String>, request: WaveRequest = previous?.request ?: WaveRequest(), allows: (Track) -> Boolean): WaveBatch {
         var cursor = previous
         var lastFailure: Exception? = null
         var failures = 0
         val drained = mutableSetOf<String>()
+        var recovering = false
         previous?.cursor?.takeIf(String::isNotBlank)?.let { drained.add(it) }
         repeat(8) {
             try {
-                val response = if (cursor == null) api.start(profile, request) else api.next(profile, cursor!!)
+                val response = if (recovering) api.recover(profile, previous, request)
+                    else if (cursor == null) api.start(profile, request) else api.next(profile, cursor!!)
+                recovering = false
                 val batch = response.copy(request = request, tracks = response.tracks.map { it.copy(station = request.station) })
                 val tracks = batch.tracks.filter { it.track.available && it.track.tasteTarget().key !in seen && allows(it.track) }
                     .distinctBy { it.track.tasteTarget().key }
+                diagnostic(OperationDiagnostic(DiagnosticOperation.WAVE_DRAIN, returned = batch.tracks.size, accepted = tracks.size,
+                    attempt = it + 1, session = batch.sessionId.isNotBlank(), cursorAdvanced = batch.cursor != cursor?.cursor))
                 if (tracks.isNotEmpty()) {
                     val next = tracks.first()
                     return batch.copy(tracks = listOf(next), cursor = next.track.tasteTarget().key)
@@ -34,16 +40,19 @@ class WaveLoader(private val api: MyWaveApi) {
                 // Walk past already seen/blocked entries instead of repeatedly requesting the same cursor.
                 // A cursor can be old without being stuck: the server may echo history.
                 // Reset only after the same cursor is returned twice during this drain.
-                cursor = if (batch.cursor.isBlank() || !drained.add(batch.cursor)) null else batch
+                recovering = batch.cursor.isBlank() || !drained.add(batch.cursor)
+                cursor = if (recovering) null else batch
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 lastFailure = e
                 if (e is MusicException && e.failure in setOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS)) throw e
                 if (++failures >= 3) throw e
-                cursor = if (failures == 1) null else previous
+                diagnostic(diagnosticFailure(DiagnosticOperation.WAVE_NEXT, e))
+                recovering = failures == 1
+                cursor = if (recovering) null else previous
             }
         }
-        throw lastFailure ?: MusicException(MusicFailure.UNAVAILABLE)
+        throw lastFailure ?: MusicException(MusicFailure.NO_PROGRESS)
     }
 }
 

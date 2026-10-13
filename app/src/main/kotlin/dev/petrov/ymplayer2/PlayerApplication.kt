@@ -1,6 +1,7 @@
 package dev.petrov.ymplayer2
 
 import android.app.Application
+import android.content.Intent
 import dev.petrov.ymplayer2.library.SafLibrary
 import dev.petrov.ymplayer2.library.LocalCollections
 import dev.petrov.ymplayer2.playback.AndroidPlayback
@@ -107,17 +108,19 @@ class PlayerApplication : Application(), PlaybackHost {
     val library by lazy { SafLibrary(this, scope) }
     val collections by lazy { LocalCollections(this, library, scope) }
     val history by lazy { dev.petrov.ymplayer2.library.ListeningHistory(this, scope) }
-    private val musicApi by lazy { YandexMusicApi(accounts) }
+    private val musicApi by lazy { YandexMusicApi(accounts, diagnostic = diagnostics::record) }
     val online by lazy { OnlineMusic(accounts, musicApi, scope) }
     val cloudPlaylists by lazy { dev.petrov.ymplayer2.core.CloudPlaylists(accounts,
         dev.petrov.ymplayer2.yandex.YandexPlaylistApi(musicApi), scope, online::playlistChanged) }
-    val taste by lazy { MusicTaste(accounts, YandexTasteApi(musicApi), scope, online::refreshCollection) }
+    val taste: MusicTaste by lazy { MusicTaste(accounts, YandexTasteApi(musicApi), scope, online::refreshCollection,
+        store = dev.petrov.ymplayer2.yandex.AndroidTasteStore(this), connection = internet.available,
+        diagnostic = diagnostics::record, confirmed = { owner, target, action -> offline.confirmedReaction(owner, target, action) }) }
     private val offlinePrefs by lazy { getSharedPreferences("offline", MODE_PRIVATE) }
     val audioQuality by lazy { loadAudioQuality(this) }
-    val offlineStore by lazy { LikedFileStore(this) }
+    val offlineStore by lazy { LikedFileStore(this, diagnostics::record) }
     val cacheLocation: dev.petrov.ymplayer2.offline.CacheLocationController by lazy { dev.petrov.ymplayer2.offline.CacheLocationController(offlineStore, offline, scope) { audioExporter.state.value.running } }
-    val audioExporter: dev.petrov.ymplayer2.offline.AudioExporter by lazy { dev.petrov.ymplayer2.offline.AudioExporter(this, accounts, musicApi, offline, cacheLocation, scope) }
-    val offline by lazy { OfflineMusic(accounts, taste, YandexLikedMusicApi(musicApi), musicApi, offlineStore, scope,
+    val audioExporter: dev.petrov.ymplayer2.offline.AudioExporter by lazy { dev.petrov.ymplayer2.offline.AudioExporter(this, accounts, musicApi, offline, cacheLocation, scope, diagnostics::record) }
+    val offline: OfflineMusic by lazy { OfflineMusic(accounts, taste, YandexLikedMusicApi(musicApi), musicApi, offlineStore, scope,
         offlinePrefs.getBoolean("wifiOnly", true), { offlinePrefs.edit().putBoolean("wifiOnly", it).apply() }, { wifi ->
             val manager = getSystemService(android.net.ConnectivityManager::class.java)
             val caps = manager.getNetworkCapabilities(manager.activeNetwork)
@@ -125,14 +128,21 @@ class PlayerApplication : Application(), PlaybackHost {
                 (!wifi || caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI))
         }, cacheQuality = { audioQuality.state.value.cache },
         enabled = offlinePrefs.getBoolean("enabled", true),
-        saveEnabled = { offlinePrefs.edit().putBoolean("enabled", it).apply() }) }
-    override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi), offline,
+        saveEnabled = { offlinePrefs.edit().putBoolean("enabled", it).apply() }, diagnostic = diagnostics::record,
+        automaticWork = { runCatching { startForegroundService(Intent(this, OfflineSyncService::class.java)) } })
+        .also { cache ->
+            scope.launch { internet.available.collect { if (it) cache.retryAutomatic() } }
+            scope.launch { while (kotlinx.coroutines.currentCoroutineContext().isActive) {
+                kotlinx.coroutines.delay(30_000); taste.retryPending(); cache.retryAutomatic()
+            } }
+        } }
+    override val playback by lazy { AndroidPlayback(this, library, scope, online, taste, YandexWaveApi(musicApi, diagnostics::record), offline,
         streamQuality = { audioQuality.state.value.stream }, listened = history::record,
         waveFeedbackResult = { success -> scope.launch(kotlinx.coroutines.Dispatchers.IO) {
             diagnostics.record(if (success) DiagnosticEvent.WAVE_FEEDBACK_SENT else DiagnosticEvent.WAVE_FEEDBACK_FAILED)
-        } }) }
+        } }, diagnostic = diagnostics::record) }
     private val radioApi by lazy { dev.petrov.ymplayer2.yandex.YandexRadioApi(accounts) }
-    override val radio by lazy { dev.petrov.ymplayer2.playback.AndroidRadio(this, playback, radioApi, scope) }
+    override val radio by lazy { dev.petrov.ymplayer2.playback.AndroidRadio(this, playback, radioApi, scope, diagnostics::record) }
     val radioCatalog by lazy { dev.petrov.ymplayer2.core.RadioController(accounts, radioApi, radio, scope,
         readNavigation = { profile -> runCatching {
             val data = org.json.JSONObject(radioNavigation.getString(profile, "")!!)

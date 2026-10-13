@@ -1,0 +1,12 @@
+{
+  "coreTests": 141,
+  "coreFailures": 0,
+  "coreErrors": 0,
+  "releaseLint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 67
+  },
+  "sourceBuildLog": ".local-build/patch261-build11-lint.txt",
+  "releaseBuildLog": ".local-build/patch261-release-build.txt"
+}

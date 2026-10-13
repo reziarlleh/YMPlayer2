@@ -15,9 +15,11 @@ import java.util.Locale
 /** One user-requested operation, separate from likes sync and playback. No writes to the source collection. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class AudioExporter(private val context: Context, private val accounts: AccountAuth, private val music: OnlineMusicApi,
-    private val offline: OfflineMusic, private val locations: CacheLocationAccess, private val scope: CoroutineScope) : AudioExportAccess {
+    private val offline: OfflineMusic, private val locations: CacheLocationAccess, private val scope: CoroutineScope,
+    private val diagnostic: (OperationDiagnostic) -> Unit = {}) : AudioExportAccess {
     private val prefs = context.getSharedPreferences("mp3-export", Context.MODE_PRIVATE)
-    private val mutable = MutableStateFlow(AudioExportState(template = prefs.getString("template", ExportFileName.DEFAULT)!!.take(300)))
+    private val mutable = MutableStateFlow(AudioExportState(template = prefs.getString("template", ExportFileName.DEFAULT)!!.take(300),
+        quality = Mp3Quality.from(prefs.getInt("kbps", 320))))
     override val state = mutable.asStateFlow()
     private var job: Job? = null
     private var requestedAccount: String? = null
@@ -59,7 +61,7 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
     override fun ask(request: AudioExportRequest) {
         if (!state.value.running) {
             requestedAccount = accounts.state.value.account?.id
-            mutable.value = AudioExportState(request, state.value.template)
+            mutable.value = AudioExportState(request, state.value.template, quality = state.value.quality)
         }
     }
     override fun template(value: String) {
@@ -69,6 +71,11 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
         prefs.edit().putString("template", text).apply()
     }
     override fun dismiss() { if (!state.value.running) mutable.value = state.value.copy(request = null) }
+    override fun quality(value: Mp3Quality) {
+        if (state.value.running) return
+        mutable.value = state.value.copy(quality = value)
+        prefs.edit().putInt("kbps", value.kbps).apply()
+    }
     override fun cancel() { job?.cancel() }
     fun report(message: String) { mutable.value = state.value.copy(message = message) }
     override fun start(destination: String) {
@@ -98,7 +105,7 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                         var temp: StorageNode? = null
                         var downloaded: StorageNode? = null
                         try {
-                            val expected = (track.durationSeconds.toLong().coerceAtLeast(1) * 40_000) + 64 * 1024
+                            val expected = (track.durationSeconds.toLong().coerceAtLeast(1) * before.quality.kbps * 125L) + 64 * 1024
                             if (folder.usableSpace < expected + 16L * 1024 * 1024) throw IOException("Недостаточно места для экспорта MP3.")
                             val source = if (track.source == Source.YANDEX) offline.audio(profile, track.id)
                                 ?: music.stream(profile, track.id, AudioQuality.HIGH)
@@ -109,7 +116,7 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                                 downloaded!!.uri.toString()
                             } else source
                             temp = temporary(folder, ".YMPlayer2-export-")
-                            temp.outputStream().buffered().use { output -> writer.write(input, track, index, tracks.size, output) }
+                            temp.outputStream().buffered().use { output -> writer.write(input, track, index, tracks.size, output, before.quality) }
                             currentCoroutineContext().ensureActive()
                             if (accounts.state.value.profileId != profile || accounts.state.value.account?.id != account) throw CancellationException("Profile changed")
                             validate(temp, track.durationSeconds)
@@ -125,6 +132,7 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                             mutable.value = state.value.copy(completed = state.value.completed + 1)
                         } catch (e: CancellationException) { throw e }
                         catch (e: Exception) {
+                            reportFailure(e)
                             mutable.value = state.value.copy(failed = state.value.failed + 1)
                             if (e.message == "Недостаточно места для экспорта MP3.") throw e
                         } finally {
@@ -136,13 +144,18 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                     if (state.value.failed > 0) message = "Экспорт завершён с ошибками. Готовые MP3 сохранены."
                 }
             } catch (e: CancellationException) { message = "Экспорт отменён. Готовые MP3 сохранены." }
-            catch (e: Exception) { message = when (e.message) {
+            catch (e: Exception) { reportFailure(e); message = when (e.message) {
                 "Недостаточно места для экспорта MP3." -> e.message!!
                 "Не удалось определить свободное место. Выберите папку на устройстве или USB." -> e.message!!
                 else -> "Не удалось завершить экспорт MP3. Проверьте доступ к папке, сеть и свободное место."
             } }
             finally { mutable.value = state.value.copy(running = false, current = "", message = message) }
         }
+    }
+    private fun reportFailure(error: Throwable) {
+        val status = generateSequence(error) { it.cause }.take(20)
+            .filterIsInstance<HttpDataSource.InvalidResponseCodeException>().firstOrNull()?.responseCode
+        diagnostic(diagnosticFailure(DiagnosticOperation.MP3_EXPORT, error, httpStatus = status))
     }
     private suspend fun download(uri: String, target: StorageNode, folder: StorageNode, outputBytes: Long) {
         val data = DefaultHttpDataSource.Factory().setUserAgent("Yandex-Music-API").setConnectTimeoutMs(15_000).setReadTimeoutMs(20_000).createDataSource()

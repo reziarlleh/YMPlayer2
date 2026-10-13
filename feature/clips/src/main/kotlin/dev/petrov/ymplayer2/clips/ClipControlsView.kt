@@ -150,7 +150,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         play.isEnabled = state.clip != null
         play.text = if (state.playRequested || state.playing) "Ⅱ" else "▶"
         play.contentDescription = if (state.playRequested || state.playing) tr(Msg.msg_65530fd463ea) else tr(Msg.msg_bdd37eb21746)
-        next.isEnabled = state.clip != null && !state.loading
+        next.isEnabled = state.nextClip != null && !state.loading
         for (control in listOf(previous, play, next)) control.alpha = if (control.isEnabled) 1f else .42f
         if (!state.playing || state.issue != null || connectionStatus != InternetStatus.CONNECTED) shown = true
         display()

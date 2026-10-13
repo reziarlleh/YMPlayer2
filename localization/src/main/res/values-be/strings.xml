@@ -730,5 +730,16 @@
     <string name="wave_wakeup" formatted="false">"Прачынаюся"</string>
     <string name="wave_work" formatted="false">"Працую"</string>
     <string name="wave_workout" formatted="false">"Трэніруюся"</string>
+    <string name="taste_pending_detail" formatted="false">"Змена захавана. Адправім яе ў Яндэкс, калі сувязь адновіцца. @0@"</string>
+    <string name="export_quality" formatted="false">"Якасць MP3"</string>
+    <string name="export_bitrate" formatted="false">"Бітрэйт: @0@ кбіт/с"</string>
+    <string name="export_quality_hint" formatted="false">"Вышэйшы бітрэйт павялічвае памер файла, але не паляпшае якасць зыходнага запісу."</string>
+    <string name="taste_pending" formatted="false">"Змена захавана. Адправім яе ў Яндэкс, калі сувязь адновіцца."</string>
+    <string name="taste_pending_failure" formatted="false">"Не ўдалося захаваць адкладзеную змену."</string>
+    <string name="offline_auto_saving" formatted="false">"Захоўваем упадабаныя трэкі для праслухоўвання без інтэрнэту…"</string>
+    <string name="offline_auto_complete" formatted="false">"Аўтаматычнае захаванне офлайн завершана. Няўдалыя спампоўванні застаюцца ў чарзе для паўтору."</string>
+    <string name="offline_auto_wait_wifi" formatted="false">"Трэк упадабаны. Спампоўванне пачнецца пры падключэнні да Wi-Fi."</string>
+    <string name="offline_auto_wait_network" formatted="false">"Трэк упадабаны. Спампоўванне пачнецца, калі інтэрнэт-злучэнне адновіцца."</string>
+    <string name="wave_no_progress" formatted="false">"Яндэкс не даслаў новых трэкаў для хвалі. Паспрабуйце пазней."</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

@@ -1,0 +1,9 @@
+{
+  "serial": "emulator-5562",
+  "api": 35,
+  "passed": 6,
+  "failed": 0,
+  "success": true,
+  "seconds": 20.58,
+  "log": "api35-system-retry.txt"
+}

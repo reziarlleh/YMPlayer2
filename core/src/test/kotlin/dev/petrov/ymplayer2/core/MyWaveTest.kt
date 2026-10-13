@@ -63,6 +63,20 @@ class MyWaveTest {
         assertEquals("3", WaveLoader(api).load("owner", batch(2), setOf("1", "2")) { true }.cursor)
         assertEquals(1, api.starts); assertEquals(2, api.continuations)
     }
+    @Test fun repeatedTenTrackBatchRecoversThroughAlternatePathWithoutPlayingHistoryAgain() = runTest {
+        val seen = (1..10).map { it.toString() }.toSet()
+        var recoveries = 0
+        val api = object : MyWaveApi {
+            override suspend fun start(profileId: String) = WaveBatch((1..10).flatMap { batch(it).tracks }, "stuck", "10")
+            override suspend fun next(profileId: String, previous: WaveBatch) = start(profileId)
+            override suspend fun recover(profileId: String, previous: WaveBatch?, request: WaveRequest): WaveBatch {
+                recoveries++; return batch(11)
+            }
+            override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) = Unit
+        }
+        val loaded = WaveLoader(api).load("owner", batch(10), seen) { true }
+        assertEquals("11", loaded.cursor); assertEquals(1, recoveries)
+    }
     @Test fun boundedHistoryRestoresAcrossRestartWithoutAlbumDuplicates() {
         val history = WaveHistory(3)
         listOf("1", "2", "3", "3", "4").forEach(history::remember)

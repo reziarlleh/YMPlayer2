@@ -61,7 +61,12 @@ class HttpsMusicTransport(private val open: (String) -> HttpsURLConnection = { U
             } catch (e: Exception) {
                 if (continuation.isActive) continuation.resumeWithException(when (e) {
                     is MusicException -> e
-                    is IOException -> MusicException(MusicFailure.NETWORK)
+                    is IOException -> MusicException(MusicFailure.NETWORK, networkIssue = when (e) {
+                        is java.net.UnknownHostException -> NetworkIssue.DNS
+                        is java.net.SocketTimeoutException -> NetworkIssue.TIMEOUT
+                        is javax.net.ssl.SSLException -> NetworkIssue.TLS
+                        else -> NetworkIssue.CONNECTION
+                    })
                     else -> MusicException(MusicFailure.RESPONSE)
                 })
             } finally { connection?.disconnect() }

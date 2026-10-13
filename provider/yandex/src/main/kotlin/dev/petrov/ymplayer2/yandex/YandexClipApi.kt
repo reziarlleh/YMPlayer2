@@ -3,6 +3,9 @@ package dev.petrov.ymplayer2.yandex
 import dev.petrov.ymplayer2.core.AccountAuth
 import dev.petrov.ymplayer2.core.MusicException
 import dev.petrov.ymplayer2.core.MusicFailure
+import dev.petrov.ymplayer2.core.OperationDiagnostic
+import dev.petrov.ymplayer2.core.DiagnosticOperation
+import dev.petrov.ymplayer2.core.diagnosticFailure
 import kotlinx.coroutines.CancellationException
 import org.json.JSONArray
 import org.json.JSONObject
@@ -33,6 +36,7 @@ enum class ClipFeedback(val wire: String) {
 class YandexClipApi(
     private val accounts: AccountAuth,
     private val transport: ClipTransport = HttpsClipTransport(),
+    private val diagnostic: (OperationDiagnostic) -> Unit = {},
 ) {
     suspend fun start(profileId: String): ClipSession = scoped(profileId) { token ->
         val body = JSONObject().put("supportedTypes", JSONArray().put("clip")).put("queue", JSONArray())
@@ -58,7 +62,7 @@ class YandexClipApi(
             JSONObject(transport.get("https://frontend.vh.yandex.ru/player/${segment(clip.playerId)}.json" +
                 "?service=ya-music&from=YandexMusicAndroidTVKPHD", token))
         } catch (e: CancellationException) { throw e }
-          catch (_: Exception) { return@scoped preview ?: throw MusicException(MusicFailure.UNAVAILABLE) }
+          catch (e: Exception) { diagnostic(diagnosticFailure(DiagnosticOperation.CLIP_STREAM, e)); return@scoped preview ?: throw MusicException(MusicFailure.UNAVAILABLE) }
         val content = response.optJSONObject("content") ?: response.optJSONObject("result")?.optJSONObject("content")
         val episode = content?.optJSONObject("actual_episode")
         select(episode?.optJSONArray("streams"))

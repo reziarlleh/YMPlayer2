@@ -5,6 +5,9 @@ import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import dev.petrov.ymplayer2.core.MusicException
 import dev.petrov.ymplayer2.core.MusicFailure
+import dev.petrov.ymplayer2.core.OperationDiagnostic
+import dev.petrov.ymplayer2.core.DiagnosticOperation
+import dev.petrov.ymplayer2.core.diagnosticFailure
 import dev.petrov.ymplayer2.yandex.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +33,7 @@ class ClipWaveController(
     val player: ExoPlayer,
     private val scope: CoroutineScope,
     private val preloader: ClipMediaPreloader? = null,
+    private val diagnostic: (OperationDiagnostic) -> Unit = {},
     private val saveCheckpoint: (ClipCheckpoint) -> Unit = {},
 ) {
     private val mutable = MutableStateFlow(ClipWaveState())
@@ -82,6 +86,9 @@ class ClipWaveController(
             if (playbackState == Player.STATE_ENDED && !closed) advance(false)
         }
         override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
+            val http = generateSequence<Throwable>(error) { it.cause }.take(20)
+                .filterIsInstance<androidx.media3.datasource.HttpDataSource.InvalidResponseCodeException>().firstOrNull()?.responseCode
+            diagnostic(diagnosticFailure(DiagnosticOperation.CLIP_PLAYBACK, error, error.errorCode, http))
             mutable.value = mutable.value.copy(loading = false, issue = "Не удалось воспроизвести клип. Попробуйте следующий.")
         }
     }
@@ -273,6 +280,7 @@ class ClipWaveController(
             catch (_: Exception) { /* Feedback cannot interrupt video. */ } }
     }
     private fun fail(e: Exception) {
+        diagnostic(diagnosticFailure(DiagnosticOperation.CLIP_STREAM, e))
         val message = when ((e as? MusicException)?.failure) {
             MusicFailure.SIGN_IN -> "Войдите в Яндекс Музыку для просмотра клипов."
             MusicFailure.ACCESS -> "Войдите в Яндекс Музыку для просмотра клипов."

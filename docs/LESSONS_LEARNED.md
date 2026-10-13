@@ -1,5 +1,18 @@
 # Ошибочные решения и правила повторного использования
 
+### 2026-10-13 — pending actions и естественный конец списка
+
+Server verifiedRevision не меняется при queued offline unlike. Кэш должен
+учитывать desired membership; snapshot сервера до отправки intent не вправе
+возвращать такой файл. Проверка fullSyncCannotResurrect... сначала выявила
+дефект, затем прошла. Rollback одного failed persist не должен возвращать
+целый старый pending list и удалять intent другого kind.
+
+Событие EOF может быть стёрто последующим source refresh до polling tick.
+Сохранять intent отдельно; metadata window не равен целому списку.
+Native reproducer использует raw ExoPlayer на main: MediaSession wrapper
+перенаправляет setMediaItem в очередь команд и не моделирует source refresh.
+[Доказательства/границы](PATCH_2_6_1_VERIFICATION.md).
 ### 2026-10-13 — релиз без настроек OAuth
 
 Игнорируемые .provider/.signing файлы не переносятся в новый worktree сами.

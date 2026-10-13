@@ -11,6 +11,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -76,16 +77,16 @@ import kotlinx.coroutines.launch
                     DropdownMenu(sourceChoice, { sourceChoice = false }) {
                         DropdownMenuItem({ Text(tr(Msg.msg_de1ea8c09caa)) }, {
                             sourceChoice = false; if (account?.signedIn == true) player.playMyWave() else signIn()
-                        }, Modifier.testTag("player_source_wave"))
+                        }, Modifier.testTag("player_source_wave").focusProperties { canFocus = true }.prismFocus())
                         DropdownMenuItem({ Text(tr(Msg.player_source_offline)) }, { sourceChoice = false; player.playOffline() },
-                            Modifier.testTag("player_source_offline"), enabled = cached?.enabled == true)
+                            Modifier.testTag("player_source_offline").focusProperties { canFocus = cached?.enabled == true }.prismFocus(), enabled = cached?.enabled == true)
                         DropdownMenuItem({ Text(tr(Msg.player_source_favorites)) }, {
                             sourceChoice = false; player.playList(favorites.map(SavedTrack::id), origin = PlaybackOrigin(PlaybackSource.LOCAL_FAVORITES))
-                        }, Modifier.testTag("player_source_favorites"), enabled = favorites.isNotEmpty() && saved?.ready == true)
+                        }, Modifier.testTag("player_source_favorites").focusProperties { canFocus = favorites.isNotEmpty() && saved?.ready == true }.prismFocus(), enabled = favorites.isNotEmpty() && saved?.ready == true)
                     }
                     }
                     if (myWaveActive && waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
-                        { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings"))
+                        { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings").focusProperties { canFocus = true })
                 }
             } else Text(tr(Msg.msg_a94943f157d5), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, maxLines = 1)
             ActionIcon(UiIcon.EQUALIZER, tr(Msg.msg_fdc54db3a2b0), { equalizer(false) }, Modifier.testTag("player_equalizer"))
@@ -177,18 +178,18 @@ import kotlinx.coroutines.launch
     val isTv = LocalConfiguration.current.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION
     LaunchedEffect(state.current?.available) { if (isTv && state.current?.available == true) focus.requestFocus() }
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
-        @Composable fun button(icon: UiIcon, label: String, click: () -> Unit, tag: String, primary: Boolean = false) {
+        @Composable fun button(icon: UiIcon, label: String, click: () -> Unit, tag: String, primary: Boolean = false, available: Boolean = true) {
             val size = if (primary) if (compact) 80.dp else 96.dp else 64.dp
             FilledIconButton(click, Modifier.size(size).prismFocus().testTag(tag).then(if (primary) Modifier.focusRequester(focus) else Modifier),
-                enabled = !primary || state.current?.available == true || state.wave,
+                enabled = available && (!primary || state.current?.available == true || state.wave),
                 colors = IconButtonDefaults.filledIconButtonColors(containerColor = if (primary) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceContainerHigh,
                     contentColor = if (primary) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface)) {
                 SkinIcon(icon, label, Modifier.size(if (primary) 48.dp else 36.dp))
             }
         }
-        button(UiIcon.PREVIOUS, tr(Msg.msg_3fbf9e4ea1c1), { player.skip(-1) }, "player_previous")
+        button(UiIcon.PREVIOUS, tr(Msg.msg_3fbf9e4ea1c1), { player.skip(-1) }, "player_previous", available = state.canSkipPrevious)
         button(if (state.playing) UiIcon.PAUSE else UiIcon.PLAY, if (state.playing) tr(Msg.msg_65530fd463ea) else tr(Msg.msg_bdd37eb21746), player::toggle, "player_play", true)
-        button(UiIcon.NEXT, tr(Msg.msg_46da7285528f), { player.skip(1) }, "player_next")
+        button(UiIcon.NEXT, tr(Msg.msg_46da7285528f), { player.skip(1) }, "player_next", available = state.canSkipNext)
         button(UiIcon.STOP, tr(Msg.msg_3396400da0c4), player::stop, "player_stop")
     }
 }

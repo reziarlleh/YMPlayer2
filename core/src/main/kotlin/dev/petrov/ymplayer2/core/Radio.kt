@@ -14,7 +14,7 @@ class RadioStream(val station: RadioStation, val streamSlug: String, val url: St
     override fun toString() = "RadioStream(redacted)"
 }
 enum class RadioIssue { NETWORK, ACCESS, UNAVAILABLE, RESPONSE }
-class RadioException(val issue: RadioIssue) : Exception(issue.name)
+class RadioException(val issue: RadioIssue, val httpStatus: Int? = null, val networkIssue: NetworkIssue? = null) : Exception(issue.name)
 interface RadioApi {
     suspend fun stations(region: String?, cursor: String? = null): RadioPage
     suspend fun station(slug: String, region: String?): RadioStation

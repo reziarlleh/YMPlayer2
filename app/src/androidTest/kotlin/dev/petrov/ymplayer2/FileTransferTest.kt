@@ -224,6 +224,18 @@ class FileTransferTest {
         compose.onNodeWithTag("export_choose_folder").assertIsEnabled()
         assertEquals("{artist} - {title}", h.context.getSharedPreferences("mp3-export", 0).getString("template", null))
     }
+    @Test fun exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback() {
+        val before = h.player.state.value.current?.id
+        compose.runOnIdle { h.audioExporter.ask(AudioExportRequest("owner", "Offline", tracks = h.offline.state.value.tracks)) }
+        for (kbps in listOf(128, 192, 256, 320)) compose.onNodeWithTag("export_quality_$kbps").assertExists()
+        compose.onNodeWithTag("export_quality_auto").assertDoesNotExist()
+        compose.onNodeWithTag("export_quality_192").performScrollTo().performClick().assertIsSelected()
+        assertEquals(Mp3Quality.KBPS192, h.audioExporter.state.value.quality)
+        assertEquals(192, h.context.getSharedPreferences("mp3-export", 0).getInt("kbps", 0))
+        compose.runOnIdle { h.audioExporter.dismiss(); h.audioExporter.ask(AudioExportRequest("owner", "Again", tracks = h.offline.state.value.tracks)) }
+        compose.onNodeWithTag("export_quality_192").assertIsSelected()
+        assertEquals(before, h.player.state.value.current?.id)
+    }
     @Test fun exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames() {
         val track = h.offline.state.value.tracks.first().copy(title = "My Original Title", artist = "Original Artist")
         compose.runOnIdle { h.audioExporter.ask(AudioExportRequest("owner", "User collection", tracks = listOf(track))); h.audioExporter.template(ExportFileName.DEFAULT) }
@@ -231,6 +243,8 @@ class FileTransferTest {
             for (language in AppLanguages.available) {
                 compose.runOnIdle { AppLanguages.select(language.tag) }
                 compose.onNodeWithText(trMessage("Экспорт MP3")).assertIsDisplayed()
+                compose.onNodeWithText(trMessage("Качество MP3")).assertIsDisplayed()
+                compose.onNodeWithText(trMessage("Битрейт: 192 кбит/с")).assertExists()
                 compose.onNodeWithTag("export_name_preview").assertTextContains("Original Artist - My Original Title", substring = true)
                 compose.onNodeWithTag("export_template_help").performClick()
                 compose.onNodeWithText(trMessage("Переменные шаблона")).assertIsDisplayed()

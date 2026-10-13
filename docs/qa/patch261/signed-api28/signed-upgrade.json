@@ -1,0 +1,23 @@
+{
+  "serial": "emulator-5560",
+  "api": 28,
+  "beforeVersion": "2.6.0-build106",
+  "fullAccountGrantTested": false,
+  "beforeScale": [
+    "100%"
+  ],
+  "afterVersion": "2.6.1-build107",
+  "routeRestoredAfterForceStop": true,
+  "afterScale": [
+    "100%"
+  ],
+  "realDeviceCodeReceived": true,
+  "beforeCheckedThemeControls": 1,
+  "afterCheckedThemeControls": 1,
+  "beforeCheckedCacheControls": 1,
+  "afterCheckedCacheControls": 1,
+  "selectionIdentityNotCaptured": true,
+  "afterLanguage": "English",
+  "cleanup": "Back; no device code retained",
+  "passed": true
+}

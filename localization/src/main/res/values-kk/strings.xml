@@ -730,5 +730,16 @@
     <string name="wave_wakeup" formatted="false">"Оянып жатырмын"</string>
     <string name="wave_work" formatted="false">"Жұмыс істеп жатырмын"</string>
     <string name="wave_workout" formatted="false">"Жаттығып жатырмын"</string>
+    <string name="taste_pending_detail" formatted="false">"Өзгеріс сақталды. Байланыс қалпына келгенде ол Yandex-ке жіберіледі. @0@"</string>
+    <string name="export_quality" formatted="false">"MP3 сапасы"</string>
+    <string name="export_bitrate" formatted="false">"Битрейт: @0@ кбит/с"</string>
+    <string name="export_quality_hint" formatted="false">"Жоғары битрейт файл көлемін ұлғайтады, бірақ бастапқы жазбаның сапасын жақсартпайды."</string>
+    <string name="taste_pending" formatted="false">"Өзгеріс сақталды. Байланыс қалпына келгенде ол Yandex-ке жіберіледі."</string>
+    <string name="taste_pending_failure" formatted="false">"Кейін жіберілетін өзгерісті сақтау мүмкін болмады."</string>
+    <string name="offline_auto_saving" formatted="false">"Ұнаған тректер офлайн тыңдау үшін сақталып жатыр…"</string>
+    <string name="offline_auto_complete" formatted="false">"Автоматты офлайн сақтау аяқталды. Жүктелмеген тректер қайталап жүктеу кезегінде қалады."</string>
+    <string name="offline_auto_wait_wifi" formatted="false">"Трек ұнағандарға қосылды. Wi-Fi қосылғанда жүктеле бастайды."</string>
+    <string name="offline_auto_wait_network" formatted="false">"Трек ұнағандарға қосылды. Интернет байланысы қалпына келгенде жүктеле бастайды."</string>
+    <string name="wave_no_progress" formatted="false">"Yandex толқын үшін жаңа тректер жібермеді. Кейінірек қайталап көріңіз."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

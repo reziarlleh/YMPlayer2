@@ -13,7 +13,7 @@ import org.json.JSONObject
 /** Borrows AudioService's engine. Never creates a second player, service, token store or audio queue. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class AndroidRadio(private val context: Context, private val music: AndroidPlayback, private val api: RadioApi,
-    private val scope: CoroutineScope) : RadioAudio {
+    private val scope: CoroutineScope, private val diagnostic: (OperationDiagnostic) -> Unit = {}) : RadioAudio {
     private val prefs = context.getSharedPreferences("radio", Context.MODE_PRIVATE)
     private val launchState = LaunchStateStore(context)
     private var profileLoaded = false
@@ -37,7 +37,10 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
             if (player.isPlaying) { retryCount = 0; mutable.value = state.value.copy(issue = null) }
             if (wantsPlay && player.playbackState == Player.STATE_ENDED) reconnect()
         }
-        override fun onPlayerError(error: PlaybackException) { if (state.value.ownsOutput && wantsPlay) reconnect() }
+        override fun onPlayerError(error: PlaybackException) {
+            if (state.value.ownsOutput) diagnostic(mediaFailureDiagnostic(DiagnosticOperation.RADIO_PLAYBACK, error))
+            if (state.value.ownsOutput && wantsPlay) reconnect()
+        }
         override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
             if (state.value.ownsOutput && reason == Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS && !playWhenReady) {
                 // A permanent focus loss must not be undone by a network retry.
@@ -95,6 +98,7 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
                 poll(ticket, stream.station.slug, stream.streamSlug)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
+                diagnostic(diagnosticFailure(DiagnosticOperation.RADIO_STREAM, e))
                 if (ticket == generation) {
                     mutable.value = state.value.copy(playing = false, buffering = false, issue = e.radioIssue())
                     if (e.radioIssue() == RadioIssue.NETWORK) reconnect()
@@ -117,7 +121,7 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
                         player.replaceMediaItem(0, item.buildUpon().setMediaMetadata(metadata()).build())
                     } }
                 } catch (e: CancellationException) { throw e }
-                catch (_: Exception) { if (ticket == generation) mutable.value = state.value.copy(onAir = RadioOnAir()) }
+                catch (e: Exception) { diagnostic(diagnosticFailure(DiagnosticOperation.RADIO_ON_AIR, e)); if (ticket == generation) mutable.value = state.value.copy(onAir = RadioOnAir()) }
                 delay(pause.coerceIn(5_000, 60_000))
             }
         }

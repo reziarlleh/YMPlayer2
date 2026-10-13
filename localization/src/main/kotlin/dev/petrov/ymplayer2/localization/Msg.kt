@@ -725,5 +725,16 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     wave_source_title("Волна · @0@", "Radio · @0@", R.string.wave_source_title),
     wave_wakeup("Просыпаюсь", "Waking up", R.string.wave_wakeup),
     wave_work("Работаю", "Working", R.string.wave_work),
-    wave_workout("Тренируюсь", "Working out", R.string.wave_workout);
+    wave_workout("Тренируюсь", "Working out", R.string.wave_workout),
+    taste_pending_detail("Изменение сохранено. Отправим его в Яндекс после восстановления связи. @0@", "Change saved. It will be sent to Yandex when the connection is restored. @0@", R.string.taste_pending_detail),
+    export_quality("Качество MP3", "MP3 quality", R.string.export_quality),
+    export_bitrate("Битрейт: @0@ кбит/с", "Bit rate: @0@ kbps", R.string.export_bitrate),
+    export_quality_hint("Более высокий битрейт увеличивает размер файла, но не улучшает качество исходной записи.", "A higher bit rate produces a larger file, but cannot improve the original recording.", R.string.export_quality_hint),
+    taste_pending("Изменение сохранено. Отправим его в Яндекс после восстановления связи.", "Change saved. It will be sent to Yandex when the connection is restored.", R.string.taste_pending),
+    taste_pending_failure("Не удалось сохранить отложенное изменение.", "Could not save the pending change.", R.string.taste_pending_failure),
+    offline_auto_saving("Сохраняем отмеченные треки офлайн…", "Saving liked tracks for offline listening…", R.string.offline_auto_saving),
+    offline_auto_complete("Автоматическое сохранение офлайн завершено. Неудачные загрузки остаются в очереди для повтора.", "Automatic offline saving has finished. Failed downloads remain queued for another attempt.", R.string.offline_auto_complete),
+    offline_auto_wait_wifi("Трек отмечен. Скачивание начнётся при подключении к Wi-Fi.", "Track liked. Downloading will start when Wi-Fi is available.", R.string.offline_auto_wait_wifi),
+    offline_auto_wait_network("Трек отмечен. Скачивание начнётся после восстановления интернета.", "Track liked. Downloading will start when the internet connection is restored.", R.string.offline_auto_wait_network),
+    wave_no_progress("Яндекс не прислал новых треков для волны. Повторите попытку позже.", "Yandex returned no new tracks for the wave. Try again later.", R.string.wave_no_progress);
 }

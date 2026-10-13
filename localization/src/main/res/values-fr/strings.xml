@@ -730,5 +730,16 @@ Vous pouvez ajouter du texte entre les variables. Exemple: {number}. {artist} - 
     <string name="wave_wakeup" formatted="false">"Au réveil"</string>
     <string name="wave_work" formatted="false">"Au travail"</string>
     <string name="wave_workout" formatted="false">"À l’entraînement"</string>
+    <string name="taste_pending_detail" formatted="false">"Modification enregistrée. Elle sera envoyée à Yandex lorsque la connexion sera rétablie. @0@"</string>
+    <string name="export_quality" formatted="false">"Qualité MP3"</string>
+    <string name="export_bitrate" formatted="false">"Débit : @0@ kbit/s"</string>
+    <string name="export_quality_hint" formatted="false">"Un débit plus élevé augmente la taille du fichier, sans améliorer la qualité de l’enregistrement d’origine."</string>
+    <string name="taste_pending" formatted="false">"Modification enregistrée. Elle sera envoyée à Yandex lorsque la connexion sera rétablie."</string>
+    <string name="taste_pending_failure" formatted="false">"Impossible d’enregistrer la modification en attente."</string>
+    <string name="offline_auto_saving" formatted="false">"Enregistrement des titres aimés pour l’écoute hors connexion…"</string>
+    <string name="offline_auto_complete" formatted="false">"L’enregistrement automatique hors connexion est terminé. Les téléchargements échoués restent en attente d’une nouvelle tentative."</string>
+    <string name="offline_auto_wait_wifi" formatted="false">"Titre ajouté aux favoris. Le téléchargement commencera dès qu’une connexion Wi-Fi sera disponible."</string>
+    <string name="offline_auto_wait_network" formatted="false">"Titre ajouté aux favoris. Le téléchargement commencera lorsque la connexion Internet sera rétablie."</string>
+    <string name="wave_no_progress" formatted="false">"Yandex n’a fourni aucun nouveau titre pour la vague. Réessayez plus tard."</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

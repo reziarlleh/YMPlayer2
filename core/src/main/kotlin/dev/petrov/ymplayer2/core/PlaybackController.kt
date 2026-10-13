@@ -26,10 +26,17 @@ data class PlaybackState(
     val automaticLocal: Boolean = false, val automaticSource: Source? = null, val queueRevision: Long = 0,
     val referenceQueue: Boolean = false, val explicitQueueIds: Set<String>? = null,
     val origin: PlaybackOrigin = PlaybackOrigin(), val continueWave: Boolean = false,
+    val previousAvailable: Boolean? = null, val nextAvailable: Boolean? = null,
 ) {
     val current: Track? get() = currentTrack ?: queue.getOrNull(index - queueOffset)
     val queueCount: Int get() = queueTotal ?: queue.size
     val supportsQueueOrdering: Boolean get() = connected && queueCount > 0 && !wave
+    val canSkipPrevious: Boolean get() = connected && current != null && (previousAvailable ?:
+        (queue.take((index - queueOffset).coerceAtLeast(0)).any(Track::available) ||
+            !wave && (shuffle || repeatMode == RepeatMode.ALL) && queue.any(Track::available)))
+    val canSkipNext: Boolean get() = connected && current != null && (nextAvailable ?:
+        (queue.drop((index - queueOffset + 1).coerceAtLeast(0)).any(Track::available) ||
+            !wave && (shuffle || repeatMode == RepeatMode.ALL) && queue.any(Track::available)))
 }
 
 interface PlaybackController {
