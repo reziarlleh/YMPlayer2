@@ -1,7 +1,7 @@
 # Исправления2.6.1 — проверки и границы
 
-Работа 13 октября 2026. Подписан стабильный **2.6.1-build107** на основе106.
-[План](PLAN_2_6_1.md). Публикационные проверки ниже дополняются после выпуска.
+Работа 13 октября 2026. Опубликован стабильный **2.6.1-build107** на основе106.
+[Завершённый план](PLAN_2_6_1.md).
 
 ## Изменения
 
@@ -76,7 +76,23 @@ Production107 получил настоящий device code; полный browse
 Helper ошибочно ожидал кнопку Cancel; получение кода уже прошло. Уход выполнен
 Back, коды/токены/XML авторизации не сохранялись.
 
-Внешняя публикация проверяется перед завершением цели; результаты ниже.
+[GitHub release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.1-build107)
+Latest/non-beta, четыре assets APK/build.json/SHA256.txt/signature.txt.
+[Серверная запись release](qa/patch261/release.json).
+Source/artifact tag e440ae1a010f9e7bdf6ad65beddcd375c9dcba4d; оба feeds
+опубликованы c106aab. 6924113 байт, GitHub/основной version-pinned резервный APK
+совпали с локальным SHA256. [Индивидуальные HTTP-проверки](qa/patch261/http-verification.json).
+Raw GitHub manifest/stable и основной jsDelivr manifest/stable107.
+Gcore manifest/stable ещё106; это задержка внешнего CDN (D-001), не новая ветка.
+Актуальные raw GitHub и основной jsDelivr доступны; только устаревший Gcore
+не гарантирует обнаружение107. Очистка CDN запрошена, каждый узел проверен отдельно.
+
+README остаётся пользовательским описанием; хронология — CHANGELOG,
+инструкции RU/EN описывают automatic likes/pending actions/MP3 quality;
+BUG_REPORT B-031…B-034 и карты функций/переноса обновлены.
+[Локальная сверка ссылок](qa/patch261/documentation-local.json): 231 документ,
+2079 ссылок, 0 ошибок. [GitHub-сверка](qa/patch261/documentation-final.json): 231 документ/2088 ссылок,
+0 ошибок; Latest107 и README blob совпадают. RepoWise фиксируется в журнале.
 
 ## Ошибки подготовки и найденные дефекты
 

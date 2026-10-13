@@ -1,7 +1,7 @@
 # Текущий статус YMPlayer 2
 
-Сверено 13 октября 2026. Подготовлен стабильный **2.6.1-build107**;
-публикация завершается. Одна линия main, публичный reziarlleh/YMPlayer2,
+Сверено 13 октября 2026. Опубликован стабильный **[2.6.1-build107](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.1-build107)**.
+GitHub Latest и оба update feeds107; GitHub/резервный APK совпали по SHA256. Одна линия main, публичный reziarlleh/YMPlayer2,
 dev.petrov.ymplayer2, Android9/API28 и новее. 2.x — самостоятельное приложение,
 версия1.x не требуется. [Результаты и границы](PATCH_2_6_1_VERIFICATION.md).
 
@@ -30,9 +30,13 @@ dev.petrov.ymplayer2, Android9/API28 и новее. 2.x — самостояте
 [Исторические проверки](FILE_TRANSFERS_2_6_VERIFICATION.md),
 [ADR-044](ADR_044_CACHE_LOCATION_AND_MP3_EXPORT.md).
 
-Точка продолжения: завершить подписанный upgrade/device-code и публикацию107,
-оба feeds/GitHub Latest/HTTP/hash зеркал, RepoWise и контроль документации.
-[План](PLAN_2_6_1.md).
+Цель шести исправлений завершена: source/artifact/tag/release, четыре вложения,
+оба stable feeds, подпись/upgrade/device-code, инструкции, журналы и багрепорт.
+Дальше — новые отзывы и персональная приёмка в одной основной линии2.6.x.
+[Завершённый план](PLAN_2_6_1.md). [HTTP-проверки](qa/patch261/http-verification.json).
+Gcore manifest/stable ещё106; это задержка внешнего CDN (D-001), не новая ветка.
+Актуальные raw GitHub и основной jsDelivr доступны; только устаревший Gcore
+не гарантирует обнаружение107. Очистка CDN запрошена, каждый узел проверен отдельно.
 
 B-030 — реальный отказ клипов: связь с внешним инцидентом не доказана.
 Нужны свежие HTTP/Media3 события. B-029 комплектации104 исправлен в106,

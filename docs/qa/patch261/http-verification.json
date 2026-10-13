@@ -1,0 +1,68 @@
+[
+  {
+    "name": "github-apk",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.1-build107/YMPlayer-2.6.1-build107.apk",
+    "checkedAtUtc": "2026-10-13T13:07:33.548091+00:00",
+    "http": 200,
+    "sha256": "512bf84647a7490eed7db15ec73a4cb2b22d794c57d713221b8692ec2f3975f5",
+    "bytes": 6924113,
+    "passed": true
+  },
+  {
+    "name": "backup-apk",
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.1-build107/releases/2.6.1-build107/YMPlayer-2.6.1-build107.apk",
+    "checkedAtUtc": "2026-10-13T13:07:33.549091+00:00",
+    "http": 200,
+    "sha256": "512bf84647a7490eed7db15ec73a4cb2b22d794c57d713221b8692ec2f3975f5",
+    "bytes": 6924113,
+    "passed": true
+  },
+  {
+    "name": "raw.githubusercontent.com-stable",
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+    "checkedAtUtc": "2026-10-13T13:07:33.550312+00:00",
+    "http": 200,
+    "version": "2.6.1-build107",
+    "passed": true
+  },
+  {
+    "name": "raw.githubusercontent.com-manifest",
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "checkedAtUtc": "2026-10-13T13:07:33.551313+00:00",
+    "http": 200,
+    "version": "2.6.1-build107",
+    "passed": true
+  },
+  {
+    "name": "cdn.jsdelivr.net-stable",
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "checkedAtUtc": "2026-10-13T13:07:33.551313+00:00",
+    "http": 200,
+    "version": "2.6.1-build107",
+    "passed": true
+  },
+  {
+    "name": "cdn.jsdelivr.net-manifest",
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-10-13T13:07:33.552313+00:00",
+    "http": 200,
+    "version": "2.6.1-build107",
+    "passed": true
+  },
+  {
+    "name": "gcore.jsdelivr.net-stable",
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "checkedAtUtc": "2026-10-13T13:07:33.553316+00:00",
+    "http": 200,
+    "version": "2.6.0-build106",
+    "passed": false
+  },
+  {
+    "name": "gcore.jsdelivr.net-manifest",
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-10-13T13:07:33.553316+00:00",
+    "http": 200,
+    "version": "2.6.0-build106",
+    "passed": false
+  }
+]
