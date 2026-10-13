@@ -30,13 +30,14 @@
 Прочитаны актуальные документы и RepoWise context AudioService/LikedFileStore.
 Реализованы File/SAF storage, проверяемый перенос, экспортёр Jump3r/LAME
 и сохраняемый шаблон/предпросмотр/(?) справка, окна/пикеры/foreground-сервис.
-46 сообщений переведены на8 языков. Native TV29/API28 —33/33, foreground-сервис
-API28 —1/1, API35 первый проход36/36. Затем MIME и read-lock скорректированы
-по финальной сверке; нужен повтор. Следующий шаг: дождаться
-transfers-read-lock-final.txt, установить свежие APK на emulator-5562 и выполнить
-FileTransferTest/Mp3WriterTest/SystemBrowserTest/OfflinePlaybackTest/ClipStartupTest/
-FileTransferServiceTest. Затем API28/TV, подписанный выпуск и публикация.
-Build пока104, стабильный2.6 ещё не выпускался. Один Gradle процесс на checkout;
+46 сообщений переведены на8 языков. Native TV29/API28 —33/33; API35 после
+read-lock —37/37; API28 после MIME/recovery/account/HTTP —21/21.
+Кандидат105 подписан, но не опубликован после отказов MIME на API28. Добавлены
+явные MIME, export temp recovery и account guard; следующая подпись — новый Build.
+Точка: дождаться transfers-all-final.txt, затем run-transfers.py --serial
+emulator-5562 --classes FileTransferTest,Mp3WriterTest,SystemBrowserTest,OfflinePlaybackTest,ClipStartupTest,FileTransferServiceTest.
+Далее TV29/новая подпись106/обновление104→106/API28, публикация и документы.
+Кандидат105 не публиковать. Один Gradle процесс на checkout;
 API35 AVD запускается с -memory2048, чтобы не перегружать16GB host.
 [Подробности и остаток](FILE_TRANSFERS_2_6_VERIFICATION.md).
 

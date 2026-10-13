@@ -158,6 +158,54 @@ class FileTransferTest {
         assertEquals(hashes, all.filter { it.first in hashes }.associate { it.first to hash(it.second.toString()) })
         assertEquals(calls, h.resolvedQualities.size)
     }
+    @Test fun newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds() {
+        val parent = Docs.buildDocumentUriUsingTree(TestStorageProvider.exportTree, "export")
+        val partName = ".YMPlayer2-export-recovery.part"
+        val part = Docs.createDocument(resolver, parent, "application/octet-stream", partName)!!
+        resolver.openOutputStream(part)!!.use { it.write(byteArrayOf(1, 2, 3)) }
+        val ready = Docs.createDocument(resolver, parent, "audio/mpeg", "kept.mp3")!!
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context.assets.open("cover.mp3").use { input -> resolver.openOutputStream(ready)!!.use(input::copyTo) }
+        val before = hash(ready.toString())
+        h.context.getSharedPreferences("mp3-export", 0).edit().putString("temporary", org.json.JSONObject()
+            .put(part.toString(), partName).put(ready.toString(), ".YMPlayer2-export-already-renamed.part").toString()).commit()
+        export(AudioExportRequest("owner", "Recovery", tracks = h.offline.state.value.tracks), "recovered-{number}")
+        assertEquals(3, entries(TestStorageProvider.exportTree).size)
+        assertEquals(before, hash(ready.toString()))
+        assertFalse(entries(TestStorageProvider.exportTree).any { it.first.endsWith(".part") })
+        assertEquals("{}", h.context.getSharedPreferences("mp3-export", 0).getString("temporary", null))
+    }
+    @Test fun anExportDialogFromThePreviousAccountCannotStartAfterSignOut() {
+        compose.runOnIdle { h.audioExporter.ask(AudioExportRequest("owner", "Old account", tracks = h.offline.state.value.tracks)); h.auth.signOut() }
+        waitFor { h.auth.state.value.phase == AuthPhase.SIGNED_OUT }
+        compose.runOnIdle { h.audioExporter.start(TestStorageProvider.exportTree.toString()) }
+        assertFalse(h.audioExporter.state.value.running)
+        assertTrue(entries(TestStorageProvider.exportTree).isEmpty())
+    }
+    @Test fun remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent() {
+        val source = resolver.openInputStream(Uri.parse(h.library.testTracks.first().uri))!!.use { it.readBytes() }
+        val server = java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1"))
+        val headers = java.util.concurrent.atomic.AtomicReference<List<String>>()
+        val worker = Thread {
+          runCatching { server.accept().use { client ->
+                val input = client.getInputStream().bufferedReader(); val lines = mutableListOf<String>()
+                while (true) { val line = input.readLine() ?: break; if (line.isEmpty()) break; lines += line }
+                headers.set(lines)
+                client.getOutputStream().use { output ->
+                    output.write("HTTP/1.1 200 OK\r\nContent-Type: audio/wav\r\nContent-Length: ${source.size}\r\nConnection: close\r\n\r\n".toByteArray()); output.write(source)
+                }
+            } }
+        }.apply { isDaemon = true; start() }
+        try {
+            val track = h.library.testTracks.first().copy(uri = "http://127.0.0.1:${server.localPort}/fixture.wav")
+            compose.runOnIdle { h.audioExporter.ask(AudioExportRequest("owner", "Network", tracks = listOf(track))); h.audioExporter.template("network-{number}"); h.audioExporter.start(TestStorageProvider.exportTree.toString()) }
+            waitFor { !h.audioExporter.state.value.running }
+            assertEquals(h.audioExporter.state.value.toString(), 1, h.audioExporter.state.value.completed)
+            assertEquals(0, h.audioExporter.state.value.failed)
+            assertTrue(headers.get().any { it.equals("User-Agent: Yandex-Music-API", true) })
+            val rows = entries(TestStorageProvider.exportTree); assertEquals(1, rows.size); assertMp3(rows.single().second)
+            assertEquals("{}", h.context.getSharedPreferences("mp3-export", 0).getString("temporary", null))
+        } finally { server.close(); worker.join(2000) }
+    }
     @Test fun albumAndPlaylistExportFetchEveryPage() {
         export(AudioExportRequest("owner", "Album", entity = MusicEntity("7", "Album", MusicKind.ALBUMS)), "album-{number}")
         export(AudioExportRequest("owner", "Playlist", entity = MusicEntity("1:7", "Playlist", MusicKind.PLAYLISTS)), "list-{number}")

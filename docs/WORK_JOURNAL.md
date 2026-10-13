@@ -1,5 +1,17 @@
 # Журнал работы
 
+### 2026-10-13 — кандидат105 и финальные проверки
+
+Native API35 —37/37, read-lock не удерживается на сетевом sync. Signed105
+создан прежним ключом, но не опубликован: API28 —15/18, MIME/имена копии.
+JSON/MP3 типы сделаны явными. Добавлены приватный журнал экспортных .part,
+защита опубликованного файла при stable document ID, account guard на старый
+запрос и реальный loopback HTTP staging с рабочим User-Agent. Первый HTTP
+fixture был запрещён network policy; исправлена только debug localhost policy
+и обработка закрытия server thread. Точка — свежий APK из
+transfers-http-fixture-final.txt, затем21 native на5560; новый APK не105.
+Публикация/feeds по-прежнему104. [Отчёт](FILE_TRANSFERS_2_6_VERIFICATION.md).
+
 ### 2026-10-13 — реализация переносов и native проверки
 
 Подключены File/SAF хранилище, журнал переноса, экспортёр MP3, foreground-сервис,

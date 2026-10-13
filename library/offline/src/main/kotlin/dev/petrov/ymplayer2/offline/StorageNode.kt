@@ -31,6 +31,7 @@ internal class StorageNode private constructor(val context: Context, private val
     val isFile: Boolean get() = local?.isFile ?: (exists() && !isDirectory)
     fun length(): Long = local?.length() ?: ((field(Docs.Document.COLUMN_SIZE) as? Long) ?: 0)
     fun lastModified(): Long = local?.lastModified() ?: ((field(Docs.Document.COLUMN_LAST_MODIFIED) as? Long) ?: 0)
+    fun currentName(): String? = local?.takeIf(File::exists)?.name ?: if (local == null) field(Docs.Document.COLUMN_DISPLAY_NAME) as? String else null
     fun child(name: String): StorageNode {
         require(name.isNotBlank() && '/' !in name && '\\' !in name && name != "." && name != "..")
         return children?.get(name) ?: StorageNode(context, local?.let { File(it, name) }, null, this, name)
@@ -64,8 +65,12 @@ internal class StorageNode private constructor(val context: Context, private val
         if (exists()) return this
         val parent = parentFile ?: throw IOException("Storage parent missing")
         if (!parent.mkdirs()) throw IOException("Cannot create directory")
-        val mime = android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(name.substringAfterLast('.', "").lowercase(java.util.Locale.ROOT))
-            ?: "application/octet-stream"
+        val extension = name.substringAfterLast('.', "").lowercase(java.util.Locale.ROOT)
+        val mime = when (extension) {
+            "json" -> "application/json"
+            "mp3" -> "audio/mpeg"
+            else -> android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension) ?: "application/octet-stream"
+        }
         document = Docs.createDocument(context.contentResolver, parent.uri, mime, name)
             ?: throw IOException("Cannot create storage entry")
         if (field(Docs.Document.COLUMN_DISPLAY_NAME) != name) {

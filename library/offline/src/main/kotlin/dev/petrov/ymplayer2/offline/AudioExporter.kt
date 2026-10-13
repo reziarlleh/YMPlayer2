@@ -20,8 +20,47 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
     private val mutable = MutableStateFlow(AudioExportState(template = prefs.getString("template", ExportFileName.DEFAULT)!!.take(300)))
     override val state = mutable.asStateFlow()
     private var job: Job? = null
+    private var requestedAccount: String? = null
+    private fun pending() = runCatching { org.json.JSONObject(prefs.getString("temporary", "{}")!!) }.getOrElse { org.json.JSONObject() }
+    private fun savePending(value: org.json.JSONObject) {
+        if (!prefs.edit().putString("temporary", value.toString()).commit()) throw IOException("Cannot save export recovery")
+    }
+    private fun forgetTemporary(name: String) {
+        val journal = pending()
+        journal.keys().asSequence().toList().filter { journal.optString(it) == name }.forEach(journal::remove)
+        savePending(journal)
+    }
+    private fun temporary(folder: StorageNode, prefix: String): StorageNode {
+        val file = StorageNode.temporary(folder, prefix) // Unverified output must never have a .mp3 extension.
+        try { savePending(pending().put(file.uri.toString(), file.name)) }
+        catch (e: Exception) { runCatching { file.delete() }; throw e }
+        return file
+    }
+    private fun discardTemporary(file: StorageNode) {
+        runCatching {
+            // Forget a successful deletion immediately: querying its old URI may throw afterwards.
+            if (file.currentName() != file.name || file.delete()) forgetTemporary(file.name)
+        }
+    }
+    private fun recoverTemporary() {
+        val journal = pending()
+        for (key in journal.keys().asSequence().toList()) {
+            val expected = journal.optString(key)
+            if (!expected.startsWith(".YMPlayer2-") || !expected.endsWith(".part")) { journal.remove(key); continue }
+            try {
+                val uri = Uri.parse(key)
+                val file = if (uri.scheme == "file") StorageNode.file(context, java.io.File(uri.path!!)) else StorageNode.tree(context, uri)
+                // Some providers keep the document ID on rename. Never remove an already-published MP3.
+                if (file.currentName() != expected || file.delete()) journal.remove(key)
+            } catch (_: Exception) { /* Unavailable media retains its recovery record until it is accessible. */ }
+        }
+        savePending(journal)
+    }
     override fun ask(request: AudioExportRequest) {
-        if (!state.value.running) mutable.value = AudioExportState(request, state.value.template)
+        if (!state.value.running) {
+            requestedAccount = accounts.state.value.account?.id
+            mutable.value = AudioExportState(request, state.value.template)
+        }
     }
     override fun template(value: String) {
         if (state.value.running) return
@@ -36,13 +75,14 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
         val before = state.value; val request = before.request ?: return
         if (before.running || locations.state.value.moving || !ExportFileName.valid(before.template)) return
         val profile = accounts.state.value.profileId
-        if (profile != request.profile) return
+        if (profile != request.profile || accounts.state.value.account?.id != requestedAccount) return
         val account = accounts.state.value.account?.id
         mutable.value = before.copy(running = true, completed = 0, failed = 0, total = 0, message = "Подготовка экспорта MP3…")
         job = scope.launch {
             var message = "Экспорт MP3 завершён."
             try {
                 withContext(Dispatchers.IO) {
+                    recoverTemporary()
                     val folder = Uri.parse(destination).let { if (it.scheme == "file") StorageNode.file(context, java.io.File(it.path!!)) else StorageNode.tree(context, it) }
                     if (!folder.isDirectory) throw IOException("Destination unavailable")
                     val tracks = request.tracks ?: resolve(request)
@@ -64,11 +104,11 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                                 ?: music.stream(profile, track.id, AudioQuality.HIGH)
                                 else track.uri ?: throw IOException("Audio unavailable")
                             val input = if (Uri.parse(source).scheme in listOf("http", "https")) {
-                                downloaded = StorageNode.temporary(folder, ".YMPlayer2-source-")
+                                downloaded = temporary(folder, ".YMPlayer2-source-")
                                 download(source, downloaded!!, folder, expected)
                                 downloaded!!.uri.toString()
                             } else source
-                            temp = StorageNode.temporary(folder, ".YMPlayer2-export-", ".part.mp3")
+                            temp = temporary(folder, ".YMPlayer2-export-")
                             temp.outputStream().buffered().use { output -> writer.write(input, track, index, tracks.size, output) }
                             currentCoroutineContext().ensureActive()
                             if (accounts.state.value.profileId != profile || accounts.state.value.account?.id != account) throw CancellationException("Profile changed")
@@ -81,14 +121,16 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                             val result = temp.rename(name)
                             names += name.lowercase(Locale.ROOT)
                             if (!result.isFile) throw IOException("Export publication failed")
+                            forgetTemporary(temp.name)
                             mutable.value = state.value.copy(completed = state.value.completed + 1)
                         } catch (e: CancellationException) { throw e }
                         catch (e: Exception) {
                             mutable.value = state.value.copy(failed = state.value.failed + 1)
                             if (e.message == "Недостаточно места для экспорта MP3.") throw e
                         } finally {
-                            temp?.let { runCatching { if (it.exists()) it.delete() } }
-                            downloaded?.let { runCatching { if (it.exists()) it.delete() } }
+                            temp?.let(::discardTemporary)
+                            downloaded?.let(::discardTemporary)
+                            recoverTemporary()
                         }
                     }
                     if (state.value.failed > 0) message = "Экспорт завершён с ошибками. Готовые MP3 сохранены."
@@ -103,7 +145,7 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
         }
     }
     private suspend fun download(uri: String, target: StorageNode, folder: StorageNode, outputBytes: Long) {
-        val data = DefaultHttpDataSource.Factory().setUserAgent("YMPlayer2").setConnectTimeoutMs(15_000).setReadTimeoutMs(20_000).createDataSource()
+        val data = DefaultHttpDataSource.Factory().setUserAgent("Yandex-Music-API").setConnectTimeoutMs(15_000).setReadTimeoutMs(20_000).createDataSource()
         try {
             val length = data.open(DataSpec(Uri.parse(uri)))
             if (length > 128L * 1024 * 1024) throw IOException("Audio too large")
