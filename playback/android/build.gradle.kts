@@ -8,6 +8,7 @@ android {
 dependencies {
     implementation(project(":localization"));
     implementation(project(":core"))
+    implementation(libs.android.core)
     implementation(libs.coroutines.android)
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.hls)

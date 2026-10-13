@@ -10,6 +10,7 @@ class RadioFixtureApi(private val uri: () -> String) : RadioApi {
     var gate: CompletableDeferred<Unit>? = null
     var failures = 0
     var requests = 0
+    var onAirCalls = 0
     val likes = mutableMapOf<String, Set<String>>()
     var catalogRows: List<RadioStation>? = null
     val catalogCursors = mutableListOf<String?>()
@@ -36,5 +37,8 @@ class RadioFixtureApi(private val uri: () -> String) : RadioApi {
         if (failures > 0) { failures--; throw RadioException(RadioIssue.NETWORK) }
         return RadioStream(station, "moscow", uri())
     }
-    override suspend fun onAir(stationSlug: String, streamSlug: String) = RadioOnAir("Тестовая композиция", "Тестовый исполнитель", 5000)
+    override suspend fun onAir(stationSlug: String, streamSlug: String): RadioOnAir {
+        onAirCalls++
+        return RadioOnAir("Тестовая композиция", "Тестовый исполнитель", 5000)
+    }
 }

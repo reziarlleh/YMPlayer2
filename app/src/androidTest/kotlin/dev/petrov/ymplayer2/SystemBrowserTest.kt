@@ -24,9 +24,33 @@ import java.util.concurrent.atomic.AtomicReference
 
 @RunWith(AndroidJUnit4::class)
 class SystemBrowserTest {
+    @Test fun tvCardHasExplicitOpenAndStopIntents() {
+        val app = context.applicationContext as PlayerApplication
+        context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+        val screen = androidx.test.core.app.ActivityScenario.launch(MainActivity::class.java)
+        val notifications = context.getSystemService(android.app.NotificationManager::class.java)
+        try {
+            awaitState { app.playback.state.value.connected && app.library.testTracks.isNotEmpty() }
+            main { app.playback.playQueue(listOf(app.library.testTracks.first().id)) }
+            awaitState { app.playback.state.value.playing && notifications.activeNotifications.any { it.id == 1001 } }
+            val card = notifications.activeNotifications.first { it.id == 1001 }.notification
+            val tv = androidx.core.app.NotificationCompat.TvExtender(card)
+            assertTrue("The notification must be available on Android TV", tv.isAvailableOnTv)
+            assertNotNull("TV Open must have its own activity PendingIntent", tv.contentIntent)
+            assertNotNull("TV Stop must have its own media PendingIntent", tv.deleteIntent)
+            assertTrue(tv.contentIntent!!.isActivity)
+        } finally {
+            main { app.playback.stop() }; screen.close()
+            runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) }
+        }
+    }
     @Test fun tvDismissalStopsRadioAndDoesNotRestartItsRetryOrOnAirPolling() {
         val app = context.applicationContext as PlayerApplication
         context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        // Radio is started by the user in the foreground. API35 audio-focus rules
+        // reject a fresh start from a headless, idle service; that isn't TV dismissal.
+        val screen = androidx.test.core.app.ActivityScenario.launch(MainActivity::class.java)
         val browser = MediaBrowser.Builder(context, SessionToken(context, service)).buildAsync().get(20, TimeUnit.SECONDS)
         val field = dev.petrov.ymplayer2.playback.AndroidRadio::class.java.getDeclaredField("api").apply { isAccessible = true }
         val api = field.get(app.radio) as dev.petrov.ymplayer2.core.RadioApi
@@ -45,14 +69,18 @@ class SystemBrowserTest {
             main { field.set(app.radio, fixture); app.radio.switchProfile("owner"); app.radio.play(station) }
             awaitState { app.radio.state.value.playing && notifications.activeNotifications.any { it.notification.deleteIntent != null } }
             val card = notifications.activeNotifications.first { it.notification.deleteIntent != null }
-            card.notification.deleteIntent.send()
+            val tvStop = androidx.core.app.NotificationCompat.TvExtender(card.notification).deleteIntent
+            assertNotNull("Radio Stop must be exposed to the TV panel", tvStop)
+            screen.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
+            tvStop!!.send()
             awaitState { !app.radio.state.value.playing && !app.radio.state.value.buffering && !app.radio.state.value.reconnecting && notifications.activeNotifications.none { it.id == card.id } }
             val stoppedCalls = calls.get(); Thread.sleep(6100) // Radio polling clamps its period to at least 5 seconds.
             assertEquals(stoppedCalls, calls.get())
             assertFalse(app.radio.state.value.playing)
+            screen.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
             main { app.radio.play(station) }; awaitState { app.radio.state.value.playing }
             main { browser.stop() }; awaitState { !app.radio.state.value.playing && notifications.activeNotifications.none { it.id == card.id } }
-        } finally { main { app.radio.release(); field.set(app.radio, api); browser.release() } }
+        } finally { main { app.radio.release(); field.set(app.radio, api); browser.release() }; screen.close() }
     }
     @Test fun notificationDismissalStopsPlaybackRemovesCardAndAllowsNextPlay() {
         val app = context.applicationContext as PlayerApplication

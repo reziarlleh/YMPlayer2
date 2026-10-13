@@ -2,7 +2,6 @@ package dev.petrov.ymplayer2.playback
 
 import dev.petrov.ymplayer2.localization.*
 
-import android.app.PendingIntent
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
@@ -35,6 +34,7 @@ class AudioService : MediaLibraryService() {
         super.onCreate()
         // STOP leaves a resumable checkpoint, not an active TV notification card.
         setShowNotificationForIdlePlayer(SHOW_NOTIFICATION_FOR_IDLE_PLAYER_NEVER)
+        setMediaNotificationProvider(TvMediaNotificationProvider(this))
         host.onAudioServiceEvent(AudioServiceEvent.CREATED)
         val source = onlineDataSourceFactory(this, playback::resolveStream)
         val player = ExoPlayer.Builder(this).setMediaSourceFactory(DefaultMediaSourceFactory(this).setDataSourceFactory(source))
@@ -47,9 +47,7 @@ class AudioService : MediaLibraryService() {
         }
         engine = player
         session = MediaLibrarySession.Builder(this, sessionPlayer(player, playback), browserCallback(playback, host::onAudioServiceEvent)).apply {
-            packageManager.getLaunchIntentForPackage(packageName)?.let {
-                setSessionActivity(PendingIntent.getActivity(this@AudioService, 0, it, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT))
-            }
+            setSessionActivity(mediaPlayerActivity(this@AudioService))
         }.build()
         // Our UI uses an in-process adapter; register for notification/foreground ownership.
         addSession(requireNotNull(session))
