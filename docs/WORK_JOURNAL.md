@@ -19,6 +19,10 @@ fixture-тестов API28 прошли; дополнительные9 AccountSc
 MCP RepoWise search timed out; CLI context использован, индекс обновляется.
 Новый release не требуется только ради сборочного guard: runtime106 не изменялся.
 Следующая точка: живой video API/stream/Media3 error с подтверждённым входом.
+После push35e86cb: Check-Documentation --github229 документов/2051 ссылок,
+0 ошибок, latest/оба feeds106. Скачанный GitHub APK106 совпал по SHA256 и
+прошёл OAuth guard. Исторический release104 получил датированное предупреждение
+о новом входе и ссылку на latest; APK/тег не менялись.
 [Отчёт](AUTH_RELEASE_2026_10_13_REVIEW.md).
 
 ### 2026-10-13 — заключительная сверка контекста
