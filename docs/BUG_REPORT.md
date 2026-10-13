@@ -288,6 +288,12 @@ Build73 зарезервирован и собран, но отклонён до
 
 ## D-001 — задержка отдельного зеркала
 
+13 октября2026,03:30UTC,2.6.0-build106: raw GitHub, основной CDN и Gcore
+manifest/stable106; GitHub/основной pinned APK совпали по SHA256.
+[Датированный срез](qa/file-transfers/http-verification.json). На этом срезе
+отставания нет; D-001 сохраняется как наблюдение внешнего кэша.
+
+
 2026-10-09, 17:42 UTC, patch102: [HTTP-срез](qa/patch-2-5-4/publication.json).
 Raw manifest/stable и CDN/Gcore manifest102; CDN/Gcore stable местами ещё101.
 Purge ранее дал102 для основного stable, однако последующий запрос другим

@@ -1,7 +1,7 @@
 # Перенос кэша и экспорт MP3 — проверка 2.6
 
-Итоговый стабильный **2.6.0-build106**,13 октября2026. Публикация/HTTP-сверка
-завершаются; ниже отдельно сохранены промежуточные отказы. [Текущий план](PLAN_2_6.md).
+Опубликован стабильный **2.6.0-build106**,13 октября2026. Публикация/HTTP-сверка
+завершены; ниже отдельно сохранены промежуточные отказы. [Текущий план](PLAN_2_6.md).
 
 ## Реализация
 
@@ -102,12 +102,18 @@ SystemBrowserTest проверяет удаление карточки, повт
 - Итоговый signed2.6.0-build106 собран13 октября03:07UTC, min28/package прежние,
   SHA256 ed60e14c677078410e2fd8300bc1cdeca033334e5ba60488afe21e516ca52e11,
   cert fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec.
-  R8/lint прошли,0 lint errors/67 warnings. Публикация ожидает TV и signed upgrade.
+  R8/lint прошли,0 lint errors/67 warnings. TV и signed upgrade завершены ниже.
 
-## Остаток
+## Итог и границы
 
 Native API35:40/40, API28/TV29:21/21; lint/R8/signature и signed104→106 без очистки завершены.
-Осталось подтвердить публикацию/feed/hash/документацию.
+GitHub release latest/non-prerelease/4 assets, default main и README проверены.
+13 октября03:30UTC: GitHub и pinned резервный APK скачаны,6861085байт, SHA256
+совпал с локальным106. Raw GitHub, основной jsDelivr и Gcore manifest/stable106
+проверены независимо — все8 запросов прошли. [HTTP-срез](qa/file-transfers/http-verification.json).
+Check-Documentation --github:228 документов/2040 ссылок,0 ошибок;724 сообщения/8 пакетов
+актуальны. Source tag8192f25, feeds e4a8ed9; последующие commits закрывают документы,
+не меняют APK. Кандидат105 не публиковался. Этот срез не обещает постоянную свежесть CDN.
 [Native API28](qa/file-transfers/native/api28.txt), [TV29](qa/file-transfers/native/tv29.txt),
 [API35](qa/file-transfers/native/api35.txt), [signed upgrade](qa/file-transfers/signed-api28/signed-upgrade.json).
 До обновления масштаб не наблюдался из-за null UI root; после100%, но сохранение

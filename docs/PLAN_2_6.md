@@ -25,27 +25,17 @@
    резервный APK и текущие документы сверить фактически. Приёмка физического
    TV/ГУ/USB отделяется от проверок на эмуляторах.
 
-## Точка выполнения
+## Завершение
 
-Прочитаны актуальные документы и RepoWise context AudioService/LikedFileStore.
-Реализованы File/SAF storage, проверяемый перенос, экспортёр Jump3r/LAME
-и сохраняемый шаблон/предпросмотр/(?) справка, окна/пикеры/foreground-сервис.
-46 сообщений переведены на8 языков. Native TV29/API28 —33/33; API35 после
-read-lock —37/37; API28 после MIME/recovery/account/HTTP —21/21.
-Кандидат105 подписан, но не опубликован после отказов MIME на API28. Добавлены
-явные MIME, export temp recovery и account guard; следующая подпись — новый Build.
-Итоговый106 подписан, API35 —40/40, API28/TV29 —21/21; lint0 errors/67 warnings.
-Signed104→106 без очистки прошёл: сохранены английский UI, настройки/тема,
-название локального трека, маршрут настроек после force-stop. Масштаб после100%;
-до обновления значение не прочиталось из-за null UI root — сохранение масштаба
-этой проверкой не доказано. Новый cache settings и About/version106 открываются.
-Точка: обновить текущие документы на106,
-добавить точные APK/build.json/SHA256/signature/badging без mapping, commit/tag,
-Prepare-UpdateManifest/push/GitHub release4 assets, сверить зеркала/README/docs.
-Native JSON/логи уже в docs/qa/file-transfers/native. Нового кода не требуется.
-Кандидат105 не публиковать. Один Gradle процесс на checkout;
-API35 AVD запускается с -memory2048, чтобы не перегружать16GB host.
-[Подробности и остаток](FILE_TRANSFERS_2_6_VERIFICATION.md).
+Цель выполнена13 октября2026: **2.6.0-build106**, main/stable/latest.
+Все7 пунктов реализованы;128 JVM, lint0 errors/67 warnings, native21/21
+API28/TV29 и40/40 API35. Signed104→106 без очистки, данные/маршрут сохранены.
+До обновления масштаб не наблюдался — этот прогон не доказывает его сохранение.
+Package/cert/min28 прежние,105 не публиковался. Release содержит APK/build.json/
+SHA256/signature, оба feeds106; основной резервный APK проверен по SHA256.
+Raw/CDN/Gcore manifest/stable106 проверены отдельно13 октября03:30UTC.
+Документы/README/GitHub сверены; физические USB/ГУ/TV отдельно от эмуляторов.
+Нет оставшихся задач этого этапа; новые отзывы — в основной2.6.x.
 
-[Статус](PROJECT_STATUS.md) · [план](ROADMAP.md) ·
-[предыдущая оценка экспорта](USB_MP3_EXPORT_FEASIBILITY.md).
+[Подробности и свидетельства](FILE_TRANSFERS_2_6_VERIFICATION.md) ·
+[статус](PROJECT_STATUS.md) · [план](ROADMAP.md).

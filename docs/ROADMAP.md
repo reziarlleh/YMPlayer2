@@ -1,7 +1,7 @@
 # Текущий план YMPlayer 2
 
-13 октября 2026: стабильный **2.6.0-build106** подготовлен на одной main.
-Публикация и HTTP-проверки завершаются; Build сквозной,105 не переиспользован.
+13 октября 2026: стабильный **2.6.0-build106** опубликован на одной main.
+GitHub latest/оба feeds/резервный APK проверены; Build сквозной,105 не переиспользован.
 
 ## Этап 2.6
 
@@ -11,8 +11,8 @@
    пример и (?) справка, collision protection и очистка незавершённых файлов.
 4. Выполнено:8 языков/724 сообщения,128 core JVM, release lint0 errors,
    native21/21 API28/TV29 и40/40 API35; signed104→106 без очистки.
-5. Завершается: GitHub release/tag/4 assets, оба stable feeds, CDN/hash,
-   финальная документация и закрытие цели. [Отчёт](FILE_TRANSFERS_2_6_VERIFICATION.md).
+5. Выполнено: GitHub release/tag/4 assets, оба stable feeds, CDN/hash,
+   финальная документация; цель2.6 завершена. [Отчёт](FILE_TRANSFERS_2_6_VERIFICATION.md).
 
 ## Дальше
 
