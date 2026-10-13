@@ -1,6 +1,6 @@
 # Карта переноса и модулей
 
-Этап2.6 в работе: core/FileTransfers, library/offline StorageNode/CacheDirectories/
+**2.6.0-build106**: core/FileTransfers, library/offline StorageNode/CacheDirectories/
 AudioExporter/Mp3AudioWriter; app FileTransferService/SAF pickers; shell окна
 и действия экспорта. Формат cache v1 и independent package/signing сохраняются.
 [ADR-044](ADR_044_CACHE_LOCATION_AND_MP3_EXPORT.md), [проверки](FILE_TRANSFERS_2_6_VERIFICATION.md).

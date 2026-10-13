@@ -34,9 +34,15 @@
 read-lock —37/37; API28 после MIME/recovery/account/HTTP —21/21.
 Кандидат105 подписан, но не опубликован после отказов MIME на API28. Добавлены
 явные MIME, export temp recovery и account guard; следующая подпись — новый Build.
-Точка: дождаться transfers-all-final.txt, затем run-transfers.py --serial
-emulator-5562 --classes FileTransferTest,Mp3WriterTest,SystemBrowserTest,OfflinePlaybackTest,ClipStartupTest,FileTransferServiceTest.
-Далее TV29/новая подпись106/обновление104→106/API28, публикация и документы.
+Итоговый106 подписан, API35 —40/40, API28/TV29 —21/21; lint0 errors/67 warnings.
+Signed104→106 без очистки прошёл: сохранены английский UI, настройки/тема,
+название локального трека, маршрут настроек после force-stop. Масштаб после100%;
+до обновления значение не прочиталось из-за null UI root — сохранение масштаба
+этой проверкой не доказано. Новый cache settings и About/version106 открываются.
+Точка: обновить текущие документы на106,
+добавить точные APK/build.json/SHA256/signature/badging без mapping, commit/tag,
+Prepare-UpdateManifest/push/GitHub release4 assets, сверить зеркала/README/docs.
+Native JSON/логи уже в docs/qa/file-transfers/native. Нового кода не требуется.
 Кандидат105 не публиковать. Один Gradle процесс на checkout;
 API35 AVD запускается с -memory2048, чтобы не перегружать16GB host.
 [Подробности и остаток](FILE_TRANSFERS_2_6_VERIFICATION.md).

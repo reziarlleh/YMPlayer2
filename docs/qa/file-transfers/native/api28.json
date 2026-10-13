@@ -1,0 +1,9 @@
+{
+  "serial": "emulator-5560",
+  "api": 28,
+  "passed": 21,
+  "failed": 0,
+  "success": true,
+  "seconds": 90.95,
+  "log": "D:\\_codex\\YMPlayer2\\.local-build\\transfers-qa\\emulator-5560\\FileTransferTest-Mp3WriterTest-SystemBrowserTest-FileTransferServiceTest.txt"
+}

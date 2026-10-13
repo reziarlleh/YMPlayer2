@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.5.5-build104**, Android9 and later. Reviewed on 12 October 2026.
+For **2.6.0-build106**, Android9 and later. Reviewed on 13 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -278,10 +278,7 @@ the cache makes retained downloads available again. The switch applies to the
 device, while downloaded collections remain account/profile-specific. My Vibe’s
 temporary next-track preparation is separate from this permanent cache.
 
-## Cache location and MP3 export — planned for 2.6
-
-These commands are not included in 2.5.5-build104; this section describes the
-next release under verification.
+## Cache location and MP3 export
 
 Open **Settings → Offline cache settings → Choose cache folder** and select
 a device or USB folder in the system picker. The app creates its own
@@ -305,6 +302,10 @@ preview and choose **Choose folder and export**. The template is saved;
 | `{album}` | Album name, if available |
 | `{id}` | Track ID |
 
+<p align="center"><img src="qa/file-transfers/phone-export-en.png" width="300" alt="MP3 export filename template and help"></p>
+
+*Android15 emulator, isolated fixture names; the106 export interface.*
+
 Example: `{number}. {artist} - {title}`. The .mp3 extension is automatic.
 Unsupported filename characters are replaced; slashes do not create subfolders.
 Existing files are kept and collisions receive (2), (3)… suffixes.
@@ -323,6 +324,8 @@ the current temporary file and keeps completed MP3 files. The result shows
 completed/failed counts. After process termination, start export again. A writable
 SAF folder with measurable free space is required; a file manager must support
 the system folder picker, rather than merely being able to browse USB itself.
+The next export cleans up the app’s interrupted temporary files and keeps
+completed MP3 files.
 
 ## Audio quality and equalizer
 

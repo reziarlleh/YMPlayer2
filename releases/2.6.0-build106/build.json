@@ -1,0 +1,11 @@
+{
+  "versionName": "2.6.0-build106",
+  "channel": "stable",
+  "runtimeAcceptance": "emulator native and signed upgrade passed; physical USB/head-unit acceptance pending",
+  "versionCode": 106,
+  "minSdk": 28,
+  "builtAtUtc": "2026-10-13T03:07:00.8320877Z",
+  "sha256": "ed60e14c677078410e2fd8300bc1cdeca033334e5ba60488afe21e516ca52e11",
+  "applicationId": "dev.petrov.ymplayer2",
+  "updateChannel": "stable"
+}

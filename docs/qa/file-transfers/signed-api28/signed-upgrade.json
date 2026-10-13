@@ -1,0 +1,73 @@
+{
+  "serial": "emulator-5560",
+  "beforeVersion": "2.5.5-build104",
+  "beforeSettings": [
+    "Music with you",
+    "Settings",
+    "App language",
+    "Interface size",
+    "Audio quality",
+    "Appearance",
+    "Skins",
+    "Dark",
+    "Light",
+    "one",
+    "Unknown artist · 0:00",
+    "Player",
+    "Library",
+    "Search",
+    "Radio",
+    "Clips"
+  ],
+  "beforeSelected": [
+    ""
+  ],
+  "beforeScale": [],
+  "afterVersion": "2.6.0-build106",
+  "afterSettings": [
+    "Music with you",
+    "Settings",
+    "App language",
+    "Interface size",
+    "Audio quality",
+    "Appearance",
+    "Skins",
+    "Dark",
+    "Light",
+    "one",
+    "Unknown artist · 0:00",
+    "Player",
+    "Library",
+    "Search",
+    "Radio",
+    "Clips"
+  ],
+  "afterSelected": [
+    ""
+  ],
+  "afterScale": [
+    "100%"
+  ],
+  "beforeScaleNotObserved": true,
+  "cacheSettings": [
+    "Music with you",
+    "Offline cache settings",
+    "Only liked tracks and their artwork are downloaded. Favorite artists and albums are not downloaded in full.",
+    "Offline cache folder",
+    "App internal storage",
+    "Choose cache folder",
+    "Free space is checked before moving. The original cache is removed only after the copy has been verified.",
+    "Enable offline cache",
+    "This setting applies to the whole device. Turning it off stops sync and prevents use of downloaded music. Online playback and Vibe preloading keep working.",
+    "Sign in to Yandex in this profile. If you have already signed in, refresh your account details.",
+    "one",
+    "Unknown artist · 0:00",
+    "Player",
+    "Library",
+    "Search",
+    "Radio",
+    "Clips"
+  ],
+  "freshProcessRestoresSettingsRoute": true,
+  "passed": true
+}
