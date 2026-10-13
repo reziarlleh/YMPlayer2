@@ -25,11 +25,13 @@ import java.security.MessageDigest
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class LikedFileStore(private val context: Context) : OfflineStore {
     private val lock = Mutex()
+    // A location lease prevents moving a download's destination. Network IO never holds the read lock.
+    private val locationLease = Mutex()
     private val directories = CacheDirectories(context)
     fun locationState() = directories.state()
     internal fun locationIdentity() = directories.identity()
     suspend fun move(destination: String?, progress: (Long, Long) -> Unit) = withContext(Dispatchers.IO) {
-        lock.withLock { directories.migrate(destination, progress) }
+        locationLease.withLock { lock.withLock { directories.migrate(destination, progress) } }
     }
     private fun hash(value: String) = digest(value.toByteArray())
     private fun digest(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
@@ -82,19 +84,19 @@ class LikedFileStore(private val context: Context) : OfflineStore {
         }
     }
 
-    override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem = withContext(Dispatchers.IO) { lock.withLock {
-        val root = root(owner)
+    override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem = withContext(Dispatchers.IO) { locationLease.withLock {
+        val root = lock.withLock { root(owner) }
         val audio = part(root, track.id, ".audio")
         val cover = part(root, track.id, ".cover")
         try {
-            run {
+            lock.withLock {
                 check(allowed)
                 if (!root.isDirectory && !root.mkdirs()) throw IOException("Cannot create offline directory")
                 write(part(root, track.id, ".json"), encode(track).toString().toByteArray())
             }
             var audioFailed = false; var coverFailed = false; var noCover = false
             try {
-                val valid = run { valid(audio, track.durationSeconds * 1000L, true) }
+                val valid = lock.withLock { valid(audio, track.durationSeconds * 1000L, true) }
                 if (!valid) {
                     if (!track.available) throw MusicException(MusicFailure.UNAVAILABLE)
                     transfer(); check(allowed)
@@ -105,7 +107,7 @@ class LikedFileStore(private val context: Context) : OfflineStore {
             catch (e: OfflineException) { throw e }
             catch (_: Exception) { audioFailed = true }
             try {
-                val valid = run { valid(cover, 0, false) }
+                val valid = lock.withLock { valid(cover, 0, false) }
                 if (!valid) {
                     val uri = track.artworkUri
                     if (uri == null) noCover = true
@@ -115,7 +117,7 @@ class LikedFileStore(private val context: Context) : OfflineStore {
             catch (e: Revoked) { throw e }
             catch (e: OfflineException) { throw e }
             catch (_: Exception) { coverFailed = true }
-            run { check(allowed); OfflineItem(cached(root, track), audioFailed, coverFailed, noCover) }
+            lock.withLock { check(allowed); OfflineItem(cached(root, track), audioFailed, coverFailed, noCover) }
         } catch (_: Revoked) { OfflineItem(null, false, false, false) }
     } }
 
@@ -185,7 +187,7 @@ class LikedFileStore(private val context: Context) : OfflineStore {
             if (bytes <= 0 || length >= 0 && length != bytes || !validate(temp, duration, audio)) throw IOException("Incomplete offline media")
             val digest = fileHash(temp)
             currentCoroutineContext().ensureActive()
-            run {
+            lock.withLock {
                 check(allowed)
                 // A crash between these renames leaves an unknown checksum, requiring packet/image validation.
                 checksum(target).let { if (it.exists()) it.delete() }

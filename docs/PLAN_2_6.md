@@ -30,10 +30,14 @@
 Прочитаны актуальные документы и RepoWise context AudioService/LikedFileStore.
 Реализованы File/SAF storage, проверяемый перенос, экспортёр Jump3r/LAME
 и сохраняемый шаблон/предпросмотр/(?) справка, окна/пикеры/foreground-сервис.
-39 сообщений переведены на8 языков. STOP TV29 прошёл; первые отказы миграции
-и экспорта исправлены, повторный native проход впереди. Следующий шаг:
-дождаться transfers-debug-4.txt, установить свежий debug на emulator-5564
-и повторить FileTransferTest/SystemBrowserTest. Один Gradle процесс на checkout.
+46 сообщений переведены на8 языков. Native TV29/API28 —33/33, foreground-сервис
+API28 —1/1, API35 первый проход36/36. Затем MIME и read-lock скорректированы
+по финальной сверке; нужен повтор. Следующий шаг: дождаться
+transfers-read-lock-final.txt, установить свежие APK на emulator-5562 и выполнить
+FileTransferTest/Mp3WriterTest/SystemBrowserTest/OfflinePlaybackTest/ClipStartupTest/
+FileTransferServiceTest. Затем API28/TV, подписанный выпуск и публикация.
+Build пока104, стабильный2.6 ещё не выпускался. Один Gradle процесс на checkout;
+API35 AVD запускается с -memory2048, чтобы не перегружать16GB host.
 [Подробности и остаток](FILE_TRANSFERS_2_6_VERIFICATION.md).
 
 [Статус](PROJECT_STATUS.md) · [план](ROADMAP.md) ·

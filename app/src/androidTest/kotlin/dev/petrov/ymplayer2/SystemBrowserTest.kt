@@ -47,7 +47,7 @@ class SystemBrowserTest {
             val card = notifications.activeNotifications.first { it.notification.deleteIntent != null }
             card.notification.deleteIntent.send()
             awaitState { !app.radio.state.value.playing && !app.radio.state.value.buffering && !app.radio.state.value.reconnecting && notifications.activeNotifications.none { it.id == card.id } }
-            val stoppedCalls = calls.get(); Thread.sleep(1300)
+            val stoppedCalls = calls.get(); Thread.sleep(6100) // Radio polling clamps its period to at least 5 seconds.
             assertEquals(stoppedCalls, calls.get())
             assertFalse(app.radio.state.value.playing)
             main { app.radio.play(station) }; awaitState { app.radio.state.value.playing }
@@ -58,6 +58,7 @@ class SystemBrowserTest {
         val app = context.applicationContext as PlayerApplication
         context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+        val screen = androidx.test.core.app.ActivityScenario.launch(MainActivity::class.java)
         val browser = MediaBrowser.Builder(context, SessionToken(context, service)).buildAsync().get(20, TimeUnit.SECONDS)
         val notifications = context.getSystemService(android.app.NotificationManager::class.java)
         try {
@@ -66,13 +67,15 @@ class SystemBrowserTest {
             main { app.playback.playQueue(listOf(id)) }
             awaitState { app.playback.state.value.playing && notifications.activeNotifications.any { it.notification.deleteIntent != null } }
             val card = notifications.activeNotifications.first { it.notification.deleteIntent != null }
+            screen.moveToState(androidx.lifecycle.Lifecycle.State.CREATED) // TV Home, with music still playing.
             card.notification.deleteIntent.send()
             awaitState { !app.playback.state.value.playing && notifications.activeNotifications.none { it.id == card.id } }
+            screen.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
             main { app.playback.playQueue(listOf(id)) }
             awaitState { app.playback.state.value.playing && notifications.activeNotifications.any { it.id == card.id } }
             main { browser.stop() }
             awaitState { !app.playback.state.value.playing && notifications.activeNotifications.none { it.id == card.id } }
-        } finally { main { app.playback.stop(); browser.release() }; runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) } }
+        } finally { main { app.playback.stop(); browser.release() }; screen.close(); runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) } }
     }
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext

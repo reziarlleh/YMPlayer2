@@ -116,6 +116,18 @@ class FileTransferTest {
         assertTrue(rows.all { it.first.endsWith(".mp3") })
         assertTrue(rows.isNotEmpty()); rows.forEach { assertMp3(it.second) }
     }
+    @Test fun blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack() {
+        val damaged = h.offline.state.value.tracks.first { it.tasteTarget().key == "1" }
+        File(Uri.parse(damaged.uri).path!!).writeBytes(byteArrayOf(1, 2, 3))
+        val entered = CompletableDeferred<Unit>(); val gate = CompletableDeferred<String>()
+        runBlocking {
+            val sync = launch { h.offlineStore.sync(owner, damaged, { entered.complete(Unit); gate.await() }, { true }, {}) }
+            try {
+                withTimeout(5000) { entered.await() }
+                assertNotNull("A stalled network resolver must not block cached playback", withTimeout(5000) { h.offlineStore.audio(owner, "yandex:2:7") })
+            } finally { sync.cancelAndJoin() }
+        }
+    }
     private fun export(request: AudioExportRequest, template: String) {
         compose.runOnIdle { h.audioExporter.ask(request); h.audioExporter.template(template); h.audioExporter.start(TestStorageProvider.exportTree.toString()) }
         waitFor { !h.audioExporter.state.value.running }
@@ -178,6 +190,8 @@ class FileTransferTest {
                 assertTrue(language.tag, help.isNotEmpty())
                 compose.onNodeWithTag("export_help_close").performClick()
                 if (language.tag in listOf("ru", "en")) {
+                    compose.waitForIdle()
+                    Thread.sleep(150) // Wait for the platform window to draw the already-verified Compose state.
                     val instrument = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
                     instrument.uiAutomation.takeScreenshot()?.let { bitmap ->
                         File(compose.activity.getExternalFilesDir(null), "export-${language.tag}.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }; bitmap.recycle()

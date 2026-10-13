@@ -64,8 +64,14 @@ internal class StorageNode private constructor(val context: Context, private val
         if (exists()) return this
         val parent = parentFile ?: throw IOException("Storage parent missing")
         if (!parent.mkdirs()) throw IOException("Cannot create directory")
-        document = Docs.createDocument(context.contentResolver, parent.uri, "application/octet-stream", name)
+        val mime = android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(name.substringAfterLast('.', "").lowercase(java.util.Locale.ROOT))
+            ?: "application/octet-stream"
+        document = Docs.createDocument(context.contentResolver, parent.uri, mime, name)
             ?: throw IOException("Cannot create storage entry")
+        if (field(Docs.Document.COLUMN_DISPLAY_NAME) != name) {
+            Docs.deleteDocument(context.contentResolver, document!!); document = null
+            throw IOException("Storage changed the file name")
+        }
         parent.children?.set(name, this)
         return this
     }
@@ -127,7 +133,7 @@ internal class StorageNode private constructor(val context: Context, private val
             val document = if (Docs.isDocumentUri(context, uri)) uri else Docs.buildDocumentUriUsingTree(uri, Docs.getTreeDocumentId(uri))
             return StorageNode(context, null, document, null, "")
         }
-        fun temporary(parent: StorageNode, prefix: String): StorageNode = parent.child(prefix + java.util.UUID.randomUUID() + ".part").create()
+        fun temporary(parent: StorageNode, prefix: String, extension: String = ".part"): StorageNode = parent.child(prefix + java.util.UUID.randomUUID() + extension).create()
         fun availableBytes(context: Context, uri: Uri): Long {
             val id = Docs.getTreeDocumentId(uri)
             if (uri.authority == "com.android.externalstorage.documents") {

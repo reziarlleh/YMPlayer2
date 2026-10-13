@@ -68,7 +68,7 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                                 download(source, downloaded!!, folder, expected)
                                 downloaded!!.uri.toString()
                             } else source
-                            temp = StorageNode.temporary(folder, ".YMPlayer2-export-")
+                            temp = StorageNode.temporary(folder, ".YMPlayer2-export-", ".part.mp3")
                             temp.outputStream().buffered().use { output -> writer.write(input, track, index, tracks.size, output) }
                             currentCoroutineContext().ensureActive()
                             if (accounts.state.value.profileId != profile || accounts.state.value.account?.id != account) throw CancellationException("Profile changed")

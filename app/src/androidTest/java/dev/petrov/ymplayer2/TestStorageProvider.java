@@ -57,6 +57,9 @@ public class TestStorageProvider extends DocumentsProvider {
     }
     @Override public String createDocument(String parent, String mime, String name) throws FileNotFoundException {
         if (failWrite || name.contains("/") || name.equals("..")) throw new FileNotFoundException();
+        // Model the system provider's MIME/extension adjustment, which a byte-only fake misses.
+        if (name.endsWith(".json") && !mime.equals("application/json")) name += ".bin";
+        if (name.endsWith(".mp3") && !mime.equals("audio/mpeg")) name += ".bin";
         File next = file(parent + "/" + name); if (next.exists()) throw new FileNotFoundException();
         try { if (mime.equals(DocumentsContract.Document.MIME_TYPE_DIR)) { if (!next.mkdir()) throw new IOException(); } else if (!next.createNewFile()) throw new IOException(); }
         catch (IOException e) { throw new FileNotFoundException(); }
