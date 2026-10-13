@@ -91,8 +91,10 @@ README остаётся пользовательским описанием; х�
 инструкции RU/EN описывают automatic likes/pending actions/MP3 quality;
 BUG_REPORT B-031…B-034 и карты функций/переноса обновлены.
 [Локальная сверка ссылок](qa/patch261/documentation-local.json): 231 документ,
-2079 ссылок, 0 ошибок. [GitHub-сверка](qa/patch261/documentation-final.json): 231 документ/2088 ссылок,
-0 ошибок; Latest107 и README blob совпадают. RepoWise фиксируется в журнале.
+2079 ссылок, 0 ошибок. [GitHub-сверка](qa/patch261/documentation-final.json): 231 документ/2090 ссылок,
+0 ошибок; Latest107 и README blob совпадают. [RepoWise](qa/patch261/repowise.txt) index-only завершился: 94 files,
+12176 nodes/38223 edges,405 структурных страниц. Кандидаты dead-code не удалялись
+без подтверждения. Финальная сверка после публикации записана в WORK_JOURNAL.
 
 ## Ошибки подготовки и найденные дефекты
 

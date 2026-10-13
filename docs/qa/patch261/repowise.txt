@@ -1,0 +1,39 @@
+repowise update · YMPlayer2
+d3397259..c106aaba
+94 changed · 61 modified, 33 added
+    modified  CHANGELOG.md
+    modified  README.md
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/EntityWavePlaybackTest.kt
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/FileTransferTest.kt
+       added  app/src/androidTest/kotlin/dev/petrov/ymplayer2/Mp3ExportQualityTest.kt
+       added  app/src/androidTest/kotlin/dev/petrov/ymplayer2/TastePendingStoreTest.kt
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveSettingsAdapterTest.kt
+    modified  app/src/main/kotlin/dev/petrov/ymplayer2/ClipActivity.kt
+    modified  app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt
+    modified  app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt
+  +84 more (use -v to list all)
+Pages from an older renderer: 40
+Pages to regenerate: 243
+Pages to decay: 10
+2026-10-13 18:07:44 [debug    ] duplication_incremental_splice changed=161 deleted=0 pairs=199074 touched_buckets=362503
+Health analysis (partial): 94 changed, 251 performance-affected, 227 findings
+Dead code findings: 201
+Knowledge graph refreshed: 6 layers, 12 tour steps
+  ✓ Re-rendered 405 wiki pages from structure
+Related pages refreshed on 152 pages
+
+┌────────────────────────── {^ ^}  repowise index-only update complete ───────────────────────────┐
+│                                                                                                 │
+│   Files changed           94                                                                    │
+│   Graph                   12,176 nodes · 38,223 edges                                           │
+│   Dead code               0 unreachable · 6 unused exports                                      │
+│   Wiki pages              405 re-rendered from structure                                        │
+│   Git history             44 files refreshed                                                    │
+│   Elapsed                 7m 9s                                                                 │
+│                                                                                                 │
+│   What's next:                                                                                  │
+│   repowise serve              browse the index at localhost:3000                                │
+│   repowise generate           upgrade the wiki to model-written prose (needs a key)             │
+│                                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
