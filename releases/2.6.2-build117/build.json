@@ -1,0 +1,12 @@
+{
+  "minSdk": 28,
+  "sha256": "f9c3243d7e0559970f98858f5c9f7ca8112e898f99d7f282eeecfee78c197b86",
+  "applicationId": "dev.petrov.ymplayer2",
+  "runtimeAcceptance": "Owner confirmed smartphone startup on 2026-10-14 and authorized stable publication; TV Open/Stop verified on owned emulators, no new physical-TV acceptance claimed.",
+  "builtAtUtc": "2026-10-14T03:24:21.1620043Z",
+  "channel": "stable",
+  "versionName": "2.6.2-build117",
+  "updateChannel": "stable",
+  "versionCode": 117,
+  "verifiedSourceCommit": "78e216404c367c5d1ad19f04a5c86320a27ee611"
+}

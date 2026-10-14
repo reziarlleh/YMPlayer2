@@ -1,10 +1,11 @@
 # Карта переноса и модулей
 
-Актуальный опубликованный stable — **2.6.1-build107**. Изменения2.6.2
-на main находятся в разработке; выпуски109/113/116 сняты владельцем.
-TV notification/sessionActivity остаются в playback/android; MainActivity/shell
-не получают команды выбора раздела. API35 crash исправляется в creator options.
-[Текущий отчёт](STARTUP_2_6_2_VERIFICATION.md).
+Актуальный stable — **2.6.2-build117**. Android TV Open/Stop и возврат прежней
+Activity/экрана сохранены. Исправлен startupAPI35 в creator options без изменения
+проверенного API34 workaround. Владелец подтвердил запуск смартфона и разрешил
+стабильный релиз; новую физическую приёмкуTV не объявлять.
+TV notification/sessionActivity — playback/android; MainActivity/shell не
+выбирают раздел по источнику. [Отчёт](STARTUP_2_6_2_VERIFICATION.md).
 
 **2.6.1-build107**: core WaveLoader/WaveHistory/PlaybackState/MusicTaste/OfflineMusic/
 OperationDiagnostic; provider YandexWaveApi/AndroidTasteStore/HTTP transports;

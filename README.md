@@ -12,11 +12,11 @@ YMPlayer 2 — самостоятельное приложение. Для ра�
   <img src="docs/design/brand/tv-banner.png" width="640" alt="YMPlayer 2">
 </p>
 
-**[Скачать APK — 2.6.1-build107](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
+**[Скачать APK — 2.6.2-build117](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
 [Что нового](CHANGELOG.md) ·
 [Обсуждение и APK на 4PDA](https://4pda.to/forum/index.php?showtopic=1127108)
 
-[Резервная загрузка APK](https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.1-build107/releases/2.6.1-build107/YMPlayer-2.6.1-build107.apk) ·
+[Резервная загрузка APK](https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build117/releases/2.6.2-build117/YMPlayer-2.6.2-build117.apk) ·
 [Как пользоваться Радио](docs/USER_GUIDE.md#радио).
 
 ## Возможности
