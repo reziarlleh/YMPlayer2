@@ -27,6 +27,8 @@ import com.google.common.collect.ImmutableList
 class AudioService : MediaLibraryService() {
     private var session: MediaLibrarySession? = null
     private var engine: ExoPlayer? = null
+    private val activityHandler = android.os.Handler(android.os.Looper.getMainLooper())
+    private var activityRepublished = false
     private val host get() = application as PlaybackHost
     private val playback get() = host.playback
 
@@ -34,7 +36,19 @@ class AudioService : MediaLibraryService() {
         super.onCreate()
         // STOP leaves a resumable checkpoint, not an active TV notification card.
         setShowNotificationForIdlePlayer(SHOW_NOTIFICATION_FOR_IDLE_PLAYER_NEVER)
-        setMediaNotificationProvider(TvMediaNotificationProvider(this))
+        setMediaNotificationProvider(TvMediaNotificationProvider(this, notificationCreated = { current ->
+            if (android.os.Build.VERSION.SDK_INT >= 34 && !activityRepublished) {
+                activityRepublished = true
+                // Media3 queues the actual notification write after createNotification returns.
+                // Two queue turns put the session activity update after that write, once per service.
+                activityHandler.post { activityHandler.post {
+                    if (session === current) {
+                        current.setSessionActivity(mediaPlayerActivity(this))
+                        android.util.Log.i("YMPlayerSession", "sessionActivity republished after notification")
+                    }
+                } }
+            }
+        }))
         host.onAudioServiceEvent(AudioServiceEvent.CREATED)
         val source = onlineDataSourceFactory(this, playback::resolveStream)
         val player = ExoPlayer.Builder(this).setMediaSourceFactory(DefaultMediaSourceFactory(this).setDataSourceFactory(source))
@@ -58,6 +72,7 @@ class AudioService : MediaLibraryService() {
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? = session
 
     override fun onDestroy() {
+        activityHandler.removeCallbacksAndMessages(null)
         host.radio?.detach()
         playback.detach()
         session?.release(); session = null
@@ -98,6 +113,11 @@ internal object BrowserSources {
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 private fun browserCallback(playback: AndroidPlayback, diagnostic: (AudioServiceEvent) -> Unit) = object : MediaLibraryService.MediaLibrarySession.Callback {
+    override fun onConnectAsync(session: MediaSession, controller: MediaSession.ControllerInfo): ListenableFuture<MediaSession.ConnectionResult> {
+        val result = MediaSession.ConnectionResult.AcceptedResultBuilder(session, controller).build()
+        android.util.Log.i("YMPlayerSession", "controller=${controller.packageName} trusted=${controller.isTrusted} playPause=${result.availablePlayerCommands.contains(Player.COMMAND_PLAY_PAUSE)}")
+        return Futures.immediateFuture(result)
+    }
     override fun onPlaybackResumption(session: MediaSession, controller: MediaSession.ControllerInfo,
         isForPlayback: Boolean): ListenableFuture<MediaSession.MediaItemsWithStartPosition> {
         diagnostic(AudioServiceEvent.RESUMPTION_REQUESTED)

@@ -22,19 +22,35 @@ internal fun mediaPlayerActivity(context: Context): PendingIntent {
     val intent = Intent(ACTION_OPEN_MEDIA_PLAYER)
         .setClassName(context.packageName, "dev.petrov.ymplayer2.MainActivity")
         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-    // The TV launcher sends this while our Activity is behind Home. Delegate permission
-    // for this immutable, explicit user-facing entry point on Android 15 and later.
-    val options = if (Build.VERSION.SDK_INT >= 35) ActivityOptions.makeBasic().apply {
-        setPendingIntentCreatorBackgroundActivityStartMode(ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
-    }.toBundle() else null
-    return PendingIntent.getActivity(context, 11, intent,
+    // Android 14 TV notification components can forward the click without sender options.
+    // Publish the opt-in with this explicit user-operated activity entry point.
+    val options = if (Build.VERSION.SDK_INT >= 34) ActivityOptions.makeBasic().apply {
+        setPendingIntentBackgroundActivityStartMode(if (Build.VERSION.SDK_INT >= 36)
+            ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOW_ALWAYS else ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
+        if (Build.VERSION.SDK_INT >= 35)
+            setPendingIntentCreatorBackgroundActivityStartMode(if (Build.VERSION.SDK_INT >= 36)
+                ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOW_ALWAYS else ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
+    }.toBundle().apply {
+        // Android 14 already reads this AOSP option; its typed setter entered the public SDK in 35.
+        if (Build.VERSION.SDK_INT == 34) putInt("android.activity.pendingIntentCreatorBackgroundActivityStartMode",
+            ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
+        // Android 14's TV notification sender is a privileged background service,
+        // rather than a visible activity. Let Android verify its existing BAL
+        // permission; this grants no permission to our app or to the sender.
+        if (Build.VERSION.SDK_INT == 34) putBoolean(
+            "android.pendingIntent.backgroundActivityAllowedByPermission", true)
+    } else null
+    // Keep the token stable: cancelling it invalidates the copy retained by the TV's
+    // now-playing card even after the app notification has received its replacement.
+    return PendingIntent.getActivity(context, 13, intent,
         PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT, options)
 }
 
 /** Keep Media3's notification and add the actions read by television notification panels. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class TvMediaNotificationProvider(private val context: Context,
-    private val delegate: MediaNotification.Provider = DefaultMediaNotificationProvider(context)) : MediaNotification.Provider {
+    private val delegate: MediaNotification.Provider = DefaultMediaNotificationProvider(context),
+    private val notificationCreated: (MediaSession) -> Unit = {}) : MediaNotification.Provider {
     override fun createNotification(mediaSession: MediaSession, mediaButtonPreferences: ImmutableList<CommandButton>,
         actionFactory: MediaNotification.ActionFactory, onNotificationChangedCallback: MediaNotification.Provider.Callback): MediaNotification {
         val open = mediaSession.sessionActivity ?: mediaPlayerActivity(context)
@@ -51,9 +67,11 @@ class TvMediaNotificationProvider(private val context: Context,
             return MediaNotification(original.notificationId, notification)
         }
         // Artwork arrives later through this callback. Its replacement must retain TV actions too.
-        return extend(delegate.createNotification(mediaSession, mediaButtonPreferences, actionFactory) {
+        val notification = extend(delegate.createNotification(mediaSession, mediaButtonPreferences, actionFactory) {
             onNotificationChangedCallback.onNotificationChanged(extend(it))
         })
+        notificationCreated(mediaSession)
+        return notification
     }
     override fun handleCustomCommand(session: MediaSession, action: String, extras: Bundle): Boolean =
         delegate.handleCustomCommand(session, action, extras)
