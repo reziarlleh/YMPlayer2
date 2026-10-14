@@ -7,7 +7,13 @@
     "errors": 0,
     "warnings": 81
   },
-  "androidTestApk": "compiled; physical production Kivi is the runtime evidence",
+  "androidTestApk": "compiled and 4/4 native tests passed locally",
   "oauthSigning": "passed",
-  "repowise": "updated"
+  "repowise": "final index b2b559d, structural only",
+  "nativeTv29": {
+    "passed": 4,
+    "failed": 0,
+    "includes": "My Wave playing with stale RADIO checkpoint; same Activity/library retained"
+  },
+  "ci": "38503441346 success, head b2b559d"
 }

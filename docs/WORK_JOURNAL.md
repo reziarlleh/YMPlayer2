@@ -1220,10 +1220,16 @@ README, обе инструкции, статус/roadmap/план/баги/ка
 После запрета устройство не использовали. Локальный TV29 запущен в5564;
 прогон3/4, новый Wave fixture не прошёл sign-in до Open: не заменён account-bound
 taste/settings. Согласован fixture, отдельный Wave+stale RADIO test1/1 прошёл;
-production код/подписанный116 не менялись. Общий TV-прогон повторяется.
-Следующий шаг: закрыть результаты, source/test/docs/artifact/tag/feeds/release,
+production код/подписанный116 не менялись. Итоговый TV29 прогон4/4 прошёл.
+Опубликован116: tag ebd1bf7,4 assets, оба raw feeds116. Следующий шаг:
 HTTP/hash/GitHub/RepoWise; оставаться на2.6.2. [Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
 
 Итог TV29:4/4. Промежуточный guard Stop ожидал tvlauncher, фактический
 системный id tvrecommendations/dismiss_button; скорректирован только тест.
 Продуктовый116 и SDK34 проверки не менялись.
+
+Финал116: production source1a9cdb6, tag ebd1bf7, feeds b2b559d, GitHub4 assets/
+Latest116 и подпись/обе загрузки/README сверены; CI success38503441346,
+RepoWise b2b559d. CDN dynamic113/Gcore107/109 на02:58UTC — D-001 открыт.
+Все4 nativeTV сценария прошли, TV29 остановлен; Kivi после запрета не использовался.
+Дополнительных исправлений вне Open не делалось; D-005 остаётся наблюдением.

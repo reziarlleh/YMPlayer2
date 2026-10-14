@@ -1,0 +1,38 @@
+repowise update · YMPlayer2
+1a9cdb68..b2b559d8
+37 changed · 20 modified, 17 added
+    modified  CHANGELOG.md
+    modified  README.md
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/TvNotificationActionsTest.kt
+    modified  docs/BUG_REPORT.md
+    modified  docs/DOCUMENTATION_INDEX.md
+    modified  docs/FEATURE_INVENTORY.md
+    modified  docs/LESSONS_LEARNED.md
+    modified  docs/MIGRATION_MAP.md
+    modified  docs/MODULES.md
+    modified  docs/PLAN_2_6_2.md
+  +27 more (use -v to list all)
+Pages from an older renderer: 9
+Pages to regenerate: 45
+Pages to decay: 2
+2026-10-14 07:55:57 [debug    ] duplication_incremental_splice changed=25 deleted=0 pairs=199328 touched_buckets=1394
+Health analysis (partial): 37 changed, 25 performance-affected, 4 findings
+Dead code findings: 199
+Knowledge graph refreshed: 6 layers, 12 tour steps
+  ✓ Re-rendered 34 wiki pages from structure
+Related pages refreshed on 5 pages
+
+┌────────────────────────── {^ ^}  repowise index-only update complete ───────────────────────────┐
+│                                                                                                 │
+│   Files changed           37                                                                    │
+│   Graph                   12,313 nodes · 38,497 edges                                           │
+│   Dead code               0 unreachable · 0 unused exports                                      │
+│   Wiki pages              34 re-rendered from structure                                         │
+│   Git history             1 files refreshed                                                     │
+│   Elapsed                 3m 6s                                                                 │
+│                                                                                                 │
+│   What's next:                                                                                  │
+│   repowise serve              browse the index at localhost:3000                                │
+│   repowise generate           upgrade the wiki to model-written prose (needs a key)             │
+│                                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘

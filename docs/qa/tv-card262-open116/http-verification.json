@@ -1,0 +1,62 @@
+{
+  "checkedAtUtc": "2026-10-14T02:58:37.898272+00:00",
+  "expectedVersion": "2.6.2-build116",
+  "results": [
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build116/YMPlayer-2.6.2-build116.apk",
+      "status": 200,
+      "size": 7001973,
+      "sha256": "dea42335ee202169aa002ec319c54cf74e4ad4f50c771f6ddc46a048eb3d86b4",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build116/releases/2.6.2-build116/YMPlayer-2.6.2-build116.apk",
+      "status": 200,
+      "size": 7001973,
+      "sha256": "dea42335ee202169aa002ec319c54cf74e4ad4f50c771f6ddc46a048eb3d86b4",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "version": "2.6.2-build116",
+      "sha256": "dea42335ee202169aa002ec319c54cf74e4ad4f50c771f6ddc46a048eb3d86b4",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.2-build116",
+      "sha256": "dea42335ee202169aa002ec319c54cf74e4ad4f50c771f6ddc46a048eb3d86b4",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "version": "2.6.2-build113",
+      "sha256": "3025634ccfa7def0ee2712a4ae90681fb0114288e89309d695863c6496851fee",
+      "matchesExpected": false
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.2-build113",
+      "sha256": "3025634ccfa7def0ee2712a4ae90681fb0114288e89309d695863c6496851fee",
+      "matchesExpected": false
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "version": "2.6.1-build107",
+      "sha256": "512bf84647a7490eed7db15ec73a4cb2b22d794c57d713221b8692ec2f3975f5",
+      "matchesExpected": false
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.2-build109",
+      "sha256": "79b98812563358fd6bc87064d3f8c0d53de86b388479d6f83a6c87086eafaa11",
+      "matchesExpected": false
+    }
+  ]
+}

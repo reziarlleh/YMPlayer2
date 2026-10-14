@@ -52,7 +52,10 @@ Release115/116 и OAuth/signing guards прошли. Текущая assembleDebu
 
 APK SHA256: `dea42335ee202169aa002ec319c54cf74e4ad4f50c771f6ddc46a048eb3d86b4`.
 Прежний cert: `fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
-Версия остаётся2.6.2; tag/4 assets/оба feeds/HTTP/hash/GitHub завершаются.
+Версия остаётся2.6.2; tag ebd1bf7/4 assets/оба raw feeds116/GitHub сверены.
+Основной и резервный APK совпали по SHA256. На02:55UTC CDN manifest116,
+stable113; Gcore stable107/manifest109 (D-001).
+[HTTP](qa/tv-card262-open116/http-initial.json). CI success/финальный RepoWise выполнены.
 
 ## Уточнение владельца: играла Моя волна, а открывалось Радио
 
@@ -77,3 +80,13 @@ Fixture смешал fake account/API с production taste/settings. Настро
 она принадлежит tvrecommendations, а не tvlauncher. Оба известных системных
 элемента принимаются; app notification по-прежнему исключено.
 [Исходный повтор](qa/tv-card262-open116/native-retry.txt).
+
+## Финальная сверка
+
+GitHub CI38503441346/b2b559d: success, включая translation checks, JVM,
+APK compilation/lint и metadata transformation contract. [CI](qa/tv-card262-open116/ci.json).
+RepoWise финально обновлён доb2b559d; [лог](qa/tv-card262-open116/repowise-final.txt).
+На02:58UTC raw feeds116, основной и резервный APK116 совпали по SHA256;
+CDN dynamic feeds113, Gcore stable107/manifest109. [Повтор](qa/tv-card262-open116/http-verification.json).
+Purge завершён, но не доказывает свежесть каждого узла. Файлы и исходники
+на основной main, новой ветки/версии2.6.3 нет.

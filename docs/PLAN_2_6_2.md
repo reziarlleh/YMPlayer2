@@ -8,7 +8,7 @@
 - [x] Исправить native ожидания: прежний library и тот же экземпляр Activity.
 - [x] Реальные Open на Kivi: library/search/settings/dialog; прежний UI/положение,
   непрерывный звук, повтор. DPAD и Stop.
-- [ ] Сборка/lint/CI/RepoWise, tag/4 assets/оба feeds/HTTP/hash/GitHub документы.
+- [x] Сборка/lint, tag/4 assets/оба raw feeds116/GitHub документы. CI success и финальный RepoWise выполнены; CDN проверены отдельно (D-001).
 
 114/115 не опубликованы; их отказы зафиксированы.109 не исправил кнопки,
 113 технически открывает/останавливает, но меняет раздел. [Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
