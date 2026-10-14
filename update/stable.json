@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 109,
-  "versionName": "2.6.2-build109",
+  "versionCode": 113,
+  "versionName": "2.6.2-build113",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-13T17:42:54.4601077Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.2-build109",
-  "releaseNotes": "Исправлена совместимость кнопок Открыть/Остановить системной карточки Android TV. Открыть возвращает в плеер или радио без изменения воспроизведения; TV-команды сохраняются после загрузки обложки.",
+  "publishedAt": "2026-10-14T01:55:26.5414832Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.2-build113",
+  "releaseNotes": "Исправлены «Открыть» и «Остановить» системной карточки Android TV. Проверено на Kivi: музыка и радио, управление пультом, повторный запуск. Данные и настройки сохраняются.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build109/YMPlayer-2.6.2-build109.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build109/releases/2.6.2-build109/YMPlayer-2.6.2-build109.apk",
-    "sizeBytes": 7001921,
-    "sha256": "79b98812563358fd6bc87064d3f8c0d53de86b388479d6f83a6c87086eafaa11"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build113/YMPlayer-2.6.2-build113.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build113/releases/2.6.2-build113/YMPlayer-2.6.2-build113.apk",
+    "sizeBytes": 7001973,
+    "sha256": "3025634ccfa7def0ee2712a4ae90681fb0114288e89309d695863c6496851fee"
   }
 }
