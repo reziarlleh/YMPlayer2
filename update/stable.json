@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 116,
-  "versionName": "2.6.2-build116",
+  "versionCode": 107,
+  "versionName": "2.6.1-build107",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-14T02:52:53.2729929Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.2-build116",
-  "releaseNotes": "«Открыть» возвращает приложение в прежнем виде: сохраняются выбранный раздел, прокрутка и открытые окна. Принудительное переключение в Радио/Плеер удалено. «Остановить» прекращает звук.",
+  "publishedAt": "2026-10-14T03:19:31.9075584Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.1-build107",
+  "releaseNotes": "Стабильный выпуск 2.6.1. Все сборки 2.6.2 сняты с публикации и автоматического обновления по решению владельца; исправление продолжается локально.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build116/YMPlayer-2.6.2-build116.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build116/releases/2.6.2-build116/YMPlayer-2.6.2-build116.apk",
-    "sizeBytes": 7001973,
-    "sha256": "dea42335ee202169aa002ec319c54cf74e4ad4f50c771f6ddc46a048eb3d86b4"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.1-build107/YMPlayer-2.6.1-build107.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.1-build107/releases/2.6.1-build107/YMPlayer-2.6.1-build107.apk",
+    "sizeBytes": 6924113,
+    "sha256": "512bf84647a7490eed7db15ec73a4cb2b22d794c57d713221b8692ec2f3975f5"
   }
 }
