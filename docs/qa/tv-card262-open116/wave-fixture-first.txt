@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.TvNotificationActionsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.TvNotificationActionsTest:
+INSTRUMENTATION_STATUS: test=myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.TvNotificationActionsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Fixture wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Войдите в Яндекс в этом профиле., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0, referenceQueue=false, explicitQueueIds=null, origin=PlaybackOrigin(source=MY_WAVE, title=Моя волна, wave=WaveRequest(station=user:onyourwave, title=Моя волна, settings=[])), continueWave=false, previousAvailable=false, nextAvailable=false); catalog=OnlineCatalogState(profileId=owner, phase=SIGNED_IN, tracks=[]); requests=[]; resolved=[]
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint(TvNotificationActionsTest.kt:248)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.waitFor(TvNotificationActionsTest.kt:24)
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint(TvNotificationActionsTest.kt:245)
+	... 67 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint(dev.petrov.ymplayer2.TvNotificationActionsTest):
+java.lang.AssertionError: Fixture wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Войдите в Яндекс в этом профиле., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0, referenceQueue=false, explicitQueueIds=null, origin=PlaybackOrigin(source=MY_WAVE, title=Моя волна, wave=WaveRequest(station=user:onyourwave, title=Моя волна, settings=[])), continueWave=false, previousAvailable=false, nextAvailable=false); catalog=OnlineCatalogState(profileId=owner, phase=SIGNED_IN, tracks=[]); requests=[]; resolved=[]
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint(TvNotificationActionsTest.kt:248)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.waitFor(TvNotificationActionsTest.kt:24)
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint(TvNotificationActionsTest.kt:245)
+	... 67 more
+
+INSTRUMENTATION_STATUS: test=myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 23.241
+There was 1 failure:
+1) myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint(dev.petrov.ymplayer2.TvNotificationActionsTest)
+java.lang.AssertionError: Fixture wave state=PlaybackState(profileId=owner, queue=[], index=0, positionSeconds=0, playing=false, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Войдите в Яндекс в этом профиле., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0, referenceQueue=false, explicitQueueIds=null, origin=PlaybackOrigin(source=MY_WAVE, title=Моя волна, wave=WaveRequest(station=user:onyourwave, title=Моя волна, settings=[])), continueWave=false, previousAvailable=false, nextAvailable=false); catalog=OnlineCatalogState(profileId=owner, phase=SIGNED_IN, tracks=[]); requests=[]; resolved=[]
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint(TvNotificationActionsTest.kt:248)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.waitFor(TvNotificationActionsTest.kt:24)
+	at dev.petrov.ymplayer2.TvNotificationActionsTest.myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint(TvNotificationActionsTest.kt:245)
+	... 67 more
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,12 +1,12 @@
 # Границы модулей
 
-14 октября: Open/Stop113 подтверждены на физическом Kivi/API34, включая DPAD.
+14 октября: Open/Stop116 проверены на физическом Kivi/API34, включая DPAD.
 NotificationListenerService query и Android14 permission-aware activity PI
 находятся в app manifest/playback adapter; интерфейс не управляет доверием клиентов.
 
 Дополнение13 октября2026: TV notification/sessionActivity — playback/android;
-MainActivity обрабатывает пользовательский Open, shell принимает событие
-навигации без Play. Стандартный Media3 provider сохранён за TV decorator;
+Open возвращает существующую задачу приложения. MainActivity/shell не
+получают команды смены раздела. Стандартный Media3 provider сохранён за TV decorator;
 network/radio/wave алгоритмы не переносятся в UI.
 [Проверки2.6.2](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
 

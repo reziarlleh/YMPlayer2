@@ -1,0 +1,39 @@
+repowise update · YMPlayer2
+98c70a51..1a9cdb68
+41 changed · 23 modified, 18 added
+    modified  CHANGELOG.md
+    modified  README.md
+    modified  app/src/androidTest/kotlin/dev/petrov/ymplayer2/TvNotificationActionsTest.kt
+    modified  app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt
+    modified  docs/BUG_REPORT.md
+    modified  docs/DOCUMENTATION_INDEX.md
+    modified  docs/FEATURE_INVENTORY.md
+    modified  docs/LESSONS_LEARNED.md
+    modified  docs/MIGRATION_MAP.md
+    modified  docs/MODULES.md
+  +31 more (use -v to list all)
+Pages from an older renderer: 12
+Pages to regenerate: 153
+Pages to decay: 14
+2026-10-14 07:26:06 [debug    ] duplication_incremental_splice changed=36 deleted=0 pairs=199328 touched_buckets=9091
+Health analysis (partial): 41 changed, 206 performance-affected, 32 findings
+Dead code findings: 199
+Knowledge graph refreshed: 6 layers, 12 tour steps
+  ✓ Re-rendered 242 wiki pages from structure
+Related pages refreshed on 88 pages
+
+┌────────────────────────── {^ ^}  repowise index-only update complete ───────────────────────────┐
+│                                                                                                 │
+│   Files changed           41                                                                    │
+│   Graph                   12,303 nodes · 38,491 edges                                           │
+│   Dead code               0 unreachable · 0 unused exports                                      │
+│   Wiki pages              242 re-rendered from structure                                        │
+│   Git history             4 files refreshed                                                     │
+│   Elapsed                 4m 59s                                                                │
+│                                                                                                 │
+│   What's next:                                                                                  │
+│   repowise serve              browse the index at localhost:3000                                │
+│   repowise generate           upgrade the wiki to model-written prose (needs a key)             │
+│                                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+

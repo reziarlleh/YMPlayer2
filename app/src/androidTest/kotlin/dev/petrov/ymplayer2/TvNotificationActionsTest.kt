@@ -161,8 +161,10 @@ class TvNotificationActionsTest {
         assertTrue(app.playback.state.value.playing)
         home(); systemClick("notification", "Notifications")
         systemClick("Dismiss", "Stop", "Остановить")
+        val stopTarget = java.io.File(context.getExternalFilesDir(null), "tv-dismiss-target.txt").readText()
         assertTrue("Test must use Android TV's background-audio Stop, not app notification dismissal",
-            java.io.File(context.getExternalFilesDir(null), "tv-dismiss-target.txt").readText().contains("tvlauncher:id/tray_dismiss"))
+            stopTarget.contains("com.google.android.tvlauncher:id/tray_dismiss") ||
+                stopTarget.contains("com.google.android.tvrecommendations:id/dismiss_button"))
         Thread.sleep(300)
         java.io.File(context.getExternalFilesDir(null), "tv-stop-click.txt").writeText(
             "focus=${appHasFocus()} playing=${app.playback.state.value.playing} cards=${notifications.activeNotifications.count { it.id == 1001 }} root=${InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow?.packageName}")
@@ -216,5 +218,70 @@ class TvNotificationActionsTest {
             compose.onNodeWithTag("nav_library").assertIsSelected()
             assertFalse("Open must not restart a stopped station", app.radio.state.value.playing)
         } finally { compose.runOnIdle { app.radio.release(); field.set(app.radio, original) } }
+    }
+
+    @Test fun myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint() {
+        // Emulator-only provider fixture: real product MainActivity/AudioService/Player,
+        // fake account/API and local WAV. No user credentials or external network.
+        lateinit var fixture: OnlineHarness
+        var fixtureCreated = false
+        val onlineField = dev.petrov.ymplayer2.playback.AndroidPlayback::class.java
+            .getDeclaredField("online").apply { isAccessible = true }
+        val waveField = dev.petrov.ymplayer2.playback.AndroidPlayback::class.java
+            .getDeclaredField("waveApi").apply { isAccessible = true }
+        val settingsField = dev.petrov.ymplayer2.playback.AndroidPlayback::class.java
+            .getDeclaredField("waveSettings").apply { isAccessible = true }
+        val tasteField = dev.petrov.ymplayer2.playback.AndroidPlayback::class.java
+            .getDeclaredField("taste").apply { isAccessible = true }
+        val originalOnline = onlineField.get(app.playback)
+        val originalWave = waveField.get(app.playback)
+        val originalSettings = settingsField.get(app.playback)
+        val originalTaste = tasteField.get(app.playback)
+        val profile = app.playback.state.value.profileId
+        val checkpoint = app.launchState.read(profile)
+        try {
+            compose.runOnIdle {
+                fixture = OnlineHarness(app)
+                fixtureCreated = true
+                fixture.auth.activate(profile)
+                onlineField.set(app.playback, fixture.online)
+                waveField.set(app.playback, fixture.waveApi)
+                settingsField.set(app.playback, fixture.player.waveSettings)
+                tasteField.set(app.playback, fixture.taste)
+            }
+            waitFor { fixture.online.catalog.value.phase == AuthPhase.SIGNED_IN }
+            compose.runOnIdle { app.playback.playMyWave() }
+            try {
+                waitFor { app.playback.state.value.wave && app.playback.state.value.playing &&
+                    app.playback.state.value.positionSeconds >= 1 }
+            } catch (failure: Throwable) {
+                throw AssertionError("Fixture wave state=${app.playback.state.value}; catalog=${fixture.online.catalog.value}; requests=${fixture.waveRequests}; resolved=${fixture.resolved}", failure)
+            }
+            compose.onNodeWithTag("nav_library").performClick().assertIsSelected()
+            val originalActivity = resumedActivity(); assertNotNull(originalActivity)
+            val open = tv().contentIntent!!
+            home()
+            compose.runOnIdle {
+                app.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.RADIO, true)
+                assertTrue(app.playback.state.value.wave && app.playback.state.value.playing)
+                open.send()
+            }
+            waitFor { appHasFocus() }
+            assertSame(originalActivity, resumedActivity())
+            compose.onNodeWithTag("nav_library").assertIsSelected()
+            assertTrue(app.playback.state.value.wave && app.playback.state.value.playing)
+        } finally {
+            compose.runOnIdle {
+                app.playback.stop()
+                onlineField.set(app.playback, originalOnline)
+                waveField.set(app.playback, originalWave)
+                settingsField.set(app.playback, originalSettings)
+                tasteField.set(app.playback, originalTaste)
+                app.launchState.write(profile, checkpoint.output, checkpoint.playing)
+                if (fixtureCreated) androidx.lifecycle.ViewModelStore().apply {
+                    put("wave-open-fixture", fixture); clear()
+                }
+            }
+        }
     }
 }

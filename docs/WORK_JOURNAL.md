@@ -1,5 +1,17 @@
 # Журнал работы
 
+### 2026-10-14 — переделка Open после отклонения113
+
+Владелец требует вернуть приложение как было. MainActivity notificationDestination/
+route request и ShellApp effect удалены. Использован launcher task entry, без CLEAR_TOP,
+с SINGLE_TOP.114 создал новый Activity;115 сохранил старые flags через UPDATE_CURRENT.
+Это выявлено настоящим Open на Kivi до публикации.116 использует новую identity14.
+Native ожидания исправлены: прежний library и assertSame Activity. Source1a9cdb6.
+Проверяются library/search/settings/dialog, UI/bounds, звук, повтор и Stop; выпуск
+116 и актуализация журналов/feeds/GitHub завершаются.113 не принят владельцем.
+[Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
+
 ### 2026-10-14 — рабочая2.6.2 проверена на физическом Kivi
 
 Сверены Google Android/TV/Media3/background playback/BAL и AOSP14/Media3 1.11.
@@ -1199,3 +1211,19 @@ README, обе инструкции, статус/roadmap/план/баги/ка
 Остаток: внешние D-001/D-002, физические результаты K4811/USB/личного station POST
 при их получении. Утверждённая цель завершена. Далее поддержка текущей2.5.x;
 форум ждёт права на шапку, новых сообщений нет; Google Play отложен.
+
+### 2026-10-14 — уточнение факта владельца и запрет дальнейшего Kivi
+
+Владелец уточнил: играла Моя волна, а113 открывал радио. Прежняя формулировка
+«по источнику звука» неточна: handler брал флаг/сохранённое output, не реальный звук.
+На116 до запрета Kivi прошли5 точных UI/Activity сравнений, DPAD/Open/Stop.
+После запрета устройство не использовали. Локальный TV29 запущен в5564;
+прогон3/4, новый Wave fixture не прошёл sign-in до Open: не заменён account-bound
+taste/settings. Согласован fixture, отдельный Wave+stale RADIO test1/1 прошёл;
+production код/подписанный116 не менялись. Общий TV-прогон повторяется.
+Следующий шаг: закрыть результаты, source/test/docs/artifact/tag/feeds/release,
+HTTP/hash/GitHub/RepoWise; оставаться на2.6.2. [Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
+Итог TV29:4/4. Промежуточный guard Stop ожидал tvlauncher, фактический
+системный id tvrecommendations/dismiss_button; скорректирован только тест.
+Продуктовый116 и SDK34 проверки не менялись.

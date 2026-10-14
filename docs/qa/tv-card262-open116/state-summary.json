@@ -1,0 +1,32 @@
+[
+  {
+    "screen": "library",
+    "sameActivity": true,
+    "sameVisibleElementsAndBounds": true,
+    "playingBeforeAndAfter": true
+  },
+  {
+    "screen": "search",
+    "sameActivity": true,
+    "sameVisibleElementsAndBounds": true,
+    "playingBeforeAndAfter": true
+  },
+  {
+    "screen": "settings",
+    "sameActivity": true,
+    "sameVisibleElementsAndBounds": true,
+    "playingBeforeAndAfter": true
+  },
+  {
+    "screen": "settings-scrolled",
+    "sameActivity": true,
+    "sameVisibleElementsAndBounds": true,
+    "playingBeforeAndAfter": true
+  },
+  {
+    "screen": "about-dialog",
+    "sameActivity": true,
+    "sameVisibleElementsAndBounds": true,
+    "playingBeforeAndAfter": true
+  }
+]

@@ -1,10 +1,10 @@
 # Карта функций и сценариев
 
-14 октября: Open/Stop113 подтверждены на физическом Kivi/API34, включая DPAD.
+14 октября: Open/Stop116 проверены на физическом Kivi/API34, включая DPAD.
 NotificationListenerService query и Android14 permission-aware activity PI
 находятся в app manifest/playback adapter; интерфейс не управляет доверием клиентов.
 
-**2.6.2-build113**: TV Open → активный player/radio без изменения Play/Pause;
+**2.6.2-build116**: TV Open → прежний экран приложения без изменения Play/Pause;
 TV-specific Stop intent и сохранение команд после загрузки обложки.
 Системная background-card Android TV Home проверена отдельно от уведомления
 приложения: framework Pause/поздняя загрузка волны/радио.

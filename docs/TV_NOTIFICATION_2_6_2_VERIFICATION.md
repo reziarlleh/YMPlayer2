@@ -1,100 +1,79 @@
-# Android TV — проверка 2.6.2-build113
+# Android TV — Open возвращает приложение как было
 
-14 октября2026. Source98c70a5, production APK113/min28, прежние package/подпись.
-Физический KIVI 4K Android TV14/API34, stock tvlauncher/tvrecommendations.
-Разрешения не выдавались, перезагрузки и очистки данных не было. Стабильный выпуск опубликован, tag ae0ca7b; обе основные update feeds113.
+14 октября2026. **2.6.2-build116**, source1a9cdb6. Физический KIVI 4K Android TV14/API34.
+Владелец отверг113 из-за навязанного player/radio. Это поведение удалено;
+116 проверен агентом на настоящей системной карточке перед публикацией.
 
-## Реальная системная карточка
+## Проверка состояния приложения
 
-| Сценарий | Результат |
+| Экран перед Home | После настоящего Open |
 | --- | --- |
-| Музыка/Моя волна: Home → Open | MainActivity открывается; PLAYING, позиция продолжает расти |
-| Музыка: Stop | PAUSED;212523мс через1/7с; карточка отсутствует |
-| Повтор Play → Home → Open | PLAYING, возврат в плеер |
-| Радио: медиатека → Home → Open | Возврат в радио, эфир не перезапускается |
-| Радио: Stop | NONE;0мс через1/9с; карточка не возвращается |
-| Пульт DPAD/Center: Open | Возврат в радио, PLAYING |
-| Пульт DPAD/Center: Stop | NONE;0мс через1/8с; карточка отсутствует |
-| Signed install-r | firstInstallTime2026-10-01 17:53:19 сохранён |
+| Медиатека при играющем радио | Та же Activity, прежние видимые элементы и их координаты |
+| Поиск | Та же Activity и прежний экран |
+| Настройки | Та же Activity и прежний экран |
+| Настройки после прокрутки | Положение списка/элементов сохранено |
+| Открытый диалог «О приложении» | Диалог остался открытым, те же элементы/координаты |
 
-[Обезличенные измерения](qa/tv-card262-kivi/device-summary.json).
-Shell am start использовался только для подготовки; результат Open измерялся
-после настоящей кнопки Home. Radio position=-1 — неизвестная позиция live-потока.
-Regex helper сначала не распознал её; исправлен измеритель, не приложение.
-Первый DPAD Stop-прогон стоял на вкладке Home; фокус перечитан, настоящая кнопка
-прошла отдельный прогон. Исходные отказы не объявляются успешными тестами.
+Во всех пяти случаях PLAYING до/после, радио не перезапускается.
+[Обезличенный результат](qa/tv-card262-open116/state-summary.json).
+Сравнивались identity ActivityRecord и весь видимый UI/text/bounds без изменяемого
+счётчика времени; raw снимки остаются локальными. Shell am start — только подготовка,
+Open проверялся настоящей кнопкой Home. После Stop состояние NONE/position0 через1/8с,
+системная карточка отсутствует. Данные не очищались, разрешения не выдавались.
+DPAD/Center: та же Activity и медиатека сохранены, звук продолжает играть;
+Stop отсутствует в фоне через8с. [Измерения](qa/tv-card262-open116/dpad-summary.json); [план](PLAN_2_6_2.md).
 
-## Документация и Android-контракт
+## Изменение и причины
 
-Сверены [Android TV Now Playing](https://developer.android.com/training/tv/playback/now-playing),
-[Media3 MediaSession](https://developer.android.com/media/media3/session/control-playback),
-[фоновое воспроизведение](https://developer.android.com/media/media3/session/background-playback)
-и [Activity/PendingIntent](https://developer.android.com/guide/components/activities/secure-bal).
-Системная карточка управляется через сессию, её metadata/state/commands/sessionActivity.
-Одна настройка TV-полей уведомления не исправляет системный контроллер.
+Удалены MainActivity notificationDestination/route request и ShellApp внешний
+маршрут/effect. Open не вычисляет экран по источнику звука и не закрывает диалоги.
+Launcher Intent MAIN/LAUNCHER использует NEW_TASK/RESET_TASK_IF_NEEDED/SINGLE_TOP,
+без CLEAR_TOP. Сохранены существующая задача, Activity и живое состояние UI.
+[Android tasks/back stack](https://developer.android.com/guide/components/activities/tasks-and-back-stack).
+Новая PI identity14 исключает старые сохранённые flags; UPDATE_CURRENT сохраняет
+стабильный токен дальнейших уведомлений, CANCEL_CURRENT не используется.
+Исправления Stop/NotificationListenerService trust/Android14 BAL не менялись.
 
-| Граница | Реализация |
-| --- | --- |
-| Служба | MediaLibraryService, media service/browse filters, foreground mediaPlayback permissions/type |
-| Сессия | ExoPlayer/MediaLibrarySession, platform bridge Media3; ForwardingPlayer transport |
-| Metadata/state | MediaItem metadata/Media3; текущий источник виден в настоящей карточке |
-| Аудиофокус | USAGE_MEDIA/MUSIC, handleAudioFocus=true, becoming noisy/wake mode |
-| Доверие | Generic query NotificationListenerService, стандартный AcceptedResultBuilder; без разрешения всем клиентам |
-| Открытие | Immutable explicit activity PI, UPDATE_CURRENT; player/radio, без Play |
-| Android14 | Sender ALLOWED, creator option, permission-aware BAL для системного отправителя |
-| Новые Android | Public creator setter>=35, ALLOW_ALWAYS>=36; ниже34 без новых API |
-| Уведомление | Стандартный provider; TV availability/actions и поздняя обложка сохранены |
+114 перед публикацией выявил новый MainActivity.115 сохранил старый PI114 без
+SINGLE_TOP: UPDATE_CURRENT обновляет extras, а не исходные Intent flags.
+Это доказано dumpsys requestIntent и реальным новым ActivityRecord, а не догадкой.
+114/115 не опубликованы. Native ожидания исправлены: прежняя медиатека и assertSame
+Activity, чтобы восстановление section из preferences не давало ложный успех.
+Native APK с новыми тестами скомпилирован; их эмуляторный прогон не объявляется
+вместо production-проверки Kivi. [Исторический113](qa/tv-card262-open116/SUPERSEDED_BUILD113.md).
 
-B-028: MediaSessionManager не видел установленный пакет NotificationListenerService.
-Media3 1.11 выдавал untrusted/read-only, поэтому доставленная Pause не исполнялась.
-Generic query делает пакет видимым; Media3 проверяет существующее MEDIA_CONTENT_CONTROL.
-На Kivi trusted=true/playPause=true; команды сторонним недоверенным клиентам не расширены.
+## Сборка и выпуск
 
-B-035: Android14 блокировал запуск от фоновой системной службы BOUND_TOP.
-У неё уже есть START_ACTIVITIES_FROM_BACKGROUND, но нужен permission-aware opt-in.
-Bundle key сверён с [AOSP ComponentOptions](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/android14-release/core/java/android/app/ComponentOptions.java)
-и [BAL controller](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/android14-release/services/core/java/com/android/server/wm/BackgroundActivityStartController.java).
-Android проверяет существующее разрешение отправителя; новых grants нет.
-SDK34 compatibility bundle не вызывает скрытых методов/reflection.
-SessionActivity повторно привязан после notification; [разбор Media3](https://github.com/androidx/media/issues/2989)
-сверен с реальным Kivi, а не принят как доказательство результата.
+Release115/116 и OAuth/signing guards прошли. Текущая assembleDebugAndroidTest,
+4 app JVM, release lint0 errors/81 warnings прошли. RepoWise по1a9cdb6 обновлён
+структурно, без модельного текста. Новых UI-строк нет; обе инструкции скорректированы.
+Клипы,1.x и приборная beta/утилита не менялись. D-005 первого post-install запуска
+остаётся отдельным наблюдением, не закрыт этим UI-исправлением.
 
-## Неудачные попытки
+APK SHA256: `dea42335ee202169aa002ec319c54cf74e4ad4f50c771f6ddc46a048eb3d86b4`.
+Прежний cert: `fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
+Версия остаётся2.6.2; tag/4 assets/оба feeds/HTTP/hash/GitHub завершаются.
 
-109 не исправил обе кнопки: заявление отозвано в GitHub и активных документах.
-[Отозванный отчёт](qa/tv-card262-kivi/FAILED_BUILD109.md) сохранён как история.
-110 исправил Pause/Open нет;111 отменял PI, копия которого оставалась в карточке;
-112 сохранил токен и sender opt-in, но не учитывал permission системной службы.
-110–112 не опубликованы. API29/own-UID тесты не покрывали реальный API34 путь.
+## Уточнение владельца: играла Моя волна, а открывалось Радио
 
-## Сборка и границы
+Факт владельца не заменяется выводом о «выборе по текущему звуку»: старый код
+проверял radio.ownsOutput ИЛИ сохранённый output=RADIO. Эти значения не доказывают
+фактически играющий источник. Обработчик удалён целиком; Open не зависит от них.
+На локальном Android TV29 тест запускает настоящий product AudioService/Media3
+с Моей волной через account/API fixture и локальный WAV, затем непосредственно
+перед Open записывает устаревший output=RADIO. Сохраняются прежняя медиатека,
+тот же MainActivity и играющая волна. [Успешный тест](qa/tv-card262-open116/wave-final.txt).
+Это контролируемая навигационная проверка, не проверка персонального API Яндекса.
+К Kivi после запрета владельца больше не подключались и тесты там не запускались.
 
-JVM core: 141 тестов, 0 failures/0 errors.
-Неизменённый core допускает Gradle up-to-date; это не новый runtime-прогон Android.
-[Сводка](qa/tv-card262-kivi/core-summary.json). Release lint0 errors/82 warnings;
-debug lint0 errors/83 warnings. В stdout есть ошибка генератора lint quickfix
-для переменной album в испанской строке; анализ/Gradle завершены успешно, текст
-перевода не менялся. Это предупреждение инструмента, не Android runtime exception. Production release/OAuth guard прошли. Клипы, приборная
-beta/утилита и1.x не менялись. Новых UI-строк нет; RU/EN инструкции сверены.
-
-SHA256 APK: `3025634ccfa7def0ee2712a4ae90681fb0114288e89309d695863c6496851fee`.
-Cert: `fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
-Первый shell launch сразу после install-r113 дал BackgroundServiceStartNotAllowedException
-в прежнем connect/startService из onCreate; повтор cold launch успешен.
-Наблюдение D-005 не закрыто успешным повтором. Все последующие реальные Open/Stop113 прошли.
-
-## Выпуск
-
-Одна main, версия2.6.2/Build113. Tag ae0ca7b/четыре assets, оба основных feeds113, GitHub/default main/README и
-APK hash сверены. [HTTP](qa/tv-card262-kivi/http-verification.json),
-[документы GitHub](qa/tv-card262-kivi/documentation-github.json).
-Gcore на2026-10-14 01:57UTC отдаёт stable107/manifest109; purge завершён,
-но это не доказывает актуальность его динамического кеша (D-001). Kivi проверен агентом; прочие TV/ГУ и
-пользовательскую приёмку не подменять этим результатом. [План](PLAN_2_6_2.md).
-
-Дополнительная сборочная проверка: 4 app JVM / 0 failures;
-assembleDebug/assembleDebugAndroidTest успешно. [Сводка](qa/tv-card262-kivi/checks.json).
-RepoWise завершён по98c70a5; dead-code вывод не использован для удаления callback.
-
-GitHub Android checks для8b421de: success, включая metadata transformation contract.
-[CI](qa/tv-card262-kivi/ci.json). Финальное обновление документов не меняет проверенный APK.
+Первичный прогон3/4: новый wave-тест остановился до Open на sign-in gate.
+Fixture смешал fake account/API с production taste/settings. Настроена одна
+согласованная fixture-группа; приложение и APK116 не менялись.
+[Первичный отказ](qa/tv-card262-open116/wave-fixture-first.txt).
+Ошибка компиляции local lateinit-reference в helper исправлена до прогона;
+это тестовый код, не продуктовый дефект. Итоговый TV29 прогон4/4 прошёл: обычная музыка, системная карточка, радио и
+Моя волна+stale RADIO. [Лог](qa/tv-card262-open116/native-final.txt).
+Первичный повтор3/4 остановился на guard имени системной Stop кнопки: здесь
+она принадлежит tvrecommendations, а не tvlauncher. Оба известных системных
+элемента принимаются; app notification по-прежнему исключено.
+[Исходный повтор](qa/tv-card262-open116/native-retry.txt).

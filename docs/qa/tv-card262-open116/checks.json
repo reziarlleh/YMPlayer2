@@ -1,0 +1,13 @@
+{
+  "source": "1a9cdb6",
+  "release": "2.6.2-build116",
+  "appUnitTests": 4,
+  "failures": 0,
+  "releaseLint": {
+    "errors": 0,
+    "warnings": 81
+  },
+  "androidTestApk": "compiled; physical production Kivi is the runtime evidence",
+  "oauthSigning": "passed",
+  "repowise": "updated"
+}
