@@ -32,6 +32,15 @@ class TvNotificationActionsTest {
         return focused
     }
     private fun card() = notifications.activeNotifications.first { it.id == 1001 }
+    private fun resumedActivity(): MainActivity? {
+        var activity: MainActivity? = null
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            activity = androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+                .getActivitiesInStage(androidx.test.runner.lifecycle.Stage.RESUMED)
+                .filterIsInstance<MainActivity>().singleOrNull()
+        }
+        return activity
+    }
     private fun tv() = NotificationCompat.TvExtender(card().notification)
     private fun home() {
         assertTrue(InstrumentationRegistry.getInstrumentation().uiAutomation.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME))
@@ -107,15 +116,17 @@ class TvNotificationActionsTest {
                 .filterIsInstance<MainActivity>().distinct().forEach { it.finish() }
         }
     }
-    @Test fun tvOpenReturnsFromHomeToMusicPlayerAndStopDoesNotRepostOrAutoplay() {
+    @Test fun tvOpenPreservesLibraryAndStopDoesNotRepostOrAutoplay() {
         val ids = app.library.testTracks.take(2).map { it.id }
         compose.runOnIdle { app.playback.playQueue(ids) }
         waitFor { app.playback.state.value.playing && notifications.activeNotifications.any { it.id == 1001 } }
         compose.onNodeWithTag("nav_library").performClick().assertIsSelected()
+        val originalActivity = resumedActivity(); assertNotNull(originalActivity)
         val open = tv().contentIntent; assertNotNull(open); assertTrue(open!!.isActivity)
         home(); open.send()
         waitFor { appHasFocus() }
-        compose.onNodeWithTag("nav_player").assertIsSelected()
+        assertSame("Open must preserve the existing Activity and its UI state", originalActivity, resumedActivity())
+        compose.onNodeWithTag("nav_library").assertIsSelected()
         assertTrue("Open must not pause playing music", app.playback.state.value.playing)
 
         home()
@@ -128,7 +139,7 @@ class TvNotificationActionsTest {
         assertTrue("The TV card must stay removed", notifications.activeNotifications.none { it.id == 1001 })
         assertFalse(app.launchState.read(app.playback.state.value.profileId).playing)
         open.send(); waitFor { appHasFocus() }
-        compose.onNodeWithTag("nav_player").assertIsSelected()
+        compose.onNodeWithTag("nav_library").assertIsSelected()
         assertFalse("Opening a stopped player must not autoplay", app.playback.state.value.playing)
         compose.runOnIdle { app.playback.playQueue(ids) }
         waitFor { app.playback.state.value.playing && notifications.activeNotifications.any { it.id == 1001 } }
@@ -146,7 +157,7 @@ class TvNotificationActionsTest {
         // Android TV Home opens through the row itself; other TV panels show Open.
         systemClick("Open", "Открыть", title)
         waitFor { appHasFocus() }
-        compose.onNodeWithTag("nav_player").assertIsSelected()
+        compose.onNodeWithTag("nav_library").assertIsSelected()
         assertTrue(app.playback.state.value.playing)
         home(); systemClick("notification", "Notifications")
         systemClick("Dismiss", "Stop", "Остановить")
@@ -173,7 +184,7 @@ class TvNotificationActionsTest {
         context.startActivity(android.content.Intent(context, MainActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
         waitFor { appHasFocus() }
     }
-    @Test fun tvOpenSelectsRadioAndStopCancelsOnAirPolling() {
+    @Test fun tvOpenPreservesLibraryWhileRadioPlaysAndStopCancelsOnAirPolling() {
         val field = dev.petrov.ymplayer2.playback.AndroidRadio::class.java.getDeclaredField("api").apply { isAccessible = true }
         val original = field.get(app.radio) as RadioApi
         val calls = AtomicInteger()
@@ -189,9 +200,11 @@ class TvNotificationActionsTest {
             compose.runOnIdle { field.set(app.radio, fixture); app.radio.switchProfile("owner"); app.radio.play(station) }
             waitFor { app.radio.state.value.playing && notifications.activeNotifications.any { it.id == 1001 } }
             compose.onNodeWithTag("nav_library").performClick()
+            val originalActivity = resumedActivity(); assertNotNull(originalActivity)
             val open = tv().contentIntent; assertNotNull(open)
             home(); open!!.send(); waitFor { appHasFocus() }
-            compose.onNodeWithTag("nav_radio").assertIsSelected()
+            assertSame("Radio must not recreate the library screen", originalActivity, resumedActivity())
+            compose.onNodeWithTag("nav_library").assertIsSelected()
             assertTrue(app.radio.state.value.playing)
             home(); tv().deleteIntent!!.send()
             waitFor { !app.radio.state.value.playing && !app.radio.state.value.reconnecting && notifications.activeNotifications.none { it.id == 1001 } }
@@ -200,7 +213,7 @@ class TvNotificationActionsTest {
             assertFalse(app.radio.state.value.playing)
             assertTrue(notifications.activeNotifications.none { it.id == 1001 })
             open.send(); waitFor { appHasFocus() }
-            compose.onNodeWithTag("nav_radio").assertIsSelected()
+            compose.onNodeWithTag("nav_library").assertIsSelected()
             assertFalse("Open must not restart a stopped station", app.radio.state.value.playing)
         } finally { compose.runOnIdle { app.radio.release(); field.set(app.radio, original) } }
     }

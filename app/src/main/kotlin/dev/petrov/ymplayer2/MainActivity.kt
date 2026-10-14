@@ -31,20 +31,6 @@ import dev.petrov.ymplayer2.shell.ShellApp
 import dev.petrov.ymplayer2.shell.ShellModel
 
 class MainActivity : ComponentActivity() {
-    private var notificationRouteRequest by mutableStateOf<Pair<Int, String>?>(null)
-    private fun notificationDestination(intent: Intent?) {
-        if (intent?.action != dev.petrov.ymplayer2.playback.ACTION_OPEN_MEDIA_PLAYER) return
-        val graph = application as PlayerApplication
-        val route = if (graph.radio.state.value.ownsOutput || graph.launchState.read(graph.playback.state.value.profileId).output ==
-            dev.petrov.ymplayer2.playback.PlaybackOutput.RADIO) "radio" else "player"
-        graph.navigation.edit().putString("route", route).apply()
-        notificationRouteRequest = ((notificationRouteRequest?.first ?: 0) + 1) to route
-    }
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        notificationDestination(intent)
-    }
     private lateinit var sideBar: SideBarCoordinator
     private lateinit var updates: UpdateCoordinator
     override fun onResume() {
@@ -73,7 +59,6 @@ class MainActivity : ComponentActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        notificationDestination(intent)
         enableEdgeToEdge()
         sideBar = SideBarCoordinator(this)
         updates = ViewModelProvider(this, viewModelFactory {
@@ -194,7 +179,6 @@ class MainActivity : ComponentActivity() {
             ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
                 initialTheme = appearance.read(), saveTheme = appearance::save,
                 initialRoute = graph.shellRoute(),
-                externalRouteRequest = notificationRouteRequest,
                 internet = graph.internet,
                 onRouteChanged = { graph.navigation.edit().putString("route", it).apply() },
                 initialOnlineSource = graph.navigation.getBoolean("online", false),

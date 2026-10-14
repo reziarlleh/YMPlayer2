@@ -43,7 +43,7 @@ private val destinations get() = listOf(
     Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null, initialTheme: String = "dark", saveTheme: (String) -> Unit = {}, cacheLocation: CacheLocationAccess? = null, pickCacheFolder: () -> Unit = {}, resetCacheFolder: () -> Unit = {}, exporter: AudioExportAccess? = null, pickExportFolder: () -> Unit = {}, externalRouteRequest: Pair<Int, String>? = null) {
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null, initialTheme: String = "dark", saveTheme: (String) -> Unit = {}, cacheLocation: CacheLocationAccess? = null, pickCacheFolder: () -> Unit = {}, resetCacheFolder: () -> Unit = {}, exporter: AudioExportAccess? = null, pickExportFolder: () -> Unit = {}) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val exporting = exporter?.state?.collectAsStateWithLifecycle()?.value?.running == true
     val radioPlayback = model.radio?.playback?.collectAsStateWithLifecycle()?.value
@@ -83,12 +83,6 @@ private val destinations get() = listOf(
             exitAt = null
             savedRoute = it
             onRouteChanged(if (it == "artist") artistFrom else it)
-        }
-    }
-    LaunchedEffect(externalRouteRequest) {
-        externalRouteRequest?.let { (_, destination) ->
-            aboutOpen = false
-            navigate(destination)
         }
     }
     val openArtist: (ArtistRef) -> Unit = { artist ->

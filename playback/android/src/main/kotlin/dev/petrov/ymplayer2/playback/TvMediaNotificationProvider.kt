@@ -14,14 +14,13 @@ import androidx.media3.session.MediaNotification
 import androidx.media3.session.MediaSession
 import com.google.common.collect.ImmutableList
 
-/** Only this user-operated PendingIntent requests navigation; it never requests Play. */
-const val ACTION_OPEN_MEDIA_PLAYER = "dev.petrov.ymplayer2.OPEN_MEDIA_PLAYER"
-
 @Suppress("DEPRECATION")
 internal fun mediaPlayerActivity(context: Context): PendingIntent {
-    val intent = Intent(ACTION_OPEN_MEDIA_PLAYER)
+    // Behave like the launcher: bring the existing task to the foreground, keeping
+    // its Activity stack, current section, dialogs and playback state intact.
+    val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
         .setClassName(context.packageName, "dev.petrov.ymplayer2.MainActivity")
-        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED or Intent.FLAG_ACTIVITY_SINGLE_TOP)
     // Android 14 TV notification components can forward the click without sender options.
     // Publish the opt-in with this explicit user-operated activity entry point.
     val options = if (Build.VERSION.SDK_INT >= 34) ActivityOptions.makeBasic().apply {
@@ -42,7 +41,9 @@ internal fun mediaPlayerActivity(context: Context): PendingIntent {
     } else null
     // Keep the token stable: cancelling it invalidates the copy retained by the TV's
     // now-playing card even after the app notification has received its replacement.
-    return PendingIntent.getActivity(context, 13, intent,
+    // A new entry-point identity replaces the previous request13 contract:
+    // UPDATE_CURRENT updates extras, but keeps the original Intent flags.
+    return PendingIntent.getActivity(context, 14, intent,
         PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT, options)
 }
 
