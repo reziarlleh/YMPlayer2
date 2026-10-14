@@ -1,0 +1,70 @@
+{
+  "checkedAtUtc": "2026-10-14T03:32:24.129886+00:00",
+  "apk": "2.6.2-build117",
+  "sdk": 35,
+  "upgradeFrom": 116,
+  "dataCleared": false,
+  "cases": [
+    {
+      "case": "cold-launch-1",
+      "pidAlive": true,
+      "foreground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-return-1",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-launch-2",
+      "pidAlive": true,
+      "foreground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-return-2",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-launch-3",
+      "pidAlive": true,
+      "foreground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-return-3",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-launch-4",
+      "pidAlive": true,
+      "foreground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-return-4",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-launch-5",
+      "pidAlive": true,
+      "foreground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-return-5",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-launch-6",
+      "pidAlive": true,
+      "foreground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-return-6",
+      "sameProcess": true
+    }
+  ],
+  "noDelayedCrash": true
+}

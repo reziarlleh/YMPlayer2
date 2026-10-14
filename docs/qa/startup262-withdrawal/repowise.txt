@@ -1,0 +1,38 @@
+repowise update · YMPlayer2
+b2b559d8..78e21640
+54 changed · 25 modified, 14 added, 15 deleted
+    modified  CHANGELOG.md
+    modified  README.md
+    modified  docs/BUG_REPORT.md
+    modified  docs/DOCUMENTATION_INDEX.md
+    modified  docs/FEATURE_INVENTORY.md
+    modified  docs/LESSONS_LEARNED.md
+    modified  docs/MIGRATION_MAP.md
+    modified  docs/MODULES.md
+    modified  docs/PLAN_2_6_2.md
+    modified  docs/PROJECT_STATUS.md
+  +44 more (use -v to list all)
+Pages from an older renderer: 10
+Pages to regenerate: 67
+2026-10-14 08:32:57 [debug    ] duplication_incremental_splice changed=31 deleted=0 pairs=199328 touched_buckets=1982
+Health analysis (partial): 39 changed, 65 performance-affected, 7 findings
+Dead code findings: 199
+Knowledge graph refreshed: 6 layers, 12 tour steps
+  ✓ Re-rendered 45 wiki pages from structure
+Related pages refreshed on 22 pages
+
+┌────────────────────────── {^ ^}  repowise index-only update complete ───────────────────────────┐
+│                                                                                                 │
+│   Files changed           54                                                                    │
+│   Graph                   12,333 nodes · 38,507 edges                                           │
+│   Dead code               1 unreachable · 0 unused exports                                      │
+│   Wiki pages              45 re-rendered from structure                                         │
+│   Git history             2 files refreshed                                                     │
+│   Elapsed                 4m 53s                                                                │
+│                                                                                                 │
+│   What's next:                                                                                  │
+│   repowise serve              browse the index at localhost:3000                                │
+│   repowise generate           upgrade the wiki to model-written prose (needs a key)             │
+│                                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+

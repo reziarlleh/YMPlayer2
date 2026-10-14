@@ -15,7 +15,8 @@ D-001/CDN и D-002/системная проверка APK остаются на
 завершает процесс при создании AudioService: IllegalArgumentException,
 pendingIntentBackgroundActivityStartMode must not be set when creating a PendingIntent.
 В создание передана настройка отправителя вместо отдельной настройки создателя.
-Все релизы2.6.2 сняты; локальный фикс проверяется, выпуск владельцем не принят.
+Все релизы2.6.2 сняты. Локальный117: signed startup API28/API35 и7 native Open/Stop
+прошли; исправление подтверждено на своих эмуляторах, владельцем не принято.
 Это другой стек, не ранее наблюдавшийся D-005 startService.
 [Доказательства](STARTUP_2_6_2_VERIFICATION.md).
 

@@ -8,7 +8,12 @@
 CDN purge/HTTP проверяются отдельно. Новую2.6.2 не публиковать до принятия.
 На телефонном API35 signed116 воспроизвёл IllegalArgumentException в AudioService:
 sender-side BAL передан в PendingIntent creation. Локально разделеныAPI34 workaround
-иAPI35+ creator opt-in; проверки продолжаются. Предыдущие записи о «рабочей»2.6.2
+иAPI35+ creator opt-in. Signed117/API35:6 холодных и6 повторных запусков, без crash;
+signedAPI28 старт успешен.3 nativeAPI35 +4 TV29 Open/Stop прошли. JVM4/lint0errors,
+сборка/OAuth/signature и CI38506495350 прошли; RepoWise78e2164 обновлён.
+Все stable endpoints107; Gcore legacy manifest109 и permanent CDN копии остаются.
+Manifest guard development-state запрещает новую2.6.2 до принятия владельцем.
+Предыдущие записи о «рабочей»2.6.2
 не являются текущим статусом или принятием владельцем.
 [Точка продолжения](STARTUP_2_6_2_VERIFICATION.md).
 

@@ -1,5 +1,5 @@
 {
-  "checkedAtUtc": "2026-10-14T03:26:34.401044+00:00",
+  "checkedAtUtc": "2026-10-14T03:32:17.861045+00:00",
   "results": [
     {
       "url": "https://api.github.com/repos/reziarlleh/YMPlayer2/releases/latest",
@@ -24,12 +24,12 @@
     {
       "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
       "status": 200,
-      "version": "2.6.2-build113"
+      "version": "2.6.1-build107"
     },
     {
       "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
       "status": 200,
-      "version": "2.6.2-build113"
+      "version": "2.6.1-build107"
     },
     {
       "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
@@ -71,7 +71,7 @@
     },
     {
       "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build116/releases/2.6.2-build116/YMPlayer-2.6.2-build116.apk",
-      "error": "The read operation timed out"
+      "status": 200
     },
     {
       "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build116/releases/2.6.2-build116/YMPlayer-2.6.2-build116.apk",
