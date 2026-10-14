@@ -2,7 +2,7 @@
 
 14 октября2026. Source98c70a5, production APK113/min28, прежние package/подпись.
 Физический KIVI 4K Android TV14/API34, stock tvlauncher/tvrecommendations.
-Разрешения не выдавались, перезагрузки и очистки данных не было. Публикация завершается.
+Разрешения не выдавались, перезагрузки и очистки данных не было. Стабильный выпуск опубликован, tag ae0ca7b; обе основные update feeds113.
 
 ## Реальная системная карточка
 
@@ -85,6 +85,16 @@ Cert: `fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
 
 ## Выпуск
 
-Одна main, версия2.6.2/Build113. Tag/четыре assets, оба feeds/GitHub/CDN/hash
-и документы сверяются до закрытия. Kivi проверен агентом; прочие TV/ГУ и
+Одна main, версия2.6.2/Build113. Tag ae0ca7b/четыре assets, оба основных feeds113, GitHub/default main/README и
+APK hash сверены. [HTTP](qa/tv-card262-kivi/http-verification.json),
+[документы GitHub](qa/tv-card262-kivi/documentation-github.json).
+Gcore на2026-10-14 01:57UTC отдаёт stable107/manifest109; purge завершён,
+но это не доказывает актуальность его динамического кеша (D-001). Kivi проверен агентом; прочие TV/ГУ и
 пользовательскую приёмку не подменять этим результатом. [План](PLAN_2_6_2.md).
+
+Дополнительная сборочная проверка: 4 app JVM / 0 failures;
+assembleDebug/assembleDebugAndroidTest успешно. [Сводка](qa/tv-card262-kivi/checks.json).
+RepoWise завершён по98c70a5; dead-code вывод не использован для удаления callback.
+
+GitHub Android checks для8b421de: success, включая metadata transformation contract.
+[CI](qa/tv-card262-kivi/ci.json). Финальное обновление документов не меняет проверенный APK.

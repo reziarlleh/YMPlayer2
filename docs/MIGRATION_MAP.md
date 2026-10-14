@@ -1,5 +1,9 @@
 # Карта переноса и модулей
 
+14 октября: Open/Stop113 подтверждены на физическом Kivi/API34, включая DPAD.
+NotificationListenerService query и Android14 permission-aware activity PI
+находятся в app manifest/playback adapter; интерфейс не управляет доверием клиентов.
+
 **2.6.2-build113**: playback/android — TvMediaNotificationProvider и явный
 immutable sessionActivity с API35 creator opt-in; app/MainActivity — Open
 onCreate/onNewIntent; shell — внешнее событие маршрута player/radio.

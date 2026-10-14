@@ -10,8 +10,11 @@ firstInstallTime сохранён, permissions/data не менялись. Helpe
 первый DPAD Stop неверно подготовил фокус, отдельный настоящий Stop прошёл.
 Первый post-install shell launch дал BackgroundServiceStartNotAllowedException;
 повтор successful, отдельное D-005 остаётся открытым. Старый109-отчёт отозван/архивирован,
-активные документы переписаны. Release lint0/82; JVM/debug-lint/RepoWise завершаются.
-Остаток: публикация113/tag/4 assets/оба feeds, HTTP/hash/GitHub/финальные документы.
+активные документы переписаны. Release lint0/82; JVM/debug-lint/RepoWise завершены;141 core, debug lint0/83, index98c70a5.
+Публикация113/tag ae0ca7b/4 assets/основные feeds113 и HTTP/hash/GitHub сверены.
+Gcore stable107/manifest109 на01:57UTC; D-001 открыт, D-005 не скрыт.
+GitHub CI8b421de завершён success: сборка/тесты/lint и metadata transform;
+[квитанция](qa/tv-card262-kivi/ci.json).
 [Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
 
 
@@ -43,7 +46,7 @@ git status и логи .local-build/tv-card262-ci-config-check.txt, сохран
 CI отказ, завершить документационную сверку/commit/push только в разрешённом объёме.
 Собственные AVD остановлены; чужой emulator5566 не трогали. Релиз не откатывался.
 
-### 2026-10-13 — опубликована стабильная2.6.2-build109
+### 2026-10-13 — историческая публикация109, исправление отозвано14 октября
 
 GitHub Latest109/non-beta, tag0c5e381 и четыре assets; оба stable feeds c0d6a56.
 GitHub/резервный APK:7001921 bytes и одинаковый SHA256. Raw GitHub/основной

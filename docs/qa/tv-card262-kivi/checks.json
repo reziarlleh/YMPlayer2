@@ -17,5 +17,13 @@
   "source": "98c70a5",
   "signedApk": "2.6.2-build113",
   "oauthGuard": "passed",
-  "repowise": "index refreshed to source 98c70a5; structural, no model prose"
+  "repowise": "index refreshed to source 98c70a5; structural, no model prose",
+  "appUnitTests": {
+    "tests": 4,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "debugApkAndAndroidTestCompilation": "passed; native emulator tests not rerun for113",
+  "translations": "735 messages, 8 complete packs, generated resources current"
 }
