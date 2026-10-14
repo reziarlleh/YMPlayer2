@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 107,
-  "versionName": "2.6.1-build107",
+  "versionCode": 117,
+  "versionName": "2.6.2-build117",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-14T03:19:31.9075584Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.1-build107",
-  "releaseNotes": "Стабильный выпуск 2.6.1. Все сборки 2.6.2 сняты с публикации и автоматического обновления по решению владельца; исправление продолжается локально.",
+  "publishedAt": "2026-10-14T04:02:02.3466989Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.2-build117",
+  "releaseNotes": "Исправлены «Открыть» и «Остановить» в системной карточке Android TV. «Открыть» сохраняет прежний экран приложения. Устранена ошибка запуска на Android 15 и новее; прежние подпись и данные сохранены.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.1-build107/YMPlayer-2.6.1-build107.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.1-build107/releases/2.6.1-build107/YMPlayer-2.6.1-build107.apk",
-    "sizeBytes": 6924113,
-    "sha256": "512bf84647a7490eed7db15ec73a4cb2b22d794c57d713221b8692ec2f3975f5"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build117/YMPlayer-2.6.2-build117.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build117/releases/2.6.2-build117/YMPlayer-2.6.2-build117.apk",
+    "sizeBytes": 7001969,
+    "sha256": "f9c3243d7e0559970f98858f5c9f7ca8112e898f99d7f282eeecfee78c197b86"
   }
 }
