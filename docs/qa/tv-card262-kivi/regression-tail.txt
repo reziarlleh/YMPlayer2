@@ -1,0 +1,8 @@
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Wrote SARIF report to file:///D:/_codex/YMPlayer2/app/build/reports/lint-results-debug.sarif
+
+> Task :app:lintDebug
+
+BUILD SUCCESSFUL in 11m 29s
+670 actionable tasks: 70 executed, 600 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.0/userguide/configuration_cache_enabling.html

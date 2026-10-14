@@ -1,0 +1,105 @@
+{
+  "checkedDate": "2026-10-14",
+  "version": "2.6.2-build113",
+  "device": "KIVI 4K Android TV",
+  "sdk": 34,
+  "launcher": "com.google.android.tvlauncher",
+  "controller": "com.google.android.tvrecommendations",
+  "controllerTrusted": true,
+  "playPauseAllowed": true,
+  "firstInstallTimePreserved": "2026-10-01 17:53:19",
+  "method": "Actual launcher controls; taps and DPAD/DPAD_CENTER. Shell am start used only for test preparation. No permission grants, reboot or data clear.",
+  "snapshots": [
+    {
+      "scenario": "113-playing",
+      "state": "PLAYING",
+      "position": 167000,
+      "backgroundCard": true,
+      "appForeground": true
+    },
+    {
+      "scenario": "113-open",
+      "state": "PLAYING",
+      "position": 179244,
+      "backgroundCard": true,
+      "appForeground": true
+    },
+    {
+      "scenario": "113-stop-1",
+      "state": "PAUSED",
+      "position": 212523,
+      "backgroundCard": false,
+      "appForeground": false
+    },
+    {
+      "scenario": "113-stop-7",
+      "state": "PAUSED",
+      "position": 212523,
+      "backgroundCard": false,
+      "appForeground": false
+    },
+    {
+      "scenario": "113-replay",
+      "state": "PLAYING",
+      "position": 215658,
+      "backgroundCard": true,
+      "appForeground": true
+    },
+    {
+      "scenario": "113-open-again",
+      "state": "PLAYING",
+      "position": 225317,
+      "backgroundCard": true,
+      "appForeground": true
+    },
+    {
+      "scenario": "113-radio-playing",
+      "state": "PLAYING",
+      "position": -1,
+      "backgroundCard": true,
+      "appForeground": true
+    },
+    {
+      "scenario": "113-radio-open",
+      "state": "PLAYING",
+      "position": -1,
+      "backgroundCard": true,
+      "appForeground": true
+    },
+    {
+      "scenario": "113-radio-stop-1",
+      "state": "NONE",
+      "position": 0,
+      "backgroundCard": false,
+      "appForeground": false
+    },
+    {
+      "scenario": "113-radio-stop-9",
+      "state": "NONE",
+      "position": 0,
+      "backgroundCard": false,
+      "appForeground": false
+    },
+    {
+      "scenario": "113-dpad-open",
+      "state": "PLAYING",
+      "position": -1,
+      "backgroundCard": true,
+      "appForeground": true
+    },
+    {
+      "scenario": "113-dpad-stop-1",
+      "state": "NONE",
+      "position": 0,
+      "backgroundCard": false,
+      "appForeground": false
+    },
+    {
+      "scenario": "113-dpad-stop-8",
+      "state": "NONE",
+      "position": 0,
+      "backgroundCard": false,
+      "appForeground": false
+    }
+  ]
+}

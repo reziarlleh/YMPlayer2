@@ -1,5 +1,62 @@
 # Журнал работы
 
+### 2026-10-14 — рабочая2.6.2 проверена на физическом Kivi
+
+Сверены Google Android/TV/Media3/background playback/BAL и AOSP14/Media3 1.11.
+Source98c70a5: package visibility устранила отказ Pause; stable PI/permission-aware
+opt-in устранили Open. 110–112 не опубликованы.113: реальные кнопки музыки/волны/
+радио, replay, возврат из медиатеки, DPAD/Center; Stop не возвращает карточку через7–9с.
+firstInstallTime сохранён, permissions/data не менялись. Helper исправлен для position=-1;
+первый DPAD Stop неверно подготовил фокус, отдельный настоящий Stop прошёл.
+Первый post-install shell launch дал BackgroundServiceStartNotAllowedException;
+повтор successful, отдельное D-005 остаётся открытым. Старый109-отчёт отозван/архивирован,
+активные документы переписаны. Release lint0/82; JVM/debug-lint/RepoWise завершаются.
+Остаток: публикация113/tag/4 assets/оба feeds, HTTP/hash/GitHub/финальные документы.
+[Отчёт](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
+
+### 2026-10-13 —109 отвергнут, реальный Kivi воспроизвёл оба отказа
+
+Владелец возобновил работу и потребовал переделать2.6.2, без2.6.3.
+ADB mdns обнаружил Kivi, подключение разрешено этим запросом владельца.
+KIVI 4K Android TV/API34, production109, stock tvlauncher/tvrecommendations.
+Open: PI sent=true, BAL_BLOCK; Stop: MediaSessionRecord:pause от стандартного
+tvrecommendations, но PLAYING/позиция растёт через1/6с. Shell media-key Pause
+останавливает, прямой Activity start работает. UI не завис, первичный путь109
+не устранил причины. Raw device данные только в ignored .local-build/kivi262.
+Старые утверждения о закрытии B-028/B-035 отозваны. Готовится signed110:
+generic NotificationListenerService queries, API34 PI options/cancel old options,
+узкий log доверия контроллера. Не публиковать до настоящих кнопок на Kivi.
+
+### 2026-10-13 — остановлено по прямому указанию владельца
+
+Владелец написал «Стой!». Запущенная локальная JVM/debug-lint проверка прервана.
+На этот момент2.6.2-build109 уже опубликован: tag0c5e381, оба feeds c0d6a56,
+основной/резервный APK проверены по SHA256; TV29 13/13, API28/API35 по12/12+1 skip.
+Финальные правки статуса/плана/отчёта/журнала и HTTP/GitHub квитанции остаются
+локально, не закоммичены и не отправлены. Также локально добавлены два
+includeSubdomains=false в debug-only test_network_security_config.xml: старый
+CI падал на отсутствии атрибутов. Это не изменение опубликованного release APK;
+финальную debug-lint/CI проверку не объявлять успешной.
+При возобновлении сначала уточнить новое указание владельца; затем сверить
+git status и логи .local-build/tv-card262-ci-config-check.txt, сохранить исходный
+CI отказ, завершить документационную сверку/commit/push только в разрешённом объёме.
+Собственные AVD остановлены; чужой emulator5566 не трогали. Релиз не откатывался.
+
+### 2026-10-13 — опубликована стабильная2.6.2-build109
+
+GitHub Latest109/non-beta, tag0c5e381 и четыре assets; оба stable feeds c0d6a56.
+GitHub/резервный APK:7001921 bytes и одинаковый SHA256. Raw GitHub/основной
+jsDelivr feeds109, Gcore manifest109/stable107 на17:44UTC; refresh выполнен,
+узлы проверены независимо. Не называем все зеркала актуальными.
+Check-Documentation --github:234 документа/2124 ссылки без ошибок, README blob
+совпал, public/default main сохранён. После итоговых правок выполнить финальную
+сверку после push. README содержит пользовательское описание, детали patch —
+CHANGELOG/отчёт. B-028/B-035: compatibility109 проверена на проектных эмуляторах,
+приёмка конкретного TV владельца остаётся открытой; точная физическая причина
+не объявлена доказанной. Клипы/утилита/изолированная beta/1.x не менялись.
+[Итог и первичные отказы](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+
 ### 2026-10-13 — финальный код TV, проверки и signed109 готовы
 
 Source4361528: явные TV content/delete intents, default available=true,

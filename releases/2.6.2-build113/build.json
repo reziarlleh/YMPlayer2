@@ -1,0 +1,11 @@
+{
+  "versionCode": 113,
+  "sha256": "3025634ccfa7def0ee2712a4ae90681fb0114288e89309d695863c6496851fee",
+  "runtimeAcceptance": "KIVI Android TV14/API34: actual launcher Open/Stop, music/radio, touch and DPAD verified 2026-10-14",
+  "versionName": "2.6.2-build113",
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-10-13T18:41:43.5980303Z",
+  "channel": "stable",
+  "minSdk": 28,
+  "updateChannel": "stable"
+}

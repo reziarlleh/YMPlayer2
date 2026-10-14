@@ -1,0 +1,21 @@
+{
+  "core": {
+    "tests": 141,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "releaseLint": {
+    "errors": 0,
+    "warnings": 82
+  },
+  "debugLint": {
+    "errors": 0,
+    "warnings": 83,
+    "note": "Lint logged an album-placeholder quickfix generation exception; Gradle analysis completed successfully."
+  },
+  "source": "98c70a5",
+  "signedApk": "2.6.2-build113",
+  "oauthGuard": "passed",
+  "repowise": "index refreshed to source 98c70a5; structural, no model prose"
+}

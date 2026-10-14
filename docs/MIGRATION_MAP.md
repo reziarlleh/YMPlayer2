@@ -1,6 +1,6 @@
 # Карта переноса и модулей
 
-**2.6.2-build109**: playback/android — TvMediaNotificationProvider и явный
+**2.6.2-build113**: playback/android — TvMediaNotificationProvider и явный
 immutable sessionActivity с API35 creator opt-in; app/MainActivity — Open
 onCreate/onNewIntent; shell — внешнее событие маршрута player/radio.
 Алгоритмы Music/Radio и provider API не менялись; 1.x не затронута.

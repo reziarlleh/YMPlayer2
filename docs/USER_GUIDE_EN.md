@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.6.2-build109**, Android9 and later. Reviewed on 13 October 2026.
+For **2.6.2-build113**, Android9 and later. Reviewed on 14 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
