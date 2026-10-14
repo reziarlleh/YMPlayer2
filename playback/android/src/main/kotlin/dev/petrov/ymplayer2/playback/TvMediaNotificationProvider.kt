@@ -24,8 +24,11 @@ internal fun mediaPlayerActivity(context: Context): PendingIntent {
     // Android 14 TV notification components can forward the click without sender options.
     // Publish the opt-in with this explicit user-operated activity entry point.
     val options = if (Build.VERSION.SDK_INT >= 34) ActivityOptions.makeBasic().apply {
-        setPendingIntentBackgroundActivityStartMode(if (Build.VERSION.SDK_INT >= 36)
-            ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOW_ALWAYS else ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
+        // API 35+ rejects sender-side options in PendingIntent.getActivity().
+        // Preserve the already tested Android 14 TV workaround only on that API;
+        // on newer Android versions use the documented creator-side opt-in.
+        if (Build.VERSION.SDK_INT == 34)
+            setPendingIntentBackgroundActivityStartMode(ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
         if (Build.VERSION.SDK_INT >= 35)
             setPendingIntentCreatorBackgroundActivityStartMode(if (Build.VERSION.SDK_INT >= 36)
                 ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOW_ALWAYS else ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)

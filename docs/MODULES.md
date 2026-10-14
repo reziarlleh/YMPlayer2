@@ -1,14 +1,10 @@
 # Границы модулей
 
-14 октября: Open/Stop116 проверены на физическом Kivi/API34, включая DPAD.
-NotificationListenerService query и Android14 permission-aware activity PI
-находятся в app manifest/playback adapter; интерфейс не управляет доверием клиентов.
-
-Дополнение13 октября2026: TV notification/sessionActivity — playback/android;
-Open возвращает существующую задачу приложения. MainActivity/shell не
-получают команды смены раздела. Стандартный Media3 provider сохранён за TV decorator;
-network/radio/wave алгоритмы не переносятся в UI.
-[Проверки2.6.2](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+Актуальный опубликованный stable — **2.6.1-build107**. Изменения2.6.2
+на main находятся в разработке; выпуски109/113/116 сняты владельцем.
+TV notification/sessionActivity остаются в playback/android; MainActivity/shell
+не получают команды выбора раздела. API35 crash исправляется в creator options.
+[Текущий отчёт](STARTUP_2_6_2_VERIFICATION.md).
 
 Дополнение8 октября2026: `buildSrc` — только сборочные Java/ASM-классы для
 контролируемого ART-преобразования Media3; не отдельная runtime-служба.

@@ -1,6 +1,6 @@
 # YMPlayer 2 — user guide
 
-For **2.6.2-build116**, Android9 and later. Reviewed on 14 October 2026.
+For **2.6.1-build107**, Android9 and later. Reviewed on 14 October 2026.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -70,9 +70,8 @@ Select an artist’s name to open their Yandex page with popular tracks and albu
 The track’s **More** menu contains actions for its artists; a like beside the
 track applies to the track itself.
 
-The system audio card's **Open** button brings the app back exactly as you left
-it, keeping the current section, scroll position and open dialogs. Playback is unchanged. **Stop** silences the audio; some TV launchers send
-Pause for this button and keep the playback position.
+The Android TV system card controls have known issues in build107.
+Their correction is still in development; use the app controls or media buttons.
 
 On Android TV, Left/Right on the progress bar seeks within the track. Up/Down
 moves to another control. Regular lists offer shuffle and repeat;

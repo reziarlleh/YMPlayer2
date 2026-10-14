@@ -1,0 +1,81 @@
+{
+  "checkedAtUtc": "2026-10-14T03:26:34.401044+00:00",
+  "results": [
+    {
+      "url": "https://api.github.com/repos/reziarlleh/YMPlayer2/releases/latest",
+      "status": 200,
+      "version": "v2.6.1-build107"
+    },
+    {
+      "url": "https://api.github.com/repos/reziarlleh/YMPlayer2/releases?per_page=100",
+      "status": 200,
+      "releases262": []
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "version": "2.6.1-build107"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.1-build107"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "version": "2.6.2-build113"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.2-build113"
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "version": "2.6.1-build107"
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.2-build109"
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build109/YMPlayer-2.6.2-build109.apk",
+      "status": 404
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build109/releases/2.6.2-build109/YMPlayer-2.6.2-build109.apk",
+      "status": 200
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build109/releases/2.6.2-build109/YMPlayer-2.6.2-build109.apk",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build113/YMPlayer-2.6.2-build113.apk",
+      "status": 404
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build113/releases/2.6.2-build113/YMPlayer-2.6.2-build113.apk",
+      "status": 200
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build113/releases/2.6.2-build113/YMPlayer-2.6.2-build113.apk",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build116/YMPlayer-2.6.2-build116.apk",
+      "status": 404
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build116/releases/2.6.2-build116/YMPlayer-2.6.2-build116.apk",
+      "error": "The read operation timed out"
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build116/releases/2.6.2-build116/YMPlayer-2.6.2-build116.apk",
+      "status": 200
+    }
+  ]
+}

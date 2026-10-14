@@ -1,0 +1,65 @@
+--------- beginning of crash
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: FATAL EXCEPTION: main
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: Process: dev.petrov.ymplayer2, PID: 2022
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: java.lang.RuntimeException: Unable to create service dev.petrov.ymplayer2.playback.AudioService: java.lang.IllegalArgumentException: pendingIntentBackgroundActivityStartMode must not be set when creating a PendingIntent
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:4990)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleCreateService(Unknown Source:0)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2444)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:107)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:232)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:317)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8705)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:886)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: Caused by: java.lang.IllegalArgumentException: pendingIntentBackgroundActivityStartMode must not be set when creating a PendingIntent
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3246)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.os.Parcel.createException(Parcel.java:3226)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:3209)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:3151)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.IActivityManager$Stub$Proxy.getIntentSenderWithFeature(IActivityManager.java:7000)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.PendingIntent.getActivityAsUser(PendingIntent.java:579)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.PendingIntent.getActivity(PendingIntent.java:560)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at kx0.A(r8-map-id-ab159cc4c698414a25a7e45bca17bcf1714340ceb99fa7f61a500a30b0bb5946:93)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at dev.petrov.ymplayer2.playback.AudioService.onCreate(r8-map-id-ab159cc4c698414a25a7e45bca17bcf1714340ceb99fa7f61a500a30b0bb5946:397)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:4977)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	... 9 more
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: Caused by: android.os.RemoteException: Remote stack trace:
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at com.android.server.am.PendingIntentController.getIntentSender(PendingIntentController.java:145)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at com.android.server.am.ActivityManagerService.getIntentSenderWithFeatureAsApp(ActivityManagerService.java:5633)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at com.android.server.am.ActivityManagerService.getIntentSenderWithFeature(ActivityManagerService.java:5526)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:3460)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2812)
+10-14 03:20:42.698  2022  2022 E AndroidRuntime: 
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: FATAL EXCEPTION: main
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: Process: dev.petrov.ymplayer2, PID: 2067
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: java.lang.RuntimeException: Unable to create service dev.petrov.ymplayer2.playback.AudioService: java.lang.IllegalArgumentException: pendingIntentBackgroundActivityStartMode must not be set when creating a PendingIntent
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:4990)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.ActivityThread.-$$Nest$mhandleCreateService(Unknown Source:0)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2444)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:107)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:232)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:317)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:8705)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:580)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:886)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: Caused by: java.lang.IllegalArgumentException: pendingIntentBackgroundActivityStartMode must not be set when creating a PendingIntent
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3246)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.os.Parcel.createException(Parcel.java:3226)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:3209)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:3151)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.IActivityManager$Stub$Proxy.getIntentSenderWithFeature(IActivityManager.java:7000)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.PendingIntent.getActivityAsUser(PendingIntent.java:579)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.PendingIntent.getActivity(PendingIntent.java:560)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at kx0.A(r8-map-id-ab159cc4c698414a25a7e45bca17bcf1714340ceb99fa7f61a500a30b0bb5946:93)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at dev.petrov.ymplayer2.playback.AudioService.onCreate(r8-map-id-ab159cc4c698414a25a7e45bca17bcf1714340ceb99fa7f61a500a30b0bb5946:397)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:4977)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	... 9 more
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: Caused by: android.os.RemoteException: Remote stack trace:
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at com.android.server.am.PendingIntentController.getIntentSender(PendingIntentController.java:145)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at com.android.server.am.ActivityManagerService.getIntentSenderWithFeatureAsApp(ActivityManagerService.java:5633)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at com.android.server.am.ActivityManagerService.getIntentSenderWithFeature(ActivityManagerService.java:5526)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:3460)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2812)
+10-14 03:20:44.224  2067  2067 E AndroidRuntime: 

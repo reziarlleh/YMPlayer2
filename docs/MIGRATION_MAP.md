@@ -1,14 +1,10 @@
 # Карта переноса и модулей
 
-14 октября: Open/Stop116 проверены на физическом Kivi/API34, включая DPAD.
-NotificationListenerService query и Android14 permission-aware activity PI
-находятся в app manifest/playback adapter; интерфейс не управляет доверием клиентов.
-
-**2.6.2-build116**: playback/android — TvMediaNotificationProvider и явный
-immutable sessionActivity с API35 creator opt-in; app/MainActivity и shell больше не перенаправляют Open; возвращается
-существующий task/Activity без изменения выбранного раздела.
-Алгоритмы Music/Radio и provider API не менялись; 1.x не затронута.
-[Проверки и границы](TV_NOTIFICATION_2_6_2_VERIFICATION.md).
+Актуальный опубликованный stable — **2.6.1-build107**. Изменения2.6.2
+на main находятся в разработке; выпуски109/113/116 сняты владельцем.
+TV notification/sessionActivity остаются в playback/android; MainActivity/shell
+не получают команды выбора раздела. API35 crash исправляется в creator options.
+[Текущий отчёт](STARTUP_2_6_2_VERIFICATION.md).
 
 **2.6.1-build107**: core WaveLoader/WaveHistory/PlaybackState/MusicTaste/OfflineMusic/
 OperationDiagnostic; provider YandexWaveApi/AndroidTasteStore/HTTP transports;

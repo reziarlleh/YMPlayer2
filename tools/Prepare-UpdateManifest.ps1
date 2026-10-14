@@ -4,6 +4,10 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
+$projectVersion = ConvertFrom-StringData (Get-Content -LiteralPath (Join-Path $root 'version.properties') -Raw)
+if ($projectVersion.releaseState -eq 'development' -and $Version.StartsWith($projectVersion.baseVersion)) {
+    throw 'This version has not been accepted for publication. Keep the stable feed unchanged.'
+}
 $release = Join-Path $root "releases\$Version"
 $apkName = "YMPlayer-$Version.apk"
 $apk = Join-Path $release $apkName

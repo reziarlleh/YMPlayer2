@@ -28,7 +28,8 @@ try {
     [IO.File]::WriteAllText($counterPath, "$number")
     $updateChannel = if ($info.updateChannel) { $info.updateChannel } else { $info.channel }
     if ($updateChannel -notin @('beta', 'stable')) { throw 'Invalid update channel.' }
-    [IO.File]::WriteAllText($versionPath, "baseVersion=$($info.baseVersion)`nchannel=$($info.channel)`nupdateChannel=$updateChannel`nlastIssuedBuild=$number`n")
+    $releaseState = if ($info.releaseState) { "releaseState=$($info.releaseState)`n" } else { '' }
+    [IO.File]::WriteAllText($versionPath, "baseVersion=$($info.baseVersion)`nchannel=$($info.channel)`nupdateChannel=$updateChannel`nlastIssuedBuild=$number`n$releaseState")
     & .\gradlew.bat :app:assembleRelease "-PissuedBuildNumber=$number" --console=plain
     if ($LASTEXITCODE -ne 0) { throw "Build $number failed and remains reserved." }
     $apk = Join-Path $projectRoot 'app\build\outputs\apk\release\app-release.apk'
