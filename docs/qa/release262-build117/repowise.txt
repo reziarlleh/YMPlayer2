@@ -1,0 +1,37 @@
+repowise update · YMPlayer2
+78e21640..ed7d809d
+37 changed · 21 modified, 16 added
+    modified  CHANGELOG.md
+    modified  README.md
+    modified  docs/BUG_REPORT.md
+    modified  docs/DOCUMENTATION_INDEX.md
+    modified  docs/FEATURE_INVENTORY.md
+    modified  docs/MIGRATION_MAP.md
+    modified  docs/MODULES.md
+    modified  docs/PLAN_2_6_2.md
+    modified  docs/PROJECT_STATUS.md
+    modified  docs/ROADMAP.md
+  +27 more (use -v to list all)
+Pages from an older renderer: 8
+Pages to regenerate: 45
+2026-10-14 09:04:15 [debug    ] duplication_incremental_splice changed=26 deleted=0 pairs=199328 touched_buckets=0
+Health analysis (partial): 37 changed, 25 performance-affected, 0 findings
+Dead code findings: 199
+Knowledge graph refreshed: 6 layers, 12 tour steps
+  ✓ Re-rendered 33 wiki pages from structure
+Related pages refreshed on 5 pages
+
+┌────────────────────────── {^ ^}  repowise index-only update complete ───────────────────────────┐
+│                                                                                                 │
+│   Files changed           37                                                                    │
+│   Graph                   12,343 nodes · 38,512 edges                                           │
+│   Dead code               0 unreachable · 0 unused exports                                      │
+│   Wiki pages              33 re-rendered from structure                                         │
+│   Elapsed                 1m 58s                                                                │
+│                                                                                                 │
+│   What's next:                                                                                  │
+│   repowise serve              browse the index at localhost:3000                                │
+│   repowise generate           upgrade the wiki to model-written prose (needs a key)             │
+│                                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+

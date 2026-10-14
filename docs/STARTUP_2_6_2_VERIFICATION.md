@@ -72,5 +72,31 @@ Gcore legacy manifest109 остаётся устаревшим (D-001). Стан
 ## Публикация117
 
 По прямому разрешению владельца: обычный stable117, не beta; одна main.
-Tag,4 assets,Latest,оба feed и основной/резервный SHA256 сверяются после публикации.
-Результаты HTTP/CDN и финальной сверки добавляются по факту.
+Tag `v2.6.2-build117` указывает наbe49987 с тем же APK; feed commit ed7d809.
+GitHub Latest117, isPrerelease=false,4 assets uploaded; их GitHub digests
+совпадают с локальными APK/build.json/SHA256.txt/signature.txt.
+[Release](qa/release262-build117/release.json). ОсновнойAPK и оба version-pinned
+CDN APK:7001969bytes и прежний SHA256f9c3243d7e05…197b86 совпали.
+Оба raw GitHub feed117. [HTTP04:04UTC](qa/release262-build117/http-verification.json).
+
+CDN dynamic stable113/manifest116, Gcore stable107/manifest109 на этом срезе.
+Refresh отдельно виделcdn stable117/manifest113: ответы edge неустойчивые;
+purge finished не объявляется завершённой синхронизацией всех зеркал (D-001).
+[Refresh](qa/release262-build117/mirrors-final.txt), [первый HTTP](qa/release262-build117/http-initial.json).
+Автообновление получает117 из основного raw feed, если он доступен. Полную
+доступность свежего feed при блокировкеGitHub не подтверждать.
+Прямая резервная загрузка APK117 проверена на обоих CDN независимо от dynamic feed.
+
+Документы/версия/feed/GitHubLatest/README согласованы;2152 локальные ссылки,
+0 missing targets. [Сверка](qa/release262-build117/documentation-github.json).
+2088 документов/артефактов local↔GitHub сравнились без mismatch.
+[Tree](qa/release262-build117/github-tree.json). RepoWise ed7d809 обновлён
+структурно,без модельной генерации; [лог](qa/release262-build117/repowise.txt).
+Новых runtime changes нет: исходники app/playback/core/provider/feature и прочих
+product модулей идентичны проверенному source78e2164/CI38506495350 success.
+Повторная регрессия плеера ради документации/публикации не запускалась.
+
+Первая CLI signature проверка не имела JAVA_HOME; после задания существующего
+JDK17 проверка прошла. Первый documentation helper остановился до записи файлов
+на неверном имени encodingutf8-sig; исправлено наutf-8-sig. Это подготовительные
+ошибки инструмента, APK не менялся и повторная сборка не выполнялась.

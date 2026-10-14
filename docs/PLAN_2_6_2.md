@@ -8,7 +8,10 @@
 - [x] Проверить signed startup API28/API35,6 cold+6 warmAPI35 без очистки данных.
 - [x] Проверить Open/Stop:3 nativeAPI35 и4 TV29, прежние Activity/экран и настоящий stop.
 - [x] Владелец подтвердил запуск117 и разрешил релиз2.6.2.
-- [ ] Публикация117: tag/4assets/Latest/оба feed, HTTP/hash/зеркала, документыGitHub/RepoWise.
+- [x] Публикация117: tag/4assets/Latest/оба основных feed, HTTP/hash/зеркала, документыGitHub/RepoWise.
+
+Резервные dynamic feed имеют неустойчивый старый кэш (D-001); свежесть всех
+зеркал не объявляется. Три version-pinned APK117 совпадают по SHA256.
 
 [Текущий отчёт](STARTUP_2_6_2_VERIFICATION.md).
 [Исторические TV-проверки](TV_NOTIFICATION_2_6_2_VERIFICATION.md).

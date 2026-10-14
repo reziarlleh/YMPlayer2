@@ -8,7 +8,13 @@ Android TV изменения сохранены;API34 ветка,task identity1
 Повторно проверены hash/package/min28/signature/OAuth; runtime acceptancemetadata
 отделяет подтверждение смартфона от эмуляторныхTV тестов. Непринятые109/113/116
 не возвращаются в Releases/CHANGELOG. Development guard снят по разрешению;
-публикация117/tag/4assets/feed/HTTP/GitHub/RepoWise выполняется по release loop.
+публикация117/tag be49987/4assets/Latest/обаraw feed выполнена. ТриAPK117 совпали
+поSHA256; metadata asset digests совпали. RepoWise ed7d809 обновлён; документация
+и GitHubtree без mismatch. Runtime source78e2164/CI success остаётся тем же.
+CDN dynamic feeds113/116 и Gcore107/109 на04:04UTC: D-001 сохраняется, свежесть
+всех зеркал не заявлена. Прямые version-pinned CDN APK117 проверены независимо.
+Первые helper-попытки не имели JAVA_HOME/имели неверное имя UTF8 encoding;
+исправлены до завершения подготовки, APK не пересобирался.
 [Отчёт](STARTUP_2_6_2_VERIFICATION.md).
 
 ### 2026-10-14 —2.6.2 отозвана владельцем, найден crashAPI35
