@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-19",
+  "runtimeSourceCommit": "263ffeda18ea8b4c922bec99876656a419a00407",
+  "update": "timeout",
+  "firstTimeoutSeconds": 510,
+  "doctorRepair": "completed",
+  "repairedEntries": 185,
+  "stalePagesBeforeRepair": 16,
+  "lastConfirmedSyncBeforeRepair": "ed7d809d",
+  "retryAfterRepair": "timeout",
+  "retryTimeoutSeconds": 90,
+  "indexDeclaredCurrent": false,
+  "nextStep": "Investigate the structural update timeout separately; verify against source and tests, not cached index."
+}

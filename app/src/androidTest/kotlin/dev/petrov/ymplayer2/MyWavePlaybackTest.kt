@@ -123,6 +123,8 @@ class MyWavePlaybackTest {
         // The server then echoes five heard entries at cursor4 twice. Recovery must
         // use that drained cursor, not cursor3 from before the unsuccessful requests.
         waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:5:7" && !player.state.value.waveLoading }
+        assertEquals("yandex:3:7", player.state.value.current?.id)
+        assertTrue("yandex:5:7" in player.bufferedWaveAudioIds())
         assertEquals(listOf("4"), fixture.waveRecoveryCursors)
         assertEquals(listOf(1, 2, 3, 4, 4, 5), fixture.waveRequests.take(6))
         assertFalse(player.state.value.queue.any { it.id == "yandex:1:7" })

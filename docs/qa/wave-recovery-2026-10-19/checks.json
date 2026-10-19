@@ -32,5 +32,20 @@
     "Warning": 68
   },
   "physicalDevicesUsed": false,
-  "personalYandexResponsesReproduced": false
+  "personalYandexResponsesReproduced": false,
+  "beforeEofPrefetch": {
+    "api28": {
+      "tests": 1,
+      "failures": 0
+    },
+    "api35": {
+      "tests": 1,
+      "failures": 0
+    },
+    "assertions": [
+      "currentTrackIs3",
+      "audio5FullyBufferedBeforeEof"
+    ],
+    "productionApkUnchanged": true
+  }
 }
