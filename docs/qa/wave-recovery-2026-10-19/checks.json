@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-19",
+  "publishedStable": "2.6.2-build117",
+  "unpublishedCandidate": "2.6.3-build119",
+  "coreJvm": {
+    "tests": 145,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "native": {
+    "native-before": {
+      "tests": 12,
+      "failures": 5
+    },
+    "native-after-first": {
+      "tests": 26,
+      "failures": 0
+    },
+    "api28-final": {
+      "tests": 28,
+      "failures": 0
+    },
+    "api35-final": {
+      "tests": 14,
+      "failures": 0
+    }
+  },
+  "releaseLint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 68
+  },
+  "physicalDevicesUsed": false,
+  "personalYandexResponsesReproduced": false
+}

@@ -111,6 +111,30 @@ class MyWavePlaybackTest {
         assertEquals(0, fixture.waveFailuresRemaining)
         assertTrue(fixture.waveFeedback.any { it.third == WaveFeedback.FINISHED && it.second.track.id == "yandex:6:7" })
     }
+    @Test fun repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack() {
+        compose.runOnIdle { fixture.waveRecoveryNeedsDrainedCursor = true }
+        start()
+        for (id in 2..3) {
+            waitFor { player.state.value.queue.size - player.state.value.index == 2 }
+            compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
+            waitFor { player.state.value.current?.id == "yandex:$id:7" && player.state.value.positionSeconds >= 1 }
+            assertTrue(player.state.value.queue.size <= 3)
+        }
+        // The server then echoes five heard entries at cursor4 twice. Recovery must
+        // use that drained cursor, not cursor3 from before the unsuccessful requests.
+        waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:5:7" && !player.state.value.waveLoading }
+        assertEquals(listOf("4"), fixture.waveRecoveryCursors)
+        assertEquals(listOf(1, 2, 3, 4, 4, 5), fixture.waveRequests.take(6))
+        assertFalse(player.state.value.queue.any { it.id == "yandex:1:7" })
+        compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
+        waitFor { player.state.value.current?.id == "yandex:5:7" && player.state.value.positionSeconds >= 1 }
+        waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:6:7" }
+        assertTrue(player.state.value.wave && player.state.value.playing)
+        assertTrue(player.state.value.queue.size <= 3)
+        assertTrue(player.state.value.queue.none { it.id in setOf("yandex:1:7", "yandex:2:7") })
+        assertEquals(listOf("yandex:1:7", "yandex:2:7", "yandex:3:7", "yandex:5:7"),
+            fixture.waveFeedback.filter { it.third == WaveFeedback.STARTED }.map { it.second.track.id })
+    }
     @Test fun nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution() {
         start()
         assertTrue(player.state.value.positionSeconds < 10)

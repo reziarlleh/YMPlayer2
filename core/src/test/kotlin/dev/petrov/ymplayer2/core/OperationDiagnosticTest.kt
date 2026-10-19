@@ -16,4 +16,8 @@ class OperationDiagnosticTest {
         assertEquals(DiagnosticCategory.DECODER, diagnosticFailure(DiagnosticOperation.CLIP_PLAYBACK, Exception(), 4001).category)
         assertEquals(DiagnosticCategory.SERVER, diagnosticFailure(DiagnosticOperation.CLIP_PLAYBACK, Exception(), 2004, 503).category)
     }
+    @Test fun waveFilterCountsAreBoundedAndContainOnlyCounts() {
+        val record = OperationDiagnostic(DiagnosticOperation.WAVE_DRAIN, unavailable = -2, seen = Int.MAX_VALUE, blocked = 3)
+        assertEquals("operation=WAVE_DRAIN category=OK unavailable=0 seen=1000000 blocked=3", record.line())
+    }
 }

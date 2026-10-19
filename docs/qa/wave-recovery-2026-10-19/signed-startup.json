@@ -1,0 +1,65 @@
+{
+  "checkedAtUtc": "2026-10-19T02:31:29.368748+00:00",
+  "version": "2.6.3-build119",
+  "physicalDevicesUsed": false,
+  "emulators": [
+    {
+      "sdk": 35,
+      "upgradeFromBuild": 117,
+      "installedBuild": 119,
+      "dataCleared": false,
+      "cases": [
+        {
+          "case": "cold-launch-1",
+          "processAlive": true,
+          "mainActivityForeground": true,
+          "crash": false
+        },
+        {
+          "case": "warm-return-1",
+          "sameProcess": true
+        },
+        {
+          "case": "cold-launch-2",
+          "processAlive": true,
+          "mainActivityForeground": true,
+          "crash": false
+        },
+        {
+          "case": "warm-return-2",
+          "sameProcess": true
+        },
+        {
+          "case": "cold-launch-3",
+          "processAlive": true,
+          "mainActivityForeground": true,
+          "crash": false
+        },
+        {
+          "case": "warm-return-3",
+          "sameProcess": true
+        }
+      ],
+      "noDelayedCrash": true
+    },
+    {
+      "sdk": 28,
+      "upgradeFromBuild": 117,
+      "installedBuild": 119,
+      "dataCleared": false,
+      "cases": [
+        {
+          "case": "cold-launch-1",
+          "processAlive": true,
+          "mainActivityForeground": true,
+          "crash": false
+        },
+        {
+          "case": "warm-return-1",
+          "sameProcess": true
+        }
+      ],
+      "noDelayedCrash": true
+    }
+  ]
+}

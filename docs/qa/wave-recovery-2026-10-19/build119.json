@@ -1,0 +1,11 @@
+{
+  "minSdk": 28,
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "stable",
+  "builtAtUtc": "2026-10-19T02:30:39.3555494Z",
+  "versionCode": 119,
+  "runtimeAcceptance": "pending",
+  "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+  "updateChannel": "stable",
+  "versionName": "2.6.3-build119"
+}

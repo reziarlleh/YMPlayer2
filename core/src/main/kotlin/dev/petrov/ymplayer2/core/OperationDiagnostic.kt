@@ -8,13 +8,17 @@ enum class DiagnosticCategory { OK, NETWORK, SERVER, ACCESS, UNAVAILABLE, PROTOC
 data class OperationDiagnostic(val operation: DiagnosticOperation, val category: DiagnosticCategory = DiagnosticCategory.OK,
     val httpStatus: Int? = null, val network: NetworkIssue? = null, val returned: Int? = null,
     val accepted: Int? = null, val attempt: Int? = null, val mediaCode: Int? = null,
-    val session: Boolean? = null, val cursorAdvanced: Boolean? = null) {
+    val session: Boolean? = null, val cursorAdvanced: Boolean? = null,
+    val unavailable: Int? = null, val seen: Int? = null, val blocked: Int? = null) {
     fun line() = buildString {
         append("operation=${operation.name} category=${category.name}")
         httpStatus?.let { append(" http=$it") }; network?.let { append(" network=${it.name}") }
         returned?.let { append(" returned=${it.coerceIn(0, 1000000)}") }; accepted?.let { append(" accepted=${it.coerceIn(0, 1000000)}") }
         attempt?.let { append(" attempt=${it.coerceIn(0, 1000)}") }; mediaCode?.let { append(" mediaCode=$it") }
         session?.let { append(" session=$it") }; cursorAdvanced?.let { append(" cursorAdvanced=$it") }
+        unavailable?.let { append(" unavailable=${it.coerceIn(0, 1000000)}") }
+        seen?.let { append(" seen=${it.coerceIn(0, 1000000)}") }
+        blocked?.let { append(" blocked=${it.coerceIn(0, 1000000)}") }
     }
 }
 fun diagnosticFailure(operation: DiagnosticOperation, error: Throwable, mediaCode: Int? = null, httpStatus: Int? = null): OperationDiagnostic {

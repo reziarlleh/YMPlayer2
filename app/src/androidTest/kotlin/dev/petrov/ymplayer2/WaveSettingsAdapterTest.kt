@@ -130,4 +130,161 @@ class WaveSettingsAdapterTest {
             assertEquals(1, modern); assertEquals(2, legacy)
         }
     }
+    @Test fun temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory() = runBlocking {
+        var sessions = 0
+        var stations = 0
+        val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String): String {
+                assertTrue(url.endsWith("/rotor/session/new"))
+                sessions++
+                if (sessions == 1) throw MusicException(MusicFailure.NETWORK, httpStatus = 503)
+                val request = JSONObject(body)
+                assertEquals("user:onyourwave", request.getJSONArray("seeds").getString(0))
+                assertEquals(listOf("3"), request.getJSONArray("queue").let { rows ->
+                    (0 until rows.length()).map(rows::getString)
+                })
+                return waveReply(listOf(4, 5), "recovered-session")
+            }
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                assertTrue(url.contains("/rotor/station/user:onyourwave/tracks"))
+                stations++
+                return waveReply(listOf(1, 2, 3))
+            }
+        }))
+        val loader = WaveLoader(api)
+        val history = linkedSetOf<String>()
+        var previous: WaveBatch? = null
+        val selected = (1..4).map {
+            val next = loader.load("owner", previous, history) { true }
+            previous = next
+            next.tracks.single().track.tasteTarget().key.also(history::add)
+        }
+        assertEquals(listOf("1", "2", "3", "4"), selected)
+        assertEquals(setOf("1", "2", "3", "4"), history)
+        assertEquals("recovered-session", previous!!.sessionId)
+        assertEquals(2, sessions)
+        assertTrue(stations >= 3)
+    }
+    @Test fun stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed() = runBlocking {
+        for (seed in listOf("track:7", "artist:8", "album:9", "playlist:100_3")) {
+            val request = WaveRequest(seed, "Fixture")
+            val stationCursors = mutableListOf<String>()
+            var sessions = 0
+            val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+                override suspend fun json(url: String, token: String, body: String): String {
+                    assertTrue(url.endsWith("/rotor/session/new")); sessions++
+                    val sent = JSONObject(body)
+                    assertEquals(listOf(seed), sent.getJSONArray("seeds").let { rows ->
+                        (0 until rows.length()).map(rows::getString)
+                    })
+                    assertEquals("3", sent.getJSONArray("queue").getString(0))
+                    return waveReply(listOf(4), "object-session")
+                }
+                override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                    assertTrue(url.contains("/station/$seed/tracks"))
+                    stationCursors += url.substringAfter("&queue=")
+                    return waveReply(listOf(2, 3))
+                }
+            }))
+            val next = WaveLoader(api).load("owner", WaveBatch(emptyList(), cursor = "1", request = request),
+                setOf("1", "2", "3"), request) { true }
+            assertEquals(listOf("1", "3"), stationCursors)
+            assertEquals(1, sessions)
+            assertEquals("4", next.cursor)
+            assertEquals(request, next.request)
+            assertEquals(seed, next.tracks.single().station)
+        }
+    }
+    @Test fun customRecoveryRetainsAllSettingsAndNeverUsesLegacy() = runBlocking {
+        val selection = WaveRequest("activity:road-trip", "В дороге", listOf("settingMoodEnergy:calm", "settingLanguage:russian"))
+        var sessions = 0
+        val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String): String {
+                assertTrue(url.endsWith("/rotor/session/new")); sessions++
+                val sent = JSONObject(body)
+                assertEquals(selection.seeds, sent.getJSONArray("seeds").let { rows ->
+                    (0 until rows.length()).map(rows::getString)
+                })
+                assertEquals("3", sent.getJSONArray("queue").getString(0))
+                return waveReply(listOf(4), "custom-recovered")
+            }
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String = error("Custom settings cannot be dropped")
+        }))
+        val recovered = api.recover("owner", WaveBatch(emptyList(), "old-session", "3", selection), selection)
+        assertEquals(1, sessions)
+        assertEquals("custom-recovered", recovered.sessionId)
+        assertEquals(selection, recovered.request)
+        assertEquals(selection.station, recovered.tracks.single().station)
+    }
+    @Test fun unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor() = runBlocking {
+        val selection = WaveRequest("artist:8", "Fixture")
+        var sessions = 0
+        var stations = 0
+        val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String): String {
+                assertTrue(url.endsWith("/rotor/session/new")); sessions++
+                val sent = JSONObject(body)
+                assertEquals(selection.station, sent.getJSONArray("seeds").getString(0))
+                assertEquals("9", sent.getJSONArray("queue").getString(0))
+                throw MusicException(MusicFailure.NETWORK, httpStatus = 503)
+            }
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                assertTrue(url.contains("/station/artist:8/tracks"))
+                assertTrue(url.contains("&queue=9")); stations++
+                return waveReply(listOf(10))
+            }
+        }))
+        val recovered = api.recover("owner", WaveBatch(emptyList(), cursor = "9", request = selection), selection)
+        assertEquals(1, sessions); assertEquals(1, stations)
+        assertEquals("10", recovered.cursor)
+        assertEquals(selection, recovered.request)
+        assertEquals(selection.station, recovered.tracks.single().station)
+    }
+    @Test fun authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave() = runBlocking {
+        for (failure in listOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS)) {
+            var stations = 0
+            val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+                override suspend fun json(url: String, token: String, body: String): String = throw MusicException(failure)
+                override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                    stations++; error("Authentication failure must not fall back")
+                }
+            }))
+            try { api.recover("owner", WaveBatch(emptyList(), cursor = "3"), WaveRequest()); fail("Authentication failure accepted") }
+            catch (e: MusicException) { assertEquals(failure, e.failure) }
+            assertEquals(0, stations)
+        }
+    }
+    @Test fun emptyCustomRecoveryKeepsCursorForTheNextAttempt() = runBlocking {
+        val request = WaveRequest(settings = listOf("settingLanguage:russian"))
+        val cursors = mutableListOf<String>()
+        val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String): String {
+                cursors += JSONObject(body).getJSONArray("queue").getString(0)
+                return waveReply(emptyList(), "new-session")
+            }
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String = error("No unfiltered fallback")
+        }))
+        val empty = api.recover("owner", WaveBatch(emptyList(), "old-session", "3", request), request)
+        assertEquals("3", empty.cursor)
+        api.recover("owner", empty, request)
+        assertEquals(listOf("3", "3"), cursors)
+    }
+    @Test fun failedLegacyAfterEmptyModernReplyIsNotRequestedTwice() = runBlocking {
+        var stations = 0
+        val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String) = waveReply(emptyList(), "empty-session")
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                stations++
+                throw MusicException(MusicFailure.NETWORK, httpStatus = 503)
+            }
+        }))
+        try { api.recover("owner", WaveBatch(emptyList(), cursor = "3"), WaveRequest()); fail() }
+        catch (e: MusicException) { assertEquals(503, e.httpStatus) }
+        assertEquals(1, stations)
+    }
+    private fun waveReply(ids: List<Int>, session: String = ""): String = JSONObject().put("result", JSONObject()
+        .put("radioSessionId", session).put("batchId", "fixture")
+        .put("sequence", org.json.JSONArray(ids.map { id -> JSONObject().put("track", JSONObject().put("id", id)
+            .put("title", "Track $id").put("available", true).put("durationMs", 30000)
+            .put("artists", org.json.JSONArray()).put("albums", org.json.JSONArray())) }))).toString()
 }

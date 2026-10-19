@@ -21,6 +21,7 @@ class YandexWaveApi(private val music: YandexMusicApi, private val diagnostic: (
         catch (e: Exception) {
             // Never silently drop user-selected settings or turn an activity into the default wave.
             if (request.settings.isNotEmpty() || e is MusicException && e.failure in setOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS)) throw e
+            diagnostic(diagnosticFailure(DiagnosticOperation.WAVE_START, e))
             legacy(token, "", request)
         }
     }
@@ -39,14 +40,29 @@ class YandexWaveApi(private val music: YandexMusicApi, private val diagnostic: (
     }
     override suspend fun recover(profileId: String, previous: WaveBatch?, request: WaveRequest): WaveBatch = music.account(profileId) { token, _ ->
         diagnostic(OperationDiagnostic(DiagnosticOperation.WAVE_RECOVER, session = previous?.sessionId?.isNotBlank() == true))
-        // The verified 1.x station path also recovers modern sessions that only echo their first batch.
-        // Selected setting seeds must never be silently dropped by this fallback.
-        if (request.settings.isEmpty()) legacy(token, previous?.cursor.orEmpty(), request)
+        // Keep station recovery for a stuck modern session. Once station responses
+        // also stop progressing, retry modern like 1.x getMyWaveFastStart instead of
+        // staying permanently on the fallback selected by an earlier transient error.
+        if (request.settings.isEmpty() && previous?.sessionId?.isNotBlank() == true)
+            legacy(token, previous.cursor, request)
         else {
-            val body = JSONObject().put("seeds", JSONArray(request.seeds)).put("queue", JSONArray(listOfNotNull(previous?.cursor?.takeIf(String::isNotBlank))))
-                .put("includeTracksInResponse", true).put("includeWaveModel", true).put("interactive", true)
-            val result = music.api(token, "/rotor/session/new", json = body) as JSONObject
-            parse(token, result, result.optString("radioSessionId"), request)
+            val cursor = previous?.cursor.orEmpty()
+            val recovered = try {
+                val body = JSONObject().put("seeds", JSONArray(request.seeds)).put("queue", JSONArray(listOfNotNull(previous?.cursor?.takeIf(String::isNotBlank))))
+                    .put("includeTracksInResponse", true).put("includeWaveModel", true).put("interactive", true)
+                val result = music.api(token, "/rotor/session/new", json = body) as JSONObject
+                parse(token, result, result.optString("radioSessionId"), request, cursor)
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                // Neither authentication failures nor selected settings may be hidden by fallback.
+                if (request.settings.isNotEmpty() || e is MusicException && e.failure in setOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS)) throw e
+                diagnostic(diagnosticFailure(DiagnosticOperation.WAVE_RECOVER, e))
+                null
+            }
+            // Keep fallback outside the modern catch: a failed station request must
+            // reach the bounded loader retry policy rather than being repeated here.
+            recovered?.takeIf { it.tracks.isNotEmpty() || request.settings.isNotEmpty() }
+                ?: legacy(token, cursor, request)
         }
     }
     private suspend fun parse(token: String, result: JSONObject, session: String, request: WaveRequest, skip: String = ""): WaveBatch {

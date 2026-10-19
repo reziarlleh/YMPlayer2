@@ -18,6 +18,7 @@ interface MyWaveApi {
 class WaveLoader(private val api: MyWaveApi, private val diagnostic: (OperationDiagnostic) -> Unit = {}) {
     suspend fun load(profile: String, previous: WaveBatch?, seen: Set<String>, request: WaveRequest = previous?.request ?: WaveRequest(), allows: (Track) -> Boolean): WaveBatch {
         var cursor = previous
+        var recoveryPoint = previous
         var lastFailure: Exception? = null
         var failures = 0
         val drained = mutableSetOf<String>()
@@ -25,14 +26,27 @@ class WaveLoader(private val api: MyWaveApi, private val diagnostic: (OperationD
         previous?.cursor?.takeIf(String::isNotBlank)?.let { drained.add(it) }
         repeat(8) {
             try {
-                val response = if (recovering) api.recover(profile, previous, request)
+                val requestCursor = if (recovering) recoveryPoint else cursor
+                val response = if (recovering) api.recover(profile, recoveryPoint, request)
                     else if (cursor == null) api.start(profile, request) else api.next(profile, cursor!!)
                 recovering = false
                 val batch = response.copy(request = request, tracks = response.tracks.map { it.copy(station = request.station) })
-                val tracks = batch.tracks.filter { it.track.available && it.track.tasteTarget().key !in seen && allows(it.track) }
+                var unavailable = 0; var heard = 0; var blocked = 0
+                val tracks = batch.tracks.filter {
+                    when {
+                        !it.track.available -> { unavailable++; false }
+                        it.track.tasteTarget().key in seen -> { heard++; false }
+                        !allows(it.track) -> { blocked++; false }
+                        else -> true
+                    }
+                }
                     .distinctBy { it.track.tasteTarget().key }
                 diagnostic(OperationDiagnostic(DiagnosticOperation.WAVE_DRAIN, returned = batch.tracks.size, accepted = tracks.size,
-                    attempt = it + 1, session = batch.sessionId.isNotBlank(), cursorAdvanced = batch.cursor != cursor?.cursor))
+                    attempt = it + 1, session = batch.sessionId.isNotBlank(), cursorAdvanced = batch.cursor.isNotBlank() && batch.cursor != requestCursor?.cursor,
+                    unavailable = unavailable, seen = heard, blocked = blocked))
+                // Keep the last server position even when the selected candidates were filtered.
+                // Clearing the request cursor to trigger recovery must not rewind this position.
+                if (batch.cursor.isNotBlank()) recoveryPoint = batch
                 if (tracks.isNotEmpty()) {
                     val next = tracks.first()
                     return batch.copy(tracks = listOf(next), cursor = next.track.tasteTarget().key)
@@ -49,7 +63,7 @@ class WaveLoader(private val api: MyWaveApi, private val diagnostic: (OperationD
                 if (++failures >= 3) throw e
                 diagnostic(diagnosticFailure(DiagnosticOperation.WAVE_NEXT, e))
                 recovering = failures == 1
-                cursor = if (recovering) null else previous
+                cursor = if (recovering) null else recoveryPoint
             }
         }
         throw lastFailure ?: MusicException(MusicFailure.NO_PROGRESS)

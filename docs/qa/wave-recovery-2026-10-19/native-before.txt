@@ -1,0 +1,392 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveSettingsAdapterTest:
+INSTRUMENTATION_STATUS: test=objectSessionAndLegacyFallbackNeverReplaceTheRequestedSeed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=objectSessionAndLegacyFallbackNeverReplaceTheRequestedSeed
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<1> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor$1.invokeSuspend(WaveSettingsAdapterTest.kt:238)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor(WaveSettingsAdapterTest.kt:219)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor(dev.petrov.ymplayer2.WaveSettingsAdapterTest):
+java.lang.AssertionError: expected:<1> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor$1.invokeSuspend(WaveSettingsAdapterTest.kt:238)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor(WaveSettingsAdapterTest.kt:219)
+
+INSTRUMENTATION_STATUS: test=unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=dev.petrov.ymplayer2.core.MusicException: NO_PROGRESS
+	at dev.petrov.ymplayer2.core.WaveLoader.load(MyWave.kt:55)
+	at dev.petrov.ymplayer2.core.WaveLoader.load$default(MyWave.kt:19)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory$1.invokeSuspend(WaveSettingsAdapterTest.kt:158)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory(WaveSettingsAdapterTest.kt:133)
+
+INSTRUMENTATION_STATUS: stream=
+Error in temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory(dev.petrov.ymplayer2.WaveSettingsAdapterTest):
+dev.petrov.ymplayer2.core.MusicException: NO_PROGRESS
+	at dev.petrov.ymplayer2.core.WaveLoader.load(MyWave.kt:55)
+	at dev.petrov.ymplayer2.core.WaveLoader.load$default(MyWave.kt:19)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory$1.invokeSuspend(WaveSettingsAdapterTest.kt:158)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory(WaveSettingsAdapterTest.kt:133)
+
+INSTRUMENTATION_STATUS: test=temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=echoedWholeBatchAdvancesItsLastCursorWithoutStartingANewSession
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=echoedWholeBatchAdvancesItsLastCursorWithoutStartingANewSession
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedCustomSessionDoesNotFallBackToUnfilteredWave
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedCustomSessionDoesNotFallBackToUnfilteredWave
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=dev.petrov.ymplayer2.core.MusicException: NO_PROGRESS
+	at dev.petrov.ymplayer2.core.WaveLoader.load(MyWave.kt:55)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed$1.invokeSuspend(WaveSettingsAdapterTest.kt:189)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed(WaveSettingsAdapterTest.kt:168)
+
+INSTRUMENTATION_STATUS: stream=
+Error in stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed(dev.petrov.ymplayer2.WaveSettingsAdapterTest):
+dev.petrov.ymplayer2.core.MusicException: NO_PROGRESS
+	at dev.petrov.ymplayer2.core.WaveLoader.load(MyWave.kt:55)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed$1.invokeSuspend(WaveSettingsAdapterTest.kt:189)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed(WaveSettingsAdapterTest.kt:168)
+
+INSTRUMENTATION_STATUS: test=stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=repeatedTenTrackSessionUsesLegacyRecoveryWithOriginalStationAndCursor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=repeatedTenTrackSessionUsesLegacyRecoveryWithOriginalStationAndCursor
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<SIGN_IN> but was:<RESPONSE>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave$1.invokeSuspend(WaveSettingsAdapterTest.kt:253)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave(WaveSettingsAdapterTest.kt:243)
+
+INSTRUMENTATION_STATUS: stream=
+Error in authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave(dev.petrov.ymplayer2.WaveSettingsAdapterTest):
+java.lang.AssertionError: expected:<SIGN_IN> but was:<RESPONSE>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave$1.invokeSuspend(WaveSettingsAdapterTest.kt:253)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave(WaveSettingsAdapterTest.kt:243)
+
+INSTRUMENTATION_STATUS: test=authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=customRecoveryRetainsAllSettingsAndNeverUsesLegacy
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=customRecoveryRetainsAllSettingsAndNeverUsesLegacy
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=customSeedsContinuationAndFeedbackStayOnChosenActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsAdapterTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=customSeedsContinuationAndFeedbackStayOnChosenActivity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.MyWavePlaybackTest:
+INSTRUMENTATION_STATUS: test=repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[Track(id=yandex:1:7, title=Онлайн: трек 1, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841605, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), Track(id=yandex:2:7, title=Онлайн: трек 2, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841705, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7), Track(id=yandex:3:7, title=Онлайн: трек 3, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841605, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7)], index=2, positionSeconds=25, playing=true, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Яндекс не прислал новых треков для волны. Повторите попытку позже., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0, referenceQueue=false, explicitQueueIds=null, origin=PlaybackOrigin(source=MY_WAVE, title=Моя волна, wave=WaveRequest(station=user:onyourwave, title=Моя волна, settings=[])), continueWave=false, previousAvailable=true, nextAvailable=false); requests=[1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; resolved=[(owner, yandex:1:7), (owner, yandex:2:7), (owner, yandex:3:7)]; buffered=[yandex:2:7, yandex:3:7]
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:22)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack(MyWavePlaybackTest.kt:125)
+	... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+	... 69 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack(dev.petrov.ymplayer2.MyWavePlaybackTest):
+java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[Track(id=yandex:1:7, title=Онлайн: трек 1, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841605, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), Track(id=yandex:2:7, title=Онлайн: трек 2, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841705, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7), Track(id=yandex:3:7, title=Онлайн: трек 3, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841605, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7)], index=2, positionSeconds=25, playing=true, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Яндекс не прислал новых треков для волны. Повторите попытку позже., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0, referenceQueue=false, explicitQueueIds=null, origin=PlaybackOrigin(source=MY_WAVE, title=Моя волна, wave=WaveRequest(station=user:onyourwave, title=Моя волна, settings=[])), continueWave=false, previousAvailable=true, nextAvailable=false); requests=[1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; resolved=[(owner, yandex:1:7), (owner, yandex:2:7), (owner, yandex:3:7)]; buffered=[yandex:2:7, yandex:3:7]
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:22)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack(MyWavePlaybackTest.kt:125)
+	... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+	... 69 more
+
+INSTRUMENTATION_STATUS: test=repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 39.453
+There were 5 failures:
+1) unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor(dev.petrov.ymplayer2.WaveSettingsAdapterTest)
+java.lang.AssertionError: expected:<1> but was:<0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor$1.invokeSuspend(WaveSettingsAdapterTest.kt:238)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor(WaveSettingsAdapterTest.kt:219)
+2) temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory(dev.petrov.ymplayer2.WaveSettingsAdapterTest)
+dev.petrov.ymplayer2.core.MusicException: NO_PROGRESS
+	at dev.petrov.ymplayer2.core.WaveLoader.load(MyWave.kt:55)
+	at dev.petrov.ymplayer2.core.WaveLoader.load$default(MyWave.kt:19)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory$1.invokeSuspend(WaveSettingsAdapterTest.kt:158)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory(WaveSettingsAdapterTest.kt:133)
+3) stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed(dev.petrov.ymplayer2.WaveSettingsAdapterTest)
+dev.petrov.ymplayer2.core.MusicException: NO_PROGRESS
+	at dev.petrov.ymplayer2.core.WaveLoader.load(MyWave.kt:55)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed$1.invokeSuspend(WaveSettingsAdapterTest.kt:189)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed(WaveSettingsAdapterTest.kt:168)
+4) authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave(dev.petrov.ymplayer2.WaveSettingsAdapterTest)
+java.lang.AssertionError: expected:<SIGN_IN> but was:<RESPONSE>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest$authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave$1.invokeSuspend(WaveSettingsAdapterTest.kt:253)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at dev.petrov.ymplayer2.WaveSettingsAdapterTest.authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave(WaveSettingsAdapterTest.kt:243)
+5) repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack(dev.petrov.ymplayer2.MyWavePlaybackTest)
+java.lang.AssertionError: Wave state=PlaybackState(profileId=owner, queue=[Track(id=yandex:1:7, title=Онлайн: трек 1, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841605, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7), Track(id=yandex:2:7, title=Онлайн: трек 2, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music / nested, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841705, artworkUri=null, artists=[ArtistRef(id=6, name=Второй исполнитель)], albumId=7), Track(id=yandex:3:7, title=Онлайн: трек 3, artist=, album=, source=YANDEX, durationSeconds=30, offline=false, available=true, genre=, folder=Test Music, tint=2, uri=null, rootId=content://dev.petrov.ymplayer2.test.music/tree/music, sizeBytes=960044, modifiedMillis=1792375841605, artworkUri=null, artists=[ArtistRef(id=5, name=Первый исполнитель)], albumId=7)], index=2, positionSeconds=25, playing=true, buffering=false, error=null, connected=true, repeatMode=OFF, shuffle=false, wave=true, waveLoading=false, waveIssue=Моя волна: Яндекс не прислал новых треков для волны. Повторите попытку позже., recommendations=false, queueOffset=0, queueTotal=null, currentTrack=null, automaticLocal=false, automaticSource=null, queueRevision=0, referenceQueue=false, explicitQueueIds=null, origin=PlaybackOrigin(source=MY_WAVE, title=Моя волна, wave=WaveRequest(station=user:onyourwave, title=Моя волна, settings=[])), continueWave=false, previousAvailable=true, nextAvailable=false); requests=[1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; resolved=[(owner, yandex:1:7), (owner, yandex:2:7), (owner, yandex:3:7)]; buffered=[yandex:2:7, yandex:3:7]
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:22)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack(MyWavePlaybackTest.kt:125)
+	... 67 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.MyWavePlaybackTest.waitFor(MyWavePlaybackTest.kt:21)
+	... 69 more
+
+FAILURES!!!
+Tests run: 12,  Failures: 5
+
+
+INSTRUMENTATION_CODE: -1

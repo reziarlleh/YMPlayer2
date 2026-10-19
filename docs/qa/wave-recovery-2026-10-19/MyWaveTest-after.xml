@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.petrov.ymplayer2.core.MyWaveTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-10-19T02:18:54.788Z" hostname="REZIARLLEH-NB" time="0.033">
+  <properties/>
+  <testcase name="repeatedHistoryEntryRecoversInsteadOfCirclingOldCursors" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.006"/>
+  <testcase name="brokenSessionRecoversWithNewSession" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="trulyStuckCursorStillRecovers" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="skipsDuplicateTrackAcrossAlbumsAndBlockedArtistsBeforeReturning" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="wholeSequenceIsFilteredButOnlyOneNewTrackBecomesNextCursor" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="boundedHistoryRestoresAcrossRestartWithoutAlbumDuplicates" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.001"/>
+  <testcase name="emptyDrainDoesNotEraseTheLastUsableRecoveryPoint" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="drainDiagnosticsSeparateHistoryBlocksAndUnavailableWithoutFalseCursorAdvance" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="oldCursorCanDrainHistoryWithoutRestartingPersonalizedSession" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="recoveryDelaysAreBoundedAndFatalAuthNeverRetries" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.001"/>
+  <testcase name="repeatedTenTrackBatchRecoversThroughAlternatePathWithoutPlayingHistoryAgain" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="cancellationAndAccessFailureDoNotStartAnotherSession" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <testcase name="repeatedEmptyBatchesAndNetworkFailuresAreBounded" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.003"/>
+  <testcase name="recoveryUsesLastDrainedBatchInsteadOfOriginalCursor" classname="dev.petrov.ymplayer2.core.MyWaveTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,58 @@
+                     core/src/main/kotlin/dev/petrov/ymplayer2/core/MyWave.kt
+┌────────────────────┬────────────────────────────────────────────────────────────────────────────┐
+│ Type               │ file                                                                       │
+│ Summary            │ MyWave.kt: 91 lines, no indexed symbols.                                   │
+│ Signals            │ 2 episodes                                                                 │
+│ Docs               │ file_preview: lines: 91, chars: 5387, head: package                        │
+│                    │ dev.petrov.ymplayer2.core, import                                          │
+│                    │ kotlinx.coroutines.CancellationException, data class WaveTrack(val track:  │
+│                    │ Track, val batchId: String, val station: String = "user:onyourwave"), data │
+│                    │ class WaveBatch(val tracks: List<WaveTrack>, val sessionId: String = "",   │
+│                    │ val cursor: String = "", val request: Wave, enum class WaveFeedback(val    │
+│                    │ wire: String) { RADIO_STARTED("radioStarted"), STARTED("trackStarted"),    │
+│                    │ FINISHED("trackFinis, interface MyWaveApi {,     suspend fun               │
+│                    │ start(profileId: String): WaveBatch,     suspend fun start(profileId:      │
+│                    │ String, request: WaveRequest): WaveBatch = start(profileId).copy(request = │
+│                    │ request),     suspend fun options(profileId: String, language: String):    │
+│                    │ WaveOptions = throw MusicException(MusicFailure.UNAVAILABL,     suspend    │
+│                    │ fun next(profileId: String, previous: WaveBatch): WaveBatch,     suspend   │
+│                    │ fun recover(profileId: String, previous: WaveBatch?, request:              │
+│                    │ WaveRequest): WaveBatch = start(profileId, req,     suspend fun            │
+│                    │ feedback(profileId: String, item: WaveTrack, type: WaveFeedback,           │
+│                    │ playedSeconds: Int = 0), }, /** 1.x fast first track +                     │
+│                    │ continuation/recovery, with bounded duplicate/blocked-track draining. */,  │
+│                    │ class WaveLoader(private val api: MyWaveApi, private val diagnostic:       │
+│                    │ (OperationDiagnostic) -> Unit = {}) {, note: This file has no indexed      │
+│                    │ symbols, so there is no structural card for it. The fields above are       │
+│                    │ counts and verbatim excerpts. Read the file for its full content.          │
+│ Path               │ core/src/main/kotlin/dev/petrov/ymplayer2/core/MyWave.kt                   │
+│ Index Status       │ live_file_without_index_record                                             │
+│ Verification Basis │ live                                                                       │
+└────────────────────┴────────────────────────────────────────────────────────────────────────────┘
+           provider/yandex/src/main/kotlin/dev/petrov/ymplayer2/yandex/YandexWaveApi.kt
+┌────────────────────┬────────────────────────────────────────────────────────────────────────────┐
+│ Type               │ file                                                                       │
+│ Summary            │ YandexWaveApi.kt: 133 lines, no indexed symbols.                           │
+│ Signals            │ 2 episodes                                                                 │
+│ Docs               │ file_preview: lines: 133, chars: 9546, head: package                       │
+│                    │ dev.petrov.ymplayer2.yandex, import dev.petrov.ymplayer2.core.*, import    │
+│                    │ kotlinx.coroutines.CancellationException, import org.json.JSONArray,       │
+│                    │ import org.json.JSONObject, import java.net.URLEncoder, import             │
+│                    │ java.util.Locale, /** Port of 1.x getMyWaveFastStart / getMoreMyWave /     │
+│                    │ rotorStationFeedback. */, class YandexWaveApi(private val music:           │
+│                    │ YandexMusicApi, private val diagnostic: (OperationDiagnostic) -> Unit =    │
+│                    │ {}) : MyW,     override suspend fun start(profileId: String): WaveBatch =  │
+│                    │ start(profileId, WaveRequest()),     override suspend fun start(profileId: │
+│                    │ String, request: WaveRequest): WaveBatch = music.account(profileId) {      │
+│                    │ token, _,         try {,             val body = JSONObject().put("seeds",  │
+│                    │ JSONArray(request.seeds)).put("queue", JSONArray()),                       │
+│                    │ .put("includeTracksInResponse", true).put("includeWaveModel",              │
+│                    │ true).put("interactive", true),             val result = music.api(token,  │
+│                    │ "/rotor/session/new", json = body) as JSONObject, note: This file has no   │
+│                    │ indexed symbols, so there is no structural card for it. The fields above   │
+│                    │ are counts and verbatim excerpts. Read the file for its full content.      │
+│ Path               │ provider/yandex/src/main/kotlin/dev/petrov/ymplayer2/yandex/YandexWaveApi… │
+│ Index Status       │ live_file_without_index_record                                             │
+│ Verification Basis │ live                                                                       │
+└────────────────────┴────────────────────────────────────────────────────────────────────────────┘
+Index is behind HEAD: indexed ed7d809d4766, now f11c8b88ad55. Run 'repowise update' to resync.

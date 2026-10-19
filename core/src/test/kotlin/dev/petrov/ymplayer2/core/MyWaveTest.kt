@@ -77,6 +77,65 @@ class MyWaveTest {
         val loaded = WaveLoader(api).load("owner", batch(10), seen) { true }
         assertEquals("11", loaded.cursor); assertEquals(1, recoveries)
     }
+    @Test fun recoveryUsesLastDrainedBatchInsteadOfOriginalCursor() = runTest {
+        val request = WaveRequest("activity:road-trip", "Road", listOf("settingLanguage:russian"))
+        val previous = batch(2).copy(request = request)
+        var recovered: WaveBatch? = null
+        val api = object : MyWaveApi {
+            override suspend fun start(profileId: String): WaveBatch = error("Unexpected restart")
+            override suspend fun next(profileId: String, previous: WaveBatch) = batch(3).copy(sessionId = "advanced-session")
+            override suspend fun recover(profileId: String, previous: WaveBatch?, request: WaveRequest): WaveBatch {
+                recovered = previous
+                assertEquals("3", previous?.cursor)
+                assertEquals("advanced-session", previous?.sessionId)
+                assertEquals(request, previous?.request)
+                return batch(4)
+            }
+            override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) = Unit
+        }
+        val result = WaveLoader(api).load("owner", previous, setOf("1", "2", "3"), request) { true }
+        assertEquals("3", recovered?.cursor)
+        assertEquals("4", result.cursor)
+        assertEquals(request, result.request)
+    }
+    @Test fun drainDiagnosticsSeparateHistoryBlocksAndUnavailableWithoutFalseCursorAdvance() = runTest {
+        val events = mutableListOf<OperationDiagnostic>()
+        val rows = listOf(batch(1).tracks.single(), batch(2).tracks.single(),
+            batch(3).tracks.single().let { it.copy(track = it.track.copy(available = false)) })
+        val api = object : MyWaveApi {
+            override suspend fun start(profileId: String) = WaveBatch(rows, cursor = "3")
+            override suspend fun next(profileId: String, previous: WaveBatch) = start(profileId)
+            override suspend fun recover(profileId: String, previous: WaveBatch?, request: WaveRequest) = start(profileId)
+            override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) = Unit
+        }
+        try {
+            WaveLoader(api, events::add).load("owner", WaveBatch(emptyList(), cursor = "3"), setOf("1")) {
+                it.tasteTarget().key != "2"
+            }
+            fail("A completely filtered response must remain bounded and keep the filters")
+        } catch (e: MusicException) { assertEquals(MusicFailure.NO_PROGRESS, e.failure) }
+        assertEquals(8, events.size)
+        events.forEach {
+            assertEquals(3, it.returned); assertEquals(0, it.accepted)
+            assertEquals(1, it.seen); assertEquals(1, it.blocked); assertEquals(1, it.unavailable)
+            assertEquals(false, it.cursorAdvanced)
+        }
+    }
+    @Test fun emptyDrainDoesNotEraseTheLastUsableRecoveryPoint() = runTest {
+        var requests = 0
+        val api = object : MyWaveApi {
+            override suspend fun start(profileId: String): WaveBatch = error("Unexpected restart")
+            override suspend fun next(profileId: String, previous: WaveBatch) =
+                if (++requests == 1) batch(3) else WaveBatch(emptyList())
+            override suspend fun recover(profileId: String, previous: WaveBatch?, request: WaveRequest): WaveBatch {
+                assertEquals("3", previous?.cursor)
+                assertEquals("session3", previous?.sessionId)
+                return batch(4)
+            }
+            override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) = Unit
+        }
+        assertEquals("4", WaveLoader(api).load("owner", batch(2), setOf("1", "2", "3")) { true }.cursor)
+    }
     @Test fun boundedHistoryRestoresAcrossRestartWithoutAlbumDuplicates() {
         val history = WaveHistory(3)
         listOf("1", "2", "3", "3", "4").forEach(history::remember)

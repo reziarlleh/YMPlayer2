@@ -1,0 +1,24 @@
+
+
+> Task :app:transformReleaseClassesWithAsm
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :app:expandReleaseArtProfileWildcards
+> Task :app:produceReleaseComposeMapping
+> Task :app:reportReleaseComposeMappingErrors
+> Task :app:lintVitalReportRelease UP-TO-DATE
+> Task :app:lintVitalRelease
+> Task :app:minifyReleaseWithR8
+> Task :app:mergeReleaseComposeMapping UP-TO-DATE
+> Task :app:convertShrunkResourcesToBinaryRelease
+> Task :app:optimizeReleaseResources
+> Task :app:compileReleaseArtProfile
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect
+> Task :app:assembleRelease
+
+BUILD SUCCESSFUL in 2m 6s
+407 actionable tasks: 21 executed, 386 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.0/userguide/configuration_cache_enabling.html
+Release OAuth configuration verified.
+Verified artifact: D:\_codex\YMPlayer2\releases\2.6.3-build119\YMPlayer-2.6.3-build119.apk
