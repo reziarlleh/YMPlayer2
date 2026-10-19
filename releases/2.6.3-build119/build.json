@@ -1,0 +1,13 @@
+{
+  "minSdk": 28,
+  "applicationId": "dev.petrov.ymplayer2",
+  "channel": "stable",
+  "builtAtUtc": "2026-10-19T02:30:39.3555494Z",
+  "versionCode": 119,
+  "runtimeAcceptance": "Owner authorized stable publication on 2026-10-19. JVM/native/ExoPlayer and signed upgrade/cold-start verified on owned API28/API35 emulators; exact personal API responses and physical-device acceptance are not claimed.",
+  "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+  "updateChannel": "stable",
+  "versionName": "2.6.3-build119",
+  "verifiedSourceCommit": "263ffeda18ea8b4c922bec99876656a419a00407",
+  "additionalTestCommit": "7babea1f66753a8ec21472c0e4ed9fe4b5b0f401"
+}

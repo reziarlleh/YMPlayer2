@@ -1,15 +1,15 @@
 # Карта функций и сценариев
 
-19 октября2026: локальный **2.6.3-build119** исправляет B-037 в core/WaveLoader
+19 октября2026: stable **2.6.3-build119** исправляет B-037 в core/WaveLoader
 и provider/YandexWaveApi: последний пригодный recovery batch и возврат застрявшего
 legacy к modern. OperationDiagnostic добавляет unavailable/seen/blocked и точный
 cursorAdvanced. Границы модулей/очередь/история/дизлайки/предзагрузка сохраняются;
 MainActivity, AudioService и TV notification не изменены. JVM145, API28 28/28,
 API35 14/14 и signed startup API28/API35 прошли. Персональная приёмка отдельно;
-119 не опубликован, stable остаётся2.6.2-build117.
+Публикация119 разрешена владельцем; выпускается тот же проверенный APK.
 [Причина и доказательства](WAVE_RECOVERY_2026_10_19.md).
 
-Актуальный stable — **2.6.2-build117**. Android TV Open/Stop и возврат прежней
+Сохранённый результат предыдущего **2.6.2-build117**. Android TV Open/Stop и возврат прежней
 Activity/экрана сохранены. Исправлен startupAPI35 в creator options без изменения
 проверенного API34 workaround. Владелец подтвердил запуск смартфона и разрешил
 стабильный релиз; новую физическую приёмкуTV не объявлять.
