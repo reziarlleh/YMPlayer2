@@ -1,0 +1,112 @@
+{
+  "checkedAtUtc": "2026-10-19T07:08:29.170332+00:00",
+  "expectedVersion": "2.6.3-build119",
+  "expectedSha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+  "results": [
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.3-build119/YMPlayer-2.6.3-build119.apk",
+      "status": 200,
+      "headers": {
+        "Age": "0",
+        "ETag": "\"0x8DF2DAF49327A5C\""
+      },
+      "size": 7001973,
+      "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.3-build119/releases/2.6.3-build119/YMPlayer-2.6.3-build119.apk",
+      "status": 200,
+      "headers": {
+        "Age": "0",
+        "Cache-Control": "public, max-age=31536000, s-maxage=31536000, immutable",
+        "ETag": "W/\"6ad775-1a80ad16b947221b\""
+      },
+      "size": 7001973,
+      "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.3-build119/releases/2.6.3-build119/YMPlayer-2.6.3-build119.apk",
+      "status": 200,
+      "headers": {
+        "Age": "0",
+        "Cache-Control": "public, max-age=31536000, s-maxage=31536000, immutable",
+        "ETag": "W/\"6ad775-1a80ad16b947221b\""
+      },
+      "size": 7001973,
+      "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "max-age=300",
+        "ETag": "\"2477e2ca5de9ea4b57d7a86c160ab50dcbdbab1ce79d51d0ec66a21238973b77\""
+      },
+      "version": "2.6.3-build119",
+      "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "max-age=300",
+        "ETag": "\"2477e2ca5de9ea4b57d7a86c160ab50dcbdbab1ce79d51d0ec66a21238973b77\""
+      },
+      "version": "2.6.3-build119",
+      "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "headers": {
+        "Age": "3",
+        "Cache-Control": "public, max-age=604800, s-maxage=43200",
+        "ETag": "W/\"470-ab25e9292a8cb965\""
+      },
+      "version": "2.6.3-build119",
+      "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "headers": {
+        "Age": "0",
+        "Cache-Control": "public, max-age=604800, s-maxage=43200",
+        "ETag": "W/\"470-ab25e9292a8cb965\""
+      },
+      "version": "2.6.3-build119",
+      "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+      "matchesExpected": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "headers": {
+        "Age": "35317",
+        "Cache-Control": "public, max-age=604800, s-maxage=43200",
+        "ETag": "W/\"425-d0be201ac1be95be\""
+      },
+      "version": "2.6.2-build117",
+      "sha256": "f9c3243d7e0559970f98858f5c9f7ca8112e898f99d7f282eeecfee78c197b86",
+      "matchesExpected": false
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "headers": {
+        "Age": "20",
+        "Cache-Control": "public, max-age=604800, s-maxage=43200",
+        "ETag": "W/\"470-ab25e9292a8cb965\""
+      },
+      "version": "2.6.3-build119",
+      "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+      "matchesExpected": true
+    }
+  ]
+}

@@ -6,7 +6,7 @@ legacy к modern. OperationDiagnostic добавляет unavailable/seen/blocke
 cursorAdvanced. Границы модулей/очередь/история/дизлайки/предзагрузка сохраняются;
 MainActivity, AudioService и TV notification не изменены. JVM145, API28 28/28,
 API35 14/14 и signed startup API28/API35 прошли. Персональная приёмка отдельно;
-Публикация119 разрешена владельцем; выпускается тот же проверенный APK.
+119 опубликован по разрешению владельца; APK тот же, что прошёл проверки.
 [Причина и доказательства](WAVE_RECOVERY_2026_10_19.md).
 
 Сохранённый результат предыдущего **2.6.2-build117**. Android TV Open/Stop и возврат прежней

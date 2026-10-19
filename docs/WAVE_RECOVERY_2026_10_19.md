@@ -1,7 +1,7 @@
 # Восстановление волны после2–3 треков —19 октября2026
 
 Стабильный выпуск — **2.6.3-build119**.19 октября владелец прямо разрешил
-публикацию. Выпускается тот же подписанный APK119 без пересборки, с прежними
+публикацию. Опубликован тот же подписанный APK119 без пересборки, с прежними
 package/ключом/API28+. Предыдущий stable2.6.2-build117 и pre-publication QA ниже
 сохраняются как исторические свидетельства, не как текущий канал обновления.
 
@@ -113,8 +113,8 @@ Adapter: временный modern503→legacy1/2/3→свежая modern sessio
 MainActivity/AudioService/Android TV notification не изменены; исправления117
 сохранены. Kivi, другие физические устройства, клипы, приборная утилита и1.x
 не использовались/не менялись. Персональная приёмка авторов отзывов ещё не получена.
-Владелец разрешил выпуск119; персональная проверка после выпуска учитывается
-отдельно. Публикация завершается сверкой feeds/Latest/каждого зеркала.
+119 опубликован по разрешению владельца. Персональная проверка после выпуска
+учитывается отдельно; результаты публикации и зеркал ниже.
 
 RepoWise: первоначальные MCP/CLI context завершались timeout; file-path context
 позже получен и проверен в исходниках. [Контекст](qa/wave-recovery-2026-10-19/repowise-context.txt).
@@ -131,8 +131,38 @@ red/green, CI и подписанномAPK. [Точный остаток](qa/wav
 
 ## Публикация2.6.3-build119
 
-Владелец: «Публикуем». Снят только releaseState=development, уточнена acceptance
-metadata; APK/ключ/versionCode не менялись. Source runtime263ffed, дополнительные
-два native assert7babea1. План публикации: release commit с APK/metadata в tag,
-GitHub4assets/Latest, затем оба feed и независимая проверка HTTP/hash зеркал.
-Результаты publication119 сохраняются отдельно от исторических QA кандидата.
+Владелец: «Публикуем», после перерыва — «Продолжай». GitHub stable/Latest119
+опубликован19 октября в07:06:22UTC. Выпущен тот же APK без пересборки.
+Release commit/tag: abd5721 / v2.6.3-build119; feed commit f816acb.
+Снята только development-отметка, acceptance metadata отличает разрешение
+публикации от персональной/физической проверки. Runtime263ffed, native assert7babea1.
+
+- [Сводка публикации](qa/release263-build119/publication.json),
+  [GitHub release](qa/release263-build119/release.json).
+- [Все четыре server digest/размеры](qa/release263-build119/asset-verification.json)
+  совпали с локальными файлами APK/build.json/SHA256.txt/signature.txt.
+- [HTTP/hash](qa/release263-build119/http-verification.json): GitHub и оба version-pinned
+  CDN APK119 одинаковы. Raw stable/manifest119, основной CDN stable/manifest119,
+  Gcore manifest119. Gcore stable остаётся117 после purge и
+  [контрольного запроса07:11UTC](qa/release263-build119/gcore-final-probe.json).
+  D-001 не закрыт; один успешный URL не означает свежесть всех зеркал.
+- [Сверка updater117→119](qa/release263-build119/updater-review.txt): настоящий raw/CDN
+  feed совместим с прежним stable-клиентом. Выбирается максимальный проверенный Build,
+  119>117; min28/package/подпись сохранены. Проверка при запуске — не чаще24ч,
+  ручная проверка обходит этот интервал. Это source/HTTP-сверка, не новый UI-прогон.
+- [Документы локально](qa/release263-build119/documentation-local.json),
+  [после push](qa/release263-build119/documentation-github-initial.json).
+  README и обе инструкции показывают119; исторические QA кандидата сохраняют117
+  как тогдашний опубликованный baseline, а не как нынешний stable.
+
+Во время публикации auto-review прервал новую команду из-за usage limit;
+после прямого «Продолжай» проверка разрешений пройдена. Таймаут review перед
+загрузкой разрешил один повтор — он успешен. Не было вывода «небезопасно».
+Создание draft прошло, но чтение draft по tag дало404; существующий draft найден
+через список/id416997506, повторный release не создавался. Все4assets проверены
+до перевода в public/Latest. Main с feed119 отправлен после доступного public APK,
+поэтому автообновление не указывало на ещё закрытый draft.
+
+Остаток: персональные отзывы119, D-001 и отдельное зависание RepoWise update.
+Код плеера/клипов/приборной утилиты и1.x во время публикации не менялся,
+физические устройства и Kivi не использовались.

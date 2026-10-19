@@ -1,0 +1,31 @@
+{
+  "checkedAtUtc": "2026-10-19T07:12:31.775113+00:00",
+  "version": "2.6.3-build119",
+  "releaseId": 416997506,
+  "releaseUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.3-build119",
+  "publishedAtUtc": "2026-10-19T07:06:22Z",
+  "isStableLatest": true,
+  "apkRebuilt": false,
+  "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+  "runtimeSourceCommit": "263ffeda18ea8b4c922bec99876656a419a00407",
+  "releaseCommit": "abd5721f7bc78994ed6169bed1bf9e023d582f8c",
+  "feedCommit": "f816acb05323276b609befdf617e7976db2d9589",
+  "assetCount": 4,
+  "allAssetServerDigestsMatch": true,
+  "allThreeDownloadedApkHashesMatch": true,
+  "rawFeeds": "119",
+  "primaryCdnFeeds": "119",
+  "gcoreManifest": "119",
+  "gcoreStableFinalProbe": {
+    "checkedAtUtc": "2026-10-19T07:11:17.876243+00:00",
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "status": 200,
+    "version": "2.6.2-build117",
+    "sha256": "f9c3243d7e0559970f98858f5c9f7ca8112e898f99d7f282eeecfee78c197b86",
+    "age": "35490",
+    "matchesExpected": false
+  },
+  "updaterVerification": "Code and real feeds: 119>117. No fresh updater UI/device acceptance claimed.",
+  "repoWiseIndexCurrent": false,
+  "physicalDevicesUsed": false
+}

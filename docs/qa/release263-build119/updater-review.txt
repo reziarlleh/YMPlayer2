@@ -1,0 +1,43 @@
+Updater review: installed stable 2.6.2-build117 -> stable 2.6.3-build119
+Read-only source/feed verification, 2026-10-19T07:08:22Z.
+No emulator, physical device, installer UI, new tests, Gradle, or APK changes.
+
+Code is unchanged from v2.6.2-build117 (git diff for these three files empty):
+- app/src/main/kotlin/dev/petrov/ymplayer2/UpdateCoordinator.kt:29 uses BuildConfig.UPDATE_CHANNEL.
+- UpdateCoordinator.kt:75-80 offers only info.versionCode > installed longVersionCode: 119 > 117.
+- UpdateCoordinator.kt:53-59 launch auto-check defaults enabled and is throttled to once per24h;
+  manual check() at67 bypasses that throttle. No immediate-launch prompt is implied after a recent check.
+- updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateClient.kt:58-62 stable reads raw stable.json, cdn.jsdelivr stable.json, gcore.jsdelivr stable.json.
+- UpdateClient.kt:68-81 queries the three manifests concurrently, validates each, and chooses the highest versionCode. Stale117 cannot beat a valid119.
+- UpdateClient.kt:84-109 validates schema1, exact package, versionName/build consistency, stable channel, nonbeta name, minSdk <= SDK, HTTPS URLs, SHA256 format and size bound.
+- UpdateClient.kt:141-142 /154-169 validates downloaded size/SHA256, archive package/version > installed, and exact nonempty signer-set equality against installed application.
+- updater/android/src/main/kotlin/dev/petrov/ymplayer2/updater/UpdateInstaller.kt:16-31 revalidates archive, checks unknown-source install permission, then opens standard Android package installer using FileProvider/read grant.
+
+Actual HTTP GET with User-Agent YMPlayer2-Updater, no cache-busting query:
+1. https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json
+   HTTP200, build119, 2.6.3-build119, stable, minSdk28, dev.petrov.ymplayer2.
+2. https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json
+   HTTP200, same119 metadata. This legacy path is not the stable channel's primary lookup.
+3. https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json
+   HTTP200, same119 metadata, Age0.
+4. https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json
+   HTTP200, stale117, 2.6.2-build117, stable, minSdk28, Age35314.
+
+Both raw119 and CDN119 declare APK size7001973 and SHA256:
+ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28
+This matches the locally independently hashed and signature-verified119 APK.
+The certificate is unchanged: fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec.
+
+APK source order in UpdateClient.kt:34-39:
+Normal: GitHub119 -> cdn.jsdelivr version-pinned119 -> gcore.jsdelivr version-pinned119.
+Prefer alternative: cdn.jsdelivr version-pinned119 -> gcore version-pinned119 -> GitHub119.
+Primary URL:
+https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.3-build119/YMPlayer-2.6.3-build119.apk
+Alternative URL:
+https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.3-build119/releases/2.6.3-build119/YMPlayer-2.6.3-build119.apk
+Derived alternative URL:
+https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.3-build119/releases/2.6.3-build119/YMPlayer-2.6.3-build119.apk
+These APK URLs were inspected from manifest/code in this subtask; remote APK downloads/hash verification belong to the separate publication checks.
+
+Conclusion: installed117 is eligible to discover119 from either live raw GitHub or live primaryCDN. If only stale Gcore is reachable, no new update is visible yet. This is code/feed compatibility evidence, not an actual updater UI acceptance test or proof that every CDN edge is fresh.
+The first sandbox network attempt failed DNS before HTTP; public-read escalation succeeded and produced the above results. No application failure was inferred from sandbox DNS.
