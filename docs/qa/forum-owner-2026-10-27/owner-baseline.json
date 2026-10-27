@@ -1,12 +1,19 @@
 {
-  "readAtUtc": "2026-10-27T14:31:47.503516+00:00",
+  "readAtUtc": "2026-10-27T14:49:09.198719+00:00",
+  "forumEditedLabel": "Сегодня,17:44; forum timezone not inferred",
   "topic": 1127108,
   "postId": 145319180,
   "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145319180",
-  "source": "Read-only live IAB DOM of first post; old anonymous HTTP responses were stale cache",
-  "newIntroConfirmed": true,
-  "domSha256": "2b44ea0d73da4f502cbcc6101e9a2e66f20b681f285e928d3287e302842ed956",
-  "textSha256": "ed70d1ababe0c3b0001c1828322cc4d4074917957f2b1fdf4374bdafb4511413",
+  "source": "Read-only live IAB DOM of first post after owner second revision",
+  "checks": {
+    "titleYMPlayer2": true,
+    "iconOutsideSpoiler": true,
+    "oldScreenshotIdsAbsent": true,
+    "allSixCurrentScreenshotsPresent": true,
+    "automaticOldImageBlockAbsent": true
+  },
+  "domSha256": "0da1c3048052330ed674f1a14dbba5f27821846b38b5f03cdcb5640ae902f87a",
+  "textSha256": "841b76eaa7a98cbfe30a833d11213abeac4a5008771cb2097287895a4746c4b5",
   "links": [
     "https://4pda.to/forum/dl/post/36420773/phone-player.png",
     "https://4pda.to/forum/dl/post/36420774/phone-library.png",
@@ -44,13 +51,10 @@
     "https://github.com/reziarlleh/YMPlayer",
     "https://github.com/reziarlleh/YMPlayer/releases/tag/v1.1.0",
     "https://github.com/reziarlleh/YMPlayer2/releases",
-    "https://4pda.to/forum/dl/post/36253045/tv-player.png",
-    "https://4pda.to/forum/dl/post/36253046/phone-skins.png",
-    "https://4pda.to/forum/dl/post/36253047/phone-player.png",
-    "https://4pda.to/forum/dl/post/36253048/phone-library.png",
     "https://4pda.to/forum/index.php?showuser=1444947"
   ],
   "images": [
+    "https://4pda.to/s/qirtcLogjdjx1EOqz1m5lc8QVHkfDa6LgOz0J.png",
     "https://4pda.to/s/qirtllgsCz2dqLcyYVG2lNz2QlgNUJrWUZkYI5aia2p1PqRQ34bkYez1wJ2YhCE.gif"
   ],
   "scope": "Public rendered content only; not editor BBCode and not a template to paste; no forum writes"
