@@ -1,0 +1,21 @@
+{
+  "version": "2.6.3-build119",
+  "manualBeta": false,
+  "development": false,
+  "stableVersion": "2.6.3-build119",
+  "localFeeds": {
+    "manifest": "2.6.3-build119",
+    "stable": "2.6.3-build119"
+  },
+  "documents": 240,
+  "localLinks": 2242,
+  "brokenLinks": [],
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.6.3-build119",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.3-build119",
+    "readmeBlob": "1da54ff8c9e37346c5cbd6fad73a235fbd8735c1",
+    "localReadmeBlob": "1da54ff8c9e37346c5cbd6fad73a235fbd8735c1"
+  },
+  "errors": []
+}

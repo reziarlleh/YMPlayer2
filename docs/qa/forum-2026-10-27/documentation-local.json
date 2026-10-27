@@ -1,0 +1,15 @@
+{
+  "version": "2.6.3-build119",
+  "manualBeta": false,
+  "development": false,
+  "stableVersion": "2.6.3-build119",
+  "localFeeds": {
+    "manifest": "2.6.3-build119",
+    "stable": "2.6.3-build119"
+  },
+  "documents": 240,
+  "localLinks": 2242,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}

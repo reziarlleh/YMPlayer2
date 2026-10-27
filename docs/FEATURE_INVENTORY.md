@@ -1,5 +1,8 @@
 # Карта функций и сценариев
 
+22 октября: [пять задач для будущих версий](ROADMAP.md#будущие-версии)
+записаны отдельно от реализованных функций ниже. Разработка ещё не начата.
+
 19 октября2026: stable **2.6.3-build119** исправляет B-037 в core/WaveLoader
 и provider/YandexWaveApi: последний пригодный recovery batch и возврат застрявшего
 legacy к modern. OperationDiagnostic добавляет unavailable/seen/blocked и точный

@@ -1,0 +1,123 @@
+{
+  "checkedAtUtc": "2026-10-27T14:06:58.729763+00:00",
+  "method": "Anonymous urllib GET; no authentication or cookies",
+  "topic": 1127108,
+  "headerPostId": 145319180,
+  "publicHeaderUrl": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145319180",
+  "pages": [
+    {
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145319180",
+      "status": 200,
+      "bytes": 304113,
+      "sha256": "2c8a2af360973866ef6337677b6006e469074cad9b65fcd02b6b6543ae44d1da",
+      "cacheHeaders": {
+        "Date": "Tue, 27 Oct 2026 14:06:57 GMT",
+        "Cache-Control": "private, no-cache, must-revalidate",
+        "Last-Modified": "Tue, 27 Oct 2026 14:06:57 GMT",
+        "CF-Cache-Status": "EXPIRED"
+      }
+    },
+    {
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&st=80",
+      "status": 200,
+      "bytes": 272116,
+      "sha256": "b762d33cb98a5cb7eccf7ad4f4fd0d3416faa193813609310941c9f2b387aeb0",
+      "cacheHeaders": {
+        "Date": "Tue, 27 Oct 2026 14:06:55 GMT",
+        "Age": "1150",
+        "Cache-Control": "private, no-cache, must-revalidate",
+        "Last-Modified": "Tue, 27 Oct 2026 13:47:44 GMT",
+        "CF-Cache-Status": "HIT"
+      }
+    }
+  ],
+  "checks": {
+    "baseVersionHeader263": true,
+    "headerDate27102026": true,
+    "android9OrLater": true,
+    "currentApkAttachment": true,
+    "newImages": {
+      "36420773": true,
+      "36420774": true,
+      "36420775": true,
+      "36420776": true,
+      "36420777": true,
+      "36420778": true
+    },
+    "originalAttachments": {
+      "36253041": true,
+      "36253047": true,
+      "36253048": true,
+      "36253046": true,
+      "36253045": true,
+      "36253064": true,
+      "36253082": true,
+      "36253083": true
+    },
+    "iconRendering": {
+      "originalAttachmentId": 36253041,
+      "numericIdVisibleInPublicHtml": false,
+      "sameImageUrlAsOriginalPublicHeader": true,
+      "imageUrl": "https://4pda.to/s/as6yz0z2msyvz0RqtQeAnd3D26Gi3fqkVdkNDc.png",
+      "note": "Forum renders this original icon as a linked-image without numeric attachment ID; compare the public image URL, separately from the editor BBCode IDs."
+    },
+    "serverBbcodeAttachmentIds": [
+      36253041,
+      36420773,
+      36420774,
+      36420775,
+      36420776,
+      36420777,
+      36420778,
+      36253047,
+      36253048,
+      36253046,
+      36253045,
+      36420771,
+      36253064,
+      36253082,
+      36253083
+    ],
+    "serverBbcodeAll15ExpectedAttachmentsPreserved": true,
+    "serverBbcodeMatchesSubmittedIgnoringTrailingLF": true,
+    "historicalReleasePostLinks": {
+      "145357366": true,
+      "145366683": true,
+      "145372340": true,
+      "145387771": true,
+      "145405018": true,
+      "145429780": true,
+      "145444824": true,
+      "145472303": true,
+      "145487509": true,
+      "145495918": true,
+      "145502908": true
+    },
+    "original119ReleasePostLink": true,
+    "lastObservedPostNumber": 92,
+    "lastObservedPostNumberIs92": true,
+    "spoilerTitles": [
+      "Иконка",
+      "Скриншоты",
+      "Старые скриншоты — 2.1.0",
+      "Описание и возможности",
+      "С чего начать и где инструкция",
+      "Скины",
+      "Чем отличаются версии 2.0–2.6",
+      "Если что-то не работает",
+      "Изменения:",
+      "Прошлые версии"
+    ],
+    "spoilerCount": 10,
+    "noPlaceholders": true,
+    "noDirectDonationUrl": true
+  },
+  "scope": "Read-only anonymous publication rendering check plus comparison of the already saved editor Post textarea; no credentials/hidden fields retained, no forum mutation, no APK download or physical device use",
+  "anonymousRouteDifference": {
+    "staleSnapshot": "publication-check-anonymous-st0.json",
+    "staleCheckedAtUtc": "2026-10-27T14:05:46.344123+00:00",
+    "staleRoute": "https://4pda.to/forum/index.php?showtopic=1127108&st=0",
+    "staleSha256": "b28162197e7bcbb1fde6a07d8de85c050e960695cac7381caab26ec26344a27c",
+    "note": "The st=0 route returned the old header while the canonical findpost route returned the updated header. Cache differences are retained as evidence."
+  }
+}

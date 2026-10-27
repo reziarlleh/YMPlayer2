@@ -1,0 +1,76 @@
+{
+  "checkedAtUtc": "2026-10-27T14:05:46.344123+00:00",
+  "method": "Anonymous urllib GET; no authentication or cookies",
+  "topic": 1127108,
+  "headerPostId": 145319180,
+  "publicHeaderUrl": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145319180",
+  "pages": [
+    {
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&st=0",
+      "status": 200,
+      "bytes": 289207,
+      "sha256": "b28162197e7bcbb1fde6a07d8de85c050e960695cac7381caab26ec26344a27c"
+    },
+    {
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&st=80",
+      "status": 200,
+      "bytes": 272116,
+      "sha256": "b762d33cb98a5cb7eccf7ad4f4fd0d3416faa193813609310941c9f2b387aeb0"
+    }
+  ],
+  "checks": {
+    "baseVersionHeader263": false,
+    "headerDate27102026": false,
+    "android9OrLater": false,
+    "currentApkAttachment": false,
+    "newImages": {
+      "36420773": false,
+      "36420774": false,
+      "36420775": false,
+      "36420776": false,
+      "36420777": false,
+      "36420778": false
+    },
+    "originalAttachments": {
+      "36253041": true,
+      "36253047": true,
+      "36253048": true,
+      "36253046": true,
+      "36253045": true,
+      "36253064": true,
+      "36253082": true,
+      "36253083": true
+    },
+    "historicalReleasePostLinks": {
+      "145357366": false,
+      "145366683": false,
+      "145372340": false,
+      "145387771": false,
+      "145405018": false,
+      "145429780": false,
+      "145444824": false,
+      "145472303": false,
+      "145487509": false,
+      "145495918": false,
+      "145502908": false
+    },
+    "original119ReleasePostLink": false,
+    "lastObservedPostNumber": 92,
+    "lastObservedPostNumberIs92": true,
+    "spoilerTitles": [
+      "Скриншоты",
+      "Описание",
+      "С чего начать",
+      "Скины",
+      "Если что-то не работает",
+      "Предыдущие ветки",
+      "Изменения:",
+      "Прошлые версии"
+    ],
+    "spoilerCount": 8,
+    "noPlaceholders": true,
+    "noDirectDonationUrl": true
+  },
+  "scope": "Read-only publication rendering check; no forum mutation, no APK download or physical device use",
+  "iconRenderingCorrection": "The original icon was present as the same linked-image URL; absence of a numeric ID is not a missing attachment. Stale version/date/APK checks remain unchanged."
+}

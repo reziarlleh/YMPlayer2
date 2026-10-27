@@ -34,6 +34,7 @@ uninstalling it first would remove its private data.
 | **Player** | Current track, playback controls, queue, My Vibe and equalizer shortcut. |
 | **Library** | Local/USB music, your Yandex collection, playlists and offline downloads. |
 | **Search** | Search by track, artist or album; choose the source you want to search. |
+| **Radio** | Internet radio: favourites, cities, genres, the full catalogue and station search. |
 | **Clips** | A personalized stream of Yandex music videos. |
 
 The menu sits at the bottom in portrait mode and on the left on wide screens.
