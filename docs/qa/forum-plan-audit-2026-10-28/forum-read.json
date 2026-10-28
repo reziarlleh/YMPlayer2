@@ -1,0 +1,790 @@
+{
+  "topic": 1127108,
+  "readDate": "2026-10-28",
+  "method": "Anonymous read-only urllib GET; no authentication, cookies or POST",
+  "pages": [
+    {
+      "st": 0,
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&st=0",
+      "checkedAtUtc": "2026-10-28T08:01:57.192909+00:00",
+      "status": 200,
+      "bytes": 299856,
+      "cache": {
+        "Date": "Wed, 28 Oct 2026 08:01:56 GMT",
+        "Last-Modified": "Wed, 28 Oct 2026 08:01:56 GMT",
+        "CF-Cache-Status": "EXPIRED"
+      },
+      "pageOffsets": [
+        20,
+        40,
+        60,
+        80
+      ],
+      "postNumbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "sha256Utf8Capture": "fe180e51797fc8ccdda41afb9f8cf8081728b5ebafad127d4604d88dcddb62e5"
+    },
+    {
+      "st": 20,
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&st=20",
+      "checkedAtUtc": "2026-10-28T08:01:57.423506+00:00",
+      "status": 200,
+      "bytes": 296167,
+      "cache": {
+        "Date": "Wed, 28 Oct 2026 08:01:56 GMT",
+        "Last-Modified": "Wed, 28 Oct 2026 08:01:56 GMT",
+        "CF-Cache-Status": "EXPIRED"
+      },
+      "pageOffsets": [
+        40,
+        60,
+        80
+      ],
+      "postNumbers": [
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "sha256Utf8Capture": "a4bf9902eaab7828a04f7945d1289698449e34a1421676b1b7df1183e812b850"
+    },
+    {
+      "st": 40,
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&st=40",
+      "checkedAtUtc": "2026-10-28T08:01:57.186894+00:00",
+      "status": 200,
+      "bytes": 299024,
+      "cache": {
+        "Date": "Wed, 28 Oct 2026 08:01:56 GMT",
+        "Last-Modified": "Wed, 28 Oct 2026 08:01:56 GMT",
+        "CF-Cache-Status": "EXPIRED"
+      },
+      "pageOffsets": [
+        20,
+        60,
+        80
+      ],
+      "postNumbers": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ],
+      "sha256Utf8Capture": "f59a203c85ccd233f8b68456e0ffe8f3aa0acda873728965b8cd0005712ea318"
+    },
+    {
+      "st": 60,
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&st=60",
+      "checkedAtUtc": "2026-10-28T08:01:57.863905+00:00",
+      "status": 200,
+      "bytes": 307570,
+      "cache": {
+        "Date": "Wed, 28 Oct 2026 08:01:57 GMT",
+        "Last-Modified": "Wed, 28 Oct 2026 08:01:57 GMT",
+        "CF-Cache-Status": "EXPIRED"
+      },
+      "pageOffsets": [
+        20,
+        40,
+        80
+      ],
+      "postNumbers": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81
+      ],
+      "sha256Utf8Capture": "de654789256367e3722e5b084aa5586891f5855c98675d7aa46a034b59504e21"
+    },
+    {
+      "st": 80,
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&st=80",
+      "checkedAtUtc": "2026-10-28T08:01:57.950373+00:00",
+      "status": 200,
+      "bytes": 285339,
+      "cache": {
+        "Date": "Wed, 28 Oct 2026 08:01:57 GMT",
+        "Last-Modified": "Wed, 28 Oct 2026 08:01:57 GMT",
+        "CF-Cache-Status": "EXPIRED"
+      },
+      "pageOffsets": [
+        40,
+        60,
+        80
+      ],
+      "postNumbers": [
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93
+      ],
+      "sha256Utf8Capture": "8353184d91c235e652fec2de6552f1587a5b648c53c837d8032f10a8a3670af3"
+    }
+  ],
+  "uniquePosts": 93,
+  "postNumberRange": [
+    1,
+    93
+  ],
+  "missingPostNumbers": [],
+  "numberingUnique": true,
+  "posts": [
+    {
+      "number": 1,
+      "id": "145319180",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145319180"
+    },
+    {
+      "number": 2,
+      "id": "145350856",
+      "author": "test037",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145350856"
+    },
+    {
+      "number": 3,
+      "id": "145357101",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145357101"
+    },
+    {
+      "number": 4,
+      "id": "145357366",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145357366"
+    },
+    {
+      "number": 5,
+      "id": "145357741",
+      "author": "test037",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145357741"
+    },
+    {
+      "number": 6,
+      "id": "145366683",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145366683"
+    },
+    {
+      "number": 7,
+      "id": "145366888",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145366888"
+    },
+    {
+      "number": 8,
+      "id": "145370911",
+      "author": "rujustik",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145370911"
+    },
+    {
+      "number": 9,
+      "id": "145371861",
+      "author": "test037",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145371861"
+    },
+    {
+      "number": 10,
+      "id": "145372340",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145372340"
+    },
+    {
+      "number": 11,
+      "id": "145372722",
+      "author": "rujustik",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145372722"
+    },
+    {
+      "number": 12,
+      "id": "145387771",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145387771"
+    },
+    {
+      "number": 13,
+      "id": "145401277",
+      "author": "ultango",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145401277"
+    },
+    {
+      "number": 14,
+      "id": "145401652",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145401652"
+    },
+    {
+      "number": 15,
+      "id": "145402000",
+      "author": "e.panchenko",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145402000"
+    },
+    {
+      "number": 16,
+      "id": "145403957",
+      "author": "selivanoff",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145403957"
+    },
+    {
+      "number": 17,
+      "id": "145405018",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145405018"
+    },
+    {
+      "number": 18,
+      "id": "145405384",
+      "author": "e.panchenko",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145405384"
+    },
+    {
+      "number": 19,
+      "id": "145407063",
+      "author": "DmitriiRN",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145407063"
+    },
+    {
+      "number": 20,
+      "id": "145409236",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145409236"
+    },
+    {
+      "number": 21,
+      "id": "145414654",
+      "author": "*DedAndrey*",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145414654"
+    },
+    {
+      "number": 22,
+      "id": "145417620",
+      "author": "ddbears",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145417620"
+    },
+    {
+      "number": 23,
+      "id": "145422093",
+      "author": "Mikys700",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145422093"
+    },
+    {
+      "number": 24,
+      "id": "145428811",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145428811"
+    },
+    {
+      "number": 25,
+      "id": "145428836",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145428836"
+    },
+    {
+      "number": 26,
+      "id": "145428843",
+      "author": "*DedAndrey*",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145428843"
+    },
+    {
+      "number": 27,
+      "id": "145428846",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145428846"
+    },
+    {
+      "number": 28,
+      "id": "145429780",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145429780"
+    },
+    {
+      "number": 29,
+      "id": "145429820",
+      "author": "R@msito$",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145429820"
+    },
+    {
+      "number": 30,
+      "id": "145429966",
+      "author": "ominous_raffinade",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145429966"
+    },
+    {
+      "number": 31,
+      "id": "145431956",
+      "author": "test037",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145431956"
+    },
+    {
+      "number": 32,
+      "id": "145439281",
+      "author": "*DedAndrey*",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145439281"
+    },
+    {
+      "number": 33,
+      "id": "145439743",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145439743"
+    },
+    {
+      "number": 34,
+      "id": "145444456",
+      "author": "T1000EX",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145444456"
+    },
+    {
+      "number": 35,
+      "id": "145444824",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145444824"
+    },
+    {
+      "number": 36,
+      "id": "145460824",
+      "author": "test037",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145460824"
+    },
+    {
+      "number": 37,
+      "id": "145469026",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145469026"
+    },
+    {
+      "number": 38,
+      "id": "145469785",
+      "author": "megaman007",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145469785"
+    },
+    {
+      "number": 39,
+      "id": "145469897",
+      "author": "*DedAndrey*",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145469897"
+    },
+    {
+      "number": 40,
+      "id": "145472303",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145472303"
+    },
+    {
+      "number": 41,
+      "id": "145472355",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145472355"
+    },
+    {
+      "number": 42,
+      "id": "145474417",
+      "author": "ominous_raffinade",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145474417"
+    },
+    {
+      "number": 43,
+      "id": "145479322",
+      "author": "Serega**",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145479322"
+    },
+    {
+      "number": 44,
+      "id": "145483431",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145483431"
+    },
+    {
+      "number": 45,
+      "id": "145486749",
+      "author": "_hx4700",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145486749"
+    },
+    {
+      "number": 46,
+      "id": "145486976",
+      "author": "sasha_zg",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145486976"
+    },
+    {
+      "number": 47,
+      "id": "145487509",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145487509"
+    },
+    {
+      "number": 48,
+      "id": "145487646",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145487646"
+    },
+    {
+      "number": 49,
+      "id": "145488033",
+      "author": "_hx4700",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145488033"
+    },
+    {
+      "number": 50,
+      "id": "145493814",
+      "author": "megaman007",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145493814"
+    },
+    {
+      "number": 51,
+      "id": "145495918",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145495918"
+    },
+    {
+      "number": 52,
+      "id": "145496207",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145496207"
+    },
+    {
+      "number": 53,
+      "id": "145502727",
+      "author": "sasha_zg",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145502727"
+    },
+    {
+      "number": 54,
+      "id": "145502908",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145502908"
+    },
+    {
+      "number": 55,
+      "id": "145525662",
+      "author": "yanger_spb",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145525662"
+    },
+    {
+      "number": 56,
+      "id": "145529248",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145529248"
+    },
+    {
+      "number": 57,
+      "id": "145529256",
+      "author": "igor-10",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145529256"
+    },
+    {
+      "number": 58,
+      "id": "145529491",
+      "author": "Divanich",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145529491"
+    },
+    {
+      "number": 59,
+      "id": "145529772",
+      "author": "*DedAndrey*",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145529772"
+    },
+    {
+      "number": 60,
+      "id": "145532431",
+      "author": "ultrassxe",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145532431"
+    },
+    {
+      "number": 61,
+      "id": "145534015",
+      "author": "selivanoff",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145534015"
+    },
+    {
+      "number": 62,
+      "id": "145534769",
+      "author": "igor-10",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145534769"
+    },
+    {
+      "number": 63,
+      "id": "145538506",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145538506"
+    },
+    {
+      "number": 64,
+      "id": "145562938",
+      "author": "igor-10",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145562938"
+    },
+    {
+      "number": 65,
+      "id": "145577956",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145577956"
+    },
+    {
+      "number": 66,
+      "id": "145588570",
+      "author": "igor-10",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145588570"
+    },
+    {
+      "number": 67,
+      "id": "145588789",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145588789"
+    },
+    {
+      "number": 68,
+      "id": "145589763",
+      "author": "GoblinMini",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145589763"
+    },
+    {
+      "number": 69,
+      "id": "145597448",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145597448"
+    },
+    {
+      "number": 70,
+      "id": "145597507",
+      "author": "GoblinMini",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145597507"
+    },
+    {
+      "number": 71,
+      "id": "145602646",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145602646"
+    },
+    {
+      "number": 72,
+      "id": "145604059",
+      "author": "GoblinMini",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145604059"
+    },
+    {
+      "number": 73,
+      "id": "145604580",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145604580"
+    },
+    {
+      "number": 74,
+      "id": "145604668",
+      "author": "GoblinMini",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145604668"
+    },
+    {
+      "number": 75,
+      "id": "145610033",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145610033"
+    },
+    {
+      "number": 76,
+      "id": "145618972",
+      "author": "skemp",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145618972"
+    },
+    {
+      "number": 77,
+      "id": "145627164",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145627164"
+    },
+    {
+      "number": 78,
+      "id": "145668517",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145668517"
+    },
+    {
+      "number": 79,
+      "id": "145669742",
+      "author": "skemp",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145669742"
+    },
+    {
+      "number": 80,
+      "id": "145670768",
+      "author": "Curieux",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145670768"
+    },
+    {
+      "number": 81,
+      "id": "145671926",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145671926"
+    },
+    {
+      "number": 82,
+      "id": "145672498",
+      "author": "skemp",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145672498"
+    },
+    {
+      "number": 83,
+      "id": "145676478",
+      "author": "Ramzy2006",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145676478"
+    },
+    {
+      "number": 84,
+      "id": "145680067",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145680067"
+    },
+    {
+      "number": 85,
+      "id": "145680279",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145680279"
+    },
+    {
+      "number": 86,
+      "id": "145680454",
+      "author": "*DedAndrey*",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145680454"
+    },
+    {
+      "number": 87,
+      "id": "145680927",
+      "author": "Ramzy2006",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145680927"
+    },
+    {
+      "number": 88,
+      "id": "145684030",
+      "author": "Fox_7",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145684030"
+    },
+    {
+      "number": 89,
+      "id": "145690377",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145690377"
+    },
+    {
+      "number": 90,
+      "id": "145690444",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145690444"
+    },
+    {
+      "number": 91,
+      "id": "145690945",
+      "author": "Ramzy2006",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145690945"
+    },
+    {
+      "number": 92,
+      "id": "145707631",
+      "author": "igor-10",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145707631"
+    },
+    {
+      "number": 93,
+      "id": "145710177",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145710177"
+    }
+  ],
+  "apkInspection": {
+    "version": "2.6.3-build119",
+    "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28",
+    "nativeAbis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86",
+      "x86_64"
+    ],
+    "physicalArmv7Test": false
+  },
+  "boundaries": {
+    "forumWrites": false,
+    "runtimeChanges": false,
+    "deviceUse": false,
+    "attachmentsDownloadedForAudit": false,
+    "scope": "Forum post text, existing project documentation and read-only APK ZIP inspection. Quotes were not counted as independent reports; old image/video attachments were not reanalysed."
+  }
+}
