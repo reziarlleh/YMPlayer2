@@ -287,7 +287,7 @@
     <string name="msg_6841e1070158" formatted="false">"L’écran d’autorisation système est introuvable."</string>
     <string name="msg_68cc12d616b8" formatted="false">"Actualiser les J’aime et blocages"</string>
     <string name="msg_68eab87f63c4" formatted="false">"Yandex a refusé l’accès. Vérifiez votre compte et votre abonnement Music."</string>
-    <string name="msg_69294d8ce6a4" formatted="false">"Yandex peut proposer un autre débit : le lecteur prend le meilleur disponible jusqu’à la limite choisie, ou le plus proche au-dessus si nécessaire. Auto et Maximale utilisent le débit disponible le plus élevé."</string>
+    <string name="msg_69294d8ce6a4" formatted="false">"Auto et Maximale choisissent le débit disponible le plus élevé. Auto n’adapte pas la qualité à la vitesse de connexion. Pour 128, 192 et 320 kbit/s, le lecteur choisit le meilleur débit disponible sans dépasser la valeur sélectionnée, ou le plus proche au-dessus si aucun ne convient. Le fichier n’est pas réencodé."</string>
     <string name="msg_6aadca8eb39a" formatted="false">"Créer et ajouter le titre"</string>
     <string name="msg_6b5623eafb06" formatted="false">"Modifier la playlist"</string>
     <string name="msg_6bd804f5b776" formatted="false">"Titre : @0@"</string>

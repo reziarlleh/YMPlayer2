@@ -4624,18 +4624,18 @@
   },
   {
     "key": "msg_69294d8ce6a4",
-    "source": "Яндекс может предложить другой битрейт: выбирается лучший доступный до указанного значения, а если его нет — ближайший выше. «Авто» и «Максимальное» выбирают наибольший доступный битрейт.",
-    "english": "Yandex may provide a different bitrate. The player selects the best available bitrate up to your limit, or the closest higher one if necessary. Auto and Maximum select the highest available bitrate.",
+    "source": "«Авто» и «Максимальное» выбирают наибольший доступный битрейт. «Авто» не подстраивает качество под скорость сети. Для 128, 192 и 320 кбит/с выбирается лучший доступный вариант не выше указанного, а если такого нет — ближайший выше. Файл не перекодируется.",
+    "english": "Auto and Maximum select the highest available bitrate. Auto does not adjust quality to your connection speed. For 128, 192 and 320 kbps, the player selects the best available option at or below the chosen bitrate, or the closest higher one if none is available. The file is not transcoded.",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AudioQualityScreen.kt"
     ],
     "translations": {
-      "be": "Яндэкс можа вярнуць іншы бітрэйт: выбіраецца найлепшы даступны да зададзенага значэння, а калі такога няма — найбліжэйшы вышэйшы. «Аўта» і «Максімальная» выбіраюць найбольшы даступны бітрэйт.",
-      "fr": "Yandex peut proposer un autre débit : le lecteur prend le meilleur disponible jusqu’à la limite choisie, ou le plus proche au-dessus si nécessaire. Auto et Maximale utilisent le débit disponible le plus élevé.",
-      "de": "Yandex kann eine andere Bitrate liefern: Der Player wählt die höchste verfügbare bis zum gewählten Grenzwert oder, falls keine passt, die nächsthöhere. Auto und Maximum wählen die höchste verfügbare Bitrate.",
-      "kk": "Yandex басқа битрейт ұсынуы мүмкін: көрсетілген мәннен аспайтын ең жақсысы таңдалады, ал ондайы болмаса — одан жоғары ең жақын мән. «Авто» мен «Ең жоғары» қолжетімді ең үлкен битрейтті таңдайды.",
-      "es": "Yandex puede ofrecer otra tasa de bits: se elige la mejor disponible hasta el límite indicado o, si no hay ninguna, la más cercana por encima. Auto y Máxima eligen la tasa disponible más alta.",
-      "uk": "Яндекс може запропонувати інший бітрейт: вибирається найкращий доступний до вказаного значення, а якщо такого немає — найближчий вищий. «Авто» й «Максимальна» вибирають найбільший доступний бітрейт."
+      "be": "«Аўта» і «Максімальная» выбіраюць найбольшы даступны бітрэйт. «Аўта» не змяняе якасць у залежнасці ад хуткасці сеткі. Для 128, 192 і 320 кбіт/с выбіраецца найлепшы даступны варыянт не вышэй за зададзены, а калі такога няма — найбліжэйшы вышэйшы. Файл не перакадзіруецца.",
+      "de": "Auto und Maximum wählen die höchste verfügbare Bitrate. Auto passt die Qualität nicht an die Verbindungsgeschwindigkeit an. Bei 128, 192 und 320 kbit/s wird die beste verfügbare Variante bis zum gewählten Wert verwendet. Gibt es keine, wird die nächsthöhere gewählt. Die Datei wird nicht neu kodiert.",
+      "fr": "Auto et Maximale choisissent le débit disponible le plus élevé. Auto n’adapte pas la qualité à la vitesse de connexion. Pour 128, 192 et 320 kbit/s, le lecteur choisit le meilleur débit disponible sans dépasser la valeur sélectionnée, ou le plus proche au-dessus si aucun ne convient. Le fichier n’est pas réencodé.",
+      "kk": "«Авто» мен «Ең жоғары» қолжетімді ең үлкен битрейтті таңдайды. «Авто» сапаны интернет жылдамдығына қарай өзгертпейді. 128, 192 және 320 кбит/с үшін таңдалған мәннен аспайтын ең жақсы нұсқа алынады. Ондай нұсқа болмаса, одан жоғары ең жақын мән таңдалады. Файл қайта кодталмайды.",
+      "es": "Auto y Máxima eligen la tasa de bits más alta disponible. Auto no ajusta la calidad a la velocidad de conexión. Para 128, 192 y 320 kbit/s, se elige la mejor opción disponible sin superar el valor seleccionado o, si no hay ninguna, la más cercana por encima. El archivo no se vuelve a codificar.",
+      "uk": "«Авто» й «Максимальна» вибирають найбільший доступний бітрейт. «Авто» не змінює якість залежно від швидкості мережі. Для 128, 192 і 320 кбіт/с вибирається найкращий доступний варіант не вище вказаного, а якщо такого немає — найближчий вищий. Файл не перекодовується."
     }
   },
   {

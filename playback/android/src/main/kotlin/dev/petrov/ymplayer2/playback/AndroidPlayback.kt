@@ -30,6 +30,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
     private val launchState = LaunchStateStore(context)
     private var userCommanded = false
+    private var commandDepth = 0
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
     override val waveSettings = waveApi?.let { api -> online?.let { music -> WaveSettings(music.accounts, api, scope,
@@ -79,6 +80,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private val waveItems = linkedMapOf<String, WaveTrack>()
     private val waveHistory = WaveHistory()
     private var waveJob: Job? = null
+    private var waveCurrentAudioJob: Job? = null
+    private var waveCurrentAudioId: String? = null
+    private var waveCurrentAudioQuality: AudioQuality? = null
     private var waveGeneration = 0L
     private var waveAdvance = false
     private var waveResume = false
@@ -257,27 +261,44 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         indexedWindowJob?.cancel(); indexedWindowJob = null; restoring = false
         cancelWave()
         job?.cancel(); job = null; engine = null; ready = false
+        // A later service-only attach restores metadata silently; it must not overwrite
+        // the durable foreground Play request with the new engine's initial pause.
+        userCommanded = false
         mutable.value = state.value.copy(playing = false, buffering = false, connected = false)
     }
 
-    private fun command(action: () -> Unit) {
+    private fun command(playing: Boolean? = null, action: () -> Unit) {
         userCommanded = true
-        launchState.write(state.value.profileId, PlaybackOutput.MUSIC, false)
+        val saved = launchState.read(state.value.profileId)
+        // Persist explicit intent before waiting for metadata. Seek/ordering do not
+        // implicitly pause, and a queued Play must survive process death as Play.
+        val requested = playing ?: (saved.output == PlaybackOutput.MUSIC && saved.playing)
         if (radioMode) {
             radio?.release(); radioMode = false
             if (!ready && library.state.value.ready && !library.state.value.scanning) ready = true
             if (ready && engine != null) restore(state.value.profileId)
             modeListeners.toList().forEach { it() }
         }
-        if (ready && engine != null && !restoring) action()
-        else { pending.addLast(action); if (!ready || engine == null) connect() }
+        // The outgoing radio's stop persists RADIO/paused. Claim the new music
+        // owner afterwards, still before queuing any slow metadata operation.
+        launchState.write(state.value.profileId, PlaybackOutput.MUSIC, requested)
+        val execute = {
+            commandDepth++
+            try { action() }
+            finally {
+                commandDepth--
+                if (ready && engine != null && !restoring) { publish(); checkpoint() }
+            }
+        }
+        if (ready && engine != null && !restoring) execute()
+        else { pending.addLast(execute); if (!ready || engine == null) connect() }
     }
 
     private fun drainPending() {
         while (ready && engine != null && !restoring && pending.isNotEmpty()) pending.removeFirst().invoke()
     }
 
-    private fun diskCommand(action: suspend () -> Unit) = command { startDiskWork(action = action) }
+    private fun diskCommand(playing: Boolean? = null, action: suspend () -> Unit) = command(playing) { startDiskWork(action = action) }
 
     /** Reuse the selection gate so commands issued during metadata IO keep their order. */
     private fun startDiskWork(completed: (() -> Unit)? = null, action: suspend () -> Unit) {
@@ -312,6 +333,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         } else completed?.invoke()
         if (!restoring) filterWave()
         drainPending()
+        if (!restoring) { publish(); checkpoint() }
     }
 
     private suspend fun localTracksByIds(profile: String, ids: Collection<String>): Map<String, Track> {
@@ -417,7 +439,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         refreshReferenceWindow(next.id, 0, resume, preserveCurrent = false)
     }
 
-    override fun toggle() = command {
+    override fun toggle() = command(playing = if (state.value.wave && waveAdvance) !waveResume
+        else !(engine?.playWhenReady == true && engine?.playerError == null)) {
         val player = engine ?: return@command
         if (state.value.wave && waveAdvance && state.value.waveLoading) {
             waveResume = !waveResume
@@ -435,7 +458,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             player.prepare(); player.play()
         }
     }
-    override fun stop() = command {
+    override fun stop() = command(playing = false) {
         val player = engine ?: return@command
         player.pause()
         if (state.value.wave) {
@@ -496,7 +519,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
         player.prepare(); publish(); checkpoint()
     }
-    override fun select(trackId: String) = command {
+    override fun select(trackId: String) = command(playing = true) {
         if (referenceOrder?.ids?.contains(trackId) == true) {
             startDiskWork {
                 val ref = referenceOrder?.reference(trackId) ?: return@startDiskWork
@@ -546,7 +569,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         launchState.write(profileId, PlaybackOutput.MUSIC, false)
         restore(profileId)
     }
-    override fun chooseSource(source: Source?) = command {
+    override fun chooseSource(source: Source?) = command(playing = false) {
         cancelWave()
         referenceOrder = null
         prefs.edit().putString("source:${state.value.profileId}", source?.name).apply()
@@ -644,16 +667,16 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (state.value.current?.id == trackId) { engine?.pause(); mutable.value = state.value.copy(error = null) }
         syncQueue(queue.filterNot { it.id == trackId })
     }
-    override fun clearQueue() = command {
+    override fun clearQueue() = command(playing = false) {
         cancelWave()
         followLibrary = false
         mutable.value = state.value.copy(error = null)
         load(emptyList(), 0, 0)
     }
-    override fun playQueue(trackIds: List<String>, startId: String?) = diskCommand {
+    override fun playQueue(trackIds: List<String>, startId: String?) = diskCommand(playing = true) {
         playResolvedQueue(trackIds, startId)
     }
-    override fun playList(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) = diskCommand {
+    override fun playList(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) = diskCommand(playing = true) {
         playResolvedQueue(trackIds, startId, origin)
     }
     private suspend fun playResolvedQueue(trackIds: List<String>, startId: String?, origin: PlaybackOrigin = PlaybackOrigin(PlaybackSource.LIST)): Boolean {
@@ -680,10 +703,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         return true
     }
 
-    override fun playMyWave() = command {
+    override fun playMyWave() = command(playing = true) {
         startWave(waveSettings?.request(state.value.profileId) ?: WaveRequest(), PlaybackSource.MY_WAVE)
     }
-    override fun playWave(request: WaveRequest) = command { startWave(request, PlaybackSource.OBJECT_WAVE) }
+    override fun playWave(request: WaveRequest) = command(playing = true) { startWave(request, PlaybackSource.OBJECT_WAVE) }
     private fun startWave(request: WaveRequest, source: PlaybackSource) {
         if (waveApi == null || !remoteEnabled(state.value.profileId)) return
         val savedHistory = if (source == PlaybackSource.MY_WAVE) prefs.getString(myWaveHistoryKey(), "[]") else null
@@ -700,7 +723,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         fetchWave()
     }
     override fun playOffline() = playOfflineLikes()
-    internal fun playOfflineLikes() = diskCommand {
+    internal fun playOfflineLikes() = diskCommand(playing = true) {
         val profile = state.value.profileId
         cancelWave(); followLibrary = false
         mutable.value = state.value.copy(origin = PlaybackOrigin(PlaybackSource.OFFLINE))
@@ -714,7 +737,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         load(tracks, 0, 0)
         engine?.prepare(); engine?.play()
     }
-    override fun playRecommendedQueue(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) = diskCommand {
+    override fun playRecommendedQueue(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) = diskCommand(playing = true) {
         if (!playResolvedQueue(trackIds, startId, origin)) return@diskCommand
         mutable.value = state.value.copy(recommendations = true)
         filterWave(); checkpoint()
@@ -724,7 +747,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         waveRecovery.reset(); failedWaveTracks = 0
         fetchWave()
     }
-    internal fun sessionPlay() = command {
+    internal fun sessionPlay() = command(playing = true) {
         waveResume = true
         if (state.value.wave && (waveAdvance || state.value.current == null)) {
             waveAdvance = true
@@ -733,7 +756,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
         else { engine?.prepare(); engine?.play() }
     }
-    internal fun sessionPause() = command { waveResume = false; engine?.pause(); publish(); checkpoint() }
+    internal fun sessionPause() = command(playing = false) { waveResume = false; engine?.pause(); publish(); checkpoint() }
     internal fun sessionRepeatMode(mode: Int) = setRepeatMode(mode.toRepeatMode())
     internal fun sessionRepeatMode(): Int = state.value.repeatMode.toPlayerMode()
     internal fun sessionShuffle(): Boolean = state.value.shuffle
@@ -782,6 +805,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private fun cancelWaveWork() {
         completedListItem = null
         waveGeneration++; waveJob?.cancel(); waveJob = null
+        waveCurrentAudioJob?.cancel(); waveCurrentAudioJob = null; waveCurrentAudioId = null; waveCurrentAudioQuality = null
         waveTrackErrorJob?.cancel(); waveTrackErrorJob = null
         pendingWaveBatch = null; waveRecovery.reset(); waveAudio.clear(); failedWaveTracks = 0; wavePausePending = false
         waveAdvance = false; waveResume = false; waveStarted = null
@@ -822,8 +846,15 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 mutable.value = state.value.copy(waveIssue = null)
             }
         }
+        val retained = WaveQueueWindow.retain(logicalQueue, state.value.current?.id)
+        if (retained != logicalQueue) syncQueue(retained)
+        waveAudio.retain(state.value.profileId, logicalQueue.mapTo(hashSetOf(), Track::id) + pendingWaveBatch?.tracks.orEmpty().map { it.track.id })
+        if (waveCurrentAudioId != null && logicalQueue.none { it.id == waveCurrentAudioId }) {
+            waveCurrentAudioJob?.cancel(); waveCurrentAudioJob = null; waveCurrentAudioId = null
+        }
         if (state.value.waveLoading) return
-        val needed = waveAdvance && waveResume || player.isPlaying && !player.hasNextMediaItem()
+        val needed = waveAdvance && waveResume || player.isPlaying &&
+            (WaveQueueWindow.needsMore(logicalQueue, state.value.current?.id) || !player.hasNextMediaItem())
         if (needed && (state.value.waveIssue == null || waveRecovery.due(android.os.SystemClock.elapsedRealtime()))) fetchWave()
     }
     private fun pauseForWaveWait(player: ExoPlayer) {
@@ -853,74 +884,118 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val api = waveApi ?: return
         if (!state.value.wave || state.value.waveLoading) return
         val ticket = waveGeneration; val profile = state.value.profileId
+        val account = online?.accounts?.state?.value?.account?.id
+        fun valid() = ticket == waveGeneration && profile == state.value.profileId && state.value.wave && !radioMode &&
+            remoteEnabled(profile) && account == online?.accounts?.state?.value?.account?.id
         waveRecovery.consume()
         mutable.value = state.value.copy(waveLoading = true, waveIssue = null)
         waveJob = scope.launch {
             try {
                 taste?.requireRecommendationFilters(profile)
-                var prepared: WaveBatch? = null
-                for (attempt in 0..3) {
-                    val candidate = pendingWaveBatch ?: WaveLoader(api, diagnostic).load(profile, waveBatch, waveHistory.seen, activeWaveRequest) {
+                cacheCurrentWaveAudio(profile, ticket, account)
+                var rejected = 0
+                while (valid()) {
+                    val retained = WaveQueueWindow.retain(logicalQueue, state.value.current?.id)
+                    if (retained != logicalQueue) syncQueue(retained)
+                    // Stop/recreation may retain metadata whose temporary audio no longer exists.
+                    // Prepare that immediate successor before asking the server for any new tail.
+                    val queued = logicalQueue.drop(state.value.index + 1).firstOrNull { waveAudio.uri(profile, it.id) == null }
+                        ?: logicalQueue.take(state.value.index).takeIf {
+                            logicalQueue.size >= WaveQueueWindow.MAX_ITEMS && !waveAdvance && pendingWaveBatch == null
+                        }?.firstOrNull { waveAudio.uri(profile, it.id) == null }
+                    if (queued == null && logicalQueue.size >= WaveQueueWindow.MAX_ITEMS && !waveAdvance) break
+                    // The current stream starts without this worker. Only current and next may
+                    // download together; further tail audio waits for those priority downloads.
+                    if (logicalQueue.size - state.value.index >= 2 && queued?.id != logicalQueue.getOrNull(state.value.index + 1)?.id)
+                        waveCurrentAudioJob?.join()
+                    val candidate = if (queued != null) waveBatch?.copy(tracks = listOfNotNull(waveItems[queued.id]))
+                        ?: throw MusicException(MusicFailure.NO_PROGRESS)
+                    else pendingWaveBatch ?: WaveLoader(api, diagnostic).load(profile, waveBatch, waveHistory.seen, activeWaveRequest) {
                         taste?.state?.value?.allows(it) != false
                     }.also { pendingWaveBatch = it }
                     val item = candidate.tracks.single()
+                    val quality = streamQuality()
                     try {
-                        // Fast first track streams immediately. Every following track gets its own
-                        // complete audio prefetch before joining Media3's playlist, so a bad future
-                        // source cannot fail the loader of the track that is still playing.
-                        waveAudio.retain(profile, setOfNotNull(state.value.current?.id, item.track.id))
-                        val quality = streamQuality()
-                        if (state.value.current != null) waveAudio.prepare(profile, item.track) { online!!.api.stream(profile, item.track.id, quality) }
+                        waveAudio.retain(profile, logicalQueue.mapTo(hashSetOf(), Track::id) + item.track.id)
+                        if (state.value.current != null) waveAudio.prepare(profile, item.track,
+                            valid = { valid() && quality == streamQuality() }) {
+                            online!!.api.stream(profile, item.track.id, quality)
+                        }
                         ensureActive()
+                        if (!valid()) return@launch
                         if (taste?.state?.value?.allows(item.track) == false) throw MusicException(MusicFailure.UNAVAILABLE)
-                        prepared = candidate
-                        break
                     } catch (e: MusicException) {
                         if (e.failure != MusicFailure.UNAVAILABLE) throw e
                         // Reject only this candidate; keep the current audio and advance the cursor.
                         waveItems[item.track.id] = item; waveHistory.remember(item.track.tasteTarget().key)
-                        waveBatch = candidate; pendingWaveBatch = null
-                        waveAudio.retain(profile, setOfNotNull(state.value.current?.id))
-                        if (attempt == 3) throw e
+                        if (queued == null) waveBatch = candidate
+                        pendingWaveBatch = null
+                        if (queued != null) syncQueue(logicalQueue.filterNot { it.id == item.track.id })
+                        waveAudio.retain(profile, logicalQueue.mapTo(hashSetOf(), Track::id))
+                        diagnostic(mediaFailureDiagnostic(DiagnosticOperation.AUDIO_PREPARE, e))
+                        if (++rejected >= 4) throw e
+                        continue
                     }
+                    val first = waveBatch == null
+                    if (queued == null) waveBatch = candidate
+                    pendingWaveBatch = null
+                    waveItems[item.track.id] = item; waveHistory.remember(item.track.tasteTarget().key)
+                    if (first) feedback(item.track.id, WaveFeedback.RADIO_STARTED)
+                    val before = state.value.current?.id
+                    val resume = waveResume
+                    val advance = waveAdvance
+                    val next = (WaveQueueWindow.retain(logicalQueue, before) + item.track).distinctBy(Track::id)
+                        .take(WaveQueueWindow.MAX_ITEMS)
+                    syncQueue(next)
+                    if (advance) {
+                        val target = if (before == null) 0 else next.indexOfFirst { it.id == before } + 1
+                        waveAdvance = false
+                        load(next, target.coerceAtMost(next.lastIndex), 0)
+                        engine?.prepare(); if (resume) engine?.play()
+                    }
+                    cacheCurrentWaveAudio(profile, ticket, account)
+                    rejected = 0
+                    while (waveItems.size > 4000) waveItems.remove(waveItems.keys.first())
+                    waveRecovery.reset()
+                    checkpoint()
                 }
-                val batch = checkNotNull(prepared)
-                ensureActive()
-                if (ticket != waveGeneration || profile != state.value.profileId || !remoteEnabled(profile)) return@launch
-                val first = waveBatch == null
-                waveBatch = batch
-                pendingWaveBatch = null
-                batch.tracks.forEach { waveItems[it.track.id] = it; waveHistory.remember(it.track.tasteTarget().key) }
-                if (first) feedback(batch.tracks.first().track.id, WaveFeedback.RADIO_STARTED)
-                val before = state.value.current?.id
-                val resume = waveResume
-                val advance = waveAdvance
-                // Keep only what Media3 can use now: one previous, current, prepared next.
-                val keepFrom = (state.value.index - if (advance) 0 else 1).coerceAtLeast(0)
-                val next = (logicalQueue.drop(keepFrom) + batch.tracks.map(WaveTrack::track)).distinctBy(Track::id)
-                syncQueue(next)
-                if (advance) {
-                    val target = if (before == null) 0 else next.indexOfFirst { it.id == before } + 1
-                    waveAdvance = false
-                    load(next, target.coerceAtMost(next.lastIndex), 0)
-                    engine?.prepare(); if (resume) engine?.play()
-                }
-                while (waveItems.size > 4000) waveItems.remove(waveItems.keys.first())
                 mutable.value = state.value.copy(waveLoading = false, waveIssue = null)
-                waveRecovery.reset()
-                checkpoint()
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (ticket == waveGeneration) {
-                    diagnostic(mediaFailureDiagnostic(DiagnosticOperation.AUDIO_PREPARE, e))
+                    diagnostic(wavePreparationDiagnostic(e))
                     val failure = (e as? MusicException)?.failure ?: if (e is java.io.IOException) MusicFailure.NETWORK else MusicFailure.RESPONSE
                     val retry = waveRecovery.failed(android.os.SystemClock.elapsedRealtime(), failure)
                     mutable.value = state.value.copy(waveLoading = false,
                         waveIssue = "Моя волна: " + failure.message() + if (retry) " Повторим автоматически (${waveRecovery.attempts}/3)." else "")
                 }
+            } finally {
+                // A changed quality/taste can cancel just this candidate without cancelling
+                // the playing wave. The next maintenance pass retries its retained metadata.
+                if (ticket == waveGeneration) mutable.value = state.value.copy(waveLoading = false)
             }
         }
     }
+    private fun cacheCurrentWaveAudio(profile: String, ticket: Long, account: String?) {
+        val current = state.value.current ?: return
+        if (waveAudio.uri(profile, current.id) != null || waveCurrentAudioId == current.id &&
+            waveCurrentAudioQuality == streamQuality() && waveCurrentAudioJob?.isActive == true) return
+        waveCurrentAudioJob?.cancel()
+        waveCurrentAudioId = current.id
+        val quality = streamQuality()
+        waveCurrentAudioQuality = quality
+        waveCurrentAudioJob = scope.launch {
+            try {
+                waveAudio.prepare(profile, current, valid = { ticket == waveGeneration && profile == state.value.profileId &&
+                    state.value.wave && !radioMode && remoteEnabled(profile) && account == online?.accounts?.state?.value?.account?.id
+                }) { online!!.api.stream(profile, current.id, quality) }
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) { if (ticket == waveGeneration) diagnostic(wavePreparationDiagnostic(e)) }
+        }
+    }
+    private fun wavePreparationDiagnostic(error: Exception) = if (generateSequence<Throwable>(error) { it.cause }
+        .any { it is WaveAudioStorageException }) OperationDiagnostic(DiagnosticOperation.AUDIO_PREPARE, DiagnosticCategory.STORAGE)
+        else mediaFailureDiagnostic(DiagnosticOperation.AUDIO_PREPARE, error)
     private fun filterWave() {
         if (radioMode) return
         val preferences = taste?.state?.value ?: return
@@ -1257,10 +1332,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 origin = originForRestoredWave(state.value.origin, activeWaveRequest))
             engine?.repeatMode = Player.REPEAT_MODE_OFF; engine?.shuffleModeEnabled = false
         }
-        val restoredQueue = if (state.value.wave) {
-            val from = (index - 1).coerceAtLeast(0)
-            queue.subList(from, (index + 2).coerceAtMost(queue.size)).toList()
-        } else queue
+        // All prepared candidates are already in the heard/queued filter. Keeping
+        // only the old three-item window would silently lose the other seven.
+        val restoredQueue = if (state.value.wave) WaveQueueWindow.retain(queue, queue.getOrNull(index)?.id) else queue
         load(restoredQueue, if (state.value.wave) index - (index - 1).coerceAtLeast(0) else index, position)
     }
 
@@ -1414,9 +1488,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
         if (radioMode) return
         val state = state.value
-        if (userCommanded && !restoring && launchState.read(state.profileId).output == PlaybackOutput.MUSIC) {
+        if (userCommanded && commandDepth == 0 && !restoring && launchState.read(state.profileId).output == PlaybackOutput.MUSIC) {
             val wanted = if (state.wave && waveAdvance) waveResume else engine?.let {
-                it.playWhenReady && it.playbackState != Player.STATE_ENDED && it.playerError == null
+                // A failed network/data source becomes IDLE, not a user's Pause.
+                // Explicit Pause/Stop have already persisted false in command().
+                if (it.playerError != null) launchState.read(state.profileId).playing
+                else it.playWhenReady && it.playbackState != Player.STATE_ENDED
             } == true
             launchState.write(state.profileId, PlaybackOutput.MUSIC, wanted)
         }

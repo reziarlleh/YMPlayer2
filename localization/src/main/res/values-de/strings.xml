@@ -287,7 +287,7 @@
     <string name="msg_6841e1070158" formatted="false">"Die Systemberechtigungsseite wurde nicht gefunden."</string>
     <string name="msg_68cc12d616b8" formatted="false">"Likes und Sperren aktualisieren"</string>
     <string name="msg_68eab87f63c4" formatted="false">"Yandex hat den Zugriff verweigert. Prüfe dein Konto und dein Music-Abonnement."</string>
-    <string name="msg_69294d8ce6a4" formatted="false">"Yandex kann eine andere Bitrate liefern: Der Player wählt die höchste verfügbare bis zum gewählten Grenzwert oder, falls keine passt, die nächsthöhere. Auto und Maximum wählen die höchste verfügbare Bitrate."</string>
+    <string name="msg_69294d8ce6a4" formatted="false">"Auto und Maximum wählen die höchste verfügbare Bitrate. Auto passt die Qualität nicht an die Verbindungsgeschwindigkeit an. Bei 128, 192 und 320 kbit/s wird die beste verfügbare Variante bis zum gewählten Wert verwendet. Gibt es keine, wird die nächsthöhere gewählt. Die Datei wird nicht neu kodiert."</string>
     <string name="msg_6aadca8eb39a" formatted="false">"Erstellen und Titel hinzufügen"</string>
     <string name="msg_6b5623eafb06" formatted="false">"Playlist bearbeiten"</string>
     <string name="msg_6bd804f5b776" formatted="false">"Titel: @0@"</string>

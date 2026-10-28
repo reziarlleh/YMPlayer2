@@ -4,6 +4,7 @@ import dev.petrov.ymplayer2.localization.*
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
@@ -27,15 +28,18 @@ import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 import kotlinx.coroutines.launch
 
+/** The third shortcut is a UI slot; its assignment may later come from a user-selected list. */
+internal data class PlayerListShortcut(val label: String, val enabled: Boolean, val selected: Boolean, val play: () -> Unit)
+
 /** Only artwork is flexible. Transport and actions never live in a scroll container. */
 @Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {},
-    taste: MusicTaste? = null, signIn: () -> Unit = {}, artist: (ArtistRef) -> Unit = {}, equalizer: (Boolean) -> Unit = {}, playlists: CloudPlaylists? = null, collections: UserCollections? = null, offline: OfflineMusic? = null) {
+    taste: MusicTaste? = null, signIn: () -> Unit = {}, artist: (ArtistRef) -> Unit = {}, equalizer: (Boolean) -> Unit = {}, playlists: CloudPlaylists? = null, collections: UserCollections? = null, offline: OfflineMusic? = null,
+    listShortcut: PlayerListShortcut? = null) {
     var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var issue by remember { mutableStateOf(false) }
     val myWaveActive = state.wave && state.origin.source == PlaybackSource.MY_WAVE
     var configureWave by remember(state.profileId, myWaveActive) { mutableStateOf(false) }
-    var sourceChoice by remember(state.profileId) { mutableStateOf(false) }
     val saved = collections?.state?.collectAsStateWithLifecycle()?.value
     val favorites = saved?.profile(state.profileId)?.favorites.orEmpty()
     val cached = offline?.state?.collectAsStateWithLifecycle()?.value
@@ -61,36 +65,30 @@ import kotlinx.coroutines.launch
         text = { Text(message ?: if (state.waveLoading) tr(Msg.msg_c989e98d6470) else tr(Msg.msg_2f4f45e427e6)) },
         confirmButton = { TextButton({ issue = false }) { Text(tr(Msg.msg_a7a4033657e8)) } })
     val account = taste?.state?.collectAsStateWithLifecycle()?.value
+    val userList = listShortcut ?: PlayerListShortcut(tr(Msg.player_source_favorites), favorites.isNotEmpty() && saved?.ready == true,
+        state.origin.source == PlaybackSource.LOCAL_FAVORITES) {
+        player.playList(favorites.map(SavedTrack::id), origin = PlaybackOrigin(PlaybackSource.LOCAL_FAVORITES))
+    }
     val toolbar: @Composable () -> Unit = {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            if (taste != null) Surface(Modifier.weight(1f).height(48.dp), shape = MaterialTheme.shapes.extraLarge,
-                color = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Box(Modifier.weight(1f).fillMaxHeight()) {
-                    TextButton({ sourceChoice = true },
-                        Modifier.fillMaxSize().prismFocus().testTag("my_wave"),
-                        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onPrimary),
-                        contentPadding = PaddingValues(horizontal = 10.dp)) {
-                        SkinIcon(UiIcon.WAVE, null); Spacer(Modifier.width(6.dp))
-                        Text(sourceLabel, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Column(Modifier.fillMaxWidth()) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                if (taste != null) {
+                    SourceShortcut(UiIcon.WAVE, tr(Msg.msg_de1ea8c09caa), myWaveActive, true, "player_source_wave") {
+                        if (account?.signedIn == true) player.playMyWave() else signIn()
                     }
-                    DropdownMenu(sourceChoice, { sourceChoice = false }) {
-                        DropdownMenuItem({ Text(tr(Msg.msg_de1ea8c09caa)) }, {
-                            sourceChoice = false; if (account?.signedIn == true) player.playMyWave() else signIn()
-                        }, Modifier.testTag("player_source_wave").focusProperties { canFocus = true }.prismFocus())
-                        DropdownMenuItem({ Text(tr(Msg.player_source_offline)) }, { sourceChoice = false; player.playOffline() },
-                            Modifier.testTag("player_source_offline").focusProperties { canFocus = cached?.enabled == true }.prismFocus(), enabled = cached?.enabled == true)
-                        DropdownMenuItem({ Text(tr(Msg.player_source_favorites)) }, {
-                            sourceChoice = false; player.playList(favorites.map(SavedTrack::id), origin = PlaybackOrigin(PlaybackSource.LOCAL_FAVORITES))
-                        }, Modifier.testTag("player_source_favorites").focusProperties { canFocus = favorites.isNotEmpty() && saved?.ready == true }.prismFocus(), enabled = favorites.isNotEmpty() && saved?.ready == true)
-                    }
-                    }
+                    SourceShortcut(UiIcon.OFFLINE, tr(Msg.player_source_offline), state.origin.source == PlaybackSource.OFFLINE,
+                        cached?.enabled == true, "player_source_offline", player::playOffline)
+                    SourceShortcut(UiIcon.PLAYLIST, userList.label, userList.selected, userList.enabled, "player_source_list", userList.play)
                     if (myWaveActive && waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
-                        { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings").focusProperties { canFocus = true })
-                }
-            } else Text(tr(Msg.msg_a94943f157d5), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, maxLines = 1)
-            ActionIcon(UiIcon.EQUALIZER, tr(Msg.msg_fdc54db3a2b0), { equalizer(false) }, Modifier.testTag("player_equalizer"))
-            ActionIcon(UiIcon.QUEUE, tr(Msg.msg_cb297d129add), queue, Modifier.testTag("player_queue"))
+                        { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings"))
+                    Spacer(Modifier.weight(1f))
+                } else Spacer(Modifier.weight(1f))
+                ActionIcon(UiIcon.EQUALIZER, tr(Msg.msg_fdc54db3a2b0), { equalizer(false) }, Modifier.testTag("player_equalizer"))
+                ActionIcon(UiIcon.QUEUE, tr(Msg.msg_cb297d129add), queue, Modifier.testTag("player_queue"))
+            }
+            Text(if (taste != null) sourceLabel else tr(Msg.msg_a94943f157d5), Modifier.fillMaxWidth().testTag("player_source_label"),
+                style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
     val actions: @Composable () -> Unit = {
@@ -127,14 +125,14 @@ import kotlinx.coroutines.launch
             status = message ?: if (state.waveLoading) tr(Msg.msg_c989e98d6470) else if (state.buffering) tr(Msg.msg_2f4f45e427e6) else null,
             error = message != null, showStatus = { issue = true }) }
         if (landscape) Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
-            Column(Modifier.weight(.7f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(Modifier.weight(1.3f).fillMaxHeight().testTag("player_controls"), verticalArrangement = Arrangement.SpaceEvenly) {
+                toolbar(); actions(); PlayerProgress(state, player, inlineTime = veryShort); TransportControls(state, player, compact = veryShort)
+            }
+            Column(Modifier.weight(.7f).fillMaxHeight().testTag("player_artwork"), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 BoxWithConstraints(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                     TrackArtwork(state.current, Modifier.size(minOf(maxWidth, maxHeight).coerceAtLeast(0.dp)))
                 }
                 heading()
-            }
-            Column(Modifier.weight(1.3f).fillMaxHeight(), verticalArrangement = Arrangement.SpaceEvenly) {
-                toolbar(); actions(); PlayerProgress(state, player, inlineTime = veryShort); TransportControls(state, player, compact = veryShort)
             }
         } else Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             toolbar()
@@ -149,6 +147,12 @@ import kotlinx.coroutines.launch
             PlayerProgress(state, player)
             TransportControls(state, player, compact = compact)
         }
+    }
+}
+
+@Composable private fun SourceShortcut(icon: UiIcon, label: String, active: Boolean, enabled: Boolean, tag: String, play: () -> Unit) {
+    FilledIconToggleButton(active, { play() }, Modifier.size(48.dp).prismFocus().testTag(tag).semantics { selected = active }, enabled = enabled) {
+        SkinIcon(icon, label, Modifier.size(28.dp))
     }
 }
 
@@ -174,14 +178,26 @@ import kotlinx.coroutines.launch
 }
 
 @Composable private fun TransportControls(state: PlaybackState, player: PlaybackController, compact: Boolean) {
-    val focus = remember { FocusRequester() }
-    val isTv = LocalConfiguration.current.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION
-    LaunchedEffect(state.current?.available) { if (isTv && state.current?.available == true) focus.requestFocus() }
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
+    val requesters = remember { listOf("player_previous", "player_play", "player_next", "player_stop").associateWith { FocusRequester() } }
+    var focused by remember { mutableStateOf<String?>(null) }
+    val playEnabled = state.current?.available == true || state.wave
+    val enabledControls = mapOf("player_previous" to state.canSkipPrevious, "player_play" to playEnabled,
+        "player_next" to state.canSkipNext, "player_stop" to true)
+    // Retain focus inside transport when its focused Next/Previous becomes disabled.
+    // An unrelated metadata update must never take focus from navigation or settings.
+    LaunchedEffect(focused, enabledControls) {
+        if (focused != null && enabledControls[focused] == false)
+            requesters.getValue(if (playEnabled) "player_play" else "player_stop").requestFocus()
+    }
+    Row(Modifier.fillMaxWidth().focusGroup(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
         @Composable fun button(icon: UiIcon, label: String, click: () -> Unit, tag: String, primary: Boolean = false, available: Boolean = true) {
             val size = if (primary) if (compact) 80.dp else 96.dp else 64.dp
-            FilledIconButton(click, Modifier.size(size).prismFocus().testTag(tag).then(if (primary) Modifier.focusRequester(focus) else Modifier),
-                enabled = available && (!primary || state.current?.available == true || state.wave),
+            val enabled = available && (!primary || playEnabled)
+            val enabledNow by rememberUpdatedState(enabled)
+            FilledIconButton(click, Modifier.size(size).prismFocus().testTag(tag).focusRequester(requesters.getValue(tag)).onFocusChanged {
+                if (it.isFocused) focused = tag
+                else if (focused == tag && enabledNow) focused = null
+            }, enabled = enabled,
                 colors = IconButtonDefaults.filledIconButtonColors(containerColor = if (primary) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceContainerHigh,
                     contentColor = if (primary) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface)) {
                 SkinIcon(icon, label, Modifier.size(if (primary) 48.dp else 36.dp))

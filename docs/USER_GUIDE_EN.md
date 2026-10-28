@@ -1,10 +1,12 @@
-# YMPlayer 2 — user guide
+# YMPlayer2 — user guide
 
-For **2.6.3-build119**, Android9 and later. Reviewed on 19 October 2026.
+The published release is **2.6.3-build119**, Android9 and later. Reviewed on28 October2026.
+The new player shortcuts and ten-track window below describe the2.6.4 candidate.
+Version2.6.3 uses the previous shared source-selector button.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
-YMPlayer 2 plays music from your device and USB storage, Yandex Music and music
+YMPlayer2 plays music from your device and USB storage, Yandex Music and music
 videos. It supports separate profiles, offline liked tracks and custom skins.
 You do not need a Yandex account to play your own files.
 
@@ -18,7 +20,7 @@ Android 9 or later is required. The same APK works on phones, tablets, Android
 TV and car head units; the layout adapts to the screen.
 
 1. Download the latest APK and open it. Allow installation from that source if Android asks.
-2. Open **YMPlayer 2**.
+2. Open **YMPlayer2**.
 3. For your own music, go to **Library → All music → Music folders** and add a folder.
 4. For Yandex Music, choose a profile and sign in with a device code.
 
@@ -166,19 +168,27 @@ page. To download a song for offline listening, enable the cache and like it.
 You can also synchronize the
 offline cache, just as you would with other tracks.
 **My Vibe** starts your personalized stream. It prepares the next track while
-the current one plays and requests further recommendations as needed.
+the current one plays. In2.6.4 its temporary window contains up to ten tracks.
+The current and next tracks take priority, then complete audio files for the rest
+are prepared. The previous track and its file remain available for going back;
+older files are removed. This temporary buffer does not like songs or add them
+to your permanent offline collection. Regular playlists and albums of any length
+are not downloaded in full by this rule.
 
-The button at the top of the player shows the current
-source or list name. Press it to select **My Vibe**, **Offline** or **Local favorites**.
+In2.6.4, three icons at the top of the player select **My Vibe**, **Offline**
+or **Local favorites**. The active source is highlighted; its name or the current
+playlist title appears below. Equalizer/DSP and queue controls remain in the same row.
+The wide layout places controls on the left and artwork/track details on the right.
 Offline is available immediately, even with an empty cache and no internet.
 It is disabled only when offline caching is switched off in Settings.
 Empty local favorites cannot be selected. Choose
-playlists in the library; the player button displays their names.
+playlists in the library; the label below the source icons displays their names.
 
-<p><img src="qa/2-4-wave-sources/emulator-5560/source-picker.png" width="300"
-alt="Source picker: My Vibe, Offline and Local favorites"></p>
+<p><img src="qa/maintenance264/player-phone.png" width="300" alt="Three source shortcuts on a phone"><img src="qa/maintenance264/player-tv.png" width="640" alt="Wide player with controls on the left and artwork on the right"></p>
 
-Screenshot with test music on an emulator; the source menu is shown in Russian.
+Internal2.6.4 emulator screenshots with test music and Russian UI.
+The third shortcut currently opens Local favorites. Assigning another list to it
+is planned separately and is not available yet.
 
 A Yandex track, artist, album or playlist has **Start … radio** in its More menu.
 The track menu places artist and album radio commands next to their own names.
@@ -352,7 +362,11 @@ completed MP3 files.
 **Settings → Audio quality** has independent choices for **Online playback**
 and offline downloads: Auto, 128 kbps, 192 kbps, 320 kbps and Maximum. The API’s
 available files determine the actual format/bitrate; the app does not transcode
-each track to the selected number. Auto and Maximum choose the best available option.
+each track to the selected number. **Auto and Maximum currently work the same
+way: both select the highest available bitrate. Auto does not adjust quality
+to connection speed.** For128,192 and320 kbps, the player selects the best
+available option at or below the chosen value, or the closest higher option
+when none fits.
 
 A change affects newly requested streams/downloads. It does not rewrite the
 current track, already prepared My Vibe audio or existing downloads. To replace
@@ -360,7 +374,7 @@ the whole offline cache at a different quality, change the setting, delete its
 files and synchronize again.
 
 The player’s equalizer/DSP button opens an external app or system panel. Use
-the More menu to choose a different handler. YMPlayer 2 has no built-in
+the More menu to choose a different handler. YMPlayer2 has no built-in
 multiband equalizer.
 
 ## Internet connection

@@ -27,6 +27,8 @@ class PlayerCompositionTest {
         waitFor { fixture.library.testTracks.size == 2 && fixture.taste.state.value.shelf(TasteKind.ARTIST).ready }
         compose.runOnIdle { fixture.collaborators = true; fixture.longLabels = true; fixture.online.collection() }
         waitFor { fixture.online.state.value.loaded }
+        compose.runOnIdle { fixture.online.more() }
+        waitFor { fixture.online.state.value.entries.size == 2 && !fixture.online.state.value.loading }
         compose.runOnIdle { player.playQueue(fixture.online.state.value.entries.map { it.id }) }
         waitFor { player.state.value.positionSeconds >= 1 }
         compose.runOnIdle { player.toggle() }
@@ -118,5 +120,44 @@ class PlayerCompositionTest {
         fixedControls(wave = true)
         compose.onNodeWithTag("repeat_mode").assertDoesNotExist()
         compose.onNodeWithTag("shuffle_mode").assertDoesNotExist()
+    }
+
+    @Test fun sourceShortcutsAndWideBlocksKeepCommandsAndCurrentListTitle() {
+        for (tag in listOf("player_source_wave", "player_source_offline", "player_source_list"))
+            compose.onNodeWithTag(tag).assertIsDisplayed().assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+        compose.onNodeWithTag("player_source_label").assertIsDisplayed()
+        compose.onNodeWithTag("player_equalizer").assertIsDisplayed()
+        compose.onNodeWithTag("player_queue").assertIsDisplayed()
+        compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
+        val controls = compose.onAllNodesWithTag("player_controls").fetchSemanticsNodes()
+        val artwork = compose.onAllNodesWithTag("player_artwork").fetchSemanticsNodes()
+        if (controls.isNotEmpty()) {
+            assertTrue("Wide controls must be on the left of artwork", controls.single().boundsInRoot.right <= artwork.single().boundsInRoot.left)
+        }
+        compose.runOnIdle {
+            player.playList(fixture.online.state.value.entries.map { it.id }, origin = PlaybackOrigin(PlaybackSource.LIST, "Дорожный плейлист"))
+        }
+        waitFor { player.state.value.origin.title == "Дорожный плейлист" }
+        compose.onNodeWithTag("player_source_label").assertTextEquals("Дорожный плейлист")
+    }
+
+    @Test fun trackChangeCannotTakeFocusFromQueueControl() {
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        val queue = compose.onNodeWithTag("player_queue")
+        queue.performSemanticsAction(SemanticsActions.RequestFocus) { it() }; queue.assertIsFocused()
+        val before = player.state.value.current?.id
+        compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id != before }
+        queue.assertIsFocused()
+    }
+
+    @Test fun nextBecomingUnavailableKeepsFocusInsideTransport() {
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        val next = compose.onNodeWithTag("player_next")
+        next.performSemanticsAction(SemanticsActions.RequestFocus) { it() }; next.assertIsFocused()
+        val before = player.state.value.current?.id
+        compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id != before && !player.state.value.canSkipNext }
+        compose.onNodeWithTag("player_play").assertIsFocused()
     }
 }

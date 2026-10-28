@@ -102,8 +102,12 @@ PLAY PAUSE STOP PREVIOUS NEXT QUEUE NOW_PLAYING FOLDER EXPAND
 CLOSE CHECK CHOICE_ON CHOICE_OFF REPEAT REPEAT_ONE SHUFFLE
 EDIT UP DOWN REMOVE DRAG_HANDLE ADD_QUEUE CLEAR_QUEUE ARTWORK
 FAVORITE FAVORITE_OFF MORE PLAYLIST ADD BLOCK WAVE
-DISLIKE DISLIKE_OFF UNKNOWN REFRESH EQUALIZER BRAND
+DISLIKE DISLIKE_OFF UNKNOWN REFRESH EQUALIZER BRAND OFFLINE
 ```
+
+`OFFLINE` — значок быстрого перехода к офлайн-музыке, добавлен в цикле2.6.4.
+Старые пакеты без этой роли продолжают работать со встроенным значком.
+Если пакет должен открываться в2.6.3 или старше, новую роль в manifest не добавляйте.
 
 Если роль отсутствует, показывается встроенный значок. `FAVORITE` и
 `FAVORITE_OFF`, `DISLIKE` и `DISLIKE_OFF` должны различаться; их состояние

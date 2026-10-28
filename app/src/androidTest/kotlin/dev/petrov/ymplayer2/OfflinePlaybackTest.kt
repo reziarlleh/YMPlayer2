@@ -55,7 +55,6 @@ class OfflinePlaybackTest {
     }
     @Test fun emptyOfflineSourceRemainsSelectableWithoutNetwork() {
         compose.runOnIdle { h.internet.available.value = false }
-        compose.onNodeWithTag("my_wave").performClick()
         compose.onNodeWithTag("player_source_offline").assertIsEnabled().performClick()
         waitFor { h.player.state.value.origin.source == PlaybackSource.OFFLINE }
         assertTrue(h.player.state.value.queue.isEmpty())

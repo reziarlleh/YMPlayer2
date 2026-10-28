@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-10-28T15:28:07.473969+00:00",
+  "serial": "emulator-5560",
+  "classes": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+  "apkSha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "f043d5143d601944daa405710c4f2507190e2c1c51ed96f43e073f7bd9768f72",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "0075cdafff0723fd004cfc82e0554355ec89b1028b014483a0c7e422b64e4d6b"
+  },
+  "finishedAtUtc": "2026-10-28T15:29:28.358529+00:00",
+  "exitCode": 0,
+  "passed": false
+}

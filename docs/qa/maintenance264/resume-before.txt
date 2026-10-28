@@ -1,0 +1,163 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.LaunchResumeIntentTest:
+INSTRUMENTATION_STATUS: test=explicitStopPendingSlowMetadataClearsDurableIntent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitStopPendingSlowMetadataClearsDurableIntent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitPausePendingSlowMetadataClearsDurableIntent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitPausePendingSlowMetadataClearsDurableIntent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=metadataOnlyEngineRestartPreservesSavedPlayAndPosition
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Restoring a silent engine must retain the foreground launch Play request
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.metadataOnlyEngineRestartPreservesSavedPlayAndPosition(LaunchResumeIntentTest.kt:81)
+
+INSTRUMENTATION_STATUS: stream=
+Error in metadataOnlyEngineRestartPreservesSavedPlayAndPosition(dev.petrov.ymplayer2.LaunchResumeIntentTest):
+java.lang.AssertionError: Restoring a silent engine must retain the foreground launch Play request
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.metadataOnlyEngineRestartPreservesSavedPlayAndPosition(LaunchResumeIntentTest.kt:81)
+
+INSTRUMENTATION_STATUS: test=metadataOnlyEngineRestartPreservesSavedPlayAndPosition
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedNetworkPreparationRetainsPlayForNextForegroundLaunch
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: A transient stream failure must not be persisted as a manual pause
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.failedNetworkPreparationRetainsPlayForNextForegroundLaunch(LaunchResumeIntentTest.kt:63)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedNetworkPreparationRetainsPlayForNextForegroundLaunch(dev.petrov.ymplayer2.LaunchResumeIntentTest):
+java.lang.AssertionError: A transient stream failure must not be persisted as a manual pause
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.failedNetworkPreparationRetainsPlayForNextForegroundLaunch(LaunchResumeIntentTest.kt:63)
+
+INSTRUMENTATION_STATUS: test=failedNetworkPreparationRetainsPlayForNextForegroundLaunch
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=metadataOnlyEngineRestartPreservesManualPauseAndPosition
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=metadataOnlyEngineRestartPreservesManualPauseAndPosition
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitPauseAfterNetworkFailureRemainsPausedAfterEngineRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitPauseAfterNetworkFailureRemainsPausedAfterEngineRestart
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=launchPlayPendingSlowMetadataRetainsDurableIntent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeIntentTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: A command waiting for metadata must retain its explicit intent across process death expected:<true> but was:<false>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.pendingRestoreCommand(LaunchResumeIntentTest.kt:133)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.launchPlayPendingSlowMetadataRetainsDurableIntent(LaunchResumeIntentTest.kt:93)
+
+INSTRUMENTATION_STATUS: stream=
+Error in launchPlayPendingSlowMetadataRetainsDurableIntent(dev.petrov.ymplayer2.LaunchResumeIntentTest):
+java.lang.AssertionError: A command waiting for metadata must retain its explicit intent across process death expected:<true> but was:<false>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.pendingRestoreCommand(LaunchResumeIntentTest.kt:133)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.launchPlayPendingSlowMetadataRetainsDurableIntent(LaunchResumeIntentTest.kt:93)
+
+INSTRUMENTATION_STATUS: test=launchPlayPendingSlowMetadataRetainsDurableIntent
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 58.766
+There were 3 failures:
+1) metadataOnlyEngineRestartPreservesSavedPlayAndPosition(dev.petrov.ymplayer2.LaunchResumeIntentTest)
+java.lang.AssertionError: Restoring a silent engine must retain the foreground launch Play request
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.metadataOnlyEngineRestartPreservesSavedPlayAndPosition(LaunchResumeIntentTest.kt:81)
+2) failedNetworkPreparationRetainsPlayForNextForegroundLaunch(dev.petrov.ymplayer2.LaunchResumeIntentTest)
+java.lang.AssertionError: A transient stream failure must not be persisted as a manual pause
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.failedNetworkPreparationRetainsPlayForNextForegroundLaunch(LaunchResumeIntentTest.kt:63)
+3) launchPlayPendingSlowMetadataRetainsDurableIntent(dev.petrov.ymplayer2.LaunchResumeIntentTest)
+java.lang.AssertionError: A command waiting for metadata must retain its explicit intent across process death expected:<true> but was:<false>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.pendingRestoreCommand(LaunchResumeIntentTest.kt:133)
+	at dev.petrov.ymplayer2.LaunchResumeIntentTest.launchPlayPendingSlowMetadataRetainsDurableIntent(LaunchResumeIntentTest.kt:93)
+
+FAILURES!!!
+Tests run: 7,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

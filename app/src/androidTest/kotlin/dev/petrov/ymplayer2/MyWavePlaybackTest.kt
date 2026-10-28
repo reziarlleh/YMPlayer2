@@ -46,7 +46,6 @@ class MyWavePlaybackTest {
         }
     }
     private fun start() {
-        compose.onNodeWithTag("my_wave").performClick()
         compose.onNodeWithTag("player_source_wave").performClick()
         waitFor { player.state.value.positionSeconds >= 1 && player.state.value.queue.size >= 2 }
     }
@@ -84,26 +83,28 @@ class MyWavePlaybackTest {
     @Test fun restartDoesNotForgetTracksOutsideTheSmallPlaybackQueue() {
         start()
         for (id in 2..3) {
-            waitFor { player.state.value.queue.size - player.state.value.index == 2 }
+            waitFor { player.state.value.queue.size - player.state.value.index >= 2 }
             compose.runOnIdle { player.skip(1) }
             waitFor { player.state.value.current?.id == "yandex:$id:7" && player.state.value.positionSeconds >= 1 }
         }
-        waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:4:7" && !player.state.value.waveLoading }
+        waitFor { player.state.value.queue.any { it.id == "yandex:4:7" } && !player.state.value.waveLoading }
         assertFalse(player.state.value.queue.any { it.id == "yandex:1:7" })
         compose.runOnIdle { player.toggle(); fixture.restartEngine() }
         waitFor { player.state.value.connected && !player.state.value.waveLoading }
         compose.runOnIdle { fixture.waveEchoOnce = 1; player.select("yandex:4:7") }
-        waitFor { player.state.value.current?.id == "yandex:4:7" && player.state.value.queue.lastOrNull()?.id == "yandex:5:7" }
+        waitFor { player.state.value.current?.id == "yandex:4:7" && player.state.value.queue.any { it.id == "yandex:5:7" } }
         assertFalse(player.state.value.queue.any { it.id == "yandex:1:7" })
     }
     @Test fun transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack() {
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle { fixture.waveRequestGates = mapOf(3 to gate) }
         start()
-        compose.runOnIdle { fixture.waveFailuresRemaining = 3; player.seek(player.state.value.current!!.durationSeconds - 1) }
+        compose.runOnIdle { fixture.waveFailuresRemaining = 3; gate.complete(Unit); player.seek(player.state.value.current!!.durationSeconds - 1) }
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.waveIssue != null }
         compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
         waitFor { player.state.value.current?.id == "yandex:3:7" && player.state.value.positionSeconds >= 1 }
         for (id in 4..7) {
-            waitFor { player.state.value.queue.size - player.state.value.index == 2 && player.state.value.queue.size <= 3 }
+            waitFor { player.state.value.queue.size - player.state.value.index >= 2 && player.state.value.queue.size <= WaveQueueWindow.MAX_ITEMS }
             compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
             waitFor { player.state.value.current?.id == "yandex:$id:7" && player.state.value.positionSeconds >= 1 }
         }
@@ -112,48 +113,51 @@ class MyWavePlaybackTest {
         assertTrue(fixture.waveFeedback.any { it.third == WaveFeedback.FINISHED && it.second.track.id == "yandex:6:7" })
     }
     @Test fun repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack() {
-        compose.runOnIdle { fixture.waveRecoveryNeedsDrainedCursor = true }
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle { fixture.waveRecoveryNeedsDrainedCursor = true; fixture.streamGates = mapOf("yandex:6:7" to gate) }
         start()
         for (id in 2..3) {
-            waitFor { player.state.value.queue.size - player.state.value.index == 2 }
+            waitFor { player.state.value.queue.size - player.state.value.index >= 2 }
             compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
             waitFor { player.state.value.current?.id == "yandex:$id:7" && player.state.value.positionSeconds >= 1 }
-            assertTrue(player.state.value.queue.size <= 3)
+            assertTrue(player.state.value.queue.size <= WaveQueueWindow.MAX_ITEMS)
         }
         // The server then echoes five heard entries at cursor4 twice. Recovery must
         // use that drained cursor, not cursor3 from before the unsuccessful requests.
-        waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:5:7" && !player.state.value.waveLoading }
+        waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:5:7" }
         assertEquals("yandex:3:7", player.state.value.current?.id)
         assertTrue("yandex:5:7" in player.bufferedWaveAudioIds())
         assertEquals(listOf("4"), fixture.waveRecoveryCursors)
         assertEquals(listOf(1, 2, 3, 4, 4, 5), fixture.waveRequests.take(6))
         assertFalse(player.state.value.queue.any { it.id == "yandex:1:7" })
-        compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
+        compose.runOnIdle { gate.complete(Unit); player.seek(player.state.value.current!!.durationSeconds - 1) }
         waitFor { player.state.value.current?.id == "yandex:5:7" && player.state.value.positionSeconds >= 1 }
-        waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:6:7" }
+        waitFor { player.state.value.queue.any { it.id == "yandex:6:7" } }
         assertTrue(player.state.value.wave && player.state.value.playing)
-        assertTrue(player.state.value.queue.size <= 3)
+        assertTrue(player.state.value.queue.size <= WaveQueueWindow.MAX_ITEMS)
         assertTrue(player.state.value.queue.none { it.id in setOf("yandex:1:7", "yandex:2:7") })
         assertEquals(listOf("yandex:1:7", "yandex:2:7", "yandex:3:7", "yandex:5:7"),
             fixture.waveFeedback.filter { it.third == WaveFeedback.STARTED }.map { it.second.track.id })
     }
     @Test fun nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution() {
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle { fixture.streamGates = mapOf("yandex:3:7" to gate) }
         start()
         assertTrue(player.state.value.positionSeconds < 10)
-        assertEquals(setOf("yandex:2:7"), player.bufferedWaveAudioIds())
+        waitFor { player.bufferedWaveAudioIds() == setOf("yandex:1:7", "yandex:2:7") }
         assertEquals(1, fixture.resolved.count { it.second == "yandex:2:7" })
         compose.runOnIdle { fixture.streamFailure = MusicFailure.NETWORK; player.seek(player.state.value.current!!.durationSeconds - 1) }
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 2 }
         assertTrue(player.state.value.playing)
         assertEquals(1, fixture.resolved.count { it.second == "yandex:2:7" })
-        compose.runOnIdle { fixture.streamFailure = null }
+        compose.runOnIdle { fixture.streamFailure = null; gate.complete(Unit) }
         waitFor { "yandex:3:7" in player.bufferedWaveAudioIds() }
-        assertEquals(setOf("yandex:2:7", "yandex:3:7"), player.bufferedWaveAudioIds())
+        assertTrue(player.bufferedWaveAudioIds().containsAll(setOf("yandex:2:7", "yandex:3:7")))
     }
     @Test fun badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack() {
         compose.runOnIdle { fixture.brokenStreamTrackIds = setOf("yandex:1:7", "yandex:3:7"); player.playMyWave() }
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 }
-        waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:4:7" }
+        waitFor { player.state.value.queue.any { it.id == "yandex:4:7" } }
         assertTrue(player.state.value.playing)
         assertFalse(player.state.value.queue.any { it.id == "yandex:3:7" })
         compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
@@ -162,18 +166,17 @@ class MyWavePlaybackTest {
     }
     @Test fun endWaitsForExistingAudioPrefetchAndPauseStillWins() {
         val gate = CompletableDeferred<Unit>()
-        compose.runOnIdle { fixture.streamGates = mapOf("yandex:2:7" to gate); player.playMyWave() }
+        val next = CompletableDeferred<Unit>()
+        compose.runOnIdle { fixture.streamGates = mapOf("yandex:2:7" to gate, "yandex:4:7" to next); player.playMyWave() }
         waitFor { player.state.value.positionSeconds >= 1 && fixture.resolved.any { it.second == "yandex:2:7" } }
         compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
         waitFor { player.state.value.positionSeconds >= 30 }
         compose.runOnIdle { fixture.systemPlayer.pause(); gate.complete(Unit) }
-        waitFor { player.state.value.current?.id == "yandex:2:7" && !player.state.value.waveLoading }
+        waitFor { player.state.value.current?.id == "yandex:2:7" && "yandex:3:7" in player.bufferedWaveAudioIds() }
         assertFalse(player.state.value.playing)
         assertEquals(1, fixture.resolved.count { it.second == "yandex:2:7" })
         compose.runOnIdle { fixture.systemPlayer.play() }
         waitFor { player.state.value.positionSeconds >= 1 }
-        val next = CompletableDeferred<Unit>()
-        compose.runOnIdle { fixture.streamGates = mapOf("yandex:4:7" to next) }
         waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:3:7" }
         compose.runOnIdle { player.skip(1) }
         waitFor { fixture.resolved.any { it.second == "yandex:4:7" } }
@@ -186,7 +189,7 @@ class MyWavePlaybackTest {
         compose.runOnIdle { fixture.waveDelayMillis = 1800; player.playMyWave() }
         waitFor { player.state.value.positionSeconds >= 1 && player.state.value.waveLoading }
         compose.runOnIdle { fixture.systemPlayer.seekToNext(); fixture.systemPlayer.pause() }
-        waitFor { !player.state.value.waveLoading && player.state.value.current?.id == "yandex:2:7" }
+        waitFor { player.state.value.current?.id == "yandex:2:7" }
         assertFalse(player.state.value.playing)
         compose.runOnIdle { fixture.systemPlayer.play() }
         waitFor { player.state.value.positionSeconds >= 1 && player.state.value.playing }
@@ -234,9 +237,10 @@ class MyWavePlaybackTest {
         val startRequests = fixture.waveRequests.size
         Thread.sleep(1800)
         assertEquals(startRequests, fixture.waveRequests.size)
-        compose.runOnIdle { fixture.waveFailure = null; player.retryWave() }
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle { fixture.waveRequestGates = mapOf(3 to gate); fixture.waveFailure = null; player.retryWave() }
         waitFor { player.state.value.positionSeconds >= 1 && player.state.value.queue.size == 2 }
-        compose.runOnIdle { fixture.waveFailure = MusicFailure.ACCESS; player.seek(29) }
+        compose.runOnIdle { fixture.waveFailure = MusicFailure.ACCESS; gate.complete(Unit); player.seek(29) }
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.waveIssue != null }
         val endRequests = fixture.waveRequests.size
         compose.runOnIdle { player.seek(29) }

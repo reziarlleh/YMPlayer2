@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-10-28T15:46:31.684155+00:00",
+  "serial": "emulator-5562",
+  "classes": "dev.petrov.ymplayer2.LaunchResumeIntentTest#returningFromRadioPersistsMusicOwnershipAndPlayBeforeRestart",
+  "apkSha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "394bc42dccec29bfae00d94cad162c81f0be374711b64a9d1b98ef9b1b33e71b",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "2883f37b2710316b83a7879ea02e68986992b410c8bf7a1c31ef692ebe2d988a"
+  },
+  "finishedAtUtc": "2026-10-28T15:47:00.607614+00:00",
+  "exitCode": 0,
+  "passed": false
+}

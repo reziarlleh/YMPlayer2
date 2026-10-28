@@ -64,7 +64,7 @@ class EntityWavePlaybackTest {
         compose.runOnIdle { h.restartEngine() }
         waitFor { player.state.value.connected && player.state.value.current?.id == tracks.last().id }
         assertEquals(origin, player.state.value.origin); assertTrue(player.state.value.continueWave); assertFalse(player.state.value.playing)
-        compose.onNodeWithTag("my_wave").assertTextContains(origin.title)
+        compose.onNodeWithTag("player_source_label").assertTextContains(origin.title)
         compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
         compose.runOnIdle { player.toggle(); player.seek(tracks.last().durationSeconds - 1) }
         waitFor { player.state.value.wave && player.state.value.positionSeconds >= 1 && player.state.value.queueCount >= 2 }
@@ -140,13 +140,14 @@ class EntityWavePlaybackTest {
         compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
         val id = h.library.testTracks.first().id
         assertTrue(runBlocking { h.collections.edit("owner", CollectionEdit.Favorite(id, true)) })
-        compose.onNodeWithTag("my_wave").performClick()
-        val choice = compose.onNodeWithTag("player_source_favorites")
-        choice.performKeyInput { pressKey(Key.DirectionDown) }
+        val choice = compose.onNodeWithTag("player_source_list")
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
+        compose.waitForIdle()
         choice.performSemanticsAction(SemanticsActions.RequestFocus) { it() }; choice.assertIsFocused()
         choice.performKeyInput { pressKey(Key.Enter) }
         waitFor { player.state.value.origin.source == PlaybackSource.LOCAL_FAVORITES && player.state.value.playing }
-        compose.onNodeWithTag("my_wave").assertTextContains("Локальное избранное")
+        compose.onNodeWithTag("player_source_label").assertTextContains("Локальное избранное")
+        compose.onNodeWithTag("player_source_list").assertIsSelected()
         compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
         compose.runOnIdle { h.offline.setEnabled(true) }
         waitFor { h.offline.state.value.ready && h.offline.state.value.owner != null }
@@ -154,12 +155,13 @@ class EntityWavePlaybackTest {
         waitFor { h.taste.state.value.shelf(TasteKind.TRACK).list.liked == setOf("1", "2") }
         compose.runOnIdle { h.offline.sync() }
         waitFor { h.offline.state.value.tracks.size == 2 && !h.offline.state.value.running }
-        compose.onNodeWithTag("my_wave").performClick(); screenshot("source-picker")
+        screenshot("source-shortcuts")
         compose.onNodeWithTag("player_source_offline").performClick()
         waitFor { player.state.value.origin.source == PlaybackSource.OFFLINE && player.state.value.playing }
-        compose.onNodeWithTag("my_wave").assertTextContains("Оффлайн")
+        compose.onNodeWithTag("player_source_label").assertTextContains("Оффлайн")
+        compose.onNodeWithTag("player_source_offline").assertIsSelected()
         compose.onNodeWithTag("my_wave_settings").assertDoesNotExist()
-        compose.onNodeWithTag("my_wave").performClick(); compose.onNodeWithTag("player_source_wave").performClick()
+        compose.onNodeWithTag("player_source_wave").performClick()
         waitFor { player.state.value.wave && player.state.value.positionSeconds >= 1 }
         compose.runOnIdle { player.toggle() }
         waitFor { !player.state.value.playing }

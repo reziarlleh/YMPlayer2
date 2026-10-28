@@ -1,15 +1,15 @@
-# YMPlayer 2
+# YMPlayer2
 
 Музыкальный плеер для **Android 9 и новее**: музыка из папок и USB,
 Яндекс Музыка, эфирное радио и видеоклипы. Подходит для телефона, планшета, Android TV
 и автомобильной магнитолы. Интерфейс адаптируется к экрану и управлению
 касанием или пультом.
 
-YMPlayer 2 — самостоятельное приложение. Для работы версия 1.x не нужна;
+YMPlayer2 — самостоятельное приложение. Для работы версия 1.x не нужна;
 при установке обеих версий их данные не смешиваются.
 
 <p align="center">
-  <img src="docs/design/brand/tv-banner.png" width="640" alt="YMPlayer 2">
+  <img src="docs/design/brand/tv-banner.png" width="640" alt="YMPlayer2">
 </p>
 
 **[Скачать APK — 2.6.3-build119](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
@@ -93,7 +93,7 @@ YMPlayer 2 — самостоятельное приложение. Для ра�
 
 <p align="center">
   <a href="https://donate.stream/donate_6a60559cd9e35">
-    <img src="docs/assets/donate-qr.png" width="200" alt="QR-код для поддержки разработки YMPlayer 2">
+    <img src="docs/assets/donate-qr.png" width="200" alt="QR-код для поддержки разработки YMPlayer2">
   </a><br>
   <a href="https://donate.stream/donate_6a60559cd9e35"><strong>Поддержать разработку</strong></a>
 </p>

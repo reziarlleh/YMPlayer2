@@ -109,11 +109,12 @@ class AudioQualityPlaybackTest {
         assertEquals(listOf(AudioQuality.STANDARD, AudioQuality.STANDARD), h.resolvedQualities.drop(requests).map { it.second })
     }
     @Test fun waveKeepsAlreadyPreparedAudioAndUsesStreamQualityForFutureFiles() {
-        compose.runOnIdle { h.audioQuality.setStream(AudioQuality.STANDARD); h.audioQuality.setCache(AudioQuality.ECONOMY); player.playMyWave() }
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle { h.streamGates = mapOf("yandex:3:7" to gate); h.audioQuality.setStream(AudioQuality.STANDARD); h.audioQuality.setCache(AudioQuality.ECONOMY); player.playMyWave() }
         waitFor { player.state.value.playing && "yandex:2:7" in player.bufferedWaveAudioIds() }
         assertTrue(h.resolvedQualities.all { it.second == AudioQuality.STANDARD })
         val requests = h.resolvedQualities.count { it.first == "yandex:2:7" }
-        compose.runOnIdle { h.audioQuality.setStream(AudioQuality.HIGH); player.skip(1) }
+        compose.runOnIdle { h.audioQuality.setStream(AudioQuality.HIGH); gate.complete(Unit); player.skip(1) }
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 && "yandex:3:7" in player.bufferedWaveAudioIds() }
         assertEquals(requests, h.resolvedQualities.count { it.first == "yandex:2:7" })
         assertEquals(AudioQuality.HIGH, h.resolvedQualities.last { it.first == "yandex:3:7" }.second)

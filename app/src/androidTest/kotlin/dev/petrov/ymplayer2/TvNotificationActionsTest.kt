@@ -239,6 +239,9 @@ class TvNotificationActionsTest {
         val originalTaste = tasteField.get(app.playback)
         val profile = app.playback.state.value.profileId
         val checkpoint = app.launchState.read(profile)
+        val playbackPrefs = context.getSharedPreferences("playback", android.content.Context.MODE_PRIVATE)
+        var fixtureHistoryKey: String? = null
+        var previousHistory: String? = null
         try {
             compose.runOnIdle {
                 fixture = OnlineHarness(app)
@@ -250,6 +253,11 @@ class TvNotificationActionsTest {
                 tasteField.set(app.playback, fixture.taste)
             }
             waitFor { fixture.online.catalog.value.phase == AuthPhase.SIGNED_IN }
+            // Reused emulator runs must not treat this fixed 1..N fixture catalogue
+            // as already heard. Preserve the surrounding application's own history.
+            fixtureHistoryKey = "myWaveSeen:$profile:${fixture.auth.state.value.account!!.id}"
+            previousHistory = playbackPrefs.getString(fixtureHistoryKey, null)
+            playbackPrefs.edit().remove(fixtureHistoryKey).commit()
             compose.runOnIdle { app.playback.playMyWave() }
             try {
                 waitFor { app.playback.state.value.wave && app.playback.state.value.playing &&
@@ -273,6 +281,11 @@ class TvNotificationActionsTest {
         } finally {
             compose.runOnIdle {
                 app.playback.stop()
+                fixtureHistoryKey?.let { key ->
+                    playbackPrefs.edit().apply {
+                        if (previousHistory == null) remove(key) else putString(key, previousHistory)
+                    }.commit()
+                }
                 onlineField.set(app.playback, originalOnline)
                 waveField.set(app.playback, originalWave)
                 settingsField.set(app.playback, originalSettings)

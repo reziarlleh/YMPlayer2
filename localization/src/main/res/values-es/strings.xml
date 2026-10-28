@@ -287,7 +287,7 @@
     <string name="msg_6841e1070158" formatted="false">"No se ha encontrado la pantalla de permisos del sistema."</string>
     <string name="msg_68cc12d616b8" formatted="false">"Actualizar Me gusta y bloqueos"</string>
     <string name="msg_68eab87f63c4" formatted="false">"Yandex ha denegado el acceso. Comprueba la cuenta y la suscripción a Music."</string>
-    <string name="msg_69294d8ce6a4" formatted="false">"Yandex puede ofrecer otra tasa de bits: se elige la mejor disponible hasta el límite indicado o, si no hay ninguna, la más cercana por encima. Auto y Máxima eligen la tasa disponible más alta."</string>
+    <string name="msg_69294d8ce6a4" formatted="false">"Auto y Máxima eligen la tasa de bits más alta disponible. Auto no ajusta la calidad a la velocidad de conexión. Para 128, 192 y 320 kbit/s, se elige la mejor opción disponible sin superar el valor seleccionado o, si no hay ninguna, la más cercana por encima. El archivo no se vuelve a codificar."</string>
     <string name="msg_6aadca8eb39a" formatted="false">"Crear y añadir canción"</string>
     <string name="msg_6b5623eafb06" formatted="false">"Editar lista"</string>
     <string name="msg_6bd804f5b776" formatted="false">"Canción: @0@"</string>

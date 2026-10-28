@@ -53,6 +53,7 @@ val PrismIcons: Map<UiIcon, ImageVector> = mapOf(
     UiIcon.WAVE to Icons.Default.GraphicEq,
     UiIcon.MORE to Icons.Default.MoreVert,
     UiIcon.PLAYLIST to Icons.AutoMirrored.Filled.QueueMusic,
+    UiIcon.OFFLINE to Icons.Default.OfflinePin,
     UiIcon.ADD to Icons.Default.Add,
     UiIcon.BRAND to ymBrandLogo(Color.White),
     UiIcon.ARTWORK to ymBrandLogo(Color(0xFFD77A50)),

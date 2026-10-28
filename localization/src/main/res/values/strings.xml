@@ -287,7 +287,7 @@
     <string name="msg_6841e1070158" formatted="false">"The system permission screen was not found."</string>
     <string name="msg_68cc12d616b8" formatted="false">"Refresh likes and blocks"</string>
     <string name="msg_68eab87f63c4" formatted="false">"Yandex denied access. Check your account and Music subscription."</string>
-    <string name="msg_69294d8ce6a4" formatted="false">"Yandex may provide a different bitrate. The player selects the best available bitrate up to your limit, or the closest higher one if necessary. Auto and Maximum select the highest available bitrate."</string>
+    <string name="msg_69294d8ce6a4" formatted="false">"Auto and Maximum select the highest available bitrate. Auto does not adjust quality to your connection speed. For 128, 192 and 320 kbps, the player selects the best available option at or below the chosen bitrate, or the closest higher one if none is available. The file is not transcoded."</string>
     <string name="msg_6aadca8eb39a" formatted="false">"Create and add track"</string>
     <string name="msg_6b5623eafb06" formatted="false">"Edit playlist"</string>
     <string name="msg_6bd804f5b776" formatted="false">"Track: @0@"</string>

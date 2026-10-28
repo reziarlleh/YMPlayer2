@@ -30,7 +30,6 @@ class WaveSettingsPlaybackTest {
     @After fun stop() { compose.runOnIdle { player.stop() } }
     private fun startMyWave() {
         if (!player.state.value.wave || player.state.value.origin.source != PlaybackSource.MY_WAVE) {
-            compose.onNodeWithTag("my_wave").performClick()
             compose.onNodeWithTag("player_source_wave").performClick()
             waitFor { player.state.value.wave && player.state.value.origin.source == PlaybackSource.MY_WAVE && player.state.value.positionSeconds >= 1 }
         }
@@ -51,7 +50,8 @@ class WaveSettingsPlaybackTest {
         val current = player.state.value.current!!.id
         open(); choose(); assertEquals(current, player.state.value.current!!.id); assertTrue(player.state.value.playing)
         compose.onNodeWithTag("wave_settings_play").performClick()
-        waitFor { player.state.value.current?.source == Source.YANDEX && player.state.value.positionSeconds >= 1 && player.state.value.queue.size == 2 }
+        waitFor { player.state.value.current?.source == Source.YANDEX && player.state.value.positionSeconds >= 1 && player.state.value.queue.size >= 2 }
+        assertTrue(player.state.value.queue.size <= WaveQueueWindow.MAX_ITEMS)
         assertEquals("activity:road-trip", fixture.waveSelections.last().station)
         assertEquals(setOf("settingMoodEnergy:calm", "settingLanguage:russian"), fixture.waveSelections.last().settings.toSet())
         compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
@@ -75,7 +75,8 @@ class WaveSettingsPlaybackTest {
         waitFor { player.state.value.profileId == "road" && fixture.taste.state.value.profileId == "road" && fixture.taste.state.value.signedIn }
         assertTrue(player.waveSettings!!.state.value.selected.isEmpty())
         compose.runOnIdle { player.switchProfile("owner") }
-        waitFor { fixture.taste.state.value.profileId == "owner" && fixture.taste.state.value.signedIn }
+        waitFor { fixture.taste.state.value.profileId == "owner" && fixture.taste.state.value.signedIn &&
+            player.state.value.profileId == "owner" && player.state.value.wave && player.state.value.origin.source == PlaybackSource.MY_WAVE }
         open(); compose.onNodeWithTag("wave_setting_language_settingLanguage:russian").assertIsSelected()
         compose.onNodeWithTag("wave_settings_reset").performClick()
         assertEquals(WaveRequest(), player.waveSettings!!.request())

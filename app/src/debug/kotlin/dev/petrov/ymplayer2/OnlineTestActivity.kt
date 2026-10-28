@@ -49,6 +49,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     @Volatile var streamGates: Map<String, CompletableDeferred<Unit>> = emptyMap()
     val resolved = java.util.concurrent.CopyOnWriteArrayList<Pair<String, String>>()
     var requests = 0
+    var onlineTrackCount = 2
     val cloudRows = mutableMapOf("owner" to mutableListOf(CloudPlaylist("77", "1", "Дорожный плейлист")),
         "road" to mutableListOf(CloudPlaylist("88", "2", "Другой аккаунт")))
     val cloudWrites = mutableListOf<String>()
@@ -74,8 +75,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             if (request.entity?.kind == MusicKind.ARTISTS && request.kind == MusicKind.ALBUMS) return MusicPage(listOf(MusicEntry("album:7", "Тестовый альбом", "Альбом", entity = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS))))
             if (request.kind == MusicKind.ARTISTS && request.entity == null) return MusicPage(listOf(MusicEntry("artist:5", "Первый исполнитель", "Исполнитель", entity = MusicEntity("5", "Первый исполнитель", MusicKind.ARTISTS))))
             if (request.kind != MusicKind.TRACKS && request.entity == null) return MusicPage(listOf(MusicEntry("album:7", "Тестовый альбом", "Два трека", entity = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS))))
-            val rows = fixtureTracks().take(2).mapIndexed { index, original ->
-                val track = onlineTrack(index + 1)
+            val rows = (1..onlineTrackCount).map { id ->
+                val track = onlineTrack(id)
                 MusicEntry(track.id, track.title, track.artist, track)
             }
             return MusicPage(if (page == 0) rows.take(1) else rows.drop(1), if (page == 0 && rows.size > 1) 1 else null)
@@ -183,6 +184,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         dev.petrov.ymplayer2.offline.AudioExporter(context, auth, online.api, offline, cacheLocation, viewModelScope)
     }
     var waveDelayMillis = 100L
+    var waveRequestGates: Map<Int, CompletableDeferred<Unit>> = emptyMap()
     var waveFailure: MusicFailure? = null
     var waveFailuresRemaining = 0
     val waveRequests = mutableListOf<Int>()
@@ -195,7 +197,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     val waveApi = object : MyWaveApi {
         private suspend fun batch(id: Int): WaveBatch {
             waveRequests += id
-            delay(waveDelayMillis); waveFailure?.let { throw MusicException(it) }
+            delay(waveDelayMillis); waveRequestGates[id]?.await(); waveFailure?.let { throw MusicException(it) }
             if (waveFailuresRemaining > 0) { waveFailuresRemaining--; throw MusicException(MusicFailure.NETWORK) }
             return WaveBatch(listOf(WaveTrack(onlineTrack(id), "batch$id")),
                 if (waveRecoveryNeedsDrainedCursor) "" else "session", id.toString())

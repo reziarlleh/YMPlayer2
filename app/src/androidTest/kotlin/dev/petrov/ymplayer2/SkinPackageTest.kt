@@ -43,6 +43,8 @@ class SkinPackageTest {
         assertEquals(PrismSkin.dark.background, parsed.skin.dark.background)
         assertNotSame(PrismIcons[UiIcon.PLAY], parsed.skin.icon(UiIcon.PLAY))
         assertSame(PrismIcons[UiIcon.PAUSE], parsed.skin.icon(UiIcon.PAUSE))
+        assertNotNull(PrismIcons[UiIcon.OFFLINE])
+        assertSame("Existing skins inherit the new optional source icon", PrismIcons[UiIcon.OFFLINE], parsed.skin.icon(UiIcon.OFFLINE))
     }
     @Test fun bundledThemesAreActualValidExternalPackages() {
         for (name in listOf("harbor", "olive", "silver")) {
