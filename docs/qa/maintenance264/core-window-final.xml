@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.petrov.ymplayer2.core.WaveQueueWindowTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-28T16:23:30.346Z" hostname="REZIARLLEH-NB" time="0.003">
+  <properties/>
+  <testcase name="shortTailNeedsRefillingWithoutReplayingDiscardedHistory" classname="dev.petrov.ymplayer2.core.WaveQueueWindowTest" time="0.002"/>
+  <testcase name="firstWindowIsCurrentAndNineUpcomingTracks" classname="dev.petrov.ymplayer2.core.WaveQueueWindowTest" time="0.001"/>
+  <testcase name="advancingEvictsOldHistoryButKeepsOnePreviousAndAtMostTenEntries" classname="dev.petrov.ymplayer2.core.WaveQueueWindowTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

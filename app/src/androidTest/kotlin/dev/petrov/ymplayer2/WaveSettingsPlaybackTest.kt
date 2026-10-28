@@ -54,11 +54,13 @@ class WaveSettingsPlaybackTest {
         assertTrue(player.state.value.queue.size <= WaveQueueWindow.MAX_ITEMS)
         assertEquals("activity:road-trip", fixture.waveSelections.last().station)
         assertEquals(setOf("settingMoodEnergy:calm", "settingLanguage:russian"), fixture.waveSelections.last().settings.toSet())
+        val started = player.state.value.current!!.id.removePrefix("yandex:").substringBefore(':').toInt()
+        val nextId = "yandex:${started + 1}:7"
         compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
-        waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 }
+        waitFor { player.state.value.current?.id == nextId && player.state.value.positionSeconds >= 1 }
         assertTrue(fixture.waveFeedback.any { it.second.station == "activity:road-trip" && it.third == WaveFeedback.STARTED })
         compose.runOnIdle { player.toggle(); fixture.restartEngine() }
-        waitFor { player.state.value.connected && player.state.value.current?.id == "yandex:2:7" }
+        waitFor { player.state.value.connected && player.state.value.current?.id == nextId }
         assertFalse(player.state.value.playing)
         assertTrue(fixture.checkpointText().contains("activity:road-trip"))
         assertFalse(fixture.checkpointText().contains("fixture-token"))

@@ -72,7 +72,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var notifiedRepeat: RepeatMode? = null
     private var notifiedShuffle: Boolean? = null
     private var notifiedNavigation: Pair<Boolean, Boolean>? = null
-    private var savedHistoryStamp: Pair<String, Long>? = null
+    private var savedHistoryStamp: Triple<String, Long, String?>? = null
     private var completedListItem: Pair<String, String>? = null
     private var waitingId: String? = null
     private var waveBatch: WaveBatch? = null
@@ -1480,10 +1480,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private fun myWaveHistoryKey() = "myWaveSeen:${state.value.profileId}:${online?.accounts?.state?.value?.account?.id.orEmpty()}"
     private fun checkpoint() {
         if (state.value.wave && state.value.origin.source == PlaybackSource.MY_WAVE) {
-            val stamp = myWaveHistoryKey() to waveHistory.revision
+            val stamp = Triple(myWaveHistoryKey(), waveHistory.revision, state.value.current?.id)
             if (savedHistoryStamp != stamp) {
                 savedHistoryStamp = stamp
-                prefs.edit().putString(stamp.first, JSONArray(waveHistory.seen.toList()).toString()).apply()
+                // Queue membership prevents duplicate prefetch in this session, but
+                // downloading future audio does not mean the listener has heard it.
+                // Keep those candidates in the queue checkpoint, not durable history.
+                val upcoming = logicalQueue.drop(state.value.index + 1).mapTo(hashSetOf()) { it.tasteTarget().key }
+                prefs.edit().putString(stamp.first, JSONArray(waveHistory.seen.filterNot { it in upcoming }).toString()).apply()
             }
         }
         if (radioMode) return

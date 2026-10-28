@@ -156,4 +156,18 @@ class WaveQueuePrefetchTest {
         assertEquals(ids, player.state.value.queue.map(Track::id))
         assertEquals("Restored queued candidates must not be skipped as already heard", requests, h.waveRequests.toList())
     }
+
+    @Test fun restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { fullWindow() && player.state.value.current?.id == "yandex:1:7" && player.state.value.positionSeconds >= 1 }
+        compose.runOnIdle { player.saveForExit() }
+        val saved = org.json.JSONArray(h.context.getSharedPreferences("playback", android.content.Context.MODE_PRIVATE)
+            .getString("myWaveSeen:owner:1", "[]"))
+        val heard = (0 until saved.length()).map { saved.getString(it) }.toSet()
+        assertTrue("1" in heard)
+        assertTrue("Downloading the next nine songs must not mark them as heard", (2..10).none { it.toString() in heard })
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { fullWindow() && player.state.value.current?.id == "yandex:2:7" && player.state.value.playing }
+        assertTrue(player.state.value.queue.any { it.id == "yandex:3:7" })
+    }
 }

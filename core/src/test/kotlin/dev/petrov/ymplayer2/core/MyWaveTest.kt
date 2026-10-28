@@ -24,6 +24,12 @@ class MyWaveTest {
         assertEquals("session2", WaveLoader(api).load("owner", batch(0), emptySet()) { true }.sessionId)
         assertEquals(1, api.starts); assertEquals(1, api.continuations)
     }
+    @Test fun tenQueuedEchoesCannotExhaustDrainBeforeTheFirstFreshTrack() = runTest {
+        val api = Api()
+        val seen = (1..10).mapTo(hashSetOf()) { it.toString() }
+        assertEquals("yandex:11:7", WaveLoader(api).load("owner", null, seen) { true }.tracks.single().track.id)
+        assertEquals(11, api.starts + api.continuations)
+    }
     @Test fun repeatedEmptyBatchesAndNetworkFailuresAreBounded() = runTest {
         val empty = Api().apply { handle = { WaveBatch(emptyList()) } }
         try { WaveLoader(empty).load("owner", null, emptySet()) { true }; fail() } catch (_: MusicException) { }

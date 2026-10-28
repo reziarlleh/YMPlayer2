@@ -24,7 +24,10 @@ class WaveLoader(private val api: MyWaveApi, private val diagnostic: (OperationD
         val drained = mutableSetOf<String>()
         var recovering = false
         previous?.cursor?.takeIf(String::isNotBlank)?.let { drained.add(it) }
-        repeat(8) {
+        // A complete ten-track queued window may be echoed before the first fresh
+        // candidate. Keep the short baseline, with a bounded allowance for history.
+        val drainBudget = (seen.size.toLong() + 1).coerceIn(8L, (WaveQueueWindow.MAX_ITEMS + 8).toLong()).toInt()
+        repeat(drainBudget) {
             try {
                 val requestCursor = if (recovering) recoveryPoint else cursor
                 val response = if (recovering) api.recover(profile, recoveryPoint, request)

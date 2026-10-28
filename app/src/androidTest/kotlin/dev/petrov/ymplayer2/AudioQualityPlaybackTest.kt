@@ -106,7 +106,12 @@ class AudioQualityPlaybackTest {
         assertEquals(requests, h.resolvedQualities.size)
         compose.runOnIdle { player.stop(); h.offline.clear() }; waitFor { h.offline.state.value.ready && h.offline.state.value.tracks.isEmpty() }
         likeAndSync()
-        assertEquals(listOf(AudioQuality.STANDARD, AudioQuality.STANDARD), h.resolvedQualities.drop(requests).map { it.second })
+        val afterClear = h.resolvedQualities.drop(requests)
+        // Media3 may finish an outgoing playback resolver after Stop and cache removal.
+        // It uses ECONOMY (stream), while both new cache downloads must use STANDARD.
+        assertEquals(listOf("yandex:1:7", "yandex:2:7"), afterClear.filter { it.second == AudioQuality.STANDARD }.map { it.first }.sorted())
+        assertTrue(afterClear.all { it.second == AudioQuality.STANDARD || it.second == AudioQuality.ECONOMY })
+        assertFalse(player.state.value.playing)
     }
     @Test fun waveKeepsAlreadyPreparedAudioAndUsesStreamQualityForFutureFiles() {
         val gate = CompletableDeferred<Unit>()
