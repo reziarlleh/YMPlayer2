@@ -1,6 +1,6 @@
 # YMPlayer2 — user guide
 
-The published release is **2.6.3-build119**, Android9 and later. Reviewed on28 October2026.
+The published release is **2.6.3-build119**, Android9 and later. Reviewed on29 October2026.
 The new player shortcuts and ten-track window below describe the2.6.4 candidate.
 Version2.6.3 uses the previous shared source-selector button.
 My Vibe settings, radio sources and list modes are available in the stable release.

@@ -1,0 +1,54 @@
+{
+  "checkedAtUtc": "2026-10-29",
+  "sourceCommit": "eab8f0c9a3fe8cdc0ff004c45a2c06cf2e773e87",
+  "version": "2.6.4-build121",
+  "jvm": {
+    "core/build/test-results/test": {
+      "tests": 149,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app/build/test-results/testDebugUnitTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "nativeFinalSource": {
+    "api28": {
+      "passed": 69,
+      "batches": [
+        31,
+        20,
+        18
+      ]
+    },
+    "api35Wide": {
+      "passed": 26,
+      "screen": "1024x600@160"
+    }
+  },
+  "earlierTvChecks": {
+    "uiEntitySystemCard": 19,
+    "waveResume": 30,
+    "sameFinalSource": false
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 81
+  },
+  "translations": {
+    "messages": 735,
+    "completeLanguagePacks": 8
+  },
+  "apkSha256": "d038c317e2327f14b25c673f49ad270a05f29b8d37d9d08d8bf8e1e54f29e25c",
+  "ci": {
+    "id": 40728199521,
+    "conclusion": "success"
+  },
+  "physicalDeviceAcceptance": false,
+  "published": false,
+  "stableVersion": "2.6.3-build119"
+}

@@ -81,15 +81,76 @@ previous+current+8. Предыдущий и его аудиофайл сохра
   к скорости сети нет. Уточнены8 переводов и обе инструкции, ключи настроек сохранены.
 - Новая необязательная рольOFFLINE наследует встроенную иконку в прежних скинах.
 
-## Проверки и остаток
+## Финальные проверки29 октября
 
-Целевые тесты, финальные результаты и артефакты ещё проверяются. Исходные red
-результаты хранятся локально в `.local-build/maintenance264/resume-before.txt`.
-Первый UI прогон выявил неполную фикстуру: страница возвращала один трек, и
-Next был правильно недоступен. В фикстуре UI проверок загружается вторая страница;
-это не дефект продукта. Первый незавершённый compile тестов из-за параллельной
-правки debug-фикстуры исправлен повторной сборкой замороженного snapshot.
-Сборки продукта/Build для этих внутренних проверок не выделялись.
+Финальный исходный snapshot: `eab8f0c9a3fe8cdc0ff004c45a2c06cf2e773e87`.
+[CI40728199521](https://github.com/reziarlleh/YMPlayer2/actions/runs/40728199521)
+успешен. Следующие изменения — только документация/доказательства, без пересборки APK.
 
-Клипы, эксперимент приборки,1.x, Kivi и иные физические устройства не менялись.
-Публикация, feeds и шапка4PDA не выполняются автоматически.
+| Проверка | Результат | Свидетельство |
+| --- | --- | --- |
+| core JVM / app JVM |149/149 и4/4, без пропусков|[Сводка](qa/maintenance264/final-checks.json), [wave XML](qa/maintenance264/core-wave-final.xml), [окно XML](qa/maintenance264/core-window-final.xml)|
+| Native API28, партия A |31/31: resume8, полный кэш8, MyWave15|[Лог](qa/maintenance264/native121-a-api28.txt), [APK hashes](qa/maintenance264/native121-a-api28.json)|
+| Native API28, партия B |20/20: объектные волны8, качество3+4, режимы3, профили2|[Лог](qa/maintenance264/native121-b-api28.txt), [receipt](qa/maintenance264/native121-b-api28.json)|
+| Native API28, партия C |18/18: композиция7, скины6, настройки волны4, пустой офлайн1|[Лог](qa/maintenance264/native121-c-api28.txt), [receipt](qa/maintenance264/native121-c-api28.json)|
+| Native API35,1024×600 |26/26: resume8, полный кэш8, качество3, композиция7|[Лог](qa/maintenance264/native121-api35-wide.txt), [receipt](qa/maintenance264/native121-api35-wide.json)|
+| Android TV API29 |19/19: композиция7, объектные волны8, системная Open/Stop4|[Лог](qa/maintenance264/native-tv-second.txt), [receipt](qa/maintenance264/native-tv-second.json)|
+| Android TV API29, wave/resume |30/30: resume8, кэш7, MyWave15|[Лог](qa/maintenance264/wave-resume-tv-final.txt), [receipt](qa/maintenance264/wave-resume-tv-final.json)|
+| Signed121, API28 |Обновление119→121, UID прежний, cold/warm без падения|[Receipt](qa/maintenance264/signed-startup-api28.json)|
+| Signed121, API35 |Обновление119→121, UID прежний,3 cold+3 warm без падения|[Receipt](qa/maintenance264/signed-startup-api35.json)|
+| Release build/lint |Успех,0 ошибок/81 предупреждение|[Сводка](qa/maintenance264/final-checks.json)|
+| Переводы |735 сообщений,8 полных пакетов, генерация согласована|[Сводка](qa/maintenance264/final-checks.json)|
+
+Все69 API28 и26 API35 используют один финальный debug APK/test APK, хэши одинаковы
+в receipts. TV-прогоны выполнены раньше финальных изменений истории/drain121:
+их нельзя считать повторной проверкой всего финального121 наTV. Финальные
+UI исходники после TV-прогона не менялись; контроль истории/drain добавлен на API28/35.
+Native использует настоящий ExoPlayer и контролируемые ответы/аудиофайлы.
+Личный аккаунт/ответы Яндекса и физические ГУ не проверялись. Ночная стоянка
+не заменена обещанием эмуляторной аппаратной приёмки.
+
+Снимки без ретуши: [телефонAPI28](qa/maintenance264/player-phone.png),
+[TVAPI29](qa/maintenance264/player-tv.png), [широкийAPI35](qa/maintenance264/player-wide-api35.png).
+Первый API35 снимок был перекрыт ANR **SystemUI**, а не исключением процесса YMPlayer2.
+Проверки Compose прошли; после остановки остальных задач переснят тем же APK,
+[контрольный тест1/1](qa/maintenance264/native121-api35-capture.txt) и визуальная
+проверка нового изображения успешны. Это ограничение среды записано, не скрыто.
+Signed API35 helper сначала ожидал старое поле dumpsys userId; обновлён парсер
+appId/userId, после чего проверено119→121. Продуктовый код из-за этого не менялся.
+
+## Артефакт и публикация
+
+Подписанный APK: `releases/2.6.4-build121/YMPlayer-2.6.4-build121.apk`.
+SHA256: `d038c317e2327f14b25c673f49ad270a05f29b8d37d9d08d8bf8e1e54f29e25c`.
+Package `dev.petrov.ymplayer2`, minSDK28/target36, прежняя подпись v2:
+`fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
+[Build metadata](qa/maintenance264/build121.json), [строгая подпись](qa/maintenance264/signature121.txt).
+Release OAuth-конфигурация проверена до сборки и в итоговом DEX.
+APK121 не пересобирался после проверок; последующие docs-коммиты не меняют его байты.
+Автоматической публикации/изменения feeds/форумной шапки нет; stable/latest119.
+Следующий шаг — решение владельца о публикации именно проверенного121.
+
+## Неудачные подходы и остаток
+
+Red proofs: [resume до](qa/maintenance264/resume-before.txt),
+[RADIO вместо MUSIC](qa/maintenance264/handoff-before.txt),
+[будущие≠услышанные](qa/maintenance264/heard-before.txt),
+[непройденное эхо10](qa/maintenance264/ten-echoes-before.xml). Итоговые тесты прошли.
+Первая UI-фикстура содержала1 трек: Next был правильно недоступен; исправлена
+фикстура второй страницей. Общий старый68 native прогон упёрся в ресурсы/900s;
+финальный69 разделён на31+20+18, все прошли. В quality-тесте поздний resolver
+остановленного Media3 законно завершал старое ECONOMY-разрешение потока:
+проверяется именно пара новых STANDARD-загрузок кэша и остановленное состояние.
+Неверное предположение теста исправлено без ослабления проверки качества кэша.
+
+RepoWise MCP overview/search не ответили; CLI дал адресный context, но update и
+doctor --repair завершились timeout70s. Свежесть индекса не подтверждена;
+выводы проверены по исходникам, сборкам и тестам. Глобальные инструменты не менялись.
+Клипы, эксперимент приборки,1.x, MainActivity/AudioService, Kivi и иные физические
+устройства не менялись. Этап2 не начинался. [Актуальный план](ROADMAP.md).
+
+Независимая read-only проверка финальных исходников не нашла блокирующих дефектов
+в окне10/Previous/истории/Play. Найден отдельный P3 B-039: ошибка записи верно
+диагностируется STORAGE, но общее сообщение fetchWave может назвать её сетевой.
+Зарегистрировано в [багрепорте](BUG_REPORT.md); отказ заполненного диска не
+воспроизводился и исправленным в121 не объявляется.

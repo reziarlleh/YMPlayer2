@@ -1,0 +1,24 @@
+{
+  "checkedAtUtc": "2026-10-28T16:42:40.725072+00:00",
+  "version": "2.6.4-build121",
+  "serial": "emulator-5560",
+  "sdk": 28,
+  "upgradeFromBuild": 119,
+  "installedBuild": 121,
+  "sameUid": true,
+  "dataCleared": false,
+  "physicalDevicesUsed": false,
+  "cases": [
+    {
+      "case": "cold-1",
+      "processAlive": true,
+      "mainActivityForeground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-1",
+      "sameProcess": true
+    }
+  ],
+  "noDelayedCrash": true
+}
