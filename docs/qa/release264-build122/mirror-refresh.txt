@@ -1,0 +1,5 @@
+Requested CDN refresh for stable.json: finished, request rAdA7euRmcWyDkpE.
+Requested CDN refresh for manifest.json: finished, request 4ZIQ00WClpzCFgW6.
+Verified cdn.jsdelivr.net stable.json: 2.6.4-build122, stable.
+Verified cdn.jsdelivr.net manifest.json: 2.6.4-build122, stable.
+Verified gcore.jsdelivr.net manifest.json: 2.6.4-build122, stable.
