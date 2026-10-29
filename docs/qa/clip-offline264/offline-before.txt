@@ -1,0 +1,62 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.OfflineSourceStateTest:
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=org.junit.ComparisonFailure: Explicit Offline returns to its own selected track expected:<yandex:[2]:7> but was:<yandex:[1]:7>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.returnOffline(OfflineSourceStateTest.kt:130)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.roundTrip(OfflineSourceStateTest.kt:124)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.roundTrip$default(OfflineSourceStateTest.kt:121)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.returningFromWaveRestoresOfflineTrackPositionAndShuffle(OfflineSourceStateTest.kt:48)
+
+INSTRUMENTATION_STATUS: stream=
+Error in returningFromWaveRestoresOfflineTrackPositionAndShuffle(dev.petrov.ymplayer2.OfflineSourceStateTest):
+org.junit.ComparisonFailure: Explicit Offline returns to its own selected track expected:<yandex:[2]:7> but was:<yandex:[1]:7>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.returnOffline(OfflineSourceStateTest.kt:130)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.roundTrip(OfflineSourceStateTest.kt:124)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.roundTrip$default(OfflineSourceStateTest.kt:121)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.returningFromWaveRestoresOfflineTrackPositionAndShuffle(OfflineSourceStateTest.kt:48)
+
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest:
+INSTRUMENTATION_STATUS: test=readyUnchangedCacheStartsBeforeSlowStorageReachesEndOfFile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=readyUnchangedCacheStartsBeforeSlowStorageReachesEndOfFile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 15.302
+There was 1 failure:
+1) returningFromWaveRestoresOfflineTrackPositionAndShuffle(dev.petrov.ymplayer2.OfflineSourceStateTest)
+org.junit.ComparisonFailure: Explicit Offline returns to its own selected track expected:<yandex:[2]:7> but was:<yandex:[1]:7>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.returnOffline(OfflineSourceStateTest.kt:130)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.roundTrip(OfflineSourceStateTest.kt:124)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.roundTrip$default(OfflineSourceStateTest.kt:121)
+	at dev.petrov.ymplayer2.OfflineSourceStateTest.returningFromWaveRestoresOfflineTrackPositionAndShuffle(OfflineSourceStateTest.kt:48)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

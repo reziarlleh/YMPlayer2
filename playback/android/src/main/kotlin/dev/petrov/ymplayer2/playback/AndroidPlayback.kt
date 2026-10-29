@@ -63,6 +63,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var referenceOrder: ReferencePlaybackOrder? = null
     private var persistedReferenceOrder: ReferencePlaybackOrder? = null
     private var persistedReferenceRevision = -1L
+    private var activeOfflineOwner: OfflineOwner? = null
+    private var persistedOfflineOrder: Any? = null
+    private var persistedOfflineRevision = -1L
+    private var persistedOfflineOwner: OfflineOwner? = null
     private var localMediaEntries = emptyMap<String, Pair<Int, Track>>()
     private var indexedWindowJob: Job? = null
     private var indexedSelectionGeneration = 0L
@@ -268,6 +272,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
 
     private fun command(playing: Boolean? = null, action: () -> Unit) {
+        if (!radioMode && ready && !restoring && state.value.origin.source == PlaybackSource.OFFLINE) {
+            publish(); saveOfflineBookmark()
+        }
         userCommanded = true
         val saved = launchState.read(state.value.profileId)
         // Persist explicit intent before waiting for metadata. Seek/ordering do not
@@ -373,6 +380,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private suspend fun resolveReferences(refs: List<PlaybackReference>): List<Track> {
         val profile = state.value.profileId
+        if (state.value.origin.source == PlaybackSource.OFFLINE) return refs.map { ref ->
+            offline?.cachedTrack(profile, ref.id)?.copy(id = ref.id) ?: ref.remoteTrack(false)
+        }
         val local = localTracksByIds(profile, refs.filter { it.saved.source != Source.YANDEX }.map(PlaybackReference::id))
         val remote = knownTracks(profile).associateBy(Track::id)
         return refs.map { ref -> if (ref.saved.source != Source.YANDEX) ref.saved.resolve(local)
@@ -725,17 +735,62 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     override fun playOffline() = playOfflineLikes()
     internal fun playOfflineLikes() = diskCommand(playing = true) {
         val profile = state.value.profileId
-        cancelWave(); followLibrary = false
-        mutable.value = state.value.copy(origin = PlaybackOrigin(PlaybackSource.OFFLINE))
-        load(emptyList(), 0, 0)
-        val tracks = offline?.readyTracks(profile)?.filter { it.available && it.offline }.orEmpty()
-        if (tracks.isEmpty()) { checkpoint(); return@diskCommand }
+        restoreOfflineQueue(profile, resume = true)
+    }
+
+    private fun offlineKey(owner: OfflineOwner) = "${owner.profileId}:${owner.accountId}"
+    /** Only local metadata is awaited. Actual selected audio still passes OfflineStore.audio checks. */
+    private suspend fun restoreOfflineQueue(profile: String, resume: Boolean, current: JSONObject? = null) {
+        val cache = offline ?: return
+        val tracks = cache.readyTracks(profile).filter { it.available && it.offline }
+        val owner = cache.state.value.owner?.takeIf { it.profileId == profile } ?: return
+        if (state.value.profileId != profile || tracks.any { cache.cachedTrack(profile, it.id) == null }) return
+        val key = offlineKey(owner)
+        val bookmark = runCatching { JSONObject(prefs.getString("offlineState:$key", "")!!) }.getOrNull()
+        val saved = current?.takeIf { it.optString("offlineAccount", owner.accountId) == owner.accountId }
+            ?: bookmark
+        val ids = runCatching { JSONArray(prefs.getString("offlineOrder:$key", "[]")) }.getOrNull()
+        val byId = tracks.associateBy(Track::id)
+        val order = (0 until (ids?.length() ?: 0)).mapNotNull { byId[ids!!.optString(it)] }
+        val retained = order.mapTo(hashSetOf(), Track::id)
+        val queue = order + tracks.filterNot { it.id in retained }
+        val selected = queue.firstOrNull { it.id == saved?.optString("current") } ?: queue.firstOrNull()
+        val position = if (selected?.id == saved?.optString("current")) saved?.optInt("position", 0) ?: 0 else 0
+        val repeat = saved?.optString("repeat")?.takeIf(String::isNotBlank)
+            ?: bookmark?.optString("repeat")?.takeIf(String::isNotBlank)
+            ?: if (saved != null && saved === current) prefs.getString("repeat:$profile", "OFF") else "OFF"
+        val shuffle = if (saved?.has("shuffle") == true) saved.optBoolean("shuffle")
+            else bookmark?.optBoolean("shuffle") ?: (saved != null && saved === current && prefs.getBoolean("shuffle:$profile", false))
+        cancelWave(); followLibrary = false; referenceOrder = null; activeOfflineOwner = owner
+        mutable.value = state.value.copy(origin = PlaybackOrigin(PlaybackSource.OFFLINE), recommendations = false,
+            continueWave = false).withRepeat(runCatching { RepeatMode.valueOf(repeat ?: "OFF") }.getOrDefault(RepeatMode.OFF))
+            .withShuffle(shuffle)
+        applyOrderingModes()
         if (library is IndexedLocalLibrary) {
-            setReferences(tracks.map(PlaybackReference::from), tracks.first().id, 0, resume = true, preserveCurrent = false)
-            return@diskCommand
+            setReferences(queue.map(PlaybackReference::from), selected?.id, position, resume = resume, preserveCurrent = false)
+        } else {
+            load(queue, queue.indexOfFirst { it.id == selected?.id }.coerceAtLeast(0), position)
+            if (selected != null) { engine?.prepare(); if (resume) engine?.play() }
         }
-        load(tracks, 0, 0)
-        engine?.prepare(); engine?.play()
+    }
+
+    private fun saveOfflineBookmark() {
+        val state = state.value
+        val owner = activeOfflineOwner ?: return
+        if (state.origin.source != PlaybackSource.OFFLINE || owner.profileId != state.profileId ||
+            offline?.state?.value?.owner != owner || state.current == null) return
+        val key = offlineKey(owner)
+        val editor = prefs.edit().putString("offlineState:$key", JSONObject().put("current", state.current?.id)
+            .put("position", state.positionSeconds).put("repeat", state.repeatMode.name).put("shuffle", state.shuffle)
+            .put("playing", launchState.read(state.profileId).playing).toString())
+        val order = referenceOrder ?: logicalQueue
+        val revision = referenceOrder?.revision ?: 0L
+        if (persistedOfflineOwner != owner || persistedOfflineOrder !== order || persistedOfflineRevision != revision) {
+            editor.putString("offlineOrder:$key", JSONArray(referenceOrder?.references?.map(PlaybackReference::id)
+                ?: logicalQueue.map(Track::id)).toString())
+            persistedOfflineOwner = owner; persistedOfflineOrder = order; persistedOfflineRevision = revision
+        }
+        editor.apply()
     }
     override fun playRecommendedQueue(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) = diskCommand(playing = true) {
         if (!playResolvedQueue(trackIds, startId, origin)) return@diskCommand
@@ -1223,12 +1278,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     /** Called on the Media3 loader thread, never the main thread. No token or signed URI enters a MediaItem. */
     internal fun resolveStream(profile: String, trackId: String): String {
-        val music = online ?: throw java.io.IOException("Online source unavailable")
-        if (profile == state.value.profileId && remoteEnabled(profile) &&
-            offline?.tracks(profile)?.any { it.tasteTarget().key == trackId.removePrefix("yandex:").substringBefore(':') } == true)
+        if (profile == state.value.profileId && offline?.cachedTrack(profile, trackId) != null)
             runBlocking { offline?.audio(profile, trackId) }?.let { return it }
         if (profile == state.value.profileId && state.value.origin.source == PlaybackSource.OFFLINE)
             throw java.io.IOException("Offline audio is unavailable")
+        val music = online ?: throw java.io.IOException("Online source unavailable")
         if (state.value.wave && profile == state.value.profileId && remoteEnabled(profile)) waveAudio.uri(profile, trackId)?.let { return it }
         val quality = streamQuality()
         return try { runBlocking { withTimeout(60_000) { music.api.stream(profile, trackId, quality) } } }
@@ -1248,6 +1302,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         var indexedRestore = false
         try {
         cancelWave()
+        activeOfflineOwner = null
         indexedOrder?.reset()
         referenceOrder = null
         logicalQueue = emptyList()
@@ -1266,6 +1321,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             .withShuffle(prefs.getBoolean("shuffle:$validProfile", false))
             .withContinuation(json?.optBoolean("continueWave", false) == true)
         applyOrderingModes()
+        if (origin.source == PlaybackSource.OFFLINE && offline != null) {
+            indexedRestore = true
+            startDiskWork { restoreOfflineQueue(validProfile, resume = false, current = json) }
+            return
+        }
         if (followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow()) {
             indexedRestore = true
             loadIndexedSelection(json?.optString("current")?.takeIf(String::isNotBlank),
@@ -1343,6 +1403,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun reconcileOnline() {
         if (radioMode) return
+        if (state.value.origin.source == PlaybackSource.OFFLINE) {
+            if (ready && !restoring) reconcile()
+            else if (restoring) deferredReconcile = true
+            return
+        }
         val remote = online?.catalog?.value ?: return
         if (!ready || remote.profileId != state.value.profileId) return
         if (restoring) { deferredReconcile = true; return }
@@ -1391,6 +1456,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun reconcileReferences(localById: Map<String, Track>) {
         val state = state.value
+        if (state.origin.source == PlaybackSource.OFFLINE) {
+            val next = logicalQueue.map { track -> offline?.cachedTrack(state.profileId, track.id)?.copy(id = track.id)
+                ?: track.copy(available = false, offline = false, uri = null) }
+            if (next != logicalQueue) syncQueue(next)
+            return
+        }
         val wanted = logicalQueue.mapTo(hashSetOf(), Track::id)
         val remoteById = if (wanted.isEmpty()) emptyMap() else online?.catalog?.value
             ?.takeIf { it.profileId == state.profileId && it.enabled }?.tracks.orEmpty().asSequence()
@@ -1504,6 +1575,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             } == true
             launchState.write(state.profileId, PlaybackOutput.MUSIC, wanted)
         }
+        saveOfflineBookmark()
         lastSavedSecond = state.positionSeconds
         val editor = prefs.edit().putString("profile", state.profileId)
             .putString("repeat:${state.profileId}", state.repeatMode.name).putBoolean("shuffle:${state.profileId}", state.shuffle)
@@ -1522,6 +1594,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             .put("origin", JSONObject().put("source", state.origin.source.name).put("title", state.origin.title)
                 .put("wave", state.origin.wave?.json() ?: JSONObject.NULL))
             .put("continueWave", state.continueWave)
+            .put("repeat", state.repeatMode.name).put("shuffle", state.shuffle)
+            .put("offlineAccount", activeOfflineOwner?.takeIf { state.origin.source == PlaybackSource.OFFLINE }?.accountId)
             .put("recommendations", state.recommendations)
             .put("waveBatches", JSONObject().apply { if (state.wave) state.queue.forEach { track -> put(track.id, waveItems[track.id]?.batchId) } })
         json.put("referenceOrder", referenceOrder != null)

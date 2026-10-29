@@ -10,6 +10,9 @@ import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
 import java.io.*;
 import java.nio.file.Files;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /** Writable SAF fixture. Source, destination, capacity and provider failures are controlled independently. */
 public class TestStorageProvider extends DocumentsProvider {
@@ -18,6 +21,9 @@ public class TestStorageProvider extends DocumentsProvider {
     public static final Uri exportTree = DocumentsContract.buildTreeDocumentUri(AUTHORITY, "export");
     private long available = 2L * 1024 * 1024 * 1024;
     private boolean unavailable, failWrite;
+    private volatile CountDownLatch audioTailGate;
+    private final AtomicInteger audioOpens = new AtomicInteger(), audioTailWaiters = new AtomicInteger(), audioPipes = new AtomicInteger();
+    private static final int AUDIO_PREFIX_BYTES = 256 * 1024;
     private File base() { File root = new File(getContext().getCacheDir(), "transfer-storage"); root.mkdirs(); return root; }
     private File file(String id) throws FileNotFoundException {
         try {
@@ -76,10 +82,49 @@ public class TestStorageProvider extends DocumentsProvider {
     private void delete(File file) { File[] children = file.listFiles(); if (children != null) for (File f : children) delete(f); file.delete(); }
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal) throws FileNotFoundException {
         if (failWrite && !mode.equals("r")) throw new FileNotFoundException();
-        return ParcelFileDescriptor.open(file(id), ParcelFileDescriptor.parseMode(mode));
+        File source = file(id);
+        if (mode.equals("r") && id.endsWith(".audio")) {
+            audioOpens.incrementAndGet();
+            CountDownLatch gate = audioTailGate;
+            if (gate != null) return gatedAudio(source, gate);
+        }
+        return ParcelFileDescriptor.open(source, ParcelFileDescriptor.parseMode(mode));
+    }
+    /** A real SAF stream: the first eight seconds of the 30s WAV are available immediately.
+     * Decoder startup can proceed, but a second whole-file integrity pass must await its tail. */
+    private ParcelFileDescriptor gatedAudio(File source, CountDownLatch gate) throws FileNotFoundException {
+        final ParcelFileDescriptor[] pipe;
+        try { pipe = ParcelFileDescriptor.createReliablePipe(); }
+        catch (IOException e) { throw new FileNotFoundException(e.getMessage()); }
+        audioPipes.incrementAndGet();
+        Thread writer = new Thread(() -> {
+            try (InputStream input = new FileInputStream(source);
+                 OutputStream output = new ParcelFileDescriptor.AutoCloseOutputStream(pipe[1])) {
+                byte[] buffer = new byte[32 * 1024];
+                int total = 0, count;
+                boolean waited = false;
+                while ((count = input.read(buffer)) >= 0) {
+                    if (!waited && total >= AUDIO_PREFIX_BYTES) {
+                        waited = true; audioTailWaiters.incrementAndGet();
+                        try {
+                            if (!gate.await(30, TimeUnit.SECONDS)) throw new IOException("Fixture audio tail was not released");
+                        } finally { audioTailWaiters.decrementAndGet(); }
+                    }
+                    output.write(buffer, 0, count); total += count;
+                }
+            } catch (Exception ignored) {
+                // The real decoder may close a prefetch/old stream before the tail is released.
+                try { pipe[1].close(); } catch (IOException ignoredClose) { }
+            } finally { audioPipes.decrementAndGet(); }
+        }, "YMPlayer-test-SAF-audio");
+        writer.setDaemon(true); writer.start();
+        return pipe[0];
     }
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("storage-reset")) {
+            CountDownLatch previous = audioTailGate; audioTailGate = null;
+            if (previous != null) previous.countDown();
+            audioOpens.set(0);
             unavailable = false; failWrite = false; available = 2L * 1024 * 1024 * 1024; delete(base());
             new File(base(), "store").mkdirs(); new File(base(), "export").mkdirs();
             int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION;
@@ -89,6 +134,15 @@ public class TestStorageProvider extends DocumentsProvider {
         } else if (method.equals("storage-space")) available = Long.parseLong(arg);
         else if (method.equals("storage-unavailable")) unavailable = Boolean.parseBoolean(arg);
         else if (method.equals("storage-fail-write")) failWrite = Boolean.parseBoolean(arg);
+        else if (method.equals("storage-audio-tail")) {
+            CountDownLatch previous = audioTailGate;
+            audioTailGate = "closed".equals(arg) ? new CountDownLatch(1) : null;
+            if (previous != null) previous.countDown();
+        } else if (method.equals("storage-audio-stats")) {
+            Bundle stats = new Bundle();
+            stats.putInt("opens", audioOpens.get()); stats.putInt("tailWaiters", audioTailWaiters.get()); stats.putInt("activePipes", audioPipes.get());
+            return stats;
+        }
         else return super.call(method, arg, extras);
         return Bundle.EMPTY;
     }

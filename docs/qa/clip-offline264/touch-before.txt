@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.ClipTouchControlsTest:
+INSTRUMENTATION_STATUS: test=firstTouchOnUnfocusedPlayAndPauseExecutesImmediately
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The first touchscreen Play must start the real decoder
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:280)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.awaitState(ClipTouchControlsTest.kt:272)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately$lambda$0(ClipTouchControlsTest.kt:53)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(ClipTouchControlsTest.kt:51)
+
+INSTRUMENTATION_STATUS: stream=
+Error in firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(dev.petrov.ymplayer2.ClipTouchControlsTest):
+java.lang.AssertionError: The first touchscreen Play must start the real decoder
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:280)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.awaitState(ClipTouchControlsTest.kt:272)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately$lambda$0(ClipTouchControlsTest.kt:53)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(ClipTouchControlsTest.kt:51)
+
+INSTRUMENTATION_STATUS: test=firstTouchOnUnfocusedPlayAndPauseExecutesImmediately
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.714
+There was 1 failure:
+1) firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(dev.petrov.ymplayer2.ClipTouchControlsTest)
+java.lang.AssertionError: The first touchscreen Play must start the real decoder
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:280)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.awaitState(ClipTouchControlsTest.kt:272)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately$lambda$0(ClipTouchControlsTest.kt:53)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(ClipTouchControlsTest.kt:51)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

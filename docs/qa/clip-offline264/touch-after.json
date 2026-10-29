@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-10-29T11:14:33.775892+00:00",
+  "serial": "emulator-5560",
+  "classes": "dev.petrov.ymplayer2.ClipTouchControlsTest#firstTouchOnUnfocusedPlayAndPauseExecutesImmediately",
+  "apkSha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "1ee4414712085187f2a515607accfe69f7d09ec59b1a4a62699560df4e309bd7",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "3a1cea2b30e9b3ce986321acca6c9682f1c4623d6e6b48bae2bdb197fdadeb1c"
+  },
+  "finishedAtUtc": "2026-10-29T11:14:53.519617+00:00",
+  "exitCode": 0,
+  "passed": true
+}

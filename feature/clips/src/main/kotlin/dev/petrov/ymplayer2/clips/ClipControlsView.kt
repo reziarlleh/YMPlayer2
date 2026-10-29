@@ -189,21 +189,23 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         if (code !in setOf(KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT,
                 KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_DPAD_CENTER,
                 KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER)) return false
-        if (event.action == KeyEvent.ACTION_DOWN) {
-            if (!shown || !hasFocus()) {
-                revealKey = code
-                showControls(focus = true)
-                return true
-            }
-            scheduleHide()
+        // Android may consume the first navigation DOWN while leaving touch mode
+        // and focus the video. Its UP still needs to enter the controls, not click.
+        if ((!shown || !hasFocus()) && event.action in setOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
+            if (event.action == KeyEvent.ACTION_DOWN) revealKey = code
+            showControls(focus = true)
+            return true
         }
+        if (event.action == KeyEvent.ACTION_DOWN) scheduleHide()
         return false
     }
     fun showControls(focus: Boolean = true) {
         val restoreFocus = focus && (!shown || !hasFocus())
         shown = true; display()
         if (restoreFocus) {
-            listOf(play, retry, next, previous, back).firstOrNull { it.isEnabled && it.visibility == VISIBLE }?.requestFocus()
+            // Center/Enter may be consumed here before Android leaves touch mode. This explicit
+            // remote-focus request keeps buttons touch-clickable without making them touch-focusable.
+            listOf(play, retry, next, previous, back).firstOrNull { it.isEnabled && it.visibility == VISIBLE }?.requestFocusFromTouch()
         }
         scheduleHide()
     }
@@ -234,7 +236,9 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     }
     private fun button(value: String, action: () -> Unit) = label(value, 18f, true).apply {
         gravity = Gravity.CENTER
-        isClickable = true; isFocusable = true; isFocusableInTouchMode = true
+        // Keep D-pad focus, but let a touchscreen tap click immediately: touch-mode
+        // focus would consume the first ACTION_UP to focus this TextView instead.
+        isClickable = true; isFocusable = true; isFocusableInTouchMode = false
         contentDescription = value
         paintButton(this, false)
         onFocusChangeListener = OnFocusChangeListener { _, focused ->

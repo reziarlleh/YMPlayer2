@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-10-29T11:38:31.052137+00:00",
+  "serial": "emulator-5560",
+  "classes": "dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest#readyUnchangedCacheStartsBeforeSlowStorageReachesEndOfFile",
+  "apkSha256": {
+    ".local-build\\clip-touch123\\offline-before-app.apk": "1ee4414712085187f2a515607accfe69f7d09ec59b1a4a62699560df4e309bd7",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "2e47b6b3c69bbf5d9d6718137a9f616cdbe2b1df33dcbef65366c3e3f6efdd54"
+  },
+  "finishedAtUtc": "2026-10-29T11:38:54.246225+00:00",
+  "exitCode": 0,
+  "passed": false
+}

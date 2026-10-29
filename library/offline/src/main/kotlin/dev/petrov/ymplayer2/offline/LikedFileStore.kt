@@ -36,18 +36,41 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     // A location lease prevents moving a download's destination. Network IO never holds the read lock.
     private val locationLease = Mutex()
     private val directories = CacheDirectories(context)
+    private data class FileProof(val uri: String, val bytes: Long, val modified: Long, val checksum: String?)
+    private val proofs = object : LinkedHashMap<String, FileProof>(256, .75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, FileProof>?) = size > 256
+    }
+    private val proofLock = Any()
+    private var proofGeneration = 0L
+    private var rootOwner: OfflineOwner? = null
+    private val roots = java.util.concurrent.ConcurrentHashMap<String, StorageNode>()
+    private fun proofKey(file: StorageNode) = "${file.parentFile!!.uri}/${file.name.removeSuffix(".sha256")}"
+    private fun invalidate(file: StorageNode) = synchronized(proofLock) {
+        proofs.remove(proofKey(file))
+        Unit
+    }
+    private fun invalidateAll() { synchronized(proofLock) { proofs.clear(); proofGeneration++ }; roots.clear() }
     fun locationState() = directories.state()
     internal fun locationIdentity() = directories.identity()
     suspend fun move(destination: String?, progress: (Long, Long) -> Unit) = withContext(Dispatchers.IO) {
-        locationLease.withLock { lock.withLock { directories.migrate(destination, progress) } }
+        locationLease.withLock { lock.withLock {
+            invalidateAll()
+            try { directories.migrate(destination, progress) } finally { invalidateAll() }
+        } }
     }
     private fun hash(value: String) = digest(value.toByteArray())
     private fun digest(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
-    private fun root(owner: OfflineOwner) = directories.owner(owner).also { root ->
-        // SAF rename is not atomic. Restore app-generated backups left by process death.
-        root.listFiles()?.filter { it.name.matches(Regex("[a-f0-9]{64}\\.(json|audio|cover)(\\.sha256)?\\.backup")) }?.forEach { backup ->
-            val name = backup.name.removeSuffix(".backup")
-            if (root.child(name).exists()) backup.delete() else backup.rename(name)
+    private fun root(owner: OfflineOwner, refresh: Boolean = false): StorageNode {
+        if (rootOwner != owner) { invalidateAll(); rootOwner = owner }
+        val identity = directories.identity().orEmpty()
+        if (!refresh) roots[identity]?.let { return it }
+        return directories.owner(owner).also { root ->
+            // SAF rename is not atomic. Restore app-generated backups left by process death.
+            root.listFiles()?.filter { it.name.matches(Regex("[a-f0-9]{64}\\.(json|audio|cover)(\\.sha256)?\\.backup")) }?.forEach { backup ->
+                val name = backup.name.removeSuffix(".backup")
+                if (root.child(name).exists()) backup.delete() else backup.rename(name)
+            }
+            roots.clear(); roots[identity] = root
         }
     }
     // UGC uploads have opaque IDs too. Disk names are SHA256 hashes, never raw identifiers.
@@ -61,7 +84,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
 
     override suspend fun catalog(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) {
         lock.withLock {
-            val root = root(owner)
+            val root = root(owner, refresh = true)
             root.listFiles()?.filter { it.name.endsWith(".part") && it.lastModified() < System.currentTimeMillis() - 86_400_000 }?.forEach(StorageNode::delete)
             root.listFiles()?.filter { it.name.endsWith(".json") && it.length() < 64 * 1024 }?.mapNotNull { metadata ->
                 currentCoroutineContext().ensureActive()
@@ -80,15 +103,15 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     }
 
     override suspend fun load(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) {
-        lock.withLock {
-            val root = root(owner)
-            root.listFiles()?.filter { it.name.endsWith(".part") && it.lastModified() < System.currentTimeMillis() - 86_400_000 }?.forEach(StorageNode::delete)
-            root.listFiles()?.filter { it.name.endsWith(".json") && it.length() < 64 * 1024 }?.mapNotNull { metadata ->
-                currentCoroutineContext().ensureActive()
-                try { cached(root, decode(JSONObject(metadata.readText()))) }
-                catch (e: CancellationException) { throw e }
-                catch (_: Exception) { null }
-            }?.sortedWith(compareBy(Track::artist, Track::title)).orEmpty()
+        // Auditing every file is explicitly separate from the fast ready catalog. In
+        // particular, hashing one slow USB file must not lock playback of another one.
+        val tracks = catalog(owner)
+        val root = lock.withLock { root(owner) }
+        tracks.mapNotNull { track ->
+            currentCoroutineContext().ensureActive()
+            try { cached(root, track) }
+            catch (e: CancellationException) { throw e }
+            catch (_: Exception) { null }
         }
     }
 
@@ -104,7 +127,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             }
             var audioFailed = false; var coverFailed = false; var noCover = false
             try {
-                val valid = lock.withLock { valid(audio, track.durationSeconds * 1000L, true) }
+                val valid = valid(audio, track.durationSeconds * 1000L, true)
                 if (!valid) {
                     if (!track.available) throw MusicException(MusicFailure.UNAVAILABLE)
                     transfer(); check(allowed)
@@ -115,7 +138,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             catch (e: OfflineException) { throw e }
             catch (e: Exception) { reportFailure(e); audioFailed = true }
             try {
-                val valid = lock.withLock { valid(cover, 0, false) }
+                val valid = valid(cover, 0, false)
                 if (!valid) {
                     val uri = track.artworkUri
                     if (uri == null) noCover = true
@@ -125,7 +148,8 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             catch (e: Revoked) { throw e }
             catch (e: OfflineException) { throw e }
             catch (e: Exception) { reportFailure(e); coverFailed = true }
-            lock.withLock { check(allowed); OfflineItem(cached(root, track), audioFailed, coverFailed, noCover) }
+            val cached = cached(root, track)
+            lock.withLock { check(allowed); OfflineItem(cached, audioFailed, coverFailed, noCover) }
         } catch (_: Revoked) { OfflineItem(null, false, false, false) }
     } }
     private fun reportFailure(error: Throwable) {
@@ -139,24 +163,38 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             if (!allowed()) return@withLock
             val keep = keys.mapTo(hashSetOf(), ::hash)
             root(owner).listFiles()?.filter { !it.name.endsWith(".part") && it.name.substringBefore('.') !in keep }?.forEach {
+                invalidate(it)
                 if (!it.delete() && it.exists()) throw IOException("Cannot remove offline entry")
             }
         }
         Unit
     }
     override suspend fun clear(owner: OfflineOwner) = withContext(Dispatchers.IO) {
-        lock.withLock { if (!root(owner).deleteRecursively()) throw IOException("Cannot clear offline files") }
+        lock.withLock {
+            val root = root(owner)
+            invalidateAll()
+            if (!root.deleteRecursively()) throw IOException("Cannot clear offline files")
+        }
     }
     override suspend fun audio(owner: OfflineOwner, trackId: String): String? = withContext(Dispatchers.IO) {
-        lock.withLock {
+        val identity = directories.identity()
+        val selected = lock.withLock {
             val root = root(owner); val file = part(root, trackId, ".audio")
             val metadata = part(root, trackId, ".json")
             try {
                 val track = decode(JSONObject(metadata.readText()))
-                if (valid(file, track.durationSeconds * 1000L, true)) file.uri.toString() else null
+                file to track.durationSeconds * 1000L
             } catch (e: CancellationException) { throw e }
             catch (_: Exception) { null }
-        }
+        } ?: return@withContext null
+        try {
+            if (!valid(selected.first, selected.second, true)) return@withContext null
+            lock.withLock {
+                if (directories.identity() != identity || !selected.first.isFile || selected.first.length() <= 0) null
+                else selected.first.uri.toString()
+            }
+        } catch (e: CancellationException) { throw e }
+        catch (_: Exception) { null }
     }
     private suspend fun cached(root: StorageNode, track: Track): Track? {
         val audio = part(root, track.id, ".audio")
@@ -166,12 +204,25 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             artworkUri = cover?.let { it.uri.toString() }, sizeBytes = audio.length() + (cover?.length() ?: 0))
     }
     private suspend fun valid(file: StorageNode, duration: Long, audio: Boolean): Boolean {
+        val generation = synchronized(proofLock) { proofGeneration }
         if (!file.isFile || file.length() <= 0 || file.length() > (if (audio) 128L else 8L) * 1024 * 1024) return false
-        val expected = checksum(file).takeIf { it.isFile && it.length() <= 128 }?.readText()?.trim()
-        if (expected?.matches(Regex("[a-f0-9]{64}")) == true) return expected == fileHash(file)
-        if (!validate(file, duration, audio)) return false
-        remember(file)
+        val before = proof(file)
+        if (before.modified > 0 && before.checksum != null && synchronized(proofLock) { proofs[proofKey(file)] == before }) return true
+        val valid = if (before.checksum != null) before.checksum == fileHash(file)
+            else if (validate(file, duration, audio)) { remember(file); true } else false
+        if (!valid) { invalidate(file); return false }
+        val after = proof(file)
+        if (before.uri != after.uri || before.bytes != after.bytes || before.modified != after.modified) return false
+        if (before.checksum != null && before.checksum != after.checksum) return false
+        if (after.modified > 0 && after.checksum != null) synchronized(proofLock) {
+            if (proofGeneration == generation) proofs[proofKey(file)] = after
+        }
         return true
+    }
+    private fun proof(file: StorageNode): FileProof {
+        val expected = checksum(file).takeIf { it.isFile && it.length() <= 128 }?.readText()?.trim()
+            ?.takeIf { it.matches(Regex("[a-f0-9]{64}")) }
+        return FileProof(file.uri.toString(), file.length(), file.lastModified(), expected)
     }
     private suspend fun download(uri: String, target: StorageNode, limit: Long, duration: Long, audio: Boolean, allowed: () -> Boolean, transfer: () -> Unit) {
         val root = target.parentFile!!
@@ -203,9 +254,11 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             lock.withLock {
                 check(allowed)
                 // A crash between these renames leaves an unknown checksum, requiring packet/image validation.
+                invalidate(target)
                 checksum(target).let { if (it.exists()) it.delete() }
                 target.replace(temp)
                 write(checksum(target), digest.toByteArray())
+                proof(target).takeIf { it.modified > 0 }?.let { verified -> synchronized(proofLock) { proofs[proofKey(target)] = verified } }
             }
         } finally { runCatching { source.close() }; temp.delete() }
     }
@@ -220,8 +273,9 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     private suspend fun remember(file: StorageNode) = write(checksum(file), fileHash(file).toByteArray())
     private fun write(target: StorageNode, bytes: ByteArray) {
         val temp = StorageNode.temporary(target.parentFile!!, "metadata-")
+        invalidate(target)
         try { temp.writeBytes(bytes); target.replace(temp) }
-        finally { temp.delete() }
+        finally { invalidate(target); roots.clear(); temp.delete() }
     }
     private suspend fun validate(file: StorageNode, expectedMillis: Long, audio: Boolean): Boolean {
         if (!audio) return try {

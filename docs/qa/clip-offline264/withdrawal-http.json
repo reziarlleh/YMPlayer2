@@ -1,0 +1,47 @@
+{
+  "checkedAtUtc": "2026-10-29T11:26:27.704036+00:00",
+  "feeds": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "code": 200,
+      "version": "2.6.3-build119",
+      "age": null,
+      "date": "Thu, 29 Oct 2026 11:26:26 GMT"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "code": 200,
+      "version": "2.6.3-build119",
+      "age": null,
+      "date": "Thu, 29 Oct 2026 11:26:26 GMT"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "code": 200,
+      "version": "2.6.4-build122",
+      "age": "21342",
+      "date": "Thu, 29 Oct 2026 11:26:26 GMT"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "code": 200,
+      "version": "2.6.2-build117",
+      "age": "21342",
+      "date": "Thu, 29 Oct 2026 11:26:26 GMT"
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "code": 200,
+      "version": "2.6.4-build122",
+      "age": "11711",
+      "date": "Thu, 29 Oct 2026 11:26:26 GMT"
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "code": 200,
+      "version": "2.6.4-build122",
+      "age": "31493",
+      "date": "Thu, 29 Oct 2026 11:26:26 GMT"
+    }
+  ]
+}

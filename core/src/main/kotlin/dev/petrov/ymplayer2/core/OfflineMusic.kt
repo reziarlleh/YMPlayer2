@@ -51,12 +51,15 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     private var job: Job? = null
     private val downloadQueueLock = kotlinx.coroutines.sync.Mutex()
     private var automaticJob: Job? = null
+    private class TrackIndex(val owner: OfflineOwner, val tracks: List<Track>, val byKey: Map<String, Track>)
+    @Volatile private var trackIndex: TrackIndex? = null
 
     init {
         scope.launch {
             accounts.state.map { auth -> auth.takeIf { it.phase == AuthPhase.SIGNED_IN }?.account?.id
                 ?.let { OfflineOwner(auth.profileId, it) } }.distinctUntilChanged().collect { owner ->
                 generation++; job?.cancel(); automaticJob?.cancel(); excluded = emptySet(); passKeys = null; membership = null; seenTaste = null
+                trackIndex = null
                 mutable.value = OfflineState(owner = owner, wifiOnly = state.value.wifiOnly,
                     enabled = state.value.enabled, ready = owner != null && !state.value.enabled)
                 if (owner != null && state.value.enabled) { load(owner); retryAutomatic() }
@@ -294,8 +297,17 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         return loaded.takeIf { it.enabled && it.owner == owner && it.ready && current.profileId == profile &&
             current.phase == AuthPhase.SIGNED_IN && current.account?.id == owner.accountId }?.tracks.orEmpty()
     }
+    /** Account-scoped lookup without scanning the whole collection for each queue neighbour. */
+    fun cachedTrack(profile: String, trackId: String): Track? {
+        val snapshot = state.value
+        val owner = snapshot.owner ?: return null
+        if (!snapshot.enabled || owner.profileId != profile || !owns(owner)) return null
+        val index = trackIndex?.takeIf { it.owner == owner && it.tracks === snapshot.tracks }
+            ?: TrackIndex(owner, snapshot.tracks, snapshot.tracks.associateBy { it.tasteTarget().key }).also { trackIndex = it }
+        return index.byKey[trackId.removePrefix("yandex:").substringBefore(':')]
+    }
     fun decorate(profile: String, track: Track): Track {
-        val cached = tracks(profile).firstOrNull { it.tasteTarget().key == track.tasteTarget().key } ?: return track
+        val cached = cachedTrack(profile, track.id) ?: return track
         return track.copy(offline = true, available = true, artworkUri = cached.artworkUri ?: track.artworkUri)
     }
     suspend fun audio(profile: String, trackId: String): String? {
