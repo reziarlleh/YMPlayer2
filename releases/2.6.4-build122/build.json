@@ -1,0 +1,14 @@
+{
+  "runtimeAcceptance": "emulator-api28-api35-verified",
+  "versionCode": 122,
+  "minSdk": 28,
+  "sha256": "cc0c1fc0462987303d4adaa1fe61babd0427d342fb31017bf251f364719fc571",
+  "versionName": "2.6.4-build122",
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-10-29T02:33:04.4649153Z",
+  "channel": "stable",
+  "updateChannel": "stable",
+  "verifiedSourceCommit": "21de814c53bbd2aea58f88f69a090ee7ef1c8610",
+  "physicalDeviceAcceptance": "not-claimed",
+  "verificationReport": "docs/RELEASE_2_6_4_VERIFICATION.md"
+}

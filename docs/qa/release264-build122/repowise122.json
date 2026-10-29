@@ -1,0 +1,15 @@
+{
+  "checkedAtUtc": "2026-10-29T02:27:45.571737+00:00",
+  "results": [
+    {
+      "operation": "doctor",
+      "timeoutSeconds": 20,
+      "ownHelperTreeStopped": true
+    },
+    {
+      "operation": "update",
+      "timeoutSeconds": 20,
+      "ownHelperTreeStopped": true
+    }
+  ]
+}
