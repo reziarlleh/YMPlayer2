@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-10-29T16:32:09.745468+00:00",
+  "serial": "emulator-5562",
+  "classes": "dev.petrov.ymplayer2.ClipTouchControlsTest#dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode,dev.petrov.ymplayer2.ClipRemoteProgressTest#remoteRevealsHiddenControlsThenSelectsPausesResumesAndNavigates,dev.petrov.ymplayer2.ClipControlsTest",
+  "apkSha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "7b62559cebba4e7138ca6ad0d0409e3ef82b66819b24a5bf99e73fadfb9e46bb",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "8016d427858095d80767d7f7cbea5357de49de931e791ff0c7185444464a9beb"
+  },
+  "finishedAtUtc": "2026-10-29T16:32:45.093903+00:00",
+  "exitCode": 0,
+  "passed": true
+}

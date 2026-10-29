@@ -1,0 +1,412 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.OfflineSourceStateTest:
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatList
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatList
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=removingBookmarkedCachedTrackFallsBackToAnExistingTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=removingBookmarkedCachedTrackFallsBackToAnExistingTrack
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatOne
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatOne
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anotherProfileCannotOverwriteTheOwnersOfflineBookmark
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anotherProfileCannotOverwriteTheOwnersOfflineBookmark
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest:
+INSTRUMENTATION_STATUS: test=nextCachedTrackStartsBeforeItsSlowStorageTailIsAvailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=nextCachedTrackStartsBeforeItsSlowStorageTailIsAvailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnrelatedIntegrityAuditCannotBlockAReadySelectedTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnrelatedIntegrityAuditCannotBlockAReadySelectedTrack
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=readyUnchangedCacheStartsBeforeSlowStorageReachesEndOfFile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=readyUnchangedCacheStartsBeforeSlowStorageReachesEndOfFile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.ClipTouchControlsTest:
+INSTRUMENTATION_STATUS: test=firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce(ClipTouchControlsTest.kt:60)
+
+INSTRUMENTATION_STATUS: stream=
+Error in firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce(dev.petrov.ymplayer2.ClipTouchControlsTest):
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce(ClipTouchControlsTest.kt:60)
+
+INSTRUMENTATION_STATUS: test=firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=firstTouchOnUnfocusedPlayAndPauseExecutesImmediately
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(ClipTouchControlsTest.kt:51)
+
+INSTRUMENTATION_STATUS: stream=
+Error in firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(dev.petrov.ymplayer2.ClipTouchControlsTest):
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(ClipTouchControlsTest.kt:51)
+
+INSTRUMENTATION_STATUS: test=firstTouchOnUnfocusedPlayAndPauseExecutesImmediately
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode(ClipTouchControlsTest.kt:104)
+
+INSTRUMENTATION_STATUS: stream=
+Error in dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode(dev.petrov.ymplayer2.ClipTouchControlsTest):
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode(ClipTouchControlsTest.kt:104)
+
+INSTRUMENTATION_STATUS: test=dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause(ClipTouchControlsTest.kt:91)
+
+INSTRUMENTATION_STATUS: stream=
+Error in videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause(dev.petrov.ymplayer2.ClipTouchControlsTest):
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause(ClipTouchControlsTest.kt:91)
+
+INSTRUMENTATION_STATUS: test=videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=firstTouchOnUnfocusedBackClosesTheRealClipActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedBackClosesTheRealClipActivity(ClipTouchControlsTest.kt:77)
+
+INSTRUMENTATION_STATUS: stream=
+Error in firstTouchOnUnfocusedBackClosesTheRealClipActivity(dev.petrov.ymplayer2.ClipTouchControlsTest):
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedBackClosesTheRealClipActivity(ClipTouchControlsTest.kt:77)
+
+INSTRUMENTATION_STATUS: test=firstTouchOnUnfocusedBackClosesTheRealClipActivity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=firstTouchOnRetryExecutesConnectionActionExactlyOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipTouchControlsTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnRetryExecutesConnectionActionExactlyOnce(ClipTouchControlsTest.kt:82)
+
+INSTRUMENTATION_STATUS: stream=
+Error in firstTouchOnRetryExecutesConnectionActionExactlyOnce(dev.petrov.ymplayer2.ClipTouchControlsTest):
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnRetryExecutesConnectionActionExactlyOnce(ClipTouchControlsTest.kt:82)
+
+INSTRUMENTATION_STATUS: test=firstTouchOnRetryExecutesConnectionActionExactlyOnce
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipStartupTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.ClipStartupTest:
+INSTRUMENTATION_STATUS: test=explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipStartupTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipStartupTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pendingAutoplayShowsPauseAndOnePlayResumesPausedClip
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipStartupTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pendingAutoplayShowsPauseAndOnePlayResumesPausedClip
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipStartupTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=firstSurfaceAndReattachedSurfaceKeepVideoProportionsWithoutRotation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ClipStartupTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=19
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=firstSurfaceAndReattachedSurfaceKeepVideoProportionsWithoutRotation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 150.349
+There were 6 failures:
+1) firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce(dev.petrov.ymplayer2.ClipTouchControlsTest)
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce(ClipTouchControlsTest.kt:60)
+2) firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(dev.petrov.ymplayer2.ClipTouchControlsTest)
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedPlayAndPauseExecutesImmediately(ClipTouchControlsTest.kt:51)
+3) dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode(dev.petrov.ymplayer2.ClipTouchControlsTest)
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode(ClipTouchControlsTest.kt:104)
+4) videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause(dev.petrov.ymplayer2.ClipTouchControlsTest)
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause(ClipTouchControlsTest.kt:91)
+5) firstTouchOnUnfocusedBackClosesTheRealClipActivity(dev.petrov.ymplayer2.ClipTouchControlsTest)
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnUnfocusedBackClosesTheRealClipActivity(ClipTouchControlsTest.kt:77)
+6) firstTouchOnRetryExecutesConnectionActionExactlyOnce(dev.petrov.ymplayer2.ClipTouchControlsTest)
+java.lang.AssertionError: Clip window owns real input
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.waitFor(ClipTouchControlsTest.kt:286)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.withClip(ClipTouchControlsTest.kt:200)
+	at dev.petrov.ymplayer2.ClipTouchControlsTest.firstTouchOnRetryExecutesConnectionActionExactlyOnce(ClipTouchControlsTest.kt:82)
+
+FAILURES!!!
+Tests run: 19,  Failures: 6
+
+
+INSTRUMENTATION_CODE: -1

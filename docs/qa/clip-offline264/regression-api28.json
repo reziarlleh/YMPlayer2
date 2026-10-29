@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-10-29T11:53:30.214035+00:00",
+  "serial": "emulator-5560",
+  "classes": "dev.petrov.ymplayer2.OfflinePlaybackTest,dev.petrov.ymplayer2.StorageRecoveryTest,dev.petrov.ymplayer2.LaunchResumeIntentTest,dev.petrov.ymplayer2.ClipControlsTest,dev.petrov.ymplayer2.ClipStartupTest,dev.petrov.ymplayer2.ClipRemoteProgressTest,dev.petrov.ymplayer2.ClipNavigationTest",
+  "apkSha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "de52451aef1fb5898db2571e8ddeb020cf36ee68d0d32874d4bb3767ebefce1e",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "8016d427858095d80767d7f7cbea5357de49de931e791ff0c7185444464a9beb"
+  },
+  "finishedAtUtc": "2026-10-29T11:57:17.065239+00:00",
+  "exitCode": 0,
+  "passed": false
+}

@@ -84,7 +84,21 @@ metadata/process restore уважает Pause. Исчезнувший трек �
 Новый основной набор API28 — **16/16**: семь состояний офлайна, три slow-storage,
 шесть touch/DPAD клипов. [Лог](qa/clip-offline264/final-primary.txt),
 [receipt/hashes](qa/clip-offline264/final-primary.json).
-Дополнительные регрессии/API35/TV, signed APK и публикация ещё проверяются.
+После integrity-правки итоговый API28 — **54/54**, включая прежние38 регрессий
+и новые16 сценариев: [лог](qa/clip-offline264/final-api28.txt).
+API35 — **19/19**: [лог](qa/clip-offline264/final-api35.txt).
+Первый API35 дал13/19: шесть touch-сценариев блокировала системная подсказка
+ImmersiveModeConfirmation поверх ClipActivity (dumpsys window). На собственном
+AVD подсказка подтверждена, APK не менялся: целевой tap, затем весь набор прошли.
+[Первый прогон](qa/clip-offline264/api35-window-focus-before.txt),
+[тот же APK после подтверждения](qa/clip-offline264/api35-touch-confirmed.txt).
+TV/API29 — **4/4**: [лог](qa/clip-offline264/final-tv29.txt).
+Подписанный **2.6.4-build123** обновил122 на API28/API35 без clear с прежним UID;
+cold/warm и delayed-crash проверки прошли. SHA256:
+`15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b`.
+Публикация — следующий шаг; разрешение владельца сохраняется.
+Source a16c5b831627f2b47378e95a6e2a2d22b6c51bac, CI40909895213 success.
+Прежний16/16 выше — промежуточный, до integrity-правки.
 Персональные серверные ответы Яндекса и физические устройства этим не проверены.
 
 Сохранены все прежние цели2.6.4 и B-039. [База первого этапа](MAINTENANCE_2_6_4_VERIFICATION.md),
