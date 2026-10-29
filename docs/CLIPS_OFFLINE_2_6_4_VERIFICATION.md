@@ -1,4 +1,4 @@
-# Продолжение2.6.4 — касания клипов и офлайн
+# YMPlayer2 2.6.4-build123 — касания клипов, офлайн и выпуск
 
 29 октября2026 владелец потребовал сначала снять122 с автообновления,
 исправить двойные касания клипов, затем выпустить обновление. Следующим
@@ -6,7 +6,7 @@
 из волны. Это продолжение той же2.6.4; новый Build выдаётся штатным скриптом,
 старые номера не переиспользуются. Публикация исправленной сборки разрешена.
 
-## Отзыв122
+## История отзыва122
 
 Оба основных feed возвращены119, GitHub release122 скрыт как draft, Latest119.
 Главный URL скачивания122 отвечает404. Но отдельные jsDelivr/Gcore ответы
@@ -77,29 +77,84 @@ metadata/process restore уважает Pause. Исчезнувший трек �
 На старом APK возврат ожидал2-й трек, но получил1-й:
 [red](qa/clip-offline264/offline-before.txt).
 
-## Проверки и точка продолжения
+## Итоговые проверки
 
-Сборка/debug/test APK и151 core+4 app JVM прошли; release lint0 ошибок/82 warnings.
-[Сводка](qa/clip-offline264/jvm-lint.json).
-Новый основной набор API28 — **16/16**: семь состояний офлайна, три slow-storage,
-шесть touch/DPAD клипов. [Лог](qa/clip-offline264/final-primary.txt),
-[receipt/hashes](qa/clip-offline264/final-primary.json).
-После integrity-правки итоговый API28 — **54/54**, включая прежние38 регрессий
-и новые16 сценариев: [лог](qa/clip-offline264/final-api28.txt).
-API35 — **19/19**: [лог](qa/clip-offline264/final-api35.txt).
-Первый API35 дал13/19: шесть touch-сценариев блокировала системная подсказка
-ImmersiveModeConfirmation поверх ClipActivity (dumpsys window). На собственном
-AVD подсказка подтверждена, APK не менялся: целевой tap, затем весь набор прошли.
+Исходники `a16c5b831627f2b47378e95a6e2a2d22b6c51bac`, CI[40909895213](https://github.com/reziarlleh/YMPlayer2/actions/runs/40909895213) — success.
+151 core+4 app JVM, release lint0 ошибок/82 предупреждения, debug/test/release сборки прошли.
+Локализация:736 сообщений,8 полных пакетов, новых строк интерфейса нет.
+
+| Проверка финального source snapshot | Результат | Свидетельство |
+| --- | --- | --- |
+| Android 9 / API28: состояния, скорость, целостность, storage recovery, resume и клипы | 54/54 | [лог](qa/clip-offline264/final-api28.txt), [APK hashes](qa/clip-offline264/final-api28.json) |
+| Android 15 / API35: новый touch/DPAD, офлайн и startup клипов | 19/19 | [лог](qa/clip-offline264/final-api35.txt), [APK hashes](qa/clip-offline264/final-api35.json) |
+| Android TV / API29: пульт после сенсора, навигация и компоновка клипов | 4/4 | [лог](qa/clip-offline264/final-tv29.txt), [APK hashes](qa/clip-offline264/final-tv29.json) |
+
+Основной16-сценарный green до последней integrity-правки сохранён как промежуточный;
+финальный API28 повторяет его вместе с38 регрессиями. Исходный37/38 сбой
+повреждения файла также сохранён, тест не ослаблялся. [Неудачный прогон](qa/clip-offline264/regression-api28.txt).
+Первый API35 дал13/19: шесть touch-сценариев не получили фокус из-за системного
+ImmersiveModeConfirmation поверх ClipActivity (наблюдение через dumpsys window).
+На собственном AVD подтверждена полноэкранная подсказка; без изменения APK
+целевой tap прошёл, затем повторён весь19-сценарный набор.
 [Первый прогон](qa/clip-offline264/api35-window-focus-before.txt),
-[тот же APK после подтверждения](qa/clip-offline264/api35-touch-confirmed.txt).
-TV/API29 — **4/4**: [лог](qa/clip-offline264/final-tv29.txt).
-Подписанный **2.6.4-build123** обновил122 на API28/API35 без clear с прежним UID;
-cold/warm и delayed-crash проверки прошли. SHA256:
-`15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b`.
-Публикация — следующий шаг; разрешение владельца сохраняется.
-Source a16c5b831627f2b47378e95a6e2a2d22b6c51bac, CI40909895213 success.
-Прежний16/16 выше — промежуточный, до integrity-правки.
-Персональные серверные ответы Яндекса и физические устройства этим не проверены.
+[подтверждённый tap](qa/clip-offline264/api35-touch-confirmed.txt).
+Проверка скорости использует настоящий decoder.isPlaying, продвижение времени
+и закрытый EOF-gate; Play intent сам по себе доказательством не считается.
 
-Сохранены все прежние цели2.6.4 и B-039. [База первого этапа](MAINTENANCE_2_6_4_VERIFICATION.md),
-[исторический выпуск122](RELEASE_2_6_4_VERIFICATION.md), [план](PLAN_2_6_4.md).
+Подписанный APK: **2.6.4-build123**, 15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b,
+7020941 байт. Подпись и package прежние,
+minSDK28/target36. API28: 122→123, 2 cold/warm-проверки, прежний UID/без очистки; API35: 122→123, 6 cold/warm-проверки, прежний UID/без очистки.
+Проверенный APK после этого не пересобирался. Персональные ответы Яндекса и
+физические устройства этим не проверены.
+
+## Публикация — завершена
+
+[2.6.4-build123](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.4-build123) — stable/Latest, без beta/prerelease.
+Четыре assets (APK/build.json/SHA256.txt/signature.txt) совпали по серверным digest
+и размеру; полное накопленное описание версии совпало с [release notes](RELEASE_2_6_4_NOTES.md).
+GitHub/основной CDN/Gcore APK скачаны независимо и имеют один SHA256.
+Основные manifest/stable в main указывают на123; каждый внешний ответ проверен
+отдельно на 2026-10-29T16:53:35.520292+00:00. [HTTP/hash-срез](qa/clip-offline264/publication.json).
+
+### B-043: размер пакета резервной загрузки
+
+Первый нормальный CDN-адрес source-tag вернул403 с сообщением о лимите50 MB,
+хотя APK занимает7 020 941 байт. Полное дерево source-tag —520 409 293 байт:
+оно включает прежние APK, старые mapping и исторические QA. Позднее этот URL
+ответил200 после прогрева CDN; это не снимает ограничение неподдерживаемого размера.
+Лимит целого GitHub-пакета подтверждён [документацией jsDelivr](https://github.com/jsdelivr/data.jsdelivr.com#restrictions).
+[Первая проверка](qa/clip-offline264/publication-before-distribution.json).
+
+Для CDN создан immutable artifact-tag `apk-2.6.4-build123` с orphan commit
+`81085e6419c7031b1cf6e6e47efceba240decb3e`: только четыре файла выпуска и provenance README,
+всего 7023278 байт. Это пакет доставки, отдельной ветки разработки
+нет; source-tag/main/история не переписаны. APK взят тем же Git blob и имеет прежний
+SHA256; подпись и Build не менялись. Text-assets используют нормализацию строк Git.
+[Receipt](qa/clip-offline264/distribution-tag.json).
+Create-DistributionTag.py проверяет источник/хэш/размер и не перезаписывает тег;
+Prepare-UpdateManifest.ps1 проверяет полный размер дерева и хэш APK из тега.
+Реальный исходный ref520MB отклонён без изменения feed; компактный ref прошёл.
+Refresh-UpdateMirrors сверяет также URL/notes, чтобы одинаковые Build/hash не
+маскировали устаревшие метаданные того же выпуска.
+
+Маленький artifact-tag решает ограничение скачивания APK. Старые клиентские
+динамические `@main/update` остаются под наблюдением D-001; новая упаковка APK
+не доказывает очистку их edge-кэшей или поддержку большого main на каждом узле.
+
+Старые ответы CDN на этом срезе: https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json: 2.6.4-build123, метаданные не совпали с main; https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json: 2.6.4-build123, метаданные не совпали с main; https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json: 2.6.4-build122, метаданные не совпали с main. D-001 остаётся открытым.
+
+Наличие свежего raw feed не доказывает обновление каждого edge; успешный CF/FY
+purge не доказывает очистку GC. UpdateClient выбирает максимальный валидный ответ.
+Проверка GitHub/документов записана отдельно; main и продуктовый канал сохранены.
+Форум4PDA,1.x, утилита приборки и физические устройства не менялись.
+
+## Закрытие и границы
+
+Все шесть исходных целей2.6.4, B-039 и добавленные B-040/B-041/B-042/B-043 закрыты
+по реализации и указанным проверкам. Полная контрольная сумма остаётся обязательной
+для явного аудита/sync; неизвестный mtime не разрешает быстрый proof.
+Первый metadata-обход большого SAF-каталога остаётся O(N).
+Персональная приёмка пользователей, D-004/D-006 и точный физический B-038 не
+подменяются эмуляторами. Следующий функциональный этап не начинался.
+[База первого этапа](MAINTENANCE_2_6_4_VERIFICATION.md),
+[исторический отозванный122](RELEASE_2_6_4_VERIFICATION.md), [план](PLAN_2_6_4.md).

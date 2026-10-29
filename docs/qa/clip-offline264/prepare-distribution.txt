@@ -1,0 +1,2 @@
+Prepared D:\_codex\YMPlayer2\update\manifest.json with primary GitHub and immutable jsDelivr ref apk-2.6.4-build123 (7023278 tree bytes).
+Prepared D:\_codex\YMPlayer2\update\stable.json for stable-channel installations.

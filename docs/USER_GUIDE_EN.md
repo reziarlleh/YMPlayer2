@@ -1,8 +1,6 @@
 # YMPlayer2 — user guide
 
-The available stable release is **2.6.3-build119**, Android9 and later.
-Build122 has been withdrawn. The source shortcuts and ten-track window below
-describe2.6.4 under repair;119 uses the previous shared source button. Reviewed on29 October2026.
+The stable release is **2.6.4-build123**, Android9 and later. Reviewed on 29 October 2026.
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -295,9 +293,15 @@ its cached file and cancels a pending download. Use synchronization for likes ma
 outside YMPlayer or to retry missing downloads. Collections remain specific to
 both the profile and its Yandex account.
 
-The list opens without auditing every audio file. Each selected download is
-verified before playback. If it is damaged, synchronize again; Offline mode
+The list opens without auditing every audio file. A verified, unchanged download
+does not need another whole-file read before each Play or Next. New or changed
+files are checked again. Synchronize to repair a damaged download; Offline mode
 does not replace it with an online stream.
+
+Switching from Offline to My Vibe preserves the offline track, position, order,
+shuffle and repeat mode. Selecting the **Offline** shortcut resumes from that
+point. Restoring the app respects a manual pause. If the saved track was removed,
+an available track is selected. Profiles and Yandex accounts have separate sessions.
 
 You can disable the cache on an always-online TV with little storage. This stops
 synchronization and prevents new playback requests from using cached music.
@@ -397,6 +401,7 @@ screen is in the background, return to that screen to start the video.
 **Clips** requires Yandex sign-in and a network connection. Audio and video do
 not play at the same time. Tap the video to show or hide controls. During playback
 the controls hide after five seconds; they remain visible when paused or on error.
+Buttons respond to the first tap. You can switch from touch to remote controls.
 
 **← Back** and the system Back button close the video and return to the section
 you opened it from. The clip stays paused; music/radio does not resume automatically.

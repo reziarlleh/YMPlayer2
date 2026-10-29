@@ -1,0 +1,112 @@
+{
+  "checkedAtUtc": "2026-10-29T16:41:49.494843+00:00",
+  "version": "2.6.4-build123",
+  "releaseId": 428132645,
+  "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.4-build123",
+  "draft": false,
+  "prerelease": false,
+  "latest": true,
+  "publishedAt": "2026-10-29T16:40:47Z",
+  "assets": [
+    {
+      "name": "build.json",
+      "size": 552,
+      "digest": "sha256:4a6ac7a26c7584dc30d2aa323b8c3ad8ee89601ad4bc983abe242db1c42b3646",
+      "matches": true
+    },
+    {
+      "name": "SHA256.txt",
+      "size": 94,
+      "digest": "sha256:7196ea9f9c11eae25d61c5283dd22cd8ef13aaaa44cec5ed247fc73c6fce23aa",
+      "matches": true
+    },
+    {
+      "name": "signature.txt",
+      "size": 978,
+      "digest": "sha256:54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1",
+      "matches": true
+    },
+    {
+      "name": "YMPlayer-2.6.4-build123.apk",
+      "size": 7020941,
+      "digest": "sha256:15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+      "matches": true
+    }
+  ],
+  "completeVersionNotesMatch": true,
+  "sha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+  "apkRebuiltAfterVerification": false,
+  "feeds": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.4-build123",
+      "sha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+      "age": null,
+      "date": "Thu, 29 Oct 2026 16:41:41 GMT",
+      "matches": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "version": "2.6.4-build123",
+      "sha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+      "age": null,
+      "date": "Thu, 29 Oct 2026 16:41:40 GMT",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.4-build123",
+      "sha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+      "age": "14",
+      "date": "Thu, 29 Oct 2026 16:41:40 GMT",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "version": "2.6.4-build123",
+      "sha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+      "age": "15",
+      "date": "Thu, 29 Oct 2026 16:41:40 GMT",
+      "matches": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "matches": false,
+      "error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "version": "2.6.4-build122",
+      "sha256": "cc0c1fc0462987303d4adaa1fe61babd0427d342fb31017bf251f364719fc571",
+      "age": "30626",
+      "date": "Thu, 29 Oct 2026 16:41:41 GMT",
+      "matches": false
+    }
+  ],
+  "downloads": [
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.4-build123/YMPlayer-2.6.4-build123.apk",
+      "status": 200,
+      "size": 7020941,
+      "sha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+      "matches": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.4-build123/releases/2.6.4-build123/YMPlayer-2.6.4-build123.apk",
+      "matches": false,
+      "error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.4-build123/releases/2.6.4-build123/YMPlayer-2.6.4-build123.apk",
+      "status": 200,
+      "size": 7020941,
+      "sha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+      "matches": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "tag": "apk-2.6.4-build123",
+  "sourceTag": "v2.6.4-build123",
+  "sourceCommit": "15b11857818eccf0b494fd4888458f6961518918",
+  "treeBytes": 7023278,
+  "apkSha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+  "reused": false,
+  "pushed": true,
+  "commit": "81085e6419c7031b1cf6e6e47efceba240decb3e",
+  "tree": "87522f30efca62075236ebec0130ba84791bd29b",
+  "remoteTagCommit": "81085e6419c7031b1cf6e6e47efceba240decb3e",
+  "checkedAtUtc": "2026-10-29T16:53:28.076249+00:00"
+}

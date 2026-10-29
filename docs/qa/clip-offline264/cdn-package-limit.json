@@ -1,0 +1,8 @@
+{
+  "checkedAtUtc": "2026-10-29T16:46:33.385633+00:00",
+  "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.4-build123/releases/2.6.4-build123/YMPlayer-2.6.4-build123.apk",
+  "sourceTagTreeBytes": 520409293,
+  "apkBytes": 7020941,
+  "status": 200,
+  "note": "Later recheck succeeded after the initial 403; see publication-before-distribution.json. Whole source tree remains above the documented package limit."
+}
