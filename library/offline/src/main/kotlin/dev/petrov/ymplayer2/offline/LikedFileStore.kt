@@ -109,7 +109,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         val root = lock.withLock { root(owner) }
         tracks.mapNotNull { track ->
             currentCoroutineContext().ensureActive()
-            try { cached(root, track) }
+            try { cached(root, track, reuseProof = false) }
             catch (e: CancellationException) { throw e }
             catch (_: Exception) { null }
         }
@@ -127,7 +127,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             }
             var audioFailed = false; var coverFailed = false; var noCover = false
             try {
-                val valid = valid(audio, track.durationSeconds * 1000L, true)
+                val valid = valid(audio, track.durationSeconds * 1000L, true, reuseProof = false)
                 if (!valid) {
                     if (!track.available) throw MusicException(MusicFailure.UNAVAILABLE)
                     transfer(); check(allowed)
@@ -138,7 +138,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             catch (e: OfflineException) { throw e }
             catch (e: Exception) { reportFailure(e); audioFailed = true }
             try {
-                val valid = valid(cover, 0, false)
+                val valid = valid(cover, 0, false, reuseProof = false)
                 if (!valid) {
                     val uri = track.artworkUri
                     if (uri == null) noCover = true
@@ -196,18 +196,20 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         } catch (e: CancellationException) { throw e }
         catch (_: Exception) { null }
     }
-    private suspend fun cached(root: StorageNode, track: Track): Track? {
+    private suspend fun cached(root: StorageNode, track: Track, reuseProof: Boolean = true): Track? {
         val audio = part(root, track.id, ".audio")
-        if (!valid(audio, track.durationSeconds * 1000L, true)) return null
-        val cover = part(root, track.id, ".cover").takeIf { valid(it, 0, false) }
+        if (!valid(audio, track.durationSeconds * 1000L, true, reuseProof)) return null
+        val cover = part(root, track.id, ".cover").takeIf { valid(it, 0, false, reuseProof) }
         return track.copy(offline = true, available = true, uri = audio.uri.toString(),
             artworkUri = cover?.let { it.uri.toString() }, sizeBytes = audio.length() + (cover?.length() ?: 0))
     }
-    private suspend fun valid(file: StorageNode, duration: Long, audio: Boolean): Boolean {
+    private suspend fun valid(file: StorageNode, duration: Long, audio: Boolean, reuseProof: Boolean = true): Boolean {
         val generation = synchronized(proofLock) { proofGeneration }
         if (!file.isFile || file.length() <= 0 || file.length() > (if (audio) 128L else 8L) * 1024 * 1024) return false
         val before = proof(file)
-        if (before.modified > 0 && before.checksum != null && synchronized(proofLock) { proofs[proofKey(file)] == before }) return true
+        // Playback may reuse an unchanged proof. An explicit audit/sync must hash
+        // again: providers can report coarse timestamps for same-size edits.
+        if (reuseProof && before.modified > 0 && before.checksum != null && synchronized(proofLock) { proofs[proofKey(file)] == before }) return true
         val valid = if (before.checksum != null) before.checksum == fileHash(file)
             else if (validate(file, duration, audio)) { remember(file); true } else false
         if (!valid) { invalidate(file); return false }
