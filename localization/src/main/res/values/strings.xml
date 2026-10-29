@@ -741,5 +741,6 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="offline_auto_wait_wifi" formatted="false">"Track liked. Downloading will start when Wi-Fi is available."</string>
     <string name="offline_auto_wait_network" formatted="false">"Track liked. Downloading will start when the internet connection is restored."</string>
     <string name="wave_no_progress" formatted="false">"Yandex returned no new tracks for the wave. Try again later."</string>
+    <string name="wave_audio_storage_failure" formatted="false">"Could not save temporary audio. Check the available storage space and storage access."</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

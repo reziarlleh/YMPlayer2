@@ -11753,5 +11753,21 @@
       "es": "Yandex no ha devuelto canciones nuevas para la onda. Inténtalo de nuevo más tarde.",
       "fr": "Yandex n’a fourni aucun nouveau titre pour la vague. Réessayez plus tard."
     }
+  },
+  {
+    "key": "wave_audio_storage_failure",
+    "source": "Не удалось сохранить временное аудио. Проверьте свободное место и доступ к памяти устройства.",
+    "english": "Could not save temporary audio. Check the available storage space and storage access.",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OnlineMusic.kt"
+    ],
+    "translations": {
+      "be": "Не ўдалося захаваць часовае аўдыя. Праверце вольнае месца і доступ да сховішча прылады.",
+      "de": "Die Audiodaten konnten nicht zwischengespeichert werden. Prüfe den freien Speicherplatz und den Speicherzugriff.",
+      "es": "No se pudo guardar el audio temporal. Comprueba el espacio libre y el acceso al almacenamiento del dispositivo.",
+      "fr": "Impossible d’enregistrer les fichiers audio temporaires. Vérifiez l’espace libre et l’accès au stockage de l’appareil.",
+      "kk": "Уақытша аудионы сақтау мүмкін болмады. Бос орынды және құрылғы жадына қол жеткізуді тексеріңіз.",
+      "uk": "Не вдалося зберегти тимчасове аудіо. Перевірте вільне місце та доступ до сховища пристрою."
+    }
   }
 ]

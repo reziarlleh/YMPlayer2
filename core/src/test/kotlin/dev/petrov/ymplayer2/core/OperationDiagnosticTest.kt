@@ -20,4 +20,11 @@ class OperationDiagnosticTest {
         val record = OperationDiagnostic(DiagnosticOperation.WAVE_DRAIN, unavailable = -2, seen = Int.MAX_VALUE, blocked = 3)
         assertEquals("operation=WAVE_DRAIN category=OK unavailable=0 seen=1000000 blocked=3", record.line())
     }
+    @Test fun localAudioStorageFailureIsNeverReportedAsNetwork() {
+        val record = diagnosticFailure(DiagnosticOperation.AUDIO_PREPARE,
+            RuntimeException("private-file-path", MusicException(MusicFailure.STORAGE)))
+        assertEquals(DiagnosticCategory.STORAGE, record.category)
+        assertNull(record.network)
+        assertFalse(record.line().contains("private"))
+    }
 }

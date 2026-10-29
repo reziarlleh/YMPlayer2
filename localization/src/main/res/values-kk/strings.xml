@@ -741,5 +741,6 @@
     <string name="offline_auto_wait_wifi" formatted="false">"Трек ұнағандарға қосылды. Wi-Fi қосылғанда жүктеле бастайды."</string>
     <string name="offline_auto_wait_network" formatted="false">"Трек ұнағандарға қосылды. Интернет байланысы қалпына келгенде жүктеле бастайды."</string>
     <string name="wave_no_progress" formatted="false">"Yandex толқын үшін жаңа тректер жібермеді. Кейінірек қайталап көріңіз."</string>
+    <string name="wave_audio_storage_failure" formatted="false">"Уақытша аудионы сақтау мүмкін болмады. Бос орынды және құрылғы жадына қол жеткізуді тексеріңіз."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

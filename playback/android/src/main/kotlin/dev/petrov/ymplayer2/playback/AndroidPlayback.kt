@@ -964,7 +964,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             catch (e: Exception) {
                 if (ticket == waveGeneration) {
                     diagnostic(wavePreparationDiagnostic(e))
-                    val failure = (e as? MusicException)?.failure ?: if (e is java.io.IOException) MusicFailure.NETWORK else MusicFailure.RESPONSE
+                    val failure = if (isWaveStorageFailure(e)) MusicFailure.STORAGE else
+                        (e as? MusicException)?.failure ?: if (e is java.io.IOException) MusicFailure.NETWORK else MusicFailure.RESPONSE
                     val retry = waveRecovery.failed(android.os.SystemClock.elapsedRealtime(), failure)
                     mutable.value = state.value.copy(waveLoading = false,
                         waveIssue = "Моя волна: " + failure.message() + if (retry) " Повторим автоматически (${waveRecovery.attempts}/3)." else "")
@@ -993,8 +994,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             catch (e: Exception) { if (ticket == waveGeneration) diagnostic(wavePreparationDiagnostic(e)) }
         }
     }
-    private fun wavePreparationDiagnostic(error: Exception) = if (generateSequence<Throwable>(error) { it.cause }
-        .any { it is WaveAudioStorageException }) OperationDiagnostic(DiagnosticOperation.AUDIO_PREPARE, DiagnosticCategory.STORAGE)
+    private fun isWaveStorageFailure(error: Exception) = generateSequence<Throwable>(error) { it.cause }
+        .take(20).any { it is WaveAudioStorageException || it is MusicException && it.failure == MusicFailure.STORAGE }
+    private fun wavePreparationDiagnostic(error: Exception) = if (isWaveStorageFailure(error))
+        OperationDiagnostic(DiagnosticOperation.AUDIO_PREPARE, DiagnosticCategory.STORAGE)
         else mediaFailureDiagnostic(DiagnosticOperation.AUDIO_PREPARE, error)
     private fun filterWave() {
         if (radioMode) return

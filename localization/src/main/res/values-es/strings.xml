@@ -741,5 +741,6 @@ Puedes añadir tu propio texto entre las variables. Ejemplo: {number}. {artist} 
     <string name="offline_auto_wait_wifi" formatted="false">"Canción marcada como favorita. Se descargará cuando haya conexión Wi-Fi."</string>
     <string name="offline_auto_wait_network" formatted="false">"Canción marcada como favorita. Se descargará cuando se restablezca la conexión a internet."</string>
     <string name="wave_no_progress" formatted="false">"Yandex no ha devuelto canciones nuevas para la onda. Inténtalo de nuevo más tarde."</string>
+    <string name="wave_audio_storage_failure" formatted="false">"No se pudo guardar el audio temporal. Comprueba el espacio libre y el acceso al almacenamiento del dispositivo."</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

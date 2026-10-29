@@ -741,5 +741,6 @@
     <string name="offline_auto_wait_wifi" formatted="false">"Трэк упадабаны. Спампоўванне пачнецца пры падключэнні да Wi-Fi."</string>
     <string name="offline_auto_wait_network" formatted="false">"Трэк упадабаны. Спампоўванне пачнецца, калі інтэрнэт-злучэнне адновіцца."</string>
     <string name="wave_no_progress" formatted="false">"Яндэкс не даслаў новых трэкаў для хвалі. Паспрабуйце пазней."</string>
+    <string name="wave_audio_storage_failure" formatted="false">"Не ўдалося захаваць часовае аўдыя. Праверце вольнае месца і доступ да сховішча прылады."</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

@@ -6194,4 +6194,12 @@ private fun patterns73() = listOf(
     MessagePattern(Msg.wave_no_progress, "ru", "Яндекс не прислал новых треков для волны. Повторите попытку позже."),
     MessagePattern(Msg.wave_no_progress, "es", "Yandex no ha devuelto canciones nuevas para la onda. Inténtalo de nuevo más tarde."),
     MessagePattern(Msg.wave_no_progress, "uk", "Яндекс не надіслав нових треків для хвилі. Спробуйте пізніше."),
+    MessagePattern(Msg.wave_audio_storage_failure, "be", "Не ўдалося захаваць часовае аўдыя. Праверце вольнае месца і доступ да сховішча прылады."),
+    MessagePattern(Msg.wave_audio_storage_failure, "en", "Could not save temporary audio. Check the available storage space and storage access."),
+    MessagePattern(Msg.wave_audio_storage_failure, "fr", "Impossible d’enregistrer les fichiers audio temporaires. Vérifiez l’espace libre et l’accès au stockage de l’appareil."),
+    MessagePattern(Msg.wave_audio_storage_failure, "de", "Die Audiodaten konnten nicht zwischengespeichert werden. Prüfe den freien Speicherplatz und den Speicherzugriff."),
+    MessagePattern(Msg.wave_audio_storage_failure, "kk", "Уақытша аудионы сақтау мүмкін болмады. Бос орынды және құрылғы жадына қол жеткізуді тексеріңіз."),
+    MessagePattern(Msg.wave_audio_storage_failure, "ru", "Не удалось сохранить временное аудио. Проверьте свободное место и доступ к памяти устройства."),
+    MessagePattern(Msg.wave_audio_storage_failure, "es", "No se pudo guardar el audio temporal. Comprueba el espacio libre y el acceso al almacenamiento del dispositivo."),
+    MessagePattern(Msg.wave_audio_storage_failure, "uk", "Не вдалося зберегти тимчасове аудіо. Перевірте вільне місце та доступ до сховища пристрою."),
 )

@@ -93,6 +93,34 @@ class WaveQueuePrefetchTest {
         assertTrue(cached.parentFile!!.listFiles()!!.isEmpty())
     }
 
+    @Test fun realStorageWriteFailureKeepsPlayingAndWaitsForExplicitRetry() {
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle { h.streamGates = mapOf("yandex:3:7" to gate); player.playMyWave() }
+        waitFor { player.state.value.positionSeconds >= 1 && "yandex:2:7" in player.bufferedWaveAudioIds() &&
+            h.resolved.any { it.second == "yandex:3:7" } }
+        val root = File(Uri.parse(player.resolveStream("owner", "yandex:2:7")).path!!).parentFile!!
+        // Fail the real FileOutputStream after URL resolution, without deleting current/next audio.
+        val part = root.listFiles()!!.single { it.extension == "part" }
+        assertTrue(part.delete())
+        assertTrue(part.mkdir())
+        compose.runOnIdle { gate.complete(Unit) }
+        waitFor { !player.state.value.waveLoading && player.state.value.waveIssue != null }
+        val issue = player.state.value.waveIssue!!
+        assertTrue(issue, issue.contains("Не удалось сохранить временное аудио"))
+        assertFalse(issue, issue.contains("Проверьте сеть"))
+        assertFalse(issue, issue.contains("Повторим автоматически"))
+        assertTrue(player.state.value.playing)
+        val requests = h.resolved.count { it.second == "yandex:3:7" }
+        val position = player.state.value.positionSeconds
+        waitFor { player.state.value.positionSeconds >= position + 4 }
+        assertEquals("Storage errors must not trigger network retries", requests,
+            h.resolved.count { it.second == "yandex:3:7" })
+        compose.runOnIdle { player.retryWave() }
+        waitFor { fullWindow() }
+        assertNull(player.state.value.waveIssue)
+        assertTrue(player.state.value.playing)
+    }
+
     @Test fun rapidNextRetainsPreviousAudioDownloadAndPreviousUsesItsCompleteFile() {
         val gate = CompletableDeferred<Unit>()
         compose.runOnIdle { h.streamGates = mapOf("yandex:1:7" to gate); player.playMyWave() }

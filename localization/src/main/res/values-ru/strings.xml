@@ -741,5 +741,6 @@
     <string name="offline_auto_wait_wifi" formatted="false">"Трек отмечен. Скачивание начнётся при подключении к Wi-Fi."</string>
     <string name="offline_auto_wait_network" formatted="false">"Трек отмечен. Скачивание начнётся после восстановления интернета."</string>
     <string name="wave_no_progress" formatted="false">"Яндекс не прислал новых треков для волны. Повторите попытку позже."</string>
+    <string name="wave_audio_storage_failure" formatted="false">"Не удалось сохранить временное аудио. Проверьте свободное место и доступ к памяти устройства."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

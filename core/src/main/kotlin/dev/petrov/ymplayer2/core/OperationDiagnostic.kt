@@ -26,7 +26,7 @@ fun diagnosticFailure(operation: DiagnosticOperation, error: Throwable, mediaCod
     val music = causes.filterIsInstance<MusicException>().firstOrNull()
     val radio = causes.filterIsInstance<RadioException>().firstOrNull()
     val status = httpStatus ?: music?.httpStatus ?: radio?.httpStatus
-    val network = music?.networkIssue ?: radio?.networkIssue ?: when {
+    val network = if (music?.failure == MusicFailure.STORAGE) null else music?.networkIssue ?: radio?.networkIssue ?: when {
         causes.any { it is java.net.UnknownHostException } -> NetworkIssue.DNS
         causes.any { it is javax.net.ssl.SSLException } -> NetworkIssue.TLS
         causes.any { it is java.net.SocketTimeoutException } -> NetworkIssue.TIMEOUT
@@ -35,6 +35,7 @@ fun diagnosticFailure(operation: DiagnosticOperation, error: Throwable, mediaCod
         else -> null
     }
     val category = when {
+        music?.failure == MusicFailure.STORAGE -> DiagnosticCategory.STORAGE
         status == 429 || status in 500..599 -> DiagnosticCategory.SERVER
         status == 408 -> DiagnosticCategory.NETWORK
         status in setOf(401, 403) -> DiagnosticCategory.ACCESS

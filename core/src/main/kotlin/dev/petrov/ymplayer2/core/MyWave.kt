@@ -83,7 +83,7 @@ class WaveRecovery {
         private set
     fun failed(nowMillis: Long, failure: MusicFailure): Boolean {
         retryAtMillis = null
-        fatal = failure in setOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS)
+        fatal = failure in setOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS, MusicFailure.STORAGE)
         if (fatal || attempts >= 3) return false
         retryAtMillis = nowMillis + 1_000L * ++attempts
         return true

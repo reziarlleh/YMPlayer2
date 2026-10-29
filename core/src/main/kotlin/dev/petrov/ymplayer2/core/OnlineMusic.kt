@@ -11,7 +11,7 @@ data class MusicEntity(val id: String, val title: String, val kind: MusicKind, v
 data class MusicEntry(val id: String, val title: String, val subtitle: String, val track: Track? = null, val entity: MusicEntity? = null)
 data class MusicRequest(val query: String = "", val kind: MusicKind = MusicKind.TRACKS, val collection: Boolean = false, val entity: MusicEntity? = null, val recommended: Boolean = false)
 data class MusicPage(val entries: List<MusicEntry>, val nextPage: Int? = null)
-enum class MusicFailure { SIGN_IN, NETWORK, ACCESS, UNAVAILABLE, RESPONSE, NO_PROGRESS }
+enum class MusicFailure { SIGN_IN, NETWORK, ACCESS, UNAVAILABLE, RESPONSE, NO_PROGRESS, STORAGE }
 class MusicException(val failure: MusicFailure, val httpStatus: Int? = null, val networkIssue: NetworkIssue? = null) : Exception(failure.name)
 fun MusicFailure.message() = when (this) {
     MusicFailure.SIGN_IN -> "Войдите в Яндекс в этом профиле."
@@ -20,6 +20,7 @@ fun MusicFailure.message() = when (this) {
     MusicFailure.UNAVAILABLE -> "Этот трек или список сейчас недоступен."
     MusicFailure.RESPONSE -> "Не удалось прочитать ответ Яндекса. Повторите запрос."
     MusicFailure.NO_PROGRESS -> "Яндекс не прислал новых треков для волны. Повторите попытку позже."
+    MusicFailure.STORAGE -> "Не удалось сохранить временное аудио. Проверьте свободное место и доступ к памяти устройства."
 }
 
 interface OnlineMusicApi {

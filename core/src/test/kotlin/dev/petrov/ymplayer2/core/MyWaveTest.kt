@@ -167,6 +167,17 @@ class MyWaveTest {
         assertTrue(retry.fatal)
         retry.reset(); assertFalse(retry.fatal)
     }
+    @Test fun storageFailureCancelsNetworkBackoffUntilExplicitRetry() {
+        val retry = WaveRecovery()
+        assertTrue(retry.failed(10_000, MusicFailure.NETWORK))
+        assertFalse(retry.failed(10_100, MusicFailure.STORAGE))
+        assertTrue(retry.fatal)
+        assertNull(retry.retryAtMillis)
+        assertFalse(retry.due(Long.MAX_VALUE))
+        retry.reset()
+        assertFalse(retry.fatal)
+        assertTrue(retry.failed(20_000, MusicFailure.NETWORK))
+    }
     companion object {
         private fun batch(id: Int) = WaveBatch(listOf(WaveTrack(Track("yandex:$id:7", "Song", "Artist", "Album", Source.YANDEX, 5, false,
             artists = listOf(ArtistRef(id.toString(), "Artist"))), "batch$id")), "session$id", id.toString())
