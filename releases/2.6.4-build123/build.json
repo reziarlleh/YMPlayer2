@@ -1,0 +1,14 @@
+{
+  "versionName": "2.6.4-build123",
+  "minSdk": 28,
+  "channel": "stable",
+  "versionCode": 123,
+  "runtimeAcceptance": "emulator-api28-api35-verified",
+  "applicationId": "dev.petrov.ymplayer2",
+  "sha256": "15626777fda5c6a1d964574e87f1792c4839c7e4500fda8bdf69f8832847b98b",
+  "builtAtUtc": "2026-10-29T16:36:28.3911669Z",
+  "updateChannel": "stable",
+  "verifiedSourceCommit": "a16c5b831627f2b47378e95a6e2a2d22b6c51bac",
+  "physicalDeviceAcceptance": "not-claimed",
+  "verificationReport": "docs/CLIPS_OFFLINE_2_6_4_VERIFICATION.md"
+}
