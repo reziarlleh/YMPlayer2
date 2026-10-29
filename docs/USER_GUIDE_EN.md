@@ -1,6 +1,8 @@
 # YMPlayer2 — user guide
 
-The published release is **2.6.4-build122**, Android9 and later. Reviewed on29 October2026.
+The available stable release is **2.6.3-build119**, Android9 and later.
+Build122 has been withdrawn. The source shortcuts and ten-track window below
+describe2.6.4 under repair;119 uses the previous shared source button. Reviewed on29 October2026.
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
