@@ -1,0 +1,21 @@
+{
+  "version": "2.6.4-build123",
+  "manualBeta": false,
+  "development": false,
+  "stableVersion": "2.6.4-build123",
+  "localFeeds": {
+    "manifest": "2.6.4-build123",
+    "stable": "2.6.4-build123"
+  },
+  "documents": 248,
+  "localLinks": 2410,
+  "brokenLinks": [],
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.6.4-build123",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.4-build123",
+    "readmeBlob": "4c90b4c48fb97e8e5844e963a6e14e7e07d1dbab",
+    "localReadmeBlob": "4c90b4c48fb97e8e5844e963a6e14e7e07d1dbab"
+  },
+  "errors": []
+}
