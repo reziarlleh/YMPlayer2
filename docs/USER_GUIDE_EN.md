@@ -1,8 +1,7 @@
 # YMPlayer2 — user guide
 
-The published release is **2.6.3-build119**, Android9 and later. Reviewed on29 October2026.
-The new player shortcuts and ten-track window below describe the2.6.4 candidate.
-Version2.6.3 uses the previous shared source-selector button.
+The published release is **2.6.4-build122**, Android9 and later. Reviewed on29 October2026.
+The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
 
@@ -628,3 +627,9 @@ media on the next library refresh when the folder or USB drive is available; arc
 
 This guide describes released features. Earlier screenshot versions and their
 test origins are documented in [the documentation verification note](USER_GUIDE_VERIFICATION.md).
+
+
+If temporary audio cannot be saved, check free storage space and storage access.
+The prepared current track keeps playing. After fixing the storage problem,
+use the wave retry control to resume preparation. Storage errors do not trigger
+automatic network retries.

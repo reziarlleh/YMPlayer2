@@ -1,0 +1,19 @@
+{
+  "checkedAtUtc": "2026-10-29T02:40:42.914028+00:00",
+  "version": "2.6.4-build122",
+  "sourceCommit": "21de814c53bbd2aea58f88f69a090ee7ef1c8610",
+  "jvmCore": 151,
+  "jvmApp": 4,
+  "nativeApi28": 17,
+  "nativeApi35": 9,
+  "lintErrors": 0,
+  "lintWarnings": 81,
+  "catalogMessages": 736,
+  "completeLanguages": 8,
+  "ciRun": 40805837904,
+  "ciConclusion": "success",
+  "baseline121Separate": true,
+  "clipsCodeChanged": false,
+  "clipsAcceptedByOwner": "2026-10-29",
+  "physicalDevicesUsed": false
+}
