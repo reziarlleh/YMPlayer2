@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 117,
-  "versionName": "2.6.2-build117",
+  "versionCode": 119,
+  "versionName": "2.6.3-build119",
   "channel": "stable",
   "minSdk": 28,
-  "publishedAt": "2026-10-14T04:02:02.3466989Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.2-build117",
-  "releaseNotes": "Исправлены «Открыть» и «Остановить» в системной карточке Android TV. «Открыть» сохраняет прежний экран приложения. Устранена ошибка запуска на Android 15 и новее; прежние подпись и данные сохранены.",
+  "publishedAt": "2026-10-19T03:05:08.3560008Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.3-build119",
+  "releaseNotes": "Исправлено восстановление Моей волны после временного сбоя и повторной выдачи прослушанных треков. Следующий трек готовится во время текущего; история и дизлайки сохраняются. В диагностике добавлены причины отбрасывания треков.",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.2-build117/YMPlayer-2.6.2-build117.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.2-build117/releases/2.6.2-build117/YMPlayer-2.6.2-build117.apk",
-    "sizeBytes": 7001969,
-    "sha256": "f9c3243d7e0559970f98858f5c9f7ca8112e898f99d7f282eeecfee78c197b86"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.3-build119/YMPlayer-2.6.3-build119.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.3-build119/releases/2.6.3-build119/YMPlayer-2.6.3-build119.apk",
+    "sizeBytes": 7001973,
+    "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28"
   }
 }
