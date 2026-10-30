@@ -64,3 +64,6 @@ B-043 и официальный адрес из update/stable.json с компа
 [полные GET и SHA256](qa/forum-owner-2026-10-30/link-checks.json),
 [чтение последней страницы](qa/forum-owner-2026-10-30/last-page-read.json).
 Полные HTML оставлены в игнорируемой .local-build; в Git не публиковались.
+
+[Сверка документов и GitHub](qa/forum-owner-2026-10-30/documentation-github.json)
+прошла: локальные ссылки без ошибок, Latest/feeds остаются124, README совпал.
