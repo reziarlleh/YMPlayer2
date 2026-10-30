@@ -1,0 +1,14 @@
+{
+  "versionName": "2.6.4-build124",
+  "updateChannel": "stable",
+  "sha256": "4831bc11f1d7405bf42c29ff8c69bcd48fffc53bb71d976ed94d4886a253d6cd",
+  "versionCode": 124,
+  "runtimeAcceptance": "emulator-api28-api35-verified",
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-10-30T06:54:52.6784919Z",
+  "minSdk": 28,
+  "channel": "stable",
+  "verifiedSourceCommit": "55ccfc44865b664558a22c595dd3e17f18706cfa",
+  "physicalDeviceAcceptance": "not-claimed",
+  "verificationReport": "docs/OFFLINE_COLD_2_6_4_VERIFICATION.md"
+}

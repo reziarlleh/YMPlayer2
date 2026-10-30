@@ -1,0 +1,44 @@
+{
+  "checkedAtUtc": "2026-10-30T07:01:35.801276+00:00",
+  "version": "2.6.4-build124",
+  "serial": "emulator-5564",
+  "sdk": 35,
+  "upgradeFromBuild": 119,
+  "installedBuild": 124,
+  "sameUid": true,
+  "dataCleared": false,
+  "physicalDevicesUsed": false,
+  "cases": [
+    {
+      "case": "cold-1",
+      "processAlive": true,
+      "mainActivityForeground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-1",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-2",
+      "processAlive": true,
+      "mainActivityForeground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-2",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-3",
+      "processAlive": true,
+      "mainActivityForeground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-3",
+      "sameProcess": true
+    }
+  ],
+  "noDelayedCrash": true
+}

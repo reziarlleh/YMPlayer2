@@ -69,7 +69,13 @@ de93ddf до дополнительного исправления гонки а
 [Red123](qa/cold-offline264/cold-before.txt), [старые затраты](qa/cold-offline264/costs-before.txt),
 [11 cold](qa/cold-offline264/cold-after.txt), [49 регрессий](qa/cold-offline264/regression-api28.txt),
 [EOF волны](qa/cold-offline264/pending-wave-eof.txt), [JVM/lint](qa/cold-offline264/jvm-lint.json).
-Продуктовый новый APK/Build пока не выдан; stable/feed123 не изменены.
+Кандидат2.6.4-build124 собран и подписан прежним ключом; stable/feed123 пока
+не изменены. Финальная debug-сборка после race-fix прошла19 API28/13 API35/5 TV29,
+156 core+4 app JVM, lint0 errors/82 warnings. Signed upgrade123→124 на API28
+и119→124 на API35 без clear/смены UID, cold/warm и delayed crash checks прошли.
+[Метаданные](../releases/2.6.4-build124/build.json),
+[API28](qa/cold-offline264/signed124-startup-api28.json),
+[API35](qa/cold-offline264/signed124-startup-api35.json).
 
 ## Дополнительная проверка конкурентности
 
@@ -87,4 +93,4 @@ Cancel, новый лайк после Cancel, clear и ошибку чтени�
 На исходном de93ddf два сценария падают именно из-за потери трека, после правки
 все23 OfflineMusicTest и156 core-тестов прошли. [Red](qa/cold-offline264/like-race-before.json),
 [green](qa/cold-offline264/like-race-after.json), [весь core](qa/cold-offline264/like-race-core-all.json).
-Финальные native и подписанный APK после этой правки ещё проверяются.
+Финальные native и подписанный APK после этой правки проверены; публикация готовится.
