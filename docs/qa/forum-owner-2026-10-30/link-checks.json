@@ -1,0 +1,18 @@
+[
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@v2.6.4-build124/releases/2.6.4-build124/YMPlayer-2.6.4-build124.apk",
+    "status": 200,
+    "size": 7020941,
+    "sha256": "4831bc11f1d7405bf42c29ff8c69bcd48fffc53bb71d976ed94d4886a253d6cd",
+    "matchesReleasedApk": true,
+    "checkedAtUtc": "2026-10-30T07:58:23.713390+00:00"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.4-build124/releases/2.6.4-build124/YMPlayer-2.6.4-build124.apk",
+    "status": 200,
+    "size": 7020941,
+    "sha256": "4831bc11f1d7405bf42c29ff8c69bcd48fffc53bb71d976ed94d4886a253d6cd",
+    "matchesReleasedApk": true,
+    "checkedAtUtc": "2026-10-30T07:58:26.129459+00:00"
+  }
+]
