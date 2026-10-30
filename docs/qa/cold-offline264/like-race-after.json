@@ -1,0 +1,9 @@
+{
+  "tests": 23,
+  "failures": 0,
+  "production": "working tree ready gate + deferred retry after successful load",
+  "errors": 0,
+  "skipped": 0,
+  "utc": "2026-10-30T02:17:13.3590659Z",
+  "revision": "de93ddfd89e2d0f7aa26b11d188f526d1bfbb11f"
+}

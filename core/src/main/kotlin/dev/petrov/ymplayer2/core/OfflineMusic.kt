@@ -50,6 +50,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     private var seenTaste: Pair<OfflineOwner, Long>? = null
     private var job: Job? = null
     private var loadJob: Job? = null
+    private var retryAutomaticAfterLoad = false
     private val downloadQueueLock = kotlinx.coroutines.sync.Mutex()
     private var automaticJob: Job? = null
     private class TrackIndex(val owner: OfflineOwner, val tracks: List<Track>, val byKey: Map<String, Track>)
@@ -101,7 +102,11 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     }
     fun retryAutomatic() {
         val owner = state.value.owner ?: return
-        if (!state.value.enabled || state.value.running || automaticJob?.isActive == true || !network(state.value.wifiOnly)) return
+        if (!state.value.enabled) return
+        // The catalog owns its initial snapshot. Publishing downloads before it
+        // completes would let that older snapshot discard their ready tracks.
+        if (!state.value.ready) { retryAutomaticAfterLoad = true; return }
+        if (state.value.running || automaticJob?.isActive == true || !network(state.value.wifiOnly)) return
         val ticket = generation
         automaticJob = scope.launch {
             try {
@@ -145,8 +150,9 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         }
     }
 
-    private fun load(owner: OfflineOwner) {
+    private fun load(owner: OfflineOwner, retryAutomaticWhenReady: Boolean = true) {
         val ticket = generation
+        retryAutomaticAfterLoad = retryAutomaticWhenReady
         loadJob?.cancel()
         loadJob = scope.launch {
             try {
@@ -154,6 +160,10 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
                 if (valid(owner, ticket) && state.value.enabled) {
                     taste.seedCachedTrackLikes(owner, tracks.mapTo(linkedSetOf()) { it.tasteTarget().key })
                     mutable.value = state.value.copy(ready = true, tracks = permitted(owner, tracks))
+                    if (retryAutomaticAfterLoad) {
+                        retryAutomaticAfterLoad = false
+                        retryAutomatic()
+                    }
                 }
             } catch (e: CancellationException) { throw e }
             catch (_: Exception) { if (valid(owner, ticket) && state.value.enabled) mutable.value = state.value.copy(ready = true, message = "Не удалось прочитать офлайн-коллекцию. Повторите синхронизацию.") }
@@ -201,7 +211,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         generation++; job?.cancel(); loadJob?.cancel(); automaticJob?.cancel(); job = null; passKeys = null
         mutable.value = state.value.copy(running = false, message = "Синхронизация остановлена. Готовые файлы сохранены.")
         // Cancelling a transfer must not leave a cold catalog permanently unready.
-        if (!state.value.ready && state.value.enabled) state.value.owner?.let(::load)
+        if (!state.value.ready && state.value.enabled) state.value.owner?.let { load(it, retryAutomaticWhenReady = false) }
     }
     /** Re-read URIs after a committed location change without changing membership or account. */
     fun reloadCache() {

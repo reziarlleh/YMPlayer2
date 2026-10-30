@@ -21,7 +21,13 @@ class OfflineMusicTest {
         var catalogGate: suspend () -> Unit = {}
         var audioReads = 0
         override suspend fun load(owner: OfflineOwner): List<Track> { loads++; return files[owner]?.values?.toList().orEmpty() }
-        override suspend fun catalog(owner: OfflineOwner): List<Track> { catalogs++; catalogGate(); return files[owner]?.values?.toList().orEmpty() }
+        override suspend fun catalog(owner: OfflineOwner): List<Track> {
+            catalogs++
+            // A real catalog fixes its inventory before slower metadata/provider reads.
+            val snapshot = files[owner]?.values?.toList().orEmpty()
+            catalogGate()
+            return snapshot
+        }
         override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem {
             transfer(); beforeSave()
             if (!allowed()) return OfflineItem(null, false, false, false)
@@ -263,5 +269,68 @@ class OfflineMusicTest {
         assertTrue(h.offline.tracks("owner").isEmpty())
         h.offline.setEnabled(false); runCurrent()
         assertTrue(h.offline.readyTracks("road").isEmpty())
+    }
+    @Test fun aConfirmedLikeDuringColdCatalogSurvivesTheReadySnapshot() = runTest {
+        val h = Harness(this)
+        h.store.files[h.owner] = mutableMapOf("1" to track("1").copy(offline = true))
+        val gate = CompletableDeferred<Unit>()
+        h.store.catalogGate = { gate.await() }
+        h.offline.reloadCache(); runCurrent()
+        assertFalse(h.offline.state.value.ready)
+        h.taste.react(track("3").tasteTarget(), TasteAction.LIKE); runCurrent()
+        val downloadedWhileCold = h.store.downloaded.toList()
+        gate.complete(Unit); runCurrent()
+        assertEquals("The cold snapshot must not discard a confirmed automatic download",
+            setOf("yandex:1:7", "yandex:3:7"), h.offline.tracks("owner").map(Track::id).toSet())
+        assertTrue("Transfers wait until the catalog can no longer overwrite their publication", downloadedWhileCold.isEmpty())
+        assertEquals(listOf(h.owner to "yandex:3:7"), h.store.downloaded)
+        assertTrue(h.store.pendingDownloads(h.owner).isEmpty())
+    }
+    @Test fun cancellingColdLoadDoesNotRestartPreviouslyQueuedAutomaticDownloads() = runTest {
+        val h = Harness(this); h.network = false
+        h.taste.react(track("3").tasteTarget(), TasteAction.LIKE); runCurrent()
+        val gate = CompletableDeferred<Unit>()
+        h.store.catalogGate = { gate.await() }; h.network = true
+        h.offline.reloadCache(); runCurrent(); h.offline.cancel(); runCurrent()
+        gate.complete(Unit); runCurrent()
+        assertTrue(h.offline.state.value.ready)
+        assertTrue(h.store.downloaded.isEmpty())
+        assertEquals(setOf("3"), h.store.pendingDownloads(h.owner))
+        h.offline.retryAutomatic(); runCurrent()
+        assertEquals(listOf(h.owner to "yandex:3:7"), h.store.downloaded)
+    }
+    @Test fun aNewConfirmedLikeAfterColdCancellationStillRunsWhenCatalogBecomesReady() = runTest {
+        val h = Harness(this)
+        val gate = CompletableDeferred<Unit>()
+        h.store.catalogGate = { gate.await() }
+        h.offline.reloadCache(); runCurrent(); h.offline.cancel(); runCurrent()
+        h.taste.react(track("3").tasteTarget(), TasteAction.LIKE); runCurrent()
+        gate.complete(Unit); runCurrent()
+        assertEquals(listOf("yandex:3:7"), h.offline.tracks("owner").map(Track::id))
+        assertTrue(h.store.pendingDownloads(h.owner).isEmpty())
+    }
+    @Test fun clearingDuringColdLoadRemovesQueuedAutomaticIntent() = runTest {
+        val h = Harness(this); h.network = false
+        h.taste.react(track("3").tasteTarget(), TasteAction.LIKE); runCurrent()
+        val gate = CompletableDeferred<Unit>()
+        h.store.catalogGate = { gate.await() }; h.network = true
+        h.offline.reloadCache(); runCurrent(); h.offline.clear(); runCurrent()
+        gate.complete(Unit); runCurrent()
+        assertTrue(h.offline.state.value.ready)
+        assertTrue(h.offline.tracks("owner").isEmpty())
+        assertTrue(h.store.pendingDownloads(h.owner).isEmpty())
+        assertTrue(h.store.downloaded.isEmpty())
+    }
+    @Test fun failedColdLoadKeepsPendingIntentAndAllowsExplicitSync() = runTest {
+        val h = Harness(this); h.network = false
+        h.taste.react(track("3").tasteTarget(), TasteAction.LIKE); runCurrent()
+        h.store.catalogGate = { error("Storage unavailable") }; h.network = true
+        h.offline.reloadCache(); runCurrent()
+        assertTrue(h.offline.state.value.ready)
+        assertTrue(h.offline.state.value.message!!.contains("Не удалось прочитать"))
+        assertEquals(setOf("3"), h.store.pendingDownloads(h.owner))
+        assertTrue(h.store.downloaded.isEmpty())
+        h.offline.sync(); runCurrent()
+        assertEquals(setOf("yandex:1:7", "yandex:2:7", "yandex:3:7"), h.offline.tracks("owner").map(Track::id).toSet())
     }
 }

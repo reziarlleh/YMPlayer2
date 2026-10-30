@@ -1,0 +1,19 @@
+{
+  "tests": 23,
+  "errors": 0,
+  "revision": "de93ddfd89e2d0f7aa26b11d188f526d1bfbb11f",
+  "skipped": 0,
+  "utc": "2026-10-30T02:16:43.1889304Z",
+  "failures": 2,
+  "cases": [
+    {
+      "message": "java.lang.AssertionError: The cold snapshot must not discard a confirmed automatic download expected:<[yandex:1:7, yandex:3:7]> but was:<[yandex:1:7]>",
+      "name": "aConfirmedLikeDuringColdCatalogSurvivesTheReadySnapshot"
+    },
+    {
+      "message": "java.lang.AssertionError: expected:<[yandex:3:7]> but was:<[]>",
+      "name": "aNewConfirmedLikeAfterColdCancellationStillRunsWhenCatalogBecomesReady"
+    }
+  ],
+  "production": "OfflineMusic.kt unchanged from HEAD/de93ddf"
+}
