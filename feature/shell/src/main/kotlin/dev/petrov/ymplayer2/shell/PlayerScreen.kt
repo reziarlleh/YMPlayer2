@@ -38,12 +38,13 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
     var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var issue by remember { mutableStateOf(false) }
-    val myWaveActive = state.wave && state.origin.source == PlaybackSource.MY_WAVE
+    val sourcePending = state.pendingSource != null
+    val myWaveActive = !sourcePending && state.wave && state.origin.source == PlaybackSource.MY_WAVE
     var configureWave by remember(state.profileId, myWaveActive) { mutableStateOf(false) }
     val saved = collections?.state?.collectAsStateWithLifecycle()?.value
     val favorites = saved?.profile(state.profileId)?.favorites.orEmpty()
     val cached = offline?.state?.collectAsStateWithLifecycle()?.value
-    val sourceLabel = when (state.origin.source) {
+    val sourceLabel = when (state.pendingSource ?: state.origin.source) {
         PlaybackSource.DEVICE -> tr(Msg.player_source_device)
         PlaybackSource.MY_WAVE -> tr(Msg.msg_de1ea8c09caa)
         PlaybackSource.OFFLINE -> tr(Msg.player_source_offline)
@@ -76,9 +77,9 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
                     SourceShortcut(UiIcon.WAVE, tr(Msg.msg_de1ea8c09caa), myWaveActive, true, "player_source_wave") {
                         if (account?.signedIn == true) player.playMyWave() else signIn()
                     }
-                    SourceShortcut(UiIcon.OFFLINE, tr(Msg.player_source_offline), state.origin.source == PlaybackSource.OFFLINE,
+                    SourceShortcut(UiIcon.OFFLINE, tr(Msg.player_source_offline), state.pendingSource == PlaybackSource.OFFLINE || state.origin.source == PlaybackSource.OFFLINE,
                         cached?.enabled == true, "player_source_offline", player::playOffline)
-                    SourceShortcut(UiIcon.PLAYLIST, userList.label, userList.selected, userList.enabled, "player_source_list", userList.play)
+                    SourceShortcut(UiIcon.PLAYLIST, userList.label, !sourcePending && userList.selected, userList.enabled, "player_source_list", userList.play)
                     if (myWaveActive && waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
                         { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings"))
                     Spacer(Modifier.weight(1f))
@@ -86,9 +87,15 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
                 ActionIcon(UiIcon.EQUALIZER, tr(Msg.msg_fdc54db3a2b0), { equalizer(false) }, Modifier.testTag("player_equalizer"))
                 ActionIcon(UiIcon.QUEUE, tr(Msg.msg_cb297d129add), queue, Modifier.testTag("player_queue"))
             }
-            Text(if (taste != null) sourceLabel else tr(Msg.msg_a94943f157d5), Modifier.fillMaxWidth().testTag("player_source_label"),
-                style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(if (taste != null) sourceLabel else tr(Msg.msg_a94943f157d5), Modifier.weight(1f).testTag("player_source_label"),
+                    style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                if (sourcePending) {
+                    Text(tr(Msg.msg_e261fc0388e8), style = MaterialTheme.typography.labelLarge)
+                    CircularProgressIndicator(Modifier.size(16.dp).testTag("player_source_loading"), strokeWidth = 2.dp)
+                }
+            }
         }
     }
     val actions: @Composable () -> Unit = {
@@ -122,7 +129,7 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
         val compact = maxHeight < 440.dp || LocalDensity.current.fontScale > 1.3f
         val veryShort = maxHeight < 300.dp
         val heading: @Composable () -> Unit = { TrackHeading(state.current, artist = artist, compact = compact,
-            status = message ?: if (state.waveLoading) tr(Msg.msg_c989e98d6470) else if (state.buffering) tr(Msg.msg_2f4f45e427e6) else null,
+            status = if (sourcePending) tr(Msg.msg_e261fc0388e8) else message ?: if (state.waveLoading) tr(Msg.msg_c989e98d6470) else if (state.buffering) tr(Msg.msg_2f4f45e427e6) else null,
             error = message != null, showStatus = { issue = true }) }
         if (landscape) Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
             Column(Modifier.weight(1.3f).fillMaxHeight().testTag("player_controls"), verticalArrangement = Arrangement.SpaceEvenly) {

@@ -14,11 +14,18 @@ import java.nio.file.StandardCopyOption.*
 /** File and SAF operations for an app-owned cache or an explicitly selected export directory. */
 internal class StorageNode private constructor(val context: Context, private val local: File?,
     private var document: Uri?, val parentFile: StorageNode?, val name: String) {
-    private var children: MutableMap<String, StorageNode>? = null
+    @Volatile private var children: MutableMap<String, StorageNode>? = null
+    /** One enumeration's facts only. Playback/integrity always use the live node methods. */
+    data class Entry(val node: StorageNode, val isFile: Boolean, val bytes: Long, val modified: Long) {
+        val name: String get() = node.name
+    }
     val uri: Uri get() = local?.let(Uri::fromFile) ?: resolve() ?: throw IOException("Storage entry missing")
     val path: String get() = local?.absolutePath ?: uri.toString()
     private fun resolve(): Uri? {
-        if (document == null) document = parentFile?.listFiles()?.firstOrNull { it.name == name }?.document
+        if (document == null) parentFile?.let { parent ->
+            if (parent.children == null) parent.listFiles()
+            document = parent.children?.get(name)?.document
+        }
         return document
     }
     private fun field(column: String): Any? = resolve()?.let { u ->
@@ -41,7 +48,7 @@ internal class StorageNode private constructor(val context: Context, private val
         val directory = resolve() ?: return null
         children?.let { return it.values.toList() }
         val tree = Docs.buildChildDocumentsUriUsingTree(directory, Docs.getDocumentId(directory))
-        val items = mutableMapOf<String, StorageNode>()
+        val items = java.util.concurrent.ConcurrentHashMap<String, StorageNode>()
         context.contentResolver.query(tree, arrayOf(Docs.Document.COLUMN_DOCUMENT_ID, Docs.Document.COLUMN_DISPLAY_NAME), null, null, null)?.use { c ->
             while (c.moveToNext()) {
                 val name = c.getString(1)
@@ -50,6 +57,28 @@ internal class StorageNode private constructor(val context: Context, private val
         } ?: throw IOException("Cannot list storage")
         children = items
         return items.values.toList()
+    }
+    fun listSnapshot(): List<Entry>? {
+        if (local != null) return local.listFiles()?.map { file ->
+            Entry(file(context, file), file.isFile, file.length(), file.lastModified())
+        }
+        val directory = resolve() ?: return null
+        val tree = Docs.buildChildDocumentsUriUsingTree(directory, Docs.getDocumentId(directory))
+        val columns = arrayOf(Docs.Document.COLUMN_DOCUMENT_ID, Docs.Document.COLUMN_DISPLAY_NAME,
+            Docs.Document.COLUMN_MIME_TYPE, Docs.Document.COLUMN_SIZE, Docs.Document.COLUMN_LAST_MODIFIED)
+        val items = java.util.concurrent.ConcurrentHashMap<String, StorageNode>()
+        val snapshot = mutableListOf<Entry>()
+        context.contentResolver.query(tree, columns, null, null, null)?.use { cursor ->
+            while (cursor.moveToNext()) {
+                val name = cursor.getString(1)
+                val node = StorageNode(context, null, Docs.buildDocumentUriUsingTree(directory, cursor.getString(0)), this, name)
+                items[name] = node
+                snapshot += Entry(node, cursor.getString(2) != Docs.Document.MIME_TYPE_DIR,
+                    if (cursor.isNull(3)) 0 else cursor.getLong(3), if (cursor.isNull(4)) 0 else cursor.getLong(4))
+            }
+        } ?: throw IOException("Cannot list storage")
+        children = items
+        return snapshot
     }
     fun mkdirs(): Boolean {
         if (local != null) return local.isDirectory || local.mkdirs()

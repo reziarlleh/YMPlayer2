@@ -43,6 +43,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         private set
     /** Preserve the Music checkpoint before lending the service engine to a live station. */
     internal fun yieldToRadio() {
+        cancelPendingSource(recover = false)
         if (!radioMode && ready && !restoring) { publish(); checkpoint() }
         radioMode = true
         indexedSelectionGeneration++; indexedWindowJob?.cancel(); indexedWindowJob = null
@@ -57,6 +58,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var updating = false
     private var restoring = false
     private val pending = ArrayDeque<() -> Unit>()
+    private var pendingSourceAction: (() -> Unit)? = null
+    private var pendingOfflineOwner: OfflineOwner? = null
+    private var pendingSourceLaunch: Pair<String, LaunchState>? = null
     private var ready = false
     private var followLibrary = true
     private var logicalQueue = emptyList<Track>()
@@ -224,13 +228,24 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 if (!remote) scope.launch { library.refresh() }
             }
         })
+        pendingSourceAction?.let { action -> pendingSourceAction = null; action() }
         job = scope.launch {
             online?.let { music -> launch { music.catalog.collect { reconcileOnline() } } }
-            offline?.let { cache -> launch { cache.state.collect { if (ready && !restoring) reconcileOnline() } } }
+            offline?.let { cache -> launch { cache.state.collect { snapshot ->
+                if (state.value.pendingSource == PlaybackSource.OFFLINE) {
+                    val owner = snapshot.owner
+                    if (!snapshot.enabled || owner?.profileId?.let { it != state.value.profileId } == true ||
+                        pendingOfflineOwner?.let { it != owner } == true) cancelPendingSource()
+                    else if (owner != null) pendingOfflineOwner = owner
+                }
+                if (ready && !restoring) reconcileOnline()
+            } } }
             taste?.let { preferences -> launch { preferences.state.collect { filterWave() } } }
             launch {
                 library.state.collect { catalog ->
                     if (radioMode || !catalog.ready || catalog.scanning) return@collect
+                    // Offline owns no local/USB scan dependency; do not replace its pending selection.
+                    if (state.value.pendingSource == PlaybackSource.OFFLINE) return@collect
                     if (!ready) {
                         ready = true
                         restore(state.value.profileId)
@@ -259,6 +274,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
 
     internal fun detach() {
+        cancelPendingSource(recover = false)
         lastAudible = null
         if (ready && !restoring) { publish(); checkpoint() }
         indexedSelectionGeneration++
@@ -271,7 +287,33 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         mutable.value = state.value.copy(playing = false, buffering = false, connected = false)
     }
 
-    private fun command(playing: Boolean? = null, action: () -> Unit) {
+    private fun restorePendingLaunch() {
+        pendingSourceLaunch?.let { (profile, saved) ->
+            // An uncommitted source choice must not turn the old paused source into autoplay
+            // when cache access/account is cancelled. A newer explicit command writes next.
+            if (launchState.read(profile) == LaunchState(PlaybackOutput.MUSIC, true))
+                launchState.write(profile, saved.output, saved.playing)
+        }
+        pendingSourceLaunch = null
+    }
+
+    private fun cancelPendingSource(recover: Boolean = true) {
+        if (state.value.pendingSource == null && pendingSourceAction == null) return
+        indexedSelectionGeneration++
+        indexedWindowJob?.cancel(); indexedWindowJob = null
+        pendingSourceAction = null; pendingOfflineOwner = null; restoring = false
+        restorePendingLaunch()
+        mutable.value = state.value.copy(pendingSource = null)
+        // A local-ready event may have arrived while Offline deliberately bypassed it.
+        if (recover && !ready && engine != null && library.state.value.ready && !library.state.value.scanning) {
+            ready = true
+            restore(state.value.profileId)
+            drainPending()
+        }
+    }
+
+    private fun command(playing: Boolean? = null, requestedSource: PlaybackSource? = null, action: () -> Unit) {
+        cancelPendingSource(recover = requestedSource == null)
         if (!radioMode && ready && !restoring && state.value.origin.source == PlaybackSource.OFFLINE) {
             publish(); saveOfflineBookmark()
         }
@@ -283,12 +325,21 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (radioMode) {
             radio?.release(); radioMode = false
             if (!ready && library.state.value.ready && !library.state.value.scanning) ready = true
-            if (ready && engine != null) restore(state.value.profileId)
+            if (ready && engine != null && requestedSource == null) restore(state.value.profileId)
             modeListeners.toList().forEach { it() }
         }
         // The outgoing radio's stop persists RADIO/paused. Claim the new music
         // owner afterwards, still before queuing any slow metadata operation.
         launchState.write(state.value.profileId, PlaybackOutput.MUSIC, requested)
+        if (requestedSource != null) {
+            // This is only a visible request. The old queue/origin/bookmarks remain intact until
+            // the account's cached metadata is ready, so no wave item becomes an offline bookmark.
+            indexedSelectionGeneration++; indexedWindowJob?.cancel(); indexedWindowJob = null
+            restoring = false; pending.clear()
+            pendingOfflineOwner = offline?.state?.value?.owner
+            pendingSourceLaunch = state.value.profileId to saved
+            mutable.value = state.value.copy(pendingSource = requestedSource, error = null)
+        }
         val execute = {
             commandDepth++
             try { action() }
@@ -297,7 +348,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 if (ready && engine != null && !restoring) { publish(); checkpoint() }
             }
         }
-        if (ready && engine != null && !restoring) execute()
+        if (requestedSource != null) {
+            if (engine != null) execute()
+            else { pendingSourceAction = execute; connect() }
+        }
+        else if (ready && engine != null && !restoring) execute()
         else { pending.addLast(execute); if (!ready || engine == null) connect() }
     }
 
@@ -332,6 +387,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private fun finishDiskWork(player: ExoPlayer, generation: Long, completed: (() -> Unit)? = null) {
         if (generation != indexedSelectionGeneration) return
         restoring = false
+        pendingOfflineOwner = null
+        restorePendingLaunch()
+        if (state.value.pendingSource != null) mutable.value = state.value.copy(pendingSource = null)
         if (!ready || engine !== player) return
         if (deferredReconcile) {
             deferredReconcile = false
@@ -733,9 +791,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         fetchWave()
     }
     override fun playOffline() = playOfflineLikes()
-    internal fun playOfflineLikes() = diskCommand(playing = true) {
-        val profile = state.value.profileId
-        restoreOfflineQueue(profile, resume = true)
+    internal fun playOfflineLikes() = command(playing = true, requestedSource = PlaybackSource.OFFLINE) {
+        startDiskWork {
+            val profile = state.value.profileId
+            restoreOfflineQueue(profile, resume = true)
+        }
     }
 
     private fun offlineKey(owner: OfflineOwner) = "${owner.profileId}:${owner.accountId}"
@@ -743,6 +803,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private suspend fun restoreOfflineQueue(profile: String, resume: Boolean, current: JSONObject? = null) {
         val cache = offline ?: return
         val tracks = cache.readyTracks(profile).filter { it.available && it.offline }
+        if (!cache.state.value.enabled) return
         val owner = cache.state.value.owner?.takeIf { it.profileId == profile } ?: return
         if (state.value.profileId != profile || tracks.any { cache.cachedTrack(profile, it.id) == null }) return
         val key = offlineKey(owner)
@@ -761,6 +822,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             ?: if (saved != null && saved === current) prefs.getString("repeat:$profile", "OFF") else "OFF"
         val shuffle = if (saved?.has("shuffle") == true) saved.optBoolean("shuffle")
             else bookmark?.optBoolean("shuffle") ?: (saved != null && saved === current && prefs.getBoolean("shuffle:$profile", false))
+        ready = true // The selected cached source is independent of an unrelated local/USB scan.
+        pendingSourceLaunch = null // The prepared source now owns the explicit Play request.
         cancelWave(); followLibrary = false; referenceOrder = null; activeOfflineOwner = owner
         mutable.value = state.value.copy(origin = PlaybackOrigin(PlaybackSource.OFFLINE), recommendations = false,
             continueWave = false).withRepeat(runCatching { RepeatMode.valueOf(repeat ?: "OFF") }.getOrDefault(RepeatMode.OFF))

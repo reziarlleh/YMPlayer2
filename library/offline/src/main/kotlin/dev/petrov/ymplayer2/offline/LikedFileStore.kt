@@ -36,42 +36,65 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     // A location lease prevents moving a download's destination. Network IO never holds the read lock.
     private val locationLease = Mutex()
     private val directories = CacheDirectories(context)
+    private val catalogIndex = CatalogMetadataIndex(context)
+    private val catalogGeneration = java.util.concurrent.atomic.AtomicLong()
+    private val backupName = Regex("[a-f0-9]{64}\\.(json|audio|cover)(\\.sha256)?\\.backup")
     private data class FileProof(val uri: String, val bytes: Long, val modified: Long, val checksum: String?)
     private val proofs = object : LinkedHashMap<String, FileProof>(256, .75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, FileProof>?) = size > 256
     }
     private val proofLock = Any()
     private var proofGeneration = 0L
-    private var rootOwner: OfflineOwner? = null
+    @Volatile private var rootOwner: OfflineOwner? = null
     private val roots = java.util.concurrent.ConcurrentHashMap<String, StorageNode>()
     private fun proofKey(file: StorageNode) = "${file.parentFile!!.uri}/${file.name.removeSuffix(".sha256")}"
     private fun invalidate(file: StorageNode) = synchronized(proofLock) {
         proofs.remove(proofKey(file))
         Unit
     }
-    private fun invalidateAll() { synchronized(proofLock) { proofs.clear(); proofGeneration++ }; roots.clear() }
+    private fun invalidateAll() {
+        catalogGeneration.incrementAndGet()
+        synchronized(proofLock) { proofs.clear(); proofGeneration++ }; roots.clear()
+    }
     fun locationState() = directories.state()
     internal fun locationIdentity() = directories.identity()
     suspend fun move(destination: String?, progress: (Long, Long) -> Unit) = withContext(Dispatchers.IO) {
         locationLease.withLock { lock.withLock {
             invalidateAll()
-            try { directories.migrate(destination, progress) } finally { invalidateAll() }
+            catalogIndex.clearLocation(directories.identity())
+            try { directories.migrate(destination, progress) }
+            finally { catalogIndex.clearLocation(directories.identity()); invalidateAll() }
         } }
     }
     private fun hash(value: String) = digest(value.toByteArray())
-    private fun digest(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) }
-    private fun root(owner: OfflineOwner, refresh: Boolean = false): StorageNode {
+    private fun digest(bytes: ByteArray): String {
+        val digest = MessageDigest.getInstance("SHA-256").digest(bytes)
+        val hex = "0123456789abcdef"
+        return CharArray(digest.size * 2) { index ->
+            val value = digest[index / 2].toInt() and 255
+            hex[if (index % 2 == 0) value ushr 4 else value and 15]
+        }.concatToString()
+    }
+    private fun root(owner: OfflineOwner, refresh: Boolean = false, recover: Boolean = true): StorageNode {
         if (rootOwner != owner) { invalidateAll(); rootOwner = owner }
         val identity = directories.identity().orEmpty()
         if (!refresh) roots[identity]?.let { return it }
         return directories.owner(owner).also { root ->
             // SAF rename is not atomic. Restore app-generated backups left by process death.
-            root.listFiles()?.filter { it.name.matches(Regex("[a-f0-9]{64}\\.(json|audio|cover)(\\.sha256)?\\.backup")) }?.forEach { backup ->
-                val name = backup.name.removeSuffix(".backup")
-                if (root.child(name).exists()) backup.delete() else backup.rename(name)
-            }
+            if (recover) recoverBackups(owner, identity, root, root.listFiles().orEmpty())
             roots.clear(); roots[identity] = root
         }
+    }
+    private fun recoverBackups(owner: OfflineOwner, identity: String?, root: StorageNode, files: List<StorageNode>): Boolean {
+        val backups = files.filter { it.name.matches(backupName) }
+        if (backups.isEmpty()) return false
+        catalogGeneration.incrementAndGet()
+        catalogIndex.remove(owner, identity, backups.mapTo(hashSetOf()) { it.name.removeSuffix(".backup") })
+        backups.forEach { backup ->
+            val name = backup.name.removeSuffix(".backup")
+            if (root.child(name).exists()) backup.delete() else backup.rename(name)
+        }
+        return true
     }
     // UGC uploads have opaque IDs too. Disk names are SHA256 hashes, never raw identifiers.
     private fun key(id: String) = id.removePrefix("yandex:").substringBefore(':').also {
@@ -83,23 +106,53 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     private fun check(allowed: () -> Boolean) { if (!allowed()) throw Revoked() }
 
     override suspend fun catalog(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) {
-        lock.withLock {
-            val root = root(owner, refresh = true)
-            root.listFiles()?.filter { it.name.endsWith(".part") && it.lastModified() < System.currentTimeMillis() - 86_400_000 }?.forEach(StorageNode::delete)
-            root.listFiles()?.filter { it.name.endsWith(".json") && it.length() < 64 * 1024 }?.mapNotNull { metadata ->
+        // Resolving a root is brief. Enumerating and reading thousands of metadata
+        // documents must not hold the mutex needed to prepare a selected track.
+        val (root, identity, initialGeneration) = lock.withLock {
+            Triple(root(owner, refresh = true, recover = false), directories.identity(), catalogGeneration.get())
+        }
+        var generation = initialGeneration
+        var inventory = root.listSnapshot().orEmpty()
+        val backups = inventory.filter { it.name.matches(backupName) }
+        if (backups.isNotEmpty()) {
+            generation = lock.withLock {
+                recoverBackups(owner, identity, root, backups.map { it.node })
+                catalogGeneration.get()
+            }
+            inventory = root.listSnapshot().orEmpty()
+        }
+        val indexed = catalogIndex.read(owner, identity)
+        val nextIndex = linkedMapOf<String, CatalogMetadataIndex.Entry>()
+        val files = inventory.associateBy { it.name }
+        val expired = System.currentTimeMillis() - 86_400_000
+        // These app-generated temporary files never contribute to the catalog.
+        inventory.filter { it.name.endsWith(".part") && it.modified in 1 until expired }.forEach { it.node.delete() }
+        val tracks = inventory.filter { it.name.endsWith(".json") && it.isFile && it.bytes in 1 until 64L * 1024 }
+            .mapNotNull { metadata ->
                 currentCoroutineContext().ensureActive()
                 try {
-                    val track = decode(JSONObject(metadata.readText()))
-                    val audio = part(root, track.id, ".audio")
-                    if (!audio.isFile || audio.length() !in 1..(128L * 1024 * 1024)) null else {
-                        val cover = part(root, track.id, ".cover").takeIf { it.isFile && it.length() in 1..(8L * 1024 * 1024) }
-                        track.copy(offline = true, available = true, uri = audio.uri.toString(),
-                            artworkUri = cover?.let { it.uri.toString() }, sizeBytes = audio.length() + (cover?.length() ?: 0))
+                    val reused = indexed[metadata.name]?.takeIf { it.matches(metadata) }?.let { record ->
+                        runCatching { record to decode(record.metadata).also { key(it.id) } }.getOrNull()
                     }
+                    val (record, track) = reused ?: CatalogMetadataIndex.Entry(metadata.node.uri.toString(), metadata.bytes,
+                        metadata.modified, JSONObject(metadata.node.readText())).let { record ->
+                            record to decode(record.metadata).also { key(it.id) }
+                        }
+                    if (metadata.modified > 0) nextIndex[metadata.name] = record
+                    val prefix = hash(key(track.id))
+                    val audio = files["$prefix.audio"]?.takeIf { it.isFile && it.bytes in 1..(128L * 1024 * 1024) }
+                    val cover = files["$prefix.cover"]?.takeIf { it.isFile && it.bytes in 1..(8L * 1024 * 1024) }
+                    audio?.let { track.copy(offline = true, available = true, uri = it.node.uri.toString(),
+                        artworkUri = cover?.node?.uri?.toString(), sizeBytes = it.bytes + (cover?.bytes ?: 0)) }
                 } catch (e: CancellationException) { throw e }
                 catch (_: Exception) { null }
-            }?.sortedWith(compareBy(Track::artist, Track::title)).orEmpty()
+            }.sortedWith(compareBy(Track::artist, Track::title))
+        currentCoroutineContext().ensureActive()
+        val job = currentCoroutineContext()[Job]
+        catalogIndex.replace(owner, identity, nextIndex) {
+            job?.isActive != false && catalogGeneration.get() == generation && rootOwner == owner && directories.identity() == identity
         }
+        tracks
     }
 
     override suspend fun load(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) {
@@ -117,13 +170,22 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
 
     override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem = withContext(Dispatchers.IO) { locationLease.withLock {
         val root = lock.withLock { root(owner) }
+        val identity = directories.identity()
         val audio = part(root, track.id, ".audio")
         val cover = part(root, track.id, ".cover")
         try {
+            val metadata = part(root, track.id, ".json")
+            val encoded = encode(track)
+            check(allowed)
+            catalogGeneration.incrementAndGet()
+            // Index compaction may be busy on another IO coroutine. Waiting for it
+            // must not hold the selected audio's mutex. Equal-size writes on coarse
+            // clocks still invalidate this entry durably before changing metadata.
+            catalogIndex.remove(owner, identity, setOf(metadata.name))
             lock.withLock {
                 check(allowed)
                 if (!root.isDirectory && !root.mkdirs()) throw IOException("Cannot create offline directory")
-                write(part(root, track.id, ".json"), encode(track).toString().toByteArray())
+                write(metadata, encoded.toString().toByteArray())
             }
             var audioFailed = false; var coverFailed = false; var noCover = false
             try {
@@ -161,6 +223,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     override suspend fun retain(owner: OfflineOwner, keys: Set<String>, allowed: () -> Boolean) = withContext(Dispatchers.IO) {
         lock.withLock {
             if (!allowed()) return@withLock
+            catalogGeneration.incrementAndGet()
             val keep = keys.mapTo(hashSetOf(), ::hash)
             root(owner).listFiles()?.filter { !it.name.endsWith(".part") && it.name.substringBefore('.') !in keep }?.forEach {
                 invalidate(it)
@@ -173,6 +236,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         lock.withLock {
             val root = root(owner)
             invalidateAll()
+            catalogIndex.clear(owner, directories.identity())
             if (!root.deleteRecursively()) throw IOException("Cannot clear offline files")
         }
     }
@@ -256,6 +320,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             lock.withLock {
                 check(allowed)
                 // A crash between these renames leaves an unknown checksum, requiring packet/image validation.
+                catalogGeneration.incrementAndGet()
                 invalidate(target)
                 checksum(target).let { if (it.exists()) it.delete() }
                 target.replace(temp)
@@ -274,6 +339,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     }
     private suspend fun remember(file: StorageNode) = write(checksum(file), fileHash(file).toByteArray())
     private fun write(target: StorageNode, bytes: ByteArray) {
+        catalogGeneration.incrementAndGet()
         val temp = StorageNode.temporary(target.parentFile!!, "metadata-")
         invalidate(target)
         try { temp.writeBytes(bytes); target.replace(temp) }

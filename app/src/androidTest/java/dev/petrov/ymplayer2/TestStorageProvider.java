@@ -22,6 +22,9 @@ public class TestStorageProvider extends DocumentsProvider {
     private long available = 2L * 1024 * 1024 * 1024;
     private boolean unavailable, failWrite;
     private volatile CountDownLatch audioTailGate;
+    private volatile CountDownLatch catalogQueryGate, catalogJsonGate, catalogChildrenGate;
+    private volatile boolean unknownModified, constantModified;
+    private final AtomicInteger catalogQueries = new AtomicInteger(), catalogFileQueries = new AtomicInteger(), catalogChildren = new AtomicInteger(), catalogJsonOpens = new AtomicInteger(), catalogWaiters = new AtomicInteger();
     private final AtomicInteger audioOpens = new AtomicInteger(), audioTailWaiters = new AtomicInteger(), audioPipes = new AtomicInteger();
     private static final int AUDIO_PREFIX_BYTES = 256 * 1024;
     private File base() { File root = new File(getContext().getCacheDir(), "transfer-storage"); root.mkdirs(); return root; }
@@ -50,14 +53,28 @@ public class TestStorageProvider extends DocumentsProvider {
             else if (col.equals(DocumentsContract.Document.COLUMN_DISPLAY_NAME)) value = file.getName();
             else if (col.equals(DocumentsContract.Document.COLUMN_MIME_TYPE)) value = file.isDirectory() ? DocumentsContract.Document.MIME_TYPE_DIR : "application/octet-stream";
             else if (col.equals(DocumentsContract.Document.COLUMN_SIZE)) value = file.length();
-            else if (col.equals(DocumentsContract.Document.COLUMN_LAST_MODIFIED)) value = file.lastModified();
+            else if (col.equals(DocumentsContract.Document.COLUMN_LAST_MODIFIED)) value = unknownModified ? 0L : constantModified ? 1700000000000L : file.lastModified();
             else if (col.equals(DocumentsContract.Document.COLUMN_FLAGS)) value = DocumentsContract.Document.FLAG_SUPPORTS_DELETE | DocumentsContract.Document.FLAG_SUPPORTS_RENAME | DocumentsContract.Document.FLAG_SUPPORTS_WRITE | (file.isDirectory() ? DocumentsContract.Document.FLAG_DIR_SUPPORTS_CREATE : 0);
             row.add(value);
         }
     }
     private MatrixCursor cursor(String[] projection) { return new MatrixCursor(projection == null ? new String[]{DocumentsContract.Document.COLUMN_DOCUMENT_ID, DocumentsContract.Document.COLUMN_DISPLAY_NAME, DocumentsContract.Document.COLUMN_MIME_TYPE, DocumentsContract.Document.COLUMN_SIZE, DocumentsContract.Document.COLUMN_LAST_MODIFIED, DocumentsContract.Document.COLUMN_FLAGS} : projection); }
-    @Override public MatrixCursor queryDocument(String id, String[] projection) throws FileNotFoundException { MatrixCursor c = cursor(projection); File f = file(id); if (f.exists()) row(c, id, f); return c; }
+    private boolean catalogFile(String id) { return id.contains("/v1/") && id.matches(".*\\.(json|audio|cover|sha256)"); }
+    private void catalogAwait(CountDownLatch gate) throws FileNotFoundException {
+        if (gate == null || gate.getCount() == 0) return;
+        catalogWaiters.incrementAndGet();
+        try { if (!gate.await(30, TimeUnit.SECONDS)) throw new FileNotFoundException("Catalog fixture gate timed out"); }
+        catch (InterruptedException e) { Thread.currentThread().interrupt(); throw new FileNotFoundException("Catalog fixture interrupted"); }
+        finally { catalogWaiters.decrementAndGet(); }
+    }
+    @Override public MatrixCursor queryDocument(String id, String[] projection) throws FileNotFoundException {
+        catalogQueries.incrementAndGet();
+        if (catalogFile(id)) { catalogFileQueries.incrementAndGet(); catalogAwait(catalogQueryGate); }
+        MatrixCursor c = cursor(projection); File f = file(id); if (f.exists()) row(c, id, f); return c;
+    }
     @Override public MatrixCursor queryChildDocuments(String id, String[] projection, String sort) throws FileNotFoundException {
+        catalogChildren.incrementAndGet();
+        if (id.contains("/v1/")) catalogAwait(catalogChildrenGate);
         MatrixCursor c = cursor(projection); File[] children = file(id).listFiles(); if (children == null) throw new FileNotFoundException();
         for (File f : children) row(c, id + "/" + f.getName(), f); return c;
     }
@@ -81,6 +98,7 @@ public class TestStorageProvider extends DocumentsProvider {
     }
     private void delete(File file) { File[] children = file.listFiles(); if (children != null) for (File f : children) delete(f); file.delete(); }
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal) throws FileNotFoundException {
+        if (mode.equals("r") && id.contains("/v1/") && id.endsWith(".json")) { catalogJsonOpens.incrementAndGet(); catalogAwait(catalogJsonGate); }
         if (failWrite && !mode.equals("r")) throw new FileNotFoundException();
         File source = file(id);
         if (mode.equals("r") && id.endsWith(".audio")) {
@@ -122,6 +140,7 @@ public class TestStorageProvider extends DocumentsProvider {
     }
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("storage-reset")) {
+            releaseCatalogGates(); unknownModified = false; constantModified = false; resetCatalogCounters();
             CountDownLatch previous = audioTailGate; audioTailGate = null;
             if (previous != null) previous.countDown();
             audioOpens.set(0);
@@ -134,7 +153,38 @@ public class TestStorageProvider extends DocumentsProvider {
         } else if (method.equals("storage-space")) available = Long.parseLong(arg);
         else if (method.equals("storage-unavailable")) unavailable = Boolean.parseBoolean(arg);
         else if (method.equals("storage-fail-write")) failWrite = Boolean.parseBoolean(arg);
-        else if (method.equals("storage-audio-tail")) {
+        else if (method.equals("storage-catalog-gate")) {
+            releaseCatalogGates();
+            if ("query".equals(arg)) catalogQueryGate = new CountDownLatch(1);
+            if ("json".equals(arg)) catalogJsonGate = new CountDownLatch(1);
+            if ("children".equals(arg)) catalogChildrenGate = new CountDownLatch(1);
+        } else if (method.equals("storage-catalog-counters-reset")) resetCatalogCounters();
+        else if (method.equals("storage-catalog-unknown-mtime")) unknownModified = Boolean.parseBoolean(arg);
+        else if (method.equals("storage-catalog-constant-mtime")) constantModified = Boolean.parseBoolean(arg);
+        else if (method.equals("storage-catalog-stats")) {
+            Bundle b = new Bundle(); b.putInt("queries",catalogQueries.get()); b.putInt("fileQueries",catalogFileQueries.get());
+            b.putInt("children",catalogChildren.get()); b.putInt("jsonOpens",catalogJsonOpens.get()); b.putInt("waiters",catalogWaiters.get()); return b;
+        } else if (method.equals("storage-seed-catalog") || method.equals("storage-edit-catalog")) {
+            try {
+                String profile = extras.getString("profile", "cold"), account = extras.getString("account", "account");
+                File directory = file("store/v1/" + digest(profile + "\u0000" + account)); directory.mkdirs();
+                if (method.equals("storage-seed-catalog")) {
+                    int count = extras.getInt("count", 400);
+                    if (count < 1 || count > 2000) throw new IllegalArgumentException("Fixture count");
+                    for (int i=0;i<count;i++) {
+                        String id="seed"+i, name=digest(id);
+                        writeFixture(new File(directory,name+".json"), metadata(id,"Cached song "+i));
+                        writeFixture(new File(directory,name+".audio"), new byte[64]);
+                        if (i%2==0) writeFixture(new File(directory,name+".cover"), new byte[32]);
+                    }
+                } else {
+                    String id=extras.getString("id", "seed1"), action=extras.getString("action", "rename");
+                    File metadata = new File(directory,digest(id)+".json");
+                    if (action.equals("removeAudio")) new File(directory,digest(id)+".audio").delete();
+                    else writeFixture(metadata, metadata(id, "Changed title with a different metadata length"));
+                }
+            } catch (Exception e) { throw new IllegalStateException("Cannot prepare catalog fixture",e); }
+        } else if (method.equals("storage-audio-tail")) {
             CountDownLatch previous = audioTailGate;
             audioTailGate = "closed".equals(arg) ? new CountDownLatch(1) : null;
             if (previous != null) previous.countDown();
@@ -146,4 +196,18 @@ public class TestStorageProvider extends DocumentsProvider {
         else return super.call(method, arg, extras);
         return Bundle.EMPTY;
     }
+    private void resetCatalogCounters() { catalogQueries.set(0); catalogFileQueries.set(0); catalogChildren.set(0); catalogJsonOpens.set(0); }
+    private void releaseCatalogGates() {
+        for (CountDownLatch g:new CountDownLatch[]{catalogQueryGate,catalogJsonGate,catalogChildrenGate}) if(g!=null)g.countDown();
+        catalogQueryGate=null;catalogJsonGate=null;catalogChildrenGate=null;
+    }
+    private static String digest(String value) throws Exception {
+        byte[] bytes=java.security.MessageDigest.getInstance("SHA-256").digest(value.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        StringBuilder s=new StringBuilder();for(byte b:bytes)s.append(String.format(java.util.Locale.ROOT,"%02x",b&255));return s.toString();
+    }
+    private static byte[] metadata(String id,String title) throws Exception {
+        return new org.json.JSONObject().put("id","yandex:"+id+":7").put("title",title).put("artist","Fixture artist")
+            .put("album","Fixture album").put("duration",30).put("genre","").put("artists",new org.json.JSONArray()).toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
+    }
+    private static void writeFixture(File file,byte[] data) throws IOException { try(OutputStream out=new FileOutputStream(file)){out.write(data);} }
 }

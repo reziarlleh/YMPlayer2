@@ -49,6 +49,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     @Volatile private var membershipRevision = 0L
     private var seenTaste: Pair<OfflineOwner, Long>? = null
     private var job: Job? = null
+    private var loadJob: Job? = null
     private val downloadQueueLock = kotlinx.coroutines.sync.Mutex()
     private var automaticJob: Job? = null
     private class TrackIndex(val owner: OfflineOwner, val tracks: List<Track>, val byKey: Map<String, Track>)
@@ -58,7 +59,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         scope.launch {
             accounts.state.map { auth -> auth.takeIf { it.phase == AuthPhase.SIGNED_IN }?.account?.id
                 ?.let { OfflineOwner(auth.profileId, it) } }.distinctUntilChanged().collect { owner ->
-                generation++; job?.cancel(); automaticJob?.cancel(); excluded = emptySet(); passKeys = null; membership = null; seenTaste = null
+                generation++; job?.cancel(); loadJob?.cancel(); automaticJob?.cancel(); excluded = emptySet(); passKeys = null; membership = null; seenTaste = null
                 trackIndex = null
                 mutable.value = OfflineState(owner = owner, wifiOnly = state.value.wifiOnly,
                     enabled = state.value.enabled, ready = owner != null && !state.value.enabled)
@@ -146,7 +147,8 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
 
     private fun load(owner: OfflineOwner) {
         val ticket = generation
-        scope.launch {
+        loadJob?.cancel()
+        loadJob = scope.launch {
             try {
                 val tracks = store.catalog(owner)
                 if (valid(owner, ticket) && state.value.enabled) {
@@ -161,7 +163,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     /** Device-wide opt-out. In-flight writes lose their generation; existing files require explicit clear. */
     fun setEnabled(value: Boolean) {
         if (state.value.enabled == value) return
-        generation++; membershipRevision++; job?.cancel(); automaticJob?.cancel(); job = null; passKeys = null; seenTaste = null
+        generation++; membershipRevision++; job?.cancel(); loadJob?.cancel(); automaticJob?.cancel(); job = null; passKeys = null; seenTaste = null
         mutable.value = state.value.copy(enabled = value, ready = state.value.owner != null && !value,
             running = false, tracks = emptyList(), total = 0, checked = 0, audioFailures = 0, coverFailures = 0, noCover = 0,
             message = if (value) null else "Офлайн-кэш выключен. Для освобождения места удалите ранее сохранённые файлы.")
@@ -196,8 +198,10 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     fun setWifiOnly(value: Boolean) { mutable.value = state.value.copy(wifiOnly = value); saveWifi(value) }
     fun report(message: String) { mutable.value = state.value.copy(message = message) }
     fun cancel() {
-        generation++; job?.cancel(); automaticJob?.cancel(); job = null; passKeys = null
+        generation++; job?.cancel(); loadJob?.cancel(); automaticJob?.cancel(); job = null; passKeys = null
         mutable.value = state.value.copy(running = false, message = "Синхронизация остановлена. Готовые файлы сохранены.")
+        // Cancelling a transfer must not leave a cold catalog permanently unready.
+        if (!state.value.ready && state.value.enabled) state.value.owner?.let(::load)
     }
     /** Re-read URIs after a committed location change without changing membership or account. */
     fun reloadCache() {
@@ -272,6 +276,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     fun clear() {
         val owner = state.value.owner ?: return
         cancel(); val ticket = generation
+        loadJob?.cancel()
         mutable.value = state.value.copy(ready = false, tracks = emptyList(), message = "Удаляем офлайн-файлы этого аккаунта…")
         scope.launch {
             try {

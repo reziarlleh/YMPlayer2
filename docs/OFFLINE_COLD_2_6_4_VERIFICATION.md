@@ -42,6 +42,27 @@ Origin/очередь/закладки меняются только при го
 новый store между чтениями, изменение/удаление, одинаковые size/mtime,
 повреждение индекса, неизвестный mtime, другой owner/location и потеря доступа.
 Отдельный UI-набор нажимает Offline до ready и удерживает посторонний local scan.
-Ни успех сборки, ни положительный результат ещё не заявлены. Идёт debug/test build;
-затем red на APK123 и green на исправленных исходниках, целевые регрессии.
+Debug/test сборка и11 cold-native сценариев API28 прошли. Три целевых сценария
+на исходниках123 воспроизвели зависимость от отдельных query/JSON и отсутствие
+немедленного выделения Offline. На исправлении они прошли с закрытыми gates.
+
+На одном API28-эмуляторе400 SAF-треков (половина без обложек) дали:
+
+| Путь, новый экземпляр Store |123|Исправление|
+| --- | --- | --- |
+|Первый обход без индекса|12 113ms,2800 stat-query,400 JSON-open|1 409ms,0 stat-query,400 JSON-open|
+|Следующий холодный Store|10 965ms,2800 stat-query,400 JSON-open|112ms,0 stat-query,0 JSON-open|
+
+Это замеры нового экземпляра Store, не физического устройства и не полного
+выключения Android. Структурное отсутствие лишних IO дополнительно доказано
+закрытыми gates: их нельзя заменить одним удачным таймингом. Отдельно прошли
+coarse-mtime собственная запись, повреждение индекса, неизвестный mtime,
+удалённый файл, другой owner/location, потеря доступа, UI до catalog.ready,
+Stop/profile cancellation и реальный звук при закрытом local-scan gate.
+Дополнительно прошли49 связанных регрессий и настоящий EOF исходящей волны
+при удержанном cold gate —61 native API28 суммарно.151 core+4 app JVM,
+release lint0 ошибок/82 предупреждения. API35/TV и подписанный APK ещё не проверены.
+[Red123](qa/cold-offline264/cold-before.txt), [старые затраты](qa/cold-offline264/costs-before.txt),
+[11 cold](qa/cold-offline264/cold-after.txt), [49 регрессий](qa/cold-offline264/regression-api28.txt),
+[EOF волны](qa/cold-offline264/pending-wave-eof.txt), [JVM/lint](qa/cold-offline264/jvm-lint.json).
 Продуктовый новый APK/Build пока не выдан; stable/feed123 не изменены.

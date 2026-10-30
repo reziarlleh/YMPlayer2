@@ -1,0 +1,21 @@
+{
+  "jvm": {
+    "core/build/test-results/test": {
+      "tests": 151,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app/build/test-results/testDebugUnitTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 82
+  }
+}

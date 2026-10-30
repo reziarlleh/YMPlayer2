@@ -27,6 +27,8 @@ data class PlaybackState(
     val referenceQueue: Boolean = false, val explicitQueueIds: Set<String>? = null,
     val origin: PlaybackOrigin = PlaybackOrigin(), val continueWave: Boolean = false,
     val previousAvailable: Boolean? = null, val nextAvailable: Boolean? = null,
+    /** Requested source while local metadata is being prepared; never a committed queue origin. */
+    val pendingSource: PlaybackSource? = null,
 ) {
     val current: Track? get() = currentTrack ?: queue.getOrNull(index - queueOffset)
     val queueCount: Int get() = queueTotal ?: queue.size
