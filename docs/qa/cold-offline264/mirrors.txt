@@ -1,0 +1,6 @@
+Requested CDN refresh for stable.json: finished, request pGRKO5ri8grON1mb.
+Requested CDN refresh for manifest.json: finished, request ET5JsTV7PvXrVt27.
+cdn.jsdelivr.net stable.json metadata differ from main (version 2.6.4-build123, APK URL https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.4-build123/releases/2.6.4-build123/YMPlayer-2.6.4-build123.apk). CDN propagation is pending; verify the complete metadata before declaring the mirror current.
+Verified cdn.jsdelivr.net manifest.json: 2.6.4-build124, stable.
+gcore.jsdelivr.net stable.json metadata differ from main (version 2.6.4-build123, APK URL https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.4-build123/releases/2.6.4-build123/YMPlayer-2.6.4-build123.apk). CDN propagation is pending; verify the complete metadata before declaring the mirror current.
+Verified gcore.jsdelivr.net manifest.json: 2.6.4-build124, stable.

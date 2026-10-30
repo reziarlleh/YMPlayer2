@@ -1,0 +1,15 @@
+{
+  "version": "2.6.4-build124",
+  "manualBeta": false,
+  "development": false,
+  "stableVersion": "2.6.4-build124",
+  "localFeeds": {
+    "manifest": "2.6.4-build124",
+    "stable": "2.6.4-build124"
+  },
+  "documents": 249,
+  "localLinks": 2431,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}

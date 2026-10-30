@@ -1,6 +1,6 @@
 # YMPlayer2 — user guide
 
-The stable release is **2.6.4-build123**, Android9 and later. Reviewed on 29 October 2026.
+The stable release is **2.6.4-build124**, Android9 and later. Reviewed on 30 October 2026.
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -297,6 +297,12 @@ The list opens without auditing every audio file. A verified, unchanged download
 does not need another whole-file read before each Play or Next. New or changed
 files are checked again. Synchronize to repair a damaged download; Offline mode
 does not replace it with an online stream.
+
+Selecting **Offline** immediately shows that preparation is in progress. It does
+not wait for a local-folder or USB scan. The saved catalogue speeds up the first
+opening after launch; changed entries are read again. A new or slow storage device
+can take longer. Stop, selecting another source or switching profiles cancels the
+pending switch. Access and integrity checks for the selected audio file remain.
 
 Switching from Offline to My Vibe preserves the offline track, position, order,
 shuffle and repeat mode. Selecting the **Offline** shortcut resumes from that
