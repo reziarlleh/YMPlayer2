@@ -1,0 +1,36 @@
+{
+  "checkedAtUtc": "2026-11-05T09:42:34.866260+00:00",
+  "version": "2.6.5-build125",
+  "serial": "emulator-5560",
+  "sdk": 28,
+  "apkSha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+  "upgradeFromBuild": 124,
+  "installedBuild": 125,
+  "sameUid": true,
+  "sameFirstInstallTime": true,
+  "dataCleared": false,
+  "physicalDevicesUsed": false,
+  "cases": [
+    {
+      "case": "cold-1",
+      "processAlive": true,
+      "mainActivityForeground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-1",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-2",
+      "processAlive": true,
+      "mainActivityForeground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-2",
+      "sameProcess": true
+    }
+  ],
+  "noDelayedCrash": true
+}

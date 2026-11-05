@@ -293,8 +293,8 @@ its cached file and cancels a pending download. Use synchronization for likes ma
 outside YMPlayer or to retry missing downloads. Collections remain specific to
 both the profile and its Yandex account.
 
-The following split is prepared for the upcoming 2.6.5. The published
-2.6.4-build124 does not yet have a separate full-check button.
+The following split is available in the manual test build 2.6.5-build125.
+The normal release 2.6.4-build124 does not yet have a separate full-check button.
 
 **Sync liked tracks** checks your current collection and downloads missing files.
 New audio downloads take priority over artwork repairs and metadata updates for
