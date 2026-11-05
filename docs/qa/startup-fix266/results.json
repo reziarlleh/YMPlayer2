@@ -1,0 +1,85 @@
+{
+  "checkedAtUtc": "2026-11-05T17:02:50.341394+00:00",
+  "version": "2.6.6-build126",
+  "published": false,
+  "ownerAccepted": false,
+  "stable": "2.6.5-build125",
+  "baselineProductionCommit": "238927ede290cac7ebc1d17f50f2bfb03bb5af06",
+  "finalSourcesSha256": {
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt": "5cb712fc0738de9885e69193abc43b428c5ed239f0bba5b87963fb179d4390cd",
+    "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt": "c5f55f716c23abf58501d192883c41f8796893f1fbec380e72fa2bd62faecd75",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/OperationDiagnostic.kt": "38aef802fc9dac43c1cfcf161d47bdb594bf8e7d4e97ba8e6fce5167b6dde754",
+    "app/src/debug/kotlin/dev/petrov/ymplayer2/OnlineTestActivity.kt": "14f30ce65bfb2ec82d928d86bce8d7cbacdff41c3d3169a6d9f869ababb20ed1",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/LaunchResumeRecoveryTest.kt": "9beecd73f183e657288fdc48130245e18b7214736e5b1b366549b866ff8095d1",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/LaunchResumeIntentTest.kt": "f99bb2e3f942bbc28336326f6d81f4ff8ff33380e9642c92c88ff7a88bde8bf1"
+  },
+  "jvm": {
+    "core": {
+      "tests": 162,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "taskSuccessful": true,
+    "severities": {
+      "Warning": 82
+    }
+  },
+  "nativeRed": {
+    "api": 28,
+    "expectedFailure": true,
+    "tests": 1,
+    "failures": 1,
+    "timeoutMs": 30000,
+    "appSha256": "284871378fe1aa4747bcc8f4073e5c6ae6122c40bd69373a70467a527a157918"
+  },
+  "nativeFirstGreen": {
+    "api": 28,
+    "tests": 20,
+    "failures": 0,
+    "seconds": 237.127,
+    "appSha256": "57627d636b446d3403111fbbf9c8a8098a0a7e57df80324af2313ea67f3189e4",
+    "testSha256": "738e9fb040b44817122621a93101598afad1af6c27f9d680f05fa049e8406136",
+    "finalCode": false
+  },
+  "nativeFinal": {
+    "appSha256": "08c587f25f14e09bbe8afe598f2335e2b47b83604bcf6d42fc1e24b1e409a849",
+    "testSha256": "dea0e0cf31e3797296edf628304fcfaf5c25bac78de407df6e58c4b03c25fefd",
+    "sameApkPair": true,
+    "runs": [
+      {
+        "api": 28,
+        "tests": 9,
+        "failures": 0,
+        "seconds": 78.281
+      },
+      {
+        "api": 35,
+        "tests": 22,
+        "failures": 0,
+        "seconds": 229.94
+      }
+    ]
+  },
+  "signedCandidate": {
+    "sha256": "a56b2ee6219ae259249597426a435518e70fa183b975e022b207e5f5a17124a2",
+    "bytes": 7057781,
+    "releaseOAuthVerified": true
+  },
+  "stableApkUnchanged": true,
+  "stableApkSha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+  "physicalDevicesUsed": false,
+  "limitations": [
+    "Controlled source failure, not live Yandex or the reporting user device.",
+    "Native tests exercise the real adapter/ExoPlayer; signed APK checks separately cover packaging/upgrade/launch.",
+    "The first API28 upgrade retained UID but raw firstInstallTime text differed; no normalized epoch comparison was captured. Reinstall/startup is a separate receipt."
+  ]
+}

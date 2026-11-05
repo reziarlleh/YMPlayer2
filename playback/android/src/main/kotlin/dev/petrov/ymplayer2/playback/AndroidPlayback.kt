@@ -26,11 +26,20 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private val streamQuality: () -> AudioQuality = { AudioQuality.AUTO },
     private val listened: (String, Track) -> Unit = { _, _ -> },
     private val waveFeedbackResult: (Boolean) -> Unit = {},
-    private val diagnostic: (OperationDiagnostic) -> Unit = {}) : PlaybackController {
+    private val diagnostic: (OperationDiagnostic) -> Unit = {},
+    private val networkAvailable: () -> Boolean = { true }) : PlaybackController {
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
     private val launchState = LaunchStateStore(context)
     private var userCommanded = false
     private var commandDepth = 0
+    private var launchRevisionValue = 0L
+    /** Fences a launch waiting for account restoration against newer transport/source commands. */
+    val launchRevision: Long get() = launchRevisionValue
+    private var launchResumeGeneration = 0L
+    private var launchResumeProfile: String? = null
+    private var launchResumeJob: Job? = null
+    private var launchResumeFailure: DiagnosticCategory? = null
+    private var launchResumeAttempts = 0
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
     override val waveSettings = waveApi?.let { api -> online?.let { music -> WaveSettings(music.accounts, api, scope,
@@ -43,6 +52,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         private set
     /** Preserve the Music checkpoint before lending the service engine to a live station. */
     internal fun yieldToRadio() {
+        supersedeLaunchResume()
         cancelPendingSource(recover = false)
         if (!radioMode && ready && !restoring) { publish(); checkpoint() }
         radioMode = true
@@ -105,7 +115,74 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
     /** Only an explicit application launch requests automatic playback; service creation stays silent. */
-    fun resumeOnLaunch() = sessionPlay()
+    fun resumeOnLaunch() = resumeOnLaunch(launchRevision)
+    fun resumeOnLaunch(expectedRevision: Long) {
+        val profile = state.value.profileId
+        if (expectedRevision != launchRevision || launchState.read(profile) != LaunchState(PlaybackOutput.MUSIC, true)) return
+        cancelLaunchResume()
+        val ticket = ++launchResumeGeneration
+        launchResumeProfile = profile
+        launchResumeAttempts = 0
+        val started = android.os.SystemClock.elapsedRealtime()
+        var attempted = started
+        val delays = longArrayOf(5_000, 10_000, 20_000, 40_000, 60_000, 60_000)
+        diagnostic(OperationDiagnostic(DiagnosticOperation.LAUNCH_RESUME_WAIT, attempt = 0))
+        launchResumeJob = scope.launch {
+            try {
+                while (ticket == launchResumeGeneration) {
+                    delay(500)
+                    if (!launchResumeValid(profile)) { cancelLaunchResume(); return@launch }
+                    val player = engine
+                    if (player?.isPlaying == true) {
+                        cancelLaunchResume(DiagnosticOperation.LAUNCH_RESUME_STARTED); return@launch
+                    }
+                    val now = android.os.SystemClock.elapsedRealtime()
+                    if (now - started >= 300_000) {
+                        cancelLaunchResume(DiagnosticOperation.LAUNCH_RESUME_EXHAUSTED); return@launch
+                    }
+                    val failure = launchResumeFailure ?: continue
+                    // No request while offline, buffering, restoring metadata or doing normal wave retries.
+                    if (!networkAvailable() || player == null || !ready || restoring || pending.isNotEmpty() ||
+                        state.value.pendingSource != null || player.playbackState == Player.STATE_BUFFERING ||
+                        state.value.wave && (state.value.waveLoading || waveTrackErrorJob?.isActive == true || waveRecovery.retryAtMillis != null)) continue
+                    if (player.playerError == null && state.value.waveIssue == null) continue
+                    if (launchResumeAttempts >= delays.size) {
+                        cancelLaunchResume(DiagnosticOperation.LAUNCH_RESUME_EXHAUSTED); return@launch
+                    }
+                    if (now - attempted < delays[launchResumeAttempts]) continue
+                    launchResumeAttempts++
+                    attempted = now
+                    launchResumeFailure = null
+                    diagnostic(OperationDiagnostic(DiagnosticOperation.LAUNCH_RESUME_RETRY, failure, attempt = launchResumeAttempts))
+                    if (state.value.wave) waveRecovery.reset()
+                    requestLaunchPlay(ticket, profile)
+                }
+            } finally {
+                if (ticket == launchResumeGeneration) cancelLaunchResume()
+            }
+        }
+        requestLaunchPlay(ticket, profile)
+    }
+    private fun launchResumeValid(profile: String) = state.value.profileId == profile && !radioMode &&
+        launchState.read(profile) == LaunchState(PlaybackOutput.MUSIC, true)
+    private fun requestLaunchPlay(ticket: Long, profile: String) = command(playing = true, launchResume = true) {
+        if (ticket == launchResumeGeneration && launchResumeValid(profile)) playSession()
+    }
+    private fun launchSourceFailed(category: DiagnosticCategory) {
+        if (launchResumeProfile == null) return
+        if (category !in setOf(DiagnosticCategory.NETWORK, DiagnosticCategory.SERVER)) { cancelLaunchResume(); return }
+        launchResumeFailure = category
+        diagnostic(OperationDiagnostic(DiagnosticOperation.LAUNCH_RESUME_WAIT, category, attempt = launchResumeAttempts))
+    }
+    private fun cancelLaunchResume(event: DiagnosticOperation = DiagnosticOperation.LAUNCH_RESUME_CANCELLED) {
+        val active = launchResumeProfile != null
+        launchResumeGeneration++
+        launchResumeProfile = null
+        launchResumeFailure = null
+        launchResumeJob?.cancel(); launchResumeJob = null
+        if (active) diagnostic(OperationDiagnostic(event, attempt = launchResumeAttempts))
+    }
+    private fun supersedeLaunchResume() { launchRevisionValue++; cancelLaunchResume() }
     fun pauseForClips() = sessionPause()
     fun saveForExit() {
         if (!radioMode && ready && !restoring) { publish(); checkpoint() }
@@ -177,6 +254,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             } }
             override fun onIsPlayingChanged(isPlaying: Boolean) {
                 if (radioMode) return
+                if (isPlaying) cancelLaunchResume(DiagnosticOperation.LAUNCH_RESUME_STARTED)
                 if (!isPlaying) lastAudible = null
                 if (isPlaying && state.value.wave && !updating && !restoring) {
                     val id = player.currentMediaItem?.mediaId
@@ -204,6 +282,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             }
             override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
                 if (radioMode) return
+                if (!playWhenReady && reason in setOf(Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_FOCUS_LOSS,
+                        Player.PLAY_WHEN_READY_CHANGE_REASON_AUDIO_BECOMING_NOISY)) supersedeLaunchResume()
                 if (!playWhenReady && !updating && !restoring && reason == Player.PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST)
                     completedListItem = null
                 // Media3 can deliver our internal pause after the surrounding command returns.
@@ -215,7 +295,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             }
             override fun onPlayerError(error: PlaybackException) {
                 if (radioMode) return
-                diagnostic(mediaFailureDiagnostic(DiagnosticOperation.AUDIO_PLAYBACK, error))
+                val failureDiagnostic = mediaFailureDiagnostic(DiagnosticOperation.AUDIO_PLAYBACK, error)
+                diagnostic(failureDiagnostic)
+                launchSourceFailed(failureDiagnostic.category)
                 val remote = state.value.current?.source == Source.YANDEX
                 val failure = generateSequence<Throwable>(error) { it.cause }.filterIsInstance<MusicException>().firstOrNull()?.failure
                 if (remote && state.value.wave && failure !in setOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS) && failedWaveTracks++ < 3) {
@@ -274,6 +356,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
 
     internal fun detach() {
+        supersedeLaunchResume()
         cancelPendingSource(recover = false)
         lastAudible = null
         if (ready && !restoring) { publish(); checkpoint() }
@@ -312,7 +395,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
     }
 
-    private fun command(playing: Boolean? = null, requestedSource: PlaybackSource? = null, action: () -> Unit) {
+    private fun command(playing: Boolean? = null, requestedSource: PlaybackSource? = null, launchResume: Boolean = false, action: () -> Unit) {
+        if (!launchResume && (playing != null || requestedSource != null)) supersedeLaunchResume()
+        val launchTicket = launchResumeGeneration
         cancelPendingSource(recover = requestedSource == null)
         if (!radioMode && ready && !restoring && state.value.origin.source == PlaybackSource.OFFLINE) {
             publish(); saveOfflineBookmark()
@@ -340,7 +425,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             pendingSourceLaunch = state.value.profileId to saved
             mutable.value = state.value.copy(pendingSource = requestedSource, error = null)
         }
-        val execute = {
+        val execute = execute@{
+            // A stale queued launch must neither run nor checkpoint the new engine's
+            // initial pause over a newer Play waiting in the same metadata queue.
+            if (launchResume && launchTicket != launchResumeGeneration) return@execute
             commandDepth++
             try { action() }
             finally {
@@ -632,6 +720,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
     override fun switchProfile(profileId: String) = command {
         if (profileId == state.value.profileId || library.profiles.none { it.id == profileId }) return@command
+        supersedeLaunchResume()
         engine?.pause(); publish(); checkpoint()
         cancelWave()
         launchState.write(profileId, PlaybackOutput.MUSIC, false)
@@ -865,7 +954,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         waveRecovery.reset(); failedWaveTracks = 0
         fetchWave()
     }
-    internal fun sessionPlay() = command(playing = true) {
+    internal fun sessionPlay() = command(playing = true) { playSession() }
+    private fun playSession() {
+        mutable.value = state.value.copy(error = null)
         waveResume = true
         if (state.value.wave && (waveAdvance || state.value.current == null)) {
             waveAdvance = true
@@ -1081,7 +1172,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (ticket == waveGeneration) {
-                    diagnostic(wavePreparationDiagnostic(e))
+                    val failureDiagnostic = wavePreparationDiagnostic(e)
+                    diagnostic(failureDiagnostic)
+                    launchSourceFailed(failureDiagnostic.category)
                     val failure = if (isWaveStorageFailure(e)) MusicFailure.STORAGE else
                         (e as? MusicException)?.failure ?: if (e is java.io.IOException) MusicFailure.NETWORK else MusicFailure.RESPONSE
                     val retry = waveRecovery.failed(android.os.SystemClock.elapsedRealtime(), failure)

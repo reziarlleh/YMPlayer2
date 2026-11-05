@@ -68,6 +68,7 @@ class PlayerApplication : Application(), PlaybackHost {
         launchRestored = true
         val profile = playback.state.value.profileId
         val saved = launchState.read(profile)
+        val revision = playback.launchRevision
         accounts.activate(profile)
         playback.connect()
         return when (saved.output) {
@@ -79,10 +80,10 @@ class PlayerApplication : Application(), PlaybackHost {
                     val remote = queue?.optBoolean("wave") == true || (0 until (rows?.length() ?: 0)).any {
                         rows?.optJSONObject(it)?.let { track -> track.optString("id") == queue?.optString("current") && track.optString("source") == "YANDEX" } == true
                     }
-                    if (!remote) playback.resumeOnLaunch() else scope.launch {
+                    if (!remote) playback.resumeOnLaunch(revision) else scope.launch {
                         // Resolve the checkpoint only after account restoration; never autoplay a replacement output.
                         online.catalog.first { it.profileId == profile && it.phase != dev.petrov.ymplayer2.core.AuthPhase.LOADING }
-                        if (playback.state.value.profileId == profile && launchState.read(profile) == saved) playback.resumeOnLaunch()
+                        if (playback.state.value.profileId == profile && launchState.read(profile) == saved) playback.resumeOnLaunch(revision)
                     }
                 }
                 false
@@ -140,7 +141,7 @@ class PlayerApplication : Application(), PlaybackHost {
         streamQuality = { audioQuality.state.value.stream }, listened = history::record,
         waveFeedbackResult = { success -> scope.launch(kotlinx.coroutines.Dispatchers.IO) {
             diagnostics.record(if (success) DiagnosticEvent.WAVE_FEEDBACK_SENT else DiagnosticEvent.WAVE_FEEDBACK_FAILED)
-        } }, diagnostic = diagnostics::record) }
+        } }, diagnostic = diagnostics::record, networkAvailable = { internet.available.value }) }
     private val radioApi by lazy { dev.petrov.ymplayer2.yandex.YandexRadioApi(accounts) }
     override val radio by lazy { dev.petrov.ymplayer2.playback.AndroidRadio(this, playback, radioApi, scope, diagnostics::record) }
     val radioCatalog by lazy { dev.petrov.ymplayer2.core.RadioController(accounts, radioApi, radio, scope,

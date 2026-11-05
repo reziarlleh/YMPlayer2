@@ -44,6 +44,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     }, viewModelScope)
     var failure: MusicFailure? = null
     @Volatile var streamFailure: MusicFailure? = null
+    @Volatile var streamHttpStatus: Int? = null
     @Volatile var streamDelayMillis = 0L
     @Volatile var brokenStreamTrackIds: Set<String> = emptySet()
     @Volatile var streamGates: Map<String, CompletableDeferred<Unit>> = emptyMap()
@@ -86,7 +87,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             resolved += profileId to trackId
             delay(streamDelayMillis)
             streamGates[trackId]?.await()
-            streamFailure?.let { throw MusicException(it) }
+            streamFailure?.let { throw MusicException(it, streamHttpStatus) }
             if (trackId in brokenStreamTrackIds) return@withSession android.provider.DocumentsContract.buildDocumentUriUsingTree(
                 android.net.Uri.parse(fixtureTracks().first().uri), "broken.wav").toString()
             fixtureTracks()[(trackId.removePrefix("yandex:").substringBefore(':').toInt() - 1) % 2].uri!!
@@ -235,7 +236,9 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     }
     val collections = dev.petrov.ymplayer2.library.LocalCollections(context, library, viewModelScope)
     val history = dev.petrov.ymplayer2.library.ListeningHistory(context, viewModelScope, "fixture-history.db")
-    val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi, offline, streamQuality = { audioQuality.state.value.stream }, listened = history::record)
+    val launchDiagnostics = java.util.concurrent.CopyOnWriteArrayList<OperationDiagnostic>()
+    val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi, offline, streamQuality = { audioQuality.state.value.stream }, listened = history::record,
+        diagnostic = { launchDiagnostics += it }, networkAvailable = { internet.available.value })
     val radioApi = RadioFixtureApi { fixtureTracks().first().uri!! }
     val radio = dev.petrov.ymplayer2.playback.AndroidRadio(context, player, radioApi, viewModelScope)
     val radioCatalog = RadioController(auth, radioApi, radio, viewModelScope)
@@ -247,6 +250,11 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             .setDataSourceFactory(onlineDataSourceFactory(context) { profile, track -> player.resolveStream(profile, track) })).build().also { player.attach(it); radio.attach(it) }
     }
     fun restartEngine() { radio.detach(); player.detach(); engine?.release(); createEngine() }
+    fun enableAudioFocusForTest() {
+        engine?.setAudioAttributes(androidx.media3.common.AudioAttributes.Builder()
+            .setUsage(androidx.media3.common.C.USAGE_MEDIA)
+            .setContentType(androidx.media3.common.C.AUDIO_CONTENT_TYPE_MUSIC).build(), true)
+    }
     fun checkpointText() = context.getSharedPreferences("playback", Context.MODE_PRIVATE).getString("queue:owner", "").orEmpty()
     override fun onCleared() { radio.detach(); player.detach(); engine?.release(); super.onCleared() }
     private fun session(id: String) = AccountSession(YandexAccount(id, "Тестовый слушатель"), OAuthCredentials("fixture-$id", null, null))

@@ -94,6 +94,47 @@ class LaunchResumeIntentTest {
     @Test fun explicitPausePendingSlowMetadataClearsDurableIntent() = pendingRestoreCommand("pause", false)
     @Test fun explicitStopPendingSlowMetadataClearsDurableIntent() = pendingRestoreCommand("stop", false)
 
+    @Test fun staleLaunchQueuedBeforeEngineRestartCannotEraseNewPlay() {
+        val context = object : ContextWrapper(compose.activity) {
+            override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("resume-stale-$name", mode)
+        }
+        val track = fixture.library.testTracks.first()
+        context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear()
+            .putString("profile", "owner").putString("queue:owner", JSONObject().put("followLibrary", true)
+                .put("current", track.id).put("position", 4).toString()).commit()
+        val saved = LaunchStateStore(context)
+        saved.write("owner", PlaybackOutput.MUSIC, true); saved.flush()
+        val entered = java.util.concurrent.atomic.AtomicInteger()
+        val gate = CompletableDeferred<Unit>()
+        val library = object : IndexedLocalLibrary by fixture.library {
+            override suspend fun playbackWindow(currentId: String?, source: Source?): LocalPlaybackWindow? {
+                entered.incrementAndGet(); gate.await()
+                return fixture.library.playbackWindow(currentId, source)
+            }
+        }
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        lateinit var cursor: AndroidPlayback
+        lateinit var engine: ExoPlayer
+        compose.runOnIdle {
+            cursor = AndroidPlayback(context, library, scope)
+            engine = ExoPlayer.Builder(context).build(); cursor.attach(engine)
+        }
+        try {
+            waitFor { entered.get() >= 1 }
+            compose.runOnIdle {
+                cursor.resumeOnLaunch(); cursor.detach(); engine.release()
+                engine = ExoPlayer.Builder(context).build(); cursor.attach(engine)
+            }
+            waitFor { entered.get() >= 2 }
+            compose.runOnIdle { cursor.resumeOnLaunch(); gate.complete(Unit) }
+            waitFor { cursor.state.value.playing && cursor.state.value.positionSeconds >= 5 }
+            assertTrue(saved.read("owner").playing)
+        } finally {
+            gate.complete(Unit)
+            compose.runOnIdle { cursor.detach(); engine.release(); scope.cancel() }
+        }
+    }
+
     @Test fun returningFromRadioPersistsMusicOwnershipAndPlayBeforeRestart() {
         startLocal()
         compose.runOnIdle { fixture.radio.play(fixture.radioApi.one) }
