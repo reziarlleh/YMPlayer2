@@ -1,5 +1,5 @@
 {
-  "checkedAtUtc": "2026-11-05T05:52:02.290006+00:00",
+  "checkedAtUtc": "2026-11-05T06:16:33.735272+00:00",
   "appSha256": "284871378fe1aa4747bcc8f4073e5c6ae6122c40bd69373a70467a527a157918",
   "scope": "Distinct passing cases across dated batches on the same app APK; test APK changed for documented fixture/helper fixes. Earlier failed batches remain failed.",
   "batches": [
@@ -25,6 +25,12 @@
       "label": "final-cold-api28",
       "completeBatchPassed": true,
       "cases": 2,
+      "failed": 0
+    },
+    {
+      "label": "target-api35",
+      "completeBatchPassed": true,
+      "cases": 7,
       "failed": 0
     }
   ],
@@ -248,24 +254,44 @@
     },
     "emulator-5564": {
       "expectedDistinctCases": 7,
-      "passedDistinctCases": 0,
-      "unresolved": [
-        "dev.petrov.ymplayer2.OfflineColdCatalogTest#aNewStoreReusesPersistedMetadataWithoutOpeningEveryJsonAgain",
-        "dev.petrov.ymplayer2.OfflineColdCatalogTest#legacyColdCatalogUsesBulkAttributesWithoutIndividualStatQueries",
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#aThousandCompletedTracksCannotBlockTwoNewDownloads",
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption",
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain",
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp",
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#safArtworkIsDisplayedAfterMovingTheOfflineCache"
-      ],
+      "passedDistinctCases": 7,
+      "unresolved": [],
       "latestResults": {
-        "dev.petrov.ymplayer2.OfflineColdCatalogTest#aNewStoreReusesPersistedMetadataWithoutOpeningEveryJsonAgain": null,
-        "dev.petrov.ymplayer2.OfflineColdCatalogTest#legacyColdCatalogUsesBulkAttributesWithoutIndividualStatQueries": null,
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#aThousandCompletedTracksCannotBlockTwoNewDownloads": null,
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption": null,
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain": null,
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp": null,
-        "dev.petrov.ymplayer2.OfflinePlaybackTest#safArtworkIsDisplayedAfterMovingTheOfflineCache": null
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#aNewStoreReusesPersistedMetadataWithoutOpeningEveryJsonAgain": {
+          "code": 0,
+          "batch": "target-api35",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        },
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#legacyColdCatalogUsesBulkAttributesWithoutIndividualStatQueries": {
+          "code": 0,
+          "batch": "target-api35",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#aThousandCompletedTracksCannotBlockTwoNewDownloads": {
+          "code": 0,
+          "batch": "target-api35",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption": {
+          "code": 0,
+          "batch": "target-api35",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain": {
+          "code": 0,
+          "batch": "target-api35",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp": {
+          "code": 0,
+          "batch": "target-api35",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#safArtworkIsDisplayedAfterMovingTheOfflineCache": {
+          "code": 0,
+          "batch": "target-api35",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        }
       }
     }
   }
