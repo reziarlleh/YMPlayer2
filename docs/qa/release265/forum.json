@@ -1,0 +1,65 @@
+{
+  "checkedAtUtc": "2026-11-05T11:02:54.139151+00:00",
+  "user": "reziarlleh",
+  "topicId": 1127108,
+  "headerPostId": 145319180,
+  "releasePostId": 145855756,
+  "releasePostNumber": 96,
+  "releasePostUrl": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145855756",
+  "headerUrl": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145319180",
+  "version": "2.6.5-build125",
+  "headerVersion": "2.6.5",
+  "headerDate": "05.11.2026",
+  "postedThroughReleaser": true,
+  "newReleasePostCount": 1,
+  "fullVersionChangesUnderSpoiler": true,
+  "headerServerBaseUnchangedAtSave": true,
+  "headerReadbackMatchesReviewedPatch": true,
+  "headerBeforeSha256": "0e75c9b4bfd6e7b891eff32efdfee1e9fb098e0bbd79261709ecb219ca5d033e",
+  "headerAfterSha256": "364e85a5c32ba682b37182254bce14966a75a44666cbcd5dc097943791772b77",
+  "preservedAttachmentIds": [
+    "36253064",
+    "36253082",
+    "36253083",
+    "36420773",
+    "36420774",
+    "36420775",
+    "36420776",
+    "36420777",
+    "36420778",
+    "36421039",
+    "36439521"
+  ],
+  "newHeaderAttachmentId": "36483025",
+  "newPostAttachmentId": "36482999",
+  "screenshotsUnchanged": true,
+  "iconOutsideSpoiler": true,
+  "old124MovedUnderPastVersions": true,
+  "downloads": [
+    {
+      "id": "36482999",
+      "url": "https://4pda.to/forum/dl/post/36482999/YMPlayer-2.6.5-build125.apk",
+      "bytes": 7057781,
+      "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "verified": true
+    },
+    {
+      "id": "36483025",
+      "url": "https://4pda.to/forum/dl/post/36483025/YMPlayer-2.6.5-build125.apk",
+      "bytes": 7057781,
+      "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "verified": true
+    }
+  ],
+  "rules": [
+    {
+      "url": "https://4pda.to/forum/index.php?act=announce&f=212&st=250",
+      "edition": "23.10.2026"
+    },
+    {
+      "url": "https://4pda.to/forum/index.php?act=announce&f=212&st=368",
+      "edition": "04.10.2025"
+    }
+  ],
+  "privateFormsCommitted": false
+}

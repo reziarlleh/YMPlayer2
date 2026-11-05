@@ -60,5 +60,74 @@
       }
     ]
   },
-  "feedsStatus": "prepared; verification after push"
+  "feedsStatus": "partial CDN propagation",
+  "feedCheckedAtUtc": "2026-11-05T11:02:54.863818+00:00",
+  "feeds": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "version": "2.6.5-build125",
+      "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.5-build125/releases/2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+      "date": "Thu, 05 Nov 2026 11:02:54 GMT",
+      "age": null,
+      "matches": true,
+      "releaseNotesMatch": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.5-build125",
+      "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.5-build125/releases/2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+      "date": "Thu, 05 Nov 2026 11:02:54 GMT",
+      "age": null,
+      "matches": true,
+      "releaseNotesMatch": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "version": "2.6.5-build125",
+      "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.5-build125/releases/2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+      "date": "Thu, 05 Nov 2026 11:02:54 GMT",
+      "age": "212",
+      "matches": true,
+      "releaseNotesMatch": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.5-build125",
+      "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.5-build125/releases/2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+      "date": "Thu, 05 Nov 2026 11:02:54 GMT",
+      "age": "212",
+      "matches": true,
+      "releaseNotesMatch": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "version": "2.6.4-build124",
+      "sha256": "4831bc11f1d7405bf42c29ff8c69bcd48fffc53bb71d976ed94d4886a253d6cd",
+      "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.4-build124/releases/2.6.4-build124/YMPlayer-2.6.4-build124.apk",
+      "date": "Thu, 05 Nov 2026 11:02:54 GMT",
+      "age": "23300",
+      "matches": false,
+      "releaseNotesMatch": false
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "version": "2.6.5-build125",
+      "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.5-build125/releases/2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+      "date": "Thu, 05 Nov 2026 11:02:54 GMT",
+      "age": "283",
+      "matches": true,
+      "releaseNotesMatch": true
+    }
+  ]
 }
