@@ -45,6 +45,146 @@ class OfflinePlaybackTest {
     }
     @After fun cleanup() { compose.runOnIdle { cache.cancel(); h.player.stop(); h.internet.available.value = true }; if (::sourceCover.isInitialized) sourceCover.delete() }
     private fun sync() { compose.runOnIdle { cache.sync() }; waitFor { !cache.state.value.running } }
+    private fun audit() { compose.runOnIdle { cache.verifyAndRepair() }; waitFor { !cache.state.value.running } }
+    @Test fun aThousandCompletedTracksCannotBlockTwoNewDownloads() {
+        val resolver = compose.activity.contentResolver
+        val control = Uri.parse("content://dev.petrov.ymplayer2.test.control")
+        resolver.call(control, "storage-reset", null, null)
+        runBlocking { h.offlineStore.move(TestStorageProvider.tree.toString()) { _, _ -> } }
+        try {
+            resolver.call(control, "storage-seed-catalog", null, android.os.Bundle().apply {
+                putString("root", android.provider.DocumentsContract.getDocumentId(Uri.parse(
+                    h.context.getSharedPreferences("offline-location", 0).getString("uri", null)!!)))
+                putString("profile", owner.profileId); putString("account", owner.accountId)
+                putInt("count", 1000); putBoolean("completedAudio", true)
+            })
+            val existing = runBlocking { h.offlineStore.catalog(owner) }
+            assertEquals(1000, existing.size)
+            val extractor = android.media.MediaExtractor()
+            try {
+                extractor.setDataSource(compose.activity, Uri.parse(existing.first().uri), null)
+                assertTrue("Large-fixture files are real audio", (0 until extractor.trackCount).any {
+                    extractor.getTrackFormat(it).getString(android.media.MediaFormat.KEY_MIME)?.startsWith("audio/") == true
+                })
+            } finally { extractor.release() }
+            val rows = existing.map { it.copy(offline = false, uri = null) } +
+                listOf(h.onlineTrack(1), h.onlineTrack(2)).map { it.copy(artworkUri = h.offlineArtwork) }
+            val keys = rows.mapTo(linkedSetOf()) { it.tasteTarget().key }
+            compose.runOnIdle {
+                h.offlineSnapshotOverride = LikedSnapshot(keys, rows)
+                h.tasteLists["owner" to TasteKind.TRACK] = TasteList(keys)
+                h.taste.refresh(TasteKind.TRACK); cache.reloadCache()
+            }
+            waitFor { cache.state.value.ready && cache.state.value.tracks.size == 1000 && !h.taste.state.value.shelf(TasteKind.TRACK).busy }
+            // These files are genuine PCM WAVs. Any attempt to reread their bodies
+            // is held by the provider, while two new downloads remain writable.
+            resolver.call(control, "storage-guard-existing-audio", "closed", null)
+            val resolved = h.resolved.size
+            val started = android.os.SystemClock.elapsedRealtime()
+            sync()
+            val elapsed = android.os.SystemClock.elapsedRealtime() - started
+            val stats = resolver.call(control, "storage-audio-stats", null, null)!!
+            assertEquals("No saved audio body may be opened during incremental sync", 0, stats.getInt("guardedOpens"))
+            assertEquals(1002, cache.state.value.tracks.size)
+            assertEquals(1002, cache.state.value.checked)
+            assertEquals(setOf("yandex:1:7", "yandex:2:7"), h.resolved.drop(resolved).map { it.second }.toSet())
+            assertEquals(0, cache.state.value.audioFailures)
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendStatus(2, android.os.Bundle().apply {
+                putString("offlineSyncMetric", "cached=1000 new=2 elapsedMs=$elapsed oldAudioOpens=${stats.getInt("guardedOpens")}")
+            })
+        } finally {
+            resolver.call(control, "storage-guard-existing-audio", "open", null)
+            compose.runOnIdle { cache.cancel(); h.player.stop(); h.offlineSnapshotOverride = null }
+            runBlocking { h.offlineStore.retain(owner, setOf("1", "2")) }
+            compose.runOnIdle { h.tasteLists["owner" to TasteKind.TRACK] = TasteList(setOf("1", "2")); h.taste.refresh(TasteKind.TRACK) }
+            runBlocking { h.offlineStore.move(null) { _, _ -> } }
+            compose.runOnIdle { cache.reloadCache() }
+        }
+    }
+    @Test fun repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp() {
+        sync()
+        val resolver = compose.activity.contentResolver
+        val control = Uri.parse("content://dev.petrov.ymplayer2.test.control")
+        resolver.call(control, "storage-reset", null, null)
+        runBlocking { h.offlineStore.move(TestStorageProvider.tree.toString()) { _, _ -> } }
+        try {
+            resolver.call(control, "storage-catalog-constant-mtime", "true", null)
+            compose.runOnIdle { cache.reloadCache() }
+            waitFor { cache.state.value.ready && cache.state.value.tracks.size == 2 }
+            val track = cache.state.value.tracks.first { it.tasteTarget().key == "1" }
+            val picture = Uri.parse(track.artworkUri)
+            val data = resolver.openInputStream(picture)!!.use { it.readBytes() }
+            data[0] = (data[0].toInt() xor 0x55).toByte()
+            resolver.openOutputStream(picture, "wt")!!.use { it.write(data) }
+            compose.onNodeWithTag("player_source_offline").performClick()
+            waitFor { h.player.state.value.current?.tasteTarget()?.key == "1" && h.player.state.value.playing }
+            compose.onNodeWithTag("artwork_placeholder").assertIsDisplayed()
+            val position = h.player.state.value.positionSeconds
+            audit()
+            assertEquals(track.artworkUri, cache.state.value.tracks.first { it.tasteTarget().key == "1" }.artworkUri)
+            compose.waitUntil(8_000) { compose.onAllNodesWithTag("track_artwork").fetchSemanticsNodes().isNotEmpty() }
+            compose.onNodeWithTag("track_artwork").assertIsDisplayed()
+            assertTrue(h.player.state.value.playing)
+            assertTrue("Artwork repair must not rewind the playing audio", h.player.state.value.positionSeconds >= position)
+            val firstRevision = cache.state.value.tracks.first { it.tasteTarget().key == "1" }.artworkRevision
+            resolver.openOutputStream(picture, "wt")!!.use { it.write(data) }
+            audit()
+            assertNotEquals("Repeated repairs of identical artwork need a fresh persisted revision even with coarse mtime",
+                firstRevision, cache.state.value.tracks.first { it.tasteTarget().key == "1" }.artworkRevision)
+            assertTrue(h.player.state.value.playing)
+        } finally {
+            resolver.call(control, "storage-catalog-constant-mtime", "false", null)
+            compose.runOnIdle { cache.cancel(); h.player.stop() }
+            runBlocking { h.offlineStore.move(null) { _, _ -> } }
+            compose.runOnIdle { cache.reloadCache() }
+        }
+    }
+    @Test fun safArtworkIsDisplayedAfterMovingTheOfflineCache() {
+        sync()
+        val resolver = compose.activity.contentResolver
+        val control = Uri.parse("content://dev.petrov.ymplayer2.test.control")
+        resolver.call(control, "storage-reset", null, null)
+        runBlocking { h.offlineStore.move(TestStorageProvider.tree.toString()) { _, _ -> } }
+        try {
+            compose.runOnIdle { cache.reloadCache() }
+            waitFor { cache.state.value.ready && cache.state.value.tracks.size == 2 }
+            val uri = Uri.parse(cache.state.value.tracks.first().artworkUri)
+            assertEquals("content", uri.scheme)
+            resolver.openInputStream(uri)!!.use { input ->
+                val bitmap = android.graphics.BitmapFactory.decodeStream(input)
+                assertNotNull("The saved PNG is readable through SAF independently of the UI", bitmap)
+                bitmap!!.recycle()
+            }
+            compose.onNodeWithTag("player_source_offline").performClick()
+            waitFor { h.player.state.value.origin.source == PlaybackSource.OFFLINE && h.player.state.value.current != null }
+            compose.waitUntil(5_000) { compose.onAllNodesWithTag("track_artwork").fetchSemanticsNodes().isNotEmpty() }
+            compose.onNodeWithTag("track_artwork").assertIsDisplayed()
+        } finally {
+            compose.runOnIdle { h.player.stop(); cache.cancel() }
+            runBlocking { h.offlineStore.move(null) { _, _ -> } }
+            compose.runOnIdle { cache.reloadCache() }
+        }
+    }
+    @Test fun ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain() {
+        sync()
+        val resolver = compose.activity.contentResolver
+        val control = Uri.parse("content://dev.petrov.ymplayer2.test.control")
+        resolver.call(control, "storage-reset", null, null)
+        runBlocking { h.offlineStore.move(TestStorageProvider.tree.toString()) { _, _ -> } }
+        try {
+            compose.runOnIdle { cache.reloadCache() }
+            waitFor { cache.state.value.ready && cache.state.value.tracks.size == 2 }
+            val before = resolver.call(control, "storage-audio-stats", null, null)!!.getInt("opens")
+            sync()
+            assertEquals(2, cache.state.value.tracks.size)
+            assertEquals("Checking for new downloads must not reread unchanged audio bodies", 0,
+                resolver.call(control, "storage-audio-stats", null, null)!!.getInt("opens") - before)
+        } finally {
+            compose.runOnIdle { h.player.stop(); cache.cancel() }
+            runBlocking { h.offlineStore.move(null) { _, _ -> } }
+            compose.runOnIdle { cache.reloadCache() }
+        }
+    }
     @Test fun fastCatalogDoesNotAuditAllBytesButSelectedDamagedAudioIsRejected() {
         sync()
         val damaged = audio("1")
@@ -219,7 +359,7 @@ class OfflinePlaybackTest {
         RandomAccessFile(audio1, "rw").use { it.seek(it.length() / 2); val byte = it.read(); it.seek(it.length() / 2); it.write(byte xor 0x55) }
         RandomAccessFile(cover2, "rw").use { it.setLength(it.length() / 2) }
         val resolved = h.resolved.size
-        sync()
+        audit()
         assertEquals(2, cache.state.value.tracks.size); assertEquals(0, cache.state.value.audioFailures); assertEquals(0, cache.state.value.coverFailures)
         assertEquals(originalAudio, hash(audio1)); assertEquals(originalCover, hash(cover2))
         assertEquals(untouchedAudio, hash(audio2)); assertEquals(untouchedCover, hash(cover1))
@@ -305,6 +445,38 @@ class OfflinePlaybackTest {
             compose.runOnIdle { cache.cancel() }; gate.complete(Unit)
             waitFor { OfflineSyncTestService.active == null }
             assertTrue(h.player.state.value.playing); assertEquals(1, cache.state.value.tracks.size)
+        } finally {
+            compose.runOnIdle { cache.cancel(); compose.activity.stopService(intent) }
+            gate.complete(Unit)
+        }
+    }
+    @Test fun foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption() {
+        sync()
+        val damaged = audio("2")
+        val original = hash(damaged)
+        RandomAccessFile(damaged, "rw").use {
+            val offset = it.length() / 2
+            it.seek(offset); val byte = it.read(); it.seek(offset); it.write(byte xor 0x55)
+        }
+        val gate = CompletableDeferred<Unit>()
+        val intent = android.content.Intent(compose.activity, OfflineSyncTestService::class.java)
+            .putExtra(OfflineSyncService.VERIFY, true)
+        compose.runOnIdle {
+            h.player.playQueue(h.library.testTracks.map(Track::id))
+            h.streamGates = mapOf("yandex:2:7" to gate)
+            OfflineSyncTestService.controller = cache
+            compose.activity.startForegroundService(intent)
+        }
+        try {
+            waitFor { OfflineSyncTestService.active != null && cache.state.value.running &&
+                h.resolved.count { it.second == "yandex:2:7" } == 2 && h.player.state.value.positionSeconds >= 1 }
+            compose.runOnIdle { cache.cancel() }; gate.complete(Unit)
+            waitFor { OfflineSyncTestService.active == null }
+            assertTrue("Cancelling a full cache check must preserve unrelated playback", h.player.state.value.playing)
+            compose.runOnIdle { h.streamGates = emptyMap() }
+            sync()
+            assertEquals("Known corrupt audio must not be accepted by the next fast pass", original, hash(damaged))
+            assertEquals(2, cache.state.value.tracks.size)
         } finally {
             compose.runOnIdle { cache.cancel(); compose.activity.stopService(intent) }
             gate.complete(Unit)

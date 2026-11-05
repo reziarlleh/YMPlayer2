@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-11-05T05:10:23.602318+00:00",
+  "serial": "emulator-5560",
+  "classes": "dev.petrov.ymplayer2.OfflinePlaybackTest#fastCatalogDoesNotAuditAllBytesButSelectedDamagedAudioIsRejected,dev.petrov.ymplayer2.OfflinePlaybackTest#emptyOfflineSourceRemainsSelectableWithoutNetwork,dev.petrov.ymplayer2.OfflinePlaybackTest#settingsAndCollectionAreSeparateAndReturnToTheirOwnParents,dev.petrov.ymplayer2.OfflinePlaybackTest#guestHasAnEmptyReadOnlyListAndIndependentDeviceSettings,dev.petrov.ymplayer2.OfflinePlaybackTest#remoteCanOpenCacheSettingsAndChooseCachedTrackFromLibrary,dev.petrov.ymplayer2.OfflinePlaybackTest#disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled,dev.petrov.ymplayer2.OfflinePlaybackTest#syncScreenThenPlayWithNetworkDisabledAndRestorePaused,dev.petrov.ymplayer2.OfflinePlaybackTest#damagedAudioAndCoverAreRepairedIndependently,dev.petrov.ymplayer2.OfflinePlaybackTest#badAudioDoesNotDeleteHealthyCoverAndRetryRepairsOnlyAudio,dev.petrov.ymplayer2.OfflinePlaybackTest#missingCoverKeepsAudioAndNeverStoresPlaceholderArt,dev.petrov.ymplayer2.OfflinePlaybackTest#unlikeInFlightCannotLeaveAnyFilesForRemovedTrack,dev.petrov.ymplayer2.OfflinePlaybackTest#cancelKeepsCompletedFileAndNextSyncContinues,dev.petrov.ymplayer2.OfflinePlaybackTest#profileSwitchCancelsDownloadAndHidesOutgoingCache,dev.petrov.ymplayer2.OfflinePlaybackTest#clearOfflineFilesLeavesServerLikesUntouched,dev.petrov.ymplayer2.OfflinePlaybackTest#checksumlessValidFilesAreVerifiedWithoutDownloadingAgain,dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundSyncCancelsWithoutStoppingTheAudioPlayer,dev.petrov.ymplayer2.OfflineColdCatalogTest,dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest",
+  "apkSha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "284871378fe1aa4747bcc8f4073e5c6ae6122c40bd69373a70467a527a157918",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+  },
+  "finishedAtUtc": "2026-11-05T05:18:28.330560+00:00",
+  "exitCode": 0,
+  "passed": false
+}

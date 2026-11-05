@@ -742,5 +742,8 @@ Vous pouvez ajouter du texte entre les variables. Exemple: {number}. {artist} - 
     <string name="offline_auto_wait_network" formatted="false">"Titre ajouté aux favoris. Le téléchargement commencera lorsque la connexion Internet sera rétablie."</string>
     <string name="wave_no_progress" formatted="false">"Yandex n’a fourni aucun nouveau titre pour la vague. Réessayez plus tard."</string>
     <string name="wave_audio_storage_failure" formatted="false">"Impossible d’enregistrer les fichiers audio temporaires. Vérifiez l’espace libre et l’accès au stockage de l’appareil."</string>
+    <string name="offline_verify" formatted="false">"Vérifier et réparer le cache"</string>
+    <string name="offline_sync_hint" formatted="false">"La synchronisation télécharge les fichiers manquants. La vérification complète relit les fichiers audio et les pochettes enregistrés pour détecter et réparer les fichiers endommagés."</string>
+    <string name="offline_verify_start" formatted="false">"Vérification du cache hors connexion…"</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

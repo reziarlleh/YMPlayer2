@@ -742,5 +742,8 @@
     <string name="offline_auto_wait_network" formatted="false">"Трек ұнағандарға қосылды. Интернет байланысы қалпына келгенде жүктеле бастайды."</string>
     <string name="wave_no_progress" formatted="false">"Yandex толқын үшін жаңа тректер жібермеді. Кейінірек қайталап көріңіз."</string>
     <string name="wave_audio_storage_failure" formatted="false">"Уақытша аудионы сақтау мүмкін болмады. Бос орынды және құрылғы жадына қол жеткізуді тексеріңіз."</string>
+    <string name="offline_verify" formatted="false">"Кэшті тексеру және қалпына келтіру"</string>
+    <string name="offline_sync_hint" formatted="false">"Синхрондау жетіспейтін файлдарды жүктейді. Толық тексеру бүлінген деректерді тауып, түзету үшін сақталған аудиофайлдар мен мұқабаларды қайта оқиды."</string>
+    <string name="offline_verify_start" formatted="false">"Офлайн кэш тексеріліп жатыр…"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

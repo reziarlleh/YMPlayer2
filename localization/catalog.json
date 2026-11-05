@@ -11769,5 +11769,53 @@
       "kk": "Уақытша аудионы сақтау мүмкін болмады. Бос орынды және құрылғы жадына қол жеткізуді тексеріңіз.",
       "uk": "Не вдалося зберегти тимчасове аудіо. Перевірте вільне місце та доступ до сховища пристрою."
     }
+  },
+  {
+    "key": "offline_verify",
+    "source": "Проверить и восстановить кэш",
+    "english": "Check and repair cache",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ],
+    "translations": {
+      "be": "Праверыць і аднавіць кэш",
+      "kk": "Кэшті тексеру және қалпына келтіру",
+      "uk": "Перевірити та відновити кеш",
+      "de": "Cache prüfen und reparieren",
+      "es": "Comprobar y reparar la caché",
+      "fr": "Vérifier et réparer le cache"
+    }
+  },
+  {
+    "key": "offline_sync_hint",
+    "source": "Синхронизация докачивает недостающие файлы. Полная проверка заново читает сохранённые аудио и обложки, чтобы найти и исправить повреждения.",
+    "english": "Synchronization downloads missing files. A full check reads saved audio and artwork again to find and repair damaged files.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ],
+    "translations": {
+      "be": "Сінхранізацыя спампоўвае файлы, якіх бракуе. Поўная праверка паўторна чытае захаваныя аўдыяфайлы і вокладкі, каб знайсці і выправіць пашкоджанні.",
+      "kk": "Синхрондау жетіспейтін файлдарды жүктейді. Толық тексеру бүлінген деректерді тауып, түзету үшін сақталған аудиофайлдар мен мұқабаларды қайта оқиды.",
+      "uk": "Синхронізація завантажує відсутні файли. Повна перевірка повторно читає збережені аудіофайли й обкладинки, щоб знайти та виправити пошкодження.",
+      "de": "Die Synchronisierung lädt fehlende Dateien herunter. Bei einer vollständigen Prüfung werden gespeicherte Audiodateien und Cover erneut gelesen, um beschädigte Dateien zu finden und zu reparieren.",
+      "es": "La sincronización descarga los archivos que faltan. La comprobación completa vuelve a leer el audio y las carátulas guardados para detectar y reparar archivos dañados.",
+      "fr": "La synchronisation télécharge les fichiers manquants. La vérification complète relit les fichiers audio et les pochettes enregistrés pour détecter et réparer les fichiers endommagés."
+    }
+  },
+  {
+    "key": "offline_verify_start",
+    "source": "Проверяем офлайн-кэш…",
+    "english": "Checking the offline cache…",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/OfflineMusic.kt"
+    ],
+    "translations": {
+      "be": "Правяраем афлайн-кэш…",
+      "kk": "Офлайн кэш тексеріліп жатыр…",
+      "uk": "Перевіряємо офлайн-кеш…",
+      "de": "Offline-Cache wird geprüft…",
+      "es": "Comprobando la caché sin conexión…",
+      "fr": "Vérification du cache hors connexion…"
+    }
   }
 ]

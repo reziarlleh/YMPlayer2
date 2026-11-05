@@ -742,5 +742,8 @@
     <string name="offline_auto_wait_network" formatted="false">"Трек отмечен. Скачивание начнётся после восстановления интернета."</string>
     <string name="wave_no_progress" formatted="false">"Яндекс не прислал новых треков для волны. Повторите попытку позже."</string>
     <string name="wave_audio_storage_failure" formatted="false">"Не удалось сохранить временное аудио. Проверьте свободное место и доступ к памяти устройства."</string>
+    <string name="offline_verify" formatted="false">"Проверить и восстановить кэш"</string>
+    <string name="offline_sync_hint" formatted="false">"Синхронизация докачивает недостающие файлы. Полная проверка заново читает сохранённые аудио и обложки, чтобы найти и исправить повреждения."</string>
+    <string name="offline_verify_start" formatted="false">"Проверяем офлайн-кэш…"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

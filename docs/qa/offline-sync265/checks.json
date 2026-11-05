@@ -1,0 +1,29 @@
+{
+  "checkedAtUtc": "2026-11-05T05:50:27.737241+00:00",
+  "jvm": {
+    "core": {
+      "tests": 162,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "releaseLint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 82,
+    "sarifQuickFixNotice": "Typos album replacement range failed; analysis and text report completed; no fix applied"
+  },
+  "apkSha256": {
+    "app/build/outputs/apk/debug/app-debug.apk": "284871378fe1aa4747bcc8f4073e5c6ae6122c40bd69373a70467a527a157918",
+    "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+  },
+  "productBuildAllocated": false,
+  "publishedStable": "2.6.4-build124"
+}

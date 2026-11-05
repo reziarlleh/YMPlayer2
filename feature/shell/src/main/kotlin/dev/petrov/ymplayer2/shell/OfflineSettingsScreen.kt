@@ -15,7 +15,8 @@ import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.prismFocus
 
 @Composable internal fun OfflineSettingsScreen(offline: OfflineMusic, start: () -> Unit, account: () -> Unit,
-    location: CacheLocationAccess? = null, pickFolder: () -> Unit = {}, resetFolder: () -> Unit = {}, transferBusy: Boolean = false) {
+    location: CacheLocationAccess? = null, pickFolder: () -> Unit = {}, resetFolder: () -> Unit = {}, transferBusy: Boolean = false,
+    verify: () -> Unit = offline::verifyAndRepair) {
     val state by offline.state.collectAsStateWithLifecycle()
     var confirmClear by remember(state.owner) { mutableStateOf(false) }
     val storage = location?.state?.collectAsStateWithLifecycle()?.value
@@ -55,6 +56,13 @@ import dev.petrov.ymplayer2.designsystem.prismFocus
                 if (state.running) OutlinedButton(offline::cancel, Modifier.fillMaxWidth().prismFocus().testTag("offline_cancel")) { Text(tr(Msg.msg_cb4cd68cb5f3)) }
                 else Button(start, Modifier.fillMaxWidth().prismFocus().testTag("offline_sync"), enabled = state.enabled && state.ready && storage?.moving != true && !transferBusy) { Text(tr(Msg.msg_ca48a1a553cc)) }
             }
+            if (!state.running) item {
+                OutlinedButton(verify, Modifier.fillMaxWidth().prismFocus().testTag("offline_verify"),
+                    enabled = state.enabled && state.ready && storage?.moving != true && !transferBusy) {
+                    Text(tr(Msg.offline_verify))
+                }
+            }
+            item { Text(tr(Msg.offline_sync_hint), style = MaterialTheme.typography.bodySmall) }
             if (state.enabled && (!state.ready || state.running)) item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
             if (!state.enabled) item { Text(tr(Msg.msg_94117e81a588), Modifier.testTag("offline_disabled")) }
             state.message?.let { message -> item { Text(trMessage(message), Modifier.testTag("offline_status")) } }

@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflinePlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.OfflinePlaybackTest:
+INSTRUMENTATION_STATUS: test=safArtworkIsDisplayedAfterMovingTheOfflineCache
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflinePlaybackTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.OfflinePlaybackTest.safArtworkIsDisplayedAfterMovingTheOfflineCache(OfflinePlaybackTest.kt:66)
+
+INSTRUMENTATION_STATUS: stream=
+Error in safArtworkIsDisplayedAfterMovingTheOfflineCache(dev.petrov.ymplayer2.OfflinePlaybackTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.OfflinePlaybackTest.safArtworkIsDisplayedAfterMovingTheOfflineCache(OfflinePlaybackTest.kt:66)
+
+INSTRUMENTATION_STATUS: test=safArtworkIsDisplayedAfterMovingTheOfflineCache
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflinePlaybackTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflinePlaybackTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Checking for new downloads must not reread unchanged audio bodies expected:<0> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.OfflinePlaybackTest.ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain(OfflinePlaybackTest.kt:86)
+
+INSTRUMENTATION_STATUS: stream=
+Error in ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain(dev.petrov.ymplayer2.OfflinePlaybackTest):
+java.lang.AssertionError: Checking for new downloads must not reread unchanged audio bodies expected:<0> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.OfflinePlaybackTest.ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain(OfflinePlaybackTest.kt:86)
+
+INSTRUMENTATION_STATUS: test=ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 67.741
+There were 2 failures:
+1) safArtworkIsDisplayedAfterMovingTheOfflineCache(dev.petrov.ymplayer2.OfflinePlaybackTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.OfflinePlaybackTest.safArtworkIsDisplayedAfterMovingTheOfflineCache(OfflinePlaybackTest.kt:66)
+2) ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain(dev.petrov.ymplayer2.OfflinePlaybackTest)
+java.lang.AssertionError: Checking for new downloads must not reread unchanged audio bodies expected:<0> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.OfflinePlaybackTest.ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain(OfflinePlaybackTest.kt:86)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

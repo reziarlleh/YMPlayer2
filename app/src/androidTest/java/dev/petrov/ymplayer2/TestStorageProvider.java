@@ -22,6 +22,9 @@ public class TestStorageProvider extends DocumentsProvider {
     private long available = 2L * 1024 * 1024 * 1024;
     private boolean unavailable, failWrite;
     private volatile CountDownLatch audioTailGate;
+    private volatile CountDownLatch existingAudioGate;
+    private final java.util.Set<String> guardedAudioFiles = java.util.concurrent.ConcurrentHashMap.newKeySet();
+    private final AtomicInteger guardedAudioOpens = new AtomicInteger();
     private volatile CountDownLatch catalogQueryGate, catalogJsonGate, catalogChildrenGate;
     private volatile boolean unknownModified, constantModified;
     private final AtomicInteger catalogQueries = new AtomicInteger(), catalogFileQueries = new AtomicInteger(), catalogChildren = new AtomicInteger(), catalogJsonOpens = new AtomicInteger(), catalogWaiters = new AtomicInteger();
@@ -103,6 +106,9 @@ public class TestStorageProvider extends DocumentsProvider {
         File source = file(id);
         if (mode.equals("r") && id.endsWith(".audio")) {
             audioOpens.incrementAndGet();
+            if (existingAudioGate != null && guardedAudioFiles.contains(source.getAbsolutePath())) {
+                guardedAudioOpens.incrementAndGet(); catalogAwait(existingAudioGate);
+            }
             CountDownLatch gate = audioTailGate;
             if (gate != null) return gatedAudio(source, gate);
         }
@@ -140,6 +146,8 @@ public class TestStorageProvider extends DocumentsProvider {
     }
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("storage-reset")) {
+            if (existingAudioGate != null) existingAudioGate.countDown();
+            existingAudioGate = null; guardedAudioFiles.clear(); guardedAudioOpens.set(0);
             releaseCatalogGates(); unknownModified = false; constantModified = false; resetCatalogCounters();
             CountDownLatch previous = audioTailGate; audioTailGate = null;
             if (previous != null) previous.countDown();
@@ -167,23 +175,38 @@ public class TestStorageProvider extends DocumentsProvider {
         } else if (method.equals("storage-seed-catalog") || method.equals("storage-edit-catalog")) {
             try {
                 String profile = extras.getString("profile", "cold"), account = extras.getString("account", "account");
-                File directory = file("store/v1/" + digest(profile + "\u0000" + account)); directory.mkdirs();
+                File directory = file(extras.getString("root", "store") + "/v1/" + digest(profile + "\u0000" + account)); directory.mkdirs();
                 if (method.equals("storage-seed-catalog")) {
                     int count = extras.getInt("count", 400);
                     if (count < 1 || count > 2000) throw new IllegalArgumentException("Fixture count");
+                    boolean completed = extras.getBoolean("completedAudio", false);
+                    byte[] completedAudio = completed ? fixtureWav() : null;
+                    byte[] completedHash = completed ? digest(completedAudio).getBytes(java.nio.charset.StandardCharsets.US_ASCII) : null;
                     for (int i=0;i<count;i++) {
-                        String id="seed"+i, name=digest(id);
+                        String id=completed ? String.valueOf(100+i) : "seed"+i, name=digest(id);
                         writeFixture(new File(directory,name+".json"), metadata(id,"Cached song "+i));
-                        writeFixture(new File(directory,name+".audio"), new byte[64]);
-                        if (i%2==0) writeFixture(new File(directory,name+".cover"), new byte[32]);
+                        writeFixture(new File(directory,name+".audio"), completed ? completedAudio : new byte[64]);
+                        if (completed) writeFixture(new File(directory,name+".audio.sha256"), completedHash);
+                        else if (i%2==0) writeFixture(new File(directory,name+".cover"), new byte[32]);
                     }
                 } else {
                     String id=extras.getString("id", "seed1"), action=extras.getString("action", "rename");
                     File metadata = new File(directory,digest(id)+".json");
                     if (action.equals("removeAudio")) new File(directory,digest(id)+".audio").delete();
+                    else if (action.equals("completeAudio")) {
+                        byte[] audio=fixtureWav();
+                        writeFixture(new File(directory,digest(id)+".audio"),audio);
+                        writeFixture(new File(directory,digest(id)+".audio.sha256"),digest(audio).getBytes(java.nio.charset.StandardCharsets.US_ASCII));
+                    }
                     else writeFixture(metadata, metadata(id, "Changed title with a different metadata length"));
                 }
             } catch (Exception e) { throw new IllegalStateException("Cannot prepare catalog fixture",e); }
+        } else if (method.equals("storage-guard-existing-audio")) {
+            if (existingAudioGate != null) existingAudioGate.countDown();
+            existingAudioGate = null; guardedAudioFiles.clear(); guardedAudioOpens.set(0);
+            if ("closed".equals(arg)) {
+                collectAudio(base()); existingAudioGate = new CountDownLatch(1);
+            }
         } else if (method.equals("storage-audio-tail")) {
             CountDownLatch previous = audioTailGate;
             audioTailGate = "closed".equals(arg) ? new CountDownLatch(1) : null;
@@ -191,6 +214,7 @@ public class TestStorageProvider extends DocumentsProvider {
         } else if (method.equals("storage-audio-stats")) {
             Bundle stats = new Bundle();
             stats.putInt("opens", audioOpens.get()); stats.putInt("tailWaiters", audioTailWaiters.get()); stats.putInt("activePipes", audioPipes.get());
+            stats.putInt("guardedOpens", guardedAudioOpens.get());
             return stats;
         }
         else return super.call(method, arg, extras);
@@ -202,8 +226,28 @@ public class TestStorageProvider extends DocumentsProvider {
         catalogQueryGate=null;catalogJsonGate=null;catalogChildrenGate=null;
     }
     private static String digest(String value) throws Exception {
-        byte[] bytes=java.security.MessageDigest.getInstance("SHA-256").digest(value.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        return digest(value.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+    }
+    private static String digest(byte[] value) throws Exception {
+        byte[] bytes=java.security.MessageDigest.getInstance("SHA-256").digest(value);
         StringBuilder s=new StringBuilder();for(byte b:bytes)s.append(String.format(java.util.Locale.ROOT,"%02x",b&255));return s.toString();
+    }
+    private void collectAudio(File directory) {
+        File[] files=directory.listFiles(); if(files==null)return;
+        for(File item:files) {
+            if(item.isDirectory()) collectAudio(item);
+            else if(item.getName().endsWith(".audio")) guardedAudioFiles.add(item.getAbsolutePath());
+        }
+    }
+    /** Valid 30-second PCM WAV, shared payload for the large real-file sync fixture. */
+    private static byte[] fixtureWav() {
+        int bytes=30*8000;
+        java.nio.ByteBuffer b=java.nio.ByteBuffer.allocate(44+bytes).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        b.put(new byte[]{'R','I','F','F'}).putInt(36+bytes).put(new byte[]{'W','A','V','E','f','m','t',' '});
+        b.putInt(16).putShort((short)1).putShort((short)1).putInt(8000).putInt(8000).putShort((short)1).putShort((short)8);
+        b.put(new byte[]{'d','a','t','a'}).putInt(bytes);
+        java.util.Arrays.fill(b.array(),44,b.array().length,(byte)128);
+        return b.array();
     }
     private static byte[] metadata(String id,String title) throws Exception {
         return new org.json.JSONObject().put("id","yandex:"+id+":7").put("title",title).put("artist","Fixture artist")

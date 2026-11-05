@@ -13,6 +13,11 @@ class OfflineMusicTest {
         var beforeSave: suspend () -> Unit = {}
         var beforeRetain: suspend () -> Unit = {}
         val downloaded = mutableListOf<Pair<OfflineOwner, String>>()
+        var plan = OfflineSyncPlan()
+        var planGate: suspend () -> Unit = {}
+        val incrementalCalls = mutableListOf<String>()
+        val auditCalls = mutableListOf<String>()
+        override suspend fun planSync(owner: OfflineOwner, tracks: List<Track>): OfflineSyncPlan { planGate(); return plan }
         private val pending = mutableMapOf<OfflineOwner, Set<String>>()
         override suspend fun pendingDownloads(owner: OfflineOwner) = pending[owner].orEmpty()
         override suspend fun pendingDownloads(owner: OfflineOwner, keys: Set<String>) { pending[owner] = keys }
@@ -29,6 +34,14 @@ class OfflineMusicTest {
             return snapshot
         }
         override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem {
+            auditCalls += track.id
+            return save(owner, track, allowed, transfer)
+        }
+        override suspend fun syncIncremental(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem {
+            incrementalCalls += track.id
+            return save(owner, track, allowed, transfer)
+        }
+        private suspend fun save(owner: OfflineOwner, track: Track, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem {
             transfer(); beforeSave()
             if (!allowed()) return OfflineItem(null, false, false, false)
             val ready = track.copy(offline = true)
@@ -39,6 +52,58 @@ class OfflineMusicTest {
         override suspend fun retain(owner: OfflineOwner, keys: Set<String>, allowed: () -> Boolean) { beforeRetain(); if (allowed()) files[owner]?.keys?.retainAll(keys) }
         override suspend fun audio(owner: OfflineOwner, trackId: String): String? { audioReads++; return files[owner]?.get(trackId.removePrefix("yandex:").substringBefore(':'))?.let { "file:///fixture" } }
         override suspend fun clear(owner: OfflineOwner) { files.remove(owner) }
+    }
+    @Test fun completedPlanIsPublishedWithoutSyncingThoseFilesAgain() = runTest {
+        val h = Harness(this)
+        h.store.plan = OfflineSyncPlan((1..2).associate { id -> id.toString() to OfflineItem(track(id.toString()).copy(offline = true), false, false, true) })
+        h.offline.sync(); runCurrent()
+        assertEquals(2, h.offline.state.value.checked)
+        assertEquals(2, h.offline.tracks("owner").size)
+        assertTrue(h.store.incrementalCalls.isEmpty())
+        assertTrue(h.store.auditCalls.isEmpty())
+        assertTrue(h.store.downloaded.isEmpty())
+    }
+    @Test fun missingAudioRunsBeforeMetadataOrCoverWorkOnOldEntries() = runTest {
+        val h = Harness(this); h.liked = linkedSetOf("1", "2", "3")
+        h.store.plan = OfflineSyncPlan(mapOf("2" to OfflineItem(track("2").copy(offline = true), false, false, false)), setOf("3"))
+        h.offline.sync(); runCurrent()
+        assertEquals(listOf("yandex:3:7", "yandex:1:7"), h.store.incrementalCalls)
+        assertEquals(3, h.offline.state.value.checked)
+    }
+    @Test fun explicitVerificationNeverUsesTheAvailabilityShortcut() = runTest {
+        val h = Harness(this)
+        h.store.plan = OfflineSyncPlan(mapOf("1" to OfflineItem(track("1"), false, false, false)))
+        h.offline.verifyAndRepair(); runCurrent()
+        assertEquals(listOf("yandex:1:7", "yandex:2:7"), h.store.auditCalls)
+        assertTrue(h.store.incrementalCalls.isEmpty())
+    }
+    @Test fun completedManualSyncClearsConfirmedPendingDownloads() = runTest {
+        val h = Harness(this)
+        h.store.pendingDownloads(h.owner, setOf("1", "2"))
+        h.store.plan = OfflineSyncPlan((1..2).associate { id -> id.toString() to OfflineItem(track(id.toString()).copy(offline = true), false, false, true) })
+        h.offline.sync(); runCurrent()
+        assertTrue(h.store.pendingDownloads(h.owner).isEmpty())
+        assertTrue(h.store.downloaded.isEmpty())
+    }
+    @Test fun cancellationDuringInventoryCannotPublishLateReadyEntries() = runTest {
+        val h = Harness(this); val gate = CompletableDeferred<Unit>()
+        h.store.planGate = { gate.await() }
+        h.store.plan = OfflineSyncPlan(mapOf("1" to OfflineItem(track("1"), false, false, false)))
+        h.offline.sync(); runCurrent(); assertTrue(h.offline.state.value.running)
+        h.offline.cancel(); gate.complete(Unit); runCurrent()
+        assertFalse(h.offline.state.value.running)
+        assertTrue(h.offline.tracks("owner").isEmpty())
+        assertTrue(h.store.downloaded.isEmpty())
+    }
+    @Test fun profileChangeDuringInventoryCannotPublishTheOldPlan() = runTest {
+        val h = Harness(this); val gate = CompletableDeferred<Unit>()
+        h.store.planGate = { gate.await() }
+        h.store.plan = OfflineSyncPlan(mapOf("1" to OfflineItem(track("1"), false, false, false)))
+        h.offline.sync(); runCurrent(); h.auth.activate("road"); runCurrent()
+        gate.complete(Unit); runCurrent()
+        assertEquals("road", h.offline.state.value.owner?.profileId)
+        assertTrue(h.offline.tracks("road").isEmpty())
+        assertTrue(h.store.downloaded.isEmpty())
     }
     private inner class Harness(val scope: TestScope, enabled: Boolean = true) {
         val owner = OfflineOwner("owner", "A")

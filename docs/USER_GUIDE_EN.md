@@ -293,10 +293,31 @@ its cached file and cancels a pending download. Use synchronization for likes ma
 outside YMPlayer or to retry missing downloads. Collections remain specific to
 both the profile and its Yandex account.
 
+The following split is prepared for the upcoming 2.6.5. The published
+2.6.4-build124 does not yet have a separate full-check button.
+
+**Sync liked tracks** checks your current collection and downloads missing files.
+New audio downloads take priority over artwork repairs and metadata updates for
+saved tracks. Completed audio files are not read in full again. The first check
+on a new storage device still needs to list its files.
+
+**Check and repair cache** rereads saved audio and artwork, checks their checksums
+and downloads damaged or missing files. Use it if you suspect corruption,
+including damage that leaves the file size unchanged. This action also requires
+a signed-in account and a connection that meets the Wi-Fi-only setting. Checking
+a large collection can take time; use the same cancel button to stop it.
+Completed, verified downloads are kept.
+
 The list opens without auditing every audio file. A verified, unchanged download
 does not need another whole-file read before each Play or Next. New or changed
-files are checked again. Synchronize to repair a damaged download; Offline mode
+files are checked again. Use **Check and repair cache** to repair a damaged download; Offline mode
 does not replace it with an online stream.
+
+Original artwork is saved with the audio and read from your selected cache
+folder, including USB storage. Tracks without source artwork show the app logo.
+If a cover disappears, check access to the folder. Sync downloads missing artwork;
+the full check repairs damaged images. Moving the cache does not require
+downloading intact artwork again.
 
 Selecting **Offline** immediately shows that preparation is in progress. It does
 not wait for a local-folder or USB scan. The saved catalogue speeds up the first

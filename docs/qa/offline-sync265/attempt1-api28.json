@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-11-05T04:47:46.926814+00:00",
+  "serial": "emulator-5560",
+  "classes": "dev.petrov.ymplayer2.OfflinePlaybackTest#safArtworkIsDisplayedAfterMovingTheOfflineCache,dev.petrov.ymplayer2.OfflinePlaybackTest#ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain,dev.petrov.ymplayer2.OfflinePlaybackTest#aThousandCompletedTracksCannotBlockTwoNewDownloads,dev.petrov.ymplayer2.OfflinePlaybackTest#repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp,dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption",
+  "apkSha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "639480c0abbfb282f99f94ab759443587d3a579563b077b2a345f59c4d61b6e1",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "0838cd3732c885701bae96e3b8d5992751215ca86d0fcf370466a0935318c5f9"
+  },
+  "finishedAtUtc": "2026-11-05T04:50:19.413924+00:00",
+  "exitCode": 0,
+  "passed": false
+}

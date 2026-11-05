@@ -1,0 +1,12 @@
+{
+  "startedAtUtc": "2026-11-05T05:31:30.392685+00:00",
+  "serial": "emulator-5560",
+  "classes": "dev.petrov.ymplayer2.OfflineColdCatalogTest,dev.petrov.ymplayer2.OfflineSourceStateTest,dev.petrov.ymplayer2.FileTransferTest#movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal,dev.petrov.ymplayer2.FileTransferTest#insufficientCapacityAndProviderFailureKeepOriginalCache,dev.petrov.ymplayer2.FileTransferTest#interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder,dev.petrov.ymplayer2.StorageRecoveryTest#embeddedArtworkIsBoundedRenderedAndRebuiltAfterCacheEviction",
+  "apkSha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "284871378fe1aa4747bcc8f4073e5c6ae6122c40bd69373a70467a527a157918",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+  },
+  "finishedAtUtc": "2026-11-05T05:37:55.102820+00:00",
+  "exitCode": 0,
+  "passed": false
+}

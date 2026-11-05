@@ -102,10 +102,13 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     }
     private fun part(root: StorageNode, id: String, extension: String) = root.child(hash(key(id)) + extension)
     private fun checksum(file: StorageNode) = file.parentFile!!.child(file.name + ".sha256")
+    private fun invalidMarker(file: StorageNode) = file.parentFile!!.child(file.name + ".invalid")
     private class Revoked : Exception()
     private fun check(allowed: () -> Boolean) { if (!allowed()) throw Revoked() }
 
-    override suspend fun catalog(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) {
+    private data class CatalogSnapshot(val files: Map<String, StorageNode.Entry>, val metadata: Map<String, JSONObject>, val tracks: List<Track>)
+    override suspend fun catalog(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) { inspectCatalog(owner).tracks }
+    private suspend fun inspectCatalog(owner: OfflineOwner): CatalogSnapshot {
         // Resolving a root is brief. Enumerating and reading thousands of metadata
         // documents must not hold the mutex needed to prepare a selected track.
         val (root, identity, initialGeneration) = lock.withLock {
@@ -124,6 +127,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         val indexed = catalogIndex.read(owner, identity)
         val nextIndex = linkedMapOf<String, CatalogMetadataIndex.Entry>()
         val files = inventory.associateBy { it.name }
+        val trackMetadata = hashMapOf<String, JSONObject>()
         val expired = System.currentTimeMillis() - 86_400_000
         // These app-generated temporary files never contribute to the catalog.
         inventory.filter { it.name.endsWith(".part") && it.modified in 1 until expired }.forEach { it.node.delete() }
@@ -139,11 +143,13 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
                             record to decode(record.metadata).also { key(it.id) }
                         }
                     if (metadata.modified > 0) nextIndex[metadata.name] = record
+                    trackMetadata[key(track.id)] = record.metadata
                     val prefix = hash(key(track.id))
-                    val audio = files["$prefix.audio"]?.takeIf { it.isFile && it.bytes in 1..(128L * 1024 * 1024) }
-                    val cover = files["$prefix.cover"]?.takeIf { it.isFile && it.bytes in 1..(8L * 1024 * 1024) }
+                    val audio = files["$prefix.audio"]?.takeIf { it.isFile && it.bytes in 1..(128L * 1024 * 1024) && "$prefix.audio.invalid" !in files }
+                    val cover = files["$prefix.cover"]?.takeIf { it.isFile && it.bytes in 1..(8L * 1024 * 1024) && "$prefix.cover.invalid" !in files }
                     audio?.let { track.copy(offline = true, available = true, uri = it.node.uri.toString(),
-                        artworkUri = cover?.node?.uri?.toString(), sizeBytes = it.bytes + (cover?.bytes ?: 0)) }
+                        artworkUri = cover?.node?.uri?.toString(), sizeBytes = it.bytes + (cover?.bytes ?: 0),
+                        artworkRevision = cover?.let { image -> "${image.bytes}:${image.modified}:${record.metadata.optString("coverRevision")}" }) }
                 } catch (e: CancellationException) { throw e }
                 catch (_: Exception) { null }
             }.sortedWith(compareBy(Track::artist, Track::title))
@@ -152,7 +158,38 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         catalogIndex.replace(owner, identity, nextIndex) {
             job?.isActive != false && catalogGeneration.get() == generation && rootOwner == owner && directories.identity() == identity
         }
-        tracks
+        return CatalogSnapshot(files, trackMetadata, tracks)
+    }
+
+    /** One fresh inventory for a complete pass. Completion markers are not body-hash proofs. */
+    override suspend fun planSync(owner: OfflineOwner, tracks: List<Track>): OfflineSyncPlan = withContext(Dispatchers.IO) {
+        val snapshot = inspectCatalog(owner)
+        val cached = snapshot.tracks.associateBy { key(it.id) }
+        val ready = linkedMapOf<String, OfflineItem>()
+        val missing = hashSetOf<String>()
+        for (track in tracks) {
+            currentCoroutineContext().ensureActive()
+            val id = key(track.id); val prefix = hash(id)
+            val metadata = snapshot.metadata[id]
+            fun completed(extension: String, expected: Long, limit: Long): Boolean {
+                val file = snapshot.files[prefix + extension] ?: return false
+                val marker = snapshot.files[prefix + extension + ".sha256"] ?: return false
+                return file.isFile && file.bytes in 1..limit && (expected <= 0 || expected == file.bytes) &&
+                    marker.isFile && marker.bytes == 64L && prefix + extension + ".invalid" !in snapshot.files
+            }
+            val audio = completed(".audio", metadata?.optLong("audioBytes") ?: 0, 128L * 1024 * 1024)
+            if (!audio) missing += id
+            val cover = completed(".cover", metadata?.optLong("coverBytes") ?: 0, 8L * 1024 * 1024)
+            val original = metadata?.let { runCatching { decode(it) }.getOrNull() }
+            val coverSource = metadata?.optString("coverSource")?.takeIf { it.isNotBlank() && it != "null" } ?: original?.artworkUri
+            val sameCover = track.artworkUri == null || track.artworkUri == coverSource
+            val noCover = track.artworkUri == null && snapshot.files[prefix + ".cover"] == null
+            if (audio && (cover && sameCover || noCover) && original != null &&
+                encode(original).toString() == encode(track).toString()) {
+                cached[id]?.let { ready[id] = OfflineItem(it, false, false, noCover) }
+            }
+        }
+        OfflineSyncPlan(ready, missing)
     }
 
     override suspend fun load(owner: OfflineOwner): List<Track> = withContext(Dispatchers.IO) {
@@ -168,50 +205,91 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         }
     }
 
-    override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem = withContext(Dispatchers.IO) { locationLease.withLock {
+    override suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem =
+        syncTrack(owner, track, resolve, allowed, transfer, verifyExisting = true)
+    override suspend fun syncIncremental(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem =
+        syncTrack(owner, track, resolve, allowed, transfer, verifyExisting = false)
+    private suspend fun syncTrack(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean,
+        transfer: () -> Unit, verifyExisting: Boolean): OfflineItem = withContext(Dispatchers.IO) { locationLease.withLock {
         val root = lock.withLock { root(owner) }
         val identity = directories.identity()
         val audio = part(root, track.id, ".audio")
         val cover = part(root, track.id, ".cover")
         try {
             val metadata = part(root, track.id, ".json")
+            val original = runCatching { metadata.takeIf { it.isFile && it.length() in 1 until 64L * 1024 }?.readText()?.let(::JSONObject) }.getOrNull()
+            val originalTrack = original?.let { runCatching { decode(it) }.getOrNull() }
+            val originalCover = original?.optString("coverSource")?.takeIf { it.isNotBlank() && it != "null" } ?: originalTrack?.artworkUri
             val encoded = encode(track)
-            check(allowed)
-            catalogGeneration.incrementAndGet()
-            // Index compaction may be busy on another IO coroutine. Waiting for it
-            // must not hold the selected audio's mutex. Equal-size writes on coarse
-            // clocks still invalidate this entry durably before changing metadata.
-            catalogIndex.remove(owner, identity, setOf(metadata.name))
-            lock.withLock {
+            for (field in listOf("audioBytes", "coverBytes")) if (original?.has(field) == true) encoded.put(field, original.getLong(field))
+            if (original?.has("coverRevision") == true) encoded.put("coverRevision", original.getString("coverRevision"))
+            encoded.put("coverSource", originalCover ?: JSONObject.NULL)
+            suspend fun saveMetadata() {
                 check(allowed)
-                if (!root.isDirectory && !root.mkdirs()) throw IOException("Cannot create offline directory")
-                write(metadata, encoded.toString().toByteArray())
+                catalogGeneration.incrementAndGet()
+                catalogIndex.remove(owner, identity, setOf(metadata.name))
+                lock.withLock {
+                    check(allowed)
+                    if (!root.isDirectory && !root.mkdirs()) throw IOException("Cannot create offline directory")
+                    write(metadata, encoded.toString().toByteArray())
+                }
             }
+            // Keep metadata before the first download so cancellation after completed
+            // audio does not orphan that file. Unchanged completed rows never get here.
+            if (originalTrack == null || encode(originalTrack).toString() != encode(track).toString()) saveMetadata()
             var audioFailed = false; var coverFailed = false; var noCover = false
+            var audioReady = false; var coverReady = false; var coverReplaced = false
+            fun completed(file: StorageNode, expected: Long, limit: Long): Boolean {
+                if (!file.isFile) return false
+                val bytes = file.length()
+                return bytes in 1..limit && (expected <= 0 || bytes == expected) &&
+                    checksum(file).let { it.isFile && it.length() == 64L } && !invalidMarker(file).exists()
+            }
             try {
-                val valid = valid(audio, track.durationSeconds * 1000L, true, reuseProof = false)
-                if (!valid) {
+                audioReady = !verifyExisting && completed(audio, original?.optLong("audioBytes") ?: 0, 128L * 1024 * 1024)
+                if (!audioReady) audioReady = valid(audio, track.durationSeconds * 1000L, true, reuseProof = false)
+                if (!audioReady) {
                     if (!track.available) throw MusicException(MusicFailure.UNAVAILABLE)
                     transfer(); check(allowed)
                     download(resolve(), audio, 128L * 1024 * 1024, track.durationSeconds * 1000L, true, allowed, transfer)
+                    audioReady = true
                 }
             } catch (e: CancellationException) { throw e }
             catch (e: Revoked) { throw e }
             catch (e: OfflineException) { throw e }
             catch (e: Exception) { reportFailure(e); audioFailed = true }
             try {
-                val valid = valid(cover, 0, false, reuseProof = false)
-                if (!valid) {
+                val sourceChanged = track.artworkUri != null && track.artworkUri != originalCover
+                coverReady = !sourceChanged && !verifyExisting && completed(cover, original?.optLong("coverBytes") ?: 0, 8L * 1024 * 1024)
+                if (!coverReady && !sourceChanged) coverReady = valid(cover, 0, false, reuseProof = false)
+                if (!coverReady) {
                     val uri = track.artworkUri
                     if (uri == null) noCover = true
-                    else { transfer(); check(allowed); download(uri, cover, 8L * 1024 * 1024, 0, false, allowed, transfer) }
+                    else {
+                        transfer(); check(allowed); download(uri, cover, 8L * 1024 * 1024, 0, false, allowed, transfer)
+                        coverReady = true; coverReplaced = true
+                    }
                 }
             } catch (e: CancellationException) { throw e }
             catch (e: Revoked) { throw e }
             catch (e: OfflineException) { throw e }
-            catch (e: Exception) { reportFailure(e); coverFailed = true }
-            val cached = cached(root, track)
-            lock.withLock { check(allowed); OfflineItem(cached, audioFailed, coverFailed, noCover) }
+            catch (e: Exception) {
+                reportFailure(e); coverFailed = true
+                // An unavailable replacement must not hide an intact older picture.
+                coverReady = valid(cover, 0, false, reuseProof = false)
+            }
+            if (audioReady) encoded.put("audioBytes", audio.length())
+            if (coverReady) encoded.put("coverBytes", cover.length())
+            // A repair may restore identical bytes with an unchanged provider mtime.
+            // Its new revision must still retry an earlier failed UI image read.
+            if (coverReplaced) encoded.put("coverRevision", java.util.UUID.randomUUID().toString())
+            encoded.put("coverSource", (if (coverReplaced) track.artworkUri else originalCover) ?: JSONObject.NULL)
+            if (original?.toString() != encoded.toString()) saveMetadata()
+            val result = if (audioReady && audio.isFile && audio.length() > 0) track.copy(offline = true, available = true,
+                uri = audio.uri.toString(), artworkUri = cover.takeIf { coverReady }?.uri?.toString(),
+                sizeBytes = audio.length() + if (coverReady) cover.length() else 0L,
+                artworkRevision = if (coverReady) coverRevision(cover, encoded.optString("coverRevision")) else null) else null
+            lock.withLock { check(allowed); OfflineItem(result, audioFailed, coverFailed, noCover) }
         } catch (_: Revoked) { OfflineItem(null, false, false, false) }
     } }
     private fun reportFailure(error: Throwable) {
@@ -265,21 +343,44 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         if (!valid(audio, track.durationSeconds * 1000L, true, reuseProof)) return null
         val cover = part(root, track.id, ".cover").takeIf { valid(it, 0, false, reuseProof) }
         return track.copy(offline = true, available = true, uri = audio.uri.toString(),
-            artworkUri = cover?.let { it.uri.toString() }, sizeBytes = audio.length() + (cover?.length() ?: 0))
+            artworkUri = cover?.let { it.uri.toString() }, sizeBytes = audio.length() + (cover?.length() ?: 0),
+            artworkRevision = cover?.let { track.artworkRevision ?: coverRevision(it) })
+    }
+    private fun coverRevision(file: StorageNode, revision: String? = null): String {
+        val verified = revision?.takeIf { it.isNotBlank() } ?: synchronized(proofLock) { proofs[proofKey(file)]?.checksum }
+            ?: checksum(file).takeIf { it.isFile && it.length() <= 128 }?.readText()?.trim().orEmpty()
+        return "${file.length()}:${file.lastModified()}:$verified"
     }
     private suspend fun valid(file: StorageNode, duration: Long, audio: Boolean, reuseProof: Boolean = true): Boolean {
         val generation = synchronized(proofLock) { proofGeneration }
+        var integrityEpoch = catalogGeneration.get()
         if (!file.isFile || file.length() <= 0 || file.length() > (if (audio) 128L else 8L) * 1024 * 1024) return false
         val before = proof(file)
         // Playback may reuse an unchanged proof. An explicit audit/sync must hash
         // again: providers can report coarse timestamps for same-size edits.
-        if (reuseProof && before.modified > 0 && before.checksum != null && synchronized(proofLock) { proofs[proofKey(file)] == before }) return true
+        if (reuseProof && !invalidMarker(file).exists() && before.modified > 0 && before.checksum != null && synchronized(proofLock) { proofs[proofKey(file)] == before }) return true
         val valid = if (before.checksum != null) before.checksum == fileHash(file)
-            else if (validate(file, duration, audio)) { remember(file); true } else false
-        if (!valid) { invalidate(file); return false }
+            else if (validate(file, duration, audio)) { remember(file); integrityEpoch = catalogGeneration.get(); true } else false
+        if (!valid) {
+            invalidate(file)
+            lock.withLock {
+                // Never mark a replacement completed by another writer as corrupt.
+                if (catalogGeneration.get() == integrityEpoch) {
+                    val marker = invalidMarker(file)
+                    if (!marker.exists()) write(marker, byteArrayOf(1))
+                }
+            }
+            return false
+        }
         val after = proof(file)
         if (before.uri != after.uri || before.bytes != after.bytes || before.modified != after.modified) return false
         if (before.checksum != null && before.checksum != after.checksum) return false
+        lock.withLock {
+            if (catalogGeneration.get() == integrityEpoch) {
+                val marker = invalidMarker(file)
+                if (marker.exists() && marker.delete()) catalogGeneration.incrementAndGet()
+            }
+        }
         if (after.modified > 0 && after.checksum != null) synchronized(proofLock) {
             if (proofGeneration == generation) proofs[proofKey(file)] = after
         }
@@ -325,6 +426,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
                 checksum(target).let { if (it.exists()) it.delete() }
                 target.replace(temp)
                 write(checksum(target), digest.toByteArray())
+                invalidMarker(target).let { if (it.exists()) it.delete() }
                 proof(target).takeIf { it.modified > 0 }?.let { verified -> synchronized(proofLock) { proofs[proofKey(target)] = verified } }
             }
         } finally { runCatching { source.close() }; temp.delete() }

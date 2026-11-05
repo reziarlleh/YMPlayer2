@@ -139,7 +139,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     var collaborators = false
     var longLabels = false
     val equalizerRequests = mutableListOf<Boolean>()
-    private fun onlineTrack(id: Int): Track = fixtureTracks()[(id - 1) % 2].copy(id = "yandex:$id:7", title = if (longLabels) "Очень длинное название композиции — концертная версия с дополнительными исполнителями $id" else "Онлайн: трек $id",
+    fun onlineTrack(id: Int): Track = fixtureTracks()[(id - 1) % 2].copy(id = "yandex:$id:7", title = if (longLabels) "Очень длинное название композиции — концертная версия с дополнительными исполнителями $id" else "Онлайн: трек $id",
         source = Source.YANDEX, offline = false, uri = null, artworkUri = null, artists = listOf(ArtistRef(if (id % 2 == 1) "5" else "6", if (id % 2 == 1) "Первый исполнитель" else "Второй исполнитель")) + if (collaborators) listOf(ArtistRef("8", "Совместный исполнитель")) else emptyList(), albumId = "7")
     val tasteLists = mutableMapOf<Pair<String, TasteKind>, TasteList>()
     val tasteWrites = mutableListOf<Pair<TasteTarget, TasteAction>>()
@@ -163,15 +163,17 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         }
     }, viewModelScope, online::refreshCollection)
     var offlineArtwork: String? = null
+    var offlineSnapshotOverride: LikedSnapshot? = null
     val audioQuality = loadAudioQuality(context)
     val resolvedQualities = java.util.concurrent.CopyOnWriteArrayList<Pair<String, AudioQuality>>()
     fun restoredAudioQuality() = loadAudioQuality(context).state.value
     var offlineNetwork = true
     val offlineStore = dev.petrov.ymplayer2.offline.LikedFileStore(context)
     val offline = OfflineMusic(auth, taste, object : LikedMusicApi {
-        override suspend fun keys(profileId: String) = tasteLists[profileId to TasteKind.TRACK]?.listKeys().orEmpty()
+        override suspend fun keys(profileId: String) = offlineSnapshotOverride?.keys ?: tasteLists[profileId to TasteKind.TRACK]?.listKeys().orEmpty()
         override suspend fun snapshot(profileId: String): LikedSnapshot {
             failure?.let { throw MusicException(it) }
+            offlineSnapshotOverride?.let { return it }
             val keys = keys(profileId)
             return LikedSnapshot(keys, keys.map { onlineTrack(it.toInt()).copy(artworkUri = offlineArtwork) })
         }

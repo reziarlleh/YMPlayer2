@@ -27,7 +27,7 @@ open class OfflineSyncService : Service() {
         if (Build.VERSION.SDK_INT >= 29) startForeground(ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
         else startForeground(ID, notification)
         if (watching != null) return START_NOT_STICKY
-        offline.sync()
+        if (intent?.getBooleanExtra(VERIFY, false) == true) offline.verifyAndRepair() else offline.sync()
         watching = scope.launch {
             combine(offline.state, AppLanguages.state) { state, _ -> state }.collect { state ->
                 if (!state.running) finish()
@@ -49,6 +49,7 @@ open class OfflineSyncService : Service() {
             .addAction(Notification.Action.Builder(null, tr(Msg.msg_3396400da0c4), cancel).build()).build()
     }
     companion object {
+        const val VERIFY = "verify-offline-cache"
         private const val CHANNEL = "offline-sync"
         private const val ID = 201
         private const val CANCEL = "dev.petrov.ymplayer2.OFFLINE_CANCEL"

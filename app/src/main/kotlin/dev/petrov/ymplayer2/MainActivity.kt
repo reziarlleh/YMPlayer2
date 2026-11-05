@@ -202,6 +202,9 @@ class MainActivity : ComponentActivity() {
                 }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
                 try { startForegroundService(android.content.Intent(this, OfflineSyncService::class.java)) }
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
+            }, auditOffline = {
+                try { startForegroundService(Intent(this, OfflineSyncService::class.java).putExtra(OfflineSyncService.VERIFY, true)) }
+                catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
             })
         } }
         if (restoreClips) startActivity(Intent(this, ClipActivity::class.java))

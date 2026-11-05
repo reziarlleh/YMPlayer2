@@ -1,0 +1,272 @@
+{
+  "checkedAtUtc": "2026-11-05T05:52:02.290006+00:00",
+  "appSha256": "284871378fe1aa4747bcc8f4073e5c6ae6122c40bd69373a70467a527a157918",
+  "scope": "Distinct passing cases across dated batches on the same app APK; test APK changed for documented fixture/helper fixes. Earlier failed batches remain failed.",
+  "batches": [
+    {
+      "label": "final-target-api28",
+      "completeBatchPassed": false,
+      "cases": 6,
+      "failed": 1
+    },
+    {
+      "label": "regression-cache-api28",
+      "completeBatchPassed": false,
+      "cases": 26,
+      "failed": 1
+    },
+    {
+      "label": "regression-state-api28",
+      "completeBatchPassed": false,
+      "cases": 18,
+      "failed": 1
+    },
+    {
+      "label": "final-cold-api28",
+      "completeBatchPassed": true,
+      "cases": 2,
+      "failed": 0
+    }
+  ],
+  "platforms": {
+    "emulator-5560": {
+      "expectedDistinctCases": 42,
+      "passedDistinctCases": 42,
+      "unresolved": [],
+      "latestResults": {
+        "dev.petrov.ymplayer2.FileTransferTest#insufficientCapacityAndProviderFailureKeepOriginalCache": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.FileTransferTest#interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.FileTransferTest#movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest#anUnrelatedIntegrityAuditCannotBlockAReadySelectedTrack": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest#nextCachedTrackStartsBeforeItsSlowStorageTailIsAvailable": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflineCachePlaybackLatencyTest#readyUnchangedCacheStartsBeforeSlowStorageReachesEndOfFile": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#aNewStoreReusesPersistedMetadataWithoutOpeningEveryJsonAgain": {
+          "code": 0,
+          "batch": "final-cold-api28",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        },
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#appWriteInvalidatesOnlyOneIndexEntryEvenWithSameSizeAndCoarseTimestamp": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#freshInventoryDetectsRemovedAudioAndOnlyRereadsChangedMetadata": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#legacyColdCatalogUsesBulkAttributesWithoutIndividualStatQueries": {
+          "code": 0,
+          "batch": "final-cold-api28",
+          "testApkSha256": "8bbdbff2163cefda8f883479386c4667f0753d7354dd8d5fa5e828d7026cec25"
+        },
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#privateIndexCannotBypassStorageAccessOrLeakAnotherOwnerOrLocation": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#reportFreshStoreFirstAndIndexedColdReadCosts": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#unknownTimestampsAndCorruptPrivateIndexFallBackToFreshMetadata": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#aThousandCompletedTracksCannotBlockTwoNewDownloads": {
+          "code": 0,
+          "batch": "final-target-api28",
+          "testApkSha256": "dff66a67cf08012f95e04d457156e8f83cb4d76d41d2168887a9e592f69f073c"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#badAudioDoesNotDeleteHealthyCoverAndRetryRepairsOnlyAudio": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#cancelKeepsCompletedFileAndNextSyncContinues": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#checksumlessValidFilesAreVerifiedWithoutDownloadingAgain": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#clearOfflineFilesLeavesServerLikesUntouched": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#damagedAudioAndCoverAreRepairedIndependently": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#emptyOfflineSourceRemainsSelectableWithoutNetwork": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#fastCatalogDoesNotAuditAllBytesButSelectedDamagedAudioIsRejected": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption": {
+          "code": 0,
+          "batch": "final-target-api28",
+          "testApkSha256": "dff66a67cf08012f95e04d457156e8f83cb4d76d41d2168887a9e592f69f073c"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundSyncCancelsWithoutStoppingTheAudioPlayer": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#guestHasAnEmptyReadOnlyListAndIndependentDeviceSettings": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#missingCoverKeepsAudioAndNeverStoresPlaceholderArt": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain": {
+          "code": 0,
+          "batch": "final-target-api28",
+          "testApkSha256": "dff66a67cf08012f95e04d457156e8f83cb4d76d41d2168887a9e592f69f073c"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#profileSwitchCancelsDownloadAndHidesOutgoingCache": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#remoteCanOpenCacheSettingsAndChooseCachedTrackFromLibrary": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp": {
+          "code": 0,
+          "batch": "final-target-api28",
+          "testApkSha256": "dff66a67cf08012f95e04d457156e8f83cb4d76d41d2168887a9e592f69f073c"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#safArtworkIsDisplayedAfterMovingTheOfflineCache": {
+          "code": 0,
+          "batch": "final-target-api28",
+          "testApkSha256": "dff66a67cf08012f95e04d457156e8f83cb4d76d41d2168887a9e592f69f073c"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#settingsAndCollectionAreSeparateAndReturnToTheirOwnParents": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#syncScreenThenPlayWithNetworkDisabledAndRestorePaused": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#unlikeInFlightCannotLeaveAnyFilesForRemovedTrack": {
+          "code": 0,
+          "batch": "regression-cache-api28",
+          "testApkSha256": "e932fac3c1b658e1bcf4a91a5a467fe04f63eeea304fee9828ab147b0bf84557"
+        },
+        "dev.petrov.ymplayer2.OfflineSourceStateTest#anotherProfileCannotOverwriteTheOwnersOfflineBookmark": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineSourceStateTest#offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineSourceStateTest#pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineSourceStateTest#removingBookmarkedCachedTrackFallsBackToAnExistingTrack": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndRepeatList": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndRepeatOne": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndShuffle": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        },
+        "dev.petrov.ymplayer2.StorageRecoveryTest#embeddedArtworkIsBoundedRenderedAndRebuiltAfterCacheEviction": {
+          "code": 0,
+          "batch": "regression-state-api28",
+          "testApkSha256": "3fb54ecca059f3715662e56a67a163841054bf934f8192238a0b16cd62b2c93d"
+        }
+      }
+    },
+    "emulator-5564": {
+      "expectedDistinctCases": 7,
+      "passedDistinctCases": 0,
+      "unresolved": [
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#aNewStoreReusesPersistedMetadataWithoutOpeningEveryJsonAgain",
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#legacyColdCatalogUsesBulkAttributesWithoutIndividualStatQueries",
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#aThousandCompletedTracksCannotBlockTwoNewDownloads",
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption",
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain",
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp",
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#safArtworkIsDisplayedAfterMovingTheOfflineCache"
+      ],
+      "latestResults": {
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#aNewStoreReusesPersistedMetadataWithoutOpeningEveryJsonAgain": null,
+        "dev.petrov.ymplayer2.OfflineColdCatalogTest#legacyColdCatalogUsesBulkAttributesWithoutIndividualStatQueries": null,
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#aThousandCompletedTracksCannotBlockTwoNewDownloads": null,
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption": null,
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain": null,
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp": null,
+        "dev.petrov.ymplayer2.OfflinePlaybackTest#safArtworkIsDisplayedAfterMovingTheOfflineCache": null
+      }
+    }
+  }
+}

@@ -51,8 +51,12 @@ class OfflineColdCatalogTest {
         val start=android.os.SystemClock.elapsedRealtime()
         val read = async(Dispatchers.IO) { store().catalog(owner) }
         try {
-            withTimeoutOrNull(4_000) { read.join() }
-            assertTrue("Cold catalog blocked on $gate: ${stats()}", read.isCompleted)
+            // A legacy pass reads 400 real JSONs. Bound completion for safety;
+            // the tests below detect forbidden IO with exact counters, even if
+            // a provider gate expires. Polling those counters adds its own IPC.
+            withTimeout(60_000) { read.join() }
+            val observed = stats()
+            assertTrue("Cold catalog blocked on $gate: fileQueries=${observed.getInt("fileQueries")} jsonOpens=${observed.getInt("jsonOpens")} waiters=${observed.getInt("waiters")}", read.isCompleted)
             read.await().also { metric("gate-$gate", start, it.size) }
         } finally {
             control("storage-catalog-gate", "open")
@@ -85,6 +89,9 @@ class OfflineColdCatalogTest {
     }
     @Test fun appWriteInvalidatesOnlyOneIndexEntryEvenWithSameSizeAndCoarseTimestamp() = runBlocking {
         control("storage-catalog-constant-mtime","true")
+        // This case audits seed1 while updating metadata. Use genuine audio: a
+        // known corrupt file is intentionally excluded by the new cache marker.
+        control("storage-edit-catalog", extras = seedExtras().apply { putString("id","seed1"); putString("action","completeAudio") })
         val store = store(); val before = store.catalog(owner)
         val changed = before.single { it.id == "yandex:seed1:7" }.copy(title = "Cached SONG 1")
         store.sync(owner, changed, { throw IOException("No network in cold fixture") }, { true }, { throw IOException("No downloads in cold fixture") })

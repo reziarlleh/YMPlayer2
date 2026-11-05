@@ -742,5 +742,8 @@
     <string name="offline_auto_wait_network" formatted="false">"Трек уподобано. Завантаження почнеться після відновлення інтернет-з’єднання."</string>
     <string name="wave_no_progress" formatted="false">"Яндекс не надіслав нових треків для хвилі. Спробуйте пізніше."</string>
     <string name="wave_audio_storage_failure" formatted="false">"Не вдалося зберегти тимчасове аудіо. Перевірте вільне місце та доступ до сховища пристрою."</string>
+    <string name="offline_verify" formatted="false">"Перевірити та відновити кеш"</string>
+    <string name="offline_sync_hint" formatted="false">"Синхронізація завантажує відсутні файли. Повна перевірка повторно читає збережені аудіофайли й обкладинки, щоб знайти та виправити пошкодження."</string>
+    <string name="offline_verify_start" formatted="false">"Перевіряємо офлайн-кеш…"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

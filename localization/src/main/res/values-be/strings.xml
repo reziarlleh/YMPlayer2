@@ -742,5 +742,8 @@
     <string name="offline_auto_wait_network" formatted="false">"Трэк упадабаны. Спампоўванне пачнецца, калі інтэрнэт-злучэнне адновіцца."</string>
     <string name="wave_no_progress" formatted="false">"Яндэкс не даслаў новых трэкаў для хвалі. Паспрабуйце пазней."</string>
     <string name="wave_audio_storage_failure" formatted="false">"Не ўдалося захаваць часовае аўдыя. Праверце вольнае месца і доступ да сховішча прылады."</string>
+    <string name="offline_verify" formatted="false">"Праверыць і аднавіць кэш"</string>
+    <string name="offline_sync_hint" formatted="false">"Сінхранізацыя спампоўвае файлы, якіх бракуе. Поўная праверка паўторна чытае захаваныя аўдыяфайлы і вокладкі, каб знайсці і выправіць пашкоджанні."</string>
+    <string name="offline_verify_start" formatted="false">"Правяраем афлайн-кэш…"</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

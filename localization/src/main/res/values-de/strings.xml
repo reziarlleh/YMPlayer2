@@ -742,5 +742,8 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="offline_auto_wait_network" formatted="false">"Titel mit „Gefällt mir“ markiert. Der Download beginnt, sobald die Internetverbindung wiederhergestellt ist."</string>
     <string name="wave_no_progress" formatted="false">"Yandex hat keine neuen Titel für die Welle geliefert. Versuche es später erneut."</string>
     <string name="wave_audio_storage_failure" formatted="false">"Die Audiodaten konnten nicht zwischengespeichert werden. Prüfe den freien Speicherplatz und den Speicherzugriff."</string>
+    <string name="offline_verify" formatted="false">"Cache prüfen und reparieren"</string>
+    <string name="offline_sync_hint" formatted="false">"Die Synchronisierung lädt fehlende Dateien herunter. Bei einer vollständigen Prüfung werden gespeicherte Audiodateien und Cover erneut gelesen, um beschädigte Dateien zu finden und zu reparieren."</string>
+    <string name="offline_verify_start" formatted="false">"Offline-Cache wird geprüft…"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

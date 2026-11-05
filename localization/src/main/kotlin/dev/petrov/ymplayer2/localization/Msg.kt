@@ -737,5 +737,8 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     offline_auto_wait_wifi("Трек отмечен. Скачивание начнётся при подключении к Wi-Fi.", "Track liked. Downloading will start when Wi-Fi is available.", R.string.offline_auto_wait_wifi),
     offline_auto_wait_network("Трек отмечен. Скачивание начнётся после восстановления интернета.", "Track liked. Downloading will start when the internet connection is restored.", R.string.offline_auto_wait_network),
     wave_no_progress("Яндекс не прислал новых треков для волны. Повторите попытку позже.", "Yandex returned no new tracks for the wave. Try again later.", R.string.wave_no_progress),
-    wave_audio_storage_failure("Не удалось сохранить временное аудио. Проверьте свободное место и доступ к памяти устройства.", "Could not save temporary audio. Check the available storage space and storage access.", R.string.wave_audio_storage_failure);
+    wave_audio_storage_failure("Не удалось сохранить временное аудио. Проверьте свободное место и доступ к памяти устройства.", "Could not save temporary audio. Check the available storage space and storage access.", R.string.wave_audio_storage_failure),
+    offline_verify("Проверить и восстановить кэш", "Check and repair cache", R.string.offline_verify),
+    offline_sync_hint("Синхронизация докачивает недостающие файлы. Полная проверка заново читает сохранённые аудио и обложки, чтобы найти и исправить повреждения.", "Synchronization downloads missing files. A full check reads saved audio and artwork again to find and repair damaged files.", R.string.offline_sync_hint),
+    offline_verify_start("Проверяем офлайн-кэш…", "Checking the offline cache…", R.string.offline_verify_start);
 }

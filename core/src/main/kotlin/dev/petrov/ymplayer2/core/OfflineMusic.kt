@@ -11,11 +11,16 @@ interface LikedMusicApi {
     suspend fun tracks(profileId: String, keys: Set<String>): List<Track> = snapshot(profileId).tracks.filter { it.tasteTarget().key in keys }
 }
 data class OfflineItem(val track: Track?, val audioFailed: Boolean, val coverFailed: Boolean, val noCover: Boolean)
+/** Availability/completion plan, not a new whole-file integrity proof. */
+data class OfflineSyncPlan(val ready: Map<String, OfflineItem> = emptyMap(), val missingAudio: Set<String> = emptySet())
 interface OfflineStore {
     suspend fun load(owner: OfflineOwner): List<Track>
     /** Fast local listing; audio() still verifies the selected file before opening it. */
     suspend fun catalog(owner: OfflineOwner): List<Track> = load(owner)
     suspend fun sync(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem
+    suspend fun planSync(owner: OfflineOwner, tracks: List<Track>): OfflineSyncPlan = OfflineSyncPlan()
+    suspend fun syncIncremental(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem =
+        sync(owner, track, resolve, allowed, transfer)
     suspend fun retain(owner: OfflineOwner, keys: Set<String>, allowed: () -> Boolean = { true })
     suspend fun audio(owner: OfflineOwner, trackId: String): String?
     suspend fun clear(owner: OfflineOwner)
@@ -130,7 +135,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
                     }
                     if (key !in wanted || !allowed()) continue
                     try {
-                        val result = store.sync(owner, track, { online.stream(owner.profileId, track.id, cacheQuality()) }, ::allowed, ::transfer)
+                        val result = store.syncIncremental(owner, track, { online.stream(owner.profileId, track.id, cacheQuality()) }, ::allowed, ::transfer)
                         if (!valid(owner, ticket)) return@launch
                         if (result.track != null && allowed()) {
                             mutable.value = state.value.copy(tracks = state.value.tracks.filterNot { it.tasteTarget().key == key } + result.track,
@@ -221,12 +226,15 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
             load(owner)
         }
     }
-    fun sync() {
+    fun sync() = synchronize(verifyAll = false)
+    fun verifyAndRepair() = synchronize(verifyAll = true)
+    private fun synchronize(verifyAll: Boolean) {
         val owner = state.value.owner ?: return
         if (!state.value.enabled || !state.value.ready || state.value.running) return
         val ticket = ++generation; val revision = membershipRevision
         excluded = emptySet(); passKeys = null
-        mutable.value = state.value.copy(running = true, total = 0, checked = 0, audioFailures = 0, coverFailures = 0, noCover = 0, message = "Получаем «Мне нравится»…")
+        mutable.value = state.value.copy(running = true, total = 0, checked = 0, audioFailures = 0, coverFailures = 0, noCover = 0,
+            message = if (verifyAll) "Проверяем офлайн-кэш…" else "Получаем «Мне нравится»…")
         fun transfer() {
             if (!valid(owner, ticket)) throw CancellationException("Offline owner changed")
             if (!network(state.value.wifiOnly)) throw OfflineException(if (state.value.wifiOnly) "Для синхронизации нужен Wi-Fi." else "Нет сети для синхронизации.")
@@ -245,19 +253,35 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
                 store.retain(owner, keep) { valid(owner, ticket) }
                 if (!valid(owner, ticket)) return@launch
                 val rows = snapshot.tracks.distinctBy { it.tasteTarget().key }.filter { it.tasteTarget().key in keep }
-                mutable.value = state.value.copy(total = snapshot.keys.size, tracks = state.value.tracks.filter { it.tasteTarget().key in keep },
+                val plan = if (verifyAll) OfflineSyncPlan() else store.planSync(owner, rows)
+                ensureActive()
+                if (!valid(owner, ticket)) return@launch
+                val ready = plan.ready.filterKeys { it in keep && it !in excluded }
+                val completedKeys = ready.keys.toMutableSet()
+                val cached = state.value.tracks.filter { it.tasteTarget().key in keep && it.tasteTarget().key !in excluded }
+                    .associateByTo(linkedMapOf()) { it.tasteTarget().key }
+                ready.forEach { (key, result) -> result.track?.let { cached[key] = it } }
+                mutable.value = state.value.copy(total = snapshot.keys.size, tracks = cached.values.toList(),
+                    checked = ready.size, noCover = ready.values.count { it.noCover },
                     audioFailures = (snapshot.keys - snapshot.tracks.map { it.tasteTarget().key }.toSet() - state.value.tracks.map { it.tasteTarget().key }.toSet()).size)
-                for (track in rows) {
+                // Existing completed entries are published in one batch. Missing audio
+                // must not wait behind metadata changes or cover repairs of old tracks.
+                val work = rows.filterNot { it.tasteTarget().key in ready }
+                    .sortedBy { if (it.tasteTarget().key in plan.missingAudio) 0 else 1 }
+                for (track in work) {
                     ensureActive(); transfer()
                     val key = track.tasteTarget().key
                     if (key in excluded) continue
-                    mutable.value = state.value.copy(message = "${state.value.checked + 1}/${rows.size} · ${track.title}")
+                    mutable.value = state.value.copy(message = "${state.value.checked + 1}/${snapshot.keys.size} · ${track.title}")
                     val quality = cacheQuality()
-                    val result = store.sync(owner, track, { online.stream(owner.profileId, track.id, quality) },
-                        { valid(owner, ticket) && key !in excluded && key !in taste.excludedPendingTracks(owner) }, ::transfer)
+                    val allowed = { valid(owner, ticket) && key !in excluded && key !in taste.excludedPendingTracks(owner) }
+                    val resolve = suspend { online.stream(owner.profileId, track.id, quality) }
+                    val result = if (verifyAll) store.sync(owner, track, resolve, allowed, ::transfer)
+                        else store.syncIncremental(owner, track, resolve, allowed, ::transfer)
                     ensureActive()
                     if (!valid(owner, ticket)) return@launch
                     if (key !in excluded) {
+                        if (result.track != null) completedKeys += key
                         val tracks = state.value.tracks.filter { it.tasteTarget().key != key } + listOfNotNull(result.track)
                         mutable.value = state.value.copy(tracks = tracks, checked = state.value.checked + 1,
                             audioFailures = state.value.audioFailures + if (result.audioFailed) 1 else 0,
@@ -272,6 +296,10 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
                 applyMembership(owner, keys)
                 store.retain(owner, keys) { valid(owner, ticket) }
                 if (valid(owner, ticket)) mutable.value = state.value.copy(tracks = state.value.tracks.filter { it.tasteTarget().key in keys }, message = "Синхронизация завершена.")
+                downloadQueueLock.lock()
+                try {
+                    if (valid(owner, ticket)) store.pendingDownloads(owner, store.pendingDownloads(owner) - completedKeys)
+                } finally { downloadQueueLock.unlock() }
                 taste.refresh(TasteKind.TRACK)
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
@@ -323,7 +351,8 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     }
     fun decorate(profile: String, track: Track): Track {
         val cached = cachedTrack(profile, track.id) ?: return track
-        return track.copy(offline = true, available = true, artworkUri = cached.artworkUri ?: track.artworkUri)
+        return track.copy(offline = true, available = true, artworkUri = cached.artworkUri ?: track.artworkUri,
+            artworkRevision = cached.artworkRevision ?: track.artworkRevision)
     }
     suspend fun audio(profile: String, trackId: String): String? {
         if (!state.value.enabled) return null
