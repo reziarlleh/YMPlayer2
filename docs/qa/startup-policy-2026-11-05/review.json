@@ -1,0 +1,41 @@
+{
+  "checkedAtUtc": "2026-11-05T14:49:07.385116+00:00",
+  "forumReadStatus": 200,
+  "reportedVersion": "2.6.4-build124",
+  "reportPostId": 145857814,
+  "ownerProposalPostId": 145858008,
+  "sameAuthorFollowupPostId": 145858119,
+  "independentNewReportCount": 1,
+  "reportedCauseEstablished": false,
+  "newRuntimeTests": false,
+  "productCodeChanged": false,
+  "forumMutations": false,
+  "versionAndFeedsChanged": false,
+  "sourceComparison": [
+    {
+      "path": "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt",
+      "build124Blob": "98a48d93b6068c01fd78c91329a1eadbf53eef17",
+      "build125Blob": "98a48d93b6068c01fd78c91329a1eadbf53eef17",
+      "unchanged": true
+    },
+    {
+      "path": "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt",
+      "build124Blob": "fde827a209228648ec596e3f66eafeca97affdb7",
+      "build125Blob": "fde827a209228648ec596e3f66eafeca97affdb7",
+      "unchanged": true
+    },
+    {
+      "path": "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/LaunchStateStore.kt",
+      "build124Blob": "9f33399d1515a9049caf0bdb11da696edb5bffe0",
+      "build125Blob": "9f33399d1515a9049caf0bdb11da696edb5bffe0",
+      "unchanged": true
+    },
+    {
+      "path": "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt",
+      "build124Blob": "94ffea4175839d5dc680b7a378fc3653ed794081",
+      "build125Blob": "94ffea4175839d5dc680b7a378fc3653ed794081",
+      "unchanged": true
+    }
+  ],
+  "repoWiseContext": "bounded request interrupted; current targeted sources read directly"
+}
