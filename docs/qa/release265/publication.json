@@ -1,0 +1,64 @@
+{
+  "checkedAtUtc": "2026-11-05T10:56:33.863908+00:00",
+  "version": "2.6.5-build125",
+  "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.5-build125",
+  "releaseId": 435026972,
+  "prerelease": false,
+  "draft": false,
+  "latest": true,
+  "apkRebuiltAfterAcceptance": false,
+  "completeVersionNotesMatch": true,
+  "assets": [
+    {
+      "name": "build.json",
+      "bytes": 344,
+      "digest": "sha256:50c1106dc23908bf7f9d3ff02187f5489bad78428ade29ad1eb9c9b8688e03d5",
+      "matches": true
+    },
+    {
+      "name": "SHA256.txt",
+      "bytes": 94,
+      "digest": "sha256:5eaef3deb7a7683932196ef6a0195a4132ab1f738ecd2ed36e6f266f7ccee5b2",
+      "matches": true
+    },
+    {
+      "name": "signature.txt",
+      "bytes": 978,
+      "digest": "sha256:54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1",
+      "matches": true
+    },
+    {
+      "name": "YMPlayer-2.6.5-build125.apk",
+      "bytes": 7057781,
+      "digest": "sha256:a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "matches": true
+    }
+  ],
+  "apkChecks": {
+    "checkedAtUtc": "2026-11-05T10:51:10.718369+00:00",
+    "apks": [
+      {
+        "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+        "status": 200,
+        "bytes": 7057781,
+        "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+        "matches": true
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.5-build125/releases/2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+        "status": 200,
+        "bytes": 7057781,
+        "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+        "matches": true
+      },
+      {
+        "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.5-build125/releases/2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+        "status": 200,
+        "bytes": 7057781,
+        "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+        "matches": true
+      }
+    ]
+  },
+  "feedsStatus": "prepared; verification after push"
+}

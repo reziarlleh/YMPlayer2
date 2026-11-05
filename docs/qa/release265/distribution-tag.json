@@ -1,0 +1,12 @@
+{
+  "tag": "apk-2.6.5-build125",
+  "sourceTag": "v2.6.5-build125",
+  "sourceCommit": "05c5d6c5894afac0d3a1dd0a03f025eb8d264e4b",
+  "treeBytes": 7059904,
+  "apkSha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+  "reused": false,
+  "pushed": true,
+  "commit": "cef2c843a339a3d0ed226bda2fb6b2e8c95873ad",
+  "tree": "f04a06639fcaa5d78dc4fb0f2b5ee8cbb6cf8c22",
+  "remoteCommitVerified": true
+}

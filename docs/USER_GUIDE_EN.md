@@ -1,6 +1,6 @@
 # YMPlayer2 — user guide
 
-The stable release is **2.6.4-build124**, Android9 and later. Reviewed on 30 October 2026.
+The stable release is **2.6.5-build125**, Android9 and later. Reviewed on 5 November 2026.
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -293,8 +293,7 @@ its cached file and cancels a pending download. Use synchronization for likes ma
 outside YMPlayer or to retry missing downloads. Collections remain specific to
 both the profile and its Yandex account.
 
-The following split is available in the manual test build 2.6.5-build125.
-The normal release 2.6.4-build124 does not yet have a separate full-check button.
+In 2.6.5-build125, routine sync and a full integrity check are separate actions:
 
 **Sync liked tracks** checks your current collection and downloads missing files.
 New audio downloads take priority over artwork repairs and metadata updates for
