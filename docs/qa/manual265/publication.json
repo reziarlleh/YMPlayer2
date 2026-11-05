@@ -1,0 +1,39 @@
+{
+  "checkedAtUtc": "2026-11-05T10:01:01.994007+00:00",
+  "version": "2.6.5-build125",
+  "releaseUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.5-build125",
+  "downloadUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.5-build125/YMPlayer-2.6.5-build125.apk",
+  "isPrerelease": true,
+  "isDraft": false,
+  "httpStatus": 200,
+  "bytes": 7057781,
+  "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+  "downloadMatchesLocalAndTag": true,
+  "assets": [
+    {
+      "name": "build.json",
+      "size": 344
+    },
+    {
+      "name": "SHA256.txt",
+      "size": 94
+    },
+    {
+      "name": "signature.txt",
+      "size": 978
+    },
+    {
+      "name": "YMPlayer-2.6.5-build125.apk",
+      "size": 7057781
+    }
+  ],
+  "latest": {
+    "isPrerelease": false,
+    "tagName": "v2.6.4-build124",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.4-build124"
+  },
+  "feeds": {
+    "manifest": "2.6.4-build124",
+    "stable": "2.6.4-build124"
+  }
+}
