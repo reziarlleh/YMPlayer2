@@ -1,0 +1,112 @@
+@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+package dev.petrov.ymplayer2
+
+import android.net.Uri
+import android.util.Log
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import dev.petrov.ymplayer2.core.*
+import dev.petrov.ymplayer2.playback.LaunchStateStore
+import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
+import org.junit.*
+import org.junit.Assert.*
+import org.junit.runner.RunWith
+
+/** Availability characterization, using the unchanged production adapter and a real ExoPlayer. */
+@RunWith(AndroidJUnit4::class)
+class LaunchAvailabilityProbeTest {
+    @get:Rule val compose = createAndroidComposeRule<OnlineTestActivity>()
+    private val fixture get() = compose.activity.harness
+    private val player get() = fixture.player
+    private val launch get() = LaunchStateStore(fixture.context)
+    private fun waitFor(condition: () -> Boolean) {
+        try { compose.waitUntil(30_000, condition) }
+        catch (e: Throwable) { note("timeout"); throw e }
+    }
+    private fun note(phase: String) {
+        val s = player.state.value
+        Log.i("YMPLLaunchProbe", JSONObject().put("phase", phase)
+            .put("savedPlaying", launch.read("owner").playing).put("playing", s.playing)
+            .put("position", s.positionSeconds).put("wave", s.wave)
+            .put("current", s.current?.id).put("error", s.error)
+            .put("waveIssue", s.waveIssue).put("waveLoading", s.waveLoading).toString())
+    }
+    @Before fun prepare() {
+        waitFor { fixture.library.state.value.ready && !fixture.library.state.value.scanning && player.state.value.connected }
+        compose.runOnIdle { player.stop(); player.switchProfile("owner"); player.clearQueue() }
+        runBlocking { fixture.library.state.value.roots.forEach { fixture.library.forgetFolder(it.uri) } }
+        compose.activity.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        runBlocking { fixture.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+        waitFor { fixture.library.testTracks.size == 2 && fixture.online.catalog.value.enabled &&
+            fixture.taste.state.value.shelf(TasteKind.ARTIST).ready }
+    }
+    @After fun stop() { compose.runOnIdle {
+        fixture.streamFailure = null; fixture.waveFailure = null; player.stop()
+    } }
+    private fun restore(wave: Boolean, startupFailure: Boolean = false) {
+        if (wave) compose.runOnIdle { player.playMyWave() }
+        else {
+            compose.runOnIdle { fixture.online.search("fixture", MusicKind.TRACKS, false) }
+            waitFor { fixture.online.state.value.loaded }
+            compose.runOnIdle { player.playQueue(fixture.online.state.value.entries.mapNotNull { it.track?.id }) }
+        }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
+        val id = player.state.value.current!!.id
+        compose.runOnIdle {
+            player.seek(2); player.saveForExit()
+            // A paused metadata restore also prepares its MediaItem. Fail the source
+            // before that restore, otherwise a short fixture may be fully preloaded.
+            if (startupFailure) {
+                fixture.streamFailure = MusicFailure.NETWORK
+                if (wave) fixture.waveFailure = MusicFailure.NETWORK
+            }
+            fixture.restartEngine()
+        }
+        waitFor { player.state.value.connected && player.state.value.current?.id == id }
+        assertTrue(launch.read("owner").playing)
+        assertFalse(player.state.value.playing)
+        note("restored-" + if (wave) "wave" else "track")
+    }
+    @Test fun healthySavedWaveActuallyStartsAfterLaunchRequest() {
+        restore(true)
+        compose.runOnIdle { player.resumeOnLaunch() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 3 }
+        note("healthy-wave-playing")
+    }
+    @Test fun restoredTrackNetworkFailureKeepsIntentButRecoveryAloneDoesNotStartSound() {
+        restore(false, startupFailure = true)
+        compose.runOnIdle { player.resumeOnLaunch() }
+        waitFor { player.state.value.error != null && !player.state.value.playing }
+        note("track-start-failed")
+        compose.runOnIdle { fixture.streamFailure = null }
+        assertTrue(runBlocking { fixture.online.api.stream("owner", player.state.value.current!!.id, AudioQuality.AUTO) }.startsWith("content://"))
+        Thread.sleep(2_500)
+        compose.runOnIdle { player.saveForExit() }
+        note("track-source-recovered-without-new-play")
+        assertTrue("The last Play request is still durable", launch.read("owner").playing)
+        assertFalse("Availability alone does not retry this failed preparation", player.state.value.playing)
+        compose.runOnIdle { fixture.systemPlayer.play() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 3 }
+        note("track-explicit-play-started")
+    }
+    @Test fun restoredWaveNetworkFailureCanOutlastAutomaticRecoveryBudget() {
+        restore(true, startupFailure = true)
+        compose.runOnIdle { player.resumeOnLaunch() }
+        waitFor {
+            val s = player.state.value
+            s.waveIssue != null && !s.waveIssue!!.contains("автоматически") && !s.waveLoading && !s.playing
+        }
+        note("wave-retries-exhausted")
+        compose.runOnIdle { fixture.streamFailure = null; fixture.waveFailure = null }
+        assertTrue(runBlocking { fixture.online.api.stream("owner", player.state.value.current!!.id, AudioQuality.AUTO) }.startsWith("content://"))
+        Thread.sleep(2_500)
+        compose.runOnIdle { player.saveForExit() }
+        note("wave-source-recovered-without-new-play")
+        assertTrue(launch.read("owner").playing)
+        assertFalse(player.state.value.playing)
+        compose.runOnIdle { fixture.systemPlayer.play() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 3 }
+        note("wave-explicit-play-started")
+    }
+}

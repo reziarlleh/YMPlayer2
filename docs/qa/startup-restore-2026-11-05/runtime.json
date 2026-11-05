@@ -1,0 +1,126 @@
+{
+  "checkedAtUtc": "2026-11-05T15:18:20.636638+00:00",
+  "baseCommit": "e7c60aba73fdc29073c91b4e517b3f53fa1aed3d",
+  "avd": "YM2_API28",
+  "api": 28,
+  "serial": "emulator-5584",
+  "package": "dev.petrov.ymplayer2.dev",
+  "appSha256": "284871378fe1aa4747bcc8f4073e5c6ae6122c40bd69373a70467a527a157918",
+  "installedAppSha256": "284871378fe1aa4747bcc8f4073e5c6ae6122c40bd69373a70467a527a157918",
+  "appChangedBetweenRuns": false,
+  "fixture": "Real ExoPlayer and production AndroidPlayback; simulated MusicFailure.NETWORK, no personal account or live Yandex endpoint",
+  "runs": [
+    {
+      "id": "initial",
+      "testApkSha256": "bdd83cca654410eb0b4c441e2fa7ba0166911ec88d2dbc78c2a04f2798224eb1",
+      "results": [
+        {
+          "class": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+          "test": "returningFromRadioPersistsMusicOwnershipAndPlayBeforeRestart",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+          "test": "explicitStopPendingSlowMetadataClearsDurableIntent",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+          "test": "explicitPausePendingSlowMetadataClearsDurableIntent",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+          "test": "metadataOnlyEngineRestartPreservesSavedPlayAndPosition",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+          "test": "failedNetworkPreparationRetainsPlayForNextForegroundLaunch",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+          "test": "metadataOnlyEngineRestartPreservesManualPauseAndPosition",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+          "test": "explicitPauseAfterNetworkFailureRemainsPausedAfterEngineRestart",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchResumeIntentTest",
+          "test": "launchPlayPendingSlowMetadataRetainsDurableIntent",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchAvailabilityProbeTest",
+          "test": "healthySavedWaveActuallyStartsAfterLaunchRequest",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchAvailabilityProbeTest",
+          "test": "restoredTrackNetworkFailureKeepsIntentButRecoveryAloneDoesNotStartSound",
+          "status": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchAvailabilityProbeTest",
+          "test": "restoredWaveNetworkFailureCanOutlastAutomaticRecoveryBudget",
+          "status": 0
+        }
+      ],
+      "note": "8 baseline cases passed; one ordinary-track probe timed out because failure was injected after paused metadata preparation had already resolved/preloaded the source."
+    },
+    {
+      "id": "probe2",
+      "testApkSha256": "d6bd57df0e36df8fe7553ccb0aed561ec509abac70fbe936eb30c843a555d6fb",
+      "results": [
+        {
+          "class": "dev.petrov.ymplayer2.LaunchAvailabilityProbeTest",
+          "test": "healthySavedWaveActuallyStartsAfterLaunchRequest",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchAvailabilityProbeTest",
+          "test": "restoredTrackNetworkFailureKeepsIntentButRecoveryAloneDoesNotStartSound",
+          "status": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LaunchAvailabilityProbeTest",
+          "test": "restoredWaveNetworkFailureCanOutlastAutomaticRecoveryBudget",
+          "status": 0
+        }
+      ],
+      "note": "Network failure injected before engine recreation; 3/3 passed."
+    },
+    {
+      "id": "wave-final",
+      "testApkSha256": "55a831ae3e6fd91299eb6721eae47b983aff18d865681d0eda33a11b4ea33507",
+      "results": [
+        {
+          "class": "dev.petrov.ymplayer2.LaunchAvailabilityProbeTest",
+          "test": "restoredWaveNetworkFailureCanOutlastAutomaticRecoveryBudget",
+          "status": 0
+        }
+      ],
+      "note": "Final wave assertion requires position >=3; observed yandex:2:7 at position3 after explicit Play."
+    }
+  ],
+  "productCodeChanged": false,
+  "releaseApkChanged": false,
+  "newProductBuildIssued": false,
+  "fullApplicationColdBootTested": false,
+  "physicalDeviceTested": false,
+  "forumUserCauseEstablished": false,
+  "controlObservationMillisAfterSourceRecovery": 2500,
+  "limitations": [
+    "Engine restart plus resumeOnLaunch path, not full Application/MCU cold boot.",
+    "Loop/source inspection establishes no automatic retry trigger after budget; direct steady-state observation was 2500ms.",
+    "Characterization probe records current behavior and is archived as QA text, not a future behavior contract."
+  ],
+  "buildAttemptNotes": [
+    "First Gradle invocation misparsed an unquoted PowerShell -D argument; no source compile failure.",
+    "Fault injection was moved before paused preparation; final wave check also requires position progress."
+  ]
+}

@@ -1,0 +1,24 @@
+--------- beginning of main
+--------- beginning of system
+I/YMPLLaunchProbe( 2922): {"phase":"restored-wave","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 2922): {"phase":"healthy-wave-playing","savedPlaying":true,"playing":true,"position":3,"wave":true,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 2922): {"phase":"restored-track","savedPlaying":true,"playing":false,"position":2,"wave":false,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 2922): {"phase":"timeout","savedPlaying":false,"playing":false,"position":30,"wave":false,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 2922): {"phase":"restored-wave","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 2922): {"phase":"wave-retries-exhausted","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveIssue":"Моя волна: Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 2922): {"phase":"wave-source-recovered-without-new-play","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveIssue":"Моя волна: Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 2922): {"phase":"wave-explicit-play-started","savedPlaying":true,"playing":true,"position":2,"wave":true,"current":"yandex:1:7","waveLoading":true}
+I/YMPLLaunchProbe( 3181): {"phase":"restored-wave","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"healthy-wave-playing","savedPlaying":true,"playing":true,"position":3,"wave":true,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"restored-track","savedPlaying":true,"playing":false,"position":2,"wave":false,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"track-start-failed","savedPlaying":true,"playing":false,"position":2,"wave":false,"current":"yandex:1:7","error":"Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"track-source-recovered-without-new-play","savedPlaying":true,"playing":false,"position":2,"wave":false,"current":"yandex:1:7","error":"Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"track-explicit-play-started","savedPlaying":true,"playing":true,"position":3,"wave":false,"current":"yandex:1:7","error":"Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"restored-wave","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"wave-retries-exhausted","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveIssue":"Моя волна: Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"wave-source-recovered-without-new-play","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveIssue":"Моя волна: Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 3181): {"phase":"wave-explicit-play-started","savedPlaying":true,"playing":true,"position":2,"wave":true,"current":"yandex:1:7","waveLoading":true}
+I/YMPLLaunchProbe( 3339): {"phase":"restored-wave","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveLoading":false}
+I/YMPLLaunchProbe( 3339): {"phase":"wave-retries-exhausted","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveIssue":"Моя волна: Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 3339): {"phase":"wave-source-recovered-without-new-play","savedPlaying":true,"playing":false,"position":2,"wave":true,"current":"yandex:1:7","waveIssue":"Моя волна: Нет связи с Яндекс Музыкой. Проверьте сеть и повторите.","waveLoading":false}
+I/YMPLLaunchProbe( 3339): {"phase":"wave-explicit-play-started","savedPlaying":true,"playing":true,"position":3,"wave":true,"current":"yandex:2:7","waveLoading":false}
