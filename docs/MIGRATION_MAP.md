@@ -6,6 +6,8 @@
 checkpoint. Core расширен только типизированными диагностическими кодами.
 Новых модулей нет; отдельные радио/клипы и boot не перерабатывались.
 [Цикл2.6.6 и доказательства](STARTUP_RECOVERY_2_6_6_VERIFICATION.md), stable125 сохранён.
+8 ноября: тот же126 [размещён для ручной проверки](MANUAL_2_6_6_BUILD126.md),
+код, APK, Build и update feeds не менялись.
 
 5 ноября: [цикл2.6.5](PLAN_2_6_5.md) отделяет в core/OfflineStore быстрый planSync
 и syncIncremental от прежних строгих sync/load. library/offline строит план по

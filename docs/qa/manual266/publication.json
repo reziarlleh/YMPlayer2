@@ -1,0 +1,52 @@
+{
+  "checkedAtUtc": "2026-11-08T04:13:15.259015+00:00",
+  "version": "2.6.6-build126",
+  "releaseId": 438024953,
+  "releaseUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.6-build126",
+  "prerelease": true,
+  "draft": false,
+  "ownerAccepted": false,
+  "rebuilt": false,
+  "sourceTagCommit": "675b96bf1f224bd050f678136c3efc9ce1f62f35",
+  "assets": [
+    {
+      "name": "SHA256.txt",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build126/SHA256.txt",
+      "status": 200,
+      "bytes": 94,
+      "sha256": "c343a0464eecb86bbffb93bcb1831b662095f3f227aae61b1220dc884449a3e5"
+    },
+    {
+      "name": "YMPlayer-2.6.6-build126.apk",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build126/YMPlayer-2.6.6-build126.apk",
+      "status": 200,
+      "bytes": 7057781,
+      "sha256": "a56b2ee6219ae259249597426a435518e70fa183b975e022b207e5f5a17124a2"
+    },
+    {
+      "name": "build.json",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build126/build.json",
+      "status": 200,
+      "bytes": 344,
+      "sha256": "2ab5b00ab975f18ac9ca61067353f39a5ad10f246b738f44a2abeaf0c4eb2317"
+    },
+    {
+      "name": "signature.txt",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build126/signature.txt",
+      "status": 200,
+      "bytes": 978,
+      "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1"
+    }
+  ],
+  "latest": {
+    "isPrerelease": false,
+    "tagName": "v2.6.5-build125",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.5-build125"
+  },
+  "feeds": {
+    "manifest": "2.6.5-build125",
+    "stable": "2.6.5-build125"
+  },
+  "sourceCodeChanged": false,
+  "forumChanged": false
+}
