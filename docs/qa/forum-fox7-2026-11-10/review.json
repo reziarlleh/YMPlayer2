@@ -1,0 +1,77 @@
+{
+  "checkedAtUtc": "2026-11-10T01:57:22.242295+00:00",
+  "topic": "https://4pda.to/forum/index.php?showtopic=1127108",
+  "method": "Public HTTP GET with Chrome User-Agent; no account login/cookies/UI used.",
+  "latestReadPost": 104,
+  "posts": [
+    {
+      "number": 97,
+      "id": "145857814",
+      "author": "Fox_7",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145857814",
+      "summary": "Reports no automatic playback on build124; manual Play starts music."
+    },
+    {
+      "number": 99,
+      "id": "145858008",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145858008",
+      "summary": "Rejects unconditional Play; considers a configurable policy."
+    },
+    {
+      "number": 100,
+      "id": "145858119",
+      "author": "Fox_7",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145858119",
+      "summary": "Suggests an optional force-Play checkbox."
+    },
+    {
+      "number": 102,
+      "id": "145898813",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145898813",
+      "summary": "Offers build126 for testing; requests separate diagnostics for DremeL81."
+    },
+    {
+      "number": 103,
+      "id": "145925346",
+      "author": "Fox_7",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145925346",
+      "summary": "Reports the offered build did not help."
+    },
+    {
+      "number": 104,
+      "id": "145931841",
+      "author": "reziarlleh",
+      "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145931841",
+      "summary": "Requests diagnostics and asks whether Stop was pressed; no confirmation of Stop from Fox_7."
+    }
+  ],
+  "evidenceSha256": {
+    "page-80-private.html": "c047345748fca289c57d392dcd85c591b166536670eae9ae57bc66dd66c11552",
+    "latest-private.html": "94c1e4887f396f868f7f34c178f26d658977887b04036ea837c1a879aae87e41",
+    "page-100-fresh-private.html": "13f518f0f679549ab0505bf8d84259598c2c010d788d8d836628a31e00e5d0c1"
+  },
+  "cacheObservation": {
+    "initialLatestBodyPost": 103,
+    "redirectEntry": "145931841",
+    "cachedResponseAgeSeconds": 9468,
+    "freshUniqueQueryLatestBodyPost": 104
+  },
+  "codeHead": "0a185ab0ed713399e40cc9a0be73e6613565e1fc",
+  "productCodeChanged": false,
+  "versionChanged": false,
+  "apkChanged": false,
+  "forumChanged": false,
+  "newRuntimeTests": false,
+  "sourceFiles": [
+    "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt",
+    "app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/LaunchStateStore.kt"
+  ],
+  "repowiseContextSucceeded": true,
+  "personalCauseEstablished": false,
+  "forcePlayImplemented": false,
+  "ownerAccepted126": false
+}
