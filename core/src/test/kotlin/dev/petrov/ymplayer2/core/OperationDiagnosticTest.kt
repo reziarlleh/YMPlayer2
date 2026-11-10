@@ -27,4 +27,9 @@ class OperationDiagnosticTest {
         assertNull(record.network)
         assertFalse(record.line().contains("private"))
     }
+    @Test fun sessionStateUsesOnlyTypedIntentReasonAndBoundedPosition() {
+        val record = OperationDiagnostic(DiagnosticOperation.SESSION_INTENT, intent = SessionIntent.PAUSE,
+            reason = SessionStateReason.AUDIO_BECOMING_NOISY, positionSeconds = -1, engineState = Int.MAX_VALUE)
+        assertEquals("operation=SESSION_INTENT category=OK intent=PAUSE reason=AUDIO_BECOMING_NOISY position=0 engineState=4", record.line())
+    }
 }

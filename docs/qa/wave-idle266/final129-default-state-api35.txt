@@ -1,0 +1,7 @@
+--------- beginning of main
+11-10 11:24:27.994  3941  3941 I YM2WaveServiceRestore: Before noisy: startedInForeground=true, isUserEngaged=true, isUserEngagedTimeoutEnabled=true, userEngagedTimeoutMs=600000 timeoutPending=false
+11-10 11:24:29.449  3941  3941 I YM2WaveServiceRestore: After noisy: startedInForeground=true, isUserEngaged=false, isUserEngagedTimeoutEnabled=true, userEngagedTimeoutMs=600000 timeoutPending=true
+11-10 11:34:33.448  3941  3941 I YM2WaveServiceRestore: After timeout: startedInForeground=true, isUserEngaged=false, isUserEngagedTimeoutEnabled=true, userEngagedTimeoutMs=600000 timeoutPending=false
+11-10 11:34:36.532  3941  3956 I YM2WaveServiceRestore: Android service foreground=false after native timer
+11-10 11:34:36.581  3941  3956 I YM2WaveServiceRestore: Actual foreground timeout elapsed: 600000 ms; position=4
+11-10 11:34:52.189  3941  3956 I YM2WaveServiceRestore: paused=true state=yandex:1:7/4 saved=LaunchState(output=MUSIC, playing=false, stopped=false)

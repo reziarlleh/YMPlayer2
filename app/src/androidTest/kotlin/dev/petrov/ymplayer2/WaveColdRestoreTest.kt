@@ -50,10 +50,16 @@ class WaveColdRestoreTest {
     @Test fun legacyPausedCheckpointKeepsTrackAndPosition() = coldRestore(savedTransport = "pause", legacy = true)
     @Test fun legacyStoppedCheckpointRemainsStopped() = coldRestore(savedTransport = "stop", legacy = true)
     @Test fun failedPausedWavePreparationCannotSkipTheSavedTrack() = coldRestore(savedTransport = "pause", unavailablePaused = true)
+    @Test fun readyAccountBeforeDelayedLibraryPreservesWavePlay() = coldRestore(accountFirst = true)
+    @Test fun readyAccountBeforeDelayedLibraryPreservesWavePause() = coldRestore(savedTransport = "pause", accountFirst = true)
+    @Test fun readyAccountBeforeDelayedLibraryPreservesWaveStop() = coldRestore(savedTransport = "stop", accountFirst = true)
+    @Test fun failedAccountStorageCannotErasePausedWaveCheckpoint() = coldRestore(savedTransport = "pause", accountUnavailable = true)
+    @Test fun failedAccountStorageCannotErasePlayingWaveCheckpoint() = coldRestore(accountUnavailable = true)
 
     private fun coldRestore(savedTransport: String = "play", duringAccount: String? = null,
         pauseAfterResume: Boolean = false, wave: Boolean = true, requestLaunch: Boolean = true,
-        legacy: Boolean = false, unavailablePaused: Boolean = false) {
+        legacy: Boolean = false, unavailablePaused: Boolean = false, accountFirst: Boolean = false,
+        accountUnavailable: Boolean = false) {
         if (wave) compose.runOnIdle { f.player.playMyWave() }
         else {
             compose.runOnIdle { f.online.search("fixture", MusicKind.TRACKS, false) }
@@ -90,6 +96,11 @@ class WaveColdRestoreTest {
         }
 
         val accountGate = CompletableDeferred<Unit>()
+        if (accountFirst) accountGate.complete(Unit)
+        val libraryState = kotlinx.coroutines.flow.MutableStateFlow(f.library.state.value.copy(ready = !accountFirst))
+        val restoredLibrary = object : IndexedLocalLibrary by f.library {
+            override val state = libraryState
+        }
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         lateinit var restored: AndroidPlayback
         var cleanupPlayer: AndroidPlayback? = null
@@ -104,12 +115,13 @@ class WaveColdRestoreTest {
                 }, object : AccountStore {
                     override suspend fun read(profileId: String): AccountSession {
                         accountGate.await()
+                        if (accountUnavailable) throw AuthException(AuthFailure.STORAGE)
                         return AccountSession(YandexAccount("1", "Fixture"), OAuthCredentials("fixture", null, null))
                     }
                     override suspend fun write(profileId: String, session: AccountSession?) = Unit
                 }, scope)
                 val online = OnlineMusic(accounts, f.online.api, scope)
-                restored = AndroidPlayback(f.context, f.library, scope, online, waveApi = f.waveApi)
+                restored = AndroidPlayback(f.context, restoredLibrary, scope, online, waveApi = f.waveApi)
                 cleanupPlayer = restored
                 val saved = LaunchStateStore(f.context).read("owner")
                 val revision = restored.launchRevision
@@ -128,7 +140,10 @@ class WaveColdRestoreTest {
                 cleanupEngine = engine
                 restored.attach(engine)
             }
-            waitFor("Saved metadata before account") { restored.state.value.current?.id == expectedId &&
+            if (accountFirst) {
+                Thread.sleep(500)
+                compose.runOnIdle { libraryState.value = f.library.state.value }
+            } else waitFor("Saved metadata before account") { restored.state.value.current?.id == expectedId &&
                 restored.state.value.positionSeconds == savedPosition }
             compose.runOnIdle {
                 when (duringAccount) {
@@ -139,7 +154,16 @@ class WaveColdRestoreTest {
                 accountGate.complete(Unit)
             }
             val shouldPlay = requestLaunch && savedTransport == "play" && duringAccount == null && !pauseAfterResume
-            if (shouldPlay) waitFor("Cold source must actually resume at saved position") {
+            if (accountUnavailable) {
+                Thread.sleep(1_000)
+                compose.runOnIdle { restored.saveForExit() }
+                assertEquals("An account read failure must retain the selected track", expectedId, restored.state.value.current?.id)
+                assertEquals(savedPosition, restored.state.value.positionSeconds)
+                assertTrue(restored.state.value.wave)
+                assertFalse(restored.state.value.playing)
+                assertEquals(savedTransport == "play", LaunchStateStore(f.context).read("owner").playing)
+                return
+            } else if (shouldPlay) waitFor("Cold source must actually resume at saved position") {
                 restored.state.value.current?.id == expectedId && restored.state.value.playing &&
                     restored.state.value.positionSeconds >= savedPosition + 1
             } else {

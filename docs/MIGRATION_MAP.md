@@ -1,5 +1,14 @@
 # Карта переноса и модулей
 
+10 ноября, подписанный129 после отрицательного отзыва127: AndroidPlayback больше
+не выводит сохраняемый Play/Pause/Stop из технического состояния при checkpoint.
+AudioService отделяет служебную Pause onTaskRemoved от команды пользователя;
+пустой движок не обнуляет выбор/позицию, ERROR аккаунта не удаляет волну.
+Core расширен типизированными SessionIntent/SessionStateReason для диагностики;
+новых модулей и UI-настроек нет. [Текущие проверки](WAVE_IDLE_RESTORE_2_6_6_VERIFICATION.md).
+PlayerApplication при foreground условно завершает незавершённое сохранённое
+намерение в живом сервисе, с проверкой ревизии после очереди focus/noisy callbacks.
+
 10 ноября, кандидат127: PlayerApplication восстанавливает также Pause;
 AndroidPlayback сохраняет запрошенный Play при обновлении метаданных, готовит
 Pause без Play и использует актуальную доступность reference. LaunchStateStore

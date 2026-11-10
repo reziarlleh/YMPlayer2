@@ -71,6 +71,12 @@ class AudioService : MediaLibraryService() {
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? = session
 
+    override fun onTaskRemoved(rootIntent: android.content.Intent?) {
+        // Retain Media3's foreground/service lifecycle, but do not persist its cleanup
+        // pause over a saved Play waiting for the next foreground launch.
+        playback.onServiceTaskRemoved { super.onTaskRemoved(rootIntent) }
+    }
+
     override fun onDestroy() {
         activityHandler.removeCallbacksAndMessages(null)
         host.radio?.detach()
@@ -212,7 +218,7 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
         }
     }
     override fun pause() { if (playback.radioMode) playback.radio?.stop() else playback.sessionPause() }
-    override fun stop() { selectedSource = null; if (playback.radioMode) playback.radio?.stop() else playback.stop() }
+    override fun stop() { selectedSource = null; if (playback.radioMode) playback.radio?.stop() else playback.sessionStop() }
     override fun setRepeatMode(repeatMode: Int) { if (!playback.radioMode) playback.sessionRepeatMode(repeatMode) }
     override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) { if (!playback.radioMode) playback.setShuffle(shuffleModeEnabled) }
     override fun setPlayWhenReady(playWhenReady: Boolean) { if (playWhenReady) play() else pause() }

@@ -1,0 +1,32 @@
+--------- beginning of main
+--------- beginning of system
+11-10 11:27:48.938  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=5, wave=true, playing=true, saved=LaunchState(output=MUSIC, playing=true, stopped=false), engine=3, requested=true
+11-10 11:28:04.359  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
+11-10 11:28:14.586  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=1, requested=false
+11-10 11:28:27.134  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=1, requested=false
+11-10 11:28:37.631  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=false, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 11:28:47.719  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
+11-10 11:28:58.679  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=true, stopped=false), engine=1, requested=true
+11-10 11:29:07.536  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 11:29:16.870  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
+11-10 11:29:26.388  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 11:29:34.780  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=true, stopped=false), engine=1, requested=false
+11-10 11:29:43.613  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=false, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
+11-10 11:29:58.707  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=5, wave=true, playing=true, saved=LaunchState(output=MUSIC, playing=true, stopped=false), engine=3, requested=true
+11-10 11:30:05.385  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=5, wave=false, playing=true, saved=LaunchState(output=MUSIC, playing=true, stopped=false), engine=3, requested=true
+11-10 11:30:11.693  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=1, requested=false
+11-10 11:30:17.700  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=1, requested=false
+11-10 11:30:24.718  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 11:30:30.982  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 11:30:36.434  7117  7117 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
+11-10 11:30:44.915  7117  7133 I YM2WaveServiceRestore: paused=false state=yandex:1:7/6 saved=LaunchState(output=MUSIC, playing=true, stopped=false)
+11-10 11:30:56.013  7117  7133 I YM2WaveServiceRestore: paused=true state=yandex:1:7/4 saved=LaunchState(output=MUSIC, playing=false, stopped=false)
+11-10 11:31:02.893  7117  7117 I YM2WaveServiceRestore: Before noisy: startedInForeground=true, isUserEngaged=true, isUserEngagedTimeoutEnabled=true, userEngagedTimeoutMs=1500 timeoutPending=false
+11-10 11:31:04.007  7117  7117 I YM2WaveServiceRestore: After noisy: startedInForeground=true, isUserEngaged=false, isUserEngagedTimeoutEnabled=true, userEngagedTimeoutMs=1500 timeoutPending=true
+11-10 11:31:06.490  7117  7117 I YM2WaveServiceRestore: After timeout: startedInForeground=true, isUserEngaged=false, isUserEngagedTimeoutEnabled=true, userEngagedTimeoutMs=1500 timeoutPending=false
+11-10 11:31:07.045  7117  7133 I YM2WaveServiceRestore: Android service foreground=false after native timer
+11-10 11:31:07.050  7117  7133 I YM2WaveServiceRestore: Actual foreground timeout elapsed: 1500 ms; position=4
+11-10 11:31:11.949  7117  7133 I YM2WaveServiceRestore: paused=true state=yandex:1:7/4 saved=LaunchState(output=MUSIC, playing=false, stopped=false)
+11-10 11:31:24.940  7117  7133 I YM2WaveServiceRestore: paused=false state=yandex:1:7/4 saved=LaunchState(output=MUSIC, playing=true, stopped=false)
+11-10 11:31:34.161  7117  7133 I YM2WaveServiceRestore: paused=true state=yandex:1:7/4 saved=LaunchState(output=MUSIC, playing=false, stopped=false)
+11-10 11:31:50.457  7117  7133 I YM2WaveServiceRestore: paused=false state=yandex:1:7/4 saved=LaunchState(output=MUSIC, playing=true, stopped=false)

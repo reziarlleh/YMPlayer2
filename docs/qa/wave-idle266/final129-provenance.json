@@ -1,0 +1,12 @@
+{
+  "checkedAtUtc": "2026-11-10T11:24:12.822362+00:00",
+  "sources": {
+    "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt": "429c9d31f1f8845b043954c5f2a98d1681b85c81c455e47adc78dd95f1affa27",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt": "a9f51fc51e93e87dec2b733eee51d68642fa7511dea8e888d5b0a87cc4bd83c8",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt": "cb41ea1fc2ccda25788ecb92440ff6f5fa58c851b0d3a842d1dcaa72ac60991d",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/LaunchStateStore.kt": "ffdf484d01a4b0d2ca5749a2e439aa2a459b57b76857bfad6fce692bcc11aa84",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/OperationDiagnostic.kt": "c10409d8a5bf6d95dc1eaa52e0d9391da72033fb7e55fd5620b6e448e9cf44c8"
+  },
+  "appSha256": "c29e2dae24f4764d5efd9b9d4a6ddc915e595ad89ec702ccfcda5c8fca1fdadb",
+  "testSha256": "72daf00eeb070511e05d48e376b6d1e08e7a8bafa3960b0b395e1a2e8ad5ef0e"
+}

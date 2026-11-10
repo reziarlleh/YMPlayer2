@@ -3,14 +3,20 @@ package dev.petrov.ymplayer2.core
 enum class DiagnosticOperation { HTTP, WAVE_START, WAVE_NEXT, WAVE_DRAIN, WAVE_RECOVER, WAVE_FEEDBACK,
     AUDIO_PREPARE, AUDIO_PLAYBACK, LIST_CONTINUATION, TASTE_READ, TASTE_WRITE, TASTE_DEFERRED,
     OFFLINE_DOWNLOAD, OFFLINE_DELETE, MP3_EXPORT, CLIP_STREAM, CLIP_PLAYBACK, RADIO_STREAM, RADIO_PLAYBACK, RADIO_ON_AIR,
-    LAUNCH_RESUME_WAIT, LAUNCH_RESUME_RETRY, LAUNCH_RESUME_STARTED, LAUNCH_RESUME_CANCELLED, LAUNCH_RESUME_EXHAUSTED }
+    LAUNCH_RESUME_WAIT, LAUNCH_RESUME_RETRY, LAUNCH_RESUME_STARTED, LAUNCH_RESUME_CANCELLED, LAUNCH_RESUME_EXHAUSTED,
+    SESSION_INTENT, SESSION_RESTORE, SESSION_RELEASE }
+enum class SessionIntent { PLAY, PAUSE, STOP }
+enum class SessionStateReason { COMMAND, CONTROLLER, SOURCE_SELECTION, LAUNCH, METADATA_ONLY, SERVICE_RELEASE, SERVICE_TASK_REMOVED,
+    AUDIO_FOCUS_LOSS, AUDIO_BECOMING_NOISY, LIST_ENDED, ACCOUNT_SIGNED_OUT }
 enum class DiagnosticCategory { OK, NETWORK, SERVER, ACCESS, UNAVAILABLE, PROTOCOL, NO_PROGRESS, DECODER, STORAGE, APPLICATION }
 /** Only typed codes and counts: never exception messages, response bodies, account IDs or signed URLs. */
 data class OperationDiagnostic(val operation: DiagnosticOperation, val category: DiagnosticCategory = DiagnosticCategory.OK,
     val httpStatus: Int? = null, val network: NetworkIssue? = null, val returned: Int? = null,
     val accepted: Int? = null, val attempt: Int? = null, val mediaCode: Int? = null,
     val session: Boolean? = null, val cursorAdvanced: Boolean? = null,
-    val unavailable: Int? = null, val seen: Int? = null, val blocked: Int? = null) {
+    val unavailable: Int? = null, val seen: Int? = null, val blocked: Int? = null,
+    val intent: SessionIntent? = null, val reason: SessionStateReason? = null,
+    val positionSeconds: Int? = null, val engineState: Int? = null) {
     fun line() = buildString {
         append("operation=${operation.name} category=${category.name}")
         httpStatus?.let { append(" http=$it") }; network?.let { append(" network=${it.name}") }
@@ -20,6 +26,9 @@ data class OperationDiagnostic(val operation: DiagnosticOperation, val category:
         unavailable?.let { append(" unavailable=${it.coerceIn(0, 1000000)}") }
         seen?.let { append(" seen=${it.coerceIn(0, 1000000)}") }
         blocked?.let { append(" blocked=${it.coerceIn(0, 1000000)}") }
+        intent?.let { append(" intent=${it.name}") }; reason?.let { append(" reason=${it.name}") }
+        positionSeconds?.let { append(" position=${it.coerceAtLeast(0)}") }
+        engineState?.let { append(" engineState=${it.coerceIn(1, 4)}") }
     }
 }
 fun diagnosticFailure(operation: DiagnosticOperation, error: Throwable, mediaCode: Int? = null, httpStatus: Int? = null): OperationDiagnostic {

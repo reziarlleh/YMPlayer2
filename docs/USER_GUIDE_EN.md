@@ -642,6 +642,10 @@ Disconnecting Bluetooth or headphones may pause the music. Reopening the app
 keeps that pause; press Play to continue. Stop ends playback and resets the
 position to the beginning of the track.
 
+A background service started only to provide media metadata stays silent and
+does not replace your saved playback mode. A temporary account-storage error
+does not erase the selected track or position; online playback still needs a working sign-in.
+
 Position is saved once a second and when leaving the screen. An abrupt process
 termination can lose a short final interval; a power loss before the OS writes
 the data to storage cannot be recovered reliably. Backgrounding a clip pauses

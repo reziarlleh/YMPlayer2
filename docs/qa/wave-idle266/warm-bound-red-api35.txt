@@ -1,0 +1,113 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveServiceRestoreTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveServiceRestoreTest:
+INSTRUMENTATION_STATUS: test=foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveServiceRestoreTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Warm foreground must recover the saved transport
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:30)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService(WaveServiceRestoreTest.kt:173)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService$default(WaveServiceRestoreTest.kt:88)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart(WaveServiceRestoreTest.kt:37)
+	... 65 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:29)
+	... 69 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart(dev.petrov.ymplayer2.WaveServiceRestoreTest):
+java.lang.AssertionError: Warm foreground must recover the saved transport
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:30)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService(WaveServiceRestoreTest.kt:173)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService$default(WaveServiceRestoreTest.kt:88)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart(WaveServiceRestoreTest.kt:37)
+	... 65 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:29)
+	... 69 more
+
+INSTRUMENTATION_STATUS: test=foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveServiceRestoreTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=foregroundPreparesSavedWavePauseWithoutServiceRestart
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveServiceRestoreTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Warm foreground must recover the saved transport
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:30)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService(WaveServiceRestoreTest.kt:173)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService$default(WaveServiceRestoreTest.kt:88)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.foregroundPreparesSavedWavePauseWithoutServiceRestart(WaveServiceRestoreTest.kt:38)
+	... 65 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:29)
+	... 69 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in foregroundPreparesSavedWavePauseWithoutServiceRestart(dev.petrov.ymplayer2.WaveServiceRestoreTest):
+java.lang.AssertionError: Warm foreground must recover the saved transport
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:30)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService(WaveServiceRestoreTest.kt:173)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService$default(WaveServiceRestoreTest.kt:88)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.foregroundPreparesSavedWavePauseWithoutServiceRestart(WaveServiceRestoreTest.kt:38)
+	... 65 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:29)
+	... 69 more
+
+INSTRUMENTATION_STATUS: test=foregroundPreparesSavedWavePauseWithoutServiceRestart
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 73.333
+There were 2 failures:
+1) foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart(dev.petrov.ymplayer2.WaveServiceRestoreTest)
+java.lang.AssertionError: Warm foreground must recover the saved transport
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:30)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService(WaveServiceRestoreTest.kt:173)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService$default(WaveServiceRestoreTest.kt:88)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart(WaveServiceRestoreTest.kt:37)
+	... 65 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:29)
+	... 69 more
+2) foregroundPreparesSavedWavePauseWithoutServiceRestart(dev.petrov.ymplayer2.WaveServiceRestoreTest)
+java.lang.AssertionError: Warm foreground must recover the saved transport
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:30)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService(WaveServiceRestoreTest.kt:173)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.recreateService$default(WaveServiceRestoreTest.kt:88)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.foregroundPreparesSavedWavePauseWithoutServiceRestart(WaveServiceRestoreTest.kt:38)
+	... 65 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveServiceRestoreTest.waitFor(WaveServiceRestoreTest.kt:29)
+	... 69 more
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

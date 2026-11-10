@@ -27,7 +27,13 @@ class LaunchResumeIntentTest {
     private val fixture get() = compose.activity.harness
     private val player get() = fixture.player
     private val launch get() = LaunchStateStore(fixture.context)
-    private fun waitFor(test: () -> Boolean) = compose.waitUntil(25_000, test)
+    private fun waitFor(test: () -> Boolean) {
+        try { compose.waitUntil(25_000, test) }
+        catch (error: Throwable) {
+            compose.runOnIdle { android.util.Log.e("YM2LaunchIntent", "id=${player.state.value.current?.id} pos=${player.state.value.positionSeconds} wave=${player.state.value.wave} saved=${launch.read("owner")} items=${fixture.systemPlayer.mediaItemCount} engine=${fixture.systemPlayer.playbackState} requested=${fixture.systemPlayer.playWhenReady}") }
+            throw error
+        }
+    }
 
     @Before fun prepare() {
         waitFor { fixture.library.state.value.ready && !fixture.library.state.value.scanning && player.state.value.connected }
@@ -88,6 +94,119 @@ class LaunchResumeIntentTest {
         compose.runOnIdle { player.saveForExit() }
         assertFalse(launch.read("owner").playing)
         assertFalse(player.state.value.playing)
+    }
+
+    @Test fun metadataOnlyWaveReconnectAndPositionUpdateMustNotEraseSavedPlay() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
+        val id = player.state.value.current!!.id
+        compose.runOnIdle { player.seek(4); player.saveForExit(); fixture.restartEngine() }
+        waitFor { player.state.value.connected && player.state.value.wave && player.state.value.current?.id == id &&
+            player.state.value.positionSeconds == 4 }
+        assertTrue(launch.read("owner").playing)
+        compose.runOnIdle { player.seek(4); player.saveForExit() }
+        assertFalse("A metadata-only service must stay silent", player.state.value.playing)
+        assertTrue("A position-only update must not replace saved Play with the silent engine's pause", launch.read("owner").playing)
+        assertEquals(4, player.state.value.positionSeconds)
+    }
+
+    @Test fun emptyEngineCannotErasePausedWaveTrackAndPosition() {
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle { fixture.waveRequestGates = mapOf(2 to gate); player.playMyWave() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 && 2 in fixture.waveRequests }
+        val id = player.state.value.current!!.id
+        try {
+            compose.runOnIdle { player.seek(4); player.sessionPause(); player.saveForExit() }
+            compose.runOnIdle { fixture.systemPlayer.clearMediaItems(); player.saveForExit() }
+            assertEquals("Clearing a service engine is not clearing the logical queue", id, player.state.value.current?.id)
+            assertEquals("An empty engine must not replace the saved position with zero", 4, player.state.value.positionSeconds)
+            gate.complete(Unit)
+            waitFor { player.state.value.queue.size >= 2 }
+            assertEquals("Late prefetch cannot populate an empty engine at zero instead of the saved position", 4, player.state.value.positionSeconds)
+            assertFalse(launch.read("owner").playing)
+            assertFalse(launch.read("owner").stopped)
+            compose.runOnIdle { player.resumeOnLaunch() }
+            waitFor { player.state.value.current?.id == id && player.state.value.positionSeconds == 4 }
+            compose.runOnIdle { assertTrue(fixture.systemPlayer.mediaItemCount > 0) }
+            assertFalse(player.state.value.playing)
+        } finally { gate.complete(Unit); compose.runOnIdle { fixture.waveRequestGates = emptyMap() } }
+    }
+
+    @Test fun media3TaskCleanupMustNotReplaceSavedPlayWithPause() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
+        val id = player.state.value.current!!.id
+        compose.runOnIdle { player.seek(4); player.saveForExit(); fixture.restartEngine() }
+        waitFor { player.state.value.connected && player.state.value.wave && player.state.value.current?.id == id }
+        compose.runOnIdle { fixture.systemPlayer.prepare() }
+        waitFor {
+            var prepared = false
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().runOnMainSync {
+                prepared = fixture.systemPlayer.playbackState == androidx.media3.common.Player.STATE_READY
+            }
+            prepared
+        }
+        compose.runOnIdle {
+            player.onServiceTaskRemoved { fixture.systemPlayer.playWhenReady = false }
+            player.saveForExit()
+        }
+        assertTrue("Media3 cleanup must preserve the previously requested Play", launch.read("owner").playing)
+        assertFalse(player.state.value.playing)
+        assertEquals(4, player.state.value.positionSeconds)
+        compose.runOnIdle { player.restoreForegroundSessionIfNeeded() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 5 }
+        assertTrue(fixture.launchDiagnostics.any { it.operation == DiagnosticOperation.SESSION_RELEASE &&
+            it.reason == SessionStateReason.SERVICE_TASK_REMOVED && it.intent == SessionIntent.PLAY })
+    }
+
+    @Test fun explicitLogoutMustCancelSavedWavePlay() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
+        compose.runOnIdle { fixture.auth.signOut() }
+        waitFor { fixture.auth.state.value.phase == AuthPhase.SIGNED_OUT && !player.state.value.wave &&
+            player.state.value.current == null }
+        assertFalse(launch.read("owner").playing)
+        assertFalse(player.state.value.playing)
+    }
+
+    @Test fun metadataOnlyWavePreparationFailureAfterSeekCannotSkipSavedTrack() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 && player.state.value.canSkipNext }
+        val id = player.state.value.current!!.id
+        compose.runOnIdle { player.seek(4); player.saveForExit(); fixture.restartEngine() }
+        waitFor { player.state.value.connected && player.state.value.wave && player.state.value.current?.id == id &&
+            player.state.value.positionSeconds == 4 }
+        val failures = fixture.launchDiagnostics.count { it.operation == DiagnosticOperation.AUDIO_PLAYBACK }
+        compose.runOnIdle { fixture.streamFailure = MusicFailure.NETWORK; player.seek(4); fixture.systemPlayer.prepare() }
+        waitFor { fixture.launchDiagnostics.count { it.operation == DiagnosticOperation.AUDIO_PLAYBACK } > failures }
+        Thread.sleep(1_200)
+        assertFalse(player.state.value.playing)
+        assertTrue(launch.read("owner").playing)
+        assertEquals("A metadata-only prepare cannot consume the saved track", id, player.state.value.current?.id)
+        assertEquals(4, player.state.value.positionSeconds)
+    }
+
+    @Test fun foregroundRepairCannotOverrideExplicitStop() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing }
+        compose.runOnIdle { player.stop(); player.restoreForegroundSessionIfNeeded() }
+        assertTrue(launch.read("owner").stopped)
+        assertFalse(launch.read("owner").playing)
+        assertFalse(player.state.value.playing)
+        assertEquals(0, player.state.value.positionSeconds)
+        compose.runOnIdle { assertEquals(androidx.media3.common.Player.STATE_IDLE, fixture.systemPlayer.playbackState) }
+    }
+
+    @Test fun pauseAfterForegroundRepairRequestCancelsThePendingPlay() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
+        compose.runOnIdle { player.seek(4); player.saveForExit(); fixture.restartEngine() }
+        waitFor { player.state.value.connected && player.state.value.wave && player.state.value.positionSeconds == 4 }
+        compose.runOnIdle { player.restoreForegroundSessionIfNeeded(); player.sessionPause() }
+        Thread.sleep(600)
+        assertFalse(launch.read("owner").playing)
+        assertFalse(player.state.value.playing)
+        assertEquals(4, player.state.value.positionSeconds)
     }
 
     @Test fun launchPlayPendingSlowMetadataRetainsDurableIntent() = pendingRestoreCommand("play", true)

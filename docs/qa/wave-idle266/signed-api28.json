@@ -1,0 +1,47 @@
+{
+  "checkedAtUtc": "2026-11-10T11:39:46.219780+00:00",
+  "version": "2.6.6-build129",
+  "sdk": 28,
+  "serial": "emulator-5584",
+  "sha256": "c08865f65934448918cc67f04fa82e2b13def7c30561f245983767c4bba16f28",
+  "before": {
+    "build": 127,
+    "uid": "10071",
+    "firstInstallTime": "2026-10-07 10:43:05",
+    "firstInstallTimeRaw": "1a115f5b115"
+  },
+  "after": {
+    "build": 129,
+    "uid": "10071",
+    "firstInstallTime": "2026-10-07 10:43:05",
+    "firstInstallTimeRaw": "1a115f5b115"
+  },
+  "sameUid": true,
+  "sameFirstInstallTime": true,
+  "installedApkMatches": true,
+  "dataCleared": false,
+  "physicalDevice": false,
+  "cases": [
+    {
+      "case": "cold-1",
+      "processAlive": true,
+      "appForeground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-1",
+      "sameProcess": true
+    },
+    {
+      "case": "cold-2",
+      "processAlive": true,
+      "appForeground": true,
+      "crash": false
+    },
+    {
+      "case": "warm-2",
+      "sameProcess": true
+    }
+  ],
+  "noDelayedCrash": true
+}

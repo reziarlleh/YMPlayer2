@@ -62,6 +62,7 @@ class PlayerApplication : Application(), PlaybackHost {
     fun restoreLaunch(freshActivity: Boolean = true): Boolean {
         if (launchRestored) {
             playback.connect()
+            playback.restoreForegroundSessionIfNeeded()
             return freshActivity && clipActivities == 0 && navigation.getString("route", "player") == "clips" &&
                 launchState.read(playback.state.value.profileId).output == dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS
         }
