@@ -250,6 +250,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             .setDataSourceFactory(onlineDataSourceFactory(context) { profile, track -> player.resolveStream(profile, track) })).build().also { player.attach(it); radio.attach(it) }
     }
     fun restartEngine() { radio.detach(); player.detach(); engine?.release(); createEngine() }
+    fun closeEngineForColdRestore() { radio.detach(); player.detach(); engine?.release(); engine = null }
+    fun enableNoisyForTest() { engine?.setHandleAudioBecomingNoisy(true) }
     fun enableAudioFocusForTest() {
         engine?.setAudioAttributes(androidx.media3.common.AudioAttributes.Builder()
             .setUsage(androidx.media3.common.C.USAGE_MEDIA)

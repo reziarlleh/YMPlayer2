@@ -1,0 +1,62 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveColdRestoreTest:
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesOnlineListTrackPositionAndPlay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Cold source must actually resume at saved position
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:118)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:46)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(WaveColdRestoreTest.kt:44)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:24)
+	... 70 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(dev.petrov.ymplayer2.WaveColdRestoreTest):
+java.lang.AssertionError: Cold source must actually resume at saved position
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:118)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:46)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(WaveColdRestoreTest.kt:44)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:24)
+	... 70 more
+
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesOnlineListTrackPositionAndPlay
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 27.685
+There was 1 failure:
+1) delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(dev.petrov.ymplayer2.WaveColdRestoreTest)
+java.lang.AssertionError: Cold source must actually resume at saved position
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:118)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:46)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(WaveColdRestoreTest.kt:44)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:24)
+	... 70 more
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

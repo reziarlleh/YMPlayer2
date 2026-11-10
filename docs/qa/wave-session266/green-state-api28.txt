@@ -1,0 +1,3 @@
+--------- beginning of main
+--------- beginning of system
+11-10 02:52:01.380  3059  3059 I YM2ColdRestore: id=yandex:1:7, pos=5, wave=true, playing=true, saved=LaunchState(output=MUSIC, playing=true), engine=3, requested=true

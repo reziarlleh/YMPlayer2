@@ -1,0 +1,92 @@
+{
+  "checkedAtUtc": "2026-11-10T03:44:00.343584+00:00",
+  "native": {
+    "red-api28.txt": {
+      "tests": 1,
+      "failures": 1,
+      "seconds": 27.993
+    },
+    "green-api28.txt": {
+      "tests": 1,
+      "failures": 0,
+      "seconds": 9.439
+    },
+    "noisy-red-api28.txt": {
+      "tests": 1,
+      "failures": 1,
+      "seconds": 9.397
+    },
+    "list-red-api28.txt": {
+      "tests": 1,
+      "failures": 1,
+      "seconds": 27.685
+    },
+    "cold-api28.txt": {
+      "tests": 13,
+      "failures": 3,
+      "seconds": 138.367
+    },
+    "cold-final-api28.txt": {
+      "tests": 13,
+      "failures": 0,
+      "seconds": 82.187
+    },
+    "final-api28.txt": {
+      "tests": 47,
+      "failures": 0,
+      "seconds": 377.086
+    },
+    "final-api35.txt": {
+      "tests": 21,
+      "failures": 0,
+      "seconds": 103.031
+    }
+  },
+  "finalNativeApkPair": {
+    "appSha256": "6c98e23f1d7242af6d1f50e6e44ce694f10a410bbd71dcdeec9f8f2ac45c9a5b",
+    "testSha256": "5f1ca595fb0e1cefa75c14f250f8ca151ca1e95dd22a2bbfabbaf1c48d509f10",
+    "samePairForApi28AndApi35": true
+  },
+  "initialWaveRedApkPair": {
+    "appSha256": "adffea73b4dc3ae59f195392ae087a40a541a138a1303aed91f0f269ab207bfb",
+    "testSha256": "273c9981d8c3a6d668577441e246af650219c44a2e1806a6717fe34981f2185a"
+  },
+  "finalSourcesSha256": {
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt": "dd3ff429fe1acb37e6e529b746482d94199d46e7c87d38a0147cfc1b412504a1",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/LaunchStateStore.kt": "ffdf484d01a4b0d2ca5749a2e439aa2a459b57b76857bfad6fce692bcc11aa84",
+    "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt": "b4d82f53e5322547be4c9c646fb0b67224b5cd1318aa260b561c2bd9d718422b",
+    "app/src/debug/kotlin/dev/petrov/ymplayer2/OnlineTestActivity.kt": "4199c164c380292725cf92074f1ffa6f8a70bd69371319145f749f464cc6168c",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveColdRestoreTest.kt": "3c1c6591114cce1f3797dec8a6bbcee091a855cc3818746403a42f3019dd21f6"
+  },
+  "jvm": {
+    "core": {
+      "tests": 162,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "releaseLint": {
+    "taskSuccessful": true,
+    "severities": {
+      "Warning": 82
+    }
+  },
+  "physicalBluetoothTest": false,
+  "actualNoisyReceiverTest": true,
+  "systemDisconnectBroadcastSentAsRootOnlyOnOwnAvds": true,
+  "fixtureAccountAndMedia": true,
+  "ownerAcceptance": false,
+  "personalFox7CauseEstablished": false,
+  "limitations": [
+    "Cold startup uses new real adapter/account/ExoPlayer objects, not a physical head-unit reboot.",
+    "Intermediate negative controls have different test/fixture snapshots and are not a final combined run.",
+    "Legacy false at exactly zero cannot distinguish a historical Pause from Stop; migration keeps idle without Play."
+  ]
+}

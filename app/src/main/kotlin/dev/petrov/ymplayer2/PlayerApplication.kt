@@ -73,7 +73,7 @@ class PlayerApplication : Application(), PlaybackHost {
         playback.connect()
         return when (saved.output) {
             dev.petrov.ymplayer2.playback.PlaybackOutput.MUSIC -> {
-                if (saved.playing) {
+                if (!saved.stopped) {
                     val queue = runCatching { org.json.JSONObject(getSharedPreferences("playback", MODE_PRIVATE)
                         .getString("queue:$profile", "{}")!!) }.getOrNull()
                     val rows = queue?.optJSONArray("tracks")

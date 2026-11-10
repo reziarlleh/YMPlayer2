@@ -40,6 +40,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var launchResumeJob: Job? = null
     private var launchResumeFailure: DiagnosticCategory? = null
     private var launchResumeAttempts = 0
+    private var launchPreparePaused = false
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
     override val state = mutable.asStateFlow()
     override val waveSettings = waveApi?.let { api -> online?.let { music -> WaveSettings(music.accounts, api, scope,
@@ -118,8 +119,19 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     fun resumeOnLaunch() = resumeOnLaunch(launchRevision)
     fun resumeOnLaunch(expectedRevision: Long) {
         val profile = state.value.profileId
-        if (expectedRevision != launchRevision || launchState.read(profile) != LaunchState(PlaybackOutput.MUSIC, true)) return
+        val saved = launchState.read(profile)
+        if (expectedRevision != launchRevision || saved.output != PlaybackOutput.MUSIC || saved.stopped) return
         cancelLaunchResume()
+        if (!saved.playing) {
+            val ticket = launchResumeGeneration
+            command(launchResume = true) {
+                if (ticket == launchResumeGeneration && launchState.read(profile) == saved) {
+                    launchPreparePaused = true
+                    prepareLaunchPause()
+                }
+            }
+            return
+        }
         val ticket = ++launchResumeGeneration
         launchResumeProfile = profile
         launchResumeAttempts = 0
@@ -179,10 +191,19 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         launchResumeGeneration++
         launchResumeProfile = null
         launchResumeFailure = null
+        launchPreparePaused = false
         launchResumeJob?.cancel(); launchResumeJob = null
         if (active) diagnostic(OperationDiagnostic(event, attempt = launchResumeAttempts))
     }
     private fun supersedeLaunchResume() { launchRevisionValue++; cancelLaunchResume() }
+    /** Foreground restoration prepares a saved Pause, without turning it into Play or Stop. */
+    private fun prepareLaunchPause() {
+        val player = engine ?: return
+        if (!launchPreparePaused || waitingId != null || player.mediaItemCount == 0) return
+        launchPreparePaused = false
+        if (!player.playWhenReady && !launchState.read(state.value.profileId).stopped && player.playbackState == Player.STATE_IDLE)
+            player.prepare()
+    }
     fun pauseForClips() = sessionPause()
     fun saveForExit() {
         if (!radioMode && ready && !restoring) { publish(); checkpoint() }
@@ -300,7 +321,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 launchSourceFailed(failureDiagnostic.category)
                 val remote = state.value.current?.source == Source.YANDEX
                 val failure = generateSequence<Throwable>(error) { it.cause }.filterIsInstance<MusicException>().firstOrNull()?.failure
-                if (remote && state.value.wave && failure !in setOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS) && failedWaveTracks++ < 3) {
+                if (remote && state.value.wave && (player.playWhenReady || userCommanded && launchState.read(state.value.profileId).playing) &&
+                    failure !in setOf(MusicFailure.SIGN_IN, MusicFailure.ACCESS) && failedWaveTracks++ < 3) {
                     recoverWaveTrack()
                     return
                 }
@@ -375,7 +397,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             // An uncommitted source choice must not turn the old paused source into autoplay
             // when cache access/account is cancelled. A newer explicit command writes next.
             if (launchState.read(profile) == LaunchState(PlaybackOutput.MUSIC, true))
-                launchState.write(profile, saved.output, saved.playing)
+                launchState.write(profile, saved.output, saved.playing, saved.stopped)
         }
         pendingSourceLaunch = null
     }
@@ -395,7 +417,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
     }
 
-    private fun command(playing: Boolean? = null, requestedSource: PlaybackSource? = null, launchResume: Boolean = false, action: () -> Unit) {
+    private fun command(playing: Boolean? = null, requestedSource: PlaybackSource? = null, launchResume: Boolean = false,
+        stopped: Boolean = false, action: () -> Unit) {
         if (!launchResume && (playing != null || requestedSource != null)) supersedeLaunchResume()
         val launchTicket = launchResumeGeneration
         cancelPendingSource(recover = requestedSource == null)
@@ -415,7 +438,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
         // The outgoing radio's stop persists RADIO/paused. Claim the new music
         // owner afterwards, still before queuing any slow metadata operation.
-        launchState.write(state.value.profileId, PlaybackOutput.MUSIC, requested)
+        launchState.write(state.value.profileId, PlaybackOutput.MUSIC, requested,
+            if (playing == null) saved.stopped else !playing && stopped)
         if (requestedSource != null) {
             // This is only a visible request. The old queue/origin/bookmarks remain intact until
             // the account's cached metadata is ready, so no wave item becomes an offline bookmark.
@@ -530,7 +554,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             offline?.cachedTrack(profile, ref.id)?.copy(id = ref.id) ?: ref.remoteTrack(false)
         }
         val local = localTracksByIds(profile, refs.filter { it.saved.source != Source.YANDEX }.map(PlaybackReference::id))
-        val remote = knownTracks(profile).associateBy(Track::id)
+        // Saved queue labels may still carry available=false from account LOADING.
+        // Only a current API row can override availability of a persisted reference.
+        val remote = online?.tracksForPlayback(profile).orEmpty().associateBy(Track::id)
         return refs.map { ref -> if (ref.saved.source != Source.YANDEX) ref.saved.resolve(local)
             else (remote[ref.id] ?: ref.remoteTrack(remoteEnabled(profile))).let {
                 (offline?.decorate(profile, it) ?: it).let { track -> track.copy(available = track.available && remoteEnabled(profile)) }
@@ -582,10 +608,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 if (waitingId != null || media.isEmpty()) player.clearMediaItems()
                 else player.setMediaItems(media.map { it.second.mediaItem(state.value.profileId) },
                     media.indexOfFirst { it.second.id == current?.id }.coerceAtLeast(0), state.value.positionSeconds.toLong() * 1000)
-                if (current?.available == true) { player.prepare(); if (resume) player.play() }
+                if (current?.available == true && !launchState.read(state.value.profileId).stopped) {
+                    player.prepare()
+                    if (resume && launchState.read(state.value.profileId).playing) player.play()
+                }
             }
         } finally { updating = false }
-        publish(); checkpoint()
+        prepareLaunchPause(); publish(); checkpoint()
     }
 
     private suspend fun skipReference(direction: Int, resume: Boolean = engine?.playWhenReady == true) {
@@ -614,7 +643,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             player.prepare(); player.play()
         }
     }
-    override fun stop() = command(playing = false) {
+    override fun stop() = command(playing = false, stopped = true) {
         val player = engine ?: return@command
         player.pause()
         if (state.value.wave) {
@@ -963,6 +992,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             if (!state.value.waveLoading) fetchWave()
             publish()
         }
+        else if (waitingId != null) engine?.play()
         else { engine?.prepare(); engine?.play() }
     }
     internal fun sessionPause() = command(playing = false) { waveResume = false; engine?.pause(); publish(); checkpoint() }
@@ -1012,6 +1042,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             loadIndexedSelection(player.currentMediaItem?.mediaId, 0, resume = true, direction = 1)
     }
     private fun cancelWaveWork() {
+        launchPreparePaused = false
         completedListItem = null
         waveGeneration++; waveJob?.cancel(); waveJob = null
         waveCurrentAudioJob?.cancel(); waveCurrentAudioJob = null; waveCurrentAudioId = null; waveCurrentAudioQuality = null
@@ -1590,7 +1621,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (restoring) { deferredReconcile = true; return }
         val state = state.value
         if (referenceOrder != null) {
-            startDiskWork { refreshReferenceWindow(id = state.current?.id, position = state.positionSeconds, resume = state.playing) }
+            val resume = state.playing || waitingId != null && engine?.playWhenReady == true
+            startDiskWork { refreshReferenceWindow(id = state.current?.id, position = state.positionSeconds, resume = resume) }
             return
         }
         if (followLibrary && library is IndexedLocalLibrary && usesBoundedLocalWindow()) {
@@ -1641,7 +1673,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val preferred = next.indexOfFirst { it.id == before.current?.id }
         val index = if (preferred >= 0) preferred else before.index.coerceAtMost((next.size - 1).coerceAtLeast(0))
         if (waitingId != null || next.getOrNull(index)?.available == false || preferred < 0) {
-            load(next, index, if (preferred >= 0) before.positionSeconds else 0)
+            // The foreground launch may request Play before the account collector
+            // makes this saved item playable. Replacing its metadata must retain
+            // that request; an explicit Pause/Stop has already cleared it.
+            val resume = waitingId != null && preferred >= 0 && engine?.playWhenReady == true
+            load(next, index, if (preferred >= 0) before.positionSeconds else 0, resume = resume)
             return
         }
         val player = engine ?: return
@@ -1657,7 +1693,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         publish(); checkpoint()
     }
 
-    private fun load(queue: List<Track>, index: Int, position: Int) {
+    private fun load(queue: List<Track>, index: Int, position: Int, resume: Boolean = false) {
         val player = engine ?: return
         referenceOrder = null
         applyOrderingModes()
@@ -1675,8 +1711,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             if (waitingId != null || playable.isEmpty()) player.clearMediaItems()
             else player.setMediaItems(playable.map { it.second.mediaItem(state.value.profileId) },
                 playable.indexOfFirst { it.second.id == state.value.current?.id }.coerceAtLeast(0), state.value.positionSeconds.toLong() * 1000)
+            if (resume && launchState.read(state.value.profileId).playing) {
+                if (waitingId == null && playable.isNotEmpty()) player.prepare()
+                player.play()
+            }
         } finally { updating = false }
-        publish(); checkpoint()
+        prepareLaunchPause(); publish(); checkpoint()
     }
 
     private fun publish() {
@@ -1723,13 +1763,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (radioMode) return
         val state = state.value
         if (userCommanded && commandDepth == 0 && !restoring && launchState.read(state.profileId).output == PlaybackOutput.MUSIC) {
+            val saved = launchState.read(state.profileId)
             val wanted = if (state.wave && waveAdvance) waveResume else engine?.let {
                 // A failed network/data source becomes IDLE, not a user's Pause.
                 // Explicit Pause/Stop have already persisted false in command().
                 if (it.playerError != null) launchState.read(state.profileId).playing
                 else it.playWhenReady && it.playbackState != Player.STATE_ENDED
             } == true
-            launchState.write(state.profileId, PlaybackOutput.MUSIC, wanted)
+            launchState.write(state.profileId, PlaybackOutput.MUSIC, wanted, !wanted && saved.stopped)
         }
         saveOfflineBookmark()
         lastSavedSecond = state.positionSeconds

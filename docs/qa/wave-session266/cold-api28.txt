@@ -1,0 +1,304 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveColdRestoreTest:
+INSTRUMENTATION_STATUS: test=pauseAfterLaunchRequestWinsOverMetadataRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pauseAfterLaunchRequestWinsOverMetadataRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedPausedWavePreparationCannotSkipTheSavedTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedPausedWavePreparationCannotSkipTheSavedTrack
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedOnlineListPauseRemainsPaused
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Playable metadata has arrived
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:145)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.savedOnlineListPauseRemainsPaused(WaveColdRestoreTest.kt:47)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in savedOnlineListPauseRemainsPaused(dev.petrov.ymplayer2.WaveColdRestoreTest):
+java.lang.AssertionError: Playable metadata has arrived
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:145)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.savedOnlineListPauseRemainsPaused(WaveColdRestoreTest.kt:47)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+
+INSTRUMENTATION_STATUS: test=savedOnlineListPauseRemainsPaused
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stopWhileAccountLoadsCancelsLatePlay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=stopWhileAccountLoadsCancelsLatePlay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=noisyPauseRestoresWaveAsPausedAtTheSamePosition
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=noisyPauseRestoresWaveAsPausedAtTheSamePosition
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedWavePausePreservesTrackAndPosition
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedWavePausePreservesTrackAndPosition
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=metadataOnlyColdRestoreDoesNotRequestPlay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=metadataOnlyColdRestoreDoesNotRequestPlay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedOnlineListStopRemainsStopped
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Playable metadata has arrived
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:145)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.savedOnlineListStopRemainsStopped(WaveColdRestoreTest.kt:48)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in savedOnlineListStopRemainsStopped(dev.petrov.ymplayer2.WaveColdRestoreTest):
+java.lang.AssertionError: Playable metadata has arrived
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:145)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.savedOnlineListStopRemainsStopped(WaveColdRestoreTest.kt:48)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+
+INSTRUMENTATION_STATUS: test=savedOnlineListStopRemainsStopped
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesWaveTrackPositionAndPlay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesWaveTrackPositionAndPlay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesOnlineListTrackPositionAndPlay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Cold source must actually resume at saved position
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:141)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(WaveColdRestoreTest.kt:45)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(dev.petrov.ymplayer2.WaveColdRestoreTest):
+java.lang.AssertionError: Cold source must actually resume at saved position
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:141)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(WaveColdRestoreTest.kt:45)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesOnlineListTrackPositionAndPlay
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pauseWhileAccountLoadsCancelsLatePlay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=pauseWhileAccountLoadsCancelsLatePlay
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=legacyPausedCheckpointKeepsTrackAndPosition
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=legacyPausedCheckpointKeepsTrackAndPosition
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedWaveStopRemainsStoppedAtZero
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedWaveStopRemainsStoppedAtZero
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 138.367
+There were 3 failures:
+1) savedOnlineListPauseRemainsPaused(dev.petrov.ymplayer2.WaveColdRestoreTest)
+java.lang.AssertionError: Playable metadata has arrived
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:145)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.savedOnlineListPauseRemainsPaused(WaveColdRestoreTest.kt:47)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+2) savedOnlineListStopRemainsStopped(dev.petrov.ymplayer2.WaveColdRestoreTest)
+java.lang.AssertionError: Playable metadata has arrived
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:145)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.savedOnlineListStopRemainsStopped(WaveColdRestoreTest.kt:48)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+3) delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(dev.petrov.ymplayer2.WaveColdRestoreTest)
+java.lang.AssertionError: Cold source must actually resume at saved position
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:26)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore(WaveColdRestoreTest.kt:141)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.coldRestore$default(WaveColdRestoreTest.kt:53)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.delayedAccountRestorePreservesOnlineListTrackPositionAndPlay(WaveColdRestoreTest.kt:45)
+	... 66 trimmed
+Caused by: androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)
+	at dev.petrov.ymplayer2.WaveColdRestoreTest.waitFor(WaveColdRestoreTest.kt:25)
+	... 70 more
+
+FAILURES!!!
+Tests run: 13,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

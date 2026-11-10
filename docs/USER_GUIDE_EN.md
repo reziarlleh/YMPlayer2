@@ -638,6 +638,10 @@ and its playing/stopped state, using the current live broadcast. Only the last
 source resumes, without another player starting alongside it. Radio also saves
 its selected tab, search query and filter separately for each profile.
 
+Disconnecting Bluetooth or headphones may pause the music. Reopening the app
+keeps that pause; press Play to continue. Stop ends playback and resets the
+position to the beginning of the track.
+
 Position is saved once a second and when leaving the screen. An abrupt process
 termination can lose a short final interval; a power loss before the OS writes
 the data to storage cannot be recovered reliably. Backgrounding a clip pauses

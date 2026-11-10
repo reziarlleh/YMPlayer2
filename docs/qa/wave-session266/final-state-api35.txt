@@ -1,0 +1,15 @@
+--------- beginning of main
+11-10 03:38:43.890  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=1, requested=false
+11-10 03:38:52.479  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=1, requested=false
+11-10 03:38:57.173  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=false, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 03:39:01.955  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
+11-10 03:39:06.555  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 03:39:11.222  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
+11-10 03:39:15.788  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 03:39:20.326  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=true, stopped=false), engine=1, requested=false
+11-10 03:39:24.972  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=false, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
+11-10 03:39:30.021  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=5, wave=true, playing=true, saved=LaunchState(output=MUSIC, playing=true, stopped=false), engine=3, requested=true
+11-10 03:39:34.905  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=5, wave=false, playing=true, saved=LaunchState(output=MUSIC, playing=true, stopped=false), engine=3, requested=true
+11-10 03:39:39.405  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=1, requested=false
+11-10 03:39:44.008  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=4, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=false), engine=3, requested=false
+11-10 03:39:48.492  2247  2247 I YM2ColdRestore: id=yandex:1:7, pos=0, wave=true, playing=false, saved=LaunchState(output=MUSIC, playing=false, stopped=true), engine=1, requested=false
