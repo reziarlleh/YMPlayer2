@@ -8,6 +8,10 @@
 [Страница ручного выпуска](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.6-build127) ·
 [Все изменения2.6.6](RELEASE_2_6_6_NOTES.md).
 
+Ручная выдача опубликована10 ноября: [HTTP/хэши/исходный тег](qa/wave-session266/publication.json).
+Все4 assets публично скачаны сHTTP200, байты совпали с проверенными локальными
+файлами. Source v-tag —81a3580; APK после signed checks не пересобирался.
+
 ## APK и проверки
 
 VersionName2.6.6-build127 без beta; versionCode127, package dev.petrov.ymplayer2,
@@ -26,6 +30,8 @@ minSDK28/target36. Размер7057781bytes; SHA256
 сохранены, установленный SHA совпал. По2 cold/2 warm запуска, приложение остаётся
 foreground, поздних crash нет. [Сверка документов](qa/wave-session266/documentation-local.json)
 прошла без ошибок. Это отдельная проверка упаковки, не повтор native-кейсов.
+[Сверка после push](qa/wave-session266/documentation-github.json) также прошла:
+265 документов/2628 ссылок,0 ошибок, Latest125 и README совпадают.
 
 ## Канал и следующий шаг
 

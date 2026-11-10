@@ -96,3 +96,7 @@ cleanup исправлен через nullable handles, следующий build
 Первый signed35 helper не распознал binary ABX packages.xml и остановился до
 установки. Добавлены конвертация и fallback к dumpsys; повтор прошёл, исходники
 и APK не пересобирались. [Ручная проверка127](MANUAL_2_6_6_BUILD127.md).
+
+Код/QA отправлены в main81a3580. [Публикация](qa/wave-session266/publication.json):
+ручной prerelease127,4 публичных GET200 с полным совпадением байтов, тег81a3580.
+Latest/оба удалённых manifest —125. Приёмки владельцем нет, форум не редактировался.
