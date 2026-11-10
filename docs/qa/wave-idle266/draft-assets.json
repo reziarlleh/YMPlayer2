@@ -1,0 +1,27 @@
+{
+  "checkedAtUtc": "2026-11-10T12:02:50.450712+00:00",
+  "releaseId": 440304389,
+  "tag": "v2.6.6-build129",
+  "checks": [
+    {
+      "name": "build.json",
+      "bytes": 344,
+      "sha256": "1cf823e400c4745d44bac0fe77e841bfaff51201e37e21f5f2fb04cfda3ee85e"
+    },
+    {
+      "name": "SHA256.txt",
+      "bytes": 94,
+      "sha256": "c37283c299673698a857eb23962a49ee1f307b2ef69153c8f591f09b2055bd83"
+    },
+    {
+      "name": "signature.txt",
+      "bytes": 978,
+      "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1"
+    },
+    {
+      "name": "YMPlayer-2.6.6-build129.apk",
+      "bytes": 7057781,
+      "sha256": "c08865f65934448918cc67f04fa82e2b13def7c30561f245983767c4bba16f28"
+    }
+  ]
+}
