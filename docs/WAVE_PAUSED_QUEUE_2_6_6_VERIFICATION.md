@@ -74,8 +74,35 @@ Build не переиспользуется: следующий подписан
 
 ## Проверки
 
-Проверки финального исходника и подписанного APK записываются ниже после
-завершения. Наличие этого отчёта само по себе не означает приёмку/публикацию.
+Финальный код — e8e2007, подписанный2.6.6-build131. [Сводка](qa/wave-paused266/results.json),
+[совпадение исходника](qa/wave-paused266/source-fingerprint.json), [проверка содержимого APK](qa/wave-paused266/apk-code.json).
+
+| Проверка | Результат |
+| --- | --- |
+| API28 |54 passed /1 skipped,501.627s; отдельно Pause0s:1 passed,8.429s |
+| API35 |55 passed /1 skipped,344.455s |
+| JVM |163 core+4 app,0 failures |
+| Release lint |0 errors /82 прежних warnings |
+| CI исходника |[success43055210529](https://github.com/reziarlleh/YMPlayer2/actions/runs/43055210529) |
+
+[Native28](qa/wave-paused266/native-api28.txt), [Pause0s28](qa/wave-paused266/zero-pause-api28.txt),
+[native35](qa/wave-paused266/native-api35.txt), [lint](qa/wave-paused266/lint.txt), [CI](qa/wave-paused266/ci.json).
+По одному skipped на API — отдельный опциональный штатный10min timeout, повторно
+не запускался в этом срезе. Реальный cleanup/истечение сокращённого таймера,
+metadata-only сервис, холодный аккаунт и foreground-восстановление включены.
+Результаты промежуточного130 не добавляются к этим уникальным проверкам.
+
+Проверены полный paused/playing restore при networkAvailable=false и отказе
+обоих API, повторное открытие без новых загрузок, пополнение только при продвижении,
+частично утраченные файлы, Pause посреди error recovery, настоящий noisy broadcast,
+Stop/миграция старого Stop, Pause0s и немедленный запуск выбранных настроек.
+
+[Signed129→131 API28](qa/wave-paused266/signed-api28.json) и
+[signed129→131 API35](qa/wave-paused266/signed-api35.json): без clear, прежние UID
+и firstInstallTime, установленный SHA совпал, по2 cold/2 warm, без позднего crash.
+На API28 дополнительно сравнен сырой firstInstallTime, на API35 — dumpsys.
+Это проверка подписанного запуска/обновления и сохранности данных; она не подменяет
+fixture-проверку персональной волны или физический Bluetooth владельца.
 
 ## Исправления тестовых сценариев
 
@@ -92,6 +119,18 @@ Media3; отдельный cold/service-тест использует насто
 диагностике и продолжению, а не по одновременному отображению кратковременной ошибки
 и конкретного ID. Старое ожидание удаления всех файлов при restart заменено
 требованием сохранения всех10 без новых загрузок.
+
+## Публикация и сверка
+
+[Ручной131](MANUAL_2_6_6_BUILD131.md) опубликован как GitHub prerelease без beta
+в versionName. [Все4 публичных GET200](qa/wave-paused266/publication.json) совпали
+с локальными SHA и размером. [Source tag](qa/wave-paused266/source-tag.json) указывает
+на проверенный e8e2007. Тот же бинарный APK не пересобирался после проверки.
+Latest и manifest/stable на GitHub/jsDelivr/Gcore сохранили125; HTTP датированы.
+[Сверка документации и GitHub](qa/wave-paused266/docs-github.json) без расхождений;
+README остался пользовательским и не менялся. Пакет, ключ, API и канал сохранены.
+Форум/утилита приборки не изменялись. RepoWise context/refresh отказали из-за
+отсутствующего tree_sitter; это не подменялось заявлением об актуальном индексе.
 
 ## Границы результата
 

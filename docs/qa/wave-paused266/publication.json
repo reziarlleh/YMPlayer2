@@ -1,0 +1,98 @@
+{
+  "checkedAtUtc": "2026-11-11T16:20:38.904478+00:00",
+  "version": "2.6.6-build131",
+  "releaseId": 441918157,
+  "prerelease": true,
+  "draft": false,
+  "latest": "v2.6.5-build125",
+  "sourceCommit": "e8e20073eb8457b90f39ef8cf4280192e734026c",
+  "assets": [
+    {
+      "name": "build.json",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build131/build.json",
+      "status": 200,
+      "bytes": 344,
+      "sha256": "4806d788184c5ef05ea6fbe0d0065c35b7778120c8fb85123fd754a04fb15bef",
+      "localMatch": true,
+      "authenticated": false
+    },
+    {
+      "name": "SHA256.txt",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build131/SHA256.txt",
+      "status": 200,
+      "bytes": 94,
+      "sha256": "e5dd4e6130e863f1a25419714ff680c43cf701b7ef9eeadcf0602ffe79cdc94c",
+      "localMatch": true,
+      "authenticated": false
+    },
+    {
+      "name": "signature.txt",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build131/signature.txt",
+      "status": 200,
+      "bytes": 978,
+      "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1",
+      "localMatch": true,
+      "authenticated": false
+    },
+    {
+      "name": "YMPlayer-2.6.6-build131.apk",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build131/YMPlayer-2.6.6-build131.apk",
+      "status": 200,
+      "bytes": 7057781,
+      "sha256": "3232e9369bb84ba76d3fedfebf424ddd84a47e6ccc7ebb9b02d0c00e32b64844",
+      "localMatch": true,
+      "authenticated": false
+    }
+  ],
+  "feeds": [
+    {
+      "source": "GitHub",
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "status": 200,
+      "versionName": "2.6.5-build125",
+      "versionCode": 125,
+      "sha256": "f4989b45852e71c529a0ea3fd3bfd742e9b1734e1977137f44385b66e174c3e8"
+    },
+    {
+      "source": "GitHub",
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "status": 200,
+      "versionName": "2.6.5-build125",
+      "versionCode": 125,
+      "sha256": "f4989b45852e71c529a0ea3fd3bfd742e9b1734e1977137f44385b66e174c3e8"
+    },
+    {
+      "source": "jsDelivr",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "versionName": "2.6.5-build125",
+      "versionCode": 125,
+      "sha256": "f4989b45852e71c529a0ea3fd3bfd742e9b1734e1977137f44385b66e174c3e8"
+    },
+    {
+      "source": "jsDelivr",
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "versionName": "2.6.5-build125",
+      "versionCode": 125,
+      "sha256": "f4989b45852e71c529a0ea3fd3bfd742e9b1734e1977137f44385b66e174c3e8"
+    },
+    {
+      "source": "Gcore",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "versionName": "2.6.5-build125",
+      "versionCode": 125,
+      "sha256": "f4989b45852e71c529a0ea3fd3bfd742e9b1734e1977137f44385b66e174c3e8"
+    },
+    {
+      "source": "Gcore",
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "versionName": "2.6.5-build125",
+      "versionCode": 125,
+      "sha256": "f4989b45852e71c529a0ea3fd3bfd742e9b1734e1977137f44385b66e174c3e8"
+    }
+  ],
+  "stableFeedsUnchanged": true
+}

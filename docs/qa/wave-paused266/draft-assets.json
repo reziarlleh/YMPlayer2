@@ -1,0 +1,29 @@
+{
+  "checkedAtUtc": "2026-11-11T16:12:11.224677+00:00",
+  "id": 441918157,
+  "draft": true,
+  "prerelease": true,
+  "sourceCommit": "e8e20073eb8457b90f39ef8cf4280192e734026c",
+  "assets": [
+    {
+      "name": "build.json",
+      "bytes": 344,
+      "sha256": "4806d788184c5ef05ea6fbe0d0065c35b7778120c8fb85123fd754a04fb15bef"
+    },
+    {
+      "name": "SHA256.txt",
+      "bytes": 94,
+      "sha256": "e5dd4e6130e863f1a25419714ff680c43cf701b7ef9eeadcf0602ffe79cdc94c"
+    },
+    {
+      "name": "signature.txt",
+      "bytes": 978,
+      "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1"
+    },
+    {
+      "name": "YMPlayer-2.6.6-build131.apk",
+      "bytes": 7057781,
+      "sha256": "3232e9369bb84ba76d3fedfebf424ddd84a47e6ccc7ebb9b02d0c00e32b64844"
+    }
+  ]
+}

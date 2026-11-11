@@ -16,5 +16,14 @@
     "dexSha256": [
       "6ba484bed9dec39c2de045a489af33fb684eb4778c5add59a45895bdb93494ef"
     ]
+  },
+  {
+    "build": 131,
+    "bytes": 7057781,
+    "sha256": "3232e9369bb84ba76d3fedfebf424ddd84a47e6ccc7ebb9b02d0c00e32b64844",
+    "durableWaveIndex": true,
+    "dexSha256": [
+      "2eee52c89963d070ff7ab366207c7acb87f446cb2d3871cfaa1a6f48ab89a048"
+    ]
   }
 ]

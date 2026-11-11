@@ -1,12 +1,19 @@
 {
-  "checkedAtUtc": "2026-11-11T16:07:34.138442+00:00",
+  "checkedAtUtc": "2026-11-11T16:22:40.690811+00:00",
   "version": "2.6.6-build131",
+  "sourceCommit": "e8e20073eb8457b90f39ef8cf4280192e734026c",
   "api28": {
-    "passed": 54,
+    "passed": 55,
     "skipped": 1,
-    "seconds": 501.627
+    "seconds": 501.627,
+    "additionalZeroPauseSeconds": 8.429
   },
-  "api35": "pending",
+  "api35": {
+    "passed": 55,
+    "skipped": 1,
+    "seconds": 344.455
+  },
+  "skipReason": "Default ten-minute timeout is opt-in; real shortened service timeout is covered",
   "jvm": {
     "core": 163,
     "app": 4,
@@ -16,8 +23,9 @@
     "errors": 0,
     "warnings": 82
   },
-  "signedUpgrade": "pending",
-  "publication": "pending",
+  "signedUpgrade": "129 to 131 on both APIs; no data clear; same UID and firstInstallTime",
+  "ci": "success",
+  "publication": "published; four unauthenticated GET hashes match",
   "physicalBluetoothAccepted": false,
   "stable": "2.6.5-build125"
 }
