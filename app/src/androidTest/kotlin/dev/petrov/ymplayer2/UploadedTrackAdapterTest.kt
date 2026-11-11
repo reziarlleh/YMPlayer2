@@ -106,7 +106,7 @@ class UploadedTrackAdapterTest {
         } finally { extractor.release() }
         val track = Track("yandex:$upload", "Uploaded song", "Own artist", "Own album", Source.YANDEX, duration, false)
         val store = dev.petrov.ymplayer2.offline.LikedFileStore(context)
-        val buffer = dev.petrov.ymplayer2.playback.WaveAudioBuffer(context)
+        val buffer = dev.petrov.ymplayer2.playback.WaveAudioBuffer(context) { owner }
         var player: androidx.media3.exoplayer.ExoPlayer? = null
         try {
             store.clear(owner)

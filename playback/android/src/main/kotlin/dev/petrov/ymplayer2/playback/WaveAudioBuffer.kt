@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.MediaExtractor
 import android.media.MediaFormat
 import android.net.Uri
+import android.util.AtomicFile
 import androidx.media3.common.C
 import androidx.media3.datasource.DataSpec
 import androidx.media3.datasource.DefaultDataSource
@@ -13,38 +14,65 @@ import kotlinx.coroutines.*
 import java.io.File
 import java.io.IOException
 import java.nio.ByteBuffer
-import java.util.UUID
+import org.json.JSONArray
+import org.json.JSONObject
 
-/** Ephemeral wave-window audio, separate from liked-track offline synchronization.
+/** Durable bounded wave-window audio, separate from liked-track offline synchronization.
  * A complete verified file is published atomically; the engine never sees a partial download.
  * Adapted from 1.x prefetchForPlayback / CachedMediaValidator, without its permanent cache. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-internal class WaveAudioBuffer(private val context: Context) {
+internal class WaveAudioBuffer(private val context: Context, private val account: (String) -> String?) {
+    private data class Audio(val account: String, val file: File, val bytes: Long)
     private val lock = Any()
-    private val files = mutableMapOf<Pair<String, String>, File>()
+    private val files = mutableMapOf<Pair<String, String>, Audio>()
+    private val root = File(context.filesDir, "wave-audio")
+    private val index = AtomicFile(File(context.filesDir, "wave-audio-index.json"))
     private var generation = 0L
     private var directory: File? = null
     private var retained: Pair<String, Set<String>>? = null
 
-    fun uri(profile: String, track: String): String? = synchronized(lock) {
-        files[profile to track]?.takeIf { it.isFile }?.let { Uri.fromFile(it).toString() }
+    init {
+        // Only atomically published, complete files can rejoin a restored queue.
+        // A missing/truncated file is a cache miss; it never changes track or position.
+        runCatching {
+            val rows = JSONArray(index.openRead().bufferedReader().use { it.readText() })
+            for (i in 0 until rows.length()) {
+                val row = rows.getJSONObject(i)
+                val name = row.getString("file")
+                if (!name.matches(Regex("[A-Za-z0-9-]+\\.audio"))) continue
+                val file = File(root, name)
+                val bytes = row.getLong("bytes")
+                if (bytes in 1..MAX_AUDIO_BYTES && file.isFile && file.length() == bytes)
+                    files[row.getString("profile") to row.getString("track")] = Audio(row.getString("account"), file, bytes)
+            }
+        }
     }
-    fun ids(): Set<String> = synchronized(lock) { files.keys.mapTo(hashSetOf()) { it.second } }
+
+    fun uri(profile: String, track: String): String? = synchronized(lock) {
+        files[profile to track]?.takeIf { it.account == account(profile) && it.file.isFile && it.file.length() == it.bytes }
+            ?.let { Uri.fromFile(it.file).toString() }
+    }
+    fun ids(): Set<String> = synchronized(lock) { files.keys.filter { uri(it.first, it.second) != null }.mapTo(hashSetOf()) { it.second } }
     fun retain(profile: String, keep: Set<String>) = synchronized(lock) {
         retained = profile to keep.toSet()
-        files.keys.filter { it.first != profile || it.second !in keep }.forEach { files.remove(it)?.delete() }
+        val remove = files.keys.filter { it.first != profile || it.second !in keep }
+        remove.forEach { files.remove(it)?.file?.delete() }
+        if (remove.isNotEmpty()) runCatching { writeIndex() }
     }
+    fun cancelPending() = synchronized(lock) { generation++; retained = null }
     fun clear() = synchronized(lock) {
         generation++
         retained = null
-        files.values.forEach(File::delete); files.clear()
+        files.values.forEach { it.file.delete() }; files.clear()
+        runCatching { writeIndex() }
         // In-flight temporary files are removed by their worker's finally block.
     }
 
     suspend fun prepare(profile: String, track: Track, valid: () -> Boolean = { true }, resolve: suspend () -> String) = withContext(Dispatchers.IO) {
         val ticket = synchronized(lock) { generation }
+        val owner = account(profile) ?: throw CancellationException("Wave account is not ready")
         if (uri(profile, track.id) != null) return@withContext
-        val root = synchronized(lock) { directory ?: storage { newDirectory(context) }.also { directory = it } }
+        val root = synchronized(lock) { directory ?: storage { newDirectory() }.also { directory = it } }
         val temp = storage { File.createTempFile("audio-", ".part", root) }
         var published = false
         val source = DefaultDataSource.Factory(context, DefaultHttpDataSource.Factory()
@@ -56,7 +84,8 @@ internal class WaveAudioBuffer(private val context: Context) {
             val length = source.open(DataSpec(Uri.parse(resolved)))
             if (length > MAX_AUDIO_BYTES) throw MusicException(MusicFailure.UNAVAILABLE)
             var bytes = 0L
-            storage { temp.outputStream().buffered() }.use { output ->
+            val fileOutput = storage { temp.outputStream() }
+            fileOutput.buffered().use { output ->
                 val chunk = ByteArray(64 * 1024)
                 while (true) {
                     ensureActive()
@@ -68,22 +97,48 @@ internal class WaveAudioBuffer(private val context: Context) {
                     storage { output.write(chunk, 0, count) }
                 }
                 storage { output.flush() }
+                storage { fileOutput.fd.sync() }
             }
             if (bytes == 0L || length >= 0 && bytes != length) throw IOException("Incomplete wave audio")
             validate(temp, track.durationSeconds * 1_000L)
             ensureActive()
             synchronized(lock) {
-                if (generation != ticket || !valid() || retained?.let { it.first != profile || track.id !in it.second } == true)
+                if (generation != ticket || owner != account(profile) || !valid() || retained?.let { it.first != profile || track.id !in it.second } == true)
                     throw CancellationException("Wave buffer was cleared or the track left its window")
                 val complete = File(root, temp.name.removeSuffix(".part") + ".audio")
                 if (!temp.renameTo(complete)) throw WaveAudioStorageException()
-                files.put(profile to track.id, complete)?.delete()
+                val key = profile to track.id
+                val previous = files.put(key, Audio(owner, complete, bytes))
+                try { writeIndex() } catch (e: Exception) {
+                    files.remove(key); previous?.let { files[key] = it }; complete.delete(); throw e
+                }
+                previous?.file?.delete()
                 published = true
             }
         } finally {
             runCatching { source.close() }
             if (!published) temp.delete()
         }
+    }
+
+    private fun writeIndex() = storage {
+        val rows = JSONArray(files.map { (key, audio) -> JSONObject().put("profile", key.first).put("track", key.second)
+            .put("account", audio.account).put("file", audio.file.name).put("bytes", audio.bytes) })
+        val output = index.startWrite()
+        try { output.write(rows.toString().toByteArray(Charsets.UTF_8)); index.finishWrite(output) }
+        catch (e: Exception) { index.failWrite(output); throw e }
+    }
+
+    private fun newDirectory(): File {
+        if (!root.isDirectory && !root.mkdirs()) throw WaveAudioStorageException()
+        synchronized(initializedRoots) {
+            if (initializedRoots.add(root.absolutePath)) {
+                val complete = files.values.mapTo(hashSetOf()) { it.file.name }
+                root.listFiles()?.filter { it.name !in complete }?.forEach { it.delete() }
+                File(context.cacheDir, "wave-audio").deleteRecursively() // Retired, process-local buffer only.
+            }
+        }
+        return root
     }
 
     private suspend fun validate(file: File, expectedMillis: Long) {
@@ -121,11 +176,6 @@ internal class WaveAudioBuffer(private val context: Context) {
         // can temporarily be in flight. Oversized/partial media is never published.
         private const val MAX_AUDIO_BYTES = 128L * 1024 * 1024
         private val initializedRoots = hashSetOf<String>()
-        @Synchronized private fun newDirectory(context: Context): File {
-            val root = File(context.cacheDir, "wave-audio")
-            if (initializedRoots.add(root.absolutePath)) root.deleteRecursively() // leftovers from the previous process only
-            return File(root, UUID.randomUUID().toString()).apply { if (!mkdirs()) throw WaveAudioStorageException() }
-        }
         private inline fun <T> storage(block: () -> T): T = try { block() }
             catch (e: IOException) { throw WaveAudioStorageException(e) }
     }

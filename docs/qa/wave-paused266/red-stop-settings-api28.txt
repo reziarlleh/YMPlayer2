@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveQueuePrefetchTest:
+INSTRUMENTATION_STATUS: test=applyingNewSettingsReplacesFutureAudioWithoutRestartingTheCurrentTrack
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Applying settings must not restart the current song expected:<yandex:3:7> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.WaveQueuePrefetchTest.applyingNewSettingsReplacesFutureAudioWithoutRestartingTheCurrentTrack(WaveQueuePrefetchTest.kt:77)
+
+INSTRUMENTATION_STATUS: stream=
+Error in applyingNewSettingsReplacesFutureAudioWithoutRestartingTheCurrentTrack(dev.petrov.ymplayer2.WaveQueuePrefetchTest):
+java.lang.AssertionError: Applying settings must not restart the current song expected:<yandex:3:7> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.WaveQueuePrefetchTest.applyingNewSettingsReplacesFutureAudioWithoutRestartingTheCurrentTrack(WaveQueuePrefetchTest.kt:77)
+
+INSTRUMENTATION_STATUS: test=applyingNewSettingsReplacesFutureAudioWithoutRestartingTheCurrentTrack
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Explicit Stop clears the wave queue
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.WaveQueuePrefetchTest.explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession(WaveQueuePrefetchTest.kt:45)
+
+INSTRUMENTATION_STATUS: stream=
+Error in explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession(dev.petrov.ymplayer2.WaveQueuePrefetchTest):
+java.lang.AssertionError: Explicit Stop clears the wave queue
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.WaveQueuePrefetchTest.explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession(WaveQueuePrefetchTest.kt:45)
+
+INSTRUMENTATION_STATUS: test=explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.417
+There were 2 failures:
+1) applyingNewSettingsReplacesFutureAudioWithoutRestartingTheCurrentTrack(dev.petrov.ymplayer2.WaveQueuePrefetchTest)
+java.lang.AssertionError: Applying settings must not restart the current song expected:<yandex:3:7> but was:<null>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at dev.petrov.ymplayer2.WaveQueuePrefetchTest.applyingNewSettingsReplacesFutureAudioWithoutRestartingTheCurrentTrack(WaveQueuePrefetchTest.kt:77)
+2) explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession(dev.petrov.ymplayer2.WaveQueuePrefetchTest)
+java.lang.AssertionError: Explicit Stop clears the wave queue
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at dev.petrov.ymplayer2.WaveQueuePrefetchTest.explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession(WaveQueuePrefetchTest.kt:45)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

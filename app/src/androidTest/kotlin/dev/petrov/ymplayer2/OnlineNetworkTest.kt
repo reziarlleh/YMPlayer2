@@ -108,7 +108,7 @@ class OnlineNetworkTest {
         val xml = transport.request(YandexMusicApi.secureUrl(preview.getString("downloadInfoUrl")), null, null)
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
-        val buffer = WaveAudioBuffer(context)
+        val buffer = WaveAudioBuffer(context) { "public-protocol-probe" }
         var engine: ExoPlayer? = null
         var failure: PlaybackException? = null
         var position = 0L

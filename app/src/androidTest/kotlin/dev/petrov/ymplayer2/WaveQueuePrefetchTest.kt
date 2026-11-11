@@ -35,6 +35,139 @@ class WaveQueuePrefetchTest {
     private fun fullWindow() = player.state.value.queue.size == 10 && !player.state.value.waveLoading &&
         player.bufferedWaveAudioIds() == player.state.value.queue.mapTo(hashSetOf(), Track::id)
 
+    @Test fun explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && fullWindow() }
+        val audio = player.state.value.queue.map { File(Uri.parse(player.resolveStream("owner", it.id)).path!!) }
+        val sessions = h.waveSelections.size
+        compose.runOnIdle { h.systemPlayer.stop() }
+        assertTrue(player.state.value.wave)
+        assertTrue("Explicit Stop clears the wave queue", player.state.value.queue.isEmpty())
+        assertNull(player.state.value.current)
+        assertEquals(0, player.state.value.positionSeconds)
+        assertFalse(player.state.value.playing)
+        assertTrue(player.bufferedWaveAudioIds().isEmpty()); assertTrue(audio.none(File::exists))
+        compose.runOnIdle { h.restartEngine() }
+        waitFor { player.state.value.connected && player.state.value.wave }
+        Thread.sleep(1_000)
+        assertTrue(player.state.value.queue.isEmpty()); assertFalse(player.state.value.playing)
+        assertEquals(sessions, h.waveSelections.size)
+        compose.runOnIdle { h.systemPlayer.play() }
+        waitFor { player.state.value.playing && fullWindow() }
+        assertEquals("Stop must discard the old session/cursor", sessions + 1, h.waveSelections.size)
+        compose.runOnIdle { player.stop(); player.waveSettings!!.load("ru") }
+        waitFor { player.waveSettings!!.state.value.options != null }
+        compose.runOnIdle {
+            player.waveSettings!!.select("moodEnergy", "settingMoodEnergy:calm")
+            assertFalse(player.state.value.playing)
+            assertTrue(player.state.value.queue.isEmpty())
+            player.toggle()
+        }
+        waitFor { player.state.value.playing && fullWindow() }
+        assertEquals(sessions + 2, h.waveSelections.size)
+        assertTrue("Touch Play after Stop uses the newly chosen settings", "settingMoodEnergy:calm" in h.waveSelections.last().settings)
+    }
+
+    @Test fun durableStopCannotResurrectAnOlderPreparedQueueCheckpoint() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { fullWindow() && player.state.value.playing }
+        compose.runOnIdle {
+            player.seek(7); h.systemPlayer.pause(); player.saveForExit()
+            dev.petrov.ymplayer2.playback.LaunchStateStore(h.context)
+                .write("owner", dev.petrov.ymplayer2.playback.PlaybackOutput.MUSIC, false, stopped = true)
+            h.restartEngine()
+        }
+        waitFor { player.state.value.connected && player.state.value.wave }
+        assertNull(player.state.value.current)
+        assertTrue(player.state.value.queue.isEmpty()); assertTrue(player.bufferedWaveAudioIds().isEmpty())
+        assertEquals(0, player.state.value.positionSeconds); assertFalse(player.state.value.playing)
+    }
+
+    @Test fun zeroPositionPauseKeepsTheWholePreparedWindowAcrossRestart() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { fullWindow() && player.state.value.playing }
+        val ids = player.state.value.queue.map(Track::id)
+        compose.runOnIdle { player.seek(0); h.systemPlayer.pause(); player.saveForExit(); h.restartEngine() }
+        waitFor { player.state.value.connected && player.state.value.current?.id == ids.first() }
+        assertEquals(ids, player.state.value.queue.map(Track::id))
+        assertEquals(ids.toSet(), player.bufferedWaveAudioIds())
+        assertEquals(0, player.state.value.positionSeconds); assertFalse(player.state.value.playing)
+        assertFalse(dev.petrov.ymplayer2.playback.LaunchStateStore(h.context).read("owner").stopped)
+    }
+
+    @Test fun applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail() {
+        val late = CompletableDeferred<Unit>()
+        compose.runOnIdle { h.waveRequestGates = mapOf(11 to late); player.playMyWave() }
+        waitFor { fullWindow() && player.state.value.playing }
+        compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id == "yandex:2:7" }
+        compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id == "yandex:3:7" && 11 in h.waveRequests }
+        val obsolete = player.state.value.queue.drop(player.state.value.index + 1)
+            .map { File(Uri.parse(player.resolveStream("owner", it.id)).path!!) }
+        compose.runOnIdle { player.waveSettings!!.load("ru") }
+        waitFor { player.waveSettings!!.state.value.options != null }
+        compose.runOnIdle {
+            player.seek(7)
+            player.waveSettings!!.select("moodEnergy", "settingMoodEnergy:calm")
+            player.playMyWave()
+        }
+        assertNull("Applying settings immediately ends the old song", player.state.value.current)
+        assertEquals(0, player.state.value.positionSeconds)
+        assertTrue("Discard the old prepared future", obsolete.none(File::exists))
+        assertTrue("settingMoodEnergy:calm" in h.waveSelections.last().settings)
+        compose.runOnIdle { late.complete(Unit) }
+        waitFor { fullWindow() && player.state.value.playing }
+        assertNotEquals("yandex:3:7", player.state.value.current?.id)
+        assertFalse("Previous-wave Back history is cleared too", player.state.value.queue.any { it.id == "yandex:2:7" || it.id == "yandex:3:7" })
+        assertTrue(org.json.JSONObject(h.checkpointText()).getJSONObject("waveSelection")
+            .getJSONArray("settings").toString().contains("settingMoodEnergy:calm"))
+    }
+
+    @Test fun pausedFullWindowSurvivesRestartWithoutReplacingQueueOrDownloadingAgain() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && fullWindow() }
+        compose.runOnIdle { player.seek(7); h.systemPlayer.pause(); player.saveForExit() }
+        val ids = player.state.value.queue.map(Track::id)
+        val audio = ids.associateWith { id -> File(Uri.parse(player.resolveStream("owner", id)).path!!) }
+        val bytes = audio.mapValues { it.value.readBytes() }
+        val persisted = dev.petrov.ymplayer2.playback.WaveAudioBuffer(h.context) { "1" }
+        assertEquals(ids.toSet(), persisted.ids())
+        val otherAccount = dev.petrov.ymplayer2.playback.WaveAudioBuffer(h.context) { "different-account" }
+        assertTrue("Persisted audio must remain account scoped", otherAccount.ids().isEmpty())
+        val requests = h.waveRequests.size
+        val streams = h.resolved.size
+        compose.runOnIdle {
+            h.internet.available.value = false
+            h.waveFailure = MusicFailure.NETWORK; h.streamFailure = MusicFailure.NETWORK
+            h.restartEngine()
+        }
+        waitFor { player.state.value.connected && player.state.value.current?.id == ids.first() }
+        Thread.sleep(1_200)
+        assertEquals(ids, player.state.value.queue.map(Track::id))
+        assertEquals(7, player.state.value.positionSeconds)
+        assertFalse(player.state.value.playing)
+        assertEquals(ids.toSet(), player.bufferedWaveAudioIds())
+        ids.forEach { id ->
+            assertEquals(audio.getValue(id).toURI().path, Uri.parse(player.resolveStream("owner", id)).path)
+            assertArrayEquals(bytes.getValue(id), audio.getValue(id).readBytes())
+        }
+        assertEquals(requests, h.waveRequests.size); assertEquals(streams, h.resolved.size)
+        compose.runOnIdle { h.systemPlayer.play() }
+        waitFor { player.state.value.playing && player.state.value.positionSeconds >= 8 }
+        compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id == ids[1] && player.state.value.playing }
+        assertEquals(requests, h.waveRequests.size); assertEquals(streams, h.resolved.size)
+        compose.runOnIdle {
+            h.waveFailure = null; h.streamFailure = null; h.internet.available.value = true
+            player.skip(1)
+        }
+        waitFor { player.state.value.current?.id == ids[2] && fullWindow() }
+        assertEquals("New tracks are requested only as the retained window advances", "yandex:11:7", player.state.value.queue.last().id)
+        ids.drop(1).forEach { id -> assertArrayEquals(bytes.getValue(id), audio.getValue(id).readBytes()) }
+        assertFalse("Only audio older than the one-step Back history is removed", audio.getValue(ids.first()).exists())
+    }
+
     @Test fun allTenEntriesContainRealAudioAndAdvancingReplenishesWithoutGrowingStorage() {
         compose.runOnIdle { player.playMyWave() }
         waitFor { player.state.value.playing && fullWindow() }
@@ -169,20 +302,45 @@ class WaveQueuePrefetchTest {
         assertTrue(h.offline.state.value.tracks.isEmpty())
     }
 
-    @Test fun restartRetainsAllTenCandidatesAndRebuildsTheirTemporaryFiles() {
+    @Test fun restartRetainsAllTenCandidatesAndTheirCompleteFiles() {
         compose.runOnIdle { player.playMyWave() }
         waitFor { fullWindow() && player.state.value.positionSeconds >= 1 }
         val ids = player.state.value.queue.map(Track::id)
         val requests = h.waveRequests.toList()
+        val streams = h.resolved.size
         compose.runOnIdle { player.sessionPause(); h.restartEngine() }
         waitFor { player.state.value.connected && player.state.value.current?.id == ids.first() }
         assertFalse(player.state.value.playing)
         assertEquals(ids, player.state.value.queue.map(Track::id))
-        assertTrue(player.bufferedWaveAudioIds().isEmpty())
+        assertEquals(ids.toSet(), player.bufferedWaveAudioIds())
         compose.runOnIdle { player.sessionPlay() }
         waitFor { fullWindow() && player.state.value.playing }
         assertEquals(ids, player.state.value.queue.map(Track::id))
         assertEquals("Restored queued candidates must not be skipped as already heard", requests, h.waveRequests.toList())
+        assertEquals("Complete audio survives without downloading again", streams, h.resolved.size)
+    }
+
+    @Test fun missingAndTruncatedFutureFilesAreRepairedWithoutReplacingTheSavedQueue() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { fullWindow() && player.state.value.playing }
+        compose.runOnIdle { player.seek(7); h.systemPlayer.pause() }
+        val ids = player.state.value.queue.map(Track::id)
+        val missing = File(Uri.parse(player.resolveStream("owner", ids[4])).path!!)
+        val truncated = File(Uri.parse(player.resolveStream("owner", ids[7])).path!!)
+        assertTrue(missing.delete()); truncated.writeBytes(byteArrayOf(1, 2, 3))
+        val requests = h.waveRequests.size
+        val streams = h.resolved.size
+        compose.runOnIdle { h.waveFailure = MusicFailure.NETWORK; h.restartEngine() }
+        waitFor { player.state.value.connected && player.state.value.current?.id == ids.first() }
+        assertEquals(ids, player.state.value.queue.map(Track::id))
+        assertEquals(7, player.state.value.positionSeconds)
+        assertEquals(8, player.bufferedWaveAudioIds().size)
+        compose.runOnIdle { h.systemPlayer.play() }
+        waitFor { fullWindow() && player.state.value.playing && player.state.value.positionSeconds >= 8 }
+        assertEquals(ids, player.state.value.queue.map(Track::id))
+        assertEquals(requests, h.waveRequests.size)
+        assertEquals(streams + 2, h.resolved.size)
+        compose.runOnIdle { h.waveFailure = null }
     }
 
     @Test fun restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard() {

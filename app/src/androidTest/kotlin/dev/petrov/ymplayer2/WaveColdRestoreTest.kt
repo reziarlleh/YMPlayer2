@@ -55,11 +55,13 @@ class WaveColdRestoreTest {
     @Test fun readyAccountBeforeDelayedLibraryPreservesWaveStop() = coldRestore(savedTransport = "stop", accountFirst = true)
     @Test fun failedAccountStorageCannotErasePausedWaveCheckpoint() = coldRestore(savedTransport = "pause", accountUnavailable = true)
     @Test fun failedAccountStorageCannotErasePlayingWaveCheckpoint() = coldRestore(accountUnavailable = true)
+    @Test fun completePausedWindowRestoresOnNewAdapterWithServerUnavailable() = coldRestore(savedTransport = "pause", fullQueue = true)
+    @Test fun completePlayingWindowRestoresOnNewAdapterWithServerUnavailable() = coldRestore(fullQueue = true)
 
     private fun coldRestore(savedTransport: String = "play", duringAccount: String? = null,
         pauseAfterResume: Boolean = false, wave: Boolean = true, requestLaunch: Boolean = true,
         legacy: Boolean = false, unavailablePaused: Boolean = false, accountFirst: Boolean = false,
-        accountUnavailable: Boolean = false) {
+        accountUnavailable: Boolean = false, fullQueue: Boolean = false) {
         if (wave) compose.runOnIdle { f.player.playMyWave() }
         else {
             compose.runOnIdle { f.online.search("fixture", MusicKind.TRACKS, false) }
@@ -67,7 +69,12 @@ class WaveColdRestoreTest {
             compose.runOnIdle { f.player.playQueue(f.online.state.value.entries.mapNotNull { it.track?.id }) }
         }
         waitFor("Initial wave audible") { f.player.state.value.playing && f.player.state.value.positionSeconds >= 1 }
-        var expectedId = ""
+        if (fullQueue) waitFor("All ten complete files") { f.player.state.value.queue.size == 10 &&
+            !f.player.state.value.waveLoading && f.player.bufferedWaveAudioIds().size == 10 }
+        val preparedIds = f.player.state.value.queue.map(Track::id)
+        val requests = f.waveRequests.size
+        val streams = f.resolved.size
+        var expectedId: String? = null
         var savedPosition = 4
         compose.runOnIdle {
             f.player.seek(4)
@@ -88,9 +95,17 @@ class WaveColdRestoreTest {
         }
         compose.runOnIdle {
             f.player.saveForExit()
-            expectedId = f.player.state.value.current!!.id
+            expectedId = f.player.state.value.current?.id
             savedPosition = f.player.state.value.positionSeconds
             assertEquals(savedTransport == "play", LaunchStateStore(f.context).read("owner").playing)
+            if (unavailablePaused) {
+                val uri = Uri.parse(f.player.resolveStream("owner", requireNotNull(expectedId)))
+                if (uri.scheme == "file") java.io.File(uri.path!!).delete()
+            }
+            if (fullQueue) {
+                f.internet.available.value = false
+                f.waveFailure = MusicFailure.NETWORK; f.streamFailure = MusicFailure.NETWORK
+            }
             f.closeEngineForColdRestore()
             if (legacy) f.context.getSharedPreferences("launch-state", 0).edit().remove("stopped:owner").commit()
         }
@@ -121,7 +136,8 @@ class WaveColdRestoreTest {
                     override suspend fun write(profileId: String, session: AccountSession?) = Unit
                 }, scope)
                 val online = OnlineMusic(accounts, f.online.api, scope)
-                restored = AndroidPlayback(f.context, restoredLibrary, scope, online, waveApi = f.waveApi)
+                restored = AndroidPlayback(f.context, restoredLibrary, scope, online, waveApi = f.waveApi,
+                    networkAvailable = { f.internet.available.value })
                 cleanupPlayer = restored
                 val saved = LaunchStateStore(f.context).read("owner")
                 val revision = restored.launchRevision
@@ -167,7 +183,10 @@ class WaveColdRestoreTest {
                 restored.state.value.current?.id == expectedId && restored.state.value.playing &&
                     restored.state.value.positionSeconds >= savedPosition + 1
             } else {
-                waitFor("Playable metadata has arrived") { restored.state.value.current?.available == true }
+                if (wave && (savedTransport == "stop" || duringAccount == "stop"))
+                    waitFor("Stopped wave has an empty saved window") { restored.state.value.connected &&
+                        restored.state.value.wave && restored.state.value.queue.isEmpty() }
+                else waitFor("Playable metadata has arrived") { restored.state.value.current?.available == true }
                 if (unavailablePaused) waitFor("Paused stream failure is visible") { restored.state.value.error != null }
                 Thread.sleep(1_200)
                 assertFalse(restored.state.value.playing)
@@ -182,13 +201,21 @@ class WaveColdRestoreTest {
             }
             assertEquals(if (requestLaunch) shouldPlay else savedTransport == "play", LaunchStateStore(f.context).read("owner").playing)
             assertEquals(savedTransport == "stop" || duringAccount == "stop", LaunchStateStore(f.context).read("owner").stopped)
-            assertEquals(expectedId, restored.state.value.current?.id)
+            assertEquals(if (wave && duringAccount == "stop") null else expectedId, restored.state.value.current?.id)
+            if (fullQueue) {
+                assertEquals(preparedIds, restored.state.value.queue.map(Track::id))
+                assertEquals(preparedIds.toSet(), restored.bufferedWaveAudioIds())
+                assertEquals("Restoring a complete window must not request a replacement batch", requests, f.waveRequests.size)
+                assertEquals("Restoring complete audio must not download again", streams, f.resolved.size)
+            }
             assertEquals(wave, restored.state.value.wave)
             if (wave) assertEquals(PlaybackSource.MY_WAVE, restored.state.value.origin.source)
         } finally {
             accountGate.complete(Unit)
             compose.runOnIdle {
+                f.waveFailure = null
                 f.streamFailure = null
+                f.internet.available.value = true
                 cleanupPlayer?.state?.value?.let { state ->
                     Log.i("YM2ColdRestore", "id=${state.current?.id}, pos=${state.positionSeconds}, wave=${state.wave}, playing=${state.playing}, saved=${LaunchStateStore(f.context).read(state.profileId)}, engine=${cleanupEngine?.playbackState}, requested=${cleanupEngine?.playWhenReady}")
                 }

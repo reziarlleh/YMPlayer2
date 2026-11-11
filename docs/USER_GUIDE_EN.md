@@ -646,6 +646,16 @@ A background service started only to provide media metadata stays silent and
 does not replace your saved playback mode. A temporary account-storage error
 does not erase the selected track or position; online playback still needs a working sign-in.
 
+In the manual **2.6.6-build131** release, the prepared Vibe window and its complete
+audio files survive app restarts: up to ten tracks, including the previous one.
+Saved playback can continue from these files while the internet reconnects.
+A saved pause keeps the same track and position; background preparation does not
+select another track. New recommendations are requested as you advance.
+Explicit Stop clears the window for a fresh start. Applying settings with
+**Start My Vibe** immediately starts a new selection. An internet connection is
+needed after the prepared tracks run out. This separate
+Vibe cache does not add songs to your permanent offline collection.
+
 Position is saved once a second and when leaving the screen. An abrupt process
 termination can lose a short final interval; a power loss before the OS writes
 the data to storage cannot be recovered reliably. Backgrounding a clip pauses

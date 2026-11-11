@@ -1,0 +1,20 @@
+[
+  {
+    "build": 129,
+    "bytes": 7057781,
+    "sha256": "c08865f65934448918cc67f04fa82e2b13def7c30561f245983767c4bba16f28",
+    "durableWaveIndex": false,
+    "dexSha256": [
+      "5a62591467a802e8ab1c0b5945b84efca5c584e25b7fc3f73cc4c180d754fd03"
+    ]
+  },
+  {
+    "build": 130,
+    "bytes": 7057785,
+    "sha256": "2e656d79ea236f3cd495dab0a195b0e9fec7ea75f3812296378595b6de635df9",
+    "durableWaveIndex": true,
+    "dexSha256": [
+      "6ba484bed9dec39c2de045a489af33fb684eb4778c5add59a45895bdb93494ef"
+    ]
+  }
+]

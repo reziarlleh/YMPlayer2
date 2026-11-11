@@ -177,7 +177,11 @@ class LaunchResumeIntentTest {
         waitFor { player.state.value.connected && player.state.value.wave && player.state.value.current?.id == id &&
             player.state.value.positionSeconds == 4 }
         val failures = fixture.launchDiagnostics.count { it.operation == DiagnosticOperation.AUDIO_PLAYBACK }
-        compose.runOnIdle { fixture.streamFailure = MusicFailure.NETWORK; player.seek(4); fixture.systemPlayer.prepare() }
+        compose.runOnIdle {
+            val uri = Uri.parse(player.resolveStream("owner", id))
+            if (uri.scheme == "file") java.io.File(uri.path!!).delete()
+            fixture.streamFailure = MusicFailure.NETWORK; player.seek(4); fixture.systemPlayer.prepare()
+        }
         waitFor { fixture.launchDiagnostics.count { it.operation == DiagnosticOperation.AUDIO_PLAYBACK } > failures }
         Thread.sleep(1_200)
         assertFalse(player.state.value.playing)

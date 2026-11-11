@@ -1,0 +1,23 @@
+{
+  "checkedAtUtc": "2026-11-11T16:07:34.138442+00:00",
+  "version": "2.6.6-build131",
+  "api28": {
+    "passed": 54,
+    "skipped": 1,
+    "seconds": 501.627
+  },
+  "api35": "pending",
+  "jvm": {
+    "core": 163,
+    "app": 4,
+    "failures": 0
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 82
+  },
+  "signedUpgrade": "pending",
+  "publication": "pending",
+  "physicalBluetoothAccepted": false,
+  "stable": "2.6.5-build125"
+}

@@ -74,7 +74,7 @@ class MyWavePlaybackTest {
         compose.runOnIdle { player.toggle(); fixture.restartEngine() }
         waitFor { player.state.value.connected && player.state.value.current?.id == "yandex:1:7" }
         assertFalse(player.state.value.playing)
-        assertTrue(player.bufferedWaveAudioIds().isEmpty())
+        assertTrue("Complete prepared audio must survive service recreation", "yandex:2:7" in player.bufferedWaveAudioIds())
         compose.runOnIdle { player.select("yandex:2:7") }
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 }
         waitFor { "yandex:3:7" in player.bufferedWaveAudioIds() }
@@ -100,7 +100,9 @@ class MyWavePlaybackTest {
         compose.runOnIdle { fixture.waveRequestGates = mapOf(3 to gate) }
         start()
         compose.runOnIdle { fixture.waveFailuresRemaining = 3; gate.complete(Unit); player.seek(player.state.value.current!!.durationSeconds - 1) }
-        waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.waveIssue != null }
+        waitFor { player.state.value.current?.id == "yandex:2:7" }
+        assertTrue("A transient error may clear before the next track starts", fixture.launchDiagnostics.any {
+            it.operation == DiagnosticOperation.AUDIO_PREPARE && it.category == DiagnosticCategory.NETWORK })
         compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
         waitFor { player.state.value.current?.id == "yandex:3:7" && player.state.value.positionSeconds >= 1 }
         for (id in 4..7) {
@@ -164,19 +166,75 @@ class MyWavePlaybackTest {
         waitFor { player.state.value.current?.id == "yandex:4:7" && player.state.value.positionSeconds >= 1 }
         assertTrue(fixture.tasteWrites.isEmpty())
     }
+    @Test fun pauseDuringDelayedErrorRecoveryKeepsExactTrackAndPosition() = pausedErrorRecovery()
+    @Test fun noisyCallbackDuringDelayedErrorRecoveryKeepsExactTrackAndPosition() = pausedErrorRecovery(noisy = true)
+    private fun pausedErrorRecovery(noisy: Boolean = false) {
+        start()
+        waitFor { player.state.value.current?.id in player.bufferedWaveAudioIds() }
+        val paused = java.util.concurrent.atomic.AtomicBoolean()
+        val position = java.util.concurrent.atomic.AtomicLong()
+        val selected = player.state.value.current!!.id
+        compose.runOnIdle {
+            val raw = fixture.javaClass.getDeclaredField("engine").apply { isAccessible = true }
+                .get(fixture) as androidx.media3.exoplayer.ExoPlayer
+            raw.addListener(object : androidx.media3.common.Player.Listener {
+                override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
+                    position.set(raw.currentPosition)
+                    if (noisy) {
+                        // The actual Media3 receiver's listener, including its reason when already internally paused.
+                        val listener = raw.javaClass.getDeclaredField("componentListener").apply { isAccessible = true }.get(raw)
+                        listener.javaClass.getDeclaredMethod("onAudioBecomingNoisy").apply { isAccessible = true }.invoke(listener)
+                    } else fixture.systemPlayer.pause()
+                    paused.set(true)
+                }
+            })
+            val cached = android.net.Uri.parse(player.resolveStream("owner", selected))
+            assertEquals("file", cached.scheme)
+            assertTrue(java.io.File(cached.path!!).delete())
+            fixture.brokenStreamTrackIds = setOf(selected)
+            raw.stop()
+            raw.seekTo(7_000)
+            raw.prepare(); raw.play()
+        }
+        waitFor { paused.get() }
+        Thread.sleep(1200) // Past the production 300ms recovery and a checkpoint tick.
+        assertTrue("Fault must occur midway through the selected track", position.get() >= 7_000)
+        assertEquals("Pause must cancel automatic selection, not only audio", selected, player.state.value.current?.id)
+        assertEquals(7, player.state.value.positionSeconds)
+        assertFalse(player.state.value.playing)
+        assertFalse(dev.petrov.ymplayer2.playback.LaunchStateStore(fixture.context).read("owner").playing)
+        val saved = org.json.JSONObject(fixture.checkpointText())
+        assertEquals(selected, saved.getString("current")); assertEquals(7, saved.getInt("position"))
+        compose.runOnIdle { fixture.brokenStreamTrackIds = emptySet(); fixture.restartEngine() }
+        waitFor { player.state.value.connected && player.state.value.current?.id == selected }
+        assertEquals(7, player.state.value.positionSeconds)
+        assertFalse(player.state.value.playing)
+    }
     @Test fun endWaitsForExistingAudioPrefetchAndPauseStillWins() {
         val gate = CompletableDeferred<Unit>()
         val next = CompletableDeferred<Unit>()
+        val ended = java.util.concurrent.atomic.AtomicBoolean()
         compose.runOnIdle { fixture.streamGates = mapOf("yandex:2:7" to gate, "yandex:4:7" to next); player.playMyWave() }
         waitFor { player.state.value.positionSeconds >= 1 && fixture.resolved.any { it.second == "yandex:2:7" } }
-        compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
-        waitFor { player.state.value.positionSeconds >= 30 }
-        compose.runOnIdle { fixture.systemPlayer.pause(); gate.complete(Unit) }
-        waitFor { player.state.value.current?.id == "yandex:2:7" && "yandex:3:7" in player.bufferedWaveAudioIds() }
+        compose.runOnIdle {
+            fixture.systemPlayer.addListener(object : androidx.media3.common.Player.Listener {
+                override fun onPlaybackStateChanged(state: Int) {
+                    if (state == androidx.media3.common.Player.STATE_ENDED) ended.set(true)
+                }
+            })
+            player.seek(player.state.value.current!!.durationSeconds - 1)
+        }
+        waitFor { ended.get() }
+        var pausedPosition = 0
+        compose.runOnIdle { fixture.systemPlayer.pause(); pausedPosition = player.state.value.positionSeconds; gate.complete(Unit) }
+        waitFor { "yandex:3:7" in player.bufferedWaveAudioIds() }
+        assertEquals("yandex:1:7", player.state.value.current?.id)
+        // At EOS Media3 can clamp the rounded duration to the final audio sample.
+        assertTrue(player.state.value.positionSeconds in (pausedPosition - 1)..pausedPosition)
         assertFalse(player.state.value.playing)
         assertEquals(1, fixture.resolved.count { it.second == "yandex:2:7" })
         compose.runOnIdle { fixture.systemPlayer.play() }
-        waitFor { player.state.value.positionSeconds >= 1 }
+        waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 }
         waitFor { player.state.value.queue.lastOrNull()?.id == "yandex:3:7" }
         compose.runOnIdle { player.skip(1) }
         waitFor { fixture.resolved.any { it.second == "yandex:4:7" } }

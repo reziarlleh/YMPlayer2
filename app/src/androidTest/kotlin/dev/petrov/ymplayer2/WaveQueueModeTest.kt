@@ -55,12 +55,14 @@ class WaveQueueModeTest {
         assertFalse(player.state.value.playing); assertEquals(0, player.state.value.positionSeconds)
         assertTrue(org.json.JSONObject(fixture.checkpointText()).getBoolean("wave"))
         compose.runOnIdle { fixture.restartEngine() }
-        waitFor { player.state.value.connected && player.state.value.current?.id == "yandex:1:7" }
+        waitFor { player.state.value.connected && player.state.value.wave && player.state.value.queue.isEmpty() }
+        assertNull(player.state.value.current)
         waveControls(); assertFalse(player.state.value.playing)
         compose.onNodeWithTag("player_play").performClick()
-        waitFor { player.state.value.positionSeconds >= 1 && "yandex:2:7" in player.bufferedWaveAudioIds() }
+        waitFor { player.state.value.positionSeconds >= 1 && player.state.value.canSkipNext }
+        val first = player.state.value.current!!.id
         compose.runOnIdle { player.skip(1) }
-        waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 }
+        waitFor { player.state.value.current?.id != first && player.state.value.positionSeconds >= 1 }
         waveControls()
         compose.runOnIdle { player.playQueue(listOf(local)); player.toggle() }
         waitFor { !player.state.value.wave && player.state.value.current?.id == local }
