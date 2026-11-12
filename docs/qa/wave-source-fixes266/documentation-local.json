@@ -1,0 +1,15 @@
+{
+  "version": "2.6.6-build132",
+  "manualBeta": false,
+  "development": true,
+  "stableVersion": "2.6.5-build125",
+  "localFeeds": {
+    "manifest": "2.6.5-build125",
+    "stable": "2.6.5-build125"
+  },
+  "documents": 272,
+  "localLinks": 2766,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}

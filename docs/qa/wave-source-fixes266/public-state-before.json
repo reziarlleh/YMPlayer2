@@ -1,0 +1,19 @@
+{
+  "checkedUtc": "2026-11-12T04:29:29.6275225Z",
+  "repository": "reziarlleh/YMPlayer2",
+  "observations": [
+    {
+      "versionCode": 125,
+      "source": "raw/main/update/manifest.json",
+      "versionName": "2.6.5-build125"
+    },
+    {
+      "versionCode": 125,
+      "source": "raw/main/update/stable.json",
+      "versionName": "2.6.5-build125"
+    }
+  ],
+  "defaultBranch": "main",
+  "latestTag": "v2.6.5-build125",
+  "latestPrerelease": false
+}

@@ -1,0 +1,18 @@
+{
+  "serial": "emulator-5562",
+  "api": 35,
+  "selection": [
+    "WaveAuditRegressionTest",
+    "WaveColdRestoreTest",
+    "WaveQueuePrefetchTest",
+    "MyWavePlaybackTest",
+    "WaveServiceRestoreTest"
+  ],
+  "passed": 75,
+  "failed": 0,
+  "skipped": 1,
+  "success": true,
+  "durationSeconds": 675.28,
+  "realYandexAccount": false,
+  "fixtures": "Real Media3, isolated account/music fixtures"
+}

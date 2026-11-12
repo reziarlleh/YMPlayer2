@@ -1,0 +1,31 @@
+{
+  "source": {
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveColdRestoreTest.kt": "054be921b6e8bef22e8a34d11f809fddba5db8a4e735cb25a797bf65b0d81f90",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt": "9d71fc5ea7c3b8318068ad41e9afcbebbb7d5860b0a2a0edd8c4a823f9a6e1e4",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt": "0838696f48fcda0313ea943b3ade50463444d30b7b3e4aab8648b5e2d4f4fd22",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt": "af8bb2b8aaa2f3a92ddb84ddeb9d44aa5cece2710acd8084cd84e947d78ac740",
+    "core/src/test/kotlin/dev/petrov/ymplayer2/core/AccountAuthTest.kt": "9a189baf5cd120be46ac3a436eec39fd270f8411ca150c8f23b0282b7b1b7790",
+    "core/src/test/kotlin/dev/petrov/ymplayer2/core/MusicTasteTest.kt": "cd2c7bf5444106a0f8902d07e571489115f195fbaef20fe3363dfbe2443a72b7",
+    "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt": "e50016767e12e86b85ea95e7c130da8df1a2a921a92387989f4342f37667d793",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt": "a339100a2b5949c70c2c08a304dc9080713c2e91849b1460b3bbd68b987ba210",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/WaveAudioBuffer.kt": "eb23279817d8e2c1aef2b4acf700703b31e11309d8ab4451ba644d0ddab54d28",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveAuditRegressionTest.kt": "68ec924d2d3bd3020f8aaa3e45f2753415f345f0e8b66aff1383e52a3483db81"
+  },
+  "debugApks": {
+    "app/build/outputs/apk/debug/app-debug.apk": "ffc437eeec0df29bf4946332460d48b857ba6c845e30b0e20832040d94c8b056",
+    "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "fd6eddb7b2360f070af3b60ef01dca67a5abdfff87e1d6758135322a3948feaf"
+  },
+  "sourceCommit": "be1fb3b1e4ee79a4f45524026bc49eedac55f37f",
+  "gitBlobOids": {
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveColdRestoreTest.kt": "d9515687c35d4fb3a8c1c6d580353f828cc08e1a",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt": "9453a70729c5cc7960db1bcad6790257a69d9b9f",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/MusicTaste.kt": "e1499f4d06d1a45d28156e30df84bb70cd6b13f9",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/PlaybackController.kt": "330554d140052eb7c08bf45fd877f094b1a086fb",
+    "core/src/test/kotlin/dev/petrov/ymplayer2/core/AccountAuthTest.kt": "403bef365f3c3295a50c3f982e48d73d359d646a",
+    "core/src/test/kotlin/dev/petrov/ymplayer2/core/MusicTasteTest.kt": "f6446d88f5953493a7c1a5742bf04fdcf7f249db",
+    "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt": "eeadd46061909c92caddea64711212c1f0bcc4f5",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt": "8e4b0161f54a7f7c0d5b0d6405e6d0f6c25e1cb6",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/WaveAudioBuffer.kt": "208247f0c77f5f6cc9b2e1bb9543a377b5a9d2ae",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveAuditRegressionTest.kt": "5c12bfb61a5930b472127cf543e01c3d3bfa0605"
+  }
+}

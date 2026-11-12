@@ -1,0 +1,48 @@
+[
+  {
+    "serial": "emulator-5560",
+    "api": 28,
+    "selection": [
+      "WaveAuditRegressionTest",
+      "WaveColdRestoreTest#touchPlayWhilePausedAccountLoadsIsExecutedWhenReady",
+      "WaveColdRestoreTest#pauseAfterTouchPlayWhileAccountLoadsStillWins",
+      "WaveColdRestoreTest#expiredSavedTokenKeepsPausedTrackPositionAndAllAudio",
+      "WaveColdRestoreTest#expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue",
+      "WaveColdRestoreTest#cachedWaveResumesWhileLocalLibraryIsStillScanning",
+      "WaveColdRestoreTest#anotherAccountCannotInheritSavedWaveWindow"
+    ],
+    "passed": 14,
+    "failed": 1,
+    "skipped": 0,
+    "success": false,
+    "durationSeconds": 148.21,
+    "realYandexAccount": false,
+    "fixtures": "Real Media3, isolated account/music fixtures",
+    "failures": [
+      "java.lang.AssertionError: A saved Pause must not become an idle Stop expected:<3> but was:<1>"
+    ]
+  },
+  {
+    "serial": "emulator-5562",
+    "api": 35,
+    "selection": [
+      "WaveAuditRegressionTest",
+      "WaveColdRestoreTest#touchPlayWhilePausedAccountLoadsIsExecutedWhenReady",
+      "WaveColdRestoreTest#pauseAfterTouchPlayWhileAccountLoadsStillWins",
+      "WaveColdRestoreTest#expiredSavedTokenKeepsPausedTrackPositionAndAllAudio",
+      "WaveColdRestoreTest#expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue",
+      "WaveColdRestoreTest#cachedWaveResumesWhileLocalLibraryIsStillScanning",
+      "WaveColdRestoreTest#anotherAccountCannotInheritSavedWaveWindow"
+    ],
+    "passed": 14,
+    "failed": 1,
+    "skipped": 0,
+    "success": false,
+    "durationSeconds": 142.06,
+    "realYandexAccount": false,
+    "fixtures": "Real Media3, isolated account/music fixtures",
+    "failures": [
+      "java.lang.AssertionError: A saved Pause must not become an idle Stop expected:<3> but was:<1>"
+    ]
+  }
+]
