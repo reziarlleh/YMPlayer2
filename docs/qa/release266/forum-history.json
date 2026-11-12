@@ -1,0 +1,81 @@
+{
+  "checkedAtUtc": "2026-11-12T09:56:19.729832+00:00",
+  "topicUrl": "https://4pda.to/forum/index.php?showtopic=1127108",
+  "headerPostId": 145319180,
+  "userRequestedOneLineHistoryLinks": true,
+  "links": [
+    {
+      "version": "2.6.5-build125",
+      "postNumber": 96,
+      "postId": 145855756
+    },
+    {
+      "version": "2.6.4-build124",
+      "postNumber": 94,
+      "postId": 145752801
+    }
+  ],
+  "serverBaseUnchangedBeforeSave": true,
+  "readbackMatchesReviewedPatch": true,
+  "beforeSha256": "b840bb6a0c70f23248f1c9cf9c373c08d1caa79ee84db45641a510d373c9338b",
+  "afterSha256": "80ba2b25fdd3f254e7abb02617effcdaf628e349f62205bdf703548a2d6aacdb",
+  "olderHistoryAndRemainingBodyUnchanged": true,
+  "current132DescriptionScreenshotsAndIconUnchanged": true,
+  "renderedHistoryLinksVerified": true,
+  "unreferencedOldApksWereAutomaticallyAppendedByForum": true,
+  "removedOnlyDuplicateHeaderAttachmentIds": [
+    "36439521",
+    "36483025"
+  ],
+  "attachmentIdsBefore": [
+    "36253064",
+    "36253082",
+    "36253083",
+    "36420773",
+    "36420774",
+    "36420775",
+    "36420776",
+    "36420777",
+    "36420778",
+    "36421039",
+    "36439521",
+    "36483025",
+    "36530333"
+  ],
+  "attachmentIdsAfter": [
+    "36253064",
+    "36253082",
+    "36253083",
+    "36420773",
+    "36420774",
+    "36420775",
+    "36420776",
+    "36420777",
+    "36420778",
+    "36421039",
+    "36530333"
+  ],
+  "releasePostApksPreservedAndDownloadedAgain": [
+    {
+      "version": "2.6.5-build125",
+      "postAttachmentId": "36482999",
+      "duplicateHeaderAttachmentId": "36483025",
+      "bytes": 7057781,
+      "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3",
+      "postCopyMatchesOriginal": true,
+      "postCopyVerifiedAfterHeaderDuplicateRemoval": true
+    },
+    {
+      "version": "2.6.4-build124",
+      "postAttachmentId": "36439453",
+      "duplicateHeaderAttachmentId": "36439521",
+      "bytes": 7020941,
+      "sha256": "4831bc11f1d7405bf42c29ff8c69bcd48fffc53bb71d976ed94d4886a253d6cd",
+      "postCopyMatchesOriginal": true,
+      "postCopyVerifiedAfterHeaderDuplicateRemoval": true
+    }
+  ],
+  "newMessagesCreated": 0,
+  "apkBuildVersionAndUpdateFeedsUnchanged": true,
+  "privateFormsCommitted": false
+}
