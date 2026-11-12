@@ -1,6 +1,6 @@
 # YMPlayer2 — user guide
 
-The stable release is **2.6.5-build125**, Android9 and later. Reviewed on 5 November 2026.
+The stable release is **2.6.6-build132**, Android9 and later. Reviewed on 12 November 2026.
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -646,7 +646,7 @@ A background service started only to provide media metadata stays silent and
 does not replace your saved playback mode. A temporary account-storage error
 does not erase the selected track or position; online playback still needs a working sign-in.
 
-In the prepared **2.6.6-build132** candidate, the Vibe window and its complete
+In **2.6.6-build132**, the Vibe window and its complete
 audio files survive app restarts: up to ten tracks, including the previous one.
 Saved playback can continue from these files while the internet reconnects.
 A saved pause keeps the same track and position; background preparation does not
@@ -659,8 +659,8 @@ Vibe cache does not add songs to your permanent offline collection.
 A temporary network error does not replace the selected song with the next one
 at the beginning. Reconnecting does not undo Pause or Stop. If you need to sign
 in again, the queue is retained for the same account; another account does not
-inherit its Vibe. [Build132 status](MANUAL_2_6_6_BUILD132.md): a local candidate,
-not available through automatic updates yet.
+inherit its Vibe. [Build132](RELEASE_2_6_6_VERIFICATION.md) is a stable release
+available through the app updater.
 
 Position is saved once a second and when leaving the screen. An abrupt process
 termination can lose a short final interval; a power loss before the OS writes

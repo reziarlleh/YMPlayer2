@@ -1,0 +1,48 @@
+{
+  "checkedAtUtc": "2026-11-12T05:31:36.505408+00:00",
+  "version": "2.6.6-build132",
+  "downloads": [
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build132/YMPlayer-2.6.6-build132.apk",
+      "status": 200,
+      "bytes": 7074165,
+      "sha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+      "identical": true
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build132/build.json",
+      "status": 200,
+      "bytes": 344,
+      "sha256": "f99d6a0b9dcf7ffd5e367da6c6f8aa7d798d726ef9f4856523802397decd21ca",
+      "identical": true
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build132/SHA256.txt",
+      "status": 200,
+      "bytes": 94,
+      "sha256": "a8fbf1231647f433f5b8ee60442fb9c9527578f68df0eceef99e0ee911157f25",
+      "identical": true
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.6.6-build132/signature.txt",
+      "status": 200,
+      "bytes": 978,
+      "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1",
+      "identical": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.6-build132/releases/2.6.6-build132/YMPlayer-2.6.6-build132.apk",
+      "status": 200,
+      "bytes": 7074165,
+      "sha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+      "identical": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.6.6-build132/releases/2.6.6-build132/YMPlayer-2.6.6-build132.apk",
+      "status": 200,
+      "bytes": 7074165,
+      "sha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+      "identical": true
+    }
+  ]
+}

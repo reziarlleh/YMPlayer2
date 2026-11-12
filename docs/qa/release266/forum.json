@@ -1,0 +1,71 @@
+{
+  "checkedAtUtc": "2026-11-12T08:43:52.319407+00:00",
+  "user": "reziarlleh",
+  "topicId": 1127108,
+  "headerPostId": 145319180,
+  "releasePostId": 145969272,
+  "releasePostNumber": 106,
+  "releasePostUrl": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145969272",
+  "headerUrl": "https://4pda.to/forum/index.php?showtopic=1127108",
+  "version": "2.6.6-build132",
+  "headerVersion": "2.6.6",
+  "headerDate": "12.11.2026",
+  "newReleasePostCount": 1,
+  "postedThroughReleaser": true,
+  "changesUnderSpoiler": true,
+  "styleReferenceUrl": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145752801",
+  "automaticHeaderUpdateDetected": true,
+  "rebasedFromFreshServerForm": true,
+  "headerServerBaseUnchangedAtSave": true,
+  "headerReadbackMatchesReviewedPatch": true,
+  "headerBeforeSha256": "f1a1902df0b50f2246c263f323ccc9f765683c0d62f4bb36810b87267e44b48e",
+  "headerAfterSha256": "b840bb6a0c70f23248f1c9cf9c373c08d1caa79ee84db45641a510d373c9338b",
+  "preservedAttachmentIds": [
+    "36253064",
+    "36253082",
+    "36253083",
+    "36420773",
+    "36420774",
+    "36420775",
+    "36420776",
+    "36420777",
+    "36420778",
+    "36421039",
+    "36439521",
+    "36483025"
+  ],
+  "newHeaderAttachmentId": "36530333",
+  "newPostAttachmentId": "36530317",
+  "physicalHeaderAttachmentsAfter": 13,
+  "screenshotsUnchanged": true,
+  "descriptionUnchanged": true,
+  "iconOutsideSpoiler": true,
+  "old125MovedUnderPastVersions": true,
+  "downloads": [
+    {
+      "id": "36530317",
+      "url": "https://4pda.to/forum/dl/post/36530317/YMPlayer-2.6.6-build132.apk",
+      "bytes": 7074165,
+      "sha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+      "verified": true
+    },
+    {
+      "id": "36530333",
+      "url": "https://4pda.to/forum/dl/post/36530333/YMPlayer-2.6.6-build132.apk",
+      "bytes": 7074165,
+      "sha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+      "verified": true
+    }
+  ],
+  "rules": [
+    {
+      "url": "https://4pda.to/forum/index.php?act=announce&f=212&st=250",
+      "edition": "23.10.2026"
+    },
+    {
+      "url": "https://4pda.to/forum/index.php?act=announce&f=212&st=368",
+      "edition": "04.10.2025"
+    }
+  ],
+  "privateFormsCommitted": false
+}

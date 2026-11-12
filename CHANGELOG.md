@@ -1,6 +1,6 @@
 # История изменений YMPlayer2
 
-## 2.6.6-build132 — 12 ноября2026, локальный кандидат после аудита
+## 2.6.6-build132 — 12 ноября2026, стабильный выпуск
 
 - Исправлены все WA-01…WA-10: общий Play для сенсора/MediaSession, исполнение
   Play после загрузки аккаунта, приоритет Pause/Stop над старым Retry и noisy.
@@ -14,7 +14,8 @@
   [в описании2.6.6](docs/RELEASE_2_6_6_NOTES.md).
 - По75 native passed API28/API35, JVM168, lint0/82, signed131→132 без clear.
   [Проверки и границы](docs/WAVE_SOURCE_FIXES_2_6_6_VERIFICATION.md).
-  Release132 не опубликован; stable/Latest/feeds125 сохранены, приёмка владельца ожидается.
+  Принят владельцем и [опубликован обычным выпуском](docs/RELEASE_2_6_6_VERIFICATION.md),
+  stable/Latest/feeds132. [4PDA: сообщение №106 и шапка](docs/FORUM_RELEASE_2_6_6_2026_11_12.md).
 
 ## 2.6.6-build131 — 11 ноября2026, продолжение исправления B-047
 

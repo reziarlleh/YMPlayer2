@@ -1,0 +1,12 @@
+{
+  "tag": "apk-2.6.6-build132",
+  "sourceTag": "v2.6.6-build132",
+  "sourceCommit": "463b0f6dd9daaf69c7a93d45aafd5af28e00c213",
+  "treeBytes": 7076288,
+  "apkSha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+  "reused": false,
+  "pushed": true,
+  "commit": "00b6ed5dc50d6032293f52ae818c3f8a3893a448",
+  "tree": "08eb4ef50636f7bfb8c52846bf4fee31e72ffbf2",
+  "remoteCheckedAtUtc": "2026-11-12T08:52:15.043434+00:00"
+}

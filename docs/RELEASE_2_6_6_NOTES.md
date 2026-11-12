@@ -56,7 +56,6 @@
 проверка длительного простоя на физическом Bluetooth-устройстве ещё предстоит.
 
 Подпись и пакет прежние; обновление131→132 проверено с сохранением данных.
-Промежуточный128 оставлен локально и не публиковался.
 
 [Инструкция](https://github.com/reziarlleh/YMPlayer2/blob/main/docs/USER_GUIDE.md) ·
 [Аудит и исправления132](https://github.com/reziarlleh/YMPlayer2/blob/main/docs/WAVE_SOURCE_FIXES_2_6_6_VERIFICATION.md) ·
