@@ -1,0 +1,11 @@
+{
+  "sha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+  "versionName": "2.6.6-build132",
+  "runtimeAcceptance": "pending",
+  "channel": "stable",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionCode": 132,
+  "minSdk": 28,
+  "updateChannel": "stable",
+  "builtAtUtc": "2026-11-12T04:41:52.0222707Z"
+}
