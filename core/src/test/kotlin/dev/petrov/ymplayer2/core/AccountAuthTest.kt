@@ -155,7 +155,11 @@ class AccountAuthTest {
         val store = Store().apply { data["owner"] = AccountSession(YandexAccount("1", "Old"), OAuthCredentials("secret", null, 1)) }
         val auth = AccountAuth(profiles, Api(), store, this) { 2 }
         auth.activate("owner"); runCurrent()
-        assertEquals(AuthPhase.SIGNED_OUT, auth.state.value.phase); assertNull(auth.state.value.account)
+        assertEquals(AuthPhase.ERROR, auth.state.value.phase)
+        assertEquals("1", auth.state.value.account?.id)
+        assertNotNull(store.data["owner"])
+        val denied = runCatching { auth.withSession("owner") { error("Expired credentials must not be used") } }.exceptionOrNull()
+        assertEquals(MusicFailure.SIGN_IN, (denied as MusicException).failure)
     }
     @Test fun accountNetworkFailureRetainsTokenForRetryWithoutAnotherCodeOrPoll() = runTest {
         val api = Api().apply { accountFailure = AuthFailure.NETWORK }; val store = Store()
@@ -210,7 +214,7 @@ class AccountAuthTest {
         val auth = AccountAuth(profiles, api, Store(), this) { testScheduler.currentTime }
         auth.activate("owner"); runCurrent(); auth.start(); advanceUntilIdle()
         advanceTimeBy(1000); auth.retryAccount(); runCurrent()
-        assertEquals(1, api.accounts); assertEquals(AuthPhase.SIGNED_OUT, auth.state.value.phase)
+        assertEquals(1, api.accounts); assertEquals(AuthPhase.ERROR, auth.state.value.phase)
     }
     @Test fun savedTokenSurvivesRestartEvenWhenAccountServiceStaysUnavailable() = runTest {
         val api = Api().apply { accountFailure = AuthFailure.NETWORK }; val store = Store()

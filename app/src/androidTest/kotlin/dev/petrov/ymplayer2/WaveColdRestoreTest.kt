@@ -57,11 +57,19 @@ class WaveColdRestoreTest {
     @Test fun failedAccountStorageCannotErasePlayingWaveCheckpoint() = coldRestore(accountUnavailable = true)
     @Test fun completePausedWindowRestoresOnNewAdapterWithServerUnavailable() = coldRestore(savedTransport = "pause", fullQueue = true)
     @Test fun completePlayingWindowRestoresOnNewAdapterWithServerUnavailable() = coldRestore(fullQueue = true)
+    @Test fun touchPlayWhilePausedAccountLoadsIsExecutedWhenReady() = coldRestore(savedTransport = "pause", duringAccount = "play")
+    @Test fun pauseAfterTouchPlayWhileAccountLoadsStillWins() = coldRestore(savedTransport = "pause", duringAccount = "playThenPause")
+    @Test fun noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause() = coldRestore(savedTransport = "pause", duringAccount = "playThenNoisy")
+    @Test fun expiredSavedTokenKeepsPausedTrackPositionAndAllAudio() = coldRestore(savedTransport = "pause", fullQueue = true, expiredToken = true)
+    @Test fun expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue() = coldRestore(fullQueue = true, expiredToken = true)
+    @Test fun cachedWaveResumesWhileLocalLibraryIsStillScanning() = coldRestore(fullQueue = true, accountFirst = true, holdLibraryUntilResumed = true)
+    @Test fun anotherAccountCannotInheritSavedWaveWindow() = coldRestore(fullQueue = true, otherAccount = true)
 
     private fun coldRestore(savedTransport: String = "play", duringAccount: String? = null,
         pauseAfterResume: Boolean = false, wave: Boolean = true, requestLaunch: Boolean = true,
         legacy: Boolean = false, unavailablePaused: Boolean = false, accountFirst: Boolean = false,
-        accountUnavailable: Boolean = false, fullQueue: Boolean = false) {
+        accountUnavailable: Boolean = false, fullQueue: Boolean = false, expiredToken: Boolean = false,
+        holdLibraryUntilResumed: Boolean = false, otherAccount: Boolean = false) {
         if (wave) compose.runOnIdle { f.player.playMyWave() }
         else {
             compose.runOnIdle { f.online.search("fixture", MusicKind.TRACKS, false) }
@@ -112,7 +120,7 @@ class WaveColdRestoreTest {
 
         val accountGate = CompletableDeferred<Unit>()
         if (accountFirst) accountGate.complete(Unit)
-        val libraryState = kotlinx.coroutines.flow.MutableStateFlow(f.library.state.value.copy(ready = !accountFirst))
+        val libraryState = kotlinx.coroutines.flow.MutableStateFlow(f.library.state.value.copy(ready = !accountFirst, scanning = holdLibraryUntilResumed))
         val restoredLibrary = object : IndexedLocalLibrary by f.library {
             override val state = libraryState
         }
@@ -131,7 +139,7 @@ class WaveColdRestoreTest {
                     override suspend fun read(profileId: String): AccountSession {
                         accountGate.await()
                         if (accountUnavailable) throw AuthException(AuthFailure.STORAGE)
-                        return AccountSession(YandexAccount("1", "Fixture"), OAuthCredentials("fixture", null, null))
+                        return AccountSession(YandexAccount(if (otherAccount) "2" else "1", "Fixture"), OAuthCredentials("fixture", null, if (expiredToken) 1L else null))
                     }
                     override suspend fun write(profileId: String, session: AccountSession?) = Unit
                 }, scope)
@@ -157,7 +165,13 @@ class WaveColdRestoreTest {
                 restored.attach(engine)
             }
             if (accountFirst) {
-                Thread.sleep(500)
+                if (holdLibraryUntilResumed) {
+                    waitFor("Cached wave must resume before the held local scan finishes") {
+                        restored.state.value.current?.id == expectedId && restored.state.value.playing &&
+                            restored.state.value.positionSeconds >= savedPosition + 1
+                    }
+                    assertTrue(libraryState.value.scanning)
+                } else Thread.sleep(500)
                 compose.runOnIdle { libraryState.value = f.library.state.value }
             } else waitFor("Saved metadata before account") { restored.state.value.current?.id == expectedId &&
                 restored.state.value.positionSeconds == savedPosition }
@@ -165,17 +179,40 @@ class WaveColdRestoreTest {
                 when (duringAccount) {
                     "pause" -> restored.sessionPause()
                     "stop" -> restored.stop()
+                    "play" -> restored.toggle()
+                    "playThenPause" -> { restored.toggle(); restored.sessionPause() }
+                    "playThenNoisy" -> {
+                        restored.toggle()
+                        cleanupEngine!!.setHandleAudioBecomingNoisy(true)
+                        val listener = cleanupEngine!!.javaClass.getDeclaredField("componentListener").apply { isAccessible = true }.get(cleanupEngine)
+                        listener.javaClass.getDeclaredMethod("onAudioBecomingNoisy").apply { isAccessible = true }.invoke(listener)
+                    }
                 }
                 if (unavailablePaused) f.streamFailure = MusicFailure.NETWORK
                 accountGate.complete(Unit)
             }
-            val shouldPlay = requestLaunch && savedTransport == "play" && duringAccount == null && !pauseAfterResume
-            if (accountUnavailable) {
+            val shouldPlay = requestLaunch && !pauseAfterResume &&
+                (savedTransport == "play" && duringAccount == null || duringAccount == "play")
+            if (otherAccount) {
+                waitFor("Different account clears only the old account's wave") {
+                    !restored.state.value.wave && restored.state.value.queue.isEmpty() && !LaunchStateStore(f.context).read("owner").playing
+                }
+                assertEquals(0, restored.state.value.positionSeconds)
+                assertFalse(restored.state.value.playing)
+                assertTrue(dev.petrov.ymplayer2.playback.WaveAudioBuffer(f.context) { "1" }.ids().isEmpty())
+                return
+            }
+            if (accountUnavailable || expiredToken) {
                 Thread.sleep(1_000)
                 compose.runOnIdle { restored.saveForExit() }
                 assertEquals("An account read failure must retain the selected track", expectedId, restored.state.value.current?.id)
                 assertEquals(savedPosition, restored.state.value.positionSeconds)
                 assertTrue(restored.state.value.wave)
+                if (fullQueue) {
+                    val persisted = dev.petrov.ymplayer2.playback.WaveAudioBuffer(f.context) { "1" }
+                    assertEquals(preparedIds.toSet(), persisted.ids())
+                    assertEquals(preparedIds, restored.state.value.queue.map(Track::id))
+                }
                 assertFalse(restored.state.value.playing)
                 assertEquals(savedTransport == "play", LaunchStateStore(f.context).read("owner").playing)
                 return

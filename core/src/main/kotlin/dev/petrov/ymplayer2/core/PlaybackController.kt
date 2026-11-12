@@ -72,6 +72,8 @@ interface PlaybackController {
     fun playOffline() = Unit
     fun playList(trackIds: List<String>, startId: String? = null, origin: PlaybackOrigin) = playQueue(trackIds, startId)
     fun retryWave() = Unit
+    /** Retry preparation only if playback is still requested; never changes Pause/Stop to Play. */
+    fun retryPlayback() = Unit
     fun playRecommendedQueue(trackIds: List<String>, startId: String? = null, origin: PlaybackOrigin = PlaybackOrigin(PlaybackSource.LIST)) = playList(trackIds, startId, origin)
 }
 

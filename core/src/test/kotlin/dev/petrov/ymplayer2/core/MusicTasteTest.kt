@@ -1,12 +1,28 @@
 package dev.petrov.ymplayer2.core
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.test.*
 import org.junit.Assert.*
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MusicTasteTest {
+    @Test fun onlyNewLocalActionsEmitPlaybackChangesNotServerRefreshOrOldPendingWrites() = runTest {
+        val api = Api()
+        val taste = MusicTaste(auth(), api, backgroundScope)
+        val changes = mutableListOf<LocalTasteChange>()
+        backgroundScope.launch { taste.changes.collect { changes += it } }
+        runCurrent()
+        api.lists["owner" to TasteKind.TRACK] = TasteList(blocked = setOf("3"))
+        taste.refresh(TasteKind.TRACK); runCurrent()
+        assertTrue(changes.isEmpty())
+        val target = TasteTarget(TasteKind.TRACK, "yandex:1:7", "Song")
+        taste.react(target, TasteAction.BLOCK); runCurrent()
+        assertEquals(listOf(LocalTasteChange(OfflineOwner("owner", "owner"), TasteMutation(target, TasteAction.BLOCK))), changes)
+        taste.refresh(TasteKind.TRACK); runCurrent()
+        assertEquals(1, changes.size)
+    }
     private class Api : MusicTasteApi {
         val lists = mutableMapOf<Pair<String, TasteKind>, TasteList>()
         val writes = mutableListOf<Triple<String, TasteTarget, TasteAction>>()

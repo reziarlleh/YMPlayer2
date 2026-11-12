@@ -180,7 +180,7 @@ private val destinations get() = listOf(
                                                 model.radio?.audio?.play()
                                         }
                                         "library", "search", "artist" -> model.online?.reconnect()
-                                        "player" -> if (manual && !playback.playing && (playback.waveIssue != null || playback.error != null)) model.player.toggle()
+                                        "player" -> if (manual && !playback.playing && (playback.waveIssue != null || playback.error != null)) model.player.retryPlayback()
                                     }
                                 }
                             }

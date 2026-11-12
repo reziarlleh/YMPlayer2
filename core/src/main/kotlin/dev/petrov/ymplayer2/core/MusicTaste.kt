@@ -32,6 +32,7 @@ interface MusicTasteApi {
 }
 
 data class TasteMutation(val target: TasteTarget, val action: TasteAction)
+data class LocalTasteChange(val owner: OfflineOwner, val mutation: TasteMutation)
 data class TasteSnapshot(val lists: Map<TasteKind, TasteList> = emptyMap(), val pending: List<TasteMutation> = emptyList())
 interface TasteStore {
     suspend fun read(owner: OfflineOwner): TasteSnapshot
@@ -50,6 +51,9 @@ class MusicTaste(private val accounts: AccountAuth, private val api: MusicTasteA
     private val confirmed: suspend (OfflineOwner, TasteTarget, TasteAction) -> Unit = { _, _, _ -> }) {
     private val mutable = MutableStateFlow(TasteState())
     val state = mutable.asStateFlow()
+    private val localChanges = MutableSharedFlow<LocalTasteChange>(extraBufferCapacity = 16)
+    /** Explicit actions only: cache loading, server refresh and flushing old actions do not emit here. */
+    val changes = localChanges.asSharedFlow()
     private val locks = TasteKind.entries.associateWith { Mutex() }
     private var generation = 0L
     private var tasks: Job? = null
@@ -170,6 +174,9 @@ class MusicTaste(private val accounts: AccountAuth, private val api: MusicTasteA
                     if (ticket == generation) put(target.kind, shelf.copy(busy = false, issue = "Не удалось сохранить отложенное изменение."))
                     diagnostic(diagnosticFailure(DiagnosticOperation.TASTE_WRITE, e)); return@withLock
                 }
+                if (ticket != generation) return@withLock
+                if (action == TasteAction.BLOCK) put(target.kind, state.value.shelf(target.kind).copy(list = overlaid(target.kind)))
+                localChanges.emit(LocalTasteChange(owner, mutation))
                 try {
                     if (connected()) {
                         flush(target.kind, owner, ticket)

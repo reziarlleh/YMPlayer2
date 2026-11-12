@@ -79,7 +79,8 @@ class AccountAuth(
             if (!valid(ticket, profile)) return
             val expired = saved?.credentials?.expiresAtMillis?.let { it <= now() } == true
             mutable.value = when {
-                expired -> AccountAuthState(profile, AuthPhase.SIGNED_OUT, issue = "Срок входа истёк. Войдите заново.")
+                // Reauthentication is not an explicit logout: consumers must keep their checkpoints.
+                expired -> AccountAuthState(profile, AuthPhase.ERROR, saved.account, issue = "Срок входа истёк. Войдите заново.")
                 saved != null -> AccountAuthState(profile, AuthPhase.SIGNED_IN, saved.account)
                 !api.configured -> AccountAuthState(profile, AuthPhase.UNCONFIGURED)
                 else -> AccountAuthState(profile, AuthPhase.SIGNED_OUT)

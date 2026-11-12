@@ -53,6 +53,10 @@ internal class WaveAudioBuffer(private val context: Context, private val account
             ?.let { Uri.fromFile(it.file).toString() }
     }
     fun ids(): Set<String> = synchronized(lock) { files.keys.filter { uri(it.first, it.second) != null }.mapTo(hashSetOf()) { it.second } }
+    /** Identity for migrating old checkpoints, not permission to read another account's files. */
+    fun accountId(profile: String): String? = synchronized(lock) {
+        files.filterKeys { it.first == profile }.values.map { it.account }.distinct().singleOrNull()
+    }
     fun retain(profile: String, keep: Set<String>) = synchronized(lock) {
         retained = profile to keep.toSet()
         val remove = files.keys.filter { it.first != profile || it.second !in keep }
