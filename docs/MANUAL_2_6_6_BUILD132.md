@@ -30,4 +30,6 @@ Signed131→132 без clear на
 [API35](qa/wave-source-fixes266/emulator-5562-signed132.json): прежние UID и
 firstInstallTime, по2 cold/2 warm запуска, delayed crash отсутствует.
 SHA установленного APK совпал с архивом. [Метаданные132](qa/wave-source-fixes266/release132.json).
+[GitHub CI43157523266](https://github.com/reziarlleh/YMPlayer2/actions/runs/43157523266)
+успешен; исходники и документы находятся в main. Это публикация кода, не APK Release.
 Проверка полудневного простоя физического устройства остаётся владельческой приёмкой.

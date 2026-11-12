@@ -29,6 +29,15 @@ RepoWise update отказал с tree_sitter; свежесть индекса �
 Оба собственных AVD завершены после подписанной проверки. Личный длительный
 Bluetooth-сценарий не объявляется принятым.
 
+Исходники be1fb3b и документы7be1d54 отправлены в main. GitHub Actions
+43157523266 завершился success; проверка переводов, JVM/debug APK/test APK/lint
+и transformation contract пройдены. Check-Documentation --github без ошибок,
+README blob совпал. На12 ноября04:53UTC все четыре CDN manifest/stable200/125;
+GitHub Latest/raw также125. [CI](qa/wave-source-fixes266/ci.json),
+[проверка GitHub](qa/wave-source-fixes266/documentation-github.json),
+[зеркала](qa/wave-source-fixes266/mirrors.json). Новый ключ waveAccount есть
+в DEX132 и отсутствовал131; продуктовый APK после подписания не пересобирался.
+
 ## 12 ноября2026 — волна: аудит только исходников, без исправлений
 
 Владелец подтвердил логику волны и прямо запретил эмуляторы, поручив вывести

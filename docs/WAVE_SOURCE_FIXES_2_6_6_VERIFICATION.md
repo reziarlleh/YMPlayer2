@@ -80,6 +80,9 @@ checkpoint, готовые файлы и долговечные Play/Pause/Stop,
 | Native API35 | 75 passed, 0 failed; 1 optional long-idle skipped | [Сводка](qa/wave-source-fixes266/emulator-5562-regression.json), [лог](qa/wave-source-fixes266/emulator-5562-regression.txt) |
 | Идентичность проверенных исходников | Хэши совпадают после native-прогонов | [Kotlin и debug/test APK](qa/wave-source-fixes266/source-fingerprints.json) |
 | Подписанный upgrade131→132 | Прежние UID/firstInstallTime, без clear, по2 cold/2 warm, установленный SHA совпал | [API28](qa/wave-source-fixes266/emulator-5560-signed132.json), [API35](qa/wave-source-fixes266/emulator-5562-signed132.json) |
+| GitHub Actions | 43157523266 success на7be1d54, тот же продуктовый код be1fb3b | [CI](qa/wave-source-fixes266/ci.json) |
+| Публикация кода и документы | main обновлён, README blob совпал, битых локальных ссылок нет | [Проверка после push](qa/wave-source-fixes266/documentation-github.json) |
+| Содержимое release APK | Новый ключ waveAccount присутствует в DEX132, отсутствует131 | [Сравнение](qa/wave-source-fixes266/release-dex-comparison.json) |
 | Первый целевой отказ | По14 passed/1 failed, IDLE после Play→Pause при LOADING | [Первичный результат до доводки](qa/wave-source-fixes266/initial-focused.json) |
 
 Пятнадцать сценариев первого прогона не прибавляются повторно к75 финальным.
@@ -93,5 +96,7 @@ checkpoint, готовые файлы и долговечные Play/Pause/Stop,
 актуализированы. [Локальная проверка документов](qa/wave-source-fixes266/documentation-local.json)
 не нашла ошибок/битых ссылок; README остаётся пользовательским описанием stable125.
 Stable/Latest/feeds остаются125; [датированное чтение GitHub/raw](qa/wave-source-fixes266/public-state-before.json).
+[Все четыре CDN manifest/stable200/125](qa/wave-source-fixes266/mirrors.json)
+проверены12 ноября04:53UTC. Код/документы опубликованы в main, отдельного Release132 нет.
 Форум не изменялся. RepoWise update отказал с `ModuleNotFoundError: tree_sitter`;
 индекс не объявляется обновлённым, использованы непосредственные исходники.
