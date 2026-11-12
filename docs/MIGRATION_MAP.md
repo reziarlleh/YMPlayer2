@@ -1,5 +1,9 @@
 # Карта переноса и модулей
 
+12 ноября после выпуска132 B-047 открыт повторно. Добавлена только проверка
+обычного процесса/Keystore/AudioService; новых модулей и продуктового фикса нет.
+[Точка продолжения](WAVE_FOREGROUND_PAUSE_2_6_6_VERIFICATION.md) — SESSION_* владельца.
+
 12 ноября: [исправления WA-01…WA-10 в132](WAVE_SOURCE_FIXES_2_6_6_VERIFICATION.md).
 AndroidPlayback согласует touch/controller и готовый непрерывный участок Media3;
 Wave checkpoint восстанавливается без local scan и сохраняет конец server cursor.
