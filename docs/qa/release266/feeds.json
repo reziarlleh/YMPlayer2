@@ -1,0 +1,87 @@
+{
+  "checkedAtUtc": "2026-11-12T08:54:22.025606+00:00",
+  "version": "2.6.6-build132",
+  "allSixFeedsMatch": false,
+  "feeds": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+      "checkedAtUtc": "2026-11-12T08:54:21.326224+00:00",
+      "status": 200,
+      "bytes": 6444,
+      "responseSha256": "0a37819c858b19bd8a3c744d4bb6a213c4291821cb15de031c5e5eac404c5707",
+      "versionCode": 132,
+      "versionName": "2.6.6-build132",
+      "allFieldsMatchLocal": true,
+      "differentTopLevelFields": []
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "checkedAtUtc": "2026-11-12T08:54:21.327204+00:00",
+      "status": 200,
+      "bytes": 6444,
+      "responseSha256": "0a37819c858b19bd8a3c744d4bb6a213c4291821cb15de031c5e5eac404c5707",
+      "versionCode": 132,
+      "versionName": "2.6.6-build132",
+      "allFieldsMatchLocal": true,
+      "differentTopLevelFields": []
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "checkedAtUtc": "2026-11-12T08:54:21.327204+00:00",
+      "status": 200,
+      "bytes": 2671,
+      "responseSha256": "f4989b45852e71c529a0ea3fd3bfd742e9b1734e1977137f44385b66e174c3e8",
+      "versionCode": 125,
+      "versionName": "2.6.5-build125",
+      "allFieldsMatchLocal": false,
+      "differentTopLevelFields": [
+        "apk",
+        "publishedAt",
+        "releaseNotes",
+        "releasePageUrl",
+        "versionCode",
+        "versionName"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+      "checkedAtUtc": "2026-11-12T08:54:21.636435+00:00",
+      "status": 200,
+      "bytes": 6444,
+      "responseSha256": "0a37819c858b19bd8a3c744d4bb6a213c4291821cb15de031c5e5eac404c5707",
+      "versionCode": 132,
+      "versionName": "2.6.6-build132",
+      "allFieldsMatchLocal": true,
+      "differentTopLevelFields": []
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "checkedAtUtc": "2026-11-12T08:54:21.709438+00:00",
+      "status": 200,
+      "bytes": 6444,
+      "responseSha256": "0a37819c858b19bd8a3c744d4bb6a213c4291821cb15de031c5e5eac404c5707",
+      "versionCode": 132,
+      "versionName": "2.6.6-build132",
+      "allFieldsMatchLocal": true,
+      "differentTopLevelFields": []
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "checkedAtUtc": "2026-11-12T08:54:21.710469+00:00",
+      "status": 200,
+      "bytes": 2671,
+      "responseSha256": "f4989b45852e71c529a0ea3fd3bfd742e9b1734e1977137f44385b66e174c3e8",
+      "versionCode": 125,
+      "versionName": "2.6.5-build125",
+      "allFieldsMatchLocal": false,
+      "differentTopLevelFields": [
+        "apk",
+        "publishedAt",
+        "releaseNotes",
+        "releasePageUrl",
+        "versionCode",
+        "versionName"
+      ]
+    }
+  ]
+}
