@@ -11,6 +11,8 @@ Core177/app4, по9 native23/28/35, release lint0 errors/0NewApi/132 warnings.
 Signed139→140 сохранил UID/firstInstallTime/marker/профили на23/35; lifecycle
 проверен в R8 release. Реальная приёмка и публикация140 ещё не выполнялись;
 Stable/Latest/feeds остаются2.7.0-build137. D-004/Fox_7 открыт до нового лога/ответа.
+[GitHub CI43492806999](https://github.com/reziarlleh/YMPlayer2/actions/runs/43492806999)
+успешен для исходников140, commitdc74372.
 
 13 ноября2026 владелец принял **2.7.0-build137** и поручил GitHub→пост4PDA→шапку.
 [Обычный стабильный релиз](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.7.0-build137)

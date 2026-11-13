@@ -216,5 +216,7 @@
   },
   "nativeSourceMatchesReleaseSource": true,
   "nativeDebugApkVersionNote": "Debug APK source tested before reserving Build140; the four product source fingerprints are unchanged. Signed140 was checked separately.",
-  "versionPropertiesSha256": "98f4cbd913c747128b575a8e83d9b08e43a4a25fcc985c8c9720c4fe637d2c2d"
+  "versionPropertiesSha256": "98f4cbd913c747128b575a8e83d9b08e43a4a25fcc985c8c9720c4fe637d2c2d",
+  "sourceCommit": "dc74372140bf5daa65318d26b5d087f8d4f8e2b2",
+  "ciRun": "https://github.com/reziarlleh/YMPlayer2/actions/runs/43492806999"
 }

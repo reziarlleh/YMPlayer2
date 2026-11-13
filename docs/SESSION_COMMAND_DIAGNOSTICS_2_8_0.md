@@ -71,6 +71,12 @@ release проверены foreground→background→foreground, elapsedMs и в
 [lifecycle35](qa/sessiondiag280/api35-release-lifecycle.json). Пользовательский текст не
 менялся, новые технические коды не являются отдельными UI-строками переводов.
 
+[GitHub CI43492806999](https://github.com/reziarlleh/YMPlayer2/actions/runs/43492806999)
+успешен для commitdc74372: переводы, JVM, debug APK/androidTest compilation,
+debug lint и buildSrc. [Свидетельство CI](qa/sessiondiag280/ci.json).
+
 По разрешению владельца [вопрос Fox_7 опубликован в№112](https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145999242).
 Это отдельное сообщение с вопросами; новый APK там не размещался, шапка не
 изменялась. Ответ/приёмка реального сценария D-004 ещё ожидаются.
+[Повторное чтение после публикации](qa/forum-fox7-2026-11-13/followup-read-2026-11-14.json)
+не обнаружило нового ответа Fox_7; вопрос№112 оставался последним сообщением.
