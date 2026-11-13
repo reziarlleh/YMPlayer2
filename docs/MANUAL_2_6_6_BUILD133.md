@@ -30,3 +30,7 @@ JVM168/168, lint0/82. Отдельное старое несоответстви
 На API36 уже установленный133 прошёл2 cold/2 warm запуска, foreground/crash
 и SHA; это startup-only повтор после помехи com.android.systemui в первом AVD,
 а не второй тест обновления. Физическая проверка владельцем не подменяется AVD.
+
+Исходники продукта — [d4290de](https://github.com/reziarlleh/YMPlayer2/commit/d4290de81dee74c7573b286d0e41875d0a9c4364),
+[CI43347531960 success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43347531960).
+Код и отчёты в main, APK остаётся локальным. Последующие изменения только документационные.

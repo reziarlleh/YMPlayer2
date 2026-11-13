@@ -123,3 +123,11 @@ boot с3GB прошли2 cold/2 warm запуска уже установлен�
 касаются только двух тестов и документации. Физические устройства не использованы.
 Полудневный личный сценарий и смахивание именно на lock screen Xiaomi остаются
 владельческой проверкой; переданная Stop-команда и её обработчик проверены локально.
+
+Исходники и отчёты отправлены в main:
+[d4290de](https://github.com/reziarlleh/YMPlayer2/commit/d4290de81dee74c7573b286d0e41875d0a9c4364).
+[GitHub CI43347531960](https://github.com/reziarlleh/YMPlayer2/actions/runs/43347531960)
+завершился success: переводы, JVM/app unit, debug/test APK, lint и контракт ART.
+[Сверка GitHub/документов](qa/wave-dismiss266/documentation-github.json) без ошибок;
+[живые manifest/stable на13 ноября](qa/wave-dismiss266/live-feeds.json) сохраняют132
+на GitHub/jsDelivr/gcore. Это публикация кода, не APK Release/новый auto-update.

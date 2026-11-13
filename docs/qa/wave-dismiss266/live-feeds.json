@@ -1,0 +1,40 @@
+[
+  {
+    "version": "2.6.6-build132",
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "checkedAtUtc": "2026-11-13T01:50:04.2099266Z",
+    "minSdk": 28,
+    "code": 132
+  },
+  {
+    "version": "2.6.6-build132",
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-11-13T01:50:04.896712Z",
+    "minSdk": 28,
+    "code": 132
+  },
+  {
+    "minSdk": 28,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "apkSha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+    "checkedAtUtc": "2026-11-13T01:50:51.1073449Z",
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json"
+  },
+  {
+    "minSdk": 28,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "apkSha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+    "checkedAtUtc": "2026-11-13T01:50:51.3772953Z",
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json"
+  },
+  {
+    "minSdk": 28,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "apkSha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+    "checkedAtUtc": "2026-11-13T01:50:51.7788562Z",
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json"
+  }
+]
