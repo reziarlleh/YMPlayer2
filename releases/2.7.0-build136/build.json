@@ -9,5 +9,6 @@
   "sha256": "1423fd38339843cd7cd4610ffec925cb4dad042746c6946ca4970e2e0b3d1702",
   "channel": "stable",
   "ownerAcceptance": "pending",
-  "publication": "not-published"
+  "publication": "not-published",
+  "productSourceCommit": "78a719d255c756e37b31b0458b1ade86a29dbf74"
 }

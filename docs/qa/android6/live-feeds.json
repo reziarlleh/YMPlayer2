@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "http": 200,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "minSdk": 28,
+    "checkedUtc": "2026-11-13T08:06:02.8545089Z"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "http": 200,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "minSdk": 28,
+    "checkedUtc": "2026-11-13T08:06:02.8545022Z"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+    "http": 200,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "minSdk": 28,
+    "checkedUtc": "2026-11-13T08:06:02.9257803Z"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "http": 200,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "minSdk": 28,
+    "checkedUtc": "2026-11-13T08:06:03.1653498Z"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "http": 200,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "minSdk": 28,
+    "checkedUtc": "2026-11-13T08:06:03.2902775Z"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "http": 200,
+    "version": "2.6.6-build132",
+    "code": 132,
+    "minSdk": 28,
+    "checkedUtc": "2026-11-13T08:06:03.4683533Z"
+  }
+]

@@ -82,5 +82,6 @@
       "privateMarkerRetained": true,
       "privateMarkerSha256": "d9f41c5187c8872de27f54210b3fb600b445c8262bf04653634e51c7c99ee790"
     }
-  ]
+  ],
+  "productSourceCommit": "78a719d255c756e37b31b0458b1ade86a29dbf74"
 }

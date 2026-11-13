@@ -1,7 +1,9 @@
 # YMPlayer2 2.7.0-build136 — ручной кандидат Android6+
 
-13 ноября2026. Подписанный универсальный APK и native-матрица готовы;
-завершается сверка GitHub/CI. Это не объявление принятого/опубликованного релиза.
+13 ноября2026. Подписанный универсальный APK, native-матрица и сверка
+документации/GitHub готовы. Код main78a719d;
+[CI43390217554 success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43390217554).
+Это не объявление принятого/опубликованного релиза.
 
 - Файл: `releases/2.7.0-build136/YMPlayer-2.7.0-build136.apk`.
 - ApplicationId: `dev.petrov.ymplayer2`, versionCode136, minSDK23, targetSDK36.

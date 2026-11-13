@@ -38,9 +38,9 @@
 
 ## Текущий цикл2.7.0 — Android6+
 
-13 ноября2026: baseVersion2.7.0; подписаны134 и **2.7.0-build136**,
-releaseState=development, channel/updateChannel=stable.134 — локальный
-предшественник для проверки upgrade на23,135 — ручной кандидат. Номера выделены
+13 ноября2026: baseVersion2.7.0; подписаны134/135 и итоговый **2.7.0-build136**,
+releaseState=development, channel/updateChannel=stable.134/135 — внутренние
+предшественники для проверки upgrade на23. Номера выделены
 Build-Release.ps1 и не переиспользованы. Старый stable132/min28 сохранён;
 нового публичного релиза/auto-update пока нет. [План](PLAN_2_7_0.md),
 [кандидат](MANUAL_2_7_0_BUILD136.md), [полное описание](RELEASE_2_7_0_NOTES.md).
