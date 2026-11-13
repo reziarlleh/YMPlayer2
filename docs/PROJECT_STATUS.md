@@ -8,6 +8,8 @@
 23/35/TV28, усилена защита от двойного сохранения; signed upgrade и release UI пройдены.
 [Подробный отчёт](USER_PROFILES_2_8_0_VERIFICATION.md). Приёмка владельцем
 и публикация139 ещё не выполнялись; обычный стабильный канал остаётся137.
+[GitHub CI исходников139](https://github.com/reziarlleh/YMPlayer2/actions/runs/43453521611)
+завершён успешно, commit8dd3ca4; локальный APK не публиковался.
 
 13 ноября2026 владелец принял **2.7.0-build137** и поручил GitHub→пост4PDA→шапку.
 [Обычный стабильный релиз](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.7.0-build137)

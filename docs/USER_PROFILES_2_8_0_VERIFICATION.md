@@ -56,6 +56,7 @@ AccountAuth в продукте получает динамический спи
 | Native Android TV28, база138 |16/16|CRUD через UI, DPAD, внешний вид, масштаб, сохранённые сессии |
 | Release lint + core lint, база138 |0 errors,132 warnings;0NewApi/0LintError|В выводе SARIF известная ошибка quick-fix Typos для старого испанского album-шаблона; анализ/отчёт завершены |
 | Каталог переводов |751 строка,8 полных языков|12 новых контекстных текстов, переменные и сгенерированные файлы сверены |
+| GitHub CI исходников139 |[43453521611 — success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43453521611)|commit8dd3ca4: переводы, JVM, debug APK/androidTest compilation, debug lint, buildSrc; [свидетельство](qa/profiles280/ci.json) |
 | Signed137→138 на23/35 |UID/firstInstallTime/приватный marker/выбранный ID сохранены|Мигрированы3 ID, настоящий APK открыт и остался на экране, нового Java-crash нет |
 | R8 release UI138 и139 на23/35 |Создание→выбор на паузе→удаление через экран прошло|SDK input/uiautomator, исходные пользователи сохранены; без instrumentation внутри release-пакета |
 
