@@ -5,6 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Process
+import android.app.NotificationManager
+import androidx.core.app.NotificationCompat
+import androidx.media3.session.MediaBrowser
+import androidx.media3.session.SessionToken
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -22,6 +26,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.TimeUnit
 
 /** Two processes: fixtures seed real storage, then the unmodified Application/Activity/service restore it. */
 @RunWith(AndroidJUnit4::class)
@@ -36,9 +41,14 @@ class WaveProductionProcessRestoreTest {
         return result.get()
     }
     private fun waitFor(label: String, condition: () -> Boolean) {
-        val until = System.currentTimeMillis() + 30_000
-        while (!condition() && System.currentTimeMillis() < until) Thread.sleep(40)
-        assertTrue(label, condition())
+        val until = android.os.SystemClock.elapsedRealtime() + 30_000
+        do {
+            // Read one coherent main-thread state; a second off-thread read could
+            // fail after observing success while the rolling window is replenished.
+            if (main(condition)) return
+            Thread.sleep(40)
+        } while (android.os.SystemClock.elapsedRealtime() < until)
+        fail(label)
     }
 
     @Test fun pausedWaveThroughActualProcessAndForeground() {
@@ -116,6 +126,8 @@ class WaveProductionProcessRestoreTest {
         val id = expected.getString("current")
         var position = expected.getInt("position")
         val ids = expected.getJSONArray("ids").let { list -> (0 until list.length()).map(list::getString) }
+        val notificationAction = InstrumentationRegistry.getArguments().getString("waveNotificationAction") ?: "none"
+        require(notificationAction in setOf("none", "dismiss", "controllerStop", "tvStop"))
         val trace = JSONArray()
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         main { scope.launch { app.playback.state.collect { state ->
@@ -152,10 +164,52 @@ class WaveProductionProcessRestoreTest {
                 unchanged(); activity!!.moveTaskToBack(true)
             }
             Thread.sleep(2_000)
+            if (notificationAction != "none") {
+                val notifications = context.getSystemService(NotificationManager::class.java)
+                waitFor("Paused media card") { notifications.activeNotifications.any { it.id == 1001 } }
+                val card = notifications.activeNotifications.single { it.id == 1001 }.notification
+                when (notificationAction) {
+                    "dismiss" -> { assertNotNull(card.deleteIntent); card.deleteIntent.send() }
+                    "tvStop" -> {
+                        val stop = NotificationCompat.TvExtender(card).deleteIntent
+                        assertNotNull(stop); stop!!.send()
+                    }
+                    "controllerStop" -> {
+                        val browser = MediaBrowser.Builder(context, SessionToken(context,
+                            android.content.ComponentName(context, dev.petrov.ymplayer2.playback.AudioService::class.java)))
+                            .buildAsync().get(20, TimeUnit.SECONDS)
+                        try {
+                            main { browser.stop() }
+                            waitFor("Controller stopped the engine") { !app.playback.state.value.playing &&
+                                notifications.activeNotifications.none { it.id == 1001 } }
+                        } finally { main { browser.release() } }
+                    }
+                }
+                waitFor("Dismissed/stopped media card removed") { notifications.activeNotifications.none { it.id == 1001 } }
+                main { app.playback.saveForExit() }
+                val checkpoint = JSONObject(context.getSharedPreferences("playback", 0).getString("queue:owner", "{}")!!)
+                if (notificationAction == "tvStop") {
+                    assertTrue(app.launchState.read("owner").stopped)
+                    assertEquals(0, checkpoint.getInt("position"))
+                    assertEquals(0, checkpoint.getJSONArray("ids").length())
+                } else {
+                    assertFalse("Dismissing a card/system Stop must retain a resumable pause", app.launchState.read("owner").stopped)
+                    assertEquals(id, checkpoint.optString("current"))
+                    assertEquals(position, checkpoint.getInt("position"))
+                    assertEquals(ids, checkpoint.getJSONArray("ids").let { rows -> (0 until rows.length()).map(rows::getString) })
+                }
+            }
             instrument.uiAutomation.executeShellCommand("am start -W -f 0x10020000 -n " + context.packageName +
                 "/dev.petrov.ymplayer2.MainActivity").use { java.io.FileInputStream(it.fileDescriptor).use { stream -> stream.readBytes() } }
             Thread.sleep(8_000)
-            main { unchanged() }
+            main {
+                if (notificationAction == "tvStop") {
+                    assertTrue(app.launchState.read("owner").stopped)
+                    assertFalse(app.playback.state.value.playing)
+                    assertNull(app.playback.state.value.current)
+                    assertTrue(app.playback.state.value.queue.isEmpty())
+                } else unchanged()
+            }
         } finally {
             main {
                 File(context.filesDir, "wave-process-trace.json").writeText(trace.toString(2))

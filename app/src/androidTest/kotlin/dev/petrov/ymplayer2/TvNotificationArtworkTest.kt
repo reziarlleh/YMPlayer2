@@ -1,3 +1,4 @@
+@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 package dev.petrov.ymplayer2
 
 import android.app.PendingIntent
@@ -23,12 +24,13 @@ class TvNotificationArtworkTest {
             val player = ExoPlayer.Builder(context).build()
             val open = PendingIntent.getActivity(context, 22, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
             val stop = PendingIntent.getBroadcast(context, 23, Intent("fixture-stop").setPackage(context.packageName), PendingIntent.FLAG_IMMUTABLE)
+            val dismiss = PendingIntent.getBroadcast(context, 24, Intent("fixture-dismiss").setPackage(context.packageName), PendingIntent.FLAG_IMMUTABLE)
             val session = MediaSession.Builder(context, player).setId("tv-artwork-test").setSessionActivity(open).build()
             try {
                 lateinit var late: MediaNotification.Provider.Callback
                 val base = NotificationCompat.Builder(context, "tv-artwork-fixture")
                     .setSmallIcon(android.R.drawable.ic_media_play).setContentTitle("Fixture")
-                    .setContentIntent(open).setDeleteIntent(stop)
+                    .setContentIntent(open).setDeleteIntent(dismiss)
                     .setStyle(MediaStyleNotificationHelper.MediaStyle(session)).build()
                 val delegate = object : MediaNotification.Provider {
                     override fun createNotification(mediaSession: MediaSession, preferences: ImmutableList<CommandButton>,
@@ -39,14 +41,18 @@ class TvNotificationArtworkTest {
                     override fun getNotificationChannelInfo() = MediaNotification.Provider.NotificationChannelInfo("tv-artwork-fixture", "Fixture")
                 }
                 val actions = Proxy.newProxyInstance(MediaNotification.ActionFactory::class.java.classLoader,
-                    arrayOf(MediaNotification.ActionFactory::class.java)) { _, method, _ ->
-                    check(method.name == "createMediaActionPendingIntent"); stop
+                    arrayOf(MediaNotification.ActionFactory::class.java)) { _, method, args ->
+                    check(method.name == "createCustomAction")
+                    check(args!![3] == TvMediaNotificationProvider.EXPLICIT_STOP_ACTION)
+                    NotificationCompat.Action.Builder(android.R.drawable.ic_media_pause, "Stop", stop).build()
                 } as MediaNotification.ActionFactory
                 val updates = mutableListOf<MediaNotification>()
                 val first = TvMediaNotificationProvider(context, delegate).createNotification(session, ImmutableList.of(), actions) { updates += it }
                 assertEquals(open, NotificationCompat.TvExtender(first.notification).contentIntent)
                 assertTrue(NotificationCompat.TvExtender(first.notification).isAvailableOnTv)
                 assertEquals(stop, NotificationCompat.TvExtender(first.notification).deleteIntent)
+                assertEquals(dismiss, first.notification.deleteIntent)
+                assertNotEquals(first.notification.deleteIntent, NotificationCompat.TvExtender(first.notification).deleteIntent)
                 val bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888)
                 late.onNotificationChanged(MediaNotification(1001, NotificationCompat.Builder(context, base).setLargeIcon(bitmap).build()))
                 val updated = updates.single()

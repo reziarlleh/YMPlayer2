@@ -1,0 +1,20 @@
+{
+  "jvm": {
+    "core": {
+      "tests": 164,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "buildSrc": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 82
+  }
+}

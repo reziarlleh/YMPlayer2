@@ -1,0 +1,14 @@
+{
+  "builtAtUtc": "2026-11-12T16:59:48.8453837Z",
+  "versionName": "2.6.6-build133",
+  "updateChannel": "stable",
+  "runtimeAcceptance": "pending",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionCode": 133,
+  "sha256": "03e1aeb60e8a10ab143e25a5fcb4006f656990d11d73e3b3366a90dbd37e625d",
+  "minSdk": 28,
+  "channel": "stable",
+  "sizeBytes": 7074165,
+  "signingCertificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+  "published": false
+}

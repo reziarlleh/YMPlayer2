@@ -174,6 +174,29 @@ class WaveAuditRegressionTest {
         waitFor("Back to actual previous A") { player.state.value.current?.id == first && player.state.value.playing }
     }
 
+    @Test fun systemStopRetainsPlayingWavePositionAndCompleteAudio() {
+        startFull()
+        val selected = player.state.value.current!!.id
+        val ids = player.state.value.queue.map(Track::id)
+        compose.runOnIdle { player.seek(7); h.systemPlayer.stop() }
+        compose.runOnIdle { assertEquals(Player.STATE_IDLE, raw.playbackState) }
+        assertEquals(selected, player.state.value.current?.id)
+        assertEquals(7, player.state.value.positionSeconds)
+        assertEquals(ids, player.state.value.queue.map(Track::id))
+        assertEquals(ids.toSet(), player.bufferedWaveAudioIds())
+        assertFalse(player.state.value.playing)
+        assertFalse(LaunchStateStore(h.context).read("owner").stopped)
+    }
+
+    @Test fun systemStopAfterExplicitStopCannotUndoItsMarker() {
+        startFull()
+        compose.runOnIdle { player.stop(); h.systemPlayer.stop() }
+        assertTrue(LaunchStateStore(h.context).read("owner").stopped)
+        assertTrue(player.state.value.queue.isEmpty())
+        assertTrue(player.bufferedWaveAudioIds().isEmpty())
+        assertEquals(0, player.state.value.positionSeconds)
+    }
+
     @Test fun actualMedia3NoisyReasonAfterStopPreservesStopped() {
         startFull()
         compose.runOnIdle {

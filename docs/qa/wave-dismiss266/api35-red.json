@@ -1,0 +1,12 @@
+{
+  "checkedAtUtc": "2026-11-12T16:29:53.432959+00:00",
+  "baseVersion": "2.6.6-build132",
+  "action": "actual notification.deleteIntent.send",
+  "reproduced": true,
+  "beforeQueue": 10,
+  "afterQueue": 0,
+  "beforeStopped": false,
+  "afterStopped": true,
+  "realApplicationServiceAndKeystore": true,
+  "syntheticDataOnly": true
+}

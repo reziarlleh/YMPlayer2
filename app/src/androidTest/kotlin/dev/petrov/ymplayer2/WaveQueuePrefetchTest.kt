@@ -40,7 +40,9 @@ class WaveQueuePrefetchTest {
         waitFor { player.state.value.playing && fullWindow() }
         val audio = player.state.value.queue.map { File(Uri.parse(player.resolveStream("owner", it.id)).path!!) }
         val sessions = h.waveSelections.size
-        compose.runOnIdle { h.systemPlayer.stop() }
+        // Explicit app Stop resets the wave. A generic MediaSession Stop also
+        // handles notification dismissal and is covered by the retention tests.
+        compose.runOnIdle { player.stop() }
         assertTrue(player.state.value.wave)
         assertTrue("Explicit Stop clears the wave queue", player.state.value.queue.isEmpty())
         assertNull(player.state.value.current)

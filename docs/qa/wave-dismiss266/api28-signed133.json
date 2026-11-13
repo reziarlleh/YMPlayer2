@@ -1,0 +1,47 @@
+{
+  "serial": "emulator-5560",
+  "api": 28,
+  "before": {
+    "uid": "10071",
+    "code": 132,
+    "firstInstall": "2026-10-07 10:43:05",
+    "version": "2.6.6-build132"
+  },
+  "after": {
+    "uid": "10071",
+    "code": 133,
+    "firstInstall": "2026-10-07 10:43:05",
+    "version": "2.6.6-build133"
+  },
+  "dataCleared": false,
+  "launches": [
+    {
+      "kind": "cold",
+      "pid": "4592",
+      "focus": "mCurrentFocus=Window{b774eea u0 dev.petrov.ymplayer2/dev.petrov.ymplayer2.MainActivity}",
+      "output": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=dev.petrov.ymplayer2/.MainActivity }\nStatus: ok\nActivity: dev.petrov.ymplayer2/.MainActivity\nThisTime: 2452\nTotalTime: 158908\nWaitTime: 2469\nComplete"
+    },
+    {
+      "kind": "warm",
+      "pid": "4592",
+      "focus": "mCurrentFocus=Window{b774eea u0 dev.petrov.ymplayer2/dev.petrov.ymplayer2.MainActivity}",
+      "output": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=dev.petrov.ymplayer2/.MainActivity }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nActivity: dev.petrov.ymplayer2/.MainActivity\nThisTime: 0\nTotalTime: 0\nWaitTime: 10\nComplete"
+    },
+    {
+      "kind": "cold",
+      "pid": "4676",
+      "focus": "mCurrentFocus=Window{1183eb9 u0 dev.petrov.ymplayer2/dev.petrov.ymplayer2.MainActivity}",
+      "output": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=dev.petrov.ymplayer2/.MainActivity }\nStatus: ok\nActivity: dev.petrov.ymplayer2/.MainActivity\nThisTime: 2849\nTotalTime: 2849\nWaitTime: 2935\nComplete"
+    },
+    {
+      "kind": "warm",
+      "pid": "4676",
+      "focus": "mCurrentFocus=Window{1183eb9 u0 dev.petrov.ymplayer2/dev.petrov.ymplayer2.MainActivity}",
+      "output": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=dev.petrov.ymplayer2/.MainActivity }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nActivity: dev.petrov.ymplayer2/.MainActivity\nThisTime: 0\nTotalTime: 0\nWaitTime: 3\nComplete"
+    }
+  ],
+  "delayedCrash": false,
+  "apkSha256": "03e1aeb60e8a10ab143e25a5fcb4006f656990d11d73e3b3366a90dbd37e625d",
+  "installedSha256": "03e1aeb60e8a10ab143e25a5fcb4006f656990d11d73e3b3366a90dbd37e625d",
+  "success": true
+}

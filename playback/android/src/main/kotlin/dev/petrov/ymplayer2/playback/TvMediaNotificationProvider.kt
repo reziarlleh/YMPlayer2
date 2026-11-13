@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
+import androidx.core.graphics.drawable.IconCompat
 import androidx.media3.common.Player
 import androidx.media3.session.CommandButton
 import androidx.media3.session.DefaultMediaNotificationProvider
@@ -54,11 +55,17 @@ internal fun mediaPlayerActivity(context: Context): PendingIntent {
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class TvMediaNotificationProvider(private val context: Context,
     private val delegate: MediaNotification.Provider = DefaultMediaNotificationProvider(context),
-    private val notificationCreated: (MediaSession) -> Unit = {}) : MediaNotification.Provider {
+    private val notificationCreated: (MediaSession) -> Unit = {},
+    private val explicitStop: (MediaSession) -> Unit = { it.player.stop() }) : MediaNotification.Provider {
+    internal companion object { const val EXPLICIT_STOP_ACTION = "dev.petrov.ymplayer2.EXPLICIT_NOTIFICATION_STOP" }
     override fun createNotification(mediaSession: MediaSession, mediaButtonPreferences: ImmutableList<CommandButton>,
         actionFactory: MediaNotification.ActionFactory, onNotificationChangedCallback: MediaNotification.Provider.Callback): MediaNotification {
         val open = mediaSession.sessionActivity ?: mediaPlayerActivity(context)
-        val stop = actionFactory.createMediaActionPendingIntent(mediaSession, Player.COMMAND_STOP)
+        // The Action itself is not displayed. Only its PendingIntent is used by the TV panel.
+        // A generic Player.COMMAND_STOP also means notification dismissal and must retain the queue.
+        val stop = actionFactory.createCustomAction(mediaSession,
+            IconCompat.createWithResource(context, android.R.drawable.ic_media_pause), "Stop",
+            EXPLICIT_STOP_ACTION, Bundle.EMPTY).actionIntent
         fun extend(original: MediaNotification): MediaNotification {
             val previous = NotificationCompat.TvExtender(original.notification)
             val notification = NotificationCompat.Builder(context, original.notification)
@@ -77,7 +84,9 @@ class TvMediaNotificationProvider(private val context: Context,
         notificationCreated(mediaSession)
         return notification
     }
-    override fun handleCustomCommand(session: MediaSession, action: String, extras: Bundle): Boolean =
-        delegate.handleCustomCommand(session, action, extras)
+    override fun handleCustomCommand(session: MediaSession, action: String, extras: Bundle): Boolean {
+        if (action == EXPLICIT_STOP_ACTION) { explicitStop(session); return true }
+        return delegate.handleCustomCommand(session, action, extras)
+    }
     override fun getNotificationChannelInfo(): MediaNotification.Provider.NotificationChannelInfo = delegate.notificationChannelInfo
 }

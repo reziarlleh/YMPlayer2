@@ -1,0 +1,105 @@
+{
+  "api": 36,
+  "scenarioCount": 3,
+  "syntheticDataOnly": true,
+  "actualApplicationActivityServiceAndKeystore": true,
+  "networkDisabled": true,
+  "scenarios": [
+    {
+      "action": "dismiss",
+      "phases": {
+        "seed": {
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "tests": [
+            {
+              "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+              "test": "pausedWaveThroughActualProcessAndForeground",
+              "code": 0
+            }
+          ],
+          "junitSuccess": true
+        },
+        "verify": {
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "tests": [
+            {
+              "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+              "test": "pausedWaveThroughActualProcessAndForeground",
+              "code": 0
+            }
+          ],
+          "junitSuccess": true
+        }
+      },
+      "stateTrace": "api36-dismiss-trace.json"
+    },
+    {
+      "action": "controllerStop",
+      "phases": {
+        "seed": {
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "tests": [
+            {
+              "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+              "test": "pausedWaveThroughActualProcessAndForeground",
+              "code": 0
+            }
+          ],
+          "junitSuccess": true
+        },
+        "verify": {
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "tests": [
+            {
+              "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+              "test": "pausedWaveThroughActualProcessAndForeground",
+              "code": 0
+            }
+          ],
+          "junitSuccess": true
+        }
+      },
+      "stateTrace": "api36-controllerStop-trace.json"
+    },
+    {
+      "action": "tvStop",
+      "phases": {
+        "seed": {
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "tests": [
+            {
+              "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+              "test": "pausedWaveThroughActualProcessAndForeground",
+              "code": 0
+            }
+          ],
+          "junitSuccess": true
+        },
+        "verify": {
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "tests": [
+            {
+              "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+              "test": "pausedWaveThroughActualProcessAndForeground",
+              "code": 0
+            }
+          ],
+          "junitSuccess": true
+        }
+      },
+      "stateTrace": "api36-tvStop-trace.json"
+    }
+  ]
+}

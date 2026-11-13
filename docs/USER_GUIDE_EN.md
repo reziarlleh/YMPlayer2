@@ -642,6 +642,11 @@ Disconnecting Bluetooth or headphones may pause the music. Reopening the app
 keeps that pause; press Play to continue. Stop ends playback and resets the
 position to the beginning of the track.
 
+In the **2.6.6-build133** manual candidate, dismissing the system media card
+keeps the selected track, paused position and prepared Vibe tracks. Reopening
+the app stays silent. Use Stop in the app or the TV panel to reset the Vibe.
+This fix is not yet included in the stable build132.
+
 A background service started only to provide media metadata stays silent and
 does not replace your saved playback mode. A temporary account-storage error
 does not erase the selected track or position; online playback still needs a working sign-in.

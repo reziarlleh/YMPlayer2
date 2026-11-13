@@ -7,7 +7,7 @@ enum class DiagnosticOperation { HTTP, WAVE_START, WAVE_NEXT, WAVE_DRAIN, WAVE_R
     SESSION_INTENT, SESSION_RESTORE, SESSION_RELEASE }
 enum class SessionIntent { PLAY, PAUSE, STOP }
 enum class SessionStateReason { COMMAND, CONTROLLER, SOURCE_SELECTION, LAUNCH, METADATA_ONLY, SERVICE_RELEASE, SERVICE_TASK_REMOVED,
-    AUDIO_FOCUS_LOSS, AUDIO_BECOMING_NOISY, LIST_ENDED, ACCOUNT_SIGNED_OUT }
+    AUDIO_FOCUS_LOSS, AUDIO_BECOMING_NOISY, LIST_ENDED, ACCOUNT_SIGNED_OUT, CONTROLLER_STOP, NOTIFICATION_STOP }
 enum class DiagnosticCategory { OK, NETWORK, SERVER, ACCESS, UNAVAILABLE, PROTOCOL, NO_PROGRESS, DECODER, STORAGE, APPLICATION }
 /** Only typed codes and counts: never exception messages, response bodies, account IDs or signed URLs. */
 data class OperationDiagnostic(val operation: DiagnosticOperation, val category: DiagnosticCategory = DiagnosticCategory.OK,

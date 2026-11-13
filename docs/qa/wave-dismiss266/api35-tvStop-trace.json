@@ -1,0 +1,105 @@
+[
+  {
+    "position": 0,
+    "wave": false,
+    "queue": 0,
+    "playing": false,
+    "stopped": false,
+    "auth": "LOADING"
+  },
+  {
+    "position": 0,
+    "wave": false,
+    "queue": 0,
+    "playing": false,
+    "stopped": false,
+    "auth": "LOADING"
+  },
+  {
+    "position": 0,
+    "wave": true,
+    "queue": 0,
+    "playing": false,
+    "stopped": false,
+    "auth": "LOADING"
+  },
+  {
+    "id": "yandex:4:7",
+    "position": 4,
+    "wave": true,
+    "queue": 10,
+    "playing": false,
+    "stopped": false,
+    "auth": "LOADING"
+  },
+  {
+    "id": "yandex:4:7",
+    "position": 4,
+    "wave": true,
+    "queue": 10,
+    "playing": false,
+    "stopped": false,
+    "auth": "LOADING"
+  },
+  {
+    "id": "yandex:4:7",
+    "position": 4,
+    "wave": true,
+    "queue": 10,
+    "playing": false,
+    "stopped": false,
+    "auth": "SIGNED_IN"
+  },
+  {
+    "id": "yandex:4:7",
+    "position": 4,
+    "wave": true,
+    "queue": 10,
+    "playing": false,
+    "stopped": false,
+    "auth": "SIGNED_IN"
+  },
+  {
+    "id": "yandex:4:7",
+    "position": 4,
+    "wave": true,
+    "queue": 10,
+    "playing": true,
+    "stopped": false,
+    "auth": "SIGNED_IN"
+  },
+  {
+    "id": "yandex:4:7",
+    "position": 5,
+    "wave": true,
+    "queue": 10,
+    "playing": true,
+    "stopped": false,
+    "auth": "SIGNED_IN"
+  },
+  {
+    "id": "yandex:4:7",
+    "position": 5,
+    "wave": true,
+    "queue": 10,
+    "playing": false,
+    "stopped": false,
+    "auth": "SIGNED_IN"
+  },
+  {
+    "position": 0,
+    "wave": true,
+    "queue": 0,
+    "playing": false,
+    "stopped": true,
+    "auth": "SIGNED_IN"
+  },
+  {
+    "position": 0,
+    "wave": true,
+    "queue": 0,
+    "playing": false,
+    "stopped": true,
+    "auth": "SIGNED_IN"
+  }
+]

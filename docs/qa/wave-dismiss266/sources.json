@@ -1,0 +1,21 @@
+{
+  "capturedAtUtc": "2026-11-12T17:15:43.951966+00:00",
+  "baseCommit": "f3144ac606d7c7dec8b237e891dc55f873bf6342",
+  "sha256": {
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/OperationDiagnostic.kt": "3ce5a99a338e5d1549be7e8236f7c4ae4d4eadcdd24d5f34922c34cd4a33a4cc",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt": "771f449be1d8485cf1556db8c87493e6095d180b030cf6fdfb81cf665fb46b69",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt": "b1ff009a581ea83749e1a90d51e746570ddb30b2c7c93969603f1991f01f27c1",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/TvMediaNotificationProvider.kt": "8529d731a2f81b24c3edde2a756a2a12f9d706525067c281fe99d867a3b7bd0c",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/TvNotificationArtworkTest.kt": "1fd711fc6ac35e3d599162045e7719cf1c932aa72cdadc707cf2a7829f4cb0fa",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveAuditRegressionTest.kt": "c2c3e8caa94b43f12d34ddb81bc694d3c1a1048b8e40aba319ecb41963c23012",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveProductionProcessRestoreTest.kt": "147a8413747ddf072872f2bf6eb4e84e315bd432e5928f02abed742797aa0705",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/WaveQueuePrefetchTest.kt": "aa488e688e3bc76910e86297fe8c42b3497404b15c5f1b9ac77b197e85ee9b66",
+    "app/src/androidTest/kotlin/dev/petrov/ymplayer2/SystemBrowserTest.kt": "6fa14a72dca6eef568305fadd7c875089d2af61129bb9a11afb23ac072964154"
+  },
+  "fixedDebugApkSha256": "af339649ec13c808a39626430e78493476867f68ebc744dce177c0beb8ddf8fb",
+  "processAndBroadTestApkSha256": "7ebd6dad5a0ce8174966fa8f72f3b67990fe7e63b313547052dfb9f69d0c6705",
+  "targetedTestApkSha256": "61e83502f966a57d1c04edbd77a64da54d141ce2727c32bc530ad615166d9c5e",
+  "targetedDebugApkSha256": "af339649ec13c808a39626430e78493476867f68ebc744dce177c0beb8ddf8fb",
+  "baselineDebugApkSha256": "ffc437eeec0df29bf4946332460d48b857ba6c845e30b0e20832040d94c8b056",
+  "baselineProductSource": "HEAD f3144ac before notification Stop fix; temporary source files restored byte for byte"
+}

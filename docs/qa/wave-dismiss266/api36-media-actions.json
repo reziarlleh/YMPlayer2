@@ -1,0 +1,68 @@
+{
+  "passed": 10,
+  "failed": 1,
+  "skipped": 1,
+  "tests": [
+    {
+      "class": "dev.petrov.ymplayer2.TvNotificationArtworkTest",
+      "test": "deferredArtworkPreservesTvActionsMediaTokenAndGenericActions",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+      "test": "androidTvHomeOpenAndStopButtonsControlMusic",
+      "code": -4
+    },
+    {
+      "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+      "test": "tvOpenPreservesLibraryWhileRadioPlaysAndStopCancelsOnAirPolling",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+      "test": "tvOpenPreservesLibraryAndStopDoesNotRepostOrAutoplay",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+      "test": "myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.SystemBrowserTest",
+      "test": "mediaButtonRestartsStoppedServiceAndResumesSavedLocalTrack",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.SystemBrowserTest",
+      "test": "tvCardHasExplicitOpenAndStopIntents",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.SystemBrowserTest",
+      "test": "selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue",
+      "code": -2
+    },
+    {
+      "class": "dev.petrov.ymplayer2.SystemBrowserTest",
+      "test": "platformBrowserCanBrowseSameRootWithoutStartingPlayback",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.SystemBrowserTest",
+      "test": "tvDismissalStopsRadioAndDoesNotRestartItsRetryOrOnAirPolling",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.SystemBrowserTest",
+      "test": "notificationDismissalStopsPlaybackRemovesCardAndAllowsNextPlay",
+      "code": 0
+    },
+    {
+      "class": "dev.petrov.ymplayer2.SystemBrowserTest",
+      "test": "media3BrowserPublishesOnlyLegacySourcesAndRejectsInjectedMedia",
+      "code": 0
+    }
+  ],
+  "junitSuccess": false
+}

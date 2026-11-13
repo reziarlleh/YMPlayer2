@@ -1,0 +1,41 @@
+{
+  "version": "2.6.6-build132",
+  "androidApi": 36,
+  "timestampsAsSuppliedByOwner": true,
+  "timeZoneNotIncludedInExcerpt": true,
+  "pause": {
+    "at": "2026-11-12 17:41:10.261",
+    "intent": "PAUSE",
+    "reason": "AUDIO_BECOMING_NOISY",
+    "positionSeconds": 117,
+    "engineState": 3
+  },
+  "stop": {
+    "at": "2026-11-12 17:45:49.416",
+    "intent": "STOP",
+    "reason": "CONTROLLER",
+    "positionSeconds": 117,
+    "engineState": 3
+  },
+  "release": {
+    "at": "2026-11-12 17:47:41.485",
+    "intent": "STOP",
+    "reason": "SERVICE_RELEASE",
+    "positionSeconds": 0,
+    "engineState": 1
+  },
+  "restore": {
+    "at": "2026-11-12 21:10:53.074",
+    "intent": "STOP",
+    "reason": "METADATA_ONLY",
+    "positionSeconds": 0,
+    "engineState": 1
+  },
+  "pauseToStopSeconds": 279.155,
+  "stopToReleaseSeconds": 112.069,
+  "ownerReportsSwipingLockScreenMediaCard": true,
+  "controllerSenderIdentityNotRecorded": true,
+  "historicalJavaCrashVersion": "2.6.2-build116",
+  "historicalJavaCrashIsSeparate": true,
+  "fullUserDiagnosticNotPublished": true
+}

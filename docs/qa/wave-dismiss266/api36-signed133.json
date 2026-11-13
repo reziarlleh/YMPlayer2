@@ -1,0 +1,48 @@
+{
+  "serial": "emulator-5564",
+  "api": 36,
+  "before": {
+    "firstInstall": "2026-11-12 17:04:23",
+    "version": "2.6.6-build133",
+    "uid": "",
+    "code": 133
+  },
+  "after": {
+    "firstInstall": "2026-11-12 17:04:23",
+    "version": "2.6.6-build133",
+    "uid": "",
+    "code": 133
+  },
+  "startupOnly": true,
+  "dataCleared": false,
+  "launches": [
+    {
+      "output": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=dev.petrov.ymplayer2/.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: dev.petrov.ymplayer2/.MainActivity\nTotalTime: 1306\nWaitTime: 1308\nComplete",
+      "pid": "3118",
+      "kind": "cold",
+      "focus": "mCurrentFocus=Window{d71c659 u0 dev.petrov.ymplayer2/dev.petrov.ymplayer2.MainActivity}"
+    },
+    {
+      "output": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=dev.petrov.ymplayer2/.MainActivity }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nLaunchState: UNKNOWN (0)\nActivity: dev.petrov.ymplayer2/.MainActivity\nTotalTime: 0\nWaitTime: 24\nComplete",
+      "pid": "3118",
+      "kind": "warm",
+      "focus": "mCurrentFocus=Window{d71c659 u0 dev.petrov.ymplayer2/dev.petrov.ymplayer2.MainActivity}"
+    },
+    {
+      "output": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=dev.petrov.ymplayer2/.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: dev.petrov.ymplayer2/.MainActivity\nTotalTime: 1637\nWaitTime: 1666\nComplete",
+      "pid": "3192",
+      "kind": "cold",
+      "focus": "mCurrentFocus=Window{d3c0e0 u0 dev.petrov.ymplayer2/dev.petrov.ymplayer2.MainActivity}"
+    },
+    {
+      "output": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=dev.petrov.ymplayer2/.MainActivity }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nLaunchState: UNKNOWN (0)\nActivity: dev.petrov.ymplayer2/.MainActivity\nTotalTime: 0\nWaitTime: 8\nComplete",
+      "pid": "3192",
+      "kind": "warm",
+      "focus": "mCurrentFocus=Window{d3c0e0 u0 dev.petrov.ymplayer2/dev.petrov.ymplayer2.MainActivity}"
+    }
+  ],
+  "delayedCrash": false,
+  "apkSha256": "03e1aeb60e8a10ab143e25a5fcb4006f656990d11d73e3b3366a90dbd37e625d",
+  "installedSha256": "03e1aeb60e8a10ab143e25a5fcb4006f656990d11d73e3b3366a90dbd37e625d",
+  "success": true
+}

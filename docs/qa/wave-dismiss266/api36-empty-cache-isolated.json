@@ -1,0 +1,13 @@
+{
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "tests": [
+    {
+      "class": "dev.petrov.ymplayer2.SystemBrowserTest",
+      "test": "selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue",
+      "code": -2
+    }
+  ],
+  "junitSuccess": false
+}

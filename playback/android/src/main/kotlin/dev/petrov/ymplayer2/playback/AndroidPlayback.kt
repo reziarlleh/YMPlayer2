@@ -721,7 +721,18 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         else command(playing = true) { playSession() }
     }
     override fun stop() = stopSession(SessionStateReason.COMMAND)
-    internal fun sessionStop() = stopSession(SessionStateReason.CONTROLLER)
+    /** Player.stop releases playback resources, not the playlist or its selected position.
+     * Notification dismissal uses this same command; it must never erase a paused wave. */
+    internal fun sessionStop() = command(playing = false, stopped = launchState.read(state.value.profileId).stopped,
+        intentReason = SessionStateReason.CONTROLLER_STOP) {
+        val player = engine ?: return@command
+        publish()
+        cancelWaveWork(discardAudio = false)
+        player.pause(); player.stop()
+        publish(); checkpoint()
+    }
+    /** Our TV panel's explicit Stop button has the same reset semantics as the app's button. */
+    internal fun notificationStop() = stopSession(SessionStateReason.NOTIFICATION_STOP)
     private fun stopSession(reason: SessionStateReason) = command(playing = false, stopped = true, intentReason = reason) {
         val player = engine ?: return@command
         player.pause()

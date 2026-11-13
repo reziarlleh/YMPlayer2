@@ -36,7 +36,9 @@ class AudioService : MediaLibraryService() {
         super.onCreate()
         // STOP leaves a resumable checkpoint, not an active TV notification card.
         setShowNotificationForIdlePlayer(SHOW_NOTIFICATION_FOR_IDLE_PLAYER_NEVER)
-        setMediaNotificationProvider(TvMediaNotificationProvider(this, notificationCreated = { current ->
+        setMediaNotificationProvider(TvMediaNotificationProvider(this, explicitStop = {
+            if (playback.radioMode) host.radio?.stop() else playback.notificationStop()
+        }, notificationCreated = { current ->
             if (android.os.Build.VERSION.SDK_INT >= 34 && !activityRepublished) {
                 activityRepublished = true
                 // Media3 queues the actual notification write after createNotification returns.
