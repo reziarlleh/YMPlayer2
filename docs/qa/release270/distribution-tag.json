@@ -1,0 +1,11 @@
+{
+  "tag": "apk-2.7.0-build137",
+  "sourceTag": "v2.7.0-build137",
+  "sourceCommit": "abd647e1a2b373ebdc092719f4e6eecd303fa6e1",
+  "treeBytes": 4679651,
+  "apkSha256": "6629c31ef15fc500eb0f158bd140c0607975b060681f116003f6896463854807",
+  "reused": false,
+  "pushed": false,
+  "commit": "e5997a4e2f57d3716f0fb0826451b34d2b6ca5f1",
+  "tree": "42176aa734ffc7884d66f6ec7f0d3d2c79c0ba5a"
+}

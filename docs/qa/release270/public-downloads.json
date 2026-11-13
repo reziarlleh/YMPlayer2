@@ -1,0 +1,48 @@
+{
+  "checkedAtUtc": "2026-11-13T10:08:54.286500+00:00",
+  "version": "2.7.0-build137",
+  "downloads": [
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.7.0-build137/YMPlayer-2.7.0-build137.apk",
+      "status": 200,
+      "bytes": 4664183,
+      "sha256": "6629c31ef15fc500eb0f158bd140c0607975b060681f116003f6896463854807",
+      "identical": true
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.7.0-build137/build.json",
+      "status": 200,
+      "bytes": 508,
+      "sha256": "fb96e12b12b27726104facc45eb55a5acc78b6392f5efc6c25dd30ad8c388b73",
+      "identical": true
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.7.0-build137/SHA256.txt",
+      "status": 200,
+      "bytes": 95,
+      "sha256": "bd32b3fa271bce3b7d0625feffcea520c7d161ec623ebfce1014badd51cdfa8f",
+      "identical": true
+    },
+    {
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.7.0-build137/signature.txt",
+      "status": 200,
+      "bytes": 14227,
+      "sha256": "88c4dc7ef3bfbac256f1722f9cffbdc6af6b7650a337b620734116b09838eb68",
+      "identical": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.7.0-build137/releases/2.7.0-build137/YMPlayer-2.7.0-build137.apk",
+      "status": 200,
+      "bytes": 4664183,
+      "sha256": "6629c31ef15fc500eb0f158bd140c0607975b060681f116003f6896463854807",
+      "identical": true
+    },
+    {
+      "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.7.0-build137/releases/2.7.0-build137/YMPlayer-2.7.0-build137.apk",
+      "status": 200,
+      "bytes": 4664183,
+      "sha256": "6629c31ef15fc500eb0f158bd140c0607975b060681f116003f6896463854807",
+      "identical": true
+    }
+  ]
+}

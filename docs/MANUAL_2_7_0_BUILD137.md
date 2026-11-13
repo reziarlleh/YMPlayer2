@@ -1,9 +1,10 @@
-# YMPlayer2 2.7.0-build137 — ручной кандидат
+# YMPlayer2 2.7.0-build137 — подписанный APK
 
 13 ноября2026. Подписанный универсальный APK содержит весь цикл Android6+
 и исправление возврата к Моей волне после другого источника (B-048).
 Код main a2afe1c, [CI43401951128 success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43401951128).
-Документы/GitHub/6 живых feed сверены; приёмка владельцем137 и публикация пока не заявляются.
+Владелец принял137 и поручил обычную публикацию13 ноября. Продвинут тот же
+проверенный файл без пересборки; [выпуск и доставка](RELEASE_2_7_0_VERIFICATION.md).
 
 - Файл: `releases/2.7.0-build137/YMPlayer-2.7.0-build137.apk`,4 664 183 байта.
 - Пакет `dev.petrov.ymplayer2`, versionCode137, minSDK23, targetSDK36.
@@ -27,5 +28,6 @@ firstInstallTime и приватный контрольный файл; запу
 на8+ — разрешение источнику APK. Подтверждение установки остаётся у Android.
 Физические устройства/персональный аккаунт этим прогоном не проверялись.
 
-Stable/Latest/auto-update остаются **2.6.6-build132**, min28.
-Release/4PDA/автообновление137 этим поручением не публикуются.
+Stable/Latest/оба update feed — **2.7.0-build137**, min23.
+[GitHub Release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.7.0-build137).
+4PDA обновляется отдельным этапом после проверки доставки GitHub/зеркал.

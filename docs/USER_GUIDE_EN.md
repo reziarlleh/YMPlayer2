@@ -1,8 +1,8 @@
 # YMPlayer2 — user guide
 
 This guide covers **2.7.0-build137**, which supports Android6 and later.
-The published stable release, **2.6.6-build132**, still requires Android9 or later.
-Android6 support is available in the [manual candidate](MANUAL_2_7_0_BUILD137.md).
+The published stable release is **2.7.0-build137**, for Android6 and later.
+[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.7.0-build137) · [Signing and verification](MANUAL_2_7_0_BUILD137.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.

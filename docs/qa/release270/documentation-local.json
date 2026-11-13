@@ -1,0 +1,15 @@
+{
+  "version": "2.7.0-build137",
+  "manualBeta": false,
+  "development": false,
+  "stableVersion": "2.7.0-build137",
+  "localFeeds": {
+    "manifest": "2.7.0-build137",
+    "stable": "2.7.0-build137"
+  },
+  "documents": 285,
+  "localLinks": 2916,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}
