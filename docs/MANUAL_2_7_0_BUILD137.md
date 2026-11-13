@@ -30,4 +30,5 @@ firstInstallTime и приватный контрольный файл; запу
 
 Stable/Latest/оба update feed — **2.7.0-build137**, min23.
 [GitHub Release](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.7.0-build137).
-4PDA обновляется отдельным этапом после проверки доставки GitHub/зеркал.
+[Сообщение4PDA№109 и шапка](FORUM_RELEASE_2_7_0_2026_11_13.md) опубликованы
+после проверки GitHub/зеркал. Оба форумных APK полностью сверены с оригиналом.

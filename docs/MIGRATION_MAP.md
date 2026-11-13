@@ -7,13 +7,14 @@
 настройки остаются сбросом. Новых модулей/сервисов/переводов не требуется.
 [Native red/green и ограничения](WAVE_SOURCE_RETURN_2_7_0_VERIFICATION.md).
 
-13 ноября, активный [цикл2.7.0/Android6+](PLAN_2_7_0.md): все11 Android-модулей
+13 ноября, завершённый [цикл2.7.0/Android6+](PLAN_2_7_0.md): все11 Android-модулей
 продукта min23, Java/NIO desugaring, совместимые язык/сеть/службы/updater/
 MediaExtractor/обложки. Core сохраняет чистый JVM и получает standalone lint;
 ExportFileName обходится без String.codePoints. LegacyTls на23 и штатный
 Network Security Config на24+ добавляют официальные ISRG CA. Границы модулей, пакет/ключ/профили и
 исправление Stop133 сохранены. [Реальные результаты и остаток](ANDROID6_2_7_0_VERIFICATION.md).
-Stable132/min28 пока не меняется; новых продуктовых модулей и OEM-функций нет.
+Опубликован Stable137/min23,4PDA№109 и шапка с группами9+/10+; новых продуктовых
+модулей и OEM-функций нет. [Проверка доставки](RELEASE_2_7_0_VERIFICATION.md).
 
 12 ноября после выпуска132 B-047 открыт повторно. Лог и штатный deleteIntent
 выявили сброс окна через sessionStop. AndroidPlayback теперь сохраняет сеанс

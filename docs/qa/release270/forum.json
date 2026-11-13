@@ -1,0 +1,119 @@
+{
+  "checkedAtUtc": "2026-11-13T10:30:57.652882+00:00",
+  "actor": "reziarlleh",
+  "topic": "https://4pda.to/forum/index.php?showtopic=1127108",
+  "postUrl": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145991001",
+  "postId": "145991001",
+  "postNumber": 109,
+  "version": "2.7.0-build137",
+  "headerVersion": "2.7.0",
+  "headerDate": "13.11.2026",
+  "requiresAndroid": "6.0+",
+  "changesUnderSpoiler": true,
+  "type": "Новая версия",
+  "newPostCount": 1,
+  "header": {
+    "baseSha256": "295a915d371e7b9c74de853497e3fceda7a8fb3b8666c23f2dfe5cc2a6a03ae5",
+    "afterSha256": "981a3679f418c3234d40faa6a9346eb148cf4ed37c7fe92d4882debdbdc48c23",
+    "preservedOriginalFiles": 10,
+    "replacedHeaderCopy": "36530333",
+    "retainedPost132Copy": "36530317",
+    "newAttachment": "36539381",
+    "ninePlusList": 13,
+    "tenPlusList": 2,
+    "tenPlusLegacyBlocks": [
+      "2.1.0-build64",
+      "2.0.2-build62",
+      "1.1.0-build114"
+    ],
+    "screenshotsPreserved": true,
+    "authorProsePreserved": true,
+    "initialBaseSha256": "80ba2b25fdd3f254e7abb02617effcdaf628e349f62205bdf703548a2d6aacdb",
+    "rebasedAfterAutomaticReleaseUpdate": true
+  },
+  "attachments": [
+    {
+      "id": "36253064",
+      "name": "YMPlayer-2.1.0-build64.apk",
+      "bytes": 4870013
+    },
+    {
+      "id": "36253082",
+      "name": "YMPlayer-2.0.2-build62.apk",
+      "bytes": 4833622
+    },
+    {
+      "id": "36253083",
+      "name": "YMPlayer-v1.1.0-release-b114.apk",
+      "bytes": 15322030
+    },
+    {
+      "id": "36420773",
+      "name": "phone-player.png",
+      "bytes": 187743
+    },
+    {
+      "id": "36420774",
+      "name": "phone-library.png",
+      "bytes": 144547
+    },
+    {
+      "id": "36420775",
+      "name": "phone-radio.png",
+      "bytes": 125356
+    },
+    {
+      "id": "36420776",
+      "name": "phone-skins.png",
+      "bytes": 91921
+    },
+    {
+      "id": "36420777",
+      "name": "tv-radio.png",
+      "bytes": 123713
+    },
+    {
+      "id": "36420778",
+      "name": "tv-skins.png",
+      "bytes": 56766
+    },
+    {
+      "id": "36421039",
+      "name": "ymplayer2-icon.png",
+      "bytes": 4862
+    },
+    {
+      "id": "36539381",
+      "name": "YMPlayer-2.7.0-build137.apk",
+      "bytes": 4664183
+    }
+  ],
+  "downloads": [
+    {
+      "id": "36539326",
+      "version": "2.7.0-build137",
+      "bytes": 4664183,
+      "sha256": "6629c31ef15fc500eb0f158bd140c0607975b060681f116003f6896463854807",
+      "identical": true,
+      "url": "https://4pda.to/forum/dl/post/36539326/YMPlayer-2.7.0-build137.apk"
+    },
+    {
+      "id": "36539381",
+      "version": "2.7.0-build137",
+      "bytes": 4664183,
+      "sha256": "6629c31ef15fc500eb0f158bd140c0607975b060681f116003f6896463854807",
+      "identical": true,
+      "url": "https://4pda.to/forum/dl/post/36539381/YMPlayer-2.7.0-build137.apk"
+    },
+    {
+      "id": "36530317",
+      "version": "2.6.6-build132",
+      "bytes": 7074165,
+      "sha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab",
+      "identical": true,
+      "url": "https://4pda.to/forum/dl/post/36530317/YMPlayer-2.6.6-build132.apk"
+    }
+  ],
+  "canonicalOldApkRetained": true,
+  "privateCredentialsOrFormsIncluded": false
+}

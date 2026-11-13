@@ -5,7 +5,8 @@
   "treeBytes": 4679651,
   "apkSha256": "6629c31ef15fc500eb0f158bd140c0607975b060681f116003f6896463854807",
   "reused": false,
-  "pushed": false,
+  "pushed": true,
   "commit": "e5997a4e2f57d3716f0fb0826451b34d2b6ca5f1",
-  "tree": "42176aa734ffc7884d66f6ec7f0d3d2c79c0ba5a"
+  "tree": "42176aa734ffc7884d66f6ec7f0d3d2c79c0ba5a",
+  "remoteCheckedAtUtc": "2026-11-13T10:32:37.524718+00:00"
 }

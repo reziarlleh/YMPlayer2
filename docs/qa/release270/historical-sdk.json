@@ -1,0 +1,109 @@
+[
+  {
+    "version": "2.0.2-build62",
+    "minSdk": 29,
+    "versionCode": 62,
+    "sha256": "5e388c307f975f170fa37d264c8af915511f73fccb9259d907bdf9022b95a58f"
+  },
+  {
+    "version": "2.1.0-build64",
+    "minSdk": 29,
+    "versionCode": 64,
+    "sha256": "dc4cd82e280074e580f89635b9026e11abf3b28f0b5777ad3fb1ade724b5f889"
+  },
+  {
+    "version": "2.3.3-build78",
+    "minSdk": 29,
+    "versionCode": 78,
+    "sha256": "d674902193e77919c916064be8e36b7537d472fc545d3ea5ceb488282a960b47"
+  },
+  {
+    "version": "2.3.4-build79",
+    "minSdk": 29,
+    "versionCode": 79,
+    "sha256": "fc7be315420d28b32a529d0995d2f80a6ed89fd7eea613527e52351042643a4f"
+  },
+  {
+    "version": "2.4.0beta-build80",
+    "minSdk": 28,
+    "versionCode": 80,
+    "sha256": "c6be99b9202c459f6fa0b6ab15526b3a42043253b7373c536394e8799aa2781c"
+  },
+  {
+    "version": "2.4.1-build84",
+    "minSdk": 28,
+    "versionCode": 84,
+    "sha256": "c4597a814aa7d850ed44a8f1186cf9004980c32806e060a710d8649ed7daefb7"
+  },
+  {
+    "version": "2.5.1-build98",
+    "minSdk": 28,
+    "versionCode": 98,
+    "sha256": "edb5ec3797f9f32c5dd248df8d264da93f2f4bcec45902a08075d27e176e6706"
+  },
+  {
+    "version": "2.5.3-build101",
+    "minSdk": 28,
+    "versionCode": 101,
+    "sha256": "daa9e371702d840cd8473020565470140895a749efe65af8401038ba19cc0790"
+  },
+  {
+    "version": "2.5.4-build102",
+    "minSdk": 28,
+    "versionCode": 102,
+    "sha256": "5de205d36f5ba1e474f49f3be0051a3e4a482c43fa2422ddd07803489f0d74e2"
+  },
+  {
+    "version": "2.5.5-build104",
+    "minSdk": 28,
+    "versionCode": 104,
+    "sha256": "7cec8e15c38c1a1ddf809d41f62b6278e3e4c17b0d601f9ba3571c1fb5e4729b"
+  },
+  {
+    "version": "2.6.0-build106",
+    "minSdk": 28,
+    "versionCode": 106,
+    "sha256": "ed60e14c677078410e2fd8300bc1cdeca033334e5ba60488afe21e516ca52e11"
+  },
+  {
+    "version": "2.6.1-build107",
+    "minSdk": 28,
+    "versionCode": 107,
+    "sha256": "512bf84647a7490eed7db15ec73a4cb2b22d794c57d713221b8692ec2f3975f5"
+  },
+  {
+    "version": "2.6.2-build117",
+    "minSdk": 28,
+    "versionCode": 117,
+    "sha256": "f9c3243d7e0559970f98858f5c9f7ca8112e898f99d7f282eeecfee78c197b86"
+  },
+  {
+    "version": "2.6.3-build119",
+    "minSdk": 28,
+    "versionCode": 119,
+    "sha256": "ca3e509aa4393771aee773c4f3979a329e3230251287be5e9d4157574b767f28"
+  },
+  {
+    "version": "2.6.4-build124",
+    "minSdk": 28,
+    "versionCode": 124,
+    "sha256": "4831bc11f1d7405bf42c29ff8c69bcd48fffc53bb71d976ed94d4886a253d6cd"
+  },
+  {
+    "version": "2.6.5-build125",
+    "minSdk": 28,
+    "versionCode": 125,
+    "sha256": "a02b7ddc9a006e8155ed8a1bf2ec470e5a035d89580568d889c2f39fd187b1f3"
+  },
+  {
+    "version": "2.6.6-build132",
+    "minSdk": 28,
+    "versionCode": 132,
+    "sha256": "d9a41597a1510c5fcad62deb944b10d3607a87afc7db15260c3137378693fcab"
+  },
+  {
+    "version": "1.1.0-build114",
+    "minSdk": 29,
+    "sha256": "861be0c968c43dfa3bb39f82322b72c0955eea8bd8d6732d4615d9d5c365d599"
+  }
+]
