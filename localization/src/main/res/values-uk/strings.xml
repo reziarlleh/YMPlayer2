@@ -745,5 +745,17 @@
     <string name="offline_verify" formatted="false">"Перевірити та відновити кеш"</string>
     <string name="offline_sync_hint" formatted="false">"Синхронізація завантажує відсутні файли. Повна перевірка повторно читає збережені аудіофайли й обкладинки, щоб знайти та виправити пошкодження."</string>
     <string name="offline_verify_start" formatted="false">"Перевіряємо офлайн-кеш…"</string>
+    <string name="profile_default_name" formatted="false">"Користувач @0@"</string>
+    <string name="profile_add" formatted="false">"Додати користувача"</string>
+    <string name="profile_name" formatted="false">"Ім’я користувача"</string>
+    <string name="profile_options" formatted="false">"Параметри користувача"</string>
+    <string name="profile_rename" formatted="false">"Перейменувати користувача"</string>
+    <string name="profile_delete" formatted="false">"Видалити користувача"</string>
+    <string name="profile_delete_title" formatted="false">"Видалити користувача «@0@»?"</string>
+    <string name="profile_delete_hint" formatted="false">"Його вхід у Яндекс, локальне вибране, плейлісти, історію та налаштування буде видалено з цього пристрою. Музичні файли й спільні папки залишаться."</string>
+    <string name="profiles_people_hint" formatted="false">"Кожен користувач має власний акаунт Яндекса, вибране й оформлення."</string>
+    <string name="profile_pause_hint" formatted="false">"Під час перемикання відновлюються черга й позиція. Відтворення залишається на паузі."</string>
+    <string name="profiles_save_failed" formatted="false">"Не вдалося зберегти зміни профілю. Спробуйте ще раз."</string>
+    <string name="profiles_read_failed" formatted="false">"Не вдалося прочитати профілі. Дані збережено. Перезапустіть застосунок."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

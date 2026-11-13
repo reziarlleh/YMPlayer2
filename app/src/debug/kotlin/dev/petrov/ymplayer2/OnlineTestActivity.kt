@@ -25,7 +25,11 @@ import kotlinx.coroutines.*
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class OnlineHarness(app: Application) : AndroidViewModel(app) {
     val internet = FixtureInternetConnection()
-    val library = (app as PlayerApplication).library
+    val library: IndexedLocalLibrary = object : IndexedLocalLibrary by (app as PlayerApplication).library {
+        // These are explicit test identities, independent of the real app's editable user list.
+        override val profiles = DemoCatalog().profiles
+        override val users: UserProfiles? = null
+    }
     private fun fixtureTracks(): List<Track> = runBlocking { library.pageTracks(CatalogFilter(), limit = 2).items }
     internal val context = object : ContextWrapper(app) {
         override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("online-fixture-$name", mode)

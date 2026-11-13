@@ -15,11 +15,14 @@ data class SkinChoice(val skin: AppSkin, val author: String, val description: St
 data class SkinState(val active: AppSkin = PrismSkin, val choices: List<SkinChoice> = emptyList(),
     val preview: SkinChoice? = null, val busy: Boolean = true, val ready: Boolean = false, val issue: String? = null)
 
-/** Owns only appearance; no playback, profile, provider or network dependencies. */
+/** Shared installed skins, with a separate active choice for each user. No player dependency. */
 class SkinRepository(context: Context, private val scope: CoroutineScope, storeName: String = "skins") {
     private val context = context.applicationContext
     private val directory = File(this.context.filesDir, storeName)
     private val prefs = this.context.getSharedPreferences(storeName, Context.MODE_PRIVATE)
+    private val profiles = this.context.getSharedPreferences("playback", Context.MODE_PRIVATE)
+    private fun profile() = profiles.getString("profile", "owner")!!
+    private fun activeKey() = "active:${profile()}"
     private val mutex = Mutex()
     private val mutable = MutableStateFlow(SkinState())
     val state: StateFlow<SkinState> = mutable.asStateFlow()
@@ -38,9 +41,9 @@ class SkinRepository(context: Context, private val scope: CoroutineScope, storeN
                 if (it.skin.id !in builtins && file.name == "${it.skin.id}.ymskin") packages[it.skin.id] = it
             }.onFailure { issue = "Один из сохранённых скинов повреждён. Его можно импортировать заново." }
         }
-        val selected = prefs.getString("active", "prism")
+        val selected = prefs.getString(activeKey(), prefs.getString("active", "prism"))
         val active = if (selected == "prism") PrismSkin else packages[selected]?.skin ?: PrismSkin.also {
-            prefs.edit().putString("active", "prism").commit()
+            prefs.edit().putString(activeKey(), "prism").commit()
             issue = "Сохранённый скин недоступен. Восстановлен «Оксид»."
         }
         mutable.value = SkinState(active, choices(), busy = false, ready = true, issue = issue)
@@ -74,12 +77,12 @@ class SkinRepository(context: Context, private val scope: CoroutineScope, storeN
             catch (e: Exception) { atomic.failWrite(stream); throw e }
             packages[data.skin.id] = data
         }
-        check(prefs.edit().putString("active", preview.skin.id).commit()) { "Не удалось сохранить выбор оформления" }
+        check(prefs.edit().putString(activeKey(), preview.skin.id).commit()) { "Не удалось сохранить выбор оформления" }
         pending = null
         mutable.value = mutable.value.copy(active = preview.skin, choices = choices(), preview = null, issue = null)
     }
     fun restore() = action {
-        check(prefs.edit().putString("active", "prism").commit()) { "Не удалось сохранить выбор оформления" }
+        check(prefs.edit().putString(activeKey(), "prism").commit()) { "Не удалось сохранить выбор оформления" }
         pending = null
         mutable.value = mutable.value.copy(active = PrismSkin, preview = null, issue = null)
     }
@@ -93,9 +96,24 @@ class SkinRepository(context: Context, private val scope: CoroutineScope, storeN
     fun report(message: String) { mutable.value = mutable.value.copy(issue = message) }
     private fun choice(data: SkinPackage, removable: Boolean) = SkinChoice(data.skin, data.author, data.description, removable)
     private fun choices() = listOf(SkinChoice(PrismSkin, "YMPlayer", "Медь, графит и тёплая бумага")) + packages.values.map { choice(it, it.skin.id !in builtins) }
-    private fun action(block: () -> Unit) = scope.launch(Dispatchers.IO) {
+    private val profileListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == "profile") scope.launch(Dispatchers.IO) {
+            initialized.join()
+            mutex.withLock {
+                pending = null
+                val selected = prefs.getString(activeKey(), prefs.getString("active", "prism"))
+                val active = if (selected == "prism") PrismSkin else packages[selected]?.skin ?: PrismSkin
+                mutable.value = state.value.copy(active = active, preview = null, busy = false, issue = null)
+            }
+        }
+    }
+    init { profiles.registerOnSharedPreferenceChangeListener(profileListener) }
+    private fun action(block: () -> Unit): Job {
+        val requestedProfile = profile()
+        return scope.launch(Dispatchers.IO) {
         initialized.join()
         mutex.withLock {
+            if (profile() != requestedProfile) return@withLock
             mutable.value = mutable.value.copy(busy = true)
             try { block() }
             catch (e: CancellationException) { throw e }
@@ -105,6 +123,7 @@ class SkinRepository(context: Context, private val scope: CoroutineScope, storeN
                     else -> "Не удалось сохранить или прочитать скин. Повторите выбор файла."
                 })
             } finally { mutable.value = mutable.value.copy(busy = false) }
+        }
         }
     }
 }

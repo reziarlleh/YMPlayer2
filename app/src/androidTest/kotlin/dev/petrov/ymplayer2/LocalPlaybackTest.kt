@@ -38,6 +38,11 @@ class LocalPlaybackTest {
     private val graph get() = compose.activity.application as PlayerApplication
     private val player get() = graph.playback
     private val library get() = graph.library
+    private lateinit var roadProfile: String
+    private lateinit var guestProfile: String
+    private fun fixtureProfile(id: String, name: String) = runBlocking {
+        library.profiles.firstOrNull { it.id == id || it.name == name } ?: graph.users.create(name)
+    }
     private fun provider(method: String, arg: String? = null) = compose.activity.contentResolver.call(android.net.Uri.parse("content://dev.petrov.ymplayer2.test.control"), method, arg, null)
     private fun waitFor(condition: () -> Boolean) = compose.waitUntil(15000, condition)
 
@@ -45,6 +50,8 @@ class LocalPlaybackTest {
         // Navigation is now durable. Each independent fixture explicitly selects its starting screen.
         compose.onNodeWithTag("nav_player").performClick()
         waitFor { library.state.value.ready && !library.state.value.scanning && player.state.value.connected }
+        roadProfile = fixtureProfile("road", "Fixture road").id
+        guestProfile = fixtureProfile("guest", "Fixture guest").id
         compose.runOnIdle {
             player.stop()
             library.profiles.forEach { player.switchProfile(it.id); player.chooseSource(null); player.setRepeatMode(RepeatMode.OFF); player.setShuffle(false) }
@@ -147,7 +154,7 @@ class LocalPlaybackTest {
             assertEquals(ids, list.tracks.map { it.id })
             assertFalse(store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.AddMany(list.id, listOf(ids.first(), "missing"))))
             assertEquals(ids, store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.map { it.id })
-            assertFalse(store.state.value.profile("road").playlists.any { it.id == list.id })
+            assertFalse(store.state.value.profile(roadProfile).playlists.any { it.id == list.id })
             store.reload()
             assertEquals(ids, store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.map { it.id })
         } finally { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) }
@@ -241,8 +248,8 @@ class LocalPlaybackTest {
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
         compose.onNodeWithTag("bulk_start").assertIsDisplayed()
         action("bulk_start"); action("select_$id")
-        compose.runOnIdle { player.switchProfile("road") }
-        waitFor { player.state.value.profileId == "road" }
+        compose.runOnIdle { player.switchProfile(roadProfile) }
+        waitFor { player.state.value.profileId == roadProfile }
         action("bulk_start")
         compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
         compose.onNodeWithTag("nav_search").performClick()
@@ -371,8 +378,8 @@ class LocalPlaybackTest {
             assertNull(cursor.state.value.automaticSource)
             compose.runOnIdle { cursor.chooseSource(Source.LOCAL) }
             waitFor { cursor.state.value.current?.id == order.first().id }
-            compose.runOnIdle { cursor.switchProfile("guest"); cursor.chooseSource(Source.LOCAL) }
-            waitFor { cursor.state.value.profileId == "guest" && cursor.state.value.queueCount == 62 }
+            compose.runOnIdle { cursor.switchProfile(guestProfile); cursor.chooseSource(Source.LOCAL) }
+            waitFor { cursor.state.value.profileId == guestProfile && cursor.state.value.queueCount == 62 }
             assertFalse(cursor.state.value.playing)
             compose.runOnIdle { cursor.setRepeatMode(RepeatMode.ALL); cursor.select(order.last().id); cursor.seek(29) }
             waitFor { cursor.state.value.current?.id == order.first().id }
@@ -751,8 +758,8 @@ class LocalPlaybackTest {
     }
 
     @Test fun profileCheckpointsAndServiceRestartStayPaused() {
-        compose.runOnIdle { player.seek(7); player.switchProfile("guest") }
-        waitFor { player.state.value.profileId == "guest" }
+        compose.runOnIdle { player.seek(7); player.switchProfile(guestProfile) }
+        waitFor { player.state.value.profileId == guestProfile }
         assertFalse(player.state.value.playing)
         compose.runOnIdle { player.seek(12); player.switchProfile("owner") }
         waitFor { player.state.value.profileId == "owner" && player.state.value.positionSeconds == 7 }
@@ -765,7 +772,7 @@ class LocalPlaybackTest {
         compose.runOnIdle { player.connect() }
         waitFor { player.state.value.connected && player.state.value.positionSeconds == 7 }
         assertFalse(player.state.value.playing)
-        compose.runOnIdle { player.switchProfile("guest") }
+        compose.runOnIdle { player.switchProfile(guestProfile) }
         waitFor { player.state.value.positionSeconds == 12 }
         assertFalse(player.state.value.playing)
     }
@@ -860,7 +867,7 @@ class LocalPlaybackTest {
         assertEquals(order.toSet(), visited.toSet())
         assertEquals(first, player.state.value.current?.id)
         assertEquals(order, player.state.value.queue.map { it.id })
-        compose.runOnIdle { player.switchProfile("guest") }
+        compose.runOnIdle { player.switchProfile(guestProfile) }
         assertEquals(RepeatMode.OFF, player.state.value.repeatMode); assertFalse(player.state.value.shuffle)
         compose.runOnIdle { player.switchProfile("owner") }
         assertEquals(RepeatMode.OFF, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)

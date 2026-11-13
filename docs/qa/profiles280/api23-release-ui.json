@@ -1,0 +1,14 @@
+{
+  "serial": "emulator-5582",
+  "version": "2.8.0-build138",
+  "beforeIds": [
+    "owner",
+    "road",
+    "guest"
+  ],
+  "createdAndSelected": true,
+  "paused": true,
+  "deletedThroughUi": true,
+  "originalUsersPreserved": true,
+  "networkRestored": true
+}

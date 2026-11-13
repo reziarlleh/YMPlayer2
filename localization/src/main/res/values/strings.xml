@@ -745,5 +745,17 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="offline_verify" formatted="false">"Check and repair cache"</string>
     <string name="offline_sync_hint" formatted="false">"Synchronization downloads missing files. A full check reads saved audio and artwork again to find and repair damaged files."</string>
     <string name="offline_verify_start" formatted="false">"Checking the offline cache…"</string>
+    <string name="profile_default_name" formatted="false">"User @0@"</string>
+    <string name="profile_add" formatted="false">"Add user"</string>
+    <string name="profile_name" formatted="false">"User name"</string>
+    <string name="profile_options" formatted="false">"User options"</string>
+    <string name="profile_rename" formatted="false">"Rename user"</string>
+    <string name="profile_delete" formatted="false">"Remove user"</string>
+    <string name="profile_delete_title" formatted="false">"Remove user “@0@”?"</string>
+    <string name="profile_delete_hint" formatted="false">"Their Yandex sign-in, local favorites, playlists, history and settings will be removed from this device. Music files and shared folders will be kept."</string>
+    <string name="profiles_people_hint" formatted="false">"Each user has their own Yandex account, favorites and appearance settings."</string>
+    <string name="profile_pause_hint" formatted="false">"Switching users restores their queue and playback position. Playback stays paused."</string>
+    <string name="profiles_save_failed" formatted="false">"Could not save the profile changes. Please try again."</string>
+    <string name="profiles_read_failed" formatted="false">"Could not read the profiles. Your data has been kept. Restart the app."</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

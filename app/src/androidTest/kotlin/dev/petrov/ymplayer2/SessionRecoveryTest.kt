@@ -239,11 +239,13 @@ class SessionRecoveryTest {
 
     @Test fun switchingProfileClearsItsOldResumeOwner() {
         prepareMusic()
-        app.launchState.write("guest", PlaybackOutput.RADIO, true)
-        main { app.playback.switchProfile("guest") }
-        waitFor("Selected profile") { app.playback.state.value.profileId == "guest" }
-        assertEquals(PlaybackOutput.MUSIC, app.launchState.read("guest").output)
-        assertFalse("A profile change restores on pause, rather than resuming its old output", app.launchState.read("guest").playing)
+        val profile = app.library.profiles.firstOrNull { it.id == "guest" }?.id
+            ?: runBlocking { app.users.create("Recovery fixture").id }
+        app.launchState.write(profile, PlaybackOutput.RADIO, true)
+        main { app.playback.switchProfile(profile) }
+        waitFor("Selected profile") { app.playback.state.value.profileId == profile }
+        assertEquals(PlaybackOutput.MUSIC, app.launchState.read(profile).output)
+        assertFalse("A profile change restores on pause, rather than resuming its old output", app.launchState.read(profile).playing)
         main { app.playback.switchProfile("owner") }
     }
 

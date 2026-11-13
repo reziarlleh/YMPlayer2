@@ -57,6 +57,12 @@ class LaunchResumeRecoveryTest {
             if (wave) f.waveFailure = failure
             f.internet.available.value = connected
             if (gate != null) f.streamGates = mapOf(id to gate)
+            if (wave && failure != null) {
+                // Durable prepared audio is supposed to play without a server. This fixture
+                // specifically exercises a cache miss followed by a failed remote preparation.
+                java.io.File(f.context.filesDir, "wave-audio").listFiles().orEmpty()
+                    .filter { it.extension == "audio" }.forEach { check(it.delete()) }
+            }
             f.restartEngine()
         }
         waitFor { player.state.value.connected && player.state.value.current?.id == id }
@@ -68,7 +74,9 @@ class LaunchResumeRecoveryTest {
         compose.runOnIdle { player.resumeOnLaunch() }
         waitFor {
             val s = player.state.value
-            s.waveIssue != null && !s.waveIssue!!.contains("автоматически") && !s.waveLoading && !s.playing
+            val issue = s.waveIssue ?: s.error
+            issue != null && !issue.contains("автоматически") && !s.waveLoading && !s.playing &&
+                f.launchDiagnostics.any { it.operation == DiagnosticOperation.LAUNCH_RESUME_WAIT && it.category == DiagnosticCategory.NETWORK }
         }
     }
     private fun recoverSource() = compose.runOnIdle {
@@ -184,18 +192,29 @@ class LaunchResumeRecoveryTest {
         compose.runOnIdle { f.enableAudioFocusForTest(); player.resumeOnLaunch() }
         waitFor { player.state.value.buffering }
         val audio = compose.activity.getSystemService(android.media.AudioManager::class.java)
-        val request = android.media.AudioFocusRequest.Builder(android.media.AudioManager.AUDIOFOCUS_GAIN)
+        val request: Any = if (android.os.Build.VERSION.SDK_INT >= 26) android.media.AudioFocusRequest.Builder(android.media.AudioManager.AUDIOFOCUS_GAIN)
             .setAudioAttributes(android.media.AudioAttributes.Builder().setUsage(android.media.AudioAttributes.USAGE_MEDIA).build())
             .setOnAudioFocusChangeListener { }.build()
+        else android.media.AudioManager.OnAudioFocusChangeListener { }
         try {
-            compose.runOnIdle { assertEquals(android.media.AudioManager.AUDIOFOCUS_REQUEST_GRANTED, audio.requestAudioFocus(request)) }
+            compose.runOnIdle {
+                @Suppress("DEPRECATION")
+                val result = if (android.os.Build.VERSION.SDK_INT >= 26) audio.requestAudioFocus(request as android.media.AudioFocusRequest)
+                    else audio.requestAudioFocus(request as android.media.AudioManager.OnAudioFocusChangeListener,
+                        android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.AUDIOFOCUS_GAIN)
+                assertEquals(android.media.AudioManager.AUDIOFOCUS_REQUEST_GRANTED, result)
+            }
             waitFor { f.launchDiagnostics.any { it.operation == DiagnosticOperation.LAUNCH_RESUME_CANCELLED } }
             compose.runOnIdle { gate.complete(Unit) }
             observeNoRestart()
             assertFalse(f.launchDiagnostics.any { it.operation == DiagnosticOperation.LAUNCH_RESUME_RETRY })
         } finally {
             gate.complete(Unit)
-            compose.runOnIdle { audio.abandonAudioFocusRequest(request) }
+            compose.runOnIdle {
+                @Suppress("DEPRECATION")
+                if (android.os.Build.VERSION.SDK_INT >= 26) audio.abandonAudioFocusRequest(request as android.media.AudioFocusRequest)
+                else audio.abandonAudioFocus(request as android.media.AudioManager.OnAudioFocusChangeListener)
+            }
         }
     }
 }

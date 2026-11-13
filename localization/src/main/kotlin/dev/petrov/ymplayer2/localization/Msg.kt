@@ -740,5 +740,17 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     wave_audio_storage_failure("Не удалось сохранить временное аудио. Проверьте свободное место и доступ к памяти устройства.", "Could not save temporary audio. Check the available storage space and storage access.", R.string.wave_audio_storage_failure),
     offline_verify("Проверить и восстановить кэш", "Check and repair cache", R.string.offline_verify),
     offline_sync_hint("Синхронизация докачивает недостающие файлы. Полная проверка заново читает сохранённые аудио и обложки, чтобы найти и исправить повреждения.", "Synchronization downloads missing files. A full check reads saved audio and artwork again to find and repair damaged files.", R.string.offline_sync_hint),
-    offline_verify_start("Проверяем офлайн-кэш…", "Checking the offline cache…", R.string.offline_verify_start);
+    offline_verify_start("Проверяем офлайн-кэш…", "Checking the offline cache…", R.string.offline_verify_start),
+    profile_default_name("Пользователь @0@", "User @0@", R.string.profile_default_name),
+    profile_add("Добавить пользователя", "Add user", R.string.profile_add),
+    profile_name("Имя пользователя", "User name", R.string.profile_name),
+    profile_options("Параметры пользователя", "User options", R.string.profile_options),
+    profile_rename("Переименовать пользователя", "Rename user", R.string.profile_rename),
+    profile_delete("Удалить пользователя", "Remove user", R.string.profile_delete),
+    profile_delete_title("Удалить пользователя «@0@»?", "Remove user “@0@”?", R.string.profile_delete_title),
+    profile_delete_hint("Его вход в Яндекс, локальное избранное, плейлисты, история и настройки будут удалены с этого устройства. Музыкальные файлы и общие папки останутся.", "Their Yandex sign-in, local favorites, playlists, history and settings will be removed from this device. Music files and shared folders will be kept.", R.string.profile_delete_hint),
+    profiles_people_hint("У каждого пользователя свой аккаунт Яндекса, избранное и оформление.", "Each user has their own Yandex account, favorites and appearance settings.", R.string.profiles_people_hint),
+    profile_pause_hint("При переключении восстанавливаются очередь и позиция. Воспроизведение остаётся на паузе.", "Switching users restores their queue and playback position. Playback stays paused.", R.string.profile_pause_hint),
+    profiles_save_failed("Не удалось сохранить изменения профиля. Повторите попытку.", "Could not save the profile changes. Please try again.", R.string.profiles_save_failed),
+    profiles_read_failed("Не удалось прочитать профили. Данные сохранены. Перезапустите приложение.", "Could not read the profiles. Your data has been kept. Restart the app.", R.string.profiles_read_failed);
 }

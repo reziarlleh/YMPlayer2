@@ -108,7 +108,8 @@ class PlayerApplication : Application(), PlaybackHost {
             AudioServiceEvent.RESUMPTION_AVAILABLE -> DiagnosticEvent.RESUMPTION_AVAILABLE
         })
     }
-    val library by lazy { SafLibrary(this, scope) }
+    val users by lazy { dev.petrov.ymplayer2.library.loadUserProfiles(this, ::removeProfileData) }
+    val library by lazy { SafLibrary(this, scope, users) }
     val collections by lazy { LocalCollections(this, library, scope) }
     val history by lazy { dev.petrov.ymplayer2.library.ListeningHistory(this, scope) }
     private val musicApi by lazy { YandexMusicApi(accounts, diagnostic = diagnostics::record) }
@@ -159,6 +160,28 @@ class PlayerApplication : Application(), PlaybackHost {
                 .put("filter", state.filter?.let { org.json.JSONObject().put("slug", it.slug).put("name", it.name) })
             radioNavigation.edit().putString(profile, data.toString()).apply()
         }) }
-    val accounts by lazy { AccountAuth(library.profiles,
+    val accounts by lazy { AccountAuth({ library.profiles },
         YandexDeviceApi(this, BuildConfig.YANDEX_CLIENT_ID, BuildConfig.YANDEX_CLIENT_SECRET), KeystoreAccountStore(this), scope) }
+
+    private suspend fun removeProfileData(id: String, replacement: String) {
+        // Switch first: no outgoing engine, OAuth poll or late catalog response may revive this user.
+        if (playback.state.value.profileId == id) {
+            navigation.edit().putString("route", "player").apply()
+            playback.switchProfile(replacement)
+            withTimeout(20_000) { playback.state.first { it.profileId == replacement } }
+        }
+        accounts.activate(playback.state.value.profileId)
+        collections.removeProfile(id)
+        history.clear(id)
+        accounts.forgetProfile(id)
+        withContext(Dispatchers.IO) {
+            listOf("playback", "launch-state", "radio", "radio-navigation", "clip-checkpoints",
+                "wave-settings", "appearance", "app-language", "skins", "yandex-devices").forEach { name ->
+                val prefs = getSharedPreferences(name, MODE_PRIVATE)
+                val keys = prefs.all.keys.filter { key -> key == id || key.endsWith(":$id") ||
+                    key.startsWith("$id:") || key.contains(":$id:") }
+                if (keys.isNotEmpty()) check(prefs.edit().apply { keys.forEach(::remove) }.commit())
+            }
+        }
+    }
 }

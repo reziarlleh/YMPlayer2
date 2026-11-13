@@ -745,5 +745,17 @@
     <string name="offline_verify" formatted="false">"Праверыць і аднавіць кэш"</string>
     <string name="offline_sync_hint" formatted="false">"Сінхранізацыя спампоўвае файлы, якіх бракуе. Поўная праверка паўторна чытае захаваныя аўдыяфайлы і вокладкі, каб знайсці і выправіць пашкоджанні."</string>
     <string name="offline_verify_start" formatted="false">"Правяраем афлайн-кэш…"</string>
+    <string name="profile_default_name" formatted="false">"Карыстальнік @0@"</string>
+    <string name="profile_add" formatted="false">"Дадаць карыстальніка"</string>
+    <string name="profile_name" formatted="false">"Імя карыстальніка"</string>
+    <string name="profile_options" formatted="false">"Налады карыстальніка"</string>
+    <string name="profile_rename" formatted="false">"Перайменаваць карыстальніка"</string>
+    <string name="profile_delete" formatted="false">"Выдаліць карыстальніка"</string>
+    <string name="profile_delete_title" formatted="false">"Выдаліць карыстальніка «@0@»?"</string>
+    <string name="profile_delete_hint" formatted="false">"Яго ўваход у Яндэкс, лакальнае абранае, плэйлісты, гісторыя і налады будуць выдалены з гэтай прылады. Музычныя файлы і агульныя папкі застануцца."</string>
+    <string name="profiles_people_hint" formatted="false">"У кожнага карыстальніка свой акаўнт Яндэкса, абранае і афармленне."</string>
+    <string name="profile_pause_hint" formatted="false">"Пры пераключэнні аднаўляюцца чарга і пазіцыя. Прайграванне застаецца на паўзе."</string>
+    <string name="profiles_save_failed" formatted="false">"Не ўдалося захаваць змены профілю. Паспрабуйце яшчэ раз."</string>
+    <string name="profiles_read_failed" formatted="false">"Не ўдалося прачытаць профілі. Даныя захаваны. Перазапусціце праграму."</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

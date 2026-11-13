@@ -19,10 +19,13 @@ data class Track(
     val artworkRevision: String? = null,
 )
 
-data class Profile(val id: String, val name: String, val description: String, val guest: Boolean = false)
+data class Profile(val id: String, val name: String, val description: String, val guest: Boolean = false,
+    /** Only generated names are translated. A user's name is always opaque. */
+    val defaultNumber: Int? = null, val userNamed: Boolean = false)
 
 interface Catalog {
     val profiles: List<Profile>
+    val users: UserProfiles? get() = null
     fun tracks(profileId: String): List<Track>
 }
 

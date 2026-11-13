@@ -7,6 +7,53 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AccountAuthTest {
+    @Test fun deletingAnInactiveUserDoesNotInvalidateTheActiveUsersRequests() = runTest {
+        val store = Store().apply {
+            data["owner"] = AccountSession(YandexAccount("a", "Я"), credentials())
+            data["road"] = AccountSession(YandexAccount("b", "Жена"), credentials())
+        }
+        val auth = AccountAuth(profiles, Api(), store, backgroundScope, { testScheduler.currentTime })
+        auth.activate("road"); runCurrent()
+        val gate = CompletableDeferred<Unit>()
+        val result = async { runCatching { auth.withSession("road") { gate.await(); "current" } } }
+        runCurrent(); auth.forgetProfile("owner"); gate.complete(Unit); runCurrent()
+        assertEquals("current", result.await().getOrThrow())
+        assertEquals("road", auth.state.value.profileId)
+    }
+
+    @Test fun aNewUserCanAuthorizeWithoutRecreatingAccountAuth() = runTest {
+        var currentProfiles = listOf(Profile("owner", "Я", ""))
+        val store = Store()
+        val api = Api()
+        val auth = AccountAuth({ currentProfiles }, api, store, backgroundScope, { testScheduler.currentTime })
+        currentProfiles = currentProfiles + Profile("wife", "Жена", "")
+        auth.activate("wife"); runCurrent()
+        assertEquals(AuthPhase.SIGNED_OUT, auth.state.value.phase)
+        auth.start(); advanceTimeBy(5_001); runCurrent()
+        assertEquals(AuthPhase.SIGNED_IN, auth.state.value.phase)
+        assertTrue(store.data.containsKey("wife"))
+        assertFalse(store.data.containsKey("owner"))
+    }
+
+    @Test fun deletingAUserRejectsTheirLateProviderResultAndRemovesOnlyTheirSession() = runTest {
+        val store = Store().apply {
+            data["owner"] = AccountSession(YandexAccount("a", "Я"), credentials())
+            data["road"] = AccountSession(YandexAccount("b", "Жена"), credentials())
+        }
+        val auth = AccountAuth(profiles, Api(), store, backgroundScope, { testScheduler.currentTime })
+        auth.activate("owner"); runCurrent()
+        val gate = CompletableDeferred<Unit>()
+        val result = async { runCatching { auth.withSession("owner") {
+            withContext(NonCancellable) { gate.await() }; "stale"
+        } } }
+        runCurrent(); auth.activate("road"); runCurrent()
+        auth.forgetProfile("owner"); gate.complete(Unit); runCurrent()
+        assertTrue(result.await().isFailure)
+        assertFalse(store.data.containsKey("owner"))
+        assertTrue(store.data.containsKey("road"))
+        assertEquals("road", auth.state.value.profileId)
+    }
+
     private val profiles = DemoCatalog().profiles
     private fun credentials() = OAuthCredentials("private-access", "private-refresh", 900_000)
     private val challenge = DeviceChallenge("private-device", "ABCD1234", "https://oauth.yandex.ru/device", 30, 5)

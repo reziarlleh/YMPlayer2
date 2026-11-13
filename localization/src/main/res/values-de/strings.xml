@@ -745,5 +745,17 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="offline_verify" formatted="false">"Cache prüfen und reparieren"</string>
     <string name="offline_sync_hint" formatted="false">"Die Synchronisierung lädt fehlende Dateien herunter. Bei einer vollständigen Prüfung werden gespeicherte Audiodateien und Cover erneut gelesen, um beschädigte Dateien zu finden und zu reparieren."</string>
     <string name="offline_verify_start" formatted="false">"Offline-Cache wird geprüft…"</string>
+    <string name="profile_default_name" formatted="false">"Benutzer @0@"</string>
+    <string name="profile_add" formatted="false">"Benutzer hinzufügen"</string>
+    <string name="profile_name" formatted="false">"Name des Benutzers"</string>
+    <string name="profile_options" formatted="false">"Benutzeroptionen"</string>
+    <string name="profile_rename" formatted="false">"Benutzer umbenennen"</string>
+    <string name="profile_delete" formatted="false">"Benutzer entfernen"</string>
+    <string name="profile_delete_title" formatted="false">"Benutzer „@0@“ entfernen?"</string>
+    <string name="profile_delete_hint" formatted="false">"Die Yandex-Anmeldung, lokalen Favoriten, Playlists, der Verlauf und die Einstellungen dieses Benutzers werden von diesem Gerät entfernt. Musikdateien und gemeinsam genutzte Ordner bleiben erhalten."</string>
+    <string name="profiles_people_hint" formatted="false">"Jeder Benutzer hat ein eigenes Yandex-Konto, eigene Favoriten und eigene Darstellungseinstellungen."</string>
+    <string name="profile_pause_hint" formatted="false">"Beim Benutzerwechsel werden Warteschlange und Wiedergabeposition wiederhergestellt. Die Wiedergabe bleibt pausiert."</string>
+    <string name="profiles_save_failed" formatted="false">"Die Änderungen am Profil konnten nicht gespeichert werden. Bitte erneut versuchen."</string>
+    <string name="profiles_read_failed" formatted="false">"Die Profile konnten nicht gelesen werden. Ihre Daten bleiben erhalten. Starten Sie die App neu."</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

@@ -1,0 +1,11 @@
+{
+  "minSdk": 23,
+  "versionCode": 138,
+  "channel": "stable",
+  "runtimeAcceptance": "pending",
+  "sha256": "44b8289f870d9badc1586fa988440be9da1555c5712793f70d2dd99f286c3c2d",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionName": "2.8.0-build138",
+  "builtAtUtc": "2026-11-13T14:49:33.1771241Z",
+  "updateChannel": "stable"
+}

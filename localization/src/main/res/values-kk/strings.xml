@@ -745,5 +745,17 @@
     <string name="offline_verify" formatted="false">"Кэшті тексеру және қалпына келтіру"</string>
     <string name="offline_sync_hint" formatted="false">"Синхрондау жетіспейтін файлдарды жүктейді. Толық тексеру бүлінген деректерді тауып, түзету үшін сақталған аудиофайлдар мен мұқабаларды қайта оқиды."</string>
     <string name="offline_verify_start" formatted="false">"Офлайн кэш тексеріліп жатыр…"</string>
+    <string name="profile_default_name" formatted="false">"Пайдаланушы @0@"</string>
+    <string name="profile_add" formatted="false">"Пайдаланушы қосу"</string>
+    <string name="profile_name" formatted="false">"Пайдаланушының аты"</string>
+    <string name="profile_options" formatted="false">"Пайдаланушы параметрлері"</string>
+    <string name="profile_rename" formatted="false">"Пайдаланушының атын өзгерту"</string>
+    <string name="profile_delete" formatted="false">"Пайдаланушыны жою"</string>
+    <string name="profile_delete_title" formatted="false">"«@0@» пайдаланушысын жою керек пе?"</string>
+    <string name="profile_delete_hint" formatted="false">"Осы құрылғыдан оның Яндекс аккаунтына кіру деректері, жергілікті таңдаулылары, плейлисттері, тарихы және параметрлері жойылады. Музыка файлдары мен ортақ қалталар сақталады."</string>
+    <string name="profiles_people_hint" formatted="false">"Әр пайдаланушының өз Яндекс аккаунты, таңдаулылары және безендіру параметрлері бар."</string>
+    <string name="profile_pause_hint" formatted="false">"Пайдаланушы ауысқанда кезек пен ойнату орны қалпына келеді. Ойнату кідіртілген күйде қалады."</string>
+    <string name="profiles_save_failed" formatted="false">"Профильдегі өзгерістер сақталмады. Қайталап көріңіз."</string>
+    <string name="profiles_read_failed" formatted="false">"Профильдер оқылмады. Деректер сақталған. Қолданбаны қайта іске қосыңыз."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

@@ -19,7 +19,8 @@ import java.security.MessageDigest
 import java.util.concurrent.atomic.AtomicLong
 
 /** Read-only SAF/mounted-folder index. Failed scans preserve their last complete snapshot. */
-class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary {
+class SafLibrary(context: Context, scope: CoroutineScope,
+    override val users: UserProfiles = loadUserProfiles(context)) : IndexedLocalLibrary {
     private val resolver = context.applicationContext.contentResolver
     private val file = AtomicFile(File(context.filesDir, "local-library.json"))
     private val artwork = ArtworkCache(File(context.cacheDir, "artwork"))
@@ -33,11 +34,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
     @Volatile override var indexRevision: Long = 0
         private set
     override val state = mutable.asStateFlow()
-    override val profiles = listOf(
-        Profile("owner", "Основной", "Общий локальный каталог · своя очередь"),
-        Profile("road", "В дороге", "Своя очередь и позиция"),
-        Profile("guest", "Гость", "Общий локальный каталог · без аккаунта", true),
-    )
+    override val profiles get() = users.state.value
     override fun tracks(profileId: String): List<Track> = error("Use indexed queries for the SAF catalog")
 
     override suspend fun playableTrackIds(source: Source?): List<String> {

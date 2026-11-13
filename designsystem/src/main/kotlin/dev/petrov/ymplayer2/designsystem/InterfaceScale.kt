@@ -13,15 +13,19 @@ import kotlin.math.roundToInt
 /** Application UI only: does not change Android display settings or media geometry. */
 class InterfaceScalePreferences(context: Context) {
     private val prefs = context.applicationContext.getSharedPreferences("appearance", Context.MODE_PRIVATE)
-    fun read(): Int = try { normalize(prefs.getInt(KEY, 100)) } catch (_: ClassCastException) { 100 }
+    private val profiles = context.applicationContext.getSharedPreferences("playback", Context.MODE_PRIVATE)
+    private fun key() = "$KEY:${profiles.getString("profile", "owner")}"
+    fun read(): Int = try { normalize(prefs.getInt(key(), prefs.getInt(KEY, 100))) } catch (_: ClassCastException) { 100 }
     fun save(percent: Int, durable: Boolean = true) {
-        val edit = prefs.edit().putInt(KEY, normalize(percent))
+        val edit = prefs.edit().putInt(key(), normalize(percent))
         if (durable) check(edit.commit()) else edit.apply()
     }
     fun observe(listener: () -> Unit): () -> Unit {
-        val callback = SharedPreferences.OnSharedPreferenceChangeListener { _, key -> if (key == KEY) listener() }
+        val callback = SharedPreferences.OnSharedPreferenceChangeListener { _, changed -> if (changed == KEY || changed == key()) listener() }
+        val changedProfile = SharedPreferences.OnSharedPreferenceChangeListener { _, changed -> if (changed == "profile") listener() }
         prefs.registerOnSharedPreferenceChangeListener(callback)
-        return { prefs.unregisterOnSharedPreferenceChangeListener(callback) }
+        profiles.registerOnSharedPreferenceChangeListener(changedProfile)
+        return { prefs.unregisterOnSharedPreferenceChangeListener(callback); profiles.unregisterOnSharedPreferenceChangeListener(changedProfile) }
     }
     fun controlsContext(context: Context): Context = context.createConfigurationContext(Configuration().apply {
         densityDpi = (context.resources.configuration.densityDpi * read() / 100f).roundToInt()

@@ -1,0 +1,8 @@
+{
+  "serial": "emulator-5580",
+  "classes": [
+    "dev.petrov.ymplayer2.UserProfilesUiTest"
+  ],
+  "passed": 5,
+  "success": true
+}

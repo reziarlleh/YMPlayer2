@@ -62,6 +62,15 @@ class LocalCollections(context: Context, private val catalog: Catalog, scope: Co
             }
         }
     }
+    suspend fun removeProfile(profileId: String) {
+        loaded.await()
+        withContext(Dispatchers.IO) { mutex.withLock {
+            check(state.value.writable)
+            val next = state.value.profiles - profileId
+            write(next)
+            mutable.value = state.value.copy(profiles = next, issue = null)
+        } }
+    }
     private fun write(profiles: Map<String, ProfileCollections>) {
         val json = JSONObject().put("schema", 1).put("profiles", JSONObject().apply {
             profiles.forEach { (id, data) -> put(id, JSONObject().put("favorites", encodeTracks(data.favorites))

@@ -124,7 +124,8 @@ class MainActivity : ComponentActivity() {
                 if (uri != null) model.addFolder(uri.toString(), source)
             }
             val skinState by graph.skins.state.collectAsStateWithLifecycle()
-            val appearance = remember { dev.petrov.ymplayer2.designsystem.ThemePreferences(applicationContext) }
+            val activeProfile by graph.playback.state.collectAsStateWithLifecycle()
+            val appearance = remember(activeProfile.profileId) { dev.petrov.ymplayer2.designsystem.ThemePreferences(applicationContext, activeProfile.profileId) }
             var folderMethods by remember { mutableStateOf(false) }
             var mountedPicker by remember { mutableStateOf(false) }
             val storagePermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
@@ -176,7 +177,7 @@ class MainActivity : ComponentActivity() {
                     startTransfer(FileTransferService.EXPORT, uri.toString())
                 } catch (_: Exception) { graph.audioExporter.report("Не удалось получить доступ к выбранной папке.") }
             }
-            ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
+            key(activeProfile.profileId) { ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
                 initialTheme = appearance.read(), saveTheme = appearance::save,
                 initialRoute = graph.shellRoute(),
                 internet = graph.internet,
@@ -205,7 +206,7 @@ class MainActivity : ComponentActivity() {
             }, auditOffline = {
                 try { androidx.core.content.ContextCompat.startForegroundService(this, Intent(this, OfflineSyncService::class.java).putExtra(OfflineSyncService.VERIFY, true)) }
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
-            })
+            }) }
         } }
         if (restoreClips) startActivity(Intent(this, ClipActivity::class.java))
     }

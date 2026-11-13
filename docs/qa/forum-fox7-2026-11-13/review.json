@@ -1,0 +1,96 @@
+{
+  "checkedAt": "2026-11-13T10:59:39.743221+00:00",
+  "sourceCommit": "df8036ef3408736ed72f30d69a722f5f890447e6",
+  "currentVersion": "2.7.0-build137",
+  "forumPages": [
+    {
+      "offset": 80,
+      "bytes": 302720,
+      "sha256": "693ebd8a0d660419c94b1eacdb52db9bca20f45711a64cf67698bba2322bb3b4"
+    },
+    {
+      "offset": 100,
+      "bytes": 284052,
+      "sha256": "50505d89cc4dd23a89875e68277a0973ada3c87bf103c26d12fc34f438ba9ffc"
+    }
+  ],
+  "posts": [
+    {
+      "postId": "145958512",
+      "text": "11.11.26, 15:47 | #105 ● Fox_7 ᵥ Профиль Постоянный Реп: ( 2 ) reziarlleh, Диагностику собрал, играла, выключил зажигание, включил зажигание, не играет Прикрепленные файлы YMPlayer2-diagnostics-20261110-190459.txt ( 12.5 КБ ) YMPlayer2-diagnostics-20261110-180251.txt ( 11.51 КБ )",
+      "attachments": [
+        "https://4pda.to/forum/dl/post/36525454/YMPlayer2-diagnostics-20261110-190459.txt",
+        "https://4pda.to/forum/dl/post/36525455/YMPlayer2-diagnostics-20261110-180251.txt"
+      ]
+    },
+    {
+      "postId": "145973661",
+      "text": "Вчера, 13:08 | #107 ● reziarlleh ᵥ Профиль Постоянный Реп: ( 11 ) Fox_7, Fox_7 @ 11.11.26, 17:47 Диагностику собрал, играла, выключил зажигание, включил зажигание, не играет Пока диагностику не смотрел, но я кажется сам нарвался на сценарии использования, где у меня тоже не работало как нужно и возврат в приложение был всегда на стопе. Ппробуй последнее обновление - скорее всего не понадобится разбирать проблему по диагностике. Принудительного запуска по прежнему нет, но нормально вылечено автовосстановление последнего состояния. В следующих версиях добавлю опционально автовоспроизведение при восстановлении блютуз-подключения, если пауза возникла из-за разъединения. Сообщение отредактировал reziarlleh - Вчера, 13:13",
+      "attachments": []
+    },
+    {
+      "postId": "145976900",
+      "text": "Вчера, 16:18 | #108 ● Fox_7 ᵥ Профиль Постоянный Реп: ( 2 ) reziarlleh, Не работает, перед выключнием играет волна, кнопка в виде паузы || , после включения музыке не играет, ползунок на том же месте где был перед выключением, кнопка в виде плея с треугольником - может это поможет понять в чем проблема",
+      "attachments": []
+    }
+  ],
+  "diagnostics": [
+    {
+      "name": "YMPlayer2-diagnostics-20261110-190459.txt",
+      "attachmentId": "36525454",
+      "bytes": 12802,
+      "sha256": "d1c2f771dbbdf52cd068efb84fcd52de4550acc8a693124bb991c493b327192b",
+      "version": "YMPlayer 2 2.6.6-build126",
+      "export": "Exported: 2026-11-10 19:05:03.230",
+      "eventCount": 161,
+      "sessionDiagnosticCount": 0,
+      "launchDiagnosticCount": 0,
+      "audioFailures": [
+        "2026-11-10 18:03:56.017 operation=AUDIO_PLAYBACK category=APPLICATION mediaCode=1003",
+        "2026-11-10 18:50:39.499 operation=AUDIO_PLAYBACK category=APPLICATION mediaCode=1003"
+      ],
+      "networkKinds": [
+        "DNS",
+        "TLS"
+      ],
+      "feedback400": 20
+    },
+    {
+      "name": "YMPlayer2-diagnostics-20261110-180251.txt",
+      "attachmentId": "36525455",
+      "bytes": 11789,
+      "sha256": "e375fcd905f9f1820e4313ef4ad8b7270622bfa631d08b36897a0dc55cb68218",
+      "version": "YMPlayer 2 2.6.6-build126",
+      "export": "Exported: 2026-11-10 18:03:03.671",
+      "eventCount": 143,
+      "sessionDiagnosticCount": 0,
+      "launchDiagnosticCount": 0,
+      "audioFailures": [],
+      "networkKinds": [
+        "DNS",
+        "TLS"
+      ],
+      "feedback400": 18
+    }
+  ],
+  "olderEventsArePrefixOfLaterFile": true,
+  "confirmedOn137ByFox7": false,
+  "post108VersionSpecified": false,
+  "post108TestedBuild": 132,
+  "post108BuildSource": "Owner clarification on 2026-11-13; build number is not written in the post text.",
+  "sourceFindings": {
+    "foregroundErrorRepairExists": true,
+    "retryCategories": [
+      "NETWORK",
+      "SERVER"
+    ],
+    "timeout1003ClassifiedAs": "APPLICATION",
+    "dedicated1003RecoveryOrRegressionFound": false
+  },
+  "limits": [
+    "No SESSION_INTENT/RESTORE/RELEASE records in these build126 diagnostics.",
+    "Post108 tests build132 according to the owner's clarification; the attached diagnostics are still from build126.",
+    "No new emulator or physical-device tests in this read-only investigation.",
+    "Raw HTML, login forms, cookies and full diagnostics retained only under ignored .local-build."
+  ]
+}

@@ -48,9 +48,14 @@ interface AccountStore {
 
 /** Called from the owner's serialized dispatcher (Android main). Network and storage do their own IO. */
 class AccountAuth(
-    private val profiles: List<Profile>, private val api: DeviceAuthApi, private val store: AccountStore,
+    profiles: List<Profile>, private val api: DeviceAuthApi, private val store: AccountStore,
     private val scope: CoroutineScope, private val now: () -> Long = System::currentTimeMillis,
 ) {
+    private var profileList: () -> List<Profile> = { profiles }
+    constructor(profiles: () -> List<Profile>, api: DeviceAuthApi, store: AccountStore,
+        scope: CoroutineScope, now: () -> Long = System::currentTimeMillis) : this(profiles(), api, store, scope, now) {
+        profileList = profiles
+    }
     private val mutable = MutableStateFlow(AccountAuthState())
     val state = mutable.asStateFlow()
     private var generation = 0L
@@ -62,7 +67,7 @@ class AccountAuth(
 
     fun activate(profileId: String) {
         if (state.value.profileId == profileId) return
-        require(profiles.any { it.id == profileId })
+        require(profileList().any { it.id == profileId })
         accessGeneration++
         val ticket = stopWork()
         mutable.value = AccountAuthState(profileId)
@@ -71,7 +76,7 @@ class AccountAuth(
 
     private suspend fun restore(profile: String, ticket: Long) {
         try {
-            if (profiles.first { it.id == profile }.guest) {
+            if (profileList().first { it.id == profile }.guest) {
                 if (valid(ticket, profile)) mutable.value = AccountAuthState(profile, AuthPhase.GUEST)
                 return
             }
@@ -100,7 +105,7 @@ class AccountAuth(
 
     fun start() {
         val profile = state.value.profileId
-        if (profiles.none { it.id == profile && !it.guest } || !api.configured || state.value.phase !in setOf(AuthPhase.SIGNED_OUT, AuthPhase.ERROR)) return
+        if (profileList().none { it.id == profile && !it.guest } || !api.configured || state.value.phase !in setOf(AuthPhase.SIGNED_OUT, AuthPhase.ERROR)) return
         accessGeneration++
         val ticket = stopWork()
         mutable.value = AccountAuthState(profile, AuthPhase.REQUESTING)
@@ -226,7 +231,7 @@ class AccountAuth(
 
     fun signOut() {
         val profile = state.value.profileId
-        if (profiles.none { it.id == profile && !it.guest }) return
+        if (profileList().none { it.id == profile && !it.guest }) return
         accessGeneration++
         val ticket = stopWork()
         mutable.value = AccountAuthState(profile)
@@ -237,6 +242,16 @@ class AccountAuth(
                 if (valid(ticket, profile)) restore(profile, ticket)
             } catch (_: Exception) { if (valid(ticket, profile)) fail(profile, AuthFailure.STORAGE) }
         }
+    }
+
+    /** Profile deletion invalidates late provider work before its encrypted session is removed. */
+    suspend fun forgetProfile(profile: String) {
+        if (state.value.profileId == profile) {
+            accessGeneration++
+            stopWork()
+            mutable.value = AccountAuthState(profile, AuthPhase.SIGNED_OUT)
+        }
+        withContext(NonCancellable) { writes.withLock { store.write(profile, null) } }
     }
 
     private fun fail(profile: String, failure: AuthFailure, diagnostic: String? = null) {

@@ -20,30 +20,6 @@ import dev.petrov.ymplayer2.core.Profile
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
-@Composable internal fun ProfilesScreen(profiles: List<Profile>, current: String, account: (() -> Unit)? = null, select: (String) -> Unit) {
-    LazyColumn(Modifier.fillMaxSize().testTag("profiles_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        item { Text(tr(Msg.msg_30c61037264b), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { Text(tr(Msg.msg_4382a728852f), color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        if (account != null) item {
-            OutlinedButton(account, Modifier.fillMaxWidth().prismFocus().testTag("account_open")) {
-                Text(tr(Msg.msg_43b07d243705, profiles.first { it.id == current }.name))
-            }
-        }
-        items(profiles, key = Profile::id) { profile ->
-            Surface(onClick = { select(profile.id) }, Modifier.fillMaxWidth().prismFocus().testTag("profile_${profile.id}"),
-                color = if (current == profile.id) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, shape = MaterialTheme.shapes.medium) {
-                Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    SkinIcon(if (profile.guest) UiIcon.GUEST else UiIcon.PROFILE, null)
-                    Column(Modifier.weight(1f)) { Text(profileName(profile), fontWeight = FontWeight.Bold); Text(trMessage(profile.description), style = MaterialTheme.typography.bodySmall) }
-                    if (current == profile.id) SkinIcon(UiIcon.CHECK, tr(Msg.msg_954fea171639))
-                }
-            }
-        }
-        item { Text(if (account == null) tr(Msg.msg_c6e3a313babd)
-            else tr(Msg.msg_a41905aacd11), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    }
-}
-
 @Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null, skins: (() -> Unit)? = null, about: () -> Unit = {}, language: () -> Unit = {}, scale: () -> Unit = {}) {
     LazyColumn(Modifier.fillMaxSize().testTag("settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text(tr(Msg.msg_985b5e0f2ccf), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }

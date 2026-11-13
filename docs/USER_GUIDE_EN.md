@@ -1,6 +1,8 @@
 # YMPlayer2 — user guide
 
-This guide covers **2.7.0-build137**, which supports Android6 and later.
+This guide covers stable2.7.0 and the upcoming2.8.0, for Android6 and later.
+The2.8.0 profile changes are marked in the relevant sections; that release is
+still being reviewed before publication.
 The published stable release is **2.7.0-build137**, for Android6 and later.
 [Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.7.0-build137) · [Signing and verification](MANUAL_2_7_0_BUILD137.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
@@ -158,7 +160,21 @@ and adding it again counts as a new addition.
 You never enter your Yandex password in the player. 2.x stores its own sign-in;
 it does not read the credentials of 1.x. Each profile has its own account, queue,
 position, history and personal collection. Switching profiles does not mix accounts.
-The guest profile can play local files without signing in.
+From2.8.0, profiles represent people: family members or drivers sharing a car.
+Select **Add user** to create one, then sign in to their Yandex account or use
+local files without signing in. Every user can do either; there is no restricted
+guest type. **⋮** beside a name lets you rename or remove the profile. Renaming
+keeps its account and data. Removal asks for confirmation and switches to another
+user if necessary; the last profile cannot be removed. Music files are kept.
+
+Selecting another user restores their queue and position **paused**. Press Play
+when you are ready. Language, theme, selected skin and interface scale are also
+personal from2.8.0. Connected folders, Android permissions, installed skin packages,
+audio-quality settings and the physical cache location remain shared.
+
+Existing Main, On the road and Guest slots migrate to User1/2/3 with their original
+accounts and data; you can give them your own names. A fresh installation starts
+with one user. Names you enter are never translated.
 
 ## Your collection, recommendations and My Vibe
 
@@ -475,6 +491,7 @@ The list includes Belarusian, English, French, German, Kazakh, Russian, Spanish
 and Ukrainian, ordered by their English names. Each entry also shows its native
 name. Changing language keeps playback running and leaves your music, playlist
 and skin names unchanged.
+From2.8.0 the language choice is saved separately for each user.
 
 **Appearance** chooses Dark, Light or System. The choice is saved immediately
 and survives app termination. System follows Android’s current light or dark theme. **Skins** chooses the palette and
@@ -501,8 +518,8 @@ Up/Down move focus to other controls.
 
 The preview updates immediately. The editor keeps its size so the slider stays
 under your finger. Leaving the editor applies the selected size to other pages
-without restarting the app or interrupting music. The device-wide choice survives
-app restarts and is independent of your profile, theme and skin. Android's display
+without restarting the app or interrupting music. From2.8.0 each user has their
+own saved scale. It survives app restarts and is independent of their theme and skin. Android's display
 resolution and font-size settings are unchanged.
 
 The main player does not scroll. On a tight screen its enlargement is limited

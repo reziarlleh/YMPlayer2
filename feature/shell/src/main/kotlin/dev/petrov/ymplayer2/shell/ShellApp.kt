@@ -45,6 +45,7 @@ private val destinations get() = listOf(
 
 @Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null, initialTheme: String = "dark", saveTheme: (String) -> Unit = {}, cacheLocation: CacheLocationAccess? = null, pickCacheFolder: () -> Unit = {}, resetCacheFolder: () -> Unit = {}, exporter: AudioExportAccess? = null, pickExportFolder: () -> Unit = {}, auditOffline: () -> Unit = { model.offline?.verifyAndRepair() }) {
     val playback by model.player.state.collectAsStateWithLifecycle()
+    val profiles = model.catalog.users?.state?.collectAsStateWithLifecycle()?.value ?: model.catalog.profiles
     val exporting = exporter?.state?.collectAsStateWithLifecycle()?.value?.running == true
     val radioPlayback = model.radio?.playback?.collectAsStateWithLifecycle()?.value
     val library by model.library.collectAsStateWithLifecycle()
@@ -228,10 +229,11 @@ private val destinations get() = listOf(
                                         "offline" -> model.offline?.let { offline -> OfflineScreen(offline, model.player, exporter?.let { e -> { e.ask(AudioExportRequest(playback.profileId, trMessage("Мне нравится · офлайн"), tracks = offline.tracks(playback.profileId))) } }) }
                                         "history" -> HistoryScreen(model, openArtist)
                                         "recent" -> RecentScreen(model) { collectionTrack = it }
-                                        "profiles" -> ProfilesScreen(model.catalog.profiles, playback.profileId, model.accounts?.let { { navigate("account") } }) {
+                                        "profiles" -> ProfilesScreen(profiles, playback.profileId, model.accounts?.let { { navigate("account") } },
+                                            model.catalog.users, created = { model.player.switchProfile(it); navigate(if (model.accounts != null) "account" else "player") }) {
                                             model.player.switchProfile(it); navigate("player")
                                         }
-                                        "account" -> model.accounts?.let { AccountScreen(it, model.catalog.profiles.first { profile -> profile.id == playback.profileId }) }
+                                        "account" -> model.accounts?.let { auth -> profiles.firstOrNull { it.id == playback.profileId }?.let { AccountScreen(auth, it) } }
                                         "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
                                         "offline_settings" -> model.offline?.let { OfflineSettingsScreen(it, syncOffline, { navigate("account") }, cacheLocation, pickCacheFolder, resetCacheFolder, exporting, auditOffline) }
                                         "settings" -> SettingsScreen(version, theme, { saveTheme(it); theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true }, language = { navigate("language") }, scale = { navigate("interface_scale") })

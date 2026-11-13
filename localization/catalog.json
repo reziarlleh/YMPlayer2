@@ -11817,5 +11817,197 @@
       "es": "Comprobando la caché sin conexión…",
       "fr": "Vérification du cache hors connexion…"
     }
+  },
+  {
+    "key": "profile_default_name",
+    "source": "Пользователь @0@",
+    "english": "User @0@",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Карыстальнік @0@",
+      "kk": "Пайдаланушы @0@",
+      "uk": "Користувач @0@",
+      "de": "Benutzer @0@",
+      "es": "Usuario @0@",
+      "fr": "Utilisateur @0@"
+    }
+  },
+  {
+    "key": "profile_add",
+    "source": "Добавить пользователя",
+    "english": "Add user",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Дадаць карыстальніка",
+      "kk": "Пайдаланушы қосу",
+      "uk": "Додати користувача",
+      "de": "Benutzer hinzufügen",
+      "es": "Añadir usuario",
+      "fr": "Ajouter un utilisateur"
+    }
+  },
+  {
+    "key": "profile_name",
+    "source": "Имя пользователя",
+    "english": "User name",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Імя карыстальніка",
+      "kk": "Пайдаланушының аты",
+      "uk": "Ім’я користувача",
+      "de": "Name des Benutzers",
+      "es": "Nombre del usuario",
+      "fr": "Nom de l’utilisateur"
+    }
+  },
+  {
+    "key": "profile_options",
+    "source": "Параметры пользователя",
+    "english": "User options",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Налады карыстальніка",
+      "kk": "Пайдаланушы параметрлері",
+      "uk": "Параметри користувача",
+      "de": "Benutzeroptionen",
+      "es": "Opciones del usuario",
+      "fr": "Options de l’utilisateur"
+    }
+  },
+  {
+    "key": "profile_rename",
+    "source": "Переименовать пользователя",
+    "english": "Rename user",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Перайменаваць карыстальніка",
+      "kk": "Пайдаланушының атын өзгерту",
+      "uk": "Перейменувати користувача",
+      "de": "Benutzer umbenennen",
+      "es": "Cambiar nombre del usuario",
+      "fr": "Renommer l’utilisateur"
+    }
+  },
+  {
+    "key": "profile_delete",
+    "source": "Удалить пользователя",
+    "english": "Remove user",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Выдаліць карыстальніка",
+      "kk": "Пайдаланушыны жою",
+      "uk": "Видалити користувача",
+      "de": "Benutzer entfernen",
+      "es": "Eliminar usuario",
+      "fr": "Supprimer l’utilisateur"
+    }
+  },
+  {
+    "key": "profile_delete_title",
+    "source": "Удалить пользователя «@0@»?",
+    "english": "Remove user “@0@”?",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Выдаліць карыстальніка «@0@»?",
+      "kk": "«@0@» пайдаланушысын жою керек пе?",
+      "uk": "Видалити користувача «@0@»?",
+      "de": "Benutzer „@0@“ entfernen?",
+      "es": "¿Eliminar al usuario «@0@»?",
+      "fr": "Supprimer l’utilisateur « @0@ » ?"
+    }
+  },
+  {
+    "key": "profile_delete_hint",
+    "source": "Его вход в Яндекс, локальное избранное, плейлисты, история и настройки будут удалены с этого устройства. Музыкальные файлы и общие папки останутся.",
+    "english": "Their Yandex sign-in, local favorites, playlists, history and settings will be removed from this device. Music files and shared folders will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Яго ўваход у Яндэкс, лакальнае абранае, плэйлісты, гісторыя і налады будуць выдалены з гэтай прылады. Музычныя файлы і агульныя папкі застануцца.",
+      "kk": "Осы құрылғыдан оның Яндекс аккаунтына кіру деректері, жергілікті таңдаулылары, плейлисттері, тарихы және параметрлері жойылады. Музыка файлдары мен ортақ қалталар сақталады.",
+      "uk": "Його вхід у Яндекс, локальне вибране, плейлісти, історію та налаштування буде видалено з цього пристрою. Музичні файли й спільні папки залишаться.",
+      "de": "Die Yandex-Anmeldung, lokalen Favoriten, Playlists, der Verlauf und die Einstellungen dieses Benutzers werden von diesem Gerät entfernt. Musikdateien und gemeinsam genutzte Ordner bleiben erhalten.",
+      "es": "Se eliminarán de este dispositivo su sesión de Yandex, favoritos locales, listas de reproducción, historial y ajustes. Se conservarán los archivos de música y las carpetas compartidas.",
+      "fr": "Sa connexion Yandex, ses favoris locaux, ses playlists, son historique et ses réglages seront supprimés de cet appareil. Les fichiers musicaux et les dossiers partagés seront conservés."
+    }
+  },
+  {
+    "key": "profiles_people_hint",
+    "source": "У каждого пользователя свой аккаунт Яндекса, избранное и оформление.",
+    "english": "Each user has their own Yandex account, favorites and appearance settings.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "У кожнага карыстальніка свой акаўнт Яндэкса, абранае і афармленне.",
+      "kk": "Әр пайдаланушының өз Яндекс аккаунты, таңдаулылары және безендіру параметрлері бар.",
+      "uk": "Кожен користувач має власний акаунт Яндекса, вибране й оформлення.",
+      "de": "Jeder Benutzer hat ein eigenes Yandex-Konto, eigene Favoriten und eigene Darstellungseinstellungen.",
+      "es": "Cada usuario tiene su propia cuenta de Yandex, sus favoritos y sus ajustes de apariencia.",
+      "fr": "Chaque utilisateur dispose de son compte Yandex, de ses favoris et de ses réglages d’apparence."
+    }
+  },
+  {
+    "key": "profile_pause_hint",
+    "source": "При переключении восстанавливаются очередь и позиция. Воспроизведение остаётся на паузе.",
+    "english": "Switching users restores their queue and playback position. Playback stays paused.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Пры пераключэнні аднаўляюцца чарга і пазіцыя. Прайграванне застаецца на паўзе.",
+      "kk": "Пайдаланушы ауысқанда кезек пен ойнату орны қалпына келеді. Ойнату кідіртілген күйде қалады.",
+      "uk": "Під час перемикання відновлюються черга й позиція. Відтворення залишається на паузі.",
+      "de": "Beim Benutzerwechsel werden Warteschlange und Wiedergabeposition wiederhergestellt. Die Wiedergabe bleibt pausiert.",
+      "es": "Al cambiar de usuario se restauran su cola y la posición de reproducción. La reproducción permanece en pausa.",
+      "fr": "Le changement d’utilisateur restaure sa file d’attente et sa position de lecture. La lecture reste en pause."
+    }
+  },
+  {
+    "key": "profiles_save_failed",
+    "source": "Не удалось сохранить изменения профиля. Повторите попытку.",
+    "english": "Could not save the profile changes. Please try again.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Не ўдалося захаваць змены профілю. Паспрабуйце яшчэ раз.",
+      "kk": "Профильдегі өзгерістер сақталмады. Қайталап көріңіз.",
+      "uk": "Не вдалося зберегти зміни профілю. Спробуйте ще раз.",
+      "de": "Die Änderungen am Profil konnten nicht gespeichert werden. Bitte erneut versuchen.",
+      "es": "No se pudieron guardar los cambios del perfil. Inténtalo de nuevo.",
+      "fr": "Impossible d’enregistrer les modifications du profil. Réessayez."
+    }
+  },
+  {
+    "key": "profiles_read_failed",
+    "source": "Не удалось прочитать профили. Данные сохранены. Перезапустите приложение.",
+    "english": "Could not read the profiles. Your data has been kept. Restart the app.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "translations": {
+      "be": "Не ўдалося прачытаць профілі. Даныя захаваны. Перазапусціце праграму.",
+      "kk": "Профильдер оқылмады. Деректер сақталған. Қолданбаны қайта іске қосыңыз.",
+      "uk": "Не вдалося прочитати профілі. Дані збережено. Перезапустіть застосунок.",
+      "de": "Die Profile konnten nicht gelesen werden. Ihre Daten bleiben erhalten. Starten Sie die App neu.",
+      "es": "No se pudieron leer los perfiles. Tus datos se han conservado. Reinicia la aplicación.",
+      "fr": "Impossible de lire les profils. Vos données ont été conservées. Redémarrez l’application."
+    }
   }
 ]

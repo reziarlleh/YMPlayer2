@@ -745,5 +745,17 @@ Puedes añadir tu propio texto entre las variables. Ejemplo: {number}. {artist} 
     <string name="offline_verify" formatted="false">"Comprobar y reparar la caché"</string>
     <string name="offline_sync_hint" formatted="false">"La sincronización descarga los archivos que faltan. La comprobación completa vuelve a leer el audio y las carátulas guardados para detectar y reparar archivos dañados."</string>
     <string name="offline_verify_start" formatted="false">"Comprobando la caché sin conexión…"</string>
+    <string name="profile_default_name" formatted="false">"Usuario @0@"</string>
+    <string name="profile_add" formatted="false">"Añadir usuario"</string>
+    <string name="profile_name" formatted="false">"Nombre del usuario"</string>
+    <string name="profile_options" formatted="false">"Opciones del usuario"</string>
+    <string name="profile_rename" formatted="false">"Cambiar nombre del usuario"</string>
+    <string name="profile_delete" formatted="false">"Eliminar usuario"</string>
+    <string name="profile_delete_title" formatted="false">"¿Eliminar al usuario «@0@»?"</string>
+    <string name="profile_delete_hint" formatted="false">"Se eliminarán de este dispositivo su sesión de Yandex, favoritos locales, listas de reproducción, historial y ajustes. Se conservarán los archivos de música y las carpetas compartidas."</string>
+    <string name="profiles_people_hint" formatted="false">"Cada usuario tiene su propia cuenta de Yandex, sus favoritos y sus ajustes de apariencia."</string>
+    <string name="profile_pause_hint" formatted="false">"Al cambiar de usuario se restauran su cola y la posición de reproducción. La reproducción permanece en pausa."</string>
+    <string name="profiles_save_failed" formatted="false">"No se pudieron guardar los cambios del perfil. Inténtalo de nuevo."</string>
+    <string name="profiles_read_failed" formatted="false">"No se pudieron leer los perfiles. Tus datos se han conservado. Reinicia la aplicación."</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

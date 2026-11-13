@@ -36,7 +36,9 @@ class BootCheckpointTest {
         if (phase == "seed") {
             main { app.playback.connect() }
             awaitState { app.playback.state.value.connected && app.library.state.value.ready }
-            main { app.playback.stop(); app.playback.switchProfile("road") }
+            val profile = app.library.profiles.firstOrNull { it.id == "road" }?.id
+                ?: runBlocking { app.users.create("Boot fixture").id }
+            main { app.playback.stop(); app.playback.switchProfile(profile) }
             runBlocking {
                 app.library.state.value.roots.forEach { app.library.forgetFolder(it.uri) }
                 // Forgetting the old root releases its SAF grant. Grant the fixture afterwards.
@@ -46,18 +48,18 @@ class BootCheckpointTest {
             awaitState { app.library.testTracks.size == 2 }
             val first = app.library.testTracks.first().id
             main { app.playback.chooseSource(Source.LOCAL) }
-            awaitState { app.playback.state.value.profileId == "road" && app.playback.state.value.automaticLocal && app.playback.state.value.queueCount == 2 }
+            awaitState { app.playback.state.value.profileId == profile && app.playback.state.value.automaticLocal && app.playback.state.value.queueCount == 2 }
             main { app.playback.clearQueue() }
             awaitState { app.playback.state.value.queueCount == 0 && app.playback.state.value.current == null }
             main { app.playback.playQueue(listOf(first)); app.playback.seek(9); app.playback.toggle() }
             awaitState { app.playback.state.value.current?.id == first && app.playback.state.value.positionSeconds >= 9 && !app.playback.state.value.playing }
-            assertEquals("road", app.playback.state.value.profileId)
+            assertEquals(profile, app.playback.state.value.profileId)
             instrument.targetContext.getSharedPreferences("boot-checkpoint-test", 0)
-                .edit().putString("expected", first).commit()
+                .edit().putString("expected", first).putString("profile", profile).commit()
             assertTrue(instrument.targetContext.getSharedPreferences("playback", 0)
-                .getString("queue:road", "").orEmpty().contains(first))
+                .getString("queue:$profile", "").orEmpty().contains(first))
             val preferences = instrument.targetContext.getSharedPreferences("playback", 0)
-            assertTrue(JSONObject(preferences.getString("queue:road", "{}")).optInt("position") >= 9)
+            assertTrue(JSONObject(preferences.getString("queue:$profile", "{}")).optInt("position") >= 9)
             // Instrumentation teardown can kill its process before asynchronous apply reaches disk.
             // Fence seed writes so this test measures reboot recovery of a saved checkpoint.
             assertTrue(preferences.edit().commit())
@@ -67,7 +69,7 @@ class BootCheckpointTest {
             awaitState { app.playback.state.value.connected && app.playback.state.value.current != null &&
                 app.library.state.value.ready && !app.library.state.value.scanning }
             val state = app.playback.state.value
-            assertEquals("road", state.profileId)
+            assertEquals(instrument.targetContext.getSharedPreferences("boot-checkpoint-test", 0).getString("profile", "road"), state.profileId)
             assertEquals(1, state.queue.size)
             assertEquals(instrument.targetContext.getSharedPreferences("boot-checkpoint-test", 0)
                 .getString("expected", null), state.current?.id)

@@ -1,0 +1,783 @@
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.WaveColdRestoreTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=readyAccountBeforeDelayedLibraryPreservesWavePlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=readyAccountBeforeDelayedLibraryPreservesWavePlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=readyAccountBeforeDelayedLibraryPreservesWaveStop
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=readyAccountBeforeDelayedLibraryPreservesWaveStop
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=pauseAfterLaunchRequestWinsOverMetadataRefresh
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=pauseAfterLaunchRequestWinsOverMetadataRefresh
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=touchPlayWhilePausedAccountLoadsIsExecutedWhenReady
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=touchPlayWhilePausedAccountLoadsIsExecutedWhenReady
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=anotherAccountCannotInheritSavedWaveWindow
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=anotherAccountCannotInheritSavedWaveWindow
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=cachedWaveResumesWhileLocalLibraryIsStillScanning
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=cachedWaveResumesWhileLocalLibraryIsStillScanning
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=completePausedWindowRestoresOnNewAdapterWithServerUnavailable
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=completePausedWindowRestoresOnNewAdapterWithServerUnavailable
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=failedPausedWavePreparationCannotSkipTheSavedTrack
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=failedPausedWavePreparationCannotSkipTheSavedTrack
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=savedOnlineListPauseRemainsPaused
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=savedOnlineListPauseRemainsPaused
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=pauseAfterTouchPlayWhileAccountLoadsStillWins
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=pauseAfterTouchPlayWhileAccountLoadsStillWins
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=stopWhileAccountLoadsCancelsLatePlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=stopWhileAccountLoadsCancelsLatePlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=failedAccountStorageCannotErasePlayingWaveCheckpoint
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=failedAccountStorageCannotErasePlayingWaveCheckpoint
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=noisyPauseRestoresWaveAsPausedAtTheSamePosition
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=noisyPauseRestoresWaveAsPausedAtTheSamePosition
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=completePlayingWindowRestoresOnNewAdapterWithServerUnavailable
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=completePlayingWindowRestoresOnNewAdapterWithServerUnavailable
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=legacyStoppedCheckpointRemainsStopped
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=legacyStoppedCheckpointRemainsStopped
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=savedWavePausePreservesTrackAndPosition
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=savedWavePausePreservesTrackAndPosition
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=metadataOnlyColdRestoreDoesNotRequestPlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=metadataOnlyColdRestoreDoesNotRequestPlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=savedOnlineListStopRemainsStopped
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=savedOnlineListStopRemainsStopped
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesWaveTrackPositionAndPlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesWaveTrackPositionAndPlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesOnlineListTrackPositionAndPlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=delayedAccountRestorePreservesOnlineListTrackPositionAndPlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=failedAccountStorageCannotErasePausedWaveCheckpoint
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=failedAccountStorageCannotErasePausedWaveCheckpoint
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=expiredSavedTokenKeepsPausedTrackPositionAndAllAudio
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=expiredSavedTokenKeepsPausedTrackPositionAndAllAudio
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=pauseWhileAccountLoadsCancelsLatePlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=pauseWhileAccountLoadsCancelsLatePlay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=readyAccountBeforeDelayedLibraryPreservesWavePause
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=readyAccountBeforeDelayedLibraryPreservesWavePause
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=legacyPausedCheckpointKeepsTrackAndPosition
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=legacyPausedCheckpointKeepsTrackAndPosition
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=savedWaveStopRemainsStoppedAtZero
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=savedWaveStopRemainsStoppedAtZero
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveColdRestoreTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.OfflineSourceStateTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromRadioPreservesMyWavePositionAndPreparedFiles
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromRadioPreservesMyWavePositionAndPreparedFiles
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=myWaveBookmarkSurvivesRestartWhileOfflineIsSelected
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=myWaveBookmarkSurvivesRestartWhileOfflineIsSelected
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=stoppingOfflineDoesNotEraseTheParkedMyWave
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=stoppingOfflineDoesNotEraseTheParkedMyWave
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatList
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=33
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatList
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=33
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=removingBookmarkedCachedTrackFallsBackToAnExistingTrack
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=34
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=removingBookmarkedCachedTrackFallsBackToAnExistingTrack
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=34
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=changedSettingsDoNotReviveTheParkedOldWave
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=35
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=changedSettingsDoNotReviveTheParkedOldWave
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=35
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatOne
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=36
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatOne
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=36
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=37
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=37
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=anotherProfileStartsItsOwnWaveInsteadOfResumingTheOwnersBookmark
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=38
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=anotherProfileStartsItsOwnWaveInsteadOfResumingTheOwnersBookmark
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=38
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=39
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=39
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=anotherProfileCannotOverwriteTheOwnersOfflineBookmark
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=40
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=anotherProfileCannotOverwriteTheOwnersOfflineBookmark
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=40
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromALocalListRestoresMyWaveWithoutRequestingANewSession
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=41
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromALocalListRestoresMyWaveWithoutRequestingANewSession
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=41
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=42
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=42
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=explicitWaveStopCannotResurrectAParkedWindowViaOffline
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=43
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=explicitWaveStopCannotResurrectAParkedWindowViaOffline
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+INSTRUMENTATION_STATUS: current=43
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.LaunchResumeRecoveryTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=initializationError
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeRecoveryTest
+INSTRUMENTATION_STATUS: current=44
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+Error in initializationError(dev.petrov.ymplayer2.LaunchResumeRecoveryTest):
+java.lang.RuntimeException: Failed to instantiate test runner class androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+
+
+	at androidx.test.ext.junit.runners.AndroidJUnit4.throwInitializationError(AndroidJUnit4.java:129)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:121)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:82)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.<init>(AndroidJUnit4.java:56)
+	... 13 trimmed
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.lang.reflect.Constructor.newInstance(Native Method)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:112)
+	... 16 more
+Caused by: java.lang.NoClassDefFoundError: android.media.AudioFocusRequest
+	at libcore.reflect.InternalNames.getClass(InternalNames.java:55)
+	at java.lang.Class.getDexCacheType(Class.java:476)
+	at java.lang.reflect.AbstractMethod.getParameterTypes(AbstractMethod.java:166)
+	at java.lang.reflect.Method.getParameterTypes(Method.java:170)
+	at java.lang.Class.getDeclaredMethods(Class.java:673)
+	at org.junit.internal.MethodSorter.getDeclaredMethods(MethodSorter.java:54)
+	at org.junit.runners.model.TestClass.scanAnnotatedMembers(TestClass.java:65)
+	at org.junit.runners.model.TestClass.<init>(TestClass.java:57)
+	at org.junit.runners.ParentRunner.createTestClass(ParentRunner.java:111)
+	at org.junit.runners.ParentRunner.<init>(ParentRunner.java:91)
+	at org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:74)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:50)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:55)
+	... 18 more
+Caused by: java.lang.ClassNotFoundException: Didn't find class "android.media.AudioFocusRequest" on path: DexPathList[[zip file "/data/app/dev.petrov.ymplayer2.dev.test-2/base.apk", zip file "/data/app/dev.petrov.ymplayer2.dev-2/base.apk"],nativeLibraryDirectories=[/data/app/dev.petrov.ymplayer2.dev.test-2/lib/x86, /data/app/dev.petrov.ymplayer2.dev-2/lib/x86, /data/app/dev.petrov.ymplayer2.dev.test-2/base.apk!/lib/x86, /data/app/dev.petrov.ymplayer2.dev-2/base.apk!/lib/x86, /vendor/lib, /system/lib]]
+	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:56)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:511)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:469)
+	at libcore.reflect.InternalNames.getClass(InternalNames.java:53)
+	... 30 more
+	Suppressed: java.lang.ClassNotFoundException: android.media.AudioFocusRequest
+		at java.lang.Class.classForName(Native Method)
+		at java.lang.BootClassLoader.findClass(ClassLoader.java:781)
+		at java.lang.BootClassLoader.loadClass(ClassLoader.java:841)
+		at java.lang.ClassLoader.loadClass(ClassLoader.java:504)
+		... 32 more
+	Caused by: java.lang.NoClassDefFoundError: Class not found using the boot class loader; no stack trace available
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=initializationError
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LaunchResumeRecoveryTest
+INSTRUMENTATION_STATUS: stack=java.lang.RuntimeException: Failed to instantiate test runner class androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+
+
+	at androidx.test.ext.junit.runners.AndroidJUnit4.throwInitializationError(AndroidJUnit4.java:129)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:121)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:82)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.<init>(AndroidJUnit4.java:56)
+	... 13 trimmed
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.lang.reflect.Constructor.newInstance(Native Method)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:112)
+	... 16 more
+Caused by: java.lang.NoClassDefFoundError: android.media.AudioFocusRequest
+	at libcore.reflect.InternalNames.getClass(InternalNames.java:55)
+	at java.lang.Class.getDexCacheType(Class.java:476)
+	at java.lang.reflect.AbstractMethod.getParameterTypes(AbstractMethod.java:166)
+	at java.lang.reflect.Method.getParameterTypes(Method.java:170)
+	at java.lang.Class.getDeclaredMethods(Class.java:673)
+	at org.junit.internal.MethodSorter.getDeclaredMethods(MethodSorter.java:54)
+	at org.junit.runners.model.TestClass.scanAnnotatedMembers(TestClass.java:65)
+	at org.junit.runners.model.TestClass.<init>(TestClass.java:57)
+	at org.junit.runners.ParentRunner.createTestClass(ParentRunner.java:111)
+	at org.junit.runners.ParentRunner.<init>(ParentRunner.java:91)
+	at org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:74)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:50)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:55)
+	... 18 more
+Caused by: java.lang.ClassNotFoundException: Didn't find class "android.media.AudioFocusRequest" on path: DexPathList[[zip file "/data/app/dev.petrov.ymplayer2.dev.test-2/base.apk", zip file "/data/app/dev.petrov.ymplayer2.dev-2/base.apk"],nativeLibraryDirectories=[/data/app/dev.petrov.ymplayer2.dev.test-2/lib/x86, /data/app/dev.petrov.ymplayer2.dev-2/lib/x86, /data/app/dev.petrov.ymplayer2.dev.test-2/base.apk!/lib/x86, /data/app/dev.petrov.ymplayer2.dev-2/base.apk!/lib/x86, /vendor/lib, /system/lib]]
+	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:56)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:511)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:469)
+	at libcore.reflect.InternalNames.getClass(InternalNames.java:53)
+	... 30 more
+	Suppressed: java.lang.ClassNotFoundException: android.media.AudioFocusRequest
+		at java.lang.Class.classForName(Native Method)
+		at java.lang.BootClassLoader.findClass(ClassLoader.java:781)
+		at java.lang.BootClassLoader.loadClass(ClassLoader.java:841)
+		at java.lang.ClassLoader.loadClass(ClassLoader.java:504)
+		... 32 more
+	Caused by: java.lang.NoClassDefFoundError: Class not found using the boot class loader; no stack trace available
+
+INSTRUMENTATION_STATUS: current=44
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.LocalPlaybackTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=profileCheckpointsAndServiceRestartStayPaused
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=45
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=profileCheckpointsAndServiceRestartStayPaused
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest
+INSTRUMENTATION_STATUS: current=45
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=
+dev.petrov.ymplayer2.SessionRecoveryTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=switchingProfileClearsItsOldResumeOwner
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest
+INSTRUMENTATION_STATUS: current=46
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=46
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=switchingProfileClearsItsOldResumeOwner
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest
+INSTRUMENTATION_STATUS: current=46
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 179.199
+There was 1 failure:
+1) initializationError(dev.petrov.ymplayer2.LaunchResumeRecoveryTest)
+java.lang.RuntimeException: Failed to instantiate test runner class androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+
+
+	at androidx.test.ext.junit.runners.AndroidJUnit4.throwInitializationError(AndroidJUnit4.java:129)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:121)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:82)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.<init>(AndroidJUnit4.java:56)
+	... 13 trimmed
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.lang.reflect.Constructor.newInstance(Native Method)
+	at androidx.test.ext.junit.runners.AndroidJUnit4.loadRunner(AndroidJUnit4.java:112)
+	... 16 more
+Caused by: java.lang.NoClassDefFoundError: android.media.AudioFocusRequest
+	at libcore.reflect.InternalNames.getClass(InternalNames.java:55)
+	at java.lang.Class.getDexCacheType(Class.java:476)
+	at java.lang.reflect.AbstractMethod.getParameterTypes(AbstractMethod.java:166)
+	at java.lang.reflect.Method.getParameterTypes(Method.java:170)
+	at java.lang.Class.getDeclaredMethods(Class.java:673)
+	at org.junit.internal.MethodSorter.getDeclaredMethods(MethodSorter.java:54)
+	at org.junit.runners.model.TestClass.scanAnnotatedMembers(TestClass.java:65)
+	at org.junit.runners.model.TestClass.<init>(TestClass.java:57)
+	at org.junit.runners.ParentRunner.createTestClass(ParentRunner.java:111)
+	at org.junit.runners.ParentRunner.<init>(ParentRunner.java:91)
+	at org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:74)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:50)
+	at androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner.<init>(AndroidJUnit4ClassRunner.java:55)
+	... 18 more
+Caused by: java.lang.ClassNotFoundException: Didn't find class "android.media.AudioFocusRequest" on path: DexPathList[[zip file "/data/app/dev.petrov.ymplayer2.dev.test-2/base.apk", zip file "/data/app/dev.petrov.ymplayer2.dev-2/base.apk"],nativeLibraryDirectories=[/data/app/dev.petrov.ymplayer2.dev.test-2/lib/x86, /data/app/dev.petrov.ymplayer2.dev-2/lib/x86, /data/app/dev.petrov.ymplayer2.dev.test-2/base.apk!/lib/x86, /data/app/dev.petrov.ymplayer2.dev-2/base.apk!/lib/x86, /vendor/lib, /system/lib]]
+	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:56)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:511)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:469)
+	at libcore.reflect.InternalNames.getClass(InternalNames.java:53)
+	... 30 more
+	Suppressed: java.lang.ClassNotFoundException: android.media.AudioFocusRequest
+		at java.lang.Class.classForName(Native Method)
+		at java.lang.BootClassLoader.findClass(ClassLoader.java:781)
+		at java.lang.BootClassLoader.loadClass(ClassLoader.java:841)
+		at java.lang.ClassLoader.loadClass(ClassLoader.java:504)
+		... 32 more
+	Caused by: java.lang.NoClassDefFoundError: Class not found using the boot class loader; no stack trace available
+
+FAILURES!!!
+Tests run: 46,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

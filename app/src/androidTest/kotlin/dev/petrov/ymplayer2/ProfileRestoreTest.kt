@@ -51,6 +51,7 @@ class ProfileRestoreTest {
         var gate: CompletableDeferred<Unit>? = null
         val entered = CompletableDeferred<Unit>()
         val indexed = object : IndexedLocalLibrary by library {
+            override val profiles = listOf(Profile("owner", "Owner", ""), Profile("guest", "Guest", ""))
             override fun tracks(profileId: String): List<Track> = error("Profile restore must not enumerate the catalog")
             override suspend fun playbackWindow(currentId: String?, source: Source?): LocalPlaybackWindow? {
                 gate?.let { entered.complete(Unit); it.await() }

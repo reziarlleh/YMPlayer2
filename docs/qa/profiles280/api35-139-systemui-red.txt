@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "D:\_codex\YMPlayer2\.local-build\profiles280\release_ui_smoke139.py", line 39, in <module>
+    tap(find(labels(key='msg_30c61037264b'),'content-desc'))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\_codex\YMPlayer2\.local-build\profiles280\release_ui_smoke139.py", line 31, in find
+    raise RuntimeError('UI node missing: '+repr(values))
+RuntimeError: UI node missing: {'Profile', 'Профильдер', 'Профілі', 'Профили', 'Profiles', 'Profils', 'Perfiles'}

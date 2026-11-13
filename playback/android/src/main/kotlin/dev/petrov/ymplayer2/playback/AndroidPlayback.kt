@@ -41,7 +41,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var launchResumeFailure: DiagnosticCategory? = null
     private var launchResumeAttempts = 0
     private var launchPreparePaused = false
-    private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", "owner") ?: "owner", emptyList(), connected = false))
+    private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", null)
+        ?.takeIf { id -> library.profiles.any { it.id == id } } ?: library.profiles.first().id, emptyList(), connected = false))
     override val state = mutable.asStateFlow()
     override val waveSettings = waveApi?.let { api -> online?.let { music -> WaveSettings(music.accounts, api, scope,
         read = { key -> runCatching { JSONObject(prefs.getString("waveSettings:$key", "{}")!!).let { json ->
@@ -1693,7 +1694,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     internal fun bufferedWaveAudioIds() = waveAudio.ids()
 
     private fun restore(profile: String) {
-        val validProfile = profile.takeIf { id -> library.profiles.any { it.id == id } } ?: "owner"
+        val validProfile = profile.takeIf { id -> library.profiles.any { it.id == id } } ?: library.profiles.first().id
         // Main.immediate collectors may run inside StateFlow.value assignment. Read the target
         // checkpoint before notifying them, and do not reconcile an outgoing queue into that profile.
         val json = runCatching { JSONObject(prefs.getString("queue:$validProfile", "")!!) }.getOrNull()
