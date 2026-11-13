@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-11-13T16:31:30.238404+00:00",
+  "post": {
+    "number": 111,
+    "postId": "145993551",
+    "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145993551"
+  },
+  "ownerInstruction": {
+    "number": 110,
+    "postId": "145992139",
+    "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=145992139"
+  },
+  "attachment": {
+    "name": "YMPlayer2-diagnostics-20261113-154348.txt",
+    "id": "36540466",
+    "url": "https://4pda.to/forum/dl/post/36540466/YMPlayer2-diagnostics-20261113-154348.txt",
+    "bytes": 4703,
+    "sha256": "65e8f4b3848307ab0b2a7f1a58c19fdb93c0adfff2b9cc427f8aa4ad27b9b4a9",
+    "version": "2.7.0-build137",
+    "export": "2026-11-13 15:43:54.651",
+    "androidApi": 28
+  },
+  "eventCount": 58,
+  "timeline": [
+    "2026-11-13 15:41:47.803 operation=SESSION_RESTORE category=OK intent=PLAY reason=METADATA_ONLY position=157 engineState=1",
+    "2026-11-13 15:41:47.911 operation=SESSION_RESTORE category=OK intent=PLAY reason=LAUNCH position=157 engineState=1",
+    "2026-11-13 15:41:47.912 operation=LAUNCH_RESUME_WAIT category=OK attempt=0",
+    "2026-11-13 15:41:47.915 operation=SESSION_INTENT category=OK intent=PLAY reason=LAUNCH position=157 engineState=1",
+    "2026-11-13 15:41:50.029 operation=LAUNCH_RESUME_STARTED category=OK attempt=0",
+    "2026-11-13 15:42:42.197 operation=SESSION_INTENT category=OK intent=PAUSE reason=CONTROLLER position=208 engineState=3",
+    "2026-11-13 15:43:34.215 operation=SESSION_INTENT category=OK intent=PLAY reason=COMMAND position=209 engineState=3"
+  ],
+  "observations": {
+    "launchStartedConfirmed": true,
+    "pauseControllerPresent": true,
+    "stopPresent": false,
+    "timeout1003Present": false,
+    "serviceDestroyedCount": 0,
+    "appOpenCount": 1,
+    "javaCrashRecorded": false
+  },
+  "networkIssueCounts": {
+    "TLS": 3,
+    "DNS": 7
+  },
+  "sourceCommit": "e0ca94621ba26d199e33647036b5b300e51a1848",
+  "sourceFingerprints": {
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt": "b1ff009a581ea83749e1a90d51e746570ddb30b2c7c93969603f1991f01f27c1",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt": "0efa473d107f574223b9054a5606aaf43322d2c422aa220374e728e2be494f9f",
+    "app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt": "087b70c22a6ca617f4676707822979f38d1f5fc69bceb01e7b4cad3171674d11",
+    "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt": "7f89978221721b59ac5e16ac5f9934867449e160460eabd67a1c352e6846216d",
+    "app/src/main/kotlin/dev/petrov/ymplayer2/ClipActivity.kt": "00643f5015c69160d0eb44a5a23f54bf17f727a5ebacaf4bef5a18d30319667b",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/OperationDiagnostic.kt": "3ce5a99a338e5d1549be7e8236f7c4ae4d4eadcdd24d5f34922c34cd4a33a4cc"
+  },
+  "audioServiceIdenticalToStable137": true,
+  "limits": [
+    "CONTROLLER also labels pauseForClips; origin of Pause is not identified.",
+    "There are no ignition/lifecycle timestamps around the later Pause.",
+    "A successful initial start is not acceptance of every later ACC cycle.",
+    "TLS/DNS errors do not prove the cause of the typed Pause command."
+  ],
+  "nextDiagnosticScope": "Controller request context and Activity foreground boundary; no unconditional Play.",
+  "status": "D-004 remains open; no product change, APK build or forum post."
+}
