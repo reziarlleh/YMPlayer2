@@ -2,7 +2,8 @@
 
 13 ноября2026. Подписанный универсальный APK содержит весь цикл Android6+
 и исправление возврата к Моей волне после другого источника (B-048).
-GitHub/CI сверяются; приёмка владельцем137 и публикация пока не заявляются.
+Код main a2afe1c, [CI43401951128 success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43401951128).
+Документы/GitHub/6 живых feed сверены; приёмка владельцем137 и публикация пока не заявляются.
 
 - Файл: `releases/2.7.0-build137/YMPlayer-2.7.0-build137.apk`,4 664 183 байта.
 - Пакет `dev.petrov.ymplayer2`, versionCode137, minSDK23, targetSDK36.

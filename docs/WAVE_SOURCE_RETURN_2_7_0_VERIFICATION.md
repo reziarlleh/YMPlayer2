@@ -75,4 +75,16 @@ JVM164 core+4 buildSrc прошли; release lint0 errors/0NewApi/130 warnings.
 приватный контрольный файл, cold launch остаётся в MainActivity, crash buffer пуст.
 [Артефакт/upgrade](qa/wave-source270/artifact.json), [ручной APK](MANUAL_2_7_0_BUILD137.md).
 Физические устройства/персональные аккаунты этими fixtures не проверялись.
-Готовится финальная сверка GitHub/CI; stable132/auto-update/4PDA не менялись.
+Код отправлен в main a2afe1c4ec0387a280af8504645baed9396a697e;
+[CI43401951128 success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43401951128),
+[машинный результат](qa/wave-source270/ci.json). CI проверил каталог8 языков,
+JVM/debug APK/instrumentation APK/lint и buildSrc contract. Native-прогоны выше
+используют исправленные debug-исходники; signed137 проверен отдельно установкой
+и запуском. В release DEX137 присутствует новый checkpoint, отсутствующий136;
+SHA финального APK после проверок не менялся.
+[Сверка документов/GitHub](qa/wave-source270/documentation-github.json) прошла,
+README совпадает, public/main/Latest132 сохранены. Все6 живых feed вернули
+HTTP200/132/min28: [датированная проверка](qa/wave-source270/live-feeds.json).
+Повторный repowise update завершился missing tree_sitter; индекс не выдаётся
+за обновлённый. Использованные собственные AVD закрыты, сеть возвращена.
+Следующий шаг — ручная проверка137 владельцем; stable132/auto-update/4PDA не менялись.

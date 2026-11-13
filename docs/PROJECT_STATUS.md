@@ -7,7 +7,8 @@ current/position, session/cursor и готовые файлы при смене 
 По73 native passed на23/35 (полные прогоны плюс адресный повтор обновлённого
 ожидания теста),3 двухпроцессных Stop-сценария на35; JVM168, lint0/130.
 Signed136→137 сохранил UID/firstInstallTime/приватный файл на23/35.
-Код/документы и GitHub/CI сверяются. Stable132 не меняется, новой публикации нет;
+Код main a2afe1c, [CI43401951128 success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43401951128).
+Документы/GitHub/все6 живых feed сверены. Stable132 не меняется, новой публикации нет;
 владельческая проверка137 впереди. [APK](MANUAL_2_7_0_BUILD137.md),
 [причина и доказательства](WAVE_SOURCE_RETURN_2_7_0_VERIFICATION.md).
 

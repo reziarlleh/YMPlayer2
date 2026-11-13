@@ -1,0 +1,21 @@
+{
+  "version": "2.7.0-build137",
+  "manualBeta": false,
+  "development": true,
+  "stableVersion": "2.6.6-build132",
+  "localFeeds": {
+    "manifest": "2.6.6-build132",
+    "stable": "2.6.6-build132"
+  },
+  "documents": 284,
+  "localLinks": 2924,
+  "brokenLinks": [],
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.6.6-build132",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.6.6-build132",
+    "readmeBlob": "d1bad532acefd502b0974632a53cb4d3550066d5",
+    "localReadmeBlob": "d1bad532acefd502b0974632a53cb4d3550066d5"
+  },
+  "errors": []
+}

@@ -16,7 +16,12 @@ dismiss/controller Stop/TV Stop. JVM168, release lint0 errors/0NewApi/130 warnin
 и приватный файл, startup без crash. [Результат и raw logs](WAVE_SOURCE_RETURN_2_7_0_VERIFICATION.md).
 RepoWise CLI по-прежнему не загружается (missing tree_sitter); индекс не
 выдаётся за актуальное доказательство. Продолжаем2.7.0; публикации нет.
-Следующая точка — финальная сверка документов, push main/CI и выдача137 владельцу.
+Код/документы в main a2afe1c; CI43401951128 success. Сверка локальных документов,
+README/public/main/Latest132 и6 живых feed HTTP200/132/min28 пройдена. SHA137
+не менялся; наличие исправления проверено и в release DEX. RepoWise update
+снова missing tree_sitter; собственные AVD закрыты с восстановленной сетью.
+Следующая точка — ручная проверка137 владельцем. Физическая приёмка137 и новая
+публикация не заявлены; в автообновлении132.
 
 ## 13 ноября2026 — Android6+ реализован в ручном2.7.0-build136
 

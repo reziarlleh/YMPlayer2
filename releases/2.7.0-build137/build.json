@@ -9,5 +9,6 @@
   "runtimeAcceptance": "emulator-verified",
   "versionCode": 137,
   "ownerAcceptance": "pending",
-  "publication": "not-published"
+  "publication": "not-published",
+  "productSourceCommit": "a2afe1c4ec0387a280af8504645baed9396a697e"
 }

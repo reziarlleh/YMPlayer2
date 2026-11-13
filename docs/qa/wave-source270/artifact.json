@@ -35,5 +35,8 @@
       "firstInstallTime": "2026-11-13 07:24:44",
       "fromBuild": 136
     }
-  ]
+  ],
+  "productSourceCommit": "a2afe1c4ec0387a280af8504645baed9396a697e",
+  "parkedWaveCheckpointInReleaseDex": true,
+  "predecessorHasParkedWaveCheckpoint": false
 }
