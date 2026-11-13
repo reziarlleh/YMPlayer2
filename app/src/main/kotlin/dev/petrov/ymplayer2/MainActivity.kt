@@ -44,6 +44,9 @@ class MainActivity : ComponentActivity() {
     }
     override fun onStop() {
         val graph = application as PlayerApplication
+        graph.diagnostics.record(dev.petrov.ymplayer2.core.OperationDiagnostic(
+            dev.petrov.ymplayer2.core.DiagnosticOperation.APP_BACKGROUND,
+            elapsedRealtimeMillis = android.os.SystemClock.elapsedRealtime()))
         graph.playback.saveForExit()
         graph.radio.saveForExit()
         graph.navigation.edit().commit()
@@ -52,6 +55,9 @@ class MainActivity : ComponentActivity() {
     }
     override fun onStart() {
         super.onStart()
+        (application as PlayerApplication).diagnostics.record(dev.petrov.ymplayer2.core.OperationDiagnostic(
+            dev.petrov.ymplayer2.core.DiagnosticOperation.APP_FOREGROUND,
+            elapsedRealtimeMillis = android.os.SystemClock.elapsedRealtime()))
         (application as PlayerApplication).restoreLaunch(freshActivity = false)
         if (::sideBar.isInitialized) sideBar.refresh()
         (application as PlayerApplication).accounts.retryAccount()

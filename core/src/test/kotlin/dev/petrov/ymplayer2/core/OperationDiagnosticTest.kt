@@ -32,4 +32,17 @@ class OperationDiagnosticTest {
             reason = SessionStateReason.AUDIO_BECOMING_NOISY, positionSeconds = -1, engineState = Int.MAX_VALUE)
         assertEquals("operation=SESSION_INTENT category=OK intent=PAUSE reason=AUDIO_BECOMING_NOISY position=0 engineState=4", record.line())
     }
+    @Test fun transportRequestContainsBoundedControllerIdentityAndOriginalIntent() {
+        val record = OperationDiagnostic(DiagnosticOperation.SESSION_COMMAND, intent = SessionIntent.PLAY,
+            transportCommand = SessionTransportCommand.PAUSE, controllerOrigin = SessionCommandOrigin.MEDIA_CONTROLLER,
+            controllerPackage = "com.example.launcher", elapsedRealtimeMillis = -5)
+        assertEquals("operation=SESSION_COMMAND category=OK intent=PLAY command=PAUSE controllerOrigin=MEDIA_CONTROLLER controllerPackage=com.example.launcher elapsedMs=0", record.line())
+    }
+    @Test fun arbitraryControllerDataCannotLeakIntoDiagnosticLines() {
+        for (value in listOf("https://signed.example/track?token=secret", "com.widget\nintent=PLAY",
+                "a".repeat(201), "com.widget secret", "", "com..widget")) {
+            val line = OperationDiagnostic(DiagnosticOperation.SESSION_COMMAND, controllerPackage = value).line()
+            assertEquals("operation=SESSION_COMMAND category=OK", line)
+        }
+    }
 }

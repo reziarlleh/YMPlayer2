@@ -1116,6 +1116,17 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         resumeOnLaunch(launchRevision)
     }
     internal fun sessionPlay() = command(playing = true, intentReason = SessionStateReason.CONTROLLER) { playSession() }
+    /** Observe a facade request before it changes durable intent; never changes playback itself. */
+    internal fun recordControllerCommand(command: SessionTransportCommand, origin: SessionCommandOrigin, packageName: String?) {
+        val saved = launchState.read(state.value.profileId)
+        val music = saved.output == PlaybackOutput.MUSIC
+        diagnostic(OperationDiagnostic(DiagnosticOperation.SESSION_COMMAND,
+            intent = if (!music) null else when {
+                saved.playing -> SessionIntent.PLAY; saved.stopped -> SessionIntent.STOP; else -> SessionIntent.PAUSE
+            }, positionSeconds = if (music) state.value.positionSeconds else null, engineState = engine?.playbackState,
+            transportCommand = command, controllerOrigin = origin, controllerPackage = packageName,
+            elapsedRealtimeMillis = android.os.SystemClock.elapsedRealtime()))
+    }
     private fun playSession() {
         mutable.value = state.value.copy(error = null)
         waveRecovery.reset(); failedWaveTracks = 0

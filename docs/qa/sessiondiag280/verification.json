@@ -1,0 +1,220 @@
+{
+  "checkedAt": "2026-11-13T19:13:23.073062+00:00",
+  "native": {
+    "api23": {
+      "passed": [
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#failedDiagnosticObserverCannotSwallowPause",
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#media3CommandsAreAttributedAndForegroundKeepsManualPause",
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#platformControllerPauseIsRecordedThroughTheLegacySession",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#actualMedia3TaskRemovalPreservesSavedWavePlay",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#foregroundPreparesSavedWavePauseWithoutServiceRestart",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#noisyPauseSurvivesActualForegroundTimeout",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#savedWavePauseSurvivesBackgroundServiceRecreation",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#savedWavePlaySurvivesBackgroundServiceRecreation"
+      ],
+      "skipped": [
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#noisyPauseSurvivesDefaultTenMinuteForegroundTimeout"
+      ],
+      "failed": [],
+      "log": "api23-tests.txt"
+    },
+    "api28": {
+      "passed": [
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#failedDiagnosticObserverCannotSwallowPause",
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#media3CommandsAreAttributedAndForegroundKeepsManualPause",
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#platformControllerPauseIsRecordedThroughTheLegacySession",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#actualMedia3TaskRemovalPreservesSavedWavePlay",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#foregroundPreparesSavedWavePauseWithoutServiceRestart",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#noisyPauseSurvivesActualForegroundTimeout",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#savedWavePauseSurvivesBackgroundServiceRecreation",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#savedWavePlaySurvivesBackgroundServiceRecreation"
+      ],
+      "skipped": [
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#noisyPauseSurvivesDefaultTenMinuteForegroundTimeout"
+      ],
+      "failed": [],
+      "log": "api28-tests.txt"
+    },
+    "api35": {
+      "passed": [
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#failedDiagnosticObserverCannotSwallowPause",
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#media3CommandsAreAttributedAndForegroundKeepsManualPause",
+        "dev.petrov.ymplayer2.SessionCommandDiagnosticsTest#platformControllerPauseIsRecordedThroughTheLegacySession",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#actualMedia3TaskRemovalPreservesSavedWavePlay",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#foregroundPreparesSavedWavePauseWithoutServiceRestart",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#noisyPauseSurvivesActualForegroundTimeout",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#savedWavePauseSurvivesBackgroundServiceRecreation",
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#savedWavePlaySurvivesBackgroundServiceRecreation"
+      ],
+      "skipped": [
+        "dev.petrov.ymplayer2.WaveServiceRestoreTest#noisyPauseSurvivesDefaultTenMinuteForegroundTimeout"
+      ],
+      "failed": [],
+      "log": "api35-tests.txt"
+    }
+  },
+  "unit": {
+    "core": {
+      "tests": 177,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "releaseLint": {
+    "severity": {
+      "Warning": 132
+    },
+    "newApi": 0,
+    "lintError": 0
+  },
+  "productSourceFingerprints": {
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/OperationDiagnostic.kt": "4a9651d6ae4aa9b343090694018eea50298c82ead6d0f96d8d42a26f6c408056",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt": "a0f00c94455b61feade4441d9bda1c6431fe57d2c9756564d7c11a81bb5f4480",
+    "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt": "a4d72a099223197ebb6381d08f49e9793ef7569bb97875467b4df6217150ddbd",
+    "app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt": "f29c820dfa314cfd256ef8e8e4acab1f8aef12f5b7c1684108899c7aff566999"
+  },
+  "commandObservations": {
+    "api23": [
+      "2026-11-13 19:06:36.713 operation=SESSION_COMMAND category=OK intent=PLAY position=0 engineState=2 command=PAUSE controllerOrigin=MEDIA_CONTROLLER controllerPackage=android.media.session.MediaController elapsedMs=703083"
+    ],
+    "api28": [
+      "2026-11-13 19:10:35.406 operation=SESSION_COMMAND category=OK intent=PLAY position=0 engineState=3 command=PAUSE controllerOrigin=MEDIA_CONTROLLER controllerPackage=dev.petrov.ymplayer2.dev elapsedMs=40504"
+    ],
+    "api35": [
+      "2026-11-13 19:06:09.081 operation=SESSION_COMMAND category=OK intent=PLAY position=0 engineState=3 command=PAUSE controllerOrigin=MEDIA_CONTROLLER controllerPackage=dev.petrov.ymplayer2.dev elapsedMs=670925"
+    ]
+  },
+  "ownerAcceptance": "pending",
+  "D004": "open; instrumentation only",
+  "publishedStable": "2.7.0-build137",
+  "version": "2.8.0-build140",
+  "artifact": {
+    "channel": "stable",
+    "builtAtUtc": "2026-11-13T19:17:33.4451610Z",
+    "runtimeAcceptance": "pending",
+    "versionName": "2.8.0-build140",
+    "minSdk": 23,
+    "applicationId": "dev.petrov.ymplayer2",
+    "sha256": "df17395d08fb0efefab4be05fbb6ef914f9b759f0fcd9dc425acc607cb6f144b",
+    "versionCode": 140,
+    "updateChannel": "stable"
+  },
+  "artifactBytes": 4694242,
+  "signed": {
+    "api23": {
+      "upgrade": {
+        "serial": "emulator-5582",
+        "oldApk": "YMPlayer-2.8.0-build139.apk",
+        "newApk": "YMPlayer-2.8.0-build140.apk",
+        "networkBefore": {
+          "wifi": "1",
+          "data": "1"
+        },
+        "before": {
+          "uid": "10063",
+          "firstInstallTime": "2026-11-13 04:22:16",
+          "version": "2.8.0-build139"
+        },
+        "oldProfile": "owner",
+        "after": {
+          "uid": "10063",
+          "firstInstallTime": "2026-11-13 04:22:16",
+          "version": "2.8.0-build140"
+        },
+        "launch": "Starting: Intent { cmp=dev.petrov.ymplayer2/.MainActivity }\r\r\nStatus: ok\r\r\nActivity: dev.petrov.ymplayer2/.MainActivity\r\r\nThisTime: 2104\r\r\nTotalTime: 2104\r\r\nWaitTime: 2153\r\r\nComplete",
+        "selectedProfile": "owner",
+        "migratedIds": [
+          "owner",
+          "road",
+          "guest"
+        ],
+        "privateMarkerPreserved": true,
+        "markerSha256": "60f5a16494b80892690d6869c3ba951f06e36dac6d1ff07203dd17cdb36768f7",
+        "sameUid": true,
+        "sameFirstInstallTime": true,
+        "sameSelectedProfile": true,
+        "appVisible": true,
+        "javaCrash": false,
+        "networkRestored": true
+      },
+      "releaseLifecycle": {
+        "serial": "emulator-5582",
+        "version": "2.8.0-build140",
+        "events": [
+          "2026-11-13 19:19:47.818 operation=APP_FOREGROUND category=OK elapsedMs=1494187",
+          "2026-11-13 19:19:49.438 operation=APP_BACKGROUND category=OK elapsedMs=1495807",
+          "2026-11-13 19:19:49.912 operation=APP_FOREGROUND category=OK elapsedMs=1496281"
+        ],
+        "lifecycleRecorded": true,
+        "appVisible": true,
+        "javaCrash": false,
+        "networkRestored": true
+      }
+    },
+    "api35": {
+      "upgrade": {
+        "serial": "emulator-5580",
+        "oldApk": "YMPlayer-2.8.0-build139.apk",
+        "newApk": "YMPlayer-2.8.0-build140.apk",
+        "networkBefore": {
+          "wifi": "1",
+          "data": "1"
+        },
+        "before": {
+          "uid": "10209",
+          "firstInstallTime": "2026-11-13 07:24:44",
+          "version": "2.8.0-build139"
+        },
+        "oldProfile": "owner",
+        "after": {
+          "uid": "10209",
+          "firstInstallTime": "2026-11-13 07:24:44",
+          "version": "2.8.0-build140"
+        },
+        "launch": "Starting: Intent { cmp=dev.petrov.ymplayer2/.MainActivity }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: dev.petrov.ymplayer2/.MainActivity\r\nTotalTime: 2414\r\nWaitTime: 2418\r\nComplete",
+        "selectedProfile": "owner",
+        "migratedIds": [
+          "owner",
+          "road",
+          "guest"
+        ],
+        "privateMarkerPreserved": true,
+        "markerSha256": "a4ff43d25e534975be3771582c20f7c1662940755429da435e83958af36e16e8",
+        "sameUid": true,
+        "sameFirstInstallTime": true,
+        "sameSelectedProfile": true,
+        "appVisible": true,
+        "javaCrash": false,
+        "networkRestored": true
+      },
+      "releaseLifecycle": {
+        "serial": "emulator-5580",
+        "version": "2.8.0-build140",
+        "events": [
+          "2026-11-13 19:19:36.498 operation=APP_FOREGROUND category=OK elapsedMs=1478342",
+          "2026-11-13 19:19:39.507 operation=APP_BACKGROUND category=OK elapsedMs=1481351",
+          "2026-11-13 19:19:39.832 operation=APP_FOREGROUND category=OK elapsedMs=1481677",
+          "2026-11-13 19:19:39.941 operation=APP_BACKGROUND category=OK elapsedMs=1481785",
+          "2026-11-13 19:19:41.475 operation=APP_FOREGROUND category=OK elapsedMs=1483319"
+        ],
+        "lifecycleRecorded": true,
+        "appVisible": true,
+        "javaCrash": false,
+        "networkRestored": true
+      }
+    }
+  },
+  "nativeSourceMatchesReleaseSource": true,
+  "nativeDebugApkVersionNote": "Debug APK source tested before reserving Build140; the four product source fingerprints are unchanged. Signed140 was checked separately.",
+  "versionPropertiesSha256": "98f4cbd913c747128b575a8e83d9b08e43a4a25fcc985c8c9720c4fe637d2c2d"
+}

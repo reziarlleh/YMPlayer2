@@ -16,6 +16,8 @@ import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.datasource.ResolvingDataSource
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import android.net.Uri
+import dev.petrov.ymplayer2.core.SessionCommandOrigin
+import dev.petrov.ymplayer2.core.SessionTransportCommand
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.LibraryResult
@@ -62,7 +64,17 @@ class AudioService : MediaLibraryService() {
             setWakeMode(C.WAKE_MODE_NETWORK)
         }
         engine = player
-        session = MediaLibrarySession.Builder(this, sessionPlayer(player, playback), browserCallback(playback, host::onAudioServiceEvent)).apply {
+        session = MediaLibrarySession.Builder(this, sessionPlayer(player, playback) { command ->
+            // Read while Player handles the request: Media3 clears this context after dispatch.
+            val current = session
+            val controller = current?.controllerForCurrentRequest
+            val origin = when {
+                controller == null -> SessionCommandOrigin.NO_CONTROLLER
+                current != null && current.isMediaNotificationController(controller) -> SessionCommandOrigin.MEDIA_NOTIFICATION_CONTROLLER
+                else -> SessionCommandOrigin.MEDIA_CONTROLLER
+            }
+            playback.recordControllerCommand(command, origin, controller?.packageName)
+        }, browserCallback(playback, host::onAudioServiceEvent)).apply {
             setSessionActivity(mediaPlayerActivity(this@AudioService))
         }.build()
         // Our UI uses an in-process adapter; register for notification/foreground ownership.
@@ -157,7 +169,12 @@ private fun browserCallback(playback: AndroidPlayback, diagnostic: (AudioService
 /** A wave still has a next item when its network request is in flight. The same commands
  * are used by notification/headset controllers and by the on-screen transport. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
-internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = object : ForwardingPlayer(player) {
+internal fun sessionPlayer(player: Player, playback: AndroidPlayback,
+    commandObserved: (SessionTransportCommand) -> Unit = {}): Player = object : ForwardingPlayer(player) {
+    private fun observe(command: SessionTransportCommand) {
+        // A diagnostics/storage failure must never swallow a transport command.
+        try { commandObserved(command) } catch (_: Exception) { }
+    }
     private val modeCallbacks = mutableMapOf<Player.Listener, () -> Unit>()
     override fun addListener(listener: Player.Listener) {
         super.addListener(listener)
@@ -211,7 +228,8 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
     override fun seekToNextMediaItem() { if (!playback.radioMode) playback.skip(1) }
     override fun seekToPrevious() { if (!playback.radioMode) playback.skip(-1) }
     override fun seekToPreviousMediaItem() { if (!playback.radioMode) playback.skip(-1) }
-    override fun play() {
+    override fun play() { observe(SessionTransportCommand.PLAY); playRequested() }
+    private fun playRequested() {
         if (selectedSource == null && playback.radioMode) { playback.radio?.play(); return }
         when (selectedSource.also { selectedSource = null }) {
             BrowserSources.WAVE -> playback.playMyWave()
@@ -219,11 +237,18 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback): Player = 
             else -> playback.sessionPlay()
         }
     }
-    override fun pause() { if (playback.radioMode) playback.radio?.stop() else playback.sessionPause() }
-    override fun stop() { selectedSource = null; if (playback.radioMode) playback.radio?.stop() else playback.sessionStop() }
+    private fun pauseRequested() { if (playback.radioMode) playback.radio?.stop() else playback.sessionPause() }
+    override fun pause() { observe(SessionTransportCommand.PAUSE); pauseRequested() }
+    override fun stop() {
+        observe(SessionTransportCommand.STOP)
+        selectedSource = null; if (playback.radioMode) playback.radio?.stop() else playback.sessionStop()
+    }
     override fun setRepeatMode(repeatMode: Int) { if (!playback.radioMode) playback.sessionRepeatMode(repeatMode) }
     override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) { if (!playback.radioMode) playback.setShuffle(shuffleModeEnabled) }
-    override fun setPlayWhenReady(playWhenReady: Boolean) { if (playWhenReady) play() else pause() }
+    override fun setPlayWhenReady(playWhenReady: Boolean) {
+        observe(if (playWhenReady) SessionTransportCommand.SET_PLAY_WHEN_READY_TRUE else SessionTransportCommand.SET_PLAY_WHEN_READY_FALSE)
+        if (playWhenReady) playRequested() else pauseRequested()
+    }
 }
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)

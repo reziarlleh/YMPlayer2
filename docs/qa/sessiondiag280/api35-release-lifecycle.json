@@ -1,0 +1,15 @@
+{
+  "serial": "emulator-5580",
+  "version": "2.8.0-build140",
+  "events": [
+    "2026-11-13 19:19:36.498 operation=APP_FOREGROUND category=OK elapsedMs=1478342",
+    "2026-11-13 19:19:39.507 operation=APP_BACKGROUND category=OK elapsedMs=1481351",
+    "2026-11-13 19:19:39.832 operation=APP_FOREGROUND category=OK elapsedMs=1481677",
+    "2026-11-13 19:19:39.941 operation=APP_BACKGROUND category=OK elapsedMs=1481785",
+    "2026-11-13 19:19:41.475 operation=APP_FOREGROUND category=OK elapsedMs=1483319"
+  ],
+  "lifecycleRecorded": true,
+  "appVisible": true,
+  "javaCrash": false,
+  "networkRestored": true
+}

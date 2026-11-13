@@ -1,5 +1,10 @@
 # Карта переноса и модулей
 
+14 ноября: в140 добавлен контекст media-команд в core/OperationDiagnostic и
+playback/AudioService, снимок прежнего intent в AndroidPlayback, lifecycle
+в MainActivity. Политика управления сохранена; новых модулей/разрешений нет.
+[Проверки, ограничения Android и APK140](SESSION_COMMAND_DIAGNOSTICS_2_8_0.md).
+
 13 ноября, после139: возобновлён D-004, [свежий лог137/№111](FORUM_FOX7_FRESH_137_2026_11_13.md).
 Успешное восстановление, затем PAUSE/CONTROLLER с неизвестным источником;
 это анализ действующего AudioService/AndroidPlayback, без переноса алгоритмов,
@@ -13,7 +18,7 @@ SafLibrary сохраняет общий каталог. Язык/тема/ма�
 Переключение сохраняет прежний контракт Pause; новых модулей не создаётся.
 В138 пройдены JVM175+4 app/4 buildSrc, по65 native23/35 и16 TV28; в139 —
 повтор по5 UI23/35/TV28, signed upgrade и release UI на23/35.
-[Подписанный139 и подробные границы](USER_PROFILES_2_8_0_VERIFICATION.md).
+[Профильные проверки138/139 и актуальный140](USER_PROFILES_2_8_0_VERIFICATION.md).
 Владельческая приёмка и публикация ещё предстоят; stable137 не меняется.
 
 13 ноября,137/B-048: AndroidPlayback сохраняет тот же bounded JSON отдельно
@@ -230,7 +235,7 @@ Fxx: [карта функций](FEATURE_INVENTORY.md); Sxx: [reference1.x](LEGA
 | F26 | Уточнения владельца и актуальный FM frontend/API | core + provider/yandex + playback/android + feature/shell | new | Полный раздел в ручной beta87, общий AudioService и текущий AccountAuth | [Проверки87](RADIO_2_5_VERIFICATION.md): API/эфир/коллекция на стенде, signed API28/TV29; реальный station POST ожидает приёмки |
 | F19, базовая айдентика | Уточнение владельца 2026-10-01 | designsystem + launcher | redesign | Утверждены монограмма №4/r5 и палитра №1 «Оксид», внедрены в build60; широкий YM + Player2 и TV banner опубликованы в build61 | [Айдентика/палитры build60](BRAND_2_0_1_VERIFICATION.md), [широкий знак/build61](WIDE_BRAND_2_0_1_VERIFICATION.md); ресурсы и TV launcher проверены, импорт внешних скинов — M13 |
 | F19, новый shell | S01/S11 только сценарии | designsystem, feature:shell | redesign | M3.3 local; [UI/build30](UI_LANDSCAPE_RAIL_VERIFICATION.md), [build31](M9_3_VERIFICATION.md) | Иерархия «Назад», двойной выход, детали/диалоги, шрифт 200% и короткое окно проверены. Левое меню в альбомной ориентации едино для всех разделов и сохраняет подписи при 200%; облачные экраны отдельно |
-| F02 | ROADMAP, S08 и уточнение владельца13.11.2026 | core/UserProfiles+auth, library/local, playback, shell, appearance | new |2.8.0/139 добавляет именных пользователей/CRUD и персональное оформление поверх прежних сессий; [проверки](USER_PROFILES_2_8_0_VERIFICATION.md). M12.7/медленный restore сохранён |Стабильные ID/Keystore, отмена старых ответов, Pause при выборе, общий локальный каталог. Прежние3 ID мигрируют, guest-запрет входа снят. Облачная синхронизация профилей не добавлена; приёмка139 ожидается |
+| F02 | ROADMAP, S08 и уточнение владельца13.11.2026 | core/UserProfiles+auth, library/local, playback, shell, appearance | new |2.8.0/140 добавляет именных пользователей/CRUD и персональное оформление поверх прежних сессий; [проверки](USER_PROFILES_2_8_0_VERIFICATION.md). M12.7/медленный restore сохранён |Стабильные ID/Keystore, отмена старых ответов, Pause при выборе, общий локальный каталог. Прежние3 ID мигрируют, guest-запрет входа снят. Облачная синхронизация профилей не добавлена; приёмка140 ожидается |
 | F01 | S01/S04/S08 | core/auth + provider/yandex + shell | migration/refactor | M4.1 verification | Повторная сверка с 1.x: OAuth сохраняется до account/status, возвращены HTTP-заголовки и тайм-ауты, код переживает сетевой сбой. [Проверки](M4_1_VERIFICATION.md); живой вход подтверждается отдельно |
 | F16 | ROADMAP; S05 как reference | library + local index + playback + shell | new | Реализовано: локальный/USB SQLite и адресный доступ build44–54; [M11.12/build55](M11_12_VERIFICATION.md) объединяет локальные/USB и Яндекс-результаты в одном каталоге и поиске. Проверены 17 сценариев на Android 15, 16 при шрифте 200% и шесть на Android TV, включая D-pad. Подписанный APK сохраняет данные при обновлении 54→55; фоновый WAV, системные кнопки и восстановление на паузе проверены отдельно. | JSON→SQLite сохраняет ID; ручной порядок — ссылки, волна — отдельная сессия с подготовкой следующего трека. Перенос 54→55 сохраняет каталог и позицию. Кэш только «Мне нравится». Выпускная регрессия M12.7 завершена |
 | F17 | Утверждённый PLAN_2_3; S05 как reference | library/local + core + shell | new | Все три сценария реализованы в75–77 | [История75](RELEASE_2_3_0_VERIFICATION.md), [недавно добавленное76](RELEASE_2_3_1_VERIFICATION.md), [массовые действия77](RELEASE_2_3_2_VERIFICATION.md); настройки/данные сохраняются, приёмка владельцем учитывается отдельно |

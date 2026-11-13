@@ -561,6 +561,12 @@ returned/accepted track counts and wave recovery attempts. These help separate
 causes; an error code alone does not prove a server fault. Secrets, stream URLs
 and API response bodies are excluded.
 
+From2.8.0, the journal also records playback commands, the controller identity
+Android provides (including its package identifier), and when the app window
+enters or leaves the foreground. System UI can appear as the app's media
+notification controller; that does not always identify the original widget
+or the user's gesture.
+
 **Settings → Diagnostics** lets you inspect, refresh, clear and export the
 error journal to Downloads. After a crash, reopen the app and export the log
 before clearing it. From2.3.3, it includes the last Java exception type and
@@ -569,8 +575,7 @@ keyboard. Android11+ also provides system process-exit reasons; Android10
 does not support that part. Search text, track titles and tokens are not
 recorded. Reports stay on your device until you choose to share them.
 
-Use the dedicated
-Radio section instead. The journal records connection/playback/error events
+Radio connection, playback and error events also appear in the journal,
 without stream URLs, station or track names, or tokens.
 
 On Android6–9, export opens the system file picker instead: choose

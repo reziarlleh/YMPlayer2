@@ -1,0 +1,22 @@
+# YMPlayer2 2.8.0-build140 — APK для проверки
+
+14 ноября2026. Локальный подписанный кандидат2.8.0: пользовательские профили
+и расширенная диагностика команд. Releases/Latest/feeds остаются2.7.0-build137.
+
+APK: `releases/2.8.0-build140/YMPlayer-2.8.0-build140.apk` —4694242bytes.
+SHA256: `df17395d08fb0efefab4be05fbb6ef914f9b759f0fcd9dc425acc607cb6f144b`.
+Пакет dev.petrov.ymplayer2, versionCode140, Android6/API23+, target36,4 ABI.
+Прежний сертификат, v1+v2:
+`fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.
+Release OAuth проверен; установка поверх139 сохранила UID/firstInstallTime,
+профили и приватный marker на23/35. Lifecycle-события проверены в R8 release.
+
+[Полный накопленный состав2.8.0](RELEASE_2_8_0_NOTES.md),
+[профили138/139](USER_PROFILES_2_8_0_VERIFICATION.md),
+[диагностика140: проверки и ограничения](SESSION_COMMAND_DIAGNOSTICS_2_8_0.md).
+Core177/app4, по9 native23/28/35; по одному явному десятиминутному idle-тесту
+пропущено. Release lint0 errors/132 warnings/0NewApi. Подпись и данные сохранены.
+
+Для Fox_7 это диагностическое расширение: причина Pause в его сценарии ещё
+не установлена, исправление/приёмка D-004 не заявляются. Политика восстановления
+и приоритет Pause/Stop не менялись; публикация140 не выполнялась.
