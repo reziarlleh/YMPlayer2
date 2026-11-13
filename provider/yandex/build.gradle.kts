@@ -2,10 +2,12 @@ plugins { alias(libs.plugins.android.library) }
 android {
     namespace = "dev.petrov.ymplayer2.yandex"
     compileSdk = 37
-    defaultConfig { minSdk = 28 }
-    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+    defaultConfig { minSdk = 23 }
+    compileOptions { isCoreLibraryDesugaringEnabled = true; sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
 dependencies {
+    implementation(libs.android.core)
+    coreLibraryDesugaring(libs.desugar.jdk.nio)
     implementation(project(":core"))
     implementation(libs.coroutines.android)
 }

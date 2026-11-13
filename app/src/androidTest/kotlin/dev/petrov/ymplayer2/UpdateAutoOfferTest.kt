@@ -27,10 +27,10 @@ class UpdateAutoOfferTest {
         lateinit var activity: MainActivity
         scenario.onActivity { activity = it }
         val manifestUrl = "https://fixture.test/manifest.json"
-        val next = activity.packageManager.getPackageInfo(activity.packageName, 0).longVersionCode + 1
+        val next = dev.petrov.ymplayer2.updater.installedVersionCode(activity) + 1
         val manifest = JSONObject().put("schemaVersion", 1).put("packageName", activity.packageName)
             .put("versionCode", next).put("versionName", "2.0.0beta-build$next")
-            .put("channel", "beta").put("minSdk", 28).put("releaseNotes", "Новая версия")
+            .put("channel", "beta").put("minSdk", 23).put("releaseNotes", "Новая версия")
             .put("apk", JSONObject().put("primaryUrl", "https://fixture.test/update.apk")
                 .put("alternativeUrl", "https://backup.test/update.apk")
                 .put("sizeBytes", 3).put("sha256", "a".repeat(64)))
@@ -44,7 +44,7 @@ class UpdateAutoOfferTest {
                 override fun usingProxy() = false
                 override fun getResponseCode() = 200
                 override fun getInputStream() = ByteArrayInputStream(bytes)
-                override fun getContentLengthLong() = bytes.size.toLong()
+                override fun getHeaderField(name: String): String? = if (name.equals("Content-Length", true)) bytes.size.toString() else null
             }
         }, manifests = listOf(manifestUrl))
         try {

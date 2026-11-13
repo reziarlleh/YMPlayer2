@@ -31,10 +31,10 @@ class UpdateLifecycleTest {
         val downloadEntered = CountDownLatch(1); val downloadRelease = CountDownLatch(1)
         val checks = AtomicInteger(); val downloads = AtomicInteger()
         val bytes = "abc".toByteArray()
-        val build = context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode + 100
+        val build = dev.petrov.ymplayer2.updater.installedVersionCode(context) + 100
         val manifest = JSONObject().put("schemaVersion", 1).put("packageName", context.packageName)
             .put("versionCode", build).put("versionName", "2.2.1beta-build$build").put("channel", "beta")
-            .put("minSdk", 28).put("releaseNotes", "fixture").put("apk", JSONObject()
+            .put("minSdk", 23).put("releaseNotes", "fixture").put("apk", JSONObject()
                 .put("primaryUrl", "https://primary.test/update.apk").put("alternativeUrl", "https://backup.test/update.apk")
                 .put("sizeBytes", bytes.size).put("sha256", MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }))
         val client = UpdateClient(context, UpdateConnectionFactory { url ->
@@ -53,7 +53,7 @@ class UpdateLifecycleTest {
                     return 200
                 }
                 override fun getInputStream() = ByteArrayInputStream(if (url.path.endsWith("json")) manifest.toString().toByteArray() else bytes)
-                override fun getContentLengthLong() = if (url.path.endsWith("json")) manifest.toString().toByteArray().size.toLong() else bytes.size.toLong()
+                override fun getHeaderField(name: String): String? = if (name.equals("Content-Length", true)) (if (url.path.endsWith("json")) manifest.toString().toByteArray().size else bytes.size).toString() else null
             }
         }, manifests = listOf("https://primary.test/manifest.json"))
         val scenario = ActivityScenario.launch(MainActivity::class.java)

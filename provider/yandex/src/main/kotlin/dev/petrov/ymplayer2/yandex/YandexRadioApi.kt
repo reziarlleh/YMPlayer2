@@ -133,7 +133,7 @@ class YandexRadioApi(private val accounts: AccountAuth, private val http: RadioT
             (if (stream) data.optString("shortSlug") else data.optString("userDefaultStreamSlug")).takeIf { it.isNotBlank() && it != "null" },
             data.optJSONObject("region")?.optString("name"),
             card?.optString("description")?.takeIf { it.isNotBlank() }?.let {
-                android.text.Html.fromHtml(it, android.text.Html.FROM_HTML_MODE_LEGACY).toString().trim()
+                androidx.core.text.HtmlCompat.fromHtml(it, androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY).toString().trim()
             })
     }
 }

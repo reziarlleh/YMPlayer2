@@ -32,9 +32,17 @@ class Mp3ExportQualityTest {
                     extractor.setDataSource(output.absolutePath)
                     val format = extractor.getTrackFormat(0)
                     assertEquals("audio/mpeg", format.getString(MediaFormat.KEY_MIME))
-                    assertEquals("Actual bitrate for $quality", quality.kbps * 1000, format.getInteger(MediaFormat.KEY_BIT_RATE))
                     assertTrue(format.getLong(MediaFormat.KEY_DURATION) > 2_500_000)
-                    extractor.selectTrack(0); assertTrue(extractor.sampleSize > 0)
+                    extractor.selectTrack(0)
+                    val frame = java.nio.ByteBuffer.allocate(4 * 1024 * 1024)
+                    assertTrue(extractor.readSampleData(frame, 0) >= 4)
+                    // API23's extractor omits KEY_BIT_RATE. Inspect the actual
+                    // MPEG1 Layer III frame, independently of container metadata.
+                    assertEquals(0xff, frame.get(0).toInt() and 255)
+                    assertEquals(0xfa, frame.get(1).toInt() and 0xfe)
+                    val index = (frame.get(2).toInt() ushr 4) and 15
+                    val kbps = listOf(0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, -1)[index]
+                    assertEquals("Actual frame bitrate for $quality", quality.kbps, kbps)
                 } finally { extractor.release() }
             }
         } finally { input.delete(); output.delete() }

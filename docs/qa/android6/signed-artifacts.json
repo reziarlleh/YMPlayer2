@@ -1,0 +1,86 @@
+{
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionCode": 136,
+  "versionName": "2.7.0-build136",
+  "builtAtUtc": "2026-11-13T07:05:06.2775395Z",
+  "updateChannel": "stable",
+  "minSdk": 23,
+  "runtimeAcceptance": "emulator-verified",
+  "sha256": "1423fd38339843cd7cd4610ffec925cb4dad042746c6946ca4970e2e0b3d1702",
+  "channel": "stable",
+  "actualSha256": "1423fd38339843cd7cd4610ffec925cb4dad042746c6946ca4970e2e0b3d1702",
+  "sizeBytes": 4664192,
+  "v1": true,
+  "v2": true,
+  "certificateSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+  "launches": [
+    {
+      "environment": "api23-final136",
+      "launchOk": true,
+      "mainActivity": true,
+      "crash": null,
+      "crashObservation": "No crash output; the empty PowerShell pipeline did not create a file."
+    },
+    {
+      "environment": "api26-signed136",
+      "launchOk": true,
+      "mainActivity": true,
+      "crash": ""
+    },
+    {
+      "environment": "api27-signed136",
+      "launchOk": true,
+      "mainActivity": true,
+      "crash": ""
+    },
+    {
+      "environment": "tv28-final136",
+      "launchOk": true,
+      "mainActivity": true,
+      "crash": ""
+    },
+    {
+      "environment": "api35-final136",
+      "launchOk": true,
+      "mainActivity": true,
+      "crash": ""
+    },
+    {
+      "environment": "api36-final136",
+      "launchOk": true,
+      "mainActivity": true,
+      "crash": ""
+    }
+  ],
+  "ownerAcceptance": "not claimed",
+  "publication": "not published",
+  "upgrades": [
+    {
+      "environment": "api23",
+      "beforeUid": "10063",
+      "afterUid": "10063",
+      "beforeFirstInstallTime": "2026-11-13 04:22:16",
+      "afterFirstInstallTime": "2026-11-13 04:22:16",
+      "privateMarkerRetained": true,
+      "privateMarkerSha256": "d9f41c5187c8872de27f54210b3fb600b445c8262bf04653634e51c7c99ee790"
+    },
+    {
+      "environment": "tv28",
+      "beforeUid": "10051",
+      "afterUid": "10051",
+      "beforeFirstInstallTime": "2026-11-13 07:10:00",
+      "afterFirstInstallTime": "2026-11-13 07:10:00",
+      "privateMarkerRetained": true,
+      "privateMarkerSha256": "d9f41c5187c8872de27f54210b3fb600b445c8262bf04653634e51c7c99ee790"
+    },
+    {
+      "environment": "api35",
+      "beforeUid": "10209",
+      "afterUid": "10209",
+      "beforeFirstInstallTime": "2026-11-13 07:24:44",
+      "afterFirstInstallTime": "2026-11-13 07:24:44",
+      "privateMarkerRetained": true,
+      "privateMarkerSha256": "d9f41c5187c8872de27f54210b3fb600b445c8262bf04653634e51c7c99ee790"
+    }
+  ]
+}

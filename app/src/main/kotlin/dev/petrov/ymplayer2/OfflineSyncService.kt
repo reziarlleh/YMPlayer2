@@ -9,6 +9,8 @@ import android.content.pm.PackageManager
 import android.Manifest
 import android.os.Build
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat
 import dev.petrov.ymplayer2.core.OfflineState
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.combine
@@ -22,7 +24,8 @@ open class OfflineSyncService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == CANCEL) { offline.cancel(); finish(); return START_NOT_STICKY }
         val manager = getSystemService(NotificationManager::class.java)
-        manager.createNotificationChannel(NotificationChannel(CHANNEL, tr(Msg.msg_bd5f65f27353), NotificationManager.IMPORTANCE_LOW))
+        if (Build.VERSION.SDK_INT >= 26)
+            manager.createNotificationChannel(NotificationChannel(CHANNEL, tr(Msg.msg_bd5f65f27353), NotificationManager.IMPORTANCE_LOW))
         val notification = notification(offline.state.value)
         if (Build.VERSION.SDK_INT >= 29) startForeground(ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
         else startForeground(ID, notification)
@@ -39,14 +42,14 @@ open class OfflineSyncService : Service() {
     }
     override fun onTimeout(startId: Int, fgsType: Int) { offline.cancel(); offline.report(tr(Msg.msg_ca3bbeeee26d)); finish() }
     override fun onDestroy() { if (offline.state.value.running) offline.cancel(); scope.cancel(); super.onDestroy() }
-    private fun finish() { stopForeground(STOP_FOREGROUND_REMOVE); stopSelf() }
+    private fun finish() { ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE); stopSelf() }
     private fun notification(state: OfflineState): Notification {
         val open = PendingIntent.getActivity(this, 21, Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val cancel = PendingIntent.getService(this, 22, Intent(this, OfflineSyncService::class.java).setAction(CANCEL), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        return Notification.Builder(this, CHANNEL).setSmallIcon(R.drawable.ic_launcher).setContentTitle(tr(Msg.msg_d96f9192c384))
+        return NotificationCompat.Builder(this, CHANNEL).setSmallIcon(R.drawable.ic_launcher).setContentTitle(tr(Msg.msg_d96f9192c384))
             .setContentText(state.message?.let(::trMessage) ?: tr(Msg.msg_e261fc0388e8)).setContentIntent(open).setOnlyAlertOnce(true).setOngoing(true)
             .setCategory(Notification.CATEGORY_PROGRESS).setProgress(state.total, state.checked, state.total == 0)
-            .addAction(Notification.Action.Builder(null, tr(Msg.msg_3396400da0c4), cancel).build()).build()
+            .addAction(0, tr(Msg.msg_3396400da0c4), cancel).build()
     }
     companion object {
         const val VERIFY = "verify-offline-cache"

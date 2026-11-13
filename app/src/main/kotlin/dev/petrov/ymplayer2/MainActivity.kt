@@ -158,7 +158,7 @@ class MainActivity : ComponentActivity() {
                 if (uri != null) graph.skins.inspect(uri)
             }
             val startTransfer: (String, String?) -> Unit = { action, destination ->
-                try { startForegroundService(Intent(this, FileTransferService::class.java).setAction(action).putExtra("destination", destination)) }
+                try { androidx.core.content.ContextCompat.startForegroundService(this, Intent(this, FileTransferService::class.java).setAction(action).putExtra("destination", destination)) }
                 catch (_: Exception) {
                     if (action == FileTransferService.MOVE) graph.cacheLocation.report("Не удалось запустить перенос кэша.")
                     else graph.audioExporter.report("Не удалось запустить экспорт MP3.")
@@ -200,10 +200,10 @@ class MainActivity : ComponentActivity() {
                     try { exportPicker.launch(null) }
                     catch (_: ActivityNotFoundException) { graph.audioExporter.report("Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.") }
                 }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
-                try { startForegroundService(android.content.Intent(this, OfflineSyncService::class.java)) }
+                try { androidx.core.content.ContextCompat.startForegroundService(this, android.content.Intent(this, OfflineSyncService::class.java)) }
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
             }, auditOffline = {
-                try { startForegroundService(Intent(this, OfflineSyncService::class.java).putExtra(OfflineSyncService.VERIFY, true)) }
+                try { androidx.core.content.ContextCompat.startForegroundService(this, Intent(this, OfflineSyncService::class.java).putExtra(OfflineSyncService.VERIFY, true)) }
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
             })
         } }

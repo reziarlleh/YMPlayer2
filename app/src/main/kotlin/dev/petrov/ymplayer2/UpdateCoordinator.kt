@@ -38,10 +38,14 @@ internal class UpdateCoordinator(context: Context,
     private var downloaded: DownloadedUpdate? = null
     private var launchScheduled = false
     private var installOnResume = false
+    private var installing = false
     private val cleanup = viewModelScope.launch(Dispatchers.IO) { runCatching { client.pruneInstalledApks() } }
 
     fun resume(activity: ComponentActivity) {
         host = WeakReference(activity)
+        dev.petrov.ymplayer2.updater.PackageInstallResultReceiver.takeError(context)?.let { error ->
+            mutable.update { it.copy(status = tr(Msg.msg_73cec4b1fa25, error)) }
+        }
         resumePendingInstall()
         if (installOnResume) install()
     }
@@ -72,7 +76,7 @@ internal class UpdateCoordinator(context: Context,
                 cleanup.join()
                 val info = client.check()
                 prefs.edit().putLong("last_check", System.currentTimeMillis()).apply()
-                val installed = context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode
+                val installed = dev.petrov.ymplayer2.updater.installedVersionCode(context)
                 release = info.takeIf { it.versionCode > installed }
                 downloaded = null
                 mutable.update { it.copy(checking = false, offer = release?.let { offer ->
@@ -110,6 +114,7 @@ internal class UpdateCoordinator(context: Context,
     }
 
     override fun install() {
+        if (installing) return
         val info = release ?: return
         val file = downloaded?.file ?: return
         // MainActivity attaches in onResume and detaches in onPause. Lifecycle's
@@ -117,25 +122,29 @@ internal class UpdateCoordinator(context: Context,
         val activity = host.get()
             ?: run { installOnResume = true; return }
         installOnResume = false
-        try {
-            when (installer.request(activity, file, info)) {
-                InstallStep.PERMISSION_REQUIRED -> {
-                    rememberPending(info)
-                    mutable.update { it.copy(status = tr(Msg.msg_d8cafee5a654)) }
+        installing = true
+        viewModelScope.launch {
+            try {
+                when (installer.request(activity, file, info)) {
+                    InstallStep.PERMISSION_REQUIRED -> {
+                        rememberPending(info)
+                        mutable.update { it.copy(status = tr(Msg.msg_d8cafee5a654)) }
+                    }
+                    InstallStep.LAUNCHED -> {
+                        prefs.edit().remove("pending").apply()
+                        mutable.update { it.copy(status = tr(Msg.msg_78b7fcee0a88)) }
+                    }
                 }
-                InstallStep.LAUNCHED -> {
-                    prefs.edit().remove("pending").apply()
-                    mutable.update { it.copy(status = tr(Msg.msg_78b7fcee0a88)) }
-                }
-            }
-        } catch (error: Exception) {
-            mutable.update { it.copy(status = tr(Msg.msg_73cec4b1fa25, error.message ?: tr(Msg.msg_44d4090ae9e4))) }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (error: Exception) {
+                mutable.update { it.copy(status = tr(Msg.msg_73cec4b1fa25, error.message ?: tr(Msg.msg_44d4090ae9e4))) }
+            } finally { installing = false }
         }
     }
 
     fun resumePendingInstall() {
         val saved = prefs.getString("pending", null) ?: return
-        if (!context.packageManager.canRequestPackageInstalls()) return
+        if (!dev.petrov.ymplayer2.updater.canInstallUpdates(context)) return
         try {
             val info = client.parseManifest(JSONObject(saved), tr(Msg.msg_c90ea6df373e))
             val file = File(context.filesDir, "updates/YMPlayer2-${info.versionCode}.apk")

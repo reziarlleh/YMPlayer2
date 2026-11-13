@@ -433,7 +433,7 @@ class OfflinePlaybackTest {
             h.player.playQueue(h.library.testTracks.map(Track::id))
             h.streamGates = mapOf("yandex:2:7" to gate)
             OfflineSyncTestService.controller = cache
-            compose.activity.startForegroundService(intent)
+            androidx.core.content.ContextCompat.startForegroundService(compose.activity, intent)
         }
         try {
             waitFor { OfflineSyncTestService.active != null && cache.state.value.running && cache.state.value.tracks.size == 1 && h.player.state.value.positionSeconds >= 1 }
@@ -465,7 +465,7 @@ class OfflinePlaybackTest {
             h.player.playQueue(h.library.testTracks.map(Track::id))
             h.streamGates = mapOf("yandex:2:7" to gate)
             OfflineSyncTestService.controller = cache
-            compose.activity.startForegroundService(intent)
+            androidx.core.content.ContextCompat.startForegroundService(compose.activity, intent)
         }
         try {
             waitFor { OfflineSyncTestService.active != null && cache.state.value.running &&

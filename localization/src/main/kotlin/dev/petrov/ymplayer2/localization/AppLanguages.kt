@@ -2,7 +2,9 @@ package dev.petrov.ymplayer2.localization
 
 import android.content.Context
 import android.content.res.Resources
-import android.os.LocaleList
+import android.content.res.Configuration
+import android.os.Build
+import java.util.Locale
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -27,10 +29,16 @@ object AppLanguages {
         refresh()
     }
 
-    fun resolve(selected: String, system: LocaleList): String {
+    @Suppress("DEPRECATION")
+    fun locales(configuration: Configuration): List<Locale> = if (Build.VERSION.SDK_INT >= 24) {
+        val locales = configuration.locales
+        (0 until locales.size()).map { locales[it] }
+    } else listOfNotNull(configuration.locale)
+
+    fun resolve(selected: String, system: List<Locale>): String {
         if (selected != "system" && available.any { it.tag == selected }) return selected
-        for (index in 0 until system.size()) {
-            val tag = system[index].language
+        for (locale in system) {
+            val tag = locale.language
             if (available.any { it.tag == tag }) return tag
         }
         return "en"
@@ -47,7 +55,7 @@ object AppLanguages {
         val app = context ?: return
         val selected = app.getSharedPreferences(preferenceName, Context.MODE_PRIVATE).getString("selected", defaultSelection)
             ?.takeIf { it == "system" || available.any { language -> language.tag == it } } ?: "system"
-        val value = LanguageState(selected, resolve(selected, Resources.getSystem().configuration.locales))
+        val value = LanguageState(selected, resolve(selected, locales(Resources.getSystem().configuration)))
         UiStrings.configure(app, value.effective)
         mutable.value = value
     }

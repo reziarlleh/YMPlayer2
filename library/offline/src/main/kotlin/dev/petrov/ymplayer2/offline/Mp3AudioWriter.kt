@@ -77,15 +77,15 @@ internal class Mp3AudioWriter(private val context: Context) {
         } finally { extractor.release() }
     }
     private suspend fun copyMp3(extractor: MediaExtractor, output: OutputStream) {
-        var buffer = ByteBuffer.allocate(64 * 1024); var packets = 0
+        var buffer = ByteBuffer.allocate(if (android.os.Build.VERSION.SDK_INT >= 28) 64 * 1024 else 4 * 1024 * 1024); var packets = 0
         while (extractor.sampleTrackIndex >= 0) {
             currentCoroutineContext().ensureActive()
             if (extractor.sampleFlags and MediaExtractor.SAMPLE_FLAG_ENCRYPTED != 0) throw IOException("Protected audio")
-            val size = extractor.sampleSize
-            if (size !in 1..(4L * 1024 * 1024)) throw IOException("Invalid audio packet")
-            if (size > buffer.capacity()) buffer = ByteBuffer.allocate(size.toInt())
+            val expected = if (android.os.Build.VERSION.SDK_INT >= 28) extractor.sampleSize else null
+            if (expected != null && expected !in 1..(4L * 1024 * 1024)) throw IOException("Invalid audio packet")
+            if (expected != null && expected > buffer.capacity()) buffer = ByteBuffer.allocate(expected.toInt())
             buffer.clear(); val read = extractor.readSampleData(buffer, 0)
-            if (read.toLong() != size) throw IOException("Incomplete MP3")
+            if (read !in 1..(4 * 1024 * 1024) || expected != null && read.toLong() != expected) throw IOException("Incomplete MP3")
             output.write(buffer.array(), 0, read); packets++
             if (!extractor.advance()) break
         }

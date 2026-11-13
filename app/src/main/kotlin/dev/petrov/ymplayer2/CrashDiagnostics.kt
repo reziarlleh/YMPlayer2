@@ -41,7 +41,7 @@ internal class CrashDiagnostics(private val context: Context, file: File) {
                 "Device: ${safeDevice(Build.MANUFACTURER)} / ${safeDevice(Build.MODEL)}\n" +
                 "Android release: ${safeDevice(Build.VERSION.RELEASE)}\nBuild: ${safeDevice(Build.ID)}\n" +
                 "Density DPI: ${context.resources.displayMetrics.densityDpi}\nFont scale: ${config.fontScale}\n" +
-                "Orientation: ${config.orientation}\nSystem locales: ${safeDevice(config.locales.toLanguageTags())}\nIME: $ime\n"
+                "Orientation: ${config.orientation}\nSystem locales: ${safeDevice(dev.petrov.ymplayer2.localization.AppLanguages.locales(config).joinToString(",") { it.toLanguageTag() })}\nIME: $ime\n"
         } catch (_: Exception) { "Version: ${BuildConfig.VERSION_NAME}\nAndroid API: ${Build.VERSION.SDK_INT}\nEnvironment: unavailable\n" }
     }
 

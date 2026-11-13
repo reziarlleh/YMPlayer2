@@ -1,0 +1,650 @@
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.FileTransferTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=1
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=1
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=2
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=2
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=3
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=3
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=anExportDialogFromThePreviousAccountCannotStartAfterSignOut
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=4
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=anExportDialogFromThePreviousAccountCannotStartAfterSignOut
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=4
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=5
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=5
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=6
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=6
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=7
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=7
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=8
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=8
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=9
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=9
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=albumAndPlaylistExportFetchEveryPage
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=10
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=albumAndPlaylistExportFetchEveryPage
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=10
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=templateHelpPreviewValidationAndPersistence
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=11
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=templateHelpPreviewValidationAndPersistence
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=11
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=insufficientCapacityAndProviderFailureKeepOriginalCache
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=12
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=insufficientCapacityAndProviderFailureKeepOriginalCache
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=12
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=13
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferTest
+
+INSTRUMENTATION_STATUS: current=13
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.FileTransferServiceTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=serviceMovesCacheWhileActivityIsRecreatedAndStopsItsOwnNotification
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferServiceTest
+
+INSTRUMENTATION_STATUS: current=14
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=serviceMovesCacheWhileActivityIsRecreatedAndStopsItsOwnNotification
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.FileTransferServiceTest
+
+INSTRUMENTATION_STATUS: current=14
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.Mp3ExportQualityTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.Mp3ExportQualityTest
+
+INSTRUMENTATION_STATUS: current=15
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.Mp3ExportQualityTest
+
+INSTRUMENTATION_STATUS: current=15
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.SideBarOverlayTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=removingTheLastButtonRemovesTheOverlay
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SideBarOverlayTest
+
+INSTRUMENTATION_STATUS: current=16
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=removingTheLastButtonRemovesTheOverlay
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SideBarOverlayTest
+
+INSTRUMENTATION_STATUS: current=16
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=permittedServiceAddsAndRemovesItsWindow
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SideBarOverlayTest
+
+INSTRUMENTATION_STATUS: current=17
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=permittedServiceAddsAndRemovesItsWindow
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SideBarOverlayTest
+
+INSTRUMENTATION_STATUS: current=17
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.MountedStorageTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=mountedFolderIndexesAndPlaysReadOnlyAndRecoversAfterDisconnect
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MountedStorageTest
+
+INSTRUMENTATION_STATUS: current=18
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=mountedFolderIndexesAndPlaysReadOnlyAndRecoversAfterDisconnect
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MountedStorageTest
+
+INSTRUMENTATION_STATUS: current=18
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.UpdateLifecycleTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.UpdateLifecycleTest
+
+INSTRUMENTATION_STATUS: current=19
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.UpdateLifecycleTest
+
+INSTRUMENTATION_STATUS: current=19
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.UpdateAutoOfferTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=launchOffersNewReleaseOnceAndRespectsDailyCheckAndOptOut
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.UpdateAutoOfferTest
+
+INSTRUMENTATION_STATUS: current=20
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=launchOffersNewReleaseOnceAndRespectsDailyCheckAndOptOut
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.UpdateAutoOfferTest
+
+INSTRUMENTATION_STATUS: current=20
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.ManualBetaUpdateTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=productionChannelStaysStableAndRejectsNewerBeta
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ManualBetaUpdateTest
+
+INSTRUMENTATION_STATUS: current=21
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=productionChannelStaysStableAndRejectsNewerBeta
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ManualBetaUpdateTest
+
+INSTRUMENTATION_STATUS: current=21
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.UpdateSettingsTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=updateSettingsKeepAutoCheckChoiceAndNavigateUp
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.UpdateSettingsTest
+
+INSTRUMENTATION_STATUS: current=22
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=22
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=updateSettingsKeepAutoCheckChoiceAndNavigateUp
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.UpdateSettingsTest
+
+INSTRUMENTATION_STATUS: current=22
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_RESULT: stream=
+
+
+
+Time: 92.216
+
+
+
+OK (22 tests)
+
+
+
+
+
+INSTRUMENTATION_CODE: -1
+

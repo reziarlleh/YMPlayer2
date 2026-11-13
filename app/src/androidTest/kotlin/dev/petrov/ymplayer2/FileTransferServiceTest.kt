@@ -33,14 +33,14 @@ class FileTransferServiceTest {
         val notifications = context.getSystemService(NotificationManager::class.java)
         try {
             context.contentResolver.takePersistableUriPermission(TestStorageProvider.tree, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            scenario.onActivity { it.startForegroundService(Intent(it, FileTransferService::class.java).setAction(FileTransferService.MOVE).putExtra("destination", TestStorageProvider.tree.toString())) }
+            scenario.onActivity { androidx.core.content.ContextCompat.startForegroundService(it, Intent(it, FileTransferService::class.java).setAction(FileTransferService.MOVE).putExtra("destination", TestStorageProvider.tree.toString())) }
             await { app.cacheLocation.state.value.external && !app.cacheLocation.state.value.moving }
             assertEquals(1, runBlocking { app.offlineStore.load(owner) }.size)
             assertTrue(runBlocking { app.offlineStore.audio(owner, track.id) }!!.startsWith("content:"))
             scenario.recreate()
             assertTrue(app.cacheLocation.state.value.external)
             await { notifications.activeNotifications.none { it.id == 202 } }
-            scenario.onActivity { it.startForegroundService(Intent(it, FileTransferService::class.java).setAction(FileTransferService.MOVE)) }
+            scenario.onActivity { androidx.core.content.ContextCompat.startForegroundService(it, Intent(it, FileTransferService::class.java).setAction(FileTransferService.MOVE)) }
             await { !app.cacheLocation.state.value.external && !app.cacheLocation.state.value.moving }
             assertEquals(1, runBlocking { app.offlineStore.load(owner) }.size)
             await { notifications.activeNotifications.none { it.id == 202 } }

@@ -140,8 +140,21 @@ class FileTransferTest {
             extractor.setDataSource(compose.activity, uri, null)
             val format = extractor.getTrackFormat(0)
             assertEquals("audio/mpeg", format.getString(MediaFormat.KEY_MIME))
-            assertTrue(format.getLong(MediaFormat.KEY_DURATION) > 20_000_000)
-            extractor.selectTrack(0); assertTrue(extractor.sampleSize > 0)
+            // Legacy extractors may omit duration for a SAF descriptor. Check
+            // the complete real packet timeline instead of optional metadata.
+            extractor.selectTrack(0)
+            val packet = java.nio.ByteBuffer.allocate(4 * 1024 * 1024)
+            var lastTime = -1L
+            while (extractor.sampleTrackIndex >= 0) {
+                packet.clear()
+                val read = extractor.readSampleData(packet, 0)
+                if (read < 0) break
+                assertTrue(read > 0)
+                assertTrue(extractor.sampleTime >= lastTime)
+                lastTime = extractor.sampleTime
+                if (!extractor.advance()) break
+            }
+            assertTrue(lastTime > 20_000_000)
             assertTrue(resolver.openInputStream(uri)!!.use { val bytes = ByteArray(3); it.read(bytes) == 3 && bytes.contentEquals("ID3".toByteArray()) })
         } finally { extractor.release() }
     }
@@ -242,12 +255,15 @@ class FileTransferTest {
         try {
             for (language in AppLanguages.available) {
                 compose.runOnIdle { AppLanguages.select(language.tag) }
-                compose.onNodeWithText(trMessage("Экспорт MP3")).assertIsDisplayed()
-                compose.onNodeWithText(trMessage("Качество MP3")).assertIsDisplayed()
+                compose.waitUntil(5_000) {
+                    compose.onAllNodesWithText(trMessage("Экспорт MP3")).fetchSemanticsNodes().isNotEmpty()
+                }
+                compose.onNodeWithText(trMessage("Экспорт MP3")).performScrollTo().assertIsDisplayed()
+                compose.onNodeWithText(trMessage("Качество MP3")).performScrollTo().assertIsDisplayed()
                 compose.onNodeWithText(trMessage("Битрейт: 192 кбит/с")).assertExists()
                 compose.onNodeWithTag("export_name_preview").assertTextContains("Original Artist - My Original Title", substring = true)
-                compose.onNodeWithTag("export_template_help").performClick()
-                compose.onNodeWithText(trMessage("Переменные шаблона")).assertIsDisplayed()
+                compose.onNodeWithTag("export_template_help").performScrollTo().performClick()
+                compose.onNodeWithText(trMessage("Переменные шаблона")).performScrollTo().assertIsDisplayed()
                 val help = compose.onAllNodes(hasText("{number}", substring = true)).fetchSemanticsNodes()
                 assertTrue(language.tag, help.isNotEmpty())
                 compose.onNodeWithTag("export_help_close").performClick()

@@ -1,0 +1,461 @@
+{
+  "errors": 76,
+  "issues": [
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.net.ConnectivityManager#registerDefaultNetworkCallback`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\AndroidInternetConnection.kt",
+      "line": "27"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.os.LocaleList#size`",
+      "file": "D:\\_codex\\YMPlayer2\\localization\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\localization\\AppLanguages.kt",
+      "line": "32"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.os.LocaleList#get`",
+      "file": "D:\\_codex\\YMPlayer2\\localization\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\localization\\AppLanguages.kt",
+      "line": "33"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.content.res.Configuration#getLocales`",
+      "file": "D:\\_codex\\YMPlayer2\\localization\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\localization\\AppLanguages.kt",
+      "line": "50"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\CacheDirectories.kt",
+      "line": "53"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\CacheDirectories.kt",
+      "line": "53"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.nio.file.Path#startsWith`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\CacheDirectories.kt",
+      "line": "54"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24, or core library desugaring (current min is 23): `java.util.Comparator#reversed`",
+      "file": "D:\\_codex\\YMPlayer2\\feature\\shell\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\shell\\CatalogScreen.kt",
+      "line": "136"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24, or core library desugaring (current min is 23): `java.util.Comparator#reversed`",
+      "file": "D:\\_codex\\YMPlayer2\\feature\\shell\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\shell\\CatalogScreen.kt",
+      "line": "139"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.content.res.Configuration#getLocales`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\CrashDiagnostics.kt",
+      "line": "44"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.os.LocaleList#toLanguageTags`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\CrashDiagnostics.kt",
+      "line": "44"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.NotificationChannel()`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\FileTransferService.kt",
+      "line": "21"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.NotificationManager#createNotificationChannel`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\FileTransferService.kt",
+      "line": "21"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.app.Service#stopForeground`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\FileTransferService.kt",
+      "line": "32"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.Notification.Builder()`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\FileTransferService.kt",
+      "line": "42"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.graphics.ImageDecoder#createSource`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "452"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.graphics.ImageDecoder#decodeBitmap`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "452"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.graphics.ImageDecoder#setAllocator`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "453"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.graphics.ImageDecoder#setAllocator`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "453"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.graphics.ImageDecoder#setOnPartialImageListener`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "454"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.graphics.ImageDecoder#setTargetSampleSize`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "455"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.graphics.ImageDecoder.ImageInfo#getSize`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "455"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.graphics.ImageDecoder.ImageInfo#getSize`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "455"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.media.MediaExtractor#getSampleSize`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\LikedFileStore.kt",
+      "line": "470"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.ContextWrapper#startForegroundService`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\MainActivity.kt",
+      "line": "161"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.ContextWrapper#startForegroundService`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\MainActivity.kt",
+      "line": "203"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.ContextWrapper#startForegroundService`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\MainActivity.kt",
+      "line": "206"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\MountedFolderPicker.kt",
+      "line": "31"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\MountedFolderPicker.kt",
+      "line": "31"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.nio.file.Path#startsWith`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\MountedFolderPicker.kt",
+      "line": "31"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.media.MediaExtractor#getSampleSize`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\Mp3AudioWriter.kt",
+      "line": "84"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.NotificationChannel()`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\OfflineSyncService.kt",
+      "line": "25"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.NotificationManager#createNotificationChannel`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\OfflineSyncService.kt",
+      "line": "25"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.app.Service#stopForeground`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\OfflineSyncService.kt",
+      "line": "42"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.Notification.Builder()`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\OfflineSyncService.kt",
+      "line": "46"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.ContextWrapper#startForegroundService`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\PlayerApplication.kt",
+      "line": "134"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.provider.DocumentsContract#isTreeUri`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\local\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\library\\SafLibrary.kt",
+      "line": "110"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\local\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\library\\SafLibrary.kt",
+      "line": "249"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\local\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\library\\SafLibrary.kt",
+      "line": "249"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.nio.file.Path#startsWith`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\local\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\library\\SafLibrary.kt",
+      "line": "249"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.NotificationChannel()`",
+      "file": "D:\\_codex\\YMPlayer2\\headunit\\sidebar\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\sidebar\\SideBarService.kt",
+      "line": "55"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.NotificationManager#createNotificationChannel`",
+      "file": "D:\\_codex\\YMPlayer2\\headunit\\sidebar\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\sidebar\\SideBarService.kt",
+      "line": "55"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.app.Notification.Builder()`",
+      "file": "D:\\_codex\\YMPlayer2\\headunit\\sidebar\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\sidebar\\SideBarService.kt",
+      "line": "59"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.app.Service#stopForeground`",
+      "file": "D:\\_codex\\YMPlayer2\\headunit\\sidebar\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\sidebar\\SideBarService.kt",
+      "line": "85"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.Context#startForegroundService`",
+      "file": "D:\\_codex\\YMPlayer2\\headunit\\sidebar\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\sidebar\\SideBarService.kt",
+      "line": "248"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.Context#startForegroundService`",
+      "file": "D:\\_codex\\YMPlayer2\\headunit\\sidebar\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\sidebar\\SideBarService.kt",
+      "line": "251"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.Context#startForegroundService`",
+      "file": "D:\\_codex\\YMPlayer2\\headunit\\sidebar\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\sidebar\\SideBarService.kt",
+      "line": "254"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\StorageNode.kt",
+      "line": "131"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\StorageNode.kt",
+      "line": "131"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.nio.file.Files#move`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\StorageNode.kt",
+      "line": "131"
+    },
+    {
+      "id": "NewApi",
+      "message": "Field requires API level 26, or core library desugaring (current min is 23): `java.nio.file.StandardCopyOption#ATOMIC_MOVE`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\StorageNode.kt",
+      "line": "131"
+    },
+    {
+      "id": "NewApi",
+      "message": "Field requires API level 26, or core library desugaring (current min is 23): `java.nio.file.StandardCopyOption#REPLACE_EXISTING`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\StorageNode.kt",
+      "line": "131"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\StorageNode.kt",
+      "line": "155"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.io.File#toPath`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\StorageNode.kt",
+      "line": "155"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.nio.file.Files#move`",
+      "file": "D:\\_codex\\YMPlayer2\\library\\offline\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\offline\\StorageNode.kt",
+      "line": "155"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.content.res.Configuration#setLocales`",
+      "file": "D:\\_codex\\YMPlayer2\\localization\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\localization\\UiStrings.kt",
+      "line": "79"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.os.LocaleList()`",
+      "file": "D:\\_codex\\YMPlayer2\\localization\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\localization\\UiStrings.kt",
+      "line": "79"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.content.pm.PackageInfo#getLongVersionCode`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "146"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.content.pm.PackageInfo#getLongVersionCode`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "165"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.content.pm.PackageInfo#getLongVersionCode`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "166"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.content.pm.PackageInfo#getLongVersionCode`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "166"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.content.pm.SigningInfo#getApkContentsSigners`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "167"
+    },
+    {
+      "id": "NewApi",
+      "message": "Field requires API level 28 (current min is 23): `android.content.pm.PackageInfo#signingInfo`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "167"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.content.pm.SigningInfo#getApkContentsSigners`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "168"
+    },
+    {
+      "id": "NewApi",
+      "message": "Field requires API level 28 (current min is 23): `android.content.pm.PackageInfo#signingInfo`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "168"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `java.net.URLConnection#getContentLengthLong`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "175"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `java.net.URLConnection#getContentLengthLong`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateClient.kt",
+      "line": "208"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.content.pm.PackageInfo#getLongVersionCode`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\UpdateCoordinator.kt",
+      "line": "75"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.pm.PackageManager#canRequestPackageInstalls`",
+      "file": "D:\\_codex\\YMPlayer2\\app\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\UpdateCoordinator.kt",
+      "line": "138"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26 (current min is 23): `android.content.pm.PackageManager#canRequestPackageInstalls`",
+      "file": "D:\\_codex\\YMPlayer2\\updater\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\updater\\UpdateInstaller.kt",
+      "line": "18"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 28 (current min is 23): `android.media.MediaExtractor#getSampleSize`",
+      "file": "D:\\_codex\\YMPlayer2\\playback\\android\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\playback\\WaveAudioBuffer.kt",
+      "line": "161"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.content.res.Configuration#getLocales`",
+      "file": "D:\\_codex\\YMPlayer2\\feature\\shell\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\shell\\WaveSettingsDialog.kt",
+      "line": "24"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.os.LocaleList#get`",
+      "file": "D:\\_codex\\YMPlayer2\\feature\\shell\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\shell\\WaveSettingsDialog.kt",
+      "line": "24"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 26, or core library desugaring (current min is 23): `java.time.Instant#now`",
+      "file": "D:\\_codex\\YMPlayer2\\provider\\yandex\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\yandex\\YandexClipApi.kt",
+      "line": "76"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `android.text.Html#fromHtml`",
+      "file": "D:\\_codex\\YMPlayer2\\provider\\yandex\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\yandex\\YandexRadioApi.kt",
+      "line": "136"
+    },
+    {
+      "id": "NewApi",
+      "message": "Call requires API level 24 (current min is 23): `java.util.HashMap#putIfAbsent`",
+      "file": "D:\\_codex\\YMPlayer2\\provider\\yandex\\src\\main\\kotlin\\dev\\petrov\\ymplayer2\\yandex\\YandexWaveApi.kt",
+      "line": "83"
+    }
+  ]
+}

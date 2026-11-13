@@ -1,8 +1,8 @@
 package dev.petrov.ymplayer2.updater
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.content.pm.PackageInfoCompat
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -95,7 +95,11 @@ class UpdateClient(
             throw IOException("Обновление не относится к выбранному каналу")
         if ((remoteChannel == "beta") != versionName.contains("beta-"))
             throw IOException("Канал и версия не совпадают")
-        if (minSdk > Build.VERSION.SDK_INT) throw IOException("Требуется Android API $minSdk")
+        // An older feed can still describe the last API28 release while this
+        // API23-capable APK is being tested manually. It is not an update and
+        // must reach the coordinator's usual "already current" comparison.
+        if (minSdk > Build.VERSION.SDK_INT && versionCode > installedVersionCode(context))
+            throw IOException("Требуется Android API $minSdk")
         val apk = json.optJSONObject("apk") ?: throw IOException("Нет сведений об APK")
         val primary = apk.optString("primaryUrl").trim()
         val alternative = apk.optString("alternativeUrl").trim()
@@ -143,7 +147,7 @@ class UpdateClient(
 
     /** Pending APKs above the installed Build remain intact. Only our APK names are eligible. */
     fun pruneInstalledApks() {
-        val installed = context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode
+        val installed = installedVersionCode(context)
         val name = Regex("YMPlayer2-([0-9]+)[.]apk")
         File(context.filesDir, "updates").listFiles()?.forEach { file ->
             val build = name.matchEntire(file.name)?.groupValues?.get(1)?.toLongOrNull()
@@ -155,24 +159,21 @@ class UpdateClient(
     fun verifyArchive(file: File, release: UpdateRelease) {
         if (!verifyFile(file, release)) throw IOException("Контрольная сумма APK не совпадает")
         val pm = context.packageManager
-        // Android 10's archive parser collects certificates only with GET_SIGNATURES.
-        // Request both flags there; still compare the verified current SigningInfo signers.
-        @Suppress("DEPRECATION")
-        val flags = PackageManager.GET_SIGNING_CERTIFICATES or
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) PackageManager.GET_SIGNATURES else 0
+        val flags = signingFlags()
         val archive = pm.getPackageArchiveInfo(file.absolutePath, flags) ?: throw IOException("APK не читается")
         val installed = pm.getPackageInfo(context.packageName, flags)
-        if (archive.packageName != context.packageName || archive.longVersionCode != release.versionCode ||
-            archive.longVersionCode <= installed.longVersionCode) throw IOException("APK не обновляет этот YMPlayer 2")
-        val newSigners = archive.signingInfo?.apkContentsSigners?.map { it.toByteArray().toList() }?.toSet().orEmpty()
-        val oldSigners = installed.signingInfo?.apkContentsSigners?.map { it.toByteArray().toList() }?.toSet().orEmpty()
+        val archiveVersion = PackageInfoCompat.getLongVersionCode(archive)
+        if (archive.packageName != context.packageName || archiveVersion != release.versionCode ||
+            archiveVersion <= PackageInfoCompat.getLongVersionCode(installed)) throw IOException("APK не обновляет этот YMPlayer 2")
+        val newSigners = signingCertificates(archive)
+        val oldSigners = signingCertificates(installed)
         if (newSigners.isEmpty() || newSigners != oldSigners) throw IOException("Подпись APK не совпадает с установленной")
     }
 
     private suspend fun downloadOne(source: String, file: File, release: UpdateRelease, progress: (Int, String) -> Unit) {
         val connection = connect(source)
         try {
-            val declared = connection.contentLengthLong
+            val declared = declaredLength(connection)
             if (declared > MAX_APK_BYTES || declared > 0 && declared != release.sizeBytes)
                 throw IOException("Неожиданный размер APK")
             val digest = MessageDigest.getInstance("SHA-256")
@@ -205,7 +206,7 @@ class UpdateClient(
     private suspend fun readBounded(source: String, limit: Int): ByteArray {
         val connection = connect(source)
         try {
-            if (connection.contentLengthLong > limit) throw IOException("Манифест слишком велик")
+            if (declaredLength(connection) > limit) throw IOException("Манифест слишком велик")
             return connection.inputStream.use { input ->
                 val output = java.io.ByteArrayOutputStream()
                 val buffer = ByteArray(8 * 1024)
@@ -255,6 +256,8 @@ private fun httpsUrl(raw: String): URL = URL(raw).also {
     if (it.protocol != "https") throw IOException("Разрешён только HTTPS")
 }
 private fun host(raw: String): String = runCatching { URL(raw).host }.getOrDefault("источник")
+private fun declaredLength(connection: HttpURLConnection): Long =
+    connection.getHeaderField("Content-Length")?.trim()?.toLongOrNull()?.takeIf { it >= 0 } ?: -1
 private fun sha256(file: File): String {
     val digest = MessageDigest.getInstance("SHA-256")
     file.inputStream().use { input ->

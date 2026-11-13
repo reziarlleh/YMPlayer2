@@ -25,6 +25,7 @@ class PlayerApplication : Application(), PlaybackHost {
     override fun onCreate() {
         super.onCreate()
         diagnostics.installCrashCapture()
+        LegacyTls.install(this)
         dev.petrov.ymplayer2.localization.AppLanguages.initialize(this)
     }
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
@@ -131,7 +132,7 @@ class PlayerApplication : Application(), PlaybackHost {
         }, cacheQuality = { audioQuality.state.value.cache },
         enabled = offlinePrefs.getBoolean("enabled", true),
         saveEnabled = { offlinePrefs.edit().putBoolean("enabled", it).apply() }, diagnostic = diagnostics::record,
-        automaticWork = { runCatching { startForegroundService(Intent(this, OfflineSyncService::class.java)) } })
+        automaticWork = { runCatching { androidx.core.content.ContextCompat.startForegroundService(this, Intent(this, OfflineSyncService::class.java)) } })
         .also { cache ->
             scope.launch { internet.available.collect { if (it) cache.retryAutomatic() } }
             scope.launch { while (kotlinx.coroutines.currentCoroutineContext().isActive) {

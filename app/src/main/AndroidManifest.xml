@@ -14,7 +14,7 @@
         <intent><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LEANBACK_LAUNCHER" /></intent>
     </queries>
     <application android:name=".PlayerApplication" android:label="YMPlayer 2" android:icon="@mipmap/ic_launcher"
-        android:banner="@drawable/tv_banner" android:theme="@style/AppTheme"
+        android:banner="@drawable/tv_banner" android:theme="@style/AppTheme" android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="false" android:requestLegacyExternalStorage="true" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true">
         <service android:name=".OfflineSyncService" android:exported="false" android:foregroundServiceType="dataSync" />
         <service android:name=".FileTransferService" android:exported="false" android:foregroundServiceType="dataSync" />

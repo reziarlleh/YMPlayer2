@@ -1,7 +1,6 @@
 package dev.petrov.ymplayer2.offline
 
 import android.content.Context
-import android.graphics.ImageDecoder
 import android.media.MediaExtractor
 import android.media.MediaFormat
 import android.net.Uri
@@ -448,13 +447,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         finally { invalidate(target); roots.clear(); temp.delete() }
     }
     private suspend fun validate(file: StorageNode, expectedMillis: Long, audio: Boolean): Boolean {
-        if (!audio) return try {
-            ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.contentResolver, file.uri)) { decoder, info, _ ->
-                decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
-                decoder.setOnPartialImageListener { false }
-                decoder.setTargetSampleSize(((maxOf(info.size.width, info.size.height) + 511) / 512).coerceAtLeast(1))
-            }.recycle(); true
-        } catch (_: Exception) { false }
+        if (!audio) return validCover(context, file)
         val extractor = MediaExtractor()
         try {
             extractor.setDataSource(context, file.uri, null)
@@ -462,16 +455,17 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             extractor.selectTrack(index)
             val format = extractor.getTrackFormat(index)
             val duration = expectedMillis.takeIf { it > 0 } ?: if (format.containsKey(MediaFormat.KEY_DURATION)) format.getLong(MediaFormat.KEY_DURATION) / 1000 else 0
-            var buffer = ByteBuffer.allocate(64 * 1024)
+            var buffer = ByteBuffer.allocate(if (android.os.Build.VERSION.SDK_INT >= 28) 64 * 1024 else 4 * 1024 * 1024)
             var first = 0L; var last = 0L; var delta = 0L; var samples = 0
             // Negative AAC priming timestamps are valid. Track index, not PTS sign, marks EOS.
             while (extractor.sampleTrackIndex >= 0) {
                 currentCoroutineContext().ensureActive()
-                val size = extractor.sampleSize
-                if (size <= 0 || size > 4 * 1024 * 1024 || samples > 0 && extractor.sampleTime < last) return false
-                if (size > buffer.capacity()) buffer = ByteBuffer.allocate(size.toInt())
+                val expected = if (android.os.Build.VERSION.SDK_INT >= 28) extractor.sampleSize else null
+                if (expected != null && (expected <= 0 || expected > 4 * 1024 * 1024) || samples > 0 && extractor.sampleTime < last) return false
+                if (expected != null && expected > buffer.capacity()) buffer = ByteBuffer.allocate(expected.toInt())
                 buffer.clear()
-                if (extractor.readSampleData(buffer, 0).toLong() != size) return false
+                val size = extractor.readSampleData(buffer, 0)
+                if (size <= 0 || size > 4 * 1024 * 1024 || expected != null && size.toLong() != expected) return false
                 if (samples == 0) first = extractor.sampleTime else delta = extractor.sampleTime - last
                 last = extractor.sampleTime; samples++
                 if (!extractor.advance()) break

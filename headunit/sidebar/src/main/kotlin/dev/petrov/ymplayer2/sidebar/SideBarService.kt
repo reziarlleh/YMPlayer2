@@ -15,6 +15,9 @@ import android.graphics.PixelFormat
 import android.media.AudioManager
 import android.os.Build
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat
+import androidx.core.content.ContextCompat
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -52,11 +55,12 @@ class SideBarService : Service() {
 
     private fun refreshNotification() {
         val manager = getSystemService(NotificationManager::class.java)
-        manager.createNotificationChannel(NotificationChannel(CHANNEL, tr(Msg.msg_e8c693109156), NotificationManager.IMPORTANCE_LOW))
+        if (Build.VERSION.SDK_INT >= 26)
+            manager.createNotificationChannel(NotificationChannel(CHANNEL, tr(Msg.msg_e8c693109156), NotificationManager.IMPORTANCE_LOW))
         val launch = packageManager.getLaunchIntentForPackage(packageName)
         val content = launch?.let { PendingIntent.getActivity(this, 0, it,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE) }
-        val notification = Notification.Builder(this, CHANNEL)
+        val notification = NotificationCompat.Builder(this, CHANNEL)
             .setSmallIcon(android.R.drawable.ic_menu_manage)
             .setContentTitle(tr(Msg.msg_e8c693109156))
             .setContentText(tr(Msg.msg_9c1888610d6f))
@@ -82,7 +86,7 @@ class SideBarService : Service() {
     override fun onDestroy() {
         languageScope.cancel()
         removePanel(); removeHandles()
-        stopForeground(STOP_FOREGROUND_REMOVE)
+        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         super.onDestroy()
     }
 
@@ -198,7 +202,7 @@ class SideBarService : Service() {
     private fun remove(view: View) { try { windows.removeView(view) } catch (_: RuntimeException) {} }
 
     private fun params(width: Int, height: Int, target: SideBarEdge) = WindowManager.LayoutParams(
-        width, height, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+        width, height, if (Build.VERSION.SDK_INT >= 26) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
             or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
             or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, PixelFormat.TRANSLUCENT,
@@ -245,13 +249,13 @@ class SideBarService : Service() {
         private const val TOGGLE = "dev.petrov.ymplayer2.sidebar.TOGGLE"
         private const val REFRESH = "dev.petrov.ymplayer2.sidebar.REFRESH"
         fun start(context: Context, show: Boolean = false) {
-            context.startForegroundService(Intent(context, SideBarService::class.java).setAction(if (show) SHOW else null))
+            ContextCompat.startForegroundService(context, Intent(context, SideBarService::class.java).setAction(if (show) SHOW else null))
         }
         fun toggle(context: Context) {
-            context.startForegroundService(Intent(context, SideBarService::class.java).setAction(TOGGLE))
+            ContextCompat.startForegroundService(context, Intent(context, SideBarService::class.java).setAction(TOGGLE))
         }
         fun refresh(context: Context) {
-            context.startForegroundService(Intent(context, SideBarService::class.java).setAction(REFRESH))
+            ContextCompat.startForegroundService(context, Intent(context, SideBarService::class.java).setAction(REFRESH))
         }
         fun stop(context: Context) { context.stopService(Intent(context, SideBarService::class.java)) }
     }

@@ -1,7 +1,7 @@
 @file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 package dev.petrov.ymplayer2
 
-import android.os.LocaleList
+import java.util.Locale
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -17,6 +17,7 @@ import android.graphics.Bitmap
 
 @RunWith(AndroidJUnit4::class)
 class LocalizationTest {
+    private fun locales(tags: String) = tags.split(",").map(Locale::forLanguageTag)
     @get:Rule val compose = createAndroidComposeRule<OnlineTestActivity>()
     private val h get() = compose.activity.harness
     private fun waitFor(block: () -> Boolean) = compose.waitUntil(30000, block)
@@ -92,14 +93,14 @@ class LocalizationTest {
         capture("offline-en")
     }
     @Test fun choicePersistsAndAutoFollowsSupportedSystemLanguagesWithEnglishFallback() {
-        assertEquals("en", AppLanguages.resolve("system", LocaleList.forLanguageTags("ja-JP,it-IT")))
-        assertEquals("de", AppLanguages.resolve("system", LocaleList.forLanguageTags("de-DE")))
-        assertEquals("ru", AppLanguages.resolve("system", LocaleList.forLanguageTags("ru-RU,en-US")))
-        assertEquals("en", AppLanguages.resolve("en", LocaleList.forLanguageTags("ru-RU")))
-        assertEquals("ru", AppLanguages.resolve("ru", LocaleList.forLanguageTags("en-US")))
+        assertEquals("en", AppLanguages.resolve("system", locales("ja-JP,it-IT")))
+        assertEquals("de", AppLanguages.resolve("system", locales("de-DE")))
+        assertEquals("ru", AppLanguages.resolve("system", locales("ru-RU,en-US")))
+        assertEquals("en", AppLanguages.resolve("en", locales("ru-RU")))
+        assertEquals("ru", AppLanguages.resolve("ru", locales("en-US")))
         openLanguages()
         for (language in AppLanguages.available) {
-            assertEquals(language.tag, AppLanguages.resolve("system", LocaleList.forLanguageTags("ja-JP,${language.tag}-ZZ")))
+            assertEquals(language.tag, AppLanguages.resolve("system", locales("ja-JP,${language.tag}-ZZ")))
             selectLanguage(language.tag)
             compose.runOnIdle { AppLanguages.initialize(compose.activity, "fixture-language", "ru") }
             assertEquals(language.tag, AppLanguages.state.value.selected)

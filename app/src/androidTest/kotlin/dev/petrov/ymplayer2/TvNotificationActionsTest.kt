@@ -57,6 +57,16 @@ class TvNotificationActionsTest {
         val until = System.currentTimeMillis() + 15_000
         while (System.currentTimeMillis() < until) {
             val root = automation.rootInActiveWindow
+            if ("notification" in labels && root?.packageName == "com.google.android.tvlauncher") {
+                // The API28 launcher exposes a count-only notification button;
+                // its inline media tray may already be open without that button.
+                val toggle = root.findAccessibilityNodeInfosByViewId("com.google.android.tvlauncher:id/notification_panel_button")
+                    .firstOrNull { it.isVisibleToUser && it.isEnabled }
+                if (toggle?.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK) == true) return
+                val title = card().notification.extras.getCharSequence(android.app.Notification.EXTRA_TITLE)?.toString()
+                if (!title.isNullOrBlank() && root.findAccessibilityNodeInfosByViewId("com.google.android.tvlauncher:id/notifications_tray")
+                    .any { it.isVisibleToUser } && root.findAccessibilityNodeInfosByText(title).any { it.isVisibleToUser }) return
+            }
             for (label in labels) for (node in (if (label == "Dismiss")
                 root?.findAccessibilityNodeInfosByViewId("com.google.android.tvrecommendations:id/dismiss_button")
                 else root?.findAccessibilityNodeInfosByText(label)).orEmpty()) {

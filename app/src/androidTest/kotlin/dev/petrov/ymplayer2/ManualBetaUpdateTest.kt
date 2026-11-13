@@ -18,7 +18,7 @@ class ManualBetaUpdateTest {
         val client = UpdateClient(context, channel = BuildConfig.UPDATE_CHANNEL)
         val manifest = JSONObject().put("schemaVersion", 1).put("packageName", context.packageName)
             .put("versionCode", 1000).put("versionName", "2.4.0beta-build1000")
-            .put("channel", "beta").put("minSdk", 28)
+            .put("channel", "beta").put("minSdk", 23)
             .put("apk", JSONObject().put("primaryUrl", "https://fixture.test/update.apk")
                 .put("sizeBytes", 3).put("sha256", "a".repeat(64)))
         try {

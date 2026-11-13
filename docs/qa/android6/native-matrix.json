@@ -1,0 +1,3395 @@
+{
+  "date": "2026-11-13",
+  "candidate": "2.7.0-build136",
+  "boundary": "Emulators/public endpoints; no physical or personal-account acceptance",
+  "runs": [
+    {
+      "log": "api23-export-final.txt",
+      "complete": true,
+      "passed": 16,
+      "failed": 4,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "exportedNamesKeepCompleteUnicodeCodePointsOnTheOldRuntime",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles",
+          "status": "failed",
+          "cause": "java.lang.NullPointerException: Attempt to invoke virtual method 'long java.lang.Long.longValue()' on a null object reference"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent",
+          "status": "failed",
+          "cause": "java.lang.NullPointerException: Attempt to invoke virtual method 'long java.lang.Long.longValue()' on a null object reference"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "anExportDialogFromThePreviousAccountCannotStartAfterSignOut",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames",
+          "status": "failed",
+          "cause": "java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Экспарт MP3' (ignoreCase: false) is not displayed!"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision",
+          "status": "failed",
+          "cause": "java.lang.NullPointerException: Attempt to invoke virtual method 'long java.lang.Long.longValue()' on a null object reference"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "albumAndPlaylistExportFetchEveryPage",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "templateHelpPreviewValidationAndPersistence",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "insufficientCapacityAndProviderFailureKeepOriginalCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferServiceTest",
+          "test": "serviceMovesCacheWhileActivityIsRecreatedAndStopsItsOwnNotification",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Mp3ExportQualityTest",
+          "test": "eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-files.txt",
+      "complete": false,
+      "passed": 26,
+      "failed": 10,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "badAudioDoesNotDeleteHealthyCoverAndRetryRepairsOnlyAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "missingCoverKeepsAudioAndNeverStoresPlaceholderArt",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "clearOfflineFilesLeavesServerLikesUntouched",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "emptyOfflineSourceRemainsSelectableWithoutNetwork",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "unlikeInFlightCannotLeaveAnyFilesForRemovedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "guestHasAnEmptyReadOnlyListAndIndependentDeviceSettings",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "safArtworkIsDisplayedAfterMovingTheOfflineCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "foregroundSyncCancelsWithoutStoppingTheAudioPlayer",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "aThousandCompletedTracksCannotBlockTwoNewDownloads",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "profileSwitchCancelsDownloadAndHidesOutgoingCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "remoteCanOpenCacheSettingsAndChooseCachedTrackFromLibrary",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "settingsAndCollectionAreSeparateAndReturnToTheirOwnParents",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "fastCatalogDoesNotAuditAllBytesButSelectedDamagedAudioIsRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "damagedAudioAndCoverAreRepairedIndependently",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "syncScreenThenPlayWithNetworkDisabledAndRestorePaused",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "checksumlessValidFilesAreVerifiedWithoutDownloadingAgain",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "cancelKeepsCompletedFileAndNextSyncContinues",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "anExportDialogFromThePreviousAccountCannotStartAfterSignOut",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "albumAndPlaylistExportFetchEveryPage",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "templateHelpPreviewValidationAndPersistence",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "insufficientCapacityAndProviderFailureKeepOriginalCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback",
+          "status": "failed",
+          "cause": "java.lang.NoSuchMethodError: No virtual method codePoints()Ljava/util/stream/IntStream; in class Ljava/lang/String; or its super classes (declaration of 'java.lang.String' appears in /system/framework/core-libart.jar)"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferServiceTest",
+          "test": "serviceMovesCacheWhileActivityIsRecreatedAndStopsItsOwnNotification",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Mp3ExportQualityTest",
+          "test": "eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding",
+          "status": "failed",
+          "cause": "java.lang.NullPointerException: Attempt to invoke virtual method 'int java.lang.Integer.intValue()' on a null object reference"
+        }
+      ]
+    },
+    {
+      "log": "api23-final-files-services.txt",
+      "complete": true,
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "anExportDialogFromThePreviousAccountCannotStartAfterSignOut",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "albumAndPlaylistExportFetchEveryPage",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "templateHelpPreviewValidationAndPersistence",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "insufficientCapacityAndProviderFailureKeepOriginalCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferServiceTest",
+          "test": "serviceMovesCacheWhileActivityIsRecreatedAndStopsItsOwnNotification",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Mp3ExportQualityTest",
+          "test": "eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SideBarOverlayTest",
+          "test": "removingTheLastButtonRemovesTheOverlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SideBarOverlayTest",
+          "test": "permittedServiceAddsAndRemovesItsWindow",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MountedStorageTest",
+          "test": "mountedFolderIndexesAndPlaysReadOnlyAndRecoversAfterDisconnect",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateLifecycleTest",
+          "test": "checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateAutoOfferTest",
+          "test": "launchOffersNewReleaseOnceAndRespectsDailyCheckAndOptOut",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ManualBetaUpdateTest",
+          "test": "productionChannelStaysStableAndRejectsNewerBeta",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateSettingsTest",
+          "test": "updateSettingsKeepAutoCheckChoiceAndNavigateUp",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-final136-installer.txt",
+      "complete": true,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.SignedUpdateDownloadTest",
+          "test": "signedReleaseIsVerifiedBeforePublishingTemporaryDownload",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyUpdateInstallerTest",
+          "test": "permissionSettingsAndSystemInstallerUpgradeTheActualProduct",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-foundation-final.txt",
+      "complete": true,
+      "passed": 19,
+      "failed": 2,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "liveAudioProfileAndSettingsSurviveLanguageSwitch",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.AccountScreenTest",
+          "test": "upCancelsLoginAndGuestRemainsLocal",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.AccountScreenTest",
+          "test": "expiredCodeShowsRetryWithoutKeepingOldCode",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.AccountScreenTest",
+          "test": "successfulLoginAndConfirmedLogoutLeaveQueueUntouched",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.AccountScreenTest",
+          "test": "codeSurvivesRecreationAndBrowserBackgroundThenCancelRemovesIt",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.AccountScreenTest",
+          "test": "backgroundNetworkFailureKeepsCodeAndCompletesAfterReturn",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.AccountScreenTest",
+          "test": "accountRetryAfterRotationUsesGrantedTokenWithoutAnotherBrowserCode",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SkinPackageTest",
+          "test": "unsafeArchivePathsUnusedFilesAndDuplicatesAreRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SkinPackageTest",
+          "test": "importPreviewApplyRestartCorruptionAndRemovalAreIsolated",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SkinPackageTest",
+          "test": "compressedOversizeAndBadVectorAreRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SkinPackageTest",
+          "test": "bundledThemesAreActualValidExternalPackages",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SkinPackageTest",
+          "test": "incompatibleUnknownAndMalformedFieldsAreRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SkinPackageTest",
+          "test": "partialPaletteAndVectorInheritOtherRoles",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SkinUiTest",
+          "test": "previewLightCancelApplyAndRestoreUseSeparateActions",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "publicCatalogCitiesGenreSearchStreamAndWidgetsUseActualApi",
+          "status": "failed",
+          "cause": "dev.petrov.ymplayer2.core.RadioException: NETWORK"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "transportRejectsInvalidOauthAndUnsafeMediaUrls",
+          "status": "failed",
+          "cause": "java.lang.AssertionError: expected:<ACCESS> but was:<NETWORK>"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateLifecycleTest",
+          "test": "checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateAutoOfferTest",
+          "test": "launchOffersNewReleaseOnceAndRespectsDailyCheckAndOptOut",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateSettingsTest",
+          "test": "updateSettingsKeepAutoCheckChoiceAndNavigateUp",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ManualBetaUpdateTest",
+          "test": "productionChannelStaysStableAndRejectsNewerBeta",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-foundation-initial.txt",
+      "complete": false,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "remoteSelectsLanguageAndAppMessagesKeepUserArgumentsIntact",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "choicePersistsAndAutoFollowsSupportedSystemLanguagesWithEnglishFallback",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "nativeClipLabelsSwitchWithoutChangingTitlesOrController",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "longTranslatedCacheSettingsRemainReachable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "allPacksHandlePluralsAndCachedMessagesWithoutTranslatingArguments",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "nestedUpdateErrorsTranslateInEveryDirectionWithoutChangingHostNames",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "switchUpdatesCurrentScreenAndKeepsOfflineSeparation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "remoteReachesLastLanguageAndLeavesSelectedRowVertically",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-foundation-provider.txt",
+      "complete": false,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "cases": []
+    },
+    {
+      "log": "api23-foundation.txt",
+      "complete": false,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "remoteSelectsLanguageAndAppMessagesKeepUserArgumentsIntact",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "choicePersistsAndAutoFollowsSupportedSystemLanguagesWithEnglishFallback",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "nativeClipLabelsSwitchWithoutChangingTitlesOrController",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "longTranslatedCacheSettingsRemainReachable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "allPacksHandlePluralsAndCachedMessagesWithoutTranslatingArguments",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "nestedUpdateErrorsTranslateInEveryDirectionWithoutChangingHostNames",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "switchUpdatesCurrentScreenAndKeepsOfflineSeparation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LocalizationTest",
+          "test": "remoteReachesLastLanguageAndLeavesSelectedRowVertically",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-installer-session.txt",
+      "complete": true,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.SignedUpdateDownloadTest",
+          "test": "signedReleaseIsVerifiedBeforePublishingTemporaryDownload",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyUpdateInstallerTest",
+          "test": "permissionSettingsAndSystemInstallerUpgradeTheActualProduct",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-installer-view-negative.txt",
+      "complete": true,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.SignedUpdateDownloadTest",
+          "test": "signedReleaseIsVerifiedBeforePublishingTemporaryDownload",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyUpdateInstallerTest",
+          "test": "permissionSettingsAndSystemInstallerUpgradeTheActualProduct",
+          "status": "failed",
+          "cause": "android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.VIEW dat=content://dev.petrov.ymplayer2.dev.update_files/updates/legacy-installer-fixture.apk typ=application/vnd.android.package-archive flg=0x1 clip={text/uri-list U:content://dev.petrov.ymplayer2.dev.update_files/updates/legacy-installer-fixture.apk} }"
+        }
+      ]
+    },
+    {
+      "log": "api23-live-tls.txt",
+      "complete": true,
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "publicServiceAndModernCertificateOriginsAreReachable",
+          "status": "failed",
+          "cause": "javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found."
+        }
+      ]
+    },
+    {
+      "log": "api23-online-final.txt",
+      "complete": true,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "anOlderIncompatibleFeedStillReportsTheInstalledBuildAsCurrent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "exportedNamesKeepCompleteUnicodeCodePointsOnTheOldRuntime",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "expiredCertificateRemainsRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "publicServiceAndModernCertificateOriginsAreReachable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "compatibilitySetupKeepsThePlatformHostnameVerifier",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "pendingAutoplayShowsPauseAndOnePlayResumesPausedClip",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "firstSurfaceAndReattachedSurfaceKeepVideoProportionsWithoutRotation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "publicCatalogCitiesGenreSearchStreamAndWidgetsUseActualApi",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "transportRejectsInvalidOauthAndUnsafeMediaUrls",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-probes-final.txt",
+      "complete": true,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-probes-initial.txt",
+      "complete": true,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "failed",
+          "cause": "java.lang.AssertionError: expected: dev.petrov.ymplayer2.core.AccountSession<AccountSession(redacted)> but was: dev.petrov.ymplayer2.core.AccountSession<AccountSession(redacted)>"
+        }
+      ]
+    },
+    {
+      "log": "api23-probes.txt",
+      "complete": true,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "failed",
+          "cause": "java.lang.AssertionError: expected: dev.petrov.ymplayer2.core.AccountSession<AccountSession(redacted)> but was: dev.petrov.ymplayer2.core.AccountSession<AccountSession(redacted)>"
+        }
+      ]
+    },
+    {
+      "log": "api23-real-installer.txt",
+      "complete": true,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.SignedUpdateDownloadTest",
+          "test": "signedReleaseIsVerifiedBeforePublishingTemporaryDownload",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyUpdateInstallerTest",
+          "test": "permissionSettingsAndSystemInstallerUpgradeTheActualProduct",
+          "status": "failed",
+          "cause": "android.content.ActivityNotFoundException: No Activity found to handle Intent { act=android.intent.action.VIEW dat=content://dev.petrov.ymplayer2.dev.update_files/updates/legacy-installer-fixture.apk typ=application/vnd.android.package-archive flg=0x1 clip={text/uri-list U:content://dev.petrov.ymplayer2.dev.update_files/updates/legacy-installer-fixture.apk} }"
+        }
+      ]
+    },
+    {
+      "log": "api23-shared-read-only.txt",
+      "complete": true,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.MountedStorageTest",
+          "test": "sharedStorageNeedsReadPermissionAndNeverNeedsWritePermission",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-tls-radio-final.txt",
+      "complete": true,
+      "passed": 4,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "invalidCertificateAndWrongHostnameRemainRejected",
+          "status": "failed",
+          "cause": "java.net.SocketTimeoutException: failed to connect to self-signed.badssl.com/104.154.89.105 (port 443) after 12000ms"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "publicServiceAndModernCertificateOriginsAreReachable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "publicCatalogCitiesGenreSearchStreamAndWidgetsUseActualApi",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "transportRejectsInvalidOauthAndUnsafeMediaUrls",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-updater.txt",
+      "complete": true,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "manifestFallsBackAndKeepsOrderedApkSources",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "newestValidManifestWinsWhenCdnEdgesDisagree",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "wrongPackageHttpAndInvalidDigestAreRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "corruptDownloadFailsBothSourcesAndRemovesPartialFile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "cleanupRemovesOnlyAlreadyInstalledOwnedApks",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "pinnedCdnApkCanFallBackToGcoreMirror",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "newerBuildRequiringNewerAndroidIsStillRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "cancellationStopsFallbackAndRemovesItsPartialFile",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api23-wave.txt",
+      "complete": true,
+      "passed": 77,
+      "failed": 0,
+      "skipped": 1,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "backgroundBlockedListsKeepPausedWindowButNewLocalDislikeCanSkip",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "transientNetworkErrorKeepsCurrentTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "transientServerErrorKeepsCurrentTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "delayedConnectionRetryCannotOverrideNewStop",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopAfterExplicitStopCannotUndoItsMarker",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "fullRestoredWindowContinuesFromSavedTailCursor",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopRetainsPlayingWavePositionAndCompleteAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "actualMedia3NoisyReasonAfterStopPreservesStopped",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "delayedConnectionRetryCannotOverrideNewPause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "missingMiddleFileCannotJumpToLaterCachedTrackOrLoseBack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "visiblePlayAfterFailedEndStartsOnFirstPress",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWavePlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWaveStop",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseAfterLaunchRequestWinsOverMetadataRefresh",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "touchPlayWhilePausedAccountLoadsIsExecutedWhenReady",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "anotherAccountCannotInheritSavedWaveWindow",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "cachedWaveResumesWhileLocalLibraryIsStillScanning",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePausedWindowRestoresOnNewAdapterWithServerUnavailable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedPausedWavePreparationCannotSkipTheSavedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedOnlineListPauseRemainsPaused",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseAfterTouchPlayWhileAccountLoadsStillWins",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "stopWhileAccountLoadsCancelsLatePlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedAccountStorageCannotErasePlayingWaveCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "noisyPauseRestoresWaveAsPausedAtTheSamePosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePlayingWindowRestoresOnNewAdapterWithServerUnavailable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "legacyStoppedCheckpointRemainsStopped",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedWavePausePreservesTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "metadataOnlyColdRestoreDoesNotRequestPlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedOnlineListStopRemainsStopped",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "delayedAccountRestorePreservesWaveTrackPositionAndPlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "delayedAccountRestorePreservesOnlineListTrackPositionAndPlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedAccountStorageCannotErasePausedWaveCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "expiredSavedTokenKeepsPausedTrackPositionAndAllAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseWhileAccountLoadsCancelsLatePlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWavePause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "legacyPausedCheckpointKeepsTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedWaveStopRemainsStoppedAtZero",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "pausedFullWindowSurvivesRestartWithoutReplacingQueueOrDownloadingAgain",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "durableStopCannotResurrectAnOlderPreparedQueueCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "zeroPositionPauseKeepsTheWholePreparedWindowAcrossRestart",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "slowTailCannotDelayStartOrPreparedNextAndEarlyNextWaitsForOneExistingDownload",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "realStorageWriteFailureKeepsPlayingAndWaitsForExplicitRetry",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "rapidNextRetainsPreviousAudioDownloadAndPreviousUsesItsCompleteFile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "sourceChangeCancelsTailAndCannotPublishItsLateFile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "missingAndTruncatedFutureFilesAreRepairedWithoutReplacingTheSavedQueue",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "ordinaryLongPlaylistRetainsItsTracksWithoutDownloadingTheWholeList",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "allTenEntriesContainRealAudioAndAdvancingReplenishesWithoutGrowingStorage",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "restartRetainsAllTenCandidatesAndTheirCompleteFiles",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "changedQualityDiscardsInflightTailButKeepsAlreadyPreparedAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "savedWavePauseSurvivesBackgroundServiceRecreation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "noisyPauseSurvivesActualForegroundTimeout",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "noisyPauseSurvivesDefaultTenMinuteForegroundTimeout",
+          "status": "skipped",
+          "cause": "org.junit.AssumptionViolatedException: Explicit long native idle run"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "savedWavePlaySurvivesBackgroundServiceRecreation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "foregroundPreparesSavedWavePauseWithoutServiceRestart",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "actualMedia3TaskRemovalPreservesSavedWavePlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "banningArtistAlsoRemovesUpcomingTracksFromRecommendedPlaylist",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "endWaitsForExistingAudioPrefetchAndPauseStillWins",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "restartDoesNotForgetTracksOutsideTheSmallPlaybackQueue",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "systemPauseDuringNextRequestCannotRestartAudioOnLateReply",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "fastStartPrefetchAutomaticContinuationAndPausedRestore",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "uncachedFirstStreamDoesNotWaitForUnrelatedOfflineAuditLock",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "lateWaveCannotReplaceManualQueueOrNewProfile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "pauseDuringDelayedErrorRecoveryKeepsExactTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "noisyCallbackDuringDelayedErrorRecoveryKeepsExactTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "restoredUpcomingTrackCanBeSelectedBeforeItsBufferExists",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "failureCanRetryAndUiTargetsTrackArtistAndAlbumIndividually",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "artistBanDropsPrefetchAndCurrentTrackBanSkipsWithoutBanningArtist",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "accessFailureDoesNotRetryAutomaticallyAtStartOrAtEnd",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api26-corrections.txt",
+      "complete": true,
+      "passed": 12,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "expiredCertificateRemainsRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "publicServiceAndModernCertificateOriginsAreReachable",
+          "status": "failed",
+          "cause": "javax.net.ssl.SSLHandshakeException: java.security.cert.CertPathValidatorException: Trust anchor for certification path not found."
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "compatibilitySetupKeepsThePlatformHostnameVerifier",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "pendingAutoplayShowsPauseAndOnePlayResumesPausedClip",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "firstSurfaceAndReattachedSurfaceKeepVideoProportionsWithoutRotation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "gridLoadsToEndAndDetailBackPreservesScrollAndFocus",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "exportedNamesKeepCompleteUnicodeCodePointsOnTheOldRuntime",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api26-files-provider-initial.txt",
+      "complete": false,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "cases": []
+    },
+    {
+      "log": "api26-files.txt",
+      "complete": true,
+      "passed": 35,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "badAudioDoesNotDeleteHealthyCoverAndRetryRepairsOnlyAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "missingCoverKeepsAudioAndNeverStoresPlaceholderArt",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "clearOfflineFilesLeavesServerLikesUntouched",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "emptyOfflineSourceRemainsSelectableWithoutNetwork",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "unlikeInFlightCannotLeaveAnyFilesForRemovedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "guestHasAnEmptyReadOnlyListAndIndependentDeviceSettings",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "safArtworkIsDisplayedAfterMovingTheOfflineCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "foregroundSyncCancelsWithoutStoppingTheAudioPlayer",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "aThousandCompletedTracksCannotBlockTwoNewDownloads",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "profileSwitchCancelsDownloadAndHidesOutgoingCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "remoteCanOpenCacheSettingsAndChooseCachedTrackFromLibrary",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "settingsAndCollectionAreSeparateAndReturnToTheirOwnParents",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "fastCatalogDoesNotAuditAllBytesButSelectedDamagedAudioIsRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "damagedAudioAndCoverAreRepairedIndependently",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "syncScreenThenPlayWithNetworkDisabledAndRestorePaused",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "checksumlessValidFilesAreVerifiedWithoutDownloadingAgain",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "cancelKeepsCompletedFileAndNextSyncContinues",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "anExportDialogFromThePreviousAccountCannotStartAfterSignOut",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames",
+          "status": "failed",
+          "cause": "java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Экспарт MP3' (ignoreCase: false) is not displayed!"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "albumAndPlaylistExportFetchEveryPage",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "templateHelpPreviewValidationAndPersistence",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "insufficientCapacityAndProviderFailureKeepOriginalCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferServiceTest",
+          "test": "serviceMovesCacheWhileActivityIsRecreatedAndStopsItsOwnNotification",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Mp3ExportQualityTest",
+          "test": "eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api26-final-foundation.txt",
+      "complete": true,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "expiredCertificateRemainsRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "publicServiceAndModernCertificateOriginsAreReachable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "compatibilitySetupKeepsThePlatformHostnameVerifier",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "anOlderIncompatibleFeedStillReportsTheInstalledBuildAsCurrent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "exportedNamesKeepCompleteUnicodeCodePointsOnTheOldRuntime",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api26-live-tls.txt",
+      "complete": true,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "publicServiceAndModernCertificateOriginsAreReachable",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api26-playback.txt",
+      "complete": true,
+      "passed": 93,
+      "failed": 2,
+      "skipped": 3,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "backgroundBlockedListsKeepPausedWindowButNewLocalDislikeCanSkip",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "transientNetworkErrorKeepsCurrentTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "transientServerErrorKeepsCurrentTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "delayedConnectionRetryCannotOverrideNewStop",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopAfterExplicitStopCannotUndoItsMarker",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "fullRestoredWindowContinuesFromSavedTailCursor",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopRetainsPlayingWavePositionAndCompleteAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "actualMedia3NoisyReasonAfterStopPreservesStopped",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "delayedConnectionRetryCannotOverrideNewPause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "missingMiddleFileCannotJumpToLaterCachedTrackOrLoseBack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "visiblePlayAfterFailedEndStartsOnFirstPress",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWavePlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWaveStop",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseAfterLaunchRequestWinsOverMetadataRefresh",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "touchPlayWhilePausedAccountLoadsIsExecutedWhenReady",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "anotherAccountCannotInheritSavedWaveWindow",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "cachedWaveResumesWhileLocalLibraryIsStillScanning",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePausedWindowRestoresOnNewAdapterWithServerUnavailable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedPausedWavePreparationCannotSkipTheSavedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedOnlineListPauseRemainsPaused",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseAfterTouchPlayWhileAccountLoadsStillWins",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "stopWhileAccountLoadsCancelsLatePlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedAccountStorageCannotErasePlayingWaveCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "noisyPauseRestoresWaveAsPausedAtTheSamePosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePlayingWindowRestoresOnNewAdapterWithServerUnavailable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "legacyStoppedCheckpointRemainsStopped",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedWavePausePreservesTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "metadataOnlyColdRestoreDoesNotRequestPlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedOnlineListStopRemainsStopped",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "delayedAccountRestorePreservesWaveTrackPositionAndPlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "delayedAccountRestorePreservesOnlineListTrackPositionAndPlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedAccountStorageCannotErasePausedWaveCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "expiredSavedTokenKeepsPausedTrackPositionAndAllAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseWhileAccountLoadsCancelsLatePlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWavePause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "legacyPausedCheckpointKeepsTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedWaveStopRemainsStoppedAtZero",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "pausedFullWindowSurvivesRestartWithoutReplacingQueueOrDownloadingAgain",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "durableStopCannotResurrectAnOlderPreparedQueueCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "zeroPositionPauseKeepsTheWholePreparedWindowAcrossRestart",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "slowTailCannotDelayStartOrPreparedNextAndEarlyNextWaitsForOneExistingDownload",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "realStorageWriteFailureKeepsPlayingAndWaitsForExplicitRetry",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "rapidNextRetainsPreviousAudioDownloadAndPreviousUsesItsCompleteFile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "sourceChangeCancelsTailAndCannotPublishItsLateFile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "missingAndTruncatedFutureFilesAreRepairedWithoutReplacingTheSavedQueue",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "ordinaryLongPlaylistRetainsItsTracksWithoutDownloadingTheWholeList",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "allTenEntriesContainRealAudioAndAdvancingReplenishesWithoutGrowingStorage",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "restartRetainsAllTenCandidatesAndTheirCompleteFiles",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "changedQualityDiscardsInflightTailButKeepsAlreadyPreparedAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "foregroundRepairsStoppedEngineWithSavedWavePlayWithoutServiceRestart",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "savedWavePauseSurvivesBackgroundServiceRecreation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "noisyPauseSurvivesActualForegroundTimeout",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "noisyPauseSurvivesDefaultTenMinuteForegroundTimeout",
+          "status": "skipped",
+          "cause": "org.junit.AssumptionViolatedException: Explicit long native idle run"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "savedWavePlaySurvivesBackgroundServiceRecreation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "foregroundPreparesSavedWavePauseWithoutServiceRestart",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveServiceRestoreTest",
+          "test": "actualMedia3TaskRemovalPreservesSavedWavePlay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "banningArtistAlsoRemovesUpcomingTracksFromRecommendedPlaylist",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "nextAudioIsCompleteEarlyAndPlaysWithoutAnotherNetworkResolution",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "endWaitsForExistingAudioPrefetchAndPauseStillWins",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "restartDoesNotForgetTracksOutsideTheSmallPlaybackQueue",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "systemPauseDuringNextRequestCannotRestartAudioOnLateReply",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "fastStartPrefetchAutomaticContinuationAndPausedRestore",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "uncachedFirstStreamDoesNotWaitForUnrelatedOfflineAuditLock",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "repeatedSessionlessBatchRecoversFromDrainedCursorAndContinuesAfterThirdTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "lateWaveCannotReplaceManualQueueOrNewProfile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "pauseDuringDelayedErrorRecoveryKeepsExactTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "noisyCallbackDuringDelayedErrorRecoveryKeepsExactTrackAndPosition",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "restoredUpcomingTrackCanBeSelectedBeforeItsBufferExists",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "failureCanRetryAndUiTargetsTrackArtistAndAlbumIndividually",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "transientThirdTrackRequestDoesNotEndWaveAfterSecondTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "artistBanDropsPrefetchAndCurrentTrackBanSkipsWithoutBanningArtist",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.MyWavePlaybackTest",
+          "test": "accessFailureDoesNotRetryAutomaticallyAtStartOrAtEnd",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "rotationRetainsStationAndStreamAndPlayerControls",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "radioBorrowsEngineWithoutOverwritingMusicCheckpointAndSessionModes",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "stopAndProfileChangeCancelPendingStreamAndReconnect",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "remoteFocusVisitsSelectedTabAndStationAndControls",
+          "status": "skipped",
+          "cause": "org.junit.AssumptionViolatedException: got: <false>, expected: is <true>"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "collectionCarouselLoadsAllPagesWithoutManualMoreButton",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "tabsGlobalSearchAndStationCollectionAreUsable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "gridLoadsToEndAndDetailBackPreservesScrollAndFocus",
+          "status": "failed",
+          "cause": "java.lang.IllegalArgumentException: Cannot currently capture dialogs on API lower than 28!"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "recoverableFailureResolvesFreshStreamAndUpdatesOnAir",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioPlaybackTest",
+          "test": "stationIconsOpenDetailsWhilePlayAndLikeRemainSeparate",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause",
+          "status": "failed",
+          "cause": "java.lang.AssertionError: Actual ClipActivity decodes checkpoint"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "pendingAutoplayShowsPauseAndOnePlayResumesPausedClip",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "firstSurfaceAndReattachedSurfaceKeepVideoProportionsWithoutRotation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipTransportPlaybackTest",
+          "test": "dashPreloadsSamplesThenPlaysAcrossSegmentBoundary",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipTransportPlaybackTest",
+          "test": "hlsPreloadsSamplesThenPlaysAcrossSegmentBoundary",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipRotationTest",
+          "test": "turningTheScreenKeepsTheVideoSession",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationArtworkTest",
+          "test": "deferredArtworkPreservesTvActionsMediaTokenAndGenericActions",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "androidTvHomeOpenAndStopButtonsControlMusic",
+          "status": "skipped",
+          "cause": "org.junit.AssumptionViolatedException: Android TV Home UI scenario requires its project TV image"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "tvOpenPreservesLibraryWhileRadioPlaysAndStopCancelsOnAirPolling",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "tvOpenPreservesLibraryAndStopDoesNotRepostOrAutoplay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api26-updater.txt",
+      "complete": true,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "manifestFallsBackAndKeepsOrderedApkSources",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "newestValidManifestWinsWhenCdnEdgesDisagree",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "wrongPackageHttpAndInvalidDigestAreRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "corruptDownloadFailsBothSourcesAndRemovesPartialFile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "cleanupRemovesOnlyAlreadyInstalledOwnedApks",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "pinnedCdnApkCanFallBackToGcoreMirror",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "newerBuildRequiringNewerAndroidIsStillRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "cancellationStopsFallbackAndRemovesItsPartialFile",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api27-exports-final.txt",
+      "complete": true,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api27-files.txt",
+      "complete": true,
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "badAudioDoesNotDeleteHealthyCoverAndRetryRepairsOnlyAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "missingCoverKeepsAudioAndNeverStoresPlaceholderArt",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "clearOfflineFilesLeavesServerLikesUntouched",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "emptyOfflineSourceRemainsSelectableWithoutNetwork",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "unlikeInFlightCannotLeaveAnyFilesForRemovedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "guestHasAnEmptyReadOnlyListAndIndependentDeviceSettings",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "safArtworkIsDisplayedAfterMovingTheOfflineCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "disablingCacheStopsItsUseWithoutDeletingDownloadsAndCanBeReenabled",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "foregroundSyncCancelsWithoutStoppingTheAudioPlayer",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "aThousandCompletedTracksCannotBlockTwoNewDownloads",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "profileSwitchCancelsDownloadAndHidesOutgoingCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "remoteCanOpenCacheSettingsAndChooseCachedTrackFromLibrary",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "settingsAndCollectionAreSeparateAndReturnToTheirOwnParents",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "fastCatalogDoesNotAuditAllBytesButSelectedDamagedAudioIsRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "repairedSafPictureRefreshesAtTheSameUriAndCoarseTimestamp",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "damagedAudioAndCoverAreRepairedIndependently",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "syncScreenThenPlayWithNetworkDisabledAndRestorePaused",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "checksumlessValidFilesAreVerifiedWithoutDownloadingAgain",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "cancelKeepsCompletedFileAndNextSyncContinues",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflinePlaybackTest",
+          "test": "ordinarySyncOfReadySafCacheDoesNotReadSavedAudioAgain",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "anExportDialogFromThePreviousAccountCannotStartAfterSignOut",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "albumAndPlaylistExportFetchEveryPage",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "templateHelpPreviewValidationAndPersistence",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "insufficientCapacityAndProviderFailureKeepOriginalCache",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferTest",
+          "test": "exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.FileTransferServiceTest",
+          "test": "serviceMovesCacheWhileActivityIsRecreatedAndStopsItsOwnNotification",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Mp3ExportQualityTest",
+          "test": "eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api27-online-foundation.txt",
+      "complete": true,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "anOlderIncompatibleFeedStillReportsTheInstalledBuildAsCurrent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "exportedNamesKeepCompleteUnicodeCodePointsOnTheOldRuntime",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "expiredCertificateRemainsRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "publicServiceAndModernCertificateOriginsAreReachable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.LegacyTlsCompatibilityTest",
+          "test": "compatibilitySetupKeepsThePlatformHostnameVerifier",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "pendingAutoplayShowsPauseAndOnePlayResumesPausedClip",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipStartupTest",
+          "test": "firstSurfaceAndReattachedSurfaceKeepVideoProportionsWithoutRotation",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "publicCatalogCitiesGenreSearchStreamAndWidgetsUseActualApi",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "transportRejectsInvalidOauthAndUnsafeMediaUrls",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.RadioProtocolTest",
+          "test": "stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api27-updater.txt",
+      "complete": true,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "manifestFallsBackAndKeepsOrderedApkSources",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "newestValidManifestWinsWhenCdnEdgesDisagree",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "wrongPackageHttpAndInvalidDigestAreRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "corruptDownloadFailsBothSourcesAndRemovesPartialFile",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "cleanupRemovesOnlyAlreadyInstalledOwnedApks",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "pinnedCdnApkCanFallBackToGcoreMirror",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "newerBuildRequiringNewerAndroidIsStillRejected",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.updater.UpdateClientTest",
+          "test": "cancellationStopsFallbackAndRemovesItsPartialFile",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api35-cover-final.txt",
+      "complete": true,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api35-modern-native.txt",
+      "complete": true,
+      "passed": 14,
+      "failed": 1,
+      "skipped": 1,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "anOlderIncompatibleFeedStillReportsTheInstalledBuildAsCurrent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "exportedNamesKeepCompleteUnicodeCodePointsOnTheOldRuntime",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "failed",
+          "cause": "java.lang.AssertionError: Truncated PNG"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateLifecycleTest",
+          "test": "checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationArtworkTest",
+          "test": "deferredArtworkPreservesTvActionsMediaTokenAndGenericActions",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "androidTvHomeOpenAndStopButtonsControlMusic",
+          "status": "skipped",
+          "cause": "org.junit.AssumptionViolatedException: Android TV Home UI scenario requires its project TV image"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "tvOpenPreservesLibraryWhileRadioPlaysAndStopCancelsOnAirPolling",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "tvOpenPreservesLibraryAndStopDoesNotRepostOrAutoplay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePausedWindowRestoresOnNewAdapterWithServerUnavailable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePlayingWindowRestoresOnNewAdapterWithServerUnavailable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopRetainsPlayingWavePositionAndCompleteAudio",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.SignedUpdateDownloadTest",
+          "test": "signedReleaseIsVerifiedBeforePublishingTemporaryDownload",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "api36-modern-native.txt",
+      "complete": true,
+      "passed": 14,
+      "failed": 0,
+      "skipped": 1,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "anOlderIncompatibleFeedStillReportsTheInstalledBuildAsCurrent",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "exportedNamesKeepCompleteUnicodeCodePointsOnTheOldRuntime",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "nativeCoverValidationRejectsTruncatedJpegAndPngWithoutLosingValidCovers",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "desugaredAtomicReplacementPreservesContentsAndCanonicalBoundaries",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "actualApplicationOpensWithItsRealLanguageAndNetworkObserver",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.Android6CompatibilityTest",
+          "test": "realKeystoreRoundTripKeepsTheAccountEncrypted",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.UpdateLifecycleTest",
+          "test": "checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationArtworkTest",
+          "test": "deferredArtworkPreservesTvActionsMediaTokenAndGenericActions",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "androidTvHomeOpenAndStopButtonsControlMusic",
+          "status": "skipped",
+          "cause": "org.junit.AssumptionViolatedException: Android TV Home UI scenario requires its project TV image"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "tvOpenPreservesLibraryWhileRadioPlaysAndStopCancelsOnAirPolling",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "tvOpenPreservesLibraryAndStopDoesNotRepostOrAutoplay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePausedWindowRestoresOnNewAdapterWithServerUnavailable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePlayingWindowRestoresOnNewAdapterWithServerUnavailable",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopRetainsPlayingWavePositionAndCompleteAudio",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "tv28-real-controls-final.txt",
+      "complete": true,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "androidTvHomeOpenAndStopButtonsControlMusic",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    },
+    {
+      "log": "tv28-regression.txt",
+      "complete": true,
+      "passed": 7,
+      "failed": 1,
+      "skipped": 0,
+      "cases": [
+        {
+          "class": "dev.petrov.ymplayer2.SignedUpdateDownloadTest",
+          "test": "signedReleaseIsVerifiedBeforePublishingTemporaryDownload",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "androidTvHomeOpenAndStopButtonsControlMusic",
+          "status": "failed",
+          "cause": "java.lang.AssertionError: TV launcher control was not found: [notification, Notifications]"
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "tvOpenPreservesLibraryWhileRadioPlaysAndStopCancelsOnAirPolling",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "tvOpenPreservesLibraryAndStopDoesNotRepostOrAutoplay",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationActionsTest",
+          "test": "myWaveOpenPreservesLibraryEvenWithStaleRadioCheckpoint",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.TvNotificationArtworkTest",
+          "test": "deferredArtworkPreservesTvActionsMediaTokenAndGenericActions",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipTransportPlaybackTest",
+          "test": "dashPreloadsSamplesThenPlaysAcrossSegmentBoundary",
+          "status": "passed",
+          "cause": ""
+        },
+        {
+          "class": "dev.petrov.ymplayer2.ClipTransportPlaybackTest",
+          "test": "hlsPreloadsSamplesThenPlaysAcrossSegmentBoundary",
+          "status": "passed",
+          "cause": ""
+        }
+      ]
+    }
+  ]
+}

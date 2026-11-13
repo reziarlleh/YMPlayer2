@@ -1,4 +1,7 @@
-plugins { alias(libs.plugins.kotlin.jvm) }
+plugins {
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.android.lint)
+}
 kotlin { jvmToolchain(17) }
 dependencies {
     implementation(libs.coroutines.core)

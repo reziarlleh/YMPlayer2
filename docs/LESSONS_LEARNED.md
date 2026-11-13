@@ -1,5 +1,31 @@
 # Ошибочные решения и правила повторного использования
 
+### 2026-11-13 — Android6 не открывает APK content:// обычным ACTION_VIEW
+
+Проверки подписи/скачивания прошли, но реальный установщик23 отверг intent.
+Сверять старый AOSP-манифест и доводить проверку до системного подтверждения.
+Для23 использовать приватную PackageInstaller.Session/API21; не делать APK
+публичным и не ослаблять права private directory ради file://.
+[Отказ135 и прошедший настоящий upgrade134→135](ANDROID6_2_7_0_VERIFICATION.md).
+
+### 2026-11-13 — desugaring и passed lint не покрывают любой Java API
+
+String.codePoints отсутствует на23, несмотря на подключённый NIO desugaring.
+Первый Android lint пропустил чистый core как external; реальный native экспорт
+нашёл NoSuchMethodError. Использовать совместимый codepoint-обход и включать
+standalone lint для JVM-зависимости; одной green JVM-проверки недостаточно.
+Старый MediaExtractor может не возвращать bitrate/duration: проверять выходные
+MP3-пакеты/временную шкалу, а не удалять проверки результата.
+[Отрицательные прогоны и исправление](ANDROID6_2_7_0_VERIFICATION.md).
+
+### 2026-11-13 — desugaring основного APK не виден процессу тестового provider
+
+AndroidTest providers в отдельном APK/UID не наследуют runtime j$ целевого
+приложения. Даже старый Collections.synchronizedSet может быть retargeted D8.
+Для небольшого platform-only provider использовать нативные Java API с явной
+синхронизацией; не переносить его в UID продукта ради успешного теста, иначе
+исчезает реальная проверка SAF-разрешений. [Логи отказа и исправление](ANDROID6_2_7_0_VERIFICATION.md).
+
 ### 2026-11-12 — Player.stop не означает удаление музыкального сеанса
 
 Media3 использует COMMAND_STOP и для смахивания обычной медиакарточки.

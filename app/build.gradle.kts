@@ -31,7 +31,7 @@ android {
     compileSdk = 37
     defaultConfig {
         applicationId = "dev.petrov.ymplayer2"
-        minSdk = 28
+        minSdk = 23
         targetSdk = 36
         versionCode = issuedBuild ?: 1
         versionName = if (issuedBuild == null) "$base-internal" else "$base${if (channel == "beta") "beta" else ""}-build$issuedBuild"
@@ -46,6 +46,8 @@ android {
             storePassword = signingInfo.getProperty("storePassword")
             keyAlias = "ymplayer2"
             keyPassword = signingInfo.getProperty("keyPassword")
+            enableV1Signing = true
+            enableV2Signing = true
         }
     }
     buildTypes {
@@ -70,7 +72,7 @@ android {
     }
     buildFeatures { compose = true; buildConfig = true }
     lint { checkDependencies = true }
-    compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+    compileOptions { isCoreLibraryDesugaringEnabled = true; sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
 gradle.taskGraph.whenReady {
     if (allTasks.any { it.path == ":app:assembleRelease" || it.path == ":app:bundleRelease" }) {
@@ -82,6 +84,8 @@ gradle.taskGraph.whenReady {
     }
 }
 dependencies {
+    implementation(libs.android.core)
+    coreLibraryDesugaring(libs.desugar.jdk.nio)
     testImplementation(libs.junit)
     implementation(project(":localization"));
     implementation(project(":core"))

@@ -1,5 +1,52 @@
 # Журнал работы
 
+## 13 ноября2026 — Android6+ реализован в ручном2.7.0-build136
+
+Завершены API23 fallback/Java-NIO/локализация/службы/кэш/экспорт/подпись,
+Root CA и настоящий установщик6.134/135 — внутренние пробы; финальный136
+с прежним пакетом/ключом, min23/target36/v1+v2. В Android6 PackageInstaller
+не принимает content:// ACTION_VIEW: отрицательная проба135 сохранена,
+реализована private PackageInstaller.Session/API21 с IO/hash/fsync/abandon,
+штатным подтверждением и неэкспортируемым result receiver. Настоящие
+134→135→136 сохранили UID, firstInstallTime и40-byte файл с прежним SHA256.
+
+Native матрица23/26/27/TV28/35/36 завершена; наTV нажаты настоящие Open/Stop
+системного Home. Signed132→136 наTV28/35 сохраняет данные; signed startup
+пройден на всех перечисленных API. JVM168, lint0 errors/0NewApi/127 warnings.
+Неверные предположения тестов (SAF-provider j$, optional MediaFormat fields,
+EOS, короткий экран, отсутствующий network, UI selector, PNG без IEND)
+разобраны и сохранены [в отчёте](ANDROID6_2_7_0_VERIFICATION.md).
+Непройденное не засчитывалось; реальные несовместимости String.codePoints,
+TLS CA и установщика исправлены в коде. Лишних product-модулей нет.
+
+RepoWise update повторно завершился missing tree_sitter; реальные source/build/
+native проверки его не заменяли. Публикация/feeds/4PDA не менялись, stable132.
+Следующая точка: сформировать итоговые QA receipts, проверить документы,
+зафиксировать/отправить main и дождаться CI. Физической приёмки136 пока нет.
+
+## 13 ноября2026 — начата полная адаптация Android6+ /2.7.0
+
+Владелец прямо поручил цель Android6+. Зафиксированы baseVersion2.7.0,
+8 критериев и порядок в [плане](PLAN_2_7_0.md); одна main, база133 и прежний
+stable132. План не означает созданный APK. До нового Build133 остаётся номером
+уже существующего2.6.6. RepoWise CLI повторно не загрузился: tree_sitter missing.
+Первый этап — min23 во всех модулях продукта, исходный NewApi lint и штатный
+Java/NIO desugaring2.1.5, подтверждённый Google Maven/SDK. OEM-утилита не меняется.
+
+Базовый lint выявил76 NewApi, включая три sampleSize и SAF/HTML. Внесены
+совместимые языки/сеть/службы/updater/MediaExtractor и ограниченный decoder
+обложек; не подавляется общий NewApi. Подготовлены SDK23/26/27 и свои AVD,
+API23 boot готов. Два compile-отказа касались отсутствующих прямых Core
+зависимостей для новых compat-классов, исправлены. Точная точка продолжения
+и дальнейшая матрица — [в текущем отчёте](ANDROID6_2_7_0_VERIFICATION.md).
+
+Debug/test/updater APK и JVM собраны; release lint0 errors/0NewApi,122 warnings.
+На23 прошли4 реальные пробы Application/Keystore/NIO/обложек; исправлена только
+ошибка identity-сравнения теста. На26 пройдены7 updater и TLS4 origins.
+Изолированный SAF-provider выявил missing j$ runtime: ConcurrentHashMap,
+затем Collections.synchronizedSet. Исправлены Java-фикстуры без смены их UID;
+отказы сохранены и не засчитаны. Сейчас выполняется матрица23/26; APK2.7 ещё нет.
+
 ## 13 ноября2026 — повторная оценка Android8/6
 
 По вопросу владельца перечитаны актуальные Gradle/catalog и адресные вызовы,

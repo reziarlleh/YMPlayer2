@@ -21,7 +21,7 @@ import dev.petrov.ymplayer2.localization.*
 @Composable internal fun WaveSettingsDialog(settings: WaveSettings, player: PlaybackController, dismiss: () -> Unit) {
     val state by settings.state.collectAsStateWithLifecycle()
     val configuration = LocalConfiguration.current
-    val language = configuration.locales[0]?.language ?: "ru"
+    val language = dev.petrov.ymplayer2.localization.AppLanguages.locales(configuration).firstOrNull()?.language ?: "ru"
     LaunchedEffect(state.profileId, state.signedIn, language) { if (state.signedIn) settings.load(language) }
     Dialog(dismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {
         // Keep the native window stable while asynchronous options change the card's size.

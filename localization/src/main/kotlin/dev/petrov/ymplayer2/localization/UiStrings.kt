@@ -3,7 +3,6 @@ package dev.petrov.ymplayer2.localization
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.os.LocaleList
 import androidx.compose.runtime.mutableStateOf
 import java.util.Locale
 
@@ -76,7 +75,7 @@ object UiStrings {
 
     internal fun configure(context: Context, language: String) {
         val config = Configuration(context.resources.configuration).apply {
-            setLocales(LocaleList(Locale.forLanguageTag(language)))
+            setLocale(Locale.forLanguageTag(language))
         }
         table.value = Table(language, context.createConfigurationContext(config).resources)
     }

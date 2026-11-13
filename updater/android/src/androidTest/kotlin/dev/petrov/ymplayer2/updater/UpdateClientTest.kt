@@ -22,7 +22,7 @@ class UpdateClientTest {
     private fun manifest(packageName: String = context.packageName, primary: String = "https://primary.test/app.apk",
         build: Long = 100) = JSONObject()
         .put("schemaVersion", 1).put("packageName", packageName).put("versionCode", build)
-        .put("versionName", "2.0.0beta-build$build").put("minSdk", 29)
+        .put("versionName", "2.0.0beta-build$build").put("minSdk", 23)
         .put("channel", "beta")
         .put("releaseNotes", "Проверка")
         .put("apk", JSONObject().put("primaryUrl", primary)
@@ -61,6 +61,16 @@ class UpdateClientTest {
         assertEquals(listOf("https://cdn.jsdelivr.net/gh/owner/repo@v2/file.apk",
             "https://gcore.jsdelivr.net/gh/owner/repo@v2/file.apk", "https://primary.test/app.apk"),
             release.sources(true))
+    }
+
+    @Test fun newerBuildRequiringNewerAndroidIsStillRejected() {
+        val newer = installedVersionCode(context) + 1
+        assertThrows(IOException::class.java) {
+            UpdateClient(context).parseManifest(
+                manifest(build = newer).put("minSdk", android.os.Build.VERSION.SDK_INT + 1),
+                "https://primary.test/manifest",
+            )
+        }
     }
 
     @Test fun wrongPackageHttpAndInvalidDigestAreRejected() {
@@ -105,7 +115,7 @@ class UpdateClientTest {
     }
 
     @Test fun cleanupRemovesOnlyAlreadyInstalledOwnedApks() {
-        val installed = context.packageManager.getPackageInfo(context.packageName, 0).longVersionCode
+        val installed = installedVersionCode(context)
         val directory = File(context.filesDir, "updates").apply { mkdirs() }
         val current = File(directory, "YMPlayer2-$installed.apk")
         val old = File(directory, "YMPlayer2-${(installed - 1).coerceAtLeast(0)}.apk")
@@ -126,6 +136,6 @@ class UpdateClientTest {
         override fun usingProxy() = false
         override fun getResponseCode() = status
         override fun getInputStream() = ByteArrayInputStream(bytes)
-        override fun getContentLengthLong() = bytes.size.toLong()
+        override fun getHeaderField(name: String): String? = if (name.equals("Content-Length", true)) bytes.size.toString() else null
     }
 }

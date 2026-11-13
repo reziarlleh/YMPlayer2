@@ -46,10 +46,15 @@ object ExportFileName {
         val clean = value.replace(Regex("[\\x00-\\x1f\\x7f<>:\"/\\\\|?*]"), "_").trim().trimEnd('.', ' ')
             .ifBlank { "track" }
         val bounded = buildString {
-            for (cp in clean.codePoints().toArray()) {
+            var offset = 0
+            while (offset < clean.length) {
+                // String.codePoints is absent on API23 and is not backported
+                // by core-library desugaring. Keep surrogate pairs intact.
+                val cp = Character.codePointAt(clean, offset)
                 val text = String(Character.toChars(cp))
                 if ((toString() + text).toByteArray(Charsets.UTF_8).size > 180) break
                 append(text)
+                offset += Character.charCount(cp)
             }
         }.trimEnd('.', ' ').ifBlank { "track" }
         return if (bounded.substringBefore('.').uppercase() in listOf("CON", "PRN", "AUX", "NUL") ||

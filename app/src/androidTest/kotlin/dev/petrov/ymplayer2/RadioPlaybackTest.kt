@@ -153,7 +153,13 @@ class RadioPlaybackTest {
     }
     private fun capture(name: String) {
         val file = java.io.File(compose.activity.getExternalFilesDir(null), name)
-        file.outputStream().use { (if (name == "radio-station-detail.png") compose.onNodeWithTag("radio_station_detail") else compose.onRoot()).captureToImage().asAndroidBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+        // Compose cannot capture a dialog window before API28; the platform
+        // screenshot still records the actual rendered window on API23–27.
+        if (android.os.Build.VERSION.SDK_INT < 28) {
+            val bitmap = requireNotNull(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot())
+            try { file.outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) } }
+            finally { bitmap.recycle() }
+        } else file.outputStream().use { (if (name == "radio-station-detail.png") compose.onNodeWithTag("radio_station_detail") else compose.onRoot()).captureToImage().asAndroidBitmap().compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
     }
     @Test fun collectionCarouselLoadsAllPagesWithoutManualMoreButton() {
         compose.runOnIdle { f.radioApi.catalogRows = (0 until 64).map { f.radioApi.one.copy(slug = "carousel-$it", name = "Station $it") } }

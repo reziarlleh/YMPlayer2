@@ -107,7 +107,7 @@ class SafLibrary(context: Context, scope: CoroutineScope) : IndexedLocalLibrary 
         require(source != Source.YANDEX)
         val tree = Uri.parse(uri)
         val direct = tree.scheme == "file"
-        require(direct || tree.scheme == "content" && Documents.isTreeUri(tree))
+        require(direct || tree.scheme == "content" && androidx.core.provider.DocumentsContractCompat.isTreeUri(tree))
         if (direct) check(File(requireNotNull(tree.path)).isDirectory)
         else resolver.takePersistableUriPermission(tree, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         if (state.value.roots.none { it.uri == uri }) {

@@ -1,3 +1,4 @@
+@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 package dev.petrov.ymplayer2
 
 import android.content.ContextWrapper
@@ -37,18 +38,18 @@ class SignedUpdateDownloadTest {
                 override fun disconnect() = Unit
                 override fun usingProxy() = false
                 override fun getResponseCode() = 200
-                override fun getContentLengthLong() = fixture.length()
+                override fun getHeaderField(name: String): String? = if (name.equals("Content-Length", true)) fixture.length().toString() else null
                 override fun getInputStream() = fixture.inputStream()
             }
         }, channel = "stable")
-        val minimum = args.getString("signedMinSdk")?.toIntOrNull() ?: 29
+        val minimum = args.getString("signedMinSdk")?.toIntOrNull() ?: 23
         val release = UpdateRelease(build!!, args.getString("signedVersion")!!, "stable", minimum,
             "signed fixture", "https://release.test/update.apk", "", fixture.length(),
             args.getString("signedSha256")!!, "https://release.test/stable.json")
         try {
             val pm = context.packageManager
-            val flags = PackageManager.GET_SIGNING_CERTIFICATES
-            fun certificates(info: android.content.pm.PackageInfo?) = info?.signingInfo?.apkContentsSigners?.map {
+            val flags = dev.petrov.ymplayer2.updater.signingFlags()
+            fun certificates(info: android.content.pm.PackageInfo?) = info?.let { dev.petrov.ymplayer2.updater.signingCertificates(it) }?.map {
                 MessageDigest.getInstance("SHA-256").digest(it.toByteArray()).joinToString("") { b -> "%02x".format(b) }
             }
             println("Installed certificate: ${certificates(pm.getPackageInfo(context.packageName, flags))}")

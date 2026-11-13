@@ -65,8 +65,12 @@ class MountedStorageTest {
         // Prepared by adb push on our emulator; the player itself cannot create shared files.
         val folder = File("/sdcard/Music/ymplayer-mounted-fixture")
         val context = ApplicationProvider.getApplicationContext<PlayerApplication>()
-        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation
-            .grantRuntimePermission(context.packageName, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        val automation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation
+        if (android.os.Build.VERSION.SDK_INT >= 28)
+            automation.grantRuntimePermission(context.packageName, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        else automation.executeShellCommand("pm grant ${context.packageName} android.permission.READ_EXTERNAL_STORAGE").use {
+            android.os.ParcelFileDescriptor.AutoCloseInputStream(it).use { input -> input.readBytes() }
+        }
         org.junit.Assume.assumeTrue("Stage the public emulator fixture before this test", File(folder, "nested/ONE.WAV").exists())
         assertNotEquals(android.content.pm.PackageManager.PERMISSION_GRANTED,
             context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE))

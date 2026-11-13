@@ -9,7 +9,6 @@ import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,7 +22,9 @@ public class TestStorageProvider extends DocumentsProvider {
     private boolean unavailable, failWrite;
     private volatile CountDownLatch audioTailGate;
     private volatile CountDownLatch existingAudioGate;
-    private final java.util.Set<String> guardedAudioFiles = java.util.concurrent.ConcurrentHashMap.newKeySet();
+    // Providers run in the test APK's own process, outside the target APK's
+    // desugared-library class loader. Keep this fixture on native API23 Java APIs.
+    private final java.util.HashSet<String> guardedAudioFiles = new java.util.HashSet<>();
     private final AtomicInteger guardedAudioOpens = new AtomicInteger();
     private volatile CountDownLatch catalogQueryGate, catalogJsonGate, catalogChildrenGate;
     private volatile boolean unknownModified, constantModified;
@@ -34,7 +35,7 @@ public class TestStorageProvider extends DocumentsProvider {
     private File file(String id) throws FileNotFoundException {
         try {
             File root = base().getCanonicalFile(), file = new File(root, id).getCanonicalFile();
-            if (unavailable || !file.toPath().startsWith(root.toPath()) || !(id.equals("store") || id.startsWith("store/") || id.equals("export") || id.startsWith("export/"))) throw new FileNotFoundException();
+            if (unavailable || !(file.equals(root) || file.getPath().startsWith(root.getPath() + File.separator)) || !(id.equals("store") || id.startsWith("store/") || id.equals("export") || id.startsWith("export/"))) throw new FileNotFoundException();
             return file;
         } catch (IOException e) { throw new FileNotFoundException(); }
     }
@@ -106,7 +107,7 @@ public class TestStorageProvider extends DocumentsProvider {
         File source = file(id);
         if (mode.equals("r") && id.endsWith(".audio")) {
             audioOpens.incrementAndGet();
-            if (existingAudioGate != null && guardedAudioFiles.contains(source.getAbsolutePath())) {
+            if (existingAudioGate != null && guarded(source)) {
                 guardedAudioOpens.incrementAndGet(); catalogAwait(existingAudioGate);
             }
             CountDownLatch gate = audioTailGate;
@@ -147,7 +148,7 @@ public class TestStorageProvider extends DocumentsProvider {
     @Override public Bundle call(String method, String arg, Bundle extras) {
         if (method.equals("storage-reset")) {
             if (existingAudioGate != null) existingAudioGate.countDown();
-            existingAudioGate = null; guardedAudioFiles.clear(); guardedAudioOpens.set(0);
+            existingAudioGate = null; clearGuarded(); guardedAudioOpens.set(0);
             releaseCatalogGates(); unknownModified = false; constantModified = false; resetCatalogCounters();
             CountDownLatch previous = audioTailGate; audioTailGate = null;
             if (previous != null) previous.countDown();
@@ -203,7 +204,7 @@ public class TestStorageProvider extends DocumentsProvider {
             } catch (Exception e) { throw new IllegalStateException("Cannot prepare catalog fixture",e); }
         } else if (method.equals("storage-guard-existing-audio")) {
             if (existingAudioGate != null) existingAudioGate.countDown();
-            existingAudioGate = null; guardedAudioFiles.clear(); guardedAudioOpens.set(0);
+            existingAudioGate = null; clearGuarded(); guardedAudioOpens.set(0);
             if ("closed".equals(arg)) {
                 collectAudio(base()); existingAudioGate = new CountDownLatch(1);
             }
@@ -236,8 +237,14 @@ public class TestStorageProvider extends DocumentsProvider {
         File[] files=directory.listFiles(); if(files==null)return;
         for(File item:files) {
             if(item.isDirectory()) collectAudio(item);
-            else if(item.getName().endsWith(".audio")) guardedAudioFiles.add(item.getAbsolutePath());
+            else if(item.getName().endsWith(".audio")) synchronized (guardedAudioFiles) { guardedAudioFiles.add(item.getAbsolutePath()); }
         }
+    }
+    private boolean guarded(File file) {
+        synchronized (guardedAudioFiles) { return guardedAudioFiles.contains(file.getAbsolutePath()); }
+    }
+    private void clearGuarded() {
+        synchronized (guardedAudioFiles) { guardedAudioFiles.clear(); }
     }
     /** Valid 30-second PCM WAV, shared payload for the large real-file sync fixture. */
     private static byte[] fixtureWav() {

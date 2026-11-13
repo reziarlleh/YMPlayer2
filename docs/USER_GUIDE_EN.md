@@ -1,6 +1,8 @@
 # YMPlayer2 — user guide
 
-The stable release is **2.6.6-build132**, Android9 and later. Reviewed on 12 November 2026.
+This guide covers **2.7.0-build136**, which supports Android6 and later.
+The published stable release, **2.6.6-build132**, still requires Android9 or later.
+Android6 support is available in the [manual candidate](MANUAL_2_7_0_BUILD136.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -15,10 +17,13 @@ You do not need a Yandex account to play your own files.
 
 ## Install and get started
 
-Android 9 or later is required. The same APK works on phones, tablets, Android
+Version2.7.0 requires Android6 or later; stable2.6.6 requires Android9 or later.
+The same APK works on phones, tablets, Android
 TV and car head units; the layout adapts to the screen.
 
-1. Download the latest APK and open it. Allow installation from that source if Android asks.
+1. Download the APK and open it. On Android8 or later, allow installation from that
+   source if asked. Android6/7 uses the global **Unknown sources** switch in the
+   system security settings. Return to the installer after enabling it.
 2. Open **YMPlayer2**.
 3. For your own music, go to **Library → All music → Music folders** and add a folder.
 4. For Yandex Music, choose a profile and sign in with a device code.
@@ -522,6 +527,8 @@ manual check whenever you need it. Download an offered release and approve
 Android’s installation prompt. If GitHub is unavailable, choose the backup
 download when offered. The APK is checked before the installer opens.
 Automatic checking does not mean silent installation.
+On Android6/7, the installer permission step opens the global security settings
+and the **Unknown sources** switch instead of a per-app permission page.
 
 New events identify the operation and result category: network, server, access,
 unavailable item, response format, no new tracks, decoder, storage or application.
@@ -542,7 +549,7 @@ Use the dedicated
 Radio section instead. The journal records connection/playback/error events
 without stream URLs, station or track names, or tokens.
 
-On Android 9, export opens the system file picker instead: choose
+On Android6–9, export opens the system file picker instead: choose
 a destination and save the report. A toast confirms the result. Cancelling
 the picker does not save a file.
 

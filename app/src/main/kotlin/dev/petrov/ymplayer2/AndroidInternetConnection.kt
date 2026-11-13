@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import dev.petrov.ymplayer2.core.InternetConnection
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,7 +26,14 @@ class AndroidInternetConnection(context: Context, private val scope: CoroutineSc
         override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) { refresh() }
         override fun onUnavailable() { refresh() }
     }
-    init { refresh(); manager.registerDefaultNetworkCallback(callback) }
+    init {
+        refresh()
+        if (Build.VERSION.SDK_INT >= 24) manager.registerDefaultNetworkCallback(callback)
+        else manager.registerNetworkCallback(NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build(), callback)
+        // On API23 callbacks cover all Internet-capable networks. refresh still
+        // inspects activeNetwork, so another Wi-Fi/VPN cannot replace its state.
+    }
     override fun refresh() {
         scope.launch(Dispatchers.Main.immediate) {
             probe?.cancel()

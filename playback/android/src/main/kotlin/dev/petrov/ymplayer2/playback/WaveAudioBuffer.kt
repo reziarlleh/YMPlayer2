@@ -153,16 +153,20 @@ internal class WaveAudioBuffer(private val context: Context, private val account
                 extractor.getTrackFormat(it).getString(MediaFormat.KEY_MIME)?.startsWith("audio/") == true
             } ?: throw MusicException(MusicFailure.UNAVAILABLE)
             extractor.selectTrack(index)
-            var buffer = ByteBuffer.allocate(64 * 1024)
+            // Before API28 the extractor cannot report sample size before reading.
+            // Reserve the existing maximum once, never publish a truncated packet.
+            var buffer = ByteBuffer.allocate(if (android.os.Build.VERSION.SDK_INT >= 28) 64 * 1024 else 4 * 1024 * 1024)
             var first = 0L; var last = 0L; var delta = 0L; var packets = 0
             // AAC encoder priming may precede zero; an absent sample track indicates EOS.
             while (extractor.sampleTrackIndex >= 0) {
                 currentCoroutineContext().ensureActive()
-                val size = extractor.sampleSize
-                if (size <= 0 || size > 4 * 1024 * 1024) throw MusicException(MusicFailure.UNAVAILABLE)
-                if (buffer.capacity() < size) buffer = ByteBuffer.allocate(size.toInt())
+                val expected = if (android.os.Build.VERSION.SDK_INT >= 28) extractor.sampleSize else null
+                if (expected != null && (expected <= 0 || expected > 4 * 1024 * 1024)) throw MusicException(MusicFailure.UNAVAILABLE)
+                if (expected != null && buffer.capacity() < expected) buffer = ByteBuffer.allocate(expected.toInt())
                 buffer.clear()
-                if (extractor.readSampleData(buffer, 0).toLong() != size || packets > 0 && extractor.sampleTime < last) throw MusicException(MusicFailure.UNAVAILABLE)
+                val size = extractor.readSampleData(buffer, 0)
+                if (size <= 0 || size > 4 * 1024 * 1024 || expected != null && size.toLong() != expected ||
+                    packets > 0 && extractor.sampleTime < last) throw MusicException(MusicFailure.UNAVAILABLE)
                 if (packets == 0) first = extractor.sampleTime else delta = extractor.sampleTime - last
                 last = extractor.sampleTime; packets++
                 if (!extractor.advance()) break

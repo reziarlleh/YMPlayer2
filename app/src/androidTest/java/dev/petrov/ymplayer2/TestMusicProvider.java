@@ -15,7 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -81,7 +80,9 @@ public class TestMusicProvider extends DocumentsProvider {
                 wave(new File(directory(), "three.wav"), 550);
                 wave(new File(directory(), "four.wav"), 330);
                 wave(new File(directory(), "fallback.WAV"), 220);
-                Files.write(new File(directory(), "broken.wav").toPath(), "not an audio file".getBytes());
+                try (java.io.OutputStream output = new java.io.FileOutputStream(new File(directory(), "broken.wav"))) {
+                    output.write("not an audio file".getBytes());
+                }
             } catch (IOException error) { throw new IllegalStateException(error); }
             grant(); return Bundle.EMPTY;
         }
@@ -108,7 +109,10 @@ public class TestMusicProvider extends DocumentsProvider {
         if (method.equals("artwork")) {
             artwork = true;
             try (java.io.InputStream input = getContext().getAssets().open("cover.mp3")) {
-                Files.copy(input, new File(directory(), "cover.mp3").toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                try (java.io.OutputStream output = new java.io.FileOutputStream(new File(directory(), "cover.mp3"))) {
+                    byte[] chunk = new byte[16384]; int count;
+                    while ((count = input.read(chunk)) >= 0) output.write(chunk, 0, count);
+                }
             } catch (IOException error) { throw new IllegalStateException(error); }
             return Bundle.EMPTY;
         }
@@ -134,6 +138,6 @@ public class TestMusicProvider extends DocumentsProvider {
             .putShort((short) 1).putShort((short) 1).putInt(rate).putInt(rate * 2).putShort((short) 2).putShort((short) 16)
             .put("data".getBytes()).putInt(count * 2);
         for (int i = 0; i < count; i++) buffer.putShort((short) (Math.sin(2 * Math.PI * frequency * i / rate) * 1800));
-        Files.write(file.toPath(), buffer.array());
+        try (java.io.OutputStream output = new java.io.FileOutputStream(file)) { output.write(buffer.array()); }
     }
 }
