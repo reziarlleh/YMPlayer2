@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dev.petrov.ymplayer2.core.*
 import kotlinx.coroutines.runBlocking
+import java.io.File
 import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
@@ -48,6 +49,113 @@ class OfflineSourceStateTest {
     @Test fun returningFromWaveRestoresOfflineTrackPositionAndShuffle() = roundTrip(shuffle = true)
     @Test fun returningFromWaveRestoresOfflineTrackPositionAndRepeatOne() = roundTrip(repeat = RepeatMode.ONE)
     @Test fun returningFromWaveRestoresOfflineTrackPositionAndRepeatList() = roundTrip(repeat = RepeatMode.ALL)
+
+    @Test fun returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork() = waveRoundTrip()
+
+    @Test fun myWaveBookmarkSurvivesRestartWhileOfflineIsSelected() = waveRoundTrip(restart = true)
+
+    @Test fun returningFromALocalListRestoresMyWaveWithoutRequestingANewSession() = waveRoundTrip(local = true)
+
+    @Test fun stoppingOfflineDoesNotEraseTheParkedMyWave() = waveRoundTrip(stopOther = true)
+
+    @Test fun returningFromRadioPreservesMyWavePositionAndPreparedFiles() = waveRoundTrip(radio = true)
+
+    @Test fun explicitWaveStopCannotResurrectAParkedWindowViaOffline() {
+        startWave()
+        waitFor { player.state.value.queue.size == 10 && !player.state.value.waveLoading }
+        val sessions = h.waveSelections.size
+        compose.runOnIdle { player.seek(4); player.stop(); player.playOffline() }
+        waitFor { player.state.value.origin.source == PlaybackSource.OFFLINE && player.state.value.playing }
+        assertTrue(player.bufferedWaveAudioIds().isEmpty())
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.wave && player.state.value.playing }
+        assertEquals("Explicit Stop starts a fresh server session", sessions + 1, h.waveSelections.size)
+        assertTrue("Explicit Stop discards the saved position", player.state.value.positionSeconds in 0..2)
+    }
+
+    @Test fun changedSettingsDoNotReviveTheParkedOldWave() {
+        startWave()
+        waitFor { player.state.value.queue.size == 10 && !player.state.value.waveLoading }
+        val sessions = h.waveSelections.size
+        compose.runOnIdle { player.waveSettings!!.load("ru"); player.playOffline() }
+        waitFor { player.waveSettings!!.state.value.options != null && player.state.value.origin.source == PlaybackSource.OFFLINE }
+        compose.runOnIdle { player.waveSettings!!.select("moodEnergy", "settingMoodEnergy:calm"); player.playMyWave() }
+        waitFor { player.state.value.wave && player.state.value.playing }
+        assertEquals(sessions + 1, h.waveSelections.size)
+        assertTrue("Apply the new settings instead of resuming the old window", "settingMoodEnergy:calm" in h.waveSelections.last().settings)
+        assertTrue(player.state.value.positionSeconds in 0..2)
+    }
+
+    @Test fun anotherProfileStartsItsOwnWaveInsteadOfResumingTheOwnersBookmark() {
+        startWave()
+        waitFor { player.state.value.queue.size == 10 && !player.state.value.waveLoading }
+        compose.runOnIdle { h.systemPlayer.pause(); player.seek(4); player.saveForExit(); player.playOffline() }
+        waitFor { player.state.value.origin.source == PlaybackSource.OFFLINE && player.state.value.playing }
+        val prefs = h.context.getSharedPreferences("playback", 0)
+        val ownerBookmark = prefs.getString("myWaveState:owner:1", null)
+        assertNotNull(ownerBookmark)
+        val sessions = h.waveSelections.size
+        compose.runOnIdle { player.switchProfile("road") }
+        waitFor { player.state.value.profileId == "road" && h.online.catalog.value.profileId == "road" && h.online.catalog.value.enabled }
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.wave && player.state.value.playing && player.state.value.current != null }
+        assertEquals(sessions + 1, h.waveSelections.size)
+        assertTrue("The other account must not inherit the saved position", player.state.value.positionSeconds in 0..2)
+        assertEquals(ownerBookmark, prefs.getString("myWaveState:owner:1", null))
+        assertEquals("2", org.json.JSONObject(prefs.getString("queue:road", "")!!).getString("waveAccount"))
+    }
+
+    private fun waveRoundTrip(restart: Boolean = false, local: Boolean = false, stopOther: Boolean = false, radio: Boolean = false) {
+        fun fullWave() = player.state.value.wave && player.state.value.queue.size == WaveQueueWindow.MAX_ITEMS &&
+            !player.state.value.waveLoading && player.bufferedWaveAudioIds() == player.state.value.queue.mapTo(hashSetOf(), Track::id)
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && fullWave() }
+        compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id == "yandex:2:7" && fullWave() }
+        compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id == "yandex:3:7" && fullWave() }
+        compose.runOnIdle { h.systemPlayer.pause(); player.seek(4); player.saveForExit() }
+        val before = player.state.value
+        val ids = before.queue.map(Track::id)
+        val audio = ids.associateWith { File(Uri.parse(player.resolveStream("owner", it)).path!!) }
+        val requests = h.waveRequests.size
+        val sessions = h.waveSelections.size
+        val streams = h.resolved.size
+        val cursor = org.json.JSONObject(h.checkpointText()).getString("waveCursor")
+        compose.runOnIdle {
+            h.internet.available.value = false; h.waveFailure = MusicFailure.NETWORK; h.streamFailure = MusicFailure.NETWORK
+            if (radio) h.radio.play(RadioStation("one", "Fixture station"))
+            else if (local) player.playList(h.library.testTracks.map(Track::id), origin = PlaybackOrigin(PlaybackSource.LOCAL_FAVORITES))
+            else player.playOffline()
+        }
+        val source = if (local) PlaybackSource.LOCAL_FAVORITES else PlaybackSource.OFFLINE
+        if (radio) waitFor { h.radio.state.value.playing }
+        else waitFor { player.state.value.origin.source == source && player.state.value.playing }
+        assertEquals("Changing sources must retain all prepared wave files", ids.toSet(), player.bufferedWaveAudioIds())
+        if (stopOther) {
+            compose.runOnIdle { player.stop() }
+            assertEquals("Stop affects only the active source", ids.toSet(), player.bufferedWaveAudioIds())
+        }
+        if (restart) {
+            compose.runOnIdle { h.systemPlayer.pause(); player.saveForExit(); h.restartEngine() }
+            waitFor { player.state.value.connected && player.state.value.origin.source == source && player.state.value.current != null }
+            assertEquals(ids.toSet(), dev.petrov.ymplayer2.playback.WaveAudioBuffer(h.context) { "1" }.ids())
+        }
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.wave && player.state.value.playing && player.state.value.current?.id == before.current?.id }
+        assertEquals("Restore the exact queue, including Previous and the prepared future", ids, player.state.value.queue.map(Track::id))
+        assertTrue("Resume at the bookmarked position: ${player.state.value.positionSeconds}", player.state.value.positionSeconds in 4..7)
+        assertEquals(before.index, player.state.value.index)
+        assertEquals(cursor, org.json.JSONObject(h.checkpointText()).getString("waveCursor"))
+        assertEquals("Returning is not a new server session", sessions, h.waveSelections.size)
+        assertEquals("The full saved window needs no server request", requests, h.waveRequests.size)
+        assertEquals("Cached audio needs no signed URL refresh", streams, h.resolved.size)
+        ids.forEach { assertEquals(audio.getValue(it).path, Uri.parse(player.resolveStream("owner", it)).path) }
+        compose.runOnIdle { player.skip(1) }
+        waitFor { player.state.value.current?.id == ids[before.index + 1] && player.state.value.playing }
+        compose.runOnIdle { player.skip(-1) }
+        waitFor { player.state.value.current?.id == before.current?.id && player.state.value.playing }
+    }
 
     @Test fun offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected() {
         val id = prepareOfflineBookmark(shuffle = true)

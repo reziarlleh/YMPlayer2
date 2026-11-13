@@ -1,0 +1,5 @@
+releases/2.7.0-build137/YMPlayer-2.7.0-build137.apk: 1 file pushed, 0 skipped. 138.5 MB/s (4664183 bytes in 0.032s)
+Performing Push Install
+	pkg: /data/local/tmp/YMPlayer-2.7.0-build137.apk
+
+Success

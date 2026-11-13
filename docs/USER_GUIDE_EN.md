@@ -1,8 +1,8 @@
 # YMPlayer2 — user guide
 
-This guide covers **2.7.0-build136**, which supports Android6 and later.
+This guide covers **2.7.0-build137**, which supports Android6 and later.
 The published stable release, **2.6.6-build132**, still requires Android9 or later.
-Android6 support is available in the [manual candidate](MANUAL_2_7_0_BUILD136.md).
+Android6 support is available in the [manual candidate](MANUAL_2_7_0_BUILD137.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -178,6 +178,13 @@ are prepared. The previous track and its file remain available for going back;
 older files are removed. This temporary buffer does not like songs or add them
 to your permanent offline collection. Regular playlists and albums of any length
 are not downloaded in full by this rule.
+
+Switching from My Vibe to Offline, a local list or radio keeps its current
+song, position and prepared queue. Select **My Vibe** to resume them. Complete
+audio files are reused, so you can return while offline. New recommendations
+are fetched as you advance. Explicitly stopping My Vibe clears its queue;
+applying settings or selecting the already active My Vibe starts a fresh one.
+The saved queue belongs to its profile and account; another account cannot use it.
 
 In2.6.4, three icons at the top of the player select **My Vibe**, **Offline**
 or **Local favorites**. The active source is highlighted; its name or the current

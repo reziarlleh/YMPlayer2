@@ -1,0 +1,901 @@
+{
+  "baseline": "signed product source build136; new instrumentation test failed on loss of all ten prepared files",
+  "final": {
+    "api23": {
+      "uniquePassed": 73,
+      "unresolvedFailures": 0,
+      "note": "Full suites plus explicit replay of the obsolete tail-deletion expectation and one extra profile-isolation test."
+    },
+    "api35": {
+      "uniquePassed": 73,
+      "unresolvedFailures": 0,
+      "note": "Full suites plus explicit replay of the obsolete tail-deletion expectation and one extra profile-isolation test."
+    }
+  },
+  "processScenarios": [
+    "dismiss",
+    "controllerStop",
+    "tvStop"
+  ],
+  "runs": [
+    {
+      "log": "api35-red.txt",
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork",
+          "code": -2
+        }
+      ]
+    },
+    {
+      "log": "api23-sources-green.txt",
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromRadioPreservesMyWavePositionAndPreparedFiles",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "myWaveBookmarkSurvivesRestartWhileOfflineIsSelected",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "stoppingOfflineDoesNotEraseTheParkedMyWave",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromWaveRestoresOfflineTrackPositionAndRepeatList",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "removingBookmarkedCachedTrackFallsBackToAnExistingTrack",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "changedSettingsDoNotReviveTheParkedOldWave",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromWaveRestoresOfflineTrackPositionAndRepeatOne",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "anotherProfileCannotOverwriteTheOwnersOfflineBookmark",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromALocalListRestoresMyWaveWithoutRequestingANewSession",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromWaveRestoresOfflineTrackPositionAndShuffle",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "explicitWaveStopCannotResurrectAParkedWindowViaOffline",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api23-regression.txt",
+      "passed": 57,
+      "failed": 1,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "pausedFullWindowSurvivesRestartWithoutReplacingQueueOrDownloadingAgain",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "durableStopCannotResurrectAnOlderPreparedQueueCheckpoint",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "zeroPositionPauseKeepsTheWholePreparedWindowAcrossRestart",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "slowTailCannotDelayStartOrPreparedNextAndEarlyNextWaitsForOneExistingDownload",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "realStorageWriteFailureKeepsPlayingAndWaitsForExplicitRetry",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "rapidNextRetainsPreviousAudioDownloadAndPreviousUsesItsCompleteFile",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "sourceChangeCancelsTailAndCannotPublishItsLateFile",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "missingAndTruncatedFutureFilesAreRepairedWithoutReplacingTheSavedQueue",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "ordinaryLongPlaylistRetainsItsTracksWithoutDownloadingTheWholeList",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "allTenEntriesContainRealAudioAndAdvancingReplenishesWithoutGrowingStorage",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "restartRetainsAllTenCandidatesAndTheirCompleteFiles",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "changedQualityDiscardsInflightTailButKeepsAlreadyPreparedAudio",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWavePlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWaveStop",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseAfterLaunchRequestWinsOverMetadataRefresh",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "touchPlayWhilePausedAccountLoadsIsExecutedWhenReady",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "anotherAccountCannotInheritSavedWaveWindow",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "cachedWaveResumesWhileLocalLibraryIsStillScanning",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePausedWindowRestoresOnNewAdapterWithServerUnavailable",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedPausedWavePreparationCannotSkipTheSavedTrack",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedOnlineListPauseRemainsPaused",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseAfterTouchPlayWhileAccountLoadsStillWins",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "stopWhileAccountLoadsCancelsLatePlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedAccountStorageCannotErasePlayingWaveCheckpoint",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "noisyPauseRestoresWaveAsPausedAtTheSamePosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePlayingWindowRestoresOnNewAdapterWithServerUnavailable",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "legacyStoppedCheckpointRemainsStopped",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedWavePausePreservesTrackAndPosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "metadataOnlyColdRestoreDoesNotRequestPlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedOnlineListStopRemainsStopped",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "delayedAccountRestorePreservesWaveTrackPositionAndPlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "delayedAccountRestorePreservesOnlineListTrackPositionAndPlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedAccountStorageCannotErasePausedWaveCheckpoint",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "expiredSavedTokenKeepsPausedTrackPositionAndAllAudio",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseWhileAccountLoadsCancelsLatePlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWavePause",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "legacyPausedCheckpointKeepsTrackAndPosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedWaveStopRemainsStoppedAtZero",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "backgroundBlockedListsKeepPausedWindowButNewLocalDislikeCanSkip",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "transientNetworkErrorKeepsCurrentTrackAndPosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "transientServerErrorKeepsCurrentTrackAndPosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "delayedConnectionRetryCannotOverrideNewStop",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopAfterExplicitStopCannotUndoItsMarker",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "fullRestoredWindowContinuesFromSavedTailCursor",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopRetainsPlayingWavePositionAndCompleteAudio",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "actualMedia3NoisyReasonAfterStopPreservesStopped",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "delayedConnectionRetryCannotOverrideNewPause",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "missingMiddleFileCannotJumpToLaterCachedTrackOrLoseBack",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "visiblePlayAfterFailedEndStartsOnFirstPress",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+          "test": "remoteCanSelectAnAlreadySelectedChipAndNavigateBetweenGroups",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+          "test": "settingsDoNotInterruptMyWaveAndSelectedSeedsSurviveContinuationAndPausedRestore",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+          "test": "failedSettingsReadCanRetryWithoutRestartingMyWave",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+          "test": "closeResetRecreationAndProfileIsolationKeepChoicesAndQueueSeparate",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api23-targeted-final.txt",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "sourceChangeCancelsTailAndCannotPublishItsLateFile",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "anotherProfileStartsItsOwnWaveInsteadOfResumingTheOwnersBookmark",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-sources-green.txt",
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromRadioPreservesMyWavePositionAndPreparedFiles",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "myWaveBookmarkSurvivesRestartWhileOfflineIsSelected",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "stoppingOfflineDoesNotEraseTheParkedMyWave",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromWaveRestoresOfflineTrackPositionAndRepeatList",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "removingBookmarkedCachedTrackFallsBackToAnExistingTrack",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "changedSettingsDoNotReviveTheParkedOldWave",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromWaveRestoresOfflineTrackPositionAndRepeatOne",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "anotherProfileCannotOverwriteTheOwnersOfflineBookmark",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromALocalListRestoresMyWaveWithoutRequestingANewSession",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "returningFromWaveRestoresOfflineTrackPositionAndShuffle",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "explicitWaveStopCannotResurrectAParkedWindowViaOffline",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-regression.txt",
+      "passed": 57,
+      "failed": 1,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "pausedFullWindowSurvivesRestartWithoutReplacingQueueOrDownloadingAgain",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "durableStopCannotResurrectAnOlderPreparedQueueCheckpoint",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "zeroPositionPauseKeepsTheWholePreparedWindowAcrossRestart",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "slowTailCannotDelayStartOrPreparedNextAndEarlyNextWaitsForOneExistingDownload",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "realStorageWriteFailureKeepsPlayingAndWaitsForExplicitRetry",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "rapidNextRetainsPreviousAudioDownloadAndPreviousUsesItsCompleteFile",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "sourceChangeCancelsTailAndCannotPublishItsLateFile",
+          "code": -2
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "missingAndTruncatedFutureFilesAreRepairedWithoutReplacingTheSavedQueue",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "ordinaryLongPlaylistRetainsItsTracksWithoutDownloadingTheWholeList",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "allTenEntriesContainRealAudioAndAdvancingReplenishesWithoutGrowingStorage",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "restartRetainsAllTenCandidatesAndTheirCompleteFiles",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "changedQualityDiscardsInflightTailButKeepsAlreadyPreparedAudio",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWavePlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWaveStop",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseAfterLaunchRequestWinsOverMetadataRefresh",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "touchPlayWhilePausedAccountLoadsIsExecutedWhenReady",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "anotherAccountCannotInheritSavedWaveWindow",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "cachedWaveResumesWhileLocalLibraryIsStillScanning",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePausedWindowRestoresOnNewAdapterWithServerUnavailable",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedPausedWavePreparationCannotSkipTheSavedTrack",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedOnlineListPauseRemainsPaused",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseAfterTouchPlayWhileAccountLoadsStillWins",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "stopWhileAccountLoadsCancelsLatePlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedAccountStorageCannotErasePlayingWaveCheckpoint",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "noisyPauseRestoresWaveAsPausedAtTheSamePosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "completePlayingWindowRestoresOnNewAdapterWithServerUnavailable",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "legacyStoppedCheckpointRemainsStopped",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedWavePausePreservesTrackAndPosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "metadataOnlyColdRestoreDoesNotRequestPlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedOnlineListStopRemainsStopped",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "delayedAccountRestorePreservesWaveTrackPositionAndPlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "delayedAccountRestorePreservesOnlineListTrackPositionAndPlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "failedAccountStorageCannotErasePausedWaveCheckpoint",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "expiredSavedTokenKeepsPausedTrackPositionAndAllAudio",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "pauseWhileAccountLoadsCancelsLatePlay",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "readyAccountBeforeDelayedLibraryPreservesWavePause",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "legacyPausedCheckpointKeepsTrackAndPosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveColdRestoreTest",
+          "test": "savedWaveStopRemainsStoppedAtZero",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "backgroundBlockedListsKeepPausedWindowButNewLocalDislikeCanSkip",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "transientNetworkErrorKeepsCurrentTrackAndPosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "transientServerErrorKeepsCurrentTrackAndPosition",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "delayedConnectionRetryCannotOverrideNewStop",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopAfterExplicitStopCannotUndoItsMarker",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "fullRestoredWindowContinuesFromSavedTailCursor",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "systemStopRetainsPlayingWavePositionAndCompleteAudio",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "actualMedia3NoisyReasonAfterStopPreservesStopped",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "delayedConnectionRetryCannotOverrideNewPause",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "missingMiddleFileCannotJumpToLaterCachedTrackOrLoseBack",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveAuditRegressionTest",
+          "test": "visiblePlayAfterFailedEndStartsOnFirstPress",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+          "test": "remoteCanSelectAnAlreadySelectedChipAndNavigateBetweenGroups",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+          "test": "settingsDoNotInterruptMyWaveAndSelectedSeedsSurviveContinuationAndPausedRestore",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+          "test": "failedSettingsReadCanRetryWithoutRestartingMyWave",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+          "test": "closeResetRecreationAndProfileIsolationKeepChoicesAndQueueSeparate",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-targeted-final.txt",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveQueuePrefetchTest",
+          "test": "sourceChangeCancelsTailAndCannotPublishItsLateFile",
+          "code": 0
+        },
+        {
+          "class": "dev.petrov.ymplayer2.OfflineSourceStateTest",
+          "test": "anotherProfileStartsItsOwnWaveInsteadOfResumingTheOwnersBookmark",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-process-dismiss-seed.txt",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+          "test": "pausedWaveThroughActualProcessAndForeground",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-process-dismiss-verify.txt",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+          "test": "pausedWaveThroughActualProcessAndForeground",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-process-controllerStop-seed.txt",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+          "test": "pausedWaveThroughActualProcessAndForeground",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-process-controllerStop-verify.txt",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+          "test": "pausedWaveThroughActualProcessAndForeground",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-process-tvStop-seed.txt",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+          "test": "pausedWaveThroughActualProcessAndForeground",
+          "code": 0
+        }
+      ]
+    },
+    {
+      "log": "api35-process-tvStop-verify.txt",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        {
+          "class": "dev.petrov.ymplayer2.WaveProductionProcessRestoreTest",
+          "test": "pausedWaveThroughActualProcessAndForeground",
+          "code": 0
+        }
+      ]
+    }
+  ]
+}

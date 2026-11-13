@@ -221,11 +221,15 @@ class WaveQueuePrefetchTest {
         compose.runOnIdle { h.streamGates = mapOf("yandex:3:7" to gate); player.playMyWave() }
         waitFor { player.state.value.playing && h.resolved.any { it.second == "yandex:3:7" } }
         val cached = File(Uri.parse(player.resolveStream("owner", "yandex:2:7")).path!!)
+        val prepared = player.bufferedWaveAudioIds()
+        assertEquals(setOf("yandex:1:7", "yandex:2:7"), prepared)
         compose.runOnIdle { player.playQueue(listOf(h.library.testTracks.first().id)); gate.complete(Unit) }
-        waitFor { !player.state.value.wave && player.state.value.playing && player.state.value.positionSeconds >= 1 }
-        assertTrue(player.bufferedWaveAudioIds().isEmpty())
-        assertFalse(cached.exists())
-        assertTrue(cached.parentFile!!.listFiles()!!.isEmpty())
+        waitFor { !player.state.value.wave && player.state.value.playing && player.state.value.positionSeconds >= 1 &&
+            cached.parentFile!!.listFiles()!!.none { it.extension == "part" } }
+        assertEquals("Retain completed audio for returning to the parked wave", prepared, player.bufferedWaveAudioIds())
+        assertTrue(cached.exists())
+        assertFalse("The cancelled old tail must not publish after changing sources", "yandex:3:7" in player.bufferedWaveAudioIds())
+        assertEquals(prepared.size, cached.parentFile!!.listFiles()!!.count { it.extension == "audio" })
     }
 
     @Test fun realStorageWriteFailureKeepsPlayingAndWaitsForExplicitRetry() {

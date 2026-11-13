@@ -59,7 +59,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         radioMode = true
         indexedSelectionGeneration++; indexedWindowJob?.cancel(); indexedWindowJob = null
         restoring = false; pending.clear(); deferredReconcile = false
-        cancelWaveWork()
+        cancelWaveWork(discardAudio = false)
         engine?.let { it.pause(); it.stop(); it.clearMediaItems() }
         mutable.value = state.value.copy(playing = false, buffering = false)
         modeListeners.toList().forEach { it() }
@@ -744,7 +744,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             load(emptyList(), 0, 0)
             waveAdvance = true
         } else {
-            cancelWaveWork()
+            // Stopping Offline/a local list must not erase a separately parked wave.
+            cancelWaveWork(discardAudio = false)
             mutable.value = state.value.copy(positionSeconds = 0)
             player.seekTo(0)
         }
@@ -942,7 +943,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         syncQueue(queue.filterNot { it.id == trackId })
     }
     override fun clearQueue() = command(playing = false) {
-        cancelWave()
+        val waveKey = myWaveBookmarkKey().takeIf { state.value.wave && state.value.origin.source == PlaybackSource.MY_WAVE }
+        cancelWave(discardAudio = state.value.wave)
+        waveKey?.let { prefs.edit().remove(it).apply() }
         followLibrary = false
         mutable.value = state.value.copy(error = null)
         load(emptyList(), 0, 0)
@@ -977,15 +980,22 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         return true
     }
 
-    override fun playMyWave() = command(playing = true) {
-        startWave(waveSettings?.request(state.value.profileId) ?: WaveRequest(), PlaybackSource.MY_WAVE)
+    override fun playMyWave() {
+        // Re-selecting the active wave (including Apply in its settings) is a fresh
+        // session. Returning from another source resumes the parked selection.
+        val returning = radioMode || !state.value.wave || state.value.origin.source != PlaybackSource.MY_WAVE
+        command(playing = true) {
+            val request = waveSettings?.request(state.value.profileId) ?: WaveRequest()
+            if (!returning || !restoreMyWaveBookmark(request)) startWave(request, PlaybackSource.MY_WAVE)
+        }
     }
     override fun playWave(request: WaveRequest) = command(playing = true) { startWave(request, PlaybackSource.OBJECT_WAVE) }
     private fun startWave(request: WaveRequest, source: PlaybackSource) {
         if (waveApi == null || !remoteEnabled(state.value.profileId)) return
         val savedHistory = if (source == PlaybackSource.MY_WAVE) prefs.getString(myWaveHistoryKey(), "[]") else null
-        cancelWave(); followLibrary = false; referenceOrder = null; activeWaveRequest = request
+        cancelWave(discardAudio = true); followLibrary = false; referenceOrder = null; activeWaveRequest = request
         waveAccountId = online?.accounts?.state?.value?.account?.id
+        if (source == PlaybackSource.MY_WAVE) myWaveBookmarkKey()?.let { prefs.edit().remove(it).apply() }
         savedHistory?.let { runCatching { JSONArray(it) }.getOrNull()?.let { rows ->
             waveHistory.restore((0 until rows.length()).map { rows.optString(it) })
         } }
@@ -996,6 +1006,28 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         mutable.value = state.value.copy(wave = true)
         waveAdvance = true; waveResume = true
         fetchWave()
+    }
+    /** A source bookmark uses the same bounded checkpoint as process restoration;
+     * it never borrows Offline's position, ordering or durable Stop marker. */
+    private fun restoreMyWaveBookmark(request: WaveRequest): Boolean {
+        val profile = state.value.profileId
+        if (waveApi == null || !remoteEnabled(profile)) return false
+        val account = online?.accounts?.state?.value?.takeIf { it.profileId == profile }?.account?.id ?: return false
+        val key = myWaveBookmarkKey(profile, account) ?: return false
+        val json = runCatching { JSONObject(prefs.getString(key, "")!!) }.getOrNull() ?: return false
+        val selection = json.optJSONObject("waveSelection")?.let { runCatching { it.readWaveRequest() }.getOrNull() } ?: return false
+        val ids = json.optJSONArray("ids") ?: return false
+        val current = json.optString("current")
+        if (json.optString("waveAccount") != account || !json.optBoolean("wave") ||
+            json.optJSONObject("origin")?.optString("source") != PlaybackSource.MY_WAVE.name ||
+            selection.station != request.station || selection.settings.toSet() != request.settings.toSet() ||
+            current.isBlank() || (0 until ids.length()).none { ids.optString(it) == current }) return false
+        cancelWave(discardAudio = false)
+        followLibrary = false; referenceOrder = null; activeOfflineOwner = null
+        mutable.value = state.value.copy(origin = PlaybackOrigin(PlaybackSource.MY_WAVE, request.title, request))
+        finishReferenceRestore(profile, json, emptyMap())
+        playSession()
+        return true
     }
     private fun heardWaveHistory(): List<String> {
         val upcoming = logicalQueue.drop(state.value.index + 1).mapTo(hashSetOf()) { it.tasteTarget().key }
@@ -1212,7 +1244,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         waveAdvance = false; automaticWaveAdvance = false; waveResume = false; waveStarted = null
         mutable.value = state.value.copy(waveLoading = false, waveIssue = null)
     }
-    private fun cancelWave(discardAudio: Boolean = true) {
+    private fun cancelWave(discardAudio: Boolean = false) {
+        // A source change suspends a wave; it is not the user's explicit Stop.
+        // Snapshot before the new list replaces queue:profile or lends its engine.
+        if (state.value.wave && !radioMode) { publish(); checkpoint() }
         cancelWaveWork(discardAudio)
         waveBatch = null; waveItems.clear(); waveHistory.clear()
         activeWaveRequest = WaveRequest()
@@ -1668,7 +1703,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         restoring = true
         var indexedRestore = false
         try {
-        cancelWave(discardAudio = json?.optBoolean("wave", false) != true)
+        // Offline may be the launch source while a full wave is parked separately.
+        cancelWave(discardAudio = false)
         activeOfflineOwner = null
         indexedOrder?.reset()
         referenceOrder = null
@@ -1792,7 +1828,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 // Re-entering the same account keeps the window; a different account must not inherit it.
                 supersedeLaunchResume()
                 writeMusicIntent(false, reason = SessionStateReason.ACCOUNT_SIGNED_OUT)
-                cancelWave(); syncQueue(emptyList())
+                cancelWave(discardAudio = true); clearMyWaveBookmarks(); syncQueue(emptyList())
                 return
             }
         }
@@ -1802,7 +1838,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 supersedeLaunchResume()
                 writeMusicIntent(false, reason = SessionStateReason.ACCOUNT_SIGNED_OUT)
             }
-            cancelWave()
+            cancelWave(discardAudio = true)
+            clearMyWaveBookmarks()
             referenceOrder?.let { order ->
                 val keep = order.references.filter { it.saved.source != Source.YANDEX }
                 if (keep != order.references) {
@@ -1957,6 +1994,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
     }
     private fun myWaveHistoryKey() = "myWaveSeen:${state.value.profileId}:${online?.accounts?.state?.value?.account?.id.orEmpty()}"
+    private fun myWaveBookmarkKey(profile: String = state.value.profileId, account: String? = waveAccountId
+        ?: online?.accounts?.state?.value?.takeIf { it.profileId == profile }?.account?.id): String? =
+        account?.takeIf(String::isNotBlank)?.let { "myWaveState:$profile:$it" }
+    private fun clearMyWaveBookmarks() {
+        val prefix = "myWaveState:${state.value.profileId}:"
+        prefs.edit().apply { prefs.all.keys.filter { it.startsWith(prefix) }.forEach { remove(it) } }.apply()
+    }
     private fun writeMusicIntent(playing: Boolean, stopped: Boolean = false, reason: SessionStateReason) {
         if (launchState.read(state.value.profileId).output != PlaybackOutput.MUSIC) return
         launchState.write(state.value.profileId, PlaybackOutput.MUSIC, playing, stopped)
@@ -2019,7 +2063,12 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 persistedReferenceOrder = order; persistedReferenceRevision = order.revision
             }
         }
-        editor.putString("queue:${state.profileId}", json.toString()).apply()
+        val encoded = json.toString()
+        editor.putString("queue:${state.profileId}", encoded)
+        if (state.wave && state.origin.source == PlaybackSource.MY_WAVE) myWaveBookmarkKey()?.let { key ->
+            if (state.current != null) editor.putString(key, encoded) else editor.remove(key)
+        }
+        editor.apply()
     }
     private var lastSavedSecond = -1
 }

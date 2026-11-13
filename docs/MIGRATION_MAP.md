@@ -1,5 +1,12 @@
 # Карта переноса и модулей
 
+13 ноября,137/B-048: AndroidPlayback сохраняет тот же bounded JSON отдельно
+в myWaveState:profile:account; смена источника оставляет готовые WaveAudioBuffer
+файлы и отменяет только незаконченные задачи. Возврат через playMyWave сверяет
+аккаунт/request и использует существующий finishReferenceRestore. Stop/новые
+настройки остаются сбросом. Новых модулей/сервисов/переводов не требуется.
+[Native red/green и ограничения](WAVE_SOURCE_RETURN_2_7_0_VERIFICATION.md).
+
 13 ноября, активный [цикл2.7.0/Android6+](PLAN_2_7_0.md): все11 Android-модулей
 продукта min23, Java/NIO desugaring, совместимые язык/сеть/службы/updater/
 MediaExtractor/обложки. Core сохраняет чистый JVM и получает standalone lint;

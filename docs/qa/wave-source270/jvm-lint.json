@@ -1,0 +1,23 @@
+{
+  "jvm": [
+    {
+      "module": "core",
+      "tests": 164,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "buildSrc",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "lint": {
+    "errors": 0,
+    "newApi": 0,
+    "warnings": 130
+  }
+}

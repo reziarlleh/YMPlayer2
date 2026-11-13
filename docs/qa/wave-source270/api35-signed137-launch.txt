@@ -1,0 +1,7 @@
+Starting: Intent { cmp=dev.petrov.ymplayer2/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: dev.petrov.ymplayer2/.MainActivity
+TotalTime: 3474
+WaitTime: 3499
+Complete

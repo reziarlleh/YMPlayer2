@@ -1,0 +1,409 @@
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.OfflineSourceStateTest:
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromRadioPreservesMyWavePositionAndPreparedFiles
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=1
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromRadioPreservesMyWavePositionAndPreparedFiles
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=1
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=myWaveBookmarkSurvivesRestartWhileOfflineIsSelected
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=2
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=myWaveBookmarkSurvivesRestartWhileOfflineIsSelected
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=2
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=stoppingOfflineDoesNotEraseTheParkedMyWave
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=3
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=stoppingOfflineDoesNotEraseTheParkedMyWave
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=3
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=4
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=4
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatList
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=5
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatList
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=5
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=removingBookmarkedCachedTrackFallsBackToAnExistingTrack
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=6
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=removingBookmarkedCachedTrackFallsBackToAnExistingTrack
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=6
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=changedSettingsDoNotReviveTheParkedOldWave
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=7
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=changedSettingsDoNotReviveTheParkedOldWave
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=7
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatOne
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=8
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndRepeatOne
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=8
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=9
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=9
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=10
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=10
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=anotherProfileCannotOverwriteTheOwnersOfflineBookmark
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=11
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=anotherProfileCannotOverwriteTheOwnersOfflineBookmark
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=11
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromALocalListRestoresMyWaveWithoutRequestingANewSession
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=12
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromALocalListRestoresMyWaveWithoutRequestingANewSession
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=12
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=13
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=13
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=explicitWaveStopCannotResurrectAParkedWindowViaOffline
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=14
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: numtests=14
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: test=explicitWaveStopCannotResurrectAParkedWindowViaOffline
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+INSTRUMENTATION_STATUS: current=14
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_RESULT: stream=
+
+
+
+Time: 46.842
+
+
+
+OK (14 tests)
+
+
+
+
+
+INSTRUMENTATION_CODE: -1
