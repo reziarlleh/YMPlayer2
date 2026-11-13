@@ -1,0 +1,14 @@
+{
+  "sha256": "6629c31ef15fc500eb0f158bd140c0607975b060681f116003f6896463854807",
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionName": "2.7.0-build137",
+  "channel": "stable",
+  "builtAtUtc": "2026-11-13T09:26:00.8413266Z",
+  "minSdk": 23,
+  "updateChannel": "stable",
+  "runtimeAcceptance": "emulator-verified",
+  "versionCode": 137,
+  "ownerAcceptance": "accepted",
+  "publication": "approved-pending-publication",
+  "productSourceCommit": "a2afe1c4ec0387a280af8504645baed9396a697e"
+}
