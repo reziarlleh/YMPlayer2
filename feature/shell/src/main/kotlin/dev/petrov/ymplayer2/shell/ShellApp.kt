@@ -60,6 +60,8 @@ private val destinations get() = listOf(
         if (savedRoute == "clips") initialRoute.takeUnless { it == "clips" } ?: "player" else savedRoute
     } }
     var aboutOpen by rememberSaveable { mutableStateOf(false) }
+    var accountChoice by remember(playback.profileId) { mutableStateOf(false) }
+    fun localProfile() = model.catalog.profiles.firstOrNull { it.id == model.player.state.value.profileId }?.isLocal == true
     var artistFrom by rememberSaveable { mutableStateOf("player") }
     var exitAt by remember { mutableStateOf<Long?>(null) }
     var libraryUpRequest by rememberSaveable { mutableIntStateOf(0) }
@@ -75,7 +77,9 @@ private val destinations get() = listOf(
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline", "history", "recent")) "library" else route
     val navigate: (String) -> Unit = {
-        if (it == "clips") {
+        if (localProfile() && it in setOf("account", "radio", "clips", "artist", "offline")) {
+            accountChoice = true
+        } else if (it == "clips") {
             exitAt = null
             openClips?.invoke()
         } else {
@@ -87,7 +91,7 @@ private val destinations get() = listOf(
         }
     }
     val openArtist: (ArtistRef) -> Unit = { artist ->
-        model.online?.let { music ->
+        if (localProfile()) accountChoice = true else model.online?.let { music ->
             if (route != "artist") artistFrom = route
             music.openArtistCard(artist)
             navigate("artist")
@@ -199,9 +203,10 @@ private val destinations get() = listOf(
                                             model.online?.let {
                                                 if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (route == "search" && offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
                                                     FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text(tr(Msg.msg_00231affc201)) }, choice("local").prismFocus().testTag("source_local"))
-                                                    FilterChip(onlineSource, { onlineSource = true; offlineSearch = false }, { Text(tr(Msg.msg_c39959813ccd)) }, choice("yandex").prismFocus().testTag("source_yandex"))
+                                                    FilterChip(onlineSource, { if (localProfile()) accountChoice = true else { onlineSource = true; offlineSearch = false } }, { Text(tr(Msg.msg_c39959813ccd)) }, choice("yandex").prismFocus().testTag("source_yandex"))
                                                     if (model.offline != null) FilterChip(route == "search" && offlineSearch, {
-                                                        if (route == "search") { onlineSource = false; offlineSearch = true }
+                                                        if (localProfile()) accountChoice = true
+                                                        else if (route == "search") { onlineSource = false; offlineSearch = true }
                                                         else navigate("offline")
                                                     }, { Text(tr(Msg.msg_aa07f084155c)) }, choice("offline").prismFocus().testTag("open_offline"))
                                                 }
@@ -219,7 +224,7 @@ private val destinations get() = listOf(
                                             noLocalRoots = library.roots.isEmpty(),
                                             music = model.online, taste = model.taste, cached = cachedTracks,
                                             artist = openArtist, cloudPlaylists = model.cloudPlaylists, signIn = { navigate("account") },
-                                            onlineHome = { onlineSource = true }, waveStarted = { navigate("player") },
+                                            onlineHome = { if (localProfile()) accountChoice = true else onlineSource = true }, waveStarted = { navigate("player") },
                                             cacheOnly = cacheOnly, searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it },
                                             collectionStore = model.collections,
                                             retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
@@ -271,6 +276,10 @@ private val destinations get() = listOf(
             }
         }
         if (aboutOpen) AboutDialog(version) { aboutOpen = false }
+        if (accountChoice) AccountChoiceDialog(profiles, model.catalog.users,
+            dismiss = { accountChoice = false },
+            select = { accountChoice = false; model.player.switchProfile(it); navigate("player") },
+            created = { accountChoice = false; model.player.switchProfile(it); navigate("account") })
         if (exporter != null) AudioExportDialog(exporter, pickExportFolder)
         if (updates != null) {
             val updateState by updates.state.collectAsStateWithLifecycle()

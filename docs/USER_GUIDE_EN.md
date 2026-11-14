@@ -152,7 +152,7 @@ and adding it again counts as a new addition.
 
 ## Yandex sign-in and profiles
 
-1. Open **Profiles**, choose the profile you want, then open its Yandex account page.
+1. Open **Profiles**. In2.8.0, select **Add Yandex profile** or choose an existing Yandex profile, then open its account page.
 2. Request a sign-in code. Write it down before opening the browser: the next page may not allow pasting it.
 3. Open the Yandex authorization page, enter the code and approve access.
 4. Return to the player and wait for confirmation. If the code expires, request a new one.
@@ -161,20 +161,29 @@ You never enter your Yandex password in the player. 2.x stores its own sign-in;
 it does not read the credentials of 1.x. Each profile has its own account, queue,
 position, history and personal collection. Switching profiles does not mix accounts.
 From2.8.0, profiles represent people: family members or drivers sharing a car.
-Select **Add user** to create one, then sign in to their Yandex account or use
-local files without signing in. Every user can do either; there is no restricted
-guest type. **⋮** beside a name lets you rename or remove the profile. Renaming
-keeps its account and data. Removal asks for confirmation and switches to another
-user if necessary; the last profile cannot be removed. Music files are kept.
+A fresh installation has one built-in **Local** profile for device/USB music,
+local playlists and settings. It cannot be renamed or removed and does not sign
+in to Yandex. Select **Add Yandex profile** to create a separate profile and open
+device-code sign-in. Its name comes from the Yandex account; until available,
+the label is **Yandex**. A temporary name lookup failure does not undo sign-in.
+**⋮** beside a Yandex profile lets you rename or remove it. Renaming keeps the
+account and data and takes priority over automatic naming. Removing the active
+profile asks for confirmation and returns to Local paused. Music files are kept.
+
+An account-only action from Local offers a choice of Yandex profiles. If none
+exist, it offers to connect an account. Connecting requires confirmation;
+**Cancel** preserves the current section and local playback. Opening the offer
+does not create a profile or request a sign-in code.
 
 Selecting another user restores their queue and position **paused**. Press Play
 when you are ready. Language, theme, selected skin and interface scale are also
 personal from2.8.0. Connected folders, Android permissions, installed skin packages,
 audio-quality settings and the physical cache location remain shared.
 
-Existing Main, On the road and Guest slots migrate to User1/2/3 with their original
-accounts and data; you can give them your own names. A fresh installation starts
-with one user. Names you enter are never translated.
+Existing Main, On the road, Guest and previously created profiles retain their
+IDs, accounts and data; Local is added separately. Cached account details provide
+automatic names without another sign-in. Explicit aliases are preserved and
+never translated. Local music works in every profile.
 
 ## Your collection, recommendations and My Vibe
 

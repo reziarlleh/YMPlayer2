@@ -7,6 +7,21 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AccountAuthTest {
+    @Test fun builtInLocalNeverReadsCredentialsRequestsCodesOrChangesTheAccountStore() = runTest {
+        val api = Api()
+        var reads = 0
+        var writes = 0
+        val store = object : AccountStore {
+            override suspend fun read(profileId: String): AccountSession? { reads++; error("Local must not read credentials") }
+            override suspend fun write(profileId: String, session: AccountSession?) { writes++; error("Local must not write credentials") }
+        }
+        val auth = AccountAuth(listOf(UserProfiles.localProfile()), api, store, this)
+        auth.activate(UserProfiles.LOCAL_PROFILE_ID); runCurrent()
+        auth.start(); auth.retryAccount(); auth.signOut(); advanceUntilIdle()
+        assertEquals(AuthPhase.GUEST, auth.state.value.phase)
+        assertEquals(0, reads); assertEquals(0, writes); assertEquals(0, api.requests)
+        assertTrue(runCatching { auth.withSession(UserProfiles.LOCAL_PROFILE_ID) { "forbidden" } }.isFailure)
+    }
     @Test fun deletingAnInactiveUserDoesNotInvalidateTheActiveUsersRequests() = runTest {
         val store = Store().apply {
             data["owner"] = AccountSession(YandexAccount("a", "Я"), credentials())

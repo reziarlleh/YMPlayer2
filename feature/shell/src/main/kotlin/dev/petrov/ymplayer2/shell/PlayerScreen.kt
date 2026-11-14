@@ -78,7 +78,9 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
                         if (account?.signedIn == true) player.playMyWave() else signIn()
                     }
                     SourceShortcut(UiIcon.OFFLINE, tr(Msg.player_source_offline), state.pendingSource == PlaybackSource.OFFLINE || state.origin.source == PlaybackSource.OFFLINE,
-                        cached?.enabled == true, "player_source_offline", player::playOffline)
+                        cached?.enabled == true, "player_source_offline") {
+                        if (state.profileId == UserProfiles.LOCAL_PROFILE_ID) signIn() else player.playOffline()
+                    }
                     SourceShortcut(UiIcon.PLAYLIST, userList.label, !sourcePending && userList.selected, userList.enabled, "player_source_list", userList.play)
                     if (myWaveActive && waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
                         { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings"))

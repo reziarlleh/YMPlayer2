@@ -746,16 +746,23 @@ Vous pouvez ajouter du texte entre les variables. Exemple: {number}. {artist} - 
     <string name="offline_sync_hint" formatted="false">"La synchronisation télécharge les fichiers manquants. La vérification complète relit les fichiers audio et les pochettes enregistrés pour détecter et réparer les fichiers endommagés."</string>
     <string name="offline_verify_start" formatted="false">"Vérification du cache hors connexion…"</string>
     <string name="profile_default_name" formatted="false">"Utilisateur @0@"</string>
-    <string name="profile_add" formatted="false">"Ajouter un utilisateur"</string>
+    <string name="profile_add" formatted="false">"Ajouter un profil Yandex"</string>
     <string name="profile_name" formatted="false">"Nom de l’utilisateur"</string>
     <string name="profile_options" formatted="false">"Options de l’utilisateur"</string>
     <string name="profile_rename" formatted="false">"Renommer l’utilisateur"</string>
     <string name="profile_delete" formatted="false">"Supprimer l’utilisateur"</string>
     <string name="profile_delete_title" formatted="false">"Supprimer l’utilisateur « @0@ » ?"</string>
     <string name="profile_delete_hint" formatted="false">"Sa connexion Yandex, ses favoris locaux, ses playlists, son historique et ses réglages seront supprimés de cet appareil. Les fichiers musicaux et les dossiers partagés seront conservés."</string>
-    <string name="profiles_people_hint" formatted="false">"Chaque utilisateur dispose de son compte Yandex, de ses favoris et de ses réglages d’apparence."</string>
+    <string name="profiles_people_hint" formatted="false">"Le profil Local est destiné à la musique de l’appareil et des supports USB. Ajoutez des profils Yandex pour vos comptes."</string>
     <string name="profile_pause_hint" formatted="false">"Le changement d’utilisateur restaure sa file d’attente et sa position de lecture. La lecture reste en pause."</string>
     <string name="profiles_save_failed" formatted="false">"Impossible d’enregistrer les modifications du profil. Réessayez."</string>
     <string name="profiles_read_failed" formatted="false">"Impossible de lire les profils. Vos données ont été conservées. Redémarrez l’application."</string>
+    <string name="profile_local" formatted="false">"Local"</string>
+    <string name="profile_local_hint" formatted="false">"Ce profil fonctionne sans compte Yandex. Pour vous connecter, ajoutez un profil Yandex depuis la liste des profils."</string>
+    <string name="account_choose_title" formatted="false">"Choisir un compte Yandex"</string>
+    <string name="account_choose_hint" formatted="false">"Cette fonction nécessite un compte Yandex."</string>
+    <string name="account_connect_title" formatted="false">"Connecter un compte Yandex ?"</string>
+    <string name="account_connect_offer" formatted="false">"Pour utiliser cette fonction, ajoutez un profil Yandex et connectez-vous."</string>
+    <string name="account_connect" formatted="false">"Connecter un compte"</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

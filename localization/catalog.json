@@ -11836,18 +11836,18 @@
   },
   {
     "key": "profile_add",
-    "source": "Добавить пользователя",
-    "english": "Add user",
+    "source": "Добавить профиль Яндекс",
+    "english": "Add Yandex profile",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
     ],
     "translations": {
-      "be": "Дадаць карыстальніка",
-      "kk": "Пайдаланушы қосу",
-      "uk": "Додати користувача",
-      "de": "Benutzer hinzufügen",
-      "es": "Añadir usuario",
-      "fr": "Ajouter un utilisateur"
+      "be": "Дадаць профіль Яндэкса",
+      "kk": "Яндекс профилін қосу",
+      "uk": "Додати профіль Яндекса",
+      "de": "Yandex-Profil hinzufügen",
+      "es": "Añadir perfil de Yandex",
+      "fr": "Ajouter un profil Yandex"
     }
   },
   {
@@ -11948,18 +11948,18 @@
   },
   {
     "key": "profiles_people_hint",
-    "source": "У каждого пользователя свой аккаунт Яндекса, избранное и оформление.",
-    "english": "Each user has their own Yandex account, favorites and appearance settings.",
+    "source": "Локальный профиль — для музыки на устройстве и USB. Добавьте профили Яндекса для своих аккаунтов.",
+    "english": "Use the Local profile for music on this device and USB drives. Add Yandex profiles for your accounts.",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
     ],
     "translations": {
-      "be": "У кожнага карыстальніка свой акаўнт Яндэкса, абранае і афармленне.",
-      "kk": "Әр пайдаланушының өз Яндекс аккаунты, таңдаулылары және безендіру параметрлері бар.",
-      "uk": "Кожен користувач має власний акаунт Яндекса, вибране й оформлення.",
-      "de": "Jeder Benutzer hat ein eigenes Yandex-Konto, eigene Favoriten und eigene Darstellungseinstellungen.",
-      "es": "Cada usuario tiene su propia cuenta de Yandex, sus favoritos y sus ajustes de apariencia.",
-      "fr": "Chaque utilisateur dispose de son compte Yandex, de ses favoris et de ses réglages d’apparence."
+      "be": "Лакальны профіль — для музыкі на прыладзе і USB. Дадайце профілі Яндэкса для сваіх акаўнтаў.",
+      "kk": "Жергілікті профиль құрылғыдағы және USB-дегі музыкаға арналған. Аккаунттарыңыз үшін Яндекс профильдерін қосыңыз.",
+      "uk": "Локальний профіль — для музики на пристрої та USB. Додайте профілі Яндекса для своїх акаунтів.",
+      "de": "Das lokale Profil ist für Musik auf dem Gerät und auf USB-Speichern gedacht. Fügen Sie Yandex-Profile für Ihre Konten hinzu.",
+      "es": "El perfil Local es para la música del dispositivo y de unidades USB. Añade perfiles de Yandex para tus cuentas.",
+      "fr": "Le profil Local est destiné à la musique de l’appareil et des supports USB. Ajoutez des profils Yandex pour vos comptes."
     }
   },
   {
@@ -12008,6 +12008,118 @@
       "de": "Die Profile konnten nicht gelesen werden. Ihre Daten bleiben erhalten. Starten Sie die App neu.",
       "es": "No se pudieron leer los perfiles. Tus datos se han conservado. Reinicia la aplicación.",
       "fr": "Impossible de lire les profils. Vos données ont été conservées. Redémarrez l’application."
+    }
+  },
+  {
+    "key": "profile_local",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "source": "Локальный",
+    "english": "Local",
+    "translations": {
+      "be": "Лакальны",
+      "kk": "Жергілікті",
+      "uk": "Локальний",
+      "de": "Lokal",
+      "es": "Local",
+      "fr": "Local"
+    }
+  },
+  {
+    "key": "profile_local_hint",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "source": "Этот профиль работает без аккаунта Яндекса. Для входа добавьте отдельный профиль Яндекс в списке профилей.",
+    "english": "This profile works without a Yandex account. To sign in, add a Yandex profile from the profile list.",
+    "translations": {
+      "be": "Гэты профіль працуе без акаўнта Яндэкса. Для ўваходу дадайце асобны профіль Яндэкса ў спісе профіляў.",
+      "kk": "Бұл профиль Яндекс аккаунтынсыз жұмыс істейді. Кіру үшін профильдер тізімінен бөлек Яндекс профилін қосыңыз.",
+      "uk": "Цей профіль працює без акаунта Яндекса. Щоб увійти, додайте окремий профіль Яндекса у списку профілів.",
+      "de": "Dieses Profil funktioniert ohne Yandex-Konto. Fügen Sie zum Anmelden ein Yandex-Profil in der Profilliste hinzu.",
+      "es": "Este perfil funciona sin una cuenta de Yandex. Para iniciar sesión, añade un perfil de Yandex desde la lista de perfiles.",
+      "fr": "Ce profil fonctionne sans compte Yandex. Pour vous connecter, ajoutez un profil Yandex depuis la liste des profils."
+    }
+  },
+  {
+    "key": "account_choose_title",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "source": "Выберите аккаунт Яндекса",
+    "english": "Choose a Yandex account",
+    "translations": {
+      "be": "Выберыце акаўнт Яндэкса",
+      "kk": "Яндекс аккаунтын таңдаңыз",
+      "uk": "Виберіть акаунт Яндекса",
+      "de": "Yandex-Konto auswählen",
+      "es": "Elige una cuenta de Yandex",
+      "fr": "Choisir un compte Yandex"
+    }
+  },
+  {
+    "key": "account_choose_hint",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "source": "Для этой функции нужен аккаунт Яндекса.",
+    "english": "This feature requires a Yandex account.",
+    "translations": {
+      "be": "Для гэтай функцыі патрэбны акаўнт Яндэкса.",
+      "kk": "Бұл мүмкіндік үшін Яндекс аккаунты қажет.",
+      "uk": "Для цієї функції потрібен акаунт Яндекса.",
+      "de": "Für diese Funktion ist ein Yandex-Konto erforderlich.",
+      "es": "Esta función requiere una cuenta de Yandex.",
+      "fr": "Cette fonction nécessite un compte Yandex."
+    }
+  },
+  {
+    "key": "account_connect_title",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "source": "Подключить аккаунт Яндекса?",
+    "english": "Connect a Yandex account?",
+    "translations": {
+      "be": "Падключыць акаўнт Яндэкса?",
+      "kk": "Яндекс аккаунтын қосу керек пе?",
+      "uk": "Підключити акаунт Яндекса?",
+      "de": "Yandex-Konto verbinden?",
+      "es": "¿Conectar una cuenta de Yandex?",
+      "fr": "Connecter un compte Yandex ?"
+    }
+  },
+  {
+    "key": "account_connect_offer",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "source": "Чтобы пользоваться этой функцией, добавьте профиль Яндекса и войдите в аккаунт.",
+    "english": "To use this feature, add a Yandex profile and sign in.",
+    "translations": {
+      "be": "Каб карыстацца гэтай функцыяй, дадайце профіль Яндэкса і ўвайдзіце ў акаўнт.",
+      "kk": "Бұл мүмкіндікті пайдалану үшін Яндекс профилін қосып, аккаунтқа кіріңіз.",
+      "uk": "Щоб користуватися цією функцією, додайте профіль Яндекса та ввійдіть в акаунт.",
+      "de": "Fügen Sie ein Yandex-Profil hinzu und melden Sie sich an, um diese Funktion zu nutzen.",
+      "es": "Para usar esta función, añade un perfil de Yandex e inicia sesión.",
+      "fr": "Pour utiliser cette fonction, ajoutez un profil Yandex et connectez-vous."
+    }
+  },
+  {
+    "key": "account_connect",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
+    ],
+    "source": "Подключить аккаунт",
+    "english": "Connect account",
+    "translations": {
+      "be": "Падключыць акаўнт",
+      "kk": "Аккаунтты қосу",
+      "uk": "Підключити акаунт",
+      "de": "Konto verbinden",
+      "es": "Conectar cuenta",
+      "fr": "Connecter un compte"
     }
   }
 ]

@@ -62,7 +62,7 @@ import kotlinx.coroutines.delay
                 }
                 item { OutlinedButton({ confirmLogout = true }, Modifier.prismFocus().testTag("auth_logout")) { Text(tr(Msg.msg_3364af49d2ba)) } }
             }
-            AuthPhase.GUEST -> item { Text(tr(Msg.msg_433852b8fe49), modifier = Modifier.testTag("auth_guest")) }
+            AuthPhase.GUEST -> item { Text(tr(if (profile.isLocal) Msg.profile_local_hint else Msg.msg_433852b8fe49), modifier = Modifier.testTag("auth_guest")) }
             AuthPhase.UNCONFIGURED -> item { Text(tr(Msg.msg_4cffda4eecf8), modifier = Modifier.testTag("auth_unconfigured")) }
             AuthPhase.SIGNED_OUT, AuthPhase.ERROR -> {
                 item { Text(tr(Msg.msg_29f6f8d9dd3e)) }

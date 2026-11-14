@@ -746,16 +746,23 @@
     <string name="offline_sync_hint" formatted="false">"Синхронизация докачивает недостающие файлы. Полная проверка заново читает сохранённые аудио и обложки, чтобы найти и исправить повреждения."</string>
     <string name="offline_verify_start" formatted="false">"Проверяем офлайн-кэш…"</string>
     <string name="profile_default_name" formatted="false">"Пользователь @0@"</string>
-    <string name="profile_add" formatted="false">"Добавить пользователя"</string>
+    <string name="profile_add" formatted="false">"Добавить профиль Яндекс"</string>
     <string name="profile_name" formatted="false">"Имя пользователя"</string>
     <string name="profile_options" formatted="false">"Параметры пользователя"</string>
     <string name="profile_rename" formatted="false">"Переименовать пользователя"</string>
     <string name="profile_delete" formatted="false">"Удалить пользователя"</string>
     <string name="profile_delete_title" formatted="false">"Удалить пользователя «@0@»?"</string>
     <string name="profile_delete_hint" formatted="false">"Его вход в Яндекс, локальное избранное, плейлисты, история и настройки будут удалены с этого устройства. Музыкальные файлы и общие папки останутся."</string>
-    <string name="profiles_people_hint" formatted="false">"У каждого пользователя свой аккаунт Яндекса, избранное и оформление."</string>
+    <string name="profiles_people_hint" formatted="false">"Локальный профиль — для музыки на устройстве и USB. Добавьте профили Яндекса для своих аккаунтов."</string>
     <string name="profile_pause_hint" formatted="false">"При переключении восстанавливаются очередь и позиция. Воспроизведение остаётся на паузе."</string>
     <string name="profiles_save_failed" formatted="false">"Не удалось сохранить изменения профиля. Повторите попытку."</string>
     <string name="profiles_read_failed" formatted="false">"Не удалось прочитать профили. Данные сохранены. Перезапустите приложение."</string>
+    <string name="profile_local" formatted="false">"Локальный"</string>
+    <string name="profile_local_hint" formatted="false">"Этот профиль работает без аккаунта Яндекса. Для входа добавьте отдельный профиль Яндекс в списке профилей."</string>
+    <string name="account_choose_title" formatted="false">"Выберите аккаунт Яндекса"</string>
+    <string name="account_choose_hint" formatted="false">"Для этой функции нужен аккаунт Яндекса."</string>
+    <string name="account_connect_title" formatted="false">"Подключить аккаунт Яндекса?"</string>
+    <string name="account_connect_offer" formatted="false">"Чтобы пользоваться этой функцией, добавьте профиль Яндекса и войдите в аккаунт."</string>
+    <string name="account_connect" formatted="false">"Подключить аккаунт"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

@@ -27,6 +27,9 @@ class YandexAdapterTest {
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
     private class Connection(val status: Int = 200, val body: String = "{}", val failure: IOException? = null) : HttpsURLConnection(URL(YandexEndpoint.CODE.url)) {
         val sent = ByteArrayOutputStream()
+        private val sentHeaders = java.util.TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER)
+        override fun setRequestProperty(key: String, value: String) { sentHeaders[key] = value }
+        override fun getRequestProperty(key: String): String? = sentHeaders[key]
         var closed = false
         var bodyRead = false
         override fun connect() {}
@@ -106,6 +109,10 @@ class YandexAdapterTest {
         assertEquals("client-secret-fixture", requests.last().form["client_secret"])
         reply = AuthReply(200, JSONObject("""{"result":{"account":{"uid":123,"displayName":"Слушатель"}}}"""))
         assertEquals(YandexAccount("123", "Слушатель"), api.account(credentials))
+        reply = AuthReply(200, JSONObject("""{"result":{"account":{"uid":123,"displayName":"","login":"listener-login"}}}"""))
+        assertEquals(YandexAccount("123", "listener-login"), api.account(credentials))
+        reply = AuthReply(200, JSONObject("""{"result":{"account":{"uid":123}}}"""))
+        assertEquals(YandexAccount("123", "Яндекс ID 123"), api.account(credentials))
         assertEquals("test-token", requests.last().token)
         assertFalse(requests.last().toString().contains("test-token"))
     }

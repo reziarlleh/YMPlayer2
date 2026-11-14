@@ -746,16 +746,23 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="offline_sync_hint" formatted="false">"Synchronization downloads missing files. A full check reads saved audio and artwork again to find and repair damaged files."</string>
     <string name="offline_verify_start" formatted="false">"Checking the offline cache…"</string>
     <string name="profile_default_name" formatted="false">"User @0@"</string>
-    <string name="profile_add" formatted="false">"Add user"</string>
+    <string name="profile_add" formatted="false">"Add Yandex profile"</string>
     <string name="profile_name" formatted="false">"User name"</string>
     <string name="profile_options" formatted="false">"User options"</string>
     <string name="profile_rename" formatted="false">"Rename user"</string>
     <string name="profile_delete" formatted="false">"Remove user"</string>
     <string name="profile_delete_title" formatted="false">"Remove user “@0@”?"</string>
     <string name="profile_delete_hint" formatted="false">"Their Yandex sign-in, local favorites, playlists, history and settings will be removed from this device. Music files and shared folders will be kept."</string>
-    <string name="profiles_people_hint" formatted="false">"Each user has their own Yandex account, favorites and appearance settings."</string>
+    <string name="profiles_people_hint" formatted="false">"Use the Local profile for music on this device and USB drives. Add Yandex profiles for your accounts."</string>
     <string name="profile_pause_hint" formatted="false">"Switching users restores their queue and playback position. Playback stays paused."</string>
     <string name="profiles_save_failed" formatted="false">"Could not save the profile changes. Please try again."</string>
     <string name="profiles_read_failed" formatted="false">"Could not read the profiles. Your data has been kept. Restart the app."</string>
+    <string name="profile_local" formatted="false">"Local"</string>
+    <string name="profile_local_hint" formatted="false">"This profile works without a Yandex account. To sign in, add a Yandex profile from the profile list."</string>
+    <string name="account_choose_title" formatted="false">"Choose a Yandex account"</string>
+    <string name="account_choose_hint" formatted="false">"This feature requires a Yandex account."</string>
+    <string name="account_connect_title" formatted="false">"Connect a Yandex account?"</string>
+    <string name="account_connect_offer" formatted="false">"To use this feature, add a Yandex profile and sign in."</string>
+    <string name="account_connect" formatted="false">"Connect account"</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

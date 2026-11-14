@@ -28,7 +28,6 @@ import kotlinx.coroutines.launch
     val managerBusy = users?.busy?.collectAsState()?.value == true
     val working = busy || managerBusy
     var issue by remember { mutableStateOf(false) }
-    var creating by remember { mutableStateOf(false) }
     var editing by remember { mutableStateOf<Profile?>(null) }
     var deleting by remember { mutableStateOf<Profile?>(null) }
     var name by remember { mutableStateOf("") }
@@ -53,7 +52,7 @@ import kotlinx.coroutines.launch
         if (users != null && !writable) item { Text(tr(Msg.profiles_read_failed), color = MaterialTheme.colorScheme.error) }
         if (working) item { LinearProgressIndicator(Modifier.fillMaxWidth().testTag("profile_busy")) }
         if (issue) item { Text(tr(Msg.profiles_save_failed), color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("profile_error")) }
-        if (account != null) item {
+        if (account != null && profiles.firstOrNull { it.id == current }?.isLocal != true) item {
             OutlinedButton(account, Modifier.fillMaxWidth().prismFocus().testTag("account_open"), enabled = !working) {
                 Text(tr(Msg.msg_43b07d243705, profiles.firstOrNull { it.id == current }?.let(::profileName).orEmpty()))
             }
@@ -67,7 +66,7 @@ import kotlinx.coroutines.launch
                     SkinIcon(UiIcon.PROFILE, null)
                     Text(profileName(profile), Modifier.weight(1f), fontWeight = FontWeight.Bold, maxLines = 2, overflow = TextOverflow.Ellipsis)
                     if (current == profile.id) SkinIcon(UiIcon.CHECK, tr(Msg.msg_954fea171639))
-                    if (users != null) Box {
+                    if (users != null && !profile.isLocal) Box {
                         IconButton({ menu = true }, Modifier.prismFocus().testTag("profile_menu_${profile.id}"), enabled = writable && !working) {
                             SkinIcon(UiIcon.MORE, tr(Msg.profile_options))
                         }
@@ -84,32 +83,29 @@ import kotlinx.coroutines.launch
             }
         }
         if (users != null) item {
-            Button({ creating = true; name = "" }, Modifier.fillMaxWidth().prismFocus().testTag("profile_add"), enabled = writable && !working) {
+            Button({ mutate {
+                val profile = users.createYandex()
+                (created ?: select)(profile.id)
+            } }, Modifier.fillMaxWidth().prismFocus().testTag("profile_add"), enabled = writable && !working) {
                 SkinIcon(UiIcon.ADD, null); Spacer(Modifier.width(8.dp)); Text(tr(Msg.profile_add))
             }
         }
         item { Text(tr(Msg.profile_pause_hint), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
-    if (creating || editing != null) AlertDialog(onDismissRequest = { if (!working) { creating = false; editing = null } },
-        title = { Text(tr(if (creating) Msg.profile_add else Msg.profile_rename)) },
+    if (editing != null) AlertDialog(onDismissRequest = { if (!working) editing = null },
+        title = { Text(tr(Msg.profile_rename)) },
         text = { Column {
             OutlinedTextField(name, { name = it.take(UserProfiles.MAX_NAME_LENGTH) }, singleLine = true,
                 label = { Text(tr(Msg.profile_name)) }, modifier = Modifier.fillMaxWidth().testTag("profile_name"), enabled = !working)
             if (issue) Text(tr(Msg.profiles_save_failed), color = MaterialTheme.colorScheme.error)
         } }, confirmButton = {
             TextButton({ mutate {
-                if (creating) {
-                    val profile = users!!.create(name)
-                    creating = false
-                    (created ?: select)(profile.id)
-                } else {
-                    users!!.rename(editing!!.id, name)
-                    editing = null
-                }
+                users!!.rename(editing!!.id, name)
+                editing = null
             } }, Modifier.prismFocus().testTag("profile_save"), enabled = !working && runCatching { UserProfiles.checkedName(name) }.isSuccess) {
                 Text(trMessage("Сохранить"))
             }
-        }, dismissButton = { TextButton({ creating = false; editing = null }, Modifier.prismFocus(), enabled = !working) { Text(trMessage("Отмена")) } })
+        }, dismissButton = { TextButton({ editing = null }, Modifier.prismFocus(), enabled = !working) { Text(trMessage("Отмена")) } })
     deleting?.let { profile -> AlertDialog(onDismissRequest = { if (!working) deleting = null },
         title = { Text(tr(Msg.profile_delete_title, profileName(profile))) },
         text = { Column { Text(tr(Msg.profile_delete_hint)); if (issue) Text(tr(Msg.profiles_save_failed), color = MaterialTheme.colorScheme.error) } },

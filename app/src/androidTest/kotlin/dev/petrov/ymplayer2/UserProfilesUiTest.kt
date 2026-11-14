@@ -40,14 +40,15 @@ class UserProfilesUiTest {
     }
 
     @Test fun createRenameAndDeleteThroughTheActualUserInterface() {
+        val before = graph.library.profiles.map(Profile::id).toSet()
         compose.onNodeWithTag("profiles").performClick()
         row("profile_add").performClick()
-        compose.onNodeWithTag("profile_name").performTextInput("Семья UI280")
-        compose.onNodeWithTag("profile_save").performClick()
-        waitFor { graph.library.profiles.any { it.name == "Семья UI280" } }
-        val id = graph.library.profiles.first { it.name == "Семья UI280" }.id
+        waitFor { graph.library.profiles.any { it.id !in before } }
+        val id = graph.library.profiles.first { it.id !in before }.id
         added += id
         waitFor { graph.playback.state.value.profileId == id }
+        compose.onNodeWithTag("account_screen").assertExists()
+        compose.onNodeWithTag("profile_name").assertDoesNotExist()
         assertFalse(graph.playback.state.value.playing)
         compose.onNodeWithTag("profiles").performClick()
         row("profile_menu_$id").performClick()
@@ -66,28 +67,74 @@ class UserProfilesUiTest {
         waitFor { graph.library.profiles.none { it.id == id } }
     }
 
-    @Test fun dpadCanOpenTheAddUserDialogWithoutATouch() {
+    @Test fun dpadAddsAYandexUserAndOpensSignInWithoutATouch() {
+        val before = graph.library.profiles.map(Profile::id).toSet()
         compose.onNodeWithTag("profiles").performClick()
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
             .sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
         row("profile_add").performSemanticsAction(SemanticsActions.RequestFocus) { it() }
         compose.onNodeWithTag("profile_add").assertIsFocused().performKeyInput { pressKey(Key.DirectionCenter) }
-        compose.onNodeWithTag("profile_name").assertExists()
+        waitFor { graph.library.profiles.any { it.id !in before } }
+        added += graph.library.profiles.filter { it.id !in before }.map(Profile::id)
+        compose.onNodeWithTag("account_screen").assertExists()
         compose.runOnIdle { compose.activity.onBackPressedDispatcher.onBackPressed() }
     }
 
-    @Test fun rapidRepeatedSaveCreatesOnlyOneUser() {
+    @Test fun rapidRepeatedAddCreatesOnlyOneYandexUser() {
+        val before = graph.library.profiles.map(Profile::id).toSet()
         compose.onNodeWithTag("profiles").performClick()
-        row("profile_add").performClick()
-        compose.onNodeWithTag("profile_name").performTextInput("Rapid UI280")
-        val click = compose.onNodeWithTag("profile_save").fetchSemanticsNode()
+        val click = row("profile_add").fetchSemanticsNode()
             .config[SemanticsActions.OnClick].action!!
         compose.runOnIdle { click(); click() }
-        waitFor { graph.library.profiles.any { it.name == "Rapid UI280" } && !graph.users.busy.value }
+        waitFor { graph.library.profiles.any { it.id !in before } && !graph.users.busy.value }
         compose.waitForIdle()
-        val created = graph.library.profiles.filter { it.name == "Rapid UI280" }
+        val created = graph.library.profiles.filter { it.id !in before }
         added += created.map(Profile::id)
         assertEquals("Repeated activation before the next frame is one save", 1, created.size)
+    }
+
+    @Test fun localHasNoDeleteRenameOrSignInAndNewAccountNamesReachTheProfileList() {
+        compose.runOnIdle { graph.playback.switchProfile(UserProfiles.LOCAL_PROFILE_ID) }
+        waitFor { graph.playback.state.value.profileId == UserProfiles.LOCAL_PROFILE_ID }
+        compose.onNodeWithTag("profiles").performClick()
+        row("profile_local").assertExists()
+        compose.onNodeWithTag("profile_menu_local").assertDoesNotExist()
+        compose.onNodeWithTag("account_open").assertDoesNotExist()
+        val profile = userMutationResult { graph.users.createYandex() }.also { added += it.id }
+        userMutation {
+            dev.petrov.ymplayer2.yandex.KeystoreAccountStore(compose.activity).write(profile.id,
+                AccountSession(YandexAccount("name-fixture", "Мария UI"), OAuthCredentials("fixture-name-only", null, null)))
+            graph.playback.switchProfile(profile.id)
+        }
+        waitFor { graph.accounts.state.value.account?.name == "Мария UI" && graph.library.profiles.any { it.id == profile.id && it.name == "Мария UI" } }
+        compose.onNodeWithTag("profiles").performClick()
+        row("profile_${profile.id}").assertTextContains("Мария UI")
+        compose.onNodeWithTag("profile_menu_local").assertDoesNotExist()
+    }
+    private fun <T> userMutationResult(action: suspend () -> T): T = runBlocking { withContext(Dispatchers.Main.immediate) { action() } }
+
+    @Test fun localOnlineActionsOfferAccountChoiceAndCancelKeepsTheLocalPlayer() {
+        compose.runOnIdle { graph.playback.switchProfile(UserProfiles.LOCAL_PROFILE_ID) }
+        waitFor { graph.playback.state.value.profileId == UserProfiles.LOCAL_PROFILE_ID }
+        compose.onNodeWithTag("profiles").performClick()
+        row("profile_local").performClick()
+        val before = graph.playback.state.value
+        val users = graph.library.profiles.map(Profile::id)
+        for (tag in listOf("nav_radio", "nav_clips", "player_source_wave")) {
+            compose.onNodeWithTag(tag).performClick()
+            compose.onNodeWithTag("account_choice").assertExists()
+            compose.onNodeWithTag("account_screen").assertDoesNotExist()
+            compose.onNodeWithTag("account_choice_cancel").performClick()
+            assertEquals(before.profileId, graph.playback.state.value.profileId)
+            assertEquals(before.current?.id, graph.playback.state.value.current?.id)
+            assertEquals(users, graph.library.profiles.map(Profile::id))
+        }
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
+        compose.onNodeWithTag("account_choice").assertExists()
+        compose.onNodeWithTag("account_choice_cancel").performClick()
+        compose.onNodeWithTag("source_local").assertIsSelected()
+        assertEquals(UserProfiles.LOCAL_PROFILE_ID, graph.playback.state.value.profileId)
     }
 
     @Test fun switchingUsersRestoresTheirOwnTrackAndPositionButNeverStartsPlayback() {

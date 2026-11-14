@@ -160,8 +160,29 @@ class PlayerApplication : Application(), PlaybackHost {
                 .put("filter", state.filter?.let { org.json.JSONObject().put("slug", it.slug).put("name", it.name) })
             radioNavigation.edit().putString(profile, data.toString()).apply()
         }) }
-    val accounts by lazy { AccountAuth({ library.profiles },
-        YandexDeviceApi(this, BuildConfig.YANDEX_CLIENT_ID, BuildConfig.YANDEX_CLIENT_SECRET), KeystoreAccountStore(this), scope) }
+    val accounts by lazy {
+        val store = KeystoreAccountStore(this)
+        AccountAuth({ library.profiles },
+            YandexDeviceApi(this, BuildConfig.YANDEX_CLIENT_ID, BuildConfig.YANDEX_CLIENT_SECRET), store, scope).also { auth ->
+            // Cached names of inactive accounts need neither network nor another OAuth exchange.
+            scope.launch {
+                users.state.value.filter { it.canSignIn && !it.userNamed }.forEach { profile ->
+                    try { store.read(profile.id)?.account?.let { users.updateAccountName(profile.id, it.name) } }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { /* Keep the account and its original label. */ }
+                }
+            }
+            scope.launch {
+                auth.state.collect { state ->
+                    state.account?.let { account ->
+                        try { users.updateAccountName(state.profileId, account.name) }
+                        catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { /* Naming must never turn successful sign-in into an error. */ }
+                    }
+                }
+            }
+        }
+    }
 
     private suspend fun removeProfileData(id: String, replacement: String) {
         // Switch first: no outgoing engine, OAuth poll or late catalog response may revive this user.

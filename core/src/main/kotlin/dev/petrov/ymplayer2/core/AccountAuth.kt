@@ -76,7 +76,7 @@ class AccountAuth(
 
     private suspend fun restore(profile: String, ticket: Long) {
         try {
-            if (profileList().first { it.id == profile }.guest) {
+            if (!profileList().first { it.id == profile }.canSignIn) {
                 if (valid(ticket, profile)) mutable.value = AccountAuthState(profile, AuthPhase.GUEST)
                 return
             }
@@ -105,7 +105,7 @@ class AccountAuth(
 
     fun start() {
         val profile = state.value.profileId
-        if (profileList().none { it.id == profile && !it.guest } || !api.configured || state.value.phase !in setOf(AuthPhase.SIGNED_OUT, AuthPhase.ERROR)) return
+        if (profileList().none { it.id == profile && it.canSignIn } || !api.configured || state.value.phase !in setOf(AuthPhase.SIGNED_OUT, AuthPhase.ERROR)) return
         accessGeneration++
         val ticket = stopWork()
         mutable.value = AccountAuthState(profile, AuthPhase.REQUESTING)
@@ -231,7 +231,7 @@ class AccountAuth(
 
     fun signOut() {
         val profile = state.value.profileId
-        if (profileList().none { it.id == profile && !it.guest }) return
+        if (profileList().none { it.id == profile && it.canSignIn }) return
         accessGeneration++
         val ticket = stopWork()
         mutable.value = AccountAuthState(profile)

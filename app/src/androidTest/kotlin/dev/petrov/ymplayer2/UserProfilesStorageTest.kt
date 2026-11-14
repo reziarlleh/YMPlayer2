@@ -40,13 +40,17 @@ class UserProfilesStorageTest {
         try { action(context) } finally { AppLanguages.initialize(app); context.close() }
     }
 
-    @Test fun freshInstallHasOneUserAndNewUsersSurviveReload() = fixture { context ->
+    @Test fun freshInstallHasOnlyTheProtectedLocalUserAndYandexUsersSurviveReload() = fixture { context ->
         val users = loadUserProfiles(context)
-        assertEquals(listOf("owner"), users.state.value.map(Profile::id))
-        val wife = users.create("Жена")
+        assertEquals(listOf(UserProfiles.localProfile()), users.state.value)
+        assertTrue(runCatching { users.remove(UserProfiles.LOCAL_PROFILE_ID) }.isFailure)
+        val wife = users.createYandex()
+        users.updateAccountName(wife.id, "Жена")
         val children = users.create("Дети")
         val reloaded = loadUserProfiles(context)
-        assertEquals(listOf("owner", wife.id, children.id), reloaded.state.value.map(Profile::id))
+        assertEquals(listOf("local", wife.id, children.id), reloaded.state.value.map(Profile::id))
+        assertEquals("Жена", reloaded.state.value[1].name)
+        assertFalse(reloaded.state.value[1].userNamed)
         assertTrue(reloaded.state.value.none(Profile::guest))
     }
 
@@ -56,13 +60,32 @@ class UserProfilesStorageTest {
         context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().putString("profile", "road")
             .putString("queue:road", "saved queue marker").commit()
         val users = loadUserProfiles(context)
-        assertEquals(listOf("owner", "road", "guest"), users.state.value.map(Profile::id))
+        assertEquals(listOf("local", "owner", "road", "guest"), users.state.value.map(Profile::id))
         assertTrue(users.state.value.none(Profile::guest))
         users.rename("road", "Жена")
         assertEquals("Жена", loadUserProfiles(context).state.value.first { it.id == "road" }.name)
         assertEquals("fixture-account", accounts.read("road")?.account?.id)
         assertEquals("saved queue marker", context.getSharedPreferences("playback", Context.MODE_PRIVATE).getString("queue:road", null))
         accounts.write("road", null)
+    }
+
+    @Test fun schemaOneMigrationIsIdempotentAndPreservesIdsAliasesAndCheckpoints() = fixture { context ->
+        val file = File(context.filesDir, "user-profiles.json")
+        file.writeText("""{"schema":1,"profiles":[{"id":"owner","name":"Пользователь 1","defaultNumber":1},{"id":"wife","name":"Мама"}]}""")
+        context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit()
+            .putString("profile", "wife").putString("queue:wife", "queue marker").commit()
+        val users = loadUserProfiles(context)
+        assertEquals(listOf("local", "owner", "wife"), users.state.value.map(Profile::id))
+        users.updateAccountName("owner", "Имя Яндекса")
+        users.updateAccountName("wife", "Другое имя")
+        val bytes = file.readBytes()
+        val reloaded = loadUserProfiles(context)
+        assertArrayEquals(bytes, file.readBytes())
+        assertEquals(users.state.value, reloaded.state.value)
+        assertEquals("Имя Яндекса", reloaded.state.value[1].name)
+        assertEquals("Мама", reloaded.state.value[2].name)
+        assertEquals("wife", context.getSharedPreferences("playback", Context.MODE_PRIVATE).getString("profile", null))
+        assertEquals("queue marker", context.getSharedPreferences("playback", Context.MODE_PRIVATE).getString("queue:wife", null))
     }
 
     @Test fun damagedUserListIsPreservedAndCannotBeOverwrittenByEditing() = fixture { context ->
@@ -76,9 +99,10 @@ class UserProfilesStorageTest {
 
     @Test fun createdUsersRestoreTheirOwnEncryptedSessionsAndRenamingDoesNotRequireSignIn() = fixture { context ->
         val users = loadUserProfiles(context)
+        val first = users.create("Я")
         val other = users.create("Жена")
         val store = KeystoreAccountStore(context)
-        store.write("owner", AccountSession(YandexAccount("a", "Я"), OAuthCredentials("fixture-a", null, null)))
+        store.write(first.id, AccountSession(YandexAccount("a", "Я"), OAuthCredentials("fixture-a", null, null)))
         store.write(other.id, AccountSession(YandexAccount("b", "Жена"), OAuthCredentials("fixture-b", null, null)))
         val api = object : DeviceAuthApi {
             override val configured = true
@@ -89,13 +113,13 @@ class UserProfilesStorageTest {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         try {
             val auth = AccountAuth({ users.state.value }, api, store, scope)
-            withContext(Dispatchers.Main.immediate) { auth.activate("owner") }
+            withContext(Dispatchers.Main.immediate) { auth.activate(first.id) }
             withTimeout(10_000) { auth.state.first { it.phase == AuthPhase.SIGNED_IN } }
             assertEquals("a", auth.state.value.account?.id)
             withContext(Dispatchers.Main.immediate) { auth.activate(other.id) }
             withTimeout(10_000) { auth.state.first { it.profileId == other.id && it.phase == AuthPhase.SIGNED_IN } }
             assertEquals("b", auth.state.value.account?.id)
-            assertTrue(runCatching { auth.withSession("owner") { "wrong user" } }.isFailure)
+            assertTrue(runCatching { auth.withSession(first.id) { "wrong user" } }.isFailure)
             users.rename(other.id, "Супруга")
             val restoredUsers = loadUserProfiles(context)
             val restoredAuth = AccountAuth({ restoredUsers.state.value }, api, store, scope)
@@ -105,7 +129,7 @@ class UserProfilesStorageTest {
             assertEquals("Супруга", restoredUsers.state.value.first { it.id == other.id }.name)
         } finally {
             scope.coroutineContext[Job]!!.cancelAndJoin()
-            store.write("owner", null); store.write(other.id, null)
+            store.write(first.id, null); store.write(other.id, null)
         }
     }
 

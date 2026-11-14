@@ -8,6 +8,42 @@ import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UserProfilesTest {
+    @Test fun builtInLocalProfileCannotBeRenamedDeletedOrGivenAnAccountName() = runTest {
+        val local = UserProfiles.localProfile()
+        var cleaned = false
+        val users = UserProfiles(listOf(local, Profile("driver", "Яндекс", "")), {}, { _, _ -> cleaned = true })
+        assertTrue(runCatching { users.remove(local.id) }.isFailure)
+        assertTrue(runCatching { users.rename(local.id, "Другое") }.isFailure)
+        users.updateAccountName(local.id, "Имя аккаунта")
+        assertEquals(local, users.state.value.first())
+        assertFalse(local.canSignIn)
+        assertFalse(cleaned)
+    }
+    @Test fun yandexNameArrivesLaterWithoutChangingIdentityOrOverwritingAnExplicitAlias() = runTest {
+        val users = UserProfiles(listOf(UserProfiles.localProfile()), {}, newId = { "driver" })
+        val profile = users.createYandex()
+        assertTrue(profile.canSignIn)
+        assertFalse(profile.userNamed)
+        users.updateAccountName(profile.id, "  Мария\nПетрова  ")
+        assertEquals("Мария Петрова", users.state.value.last().name)
+        users.rename(profile.id, "Мама")
+        users.updateAccountName(profile.id, "Мария")
+        assertEquals("Мама", users.state.value.last().name)
+        users.remove(profile.id)
+        users.updateAccountName(profile.id, "Поздний ответ")
+        assertEquals(listOf(UserProfiles.localProfile()), users.state.value)
+    }
+    @Test fun repeatedAccountMetadataDoesNotWriteOrRecreateRemovedProfiles() = runTest {
+        var writes = 0
+        val users = UserProfiles(listOf(UserProfiles.localProfile()), { writes++ }, newId = { "driver" })
+        val profile = users.createYandex()
+        users.updateAccountName(profile.id, "Имя")
+        val savedWrites = writes
+        users.updateAccountName(profile.id, "Имя")
+        users.updateAccountName("missing", "Другое")
+        users.updateAccountName(profile.id, " \n ")
+        assertEquals(savedWrites, writes)
+    }
     private val owner = Profile("owner", "Пользователь 1", "", defaultNumber = 1)
 
     @Test fun renamingKeepsLegacyIdentityAndTreatsTheNewNameAsOpaque() = runTest {
