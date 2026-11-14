@@ -74,7 +74,7 @@ APK не менялся и не пересобирался. Release lint0/132 и
 асинхронной записи; с тем же APK полный сценарий прошёл. Продукт не исправлялся
 под ошибки проверочного окружения.
 
-Единственный [GitHub Draft141](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-b1e90a37a3e506e9389b) содержит APK и3 служебных файла;
+Единственный [GitHub Draft141](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-934c74106750b811b567) содержит APK и3 служебных файла;
 все скачаны полностью и сверены с локальными SHA256. [Доставка](qa/localprofile280/draft141.json).
 Публичный релиз/автообновление137 и4PDA не менялись; приёмка141 ещё предстоит.
 RepoWise не загрузился из-за отсутствующего tree_sitter; используются исходники

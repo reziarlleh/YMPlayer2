@@ -22,7 +22,7 @@
 Яндекс-профили с именем аккаунта и предложение выбора/подключения.
 [Проверки и границы](LOCAL_AND_YANDEX_PROFILES_2_8_0.md).
 Владельческая приёмка и публикация141 ещё предстоят. Для проверки141 доступен в одном
-[актуальном GitHub Draft](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-b1e90a37a3e506e9389b).
+[актуальном GitHub Draft](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-934c74106750b811b567).
 Старый отозванный Draft122 убран; [сверка порядка/файлов](RELEASE_ORDER_AUDIT_2026_11_14.md).
 Остальные перечисленные ниже предложения автоматически не запускаются.
 Отдельно остаётся D-004: [13 ноября разобраны логи Fox_7/126](FORUM_FOX7_DIAGNOSTICS_2026_11_13.md),

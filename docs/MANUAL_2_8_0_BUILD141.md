@@ -2,7 +2,7 @@
 
 14 ноября2026. Встроенный Локальный, отдельные профили Яндекса с именем аккаунта
 и подтверждением подключения; сохранены остальные изменения2.8.0.
-[Скачать APK из актуального GitHub Draft](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-b1e90a37a3e506e9389b) — нужен доступ владельца репозитория.
+[Скачать APK из актуального GitHub Draft](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-934c74106750b811b567) — нужен доступ владельца репозитория.
 Публичный Latest/автообновление — **2.7.0-build137**.
 
 APK: `releases/2.8.0-build141/YMPlayer-2.8.0-build141.apk` —4701894bytes.

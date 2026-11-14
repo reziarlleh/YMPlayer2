@@ -53,7 +53,7 @@
 После139 дополнительно поручена и выполнена диагностика команд медиасессии/Activity;
 она входит в140 того же2.8.0. [Проверки](SESSION_COMMAND_DIAGNOSTICS_2_8_0.md).
 Публикация140 не поручена.
-14 ноября140 размещён в [GitHub Draft](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-b1e90a37a3e506e9389b)
+14 ноября140 размещён в [GitHub Draft](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-934c74106750b811b567)
 с тем же APK без пересборки. Latest/feeds137 не менялись. Единственный старый
 Draft122 удалён после полного резервного копирования; Git-тег оставлен.
 [Состояние release assets](RELEASE_ORDER_AUDIT_2026_11_14.md).

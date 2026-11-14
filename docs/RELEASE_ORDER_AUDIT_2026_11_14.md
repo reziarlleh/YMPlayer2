@@ -26,7 +26,7 @@ SHA256.txt. Полная копия и исходная release metadata сох�
 Git-тег v2.6.4-build122 проверен до/после и сохранён.
 
 Подготовлен один актуальный
-[GitHub Draft2.8.0-build140](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-b1e90a37a3e506e9389b),
+[GitHub Draft2.8.0-build140](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-934c74106750b811b567),
 id444971492, target9717d735b5d29bc5ee382edc63e0cd66cceee1ab.
 В нём полный состав2.8.0: пользовательские профили, персональное оформление,
 переключение на паузе и расширенная диагностика команд. Неустановленная причина
