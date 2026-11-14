@@ -72,3 +72,8 @@ firstInstallTime, приватного маркера, выбранного пр
 RepoWise context дважды и update после изменений отказали из-за tree_sitter;
 индекс не объявляется свежим.
 Остаток — проверка владельцем и отдельно разрешённая публичная публикация того же APK.
+
+Финальная сверка14 ноября: main/default branch и README совпадают с GitHub,
+один Draft144, Latest/оба серверных feeds137; документация без ошибок ссылок.
+[Состояние GitHub](qa/wave-profile280/final-github.json) ·
+[проверка документов](qa/wave-profile280/documentation-github.json).
