@@ -1,0 +1,238 @@
+{
+  "version": "2.8.0-build141",
+  "date": "2026-11-14",
+  "native": {
+    "api23-final": {
+      "serial": "emulator-5580",
+      "classes": [
+        "dev.petrov.ymplayer2.UserProfilesStorageTest",
+        "dev.petrov.ymplayer2.UserProfilesUiTest",
+        "dev.petrov.ymplayer2.ProfileRestoreTest",
+        "dev.petrov.ymplayer2.YandexAdapterTest",
+        "dev.petrov.ymplayer2.AccountChoiceDialogTest"
+      ],
+      "passed": 24,
+      "success": true
+    },
+    "api35-final": {
+      "serial": "emulator-5582",
+      "classes": [
+        "dev.petrov.ymplayer2.UserProfilesStorageTest",
+        "dev.petrov.ymplayer2.UserProfilesUiTest",
+        "dev.petrov.ymplayer2.ProfileRestoreTest",
+        "dev.petrov.ymplayer2.YandexAdapterTest",
+        "dev.petrov.ymplayer2.AccountChoiceDialogTest"
+      ],
+      "passed": 24,
+      "success": true
+    },
+    "tv28-final": {
+      "serial": "emulator-5584",
+      "classes": [
+        "dev.petrov.ymplayer2.UserProfilesStorageTest",
+        "dev.petrov.ymplayer2.UserProfilesUiTest",
+        "dev.petrov.ymplayer2.AccountChoiceDialogTest"
+      ],
+      "passed": 17,
+      "success": true
+    },
+    "api23-dialog-lint": {
+      "serial": "emulator-5580",
+      "classes": [
+        "dev.petrov.ymplayer2.AccountChoiceDialogTest"
+      ],
+      "passed": 3,
+      "success": true
+    },
+    "api35-dialog-lint": {
+      "serial": "emulator-5582",
+      "classes": [
+        "dev.petrov.ymplayer2.AccountChoiceDialogTest"
+      ],
+      "passed": 3,
+      "success": true
+    }
+  },
+  "coreTests": 181,
+  "appTests": 4,
+  "messages": 758,
+  "languages": 8,
+  "lint": {
+    "release": {
+      "Warning": 132
+    },
+    "debug": {
+      "Warning": 83
+    }
+  },
+  "signedApk": {
+    "name": "YMPlayer-2.8.0-build141.apk",
+    "bytes": 4701894,
+    "sha256": "0470cefa25fec1d7856bad86715f424216ea7690629ecafb6c9e9a9517d6da23",
+    "minSdk": 23,
+    "targetSdk": 36
+  },
+  "upgrades": {
+    "api23": {
+      "serial": "emulator-5580",
+      "oldApk": "YMPlayer-2.8.0-build140.apk",
+      "newApk": "YMPlayer-2.8.0-build141.apk",
+      "networkBefore": {
+        "wifi": "1",
+        "data": "1"
+      },
+      "before": {
+        "uid": "10063",
+        "firstInstallTime": "2026-11-13 04:22:16",
+        "version": "2.8.0-build140"
+      },
+      "oldProfile": "owner",
+      "beforeProfiles": [
+        {
+          "id": "owner",
+          "name": "Пользователь 1",
+          "defaultNumber": 1
+        },
+        {
+          "id": "road",
+          "name": "Пользователь 2",
+          "defaultNumber": 2
+        },
+        {
+          "id": "guest",
+          "name": "Пользователь 3",
+          "defaultNumber": 3
+        }
+      ],
+      "after": {
+        "uid": "10063",
+        "firstInstallTime": "2026-11-13 04:22:16",
+        "version": "2.8.0-build141"
+      },
+      "launch": "Starting: Intent { cmp=dev.petrov.ymplayer2/.MainActivity }\r\r\nStatus: ok\r\r\nActivity: dev.petrov.ymplayer2/.MainActivity\r\r\nThisTime: 2143\r\r\nTotalTime: 2143\r\r\nWaitTime: 2206\r\r\nComplete",
+      "selectedProfile": "owner",
+      "migratedIds": [
+        "local",
+        "owner",
+        "road",
+        "guest"
+      ],
+      "privateMarkerPreserved": true,
+      "markerSha256": "76caf7b5c9277173eb94ed8c5dd625c3b59c66747cf145a34d058626130a5b3c",
+      "sameUid": true,
+      "sameFirstInstallTime": true,
+      "sameSelectedProfile": true,
+      "appVisible": true,
+      "javaCrash": false,
+      "networkRestored": true
+    },
+    "api35": {
+      "serial": "emulator-5582",
+      "oldApk": "YMPlayer-2.8.0-build140.apk",
+      "newApk": "YMPlayer-2.8.0-build141.apk",
+      "networkBefore": {
+        "wifi": "1",
+        "data": "1"
+      },
+      "before": {
+        "uid": "10209",
+        "firstInstallTime": "2026-11-13 07:24:44",
+        "version": "2.8.0-build140"
+      },
+      "oldProfile": "owner",
+      "beforeProfiles": [
+        {
+          "id": "owner",
+          "name": "Пользователь 1",
+          "defaultNumber": 1
+        },
+        {
+          "id": "road",
+          "name": "Пользователь 2",
+          "defaultNumber": 2
+        },
+        {
+          "id": "guest",
+          "name": "Пользователь 3",
+          "defaultNumber": 3
+        }
+      ],
+      "after": {
+        "uid": "10209",
+        "firstInstallTime": "2026-11-13 07:24:44",
+        "version": "2.8.0-build141"
+      },
+      "launch": "Starting: Intent { cmp=dev.petrov.ymplayer2/.MainActivity }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: dev.petrov.ymplayer2/.MainActivity\r\nTotalTime: 2388\r\nWaitTime: 2396\r\nComplete",
+      "selectedProfile": "owner",
+      "migratedIds": [
+        "local",
+        "owner",
+        "road",
+        "guest"
+      ],
+      "privateMarkerPreserved": true,
+      "markerSha256": "5b9cce395bd62fe272b272134e86abb00b02b99da389a855ac3b0a5d6d1fd222",
+      "sameUid": true,
+      "sameFirstInstallTime": true,
+      "sameSelectedProfile": true,
+      "appVisible": true,
+      "javaCrash": false,
+      "networkRestored": true
+    }
+  },
+  "releaseUi": {
+    "api23": {
+      "serial": "emulator-5580",
+      "version": "2.8.0-build141",
+      "accountOfferObserved": true,
+      "cancelPreservedLocalAndCreatedNoProfile": true,
+      "originalSelectionRestored": true,
+      "javaCrash": false,
+      "networkRestored": true
+    },
+    "api35": {
+      "serial": "emulator-5582",
+      "version": "2.8.0-build141",
+      "accountOfferObserved": true,
+      "cancelPreservedLocalAndCreatedNoProfile": true,
+      "originalSelectionRestored": true,
+      "javaCrash": false,
+      "networkRestored": true
+    }
+  },
+  "ci": {
+    "id": 43554337965,
+    "head_sha": "cd8225d4b57f23885c95d7fd41cd5323d829417a",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/reziarlleh/YMPlayer2/actions/runs/43554337965"
+  },
+  "sourceHashes": {
+    "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt": "0a220ea900d2dc923ba932f6b65de0014d430ae8aa90de1e2051d21a7054d527",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/AccountAuth.kt": "6f74a289e1b35b9507052a72abe522124d5840d1e68b9968deb3d7289d8979b9",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/Media.kt": "b7cb324f0422dffba5dd78f8218c9b9c234f4b434a73b3de6a14413e9b93e900",
+    "core/src/main/kotlin/dev/petrov/ymplayer2/core/UserProfiles.kt": "f992f48828d4275ef1a55a76b17927aecd21130b504f0e64c9a2d51e1a6666bd",
+    "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountChoiceDialog.kt": "3ca8d814f51fb1cd5257a927693d49162f1b8125bbf989d7457f5852ed5385e9",
+    "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/AccountScreen.kt": "887c01b8f0a16feded3c15e572535df771702ef5ee2d883e50d186171f5eb760",
+    "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt": "ce2cea74fb1f8f65203208d4ebed6d23df01280f1e1311687d5b74263f224015",
+    "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfileLabels.kt": "b47258f7c28db49a89e2b37a5c3eaa7adc56cf1c38e3b599af522a6787e7839e",
+    "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt": "d995a70317cdc0988ba963410ea6cb9228f7d7645c9e744bc5a6c6f94a5992f9",
+    "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ShellApp.kt": "cbd9a671c4ebbbfad17cce5956ac34ca8c4dbd2f485632bf5b97ab6945f35694",
+    "library/local/src/main/kotlin/dev/petrov/ymplayer2/library/LocalUserProfiles.kt": "94526e7d666b78a3fe1f4001a59177fe625faecf2823bff62f5fb370744364ff",
+    "localization/catalog.json": "aa9fa1b6197529c3173522918602dd937f540341bd042c9f3b37fc4914953308",
+    "localization/src/main/kotlin/dev/petrov/ymplayer2/localization/MessagePatterns.kt": "d2f9c5507258cbdd2d786bf404a54a95809930d021694752d8578b553bc2904b",
+    "localization/src/main/kotlin/dev/petrov/ymplayer2/localization/Msg.kt": "8b3c33257a5f892a5ef97e8edc3bd573fc462eef717f9e68d285dcc599c4f3d8",
+    "localization/src/main/res/values-be/strings.xml": "0984230a57d5dbb48e44258701d709effd59f27115553f1fa0dfbbae5068d511",
+    "localization/src/main/res/values-de/strings.xml": "45f2132bf2ee22f293e9f6ac5e45526b5f29bca05f19813d64156a4b2d752801",
+    "localization/src/main/res/values-es/strings.xml": "7d52eba5c31a10f9a5689934cebd4b1977537b6cb4571e7287130c4950ec91c1",
+    "localization/src/main/res/values-fr/strings.xml": "3b0fb34b1026ecae7203285ada4dfc6f0773c2eb9369ff60e705d14c01290c13",
+    "localization/src/main/res/values-kk/strings.xml": "7e3f22eb0dd73c60fefa9e2f556b2c2216814b7ad2fa537001476913206f869d",
+    "localization/src/main/res/values-ru/strings.xml": "85cf574a18194e651bfa870ad9fe85f572bc14cfe037fb9f11cb38c0094a082d",
+    "localization/src/main/res/values-uk/strings.xml": "861450f1f092b346e3940d586c4d82b4da6769f44b56888228a8bac7a25b2fc8",
+    "localization/src/main/res/values/strings.xml": "40737a823793c6a69a98d4aa63766568244aaec29a05eb7c3659b4d17ddec05e"
+  },
+  "stableLatest": "2.7.0-build137",
+  "ownerAcceptance": "pending",
+  "publicRelease": false,
+  "draft": "https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-b1e90a37a3e506e9389b"
+}

@@ -1,0 +1,53 @@
+{
+  "serial": "emulator-5582",
+  "oldApk": "YMPlayer-2.8.0-build140.apk",
+  "newApk": "YMPlayer-2.8.0-build141.apk",
+  "networkBefore": {
+    "wifi": "1",
+    "data": "1"
+  },
+  "before": {
+    "uid": "10209",
+    "firstInstallTime": "2026-11-13 07:24:44",
+    "version": "2.8.0-build140"
+  },
+  "oldProfile": "owner",
+  "beforeProfiles": [
+    {
+      "id": "owner",
+      "name": "Пользователь 1",
+      "defaultNumber": 1
+    },
+    {
+      "id": "road",
+      "name": "Пользователь 2",
+      "defaultNumber": 2
+    },
+    {
+      "id": "guest",
+      "name": "Пользователь 3",
+      "defaultNumber": 3
+    }
+  ],
+  "after": {
+    "uid": "10209",
+    "firstInstallTime": "2026-11-13 07:24:44",
+    "version": "2.8.0-build141"
+  },
+  "launch": "Starting: Intent { cmp=dev.petrov.ymplayer2/.MainActivity }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: dev.petrov.ymplayer2/.MainActivity\r\nTotalTime: 2388\r\nWaitTime: 2396\r\nComplete",
+  "selectedProfile": "owner",
+  "migratedIds": [
+    "local",
+    "owner",
+    "road",
+    "guest"
+  ],
+  "privateMarkerPreserved": true,
+  "markerSha256": "5b9cce395bd62fe272b272134e86abb00b02b99da389a855ac3b0a5d6d1fd222",
+  "sameUid": true,
+  "sameFirstInstallTime": true,
+  "sameSelectedProfile": true,
+  "appVisible": true,
+  "javaCrash": false,
+  "networkRestored": true
+}

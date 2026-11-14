@@ -1,0 +1,10 @@
+{
+  "serial": "emulator-5584",
+  "classes": [
+    "dev.petrov.ymplayer2.UserProfilesStorageTest",
+    "dev.petrov.ymplayer2.UserProfilesUiTest",
+    "dev.petrov.ymplayer2.AccountChoiceDialogTest"
+  ],
+  "passed": 17,
+  "success": true
+}
