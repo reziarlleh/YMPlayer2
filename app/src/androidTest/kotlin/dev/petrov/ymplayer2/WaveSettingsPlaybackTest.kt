@@ -45,6 +45,19 @@ class WaveSettingsPlaybackTest {
         compose.onNodeWithTag("wave_setting_moodEnergy_settingMoodEnergy:calm").performScrollTo().performClick()
         compose.onNodeWithTag("wave_setting_language_settingLanguage:russian").performScrollTo().performClick()
     }
+    @Test fun applyingUnchangedSettingsKeepsTheWaveTrackAndPosition() {
+        startMyWave()
+        compose.runOnIdle { player.seek(4); player.sessionPause() }
+        waitFor { !player.state.value.playing && player.state.value.positionSeconds == 4 }
+        val saved = player.state.value
+        val starts = fixture.waveSelections.size
+        open()
+        compose.onNodeWithTag("wave_settings_play").performClick()
+        waitFor { player.state.value.playing }
+        assertEquals(starts, fixture.waveSelections.size)
+        assertEquals(saved.current?.id, player.state.value.current?.id)
+        assertTrue(player.state.value.positionSeconds in 4..6)
+    }
     @Test fun settingsDoNotInterruptMyWaveAndSelectedSeedsSurviveContinuationAndPausedRestore() {
         startMyWave()
         val current = player.state.value.current!!.id

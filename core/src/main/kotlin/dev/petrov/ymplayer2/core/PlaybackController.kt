@@ -67,6 +67,7 @@ interface PlaybackController {
     fun removeFromQueue(trackId: String)
     fun clearQueue()
     fun playQueue(trackIds: List<String>, startId: String? = null)
+    /** Resume My Wave; reselecting it preserves the queue/position. Stop or new settings reset it. */
     fun playMyWave() = Unit
     fun playWave(request: WaveRequest) = Unit
     fun playOffline() = Unit

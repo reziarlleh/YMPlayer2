@@ -25,9 +25,10 @@ import kotlinx.coroutines.*
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class OnlineHarness(app: Application) : AndroidViewModel(app) {
     val internet = FixtureInternetConnection()
+    var profileOverrides: List<Profile>? = null
     val library: IndexedLocalLibrary = object : IndexedLocalLibrary by (app as PlayerApplication).library {
         // These are explicit test identities, independent of the real app's editable user list.
-        override val profiles = DemoCatalog().profiles
+        override val profiles get() = profileOverrides ?: DemoCatalog().profiles
         override val users: UserProfiles? = null
     }
     private fun fixtureTracks(): List<Track> = runBlocking { library.pageTracks(CatalogFilter(), limit = 2).items }
@@ -37,7 +38,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     }
     init { context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit() }
     private val sessions = mutableMapOf("owner" to session("1"), "road" to session("2"))
-    val auth = AccountAuth(library.profiles, object : DeviceAuthApi {
+    val auth = AccountAuth({ library.profiles }, object : DeviceAuthApi {
         override val configured = true
         override suspend fun requestCode(profileId: String): DeviceChallenge = error("fixture login not supported")
         override suspend fun poll(code: DeviceChallenge): TokenPoll = error("fixture login not supported")

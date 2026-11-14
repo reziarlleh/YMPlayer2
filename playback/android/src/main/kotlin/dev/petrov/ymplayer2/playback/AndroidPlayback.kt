@@ -981,14 +981,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         return true
     }
 
-    override fun playMyWave() {
-        // Re-selecting the active wave (including Apply in its settings) is a fresh
-        // session. Returning from another source resumes the parked selection.
-        val returning = radioMode || !state.value.wave || state.value.origin.source != PlaybackSource.MY_WAVE
-        command(playing = true) {
-            val request = waveSettings?.request(state.value.profileId) ?: WaveRequest()
-            if (!returning || !restoreMyWaveBookmark(request)) startWave(request, PlaybackSource.MY_WAVE)
-        }
+    override fun playMyWave() = command(playing = true) {
+        val request = waveSettings?.request(state.value.profileId) ?: WaveRequest()
+        val sameWave = state.value.wave && state.value.origin.source == PlaybackSource.MY_WAVE &&
+            activeWaveRequest.station == request.station && activeWaveRequest.settings.toSet() == request.settings.toSet()
+        // A source button resumes the selection, including one just restored by switchProfile.
+        // A changed request or an empty selection after explicit Stop starts a fresh session.
+        if (sameWave && (state.value.current != null || state.value.waveLoading)) playSession()
+        else if (!restoreMyWaveBookmark(request)) startWave(request, PlaybackSource.MY_WAVE)
     }
     override fun playWave(request: WaveRequest) = command(playing = true) { startWave(request, PlaybackSource.OBJECT_WAVE) }
     private fun startWave(request: WaveRequest, source: PlaybackSource) {
@@ -1251,7 +1251,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         waveCurrentAudioJob?.cancel(); waveCurrentAudioJob = null; waveCurrentAudioId = null; waveCurrentAudioQuality = null
         waveTrackErrorJob?.cancel(); waveTrackErrorJob = null
         pendingWaveBatch = null; waveRecovery.reset()
-        if (discardAudio) waveAudio.clear() else waveAudio.cancelPending()
+        if (discardAudio) waveAudio.clear(state.value.profileId) else waveAudio.cancelPending()
         failedWaveTracks = 0; wavePausePending = false
         waveAdvance = false; automaticWaveAdvance = false; waveResume = false; waveStarted = null
         mutable.value = state.value.copy(waveLoading = false, waveIssue = null)

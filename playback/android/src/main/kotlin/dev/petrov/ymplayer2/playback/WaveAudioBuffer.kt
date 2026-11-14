@@ -64,10 +64,12 @@ internal class WaveAudioBuffer(private val context: Context, private val account
         if (remove.isNotEmpty()) runCatching { writeIndex() }
     }
     fun cancelPending() = synchronized(lock) { generation++; retained = null }
-    fun clear() = synchronized(lock) {
+    fun clear(profile: String? = null) = synchronized(lock) {
         generation++
         retained = null
-        files.values.forEach { it.file.delete() }; files.clear()
+        // A local/signed-out profile must not erase another profile's parked wave.
+        val remove = files.keys.filter { profile == null || it.first == profile }
+        remove.forEach { files.remove(it)?.file?.delete() }
         runCatching { writeIndex() }
         // In-flight temporary files are removed by their worker's finally block.
     }

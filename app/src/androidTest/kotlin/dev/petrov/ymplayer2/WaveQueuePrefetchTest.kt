@@ -358,7 +358,7 @@ class WaveQueuePrefetchTest {
         val heard = (0 until saved.length()).map { saved.getString(it) }.toSet()
         assertTrue("1" in heard)
         assertTrue("Downloading the next nine songs must not mark them as heard", (2..10).none { it.toString() in heard })
-        compose.runOnIdle { player.playMyWave() }
+        compose.runOnIdle { player.stop(); player.playMyWave() }
         waitFor { fullWindow() && player.state.value.current?.id == "yandex:2:7" && player.state.value.playing }
         assertTrue(player.state.value.queue.any { it.id == "yandex:3:7" })
     }

@@ -30,6 +30,73 @@ class MyWavePlaybackTest {
         waitFor { fixture.library.testTracks.size == 2 && fixture.taste.state.value.shelf(TasteKind.ARTIST).ready }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
+    @Test fun activeWaveShortcutKeepsPlayingTheSameTrackPositionAndQueue() = reselectSavedWave(paused = false)
+    @Test fun pausedWaveShortcutResumesTheSameTrackPositionAndQueue() = reselectSavedWave(paused = true)
+    private fun reselectSavedWave(paused: Boolean) {
+        start()
+        waitFor { player.state.value.queue.size == 10 && !player.state.value.waveLoading && player.bufferedWaveAudioIds().size == 10 }
+        compose.runOnIdle { player.seek(4); if (paused) player.sessionPause() }
+        waitFor { player.state.value.positionSeconds in 4..5 && player.state.value.playing != paused }
+        val saved = player.state.value
+        val audio = player.bufferedWaveAudioIds()
+        val starts = fixture.waveSelections.size
+        compose.onNodeWithTag("player_source_wave").performClick()
+        waitFor { player.state.value.playing }
+        val resumed = player.state.value
+        assertEquals("Selecting the active wave must not request a new session", starts, fixture.waveSelections.size)
+        assertEquals(saved.current?.id, resumed.current?.id)
+        assertTrue("Expected ${saved.positionSeconds}, got ${resumed.positionSeconds}", resumed.positionSeconds in saved.positionSeconds..saved.positionSeconds + 2)
+        assertEquals(saved.queue.map(Track::id), resumed.queue.map(Track::id))
+        assertEquals(audio, player.bufferedWaveAudioIds())
+    }
+    @Test fun waveShortcutAfterExplicitStopStartsAFreshWave() {
+        start()
+        compose.runOnIdle { player.seek(4); player.stop() }
+        waitFor { !player.state.value.playing && player.state.value.current == null && player.state.value.queue.isEmpty() }
+        val starts = fixture.waveSelections.size
+        compose.onNodeWithTag("player_source_wave").performClick()
+        waitFor { player.state.value.playing && player.state.value.current != null }
+        assertEquals(starts + 1, fixture.waveSelections.size)
+        assertTrue(player.state.value.positionSeconds in 0..2)
+    }
+    @Test fun repeatedWaveShortcutWhileTheFirstTrackLoadsKeepsTheSameRequest() {
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle { fixture.waveRequestGates = mapOf(1 to gate) }
+        compose.onNodeWithTag("player_source_wave").performClick()
+        waitFor { player.state.value.waveLoading && fixture.waveSelections.size == 1 }
+        compose.onNodeWithTag("player_source_wave").performClick()
+        compose.waitForIdle()
+        assertEquals(1, fixture.waveSelections.size)
+        compose.runOnIdle { gate.complete(Unit) }
+        waitFor { player.state.value.playing && player.state.value.current != null }
+        assertEquals(1, fixture.waveSelections.size)
+    }
+    @Test fun localProfileWaveShortcutResumesTheSavedTrackPositionAndCompleteQueue() {
+        compose.runOnIdle {
+            fixture.profileOverrides = listOf(UserProfiles.localProfile()) + DemoCatalog().profiles.map {
+                it.copy(accountConnected = it.id == "owner")
+            }
+        }
+        start()
+        waitFor { player.state.value.queue.size == 10 && !player.state.value.waveLoading && player.bufferedWaveAudioIds().size == 10 }
+        compose.runOnIdle { player.seek(4); player.sessionPause() }
+        waitFor { !player.state.value.playing && player.state.value.positionSeconds == 4 }
+        val saved = player.state.value
+        val ids = saved.queue.map(Track::id)
+        val audio = player.bufferedWaveAudioIds()
+        val starts = fixture.waveSelections.size
+        compose.runOnIdle { player.switchProfile("local") }
+        waitFor { player.state.value.profileId == "local" && fixture.auth.state.value.phase == AuthPhase.GUEST }
+        compose.onNodeWithTag("player_source_wave").performClick()
+        compose.onNodeWithTag("account_choice_owner").performClick()
+        waitFor { player.state.value.profileId == "owner" && player.state.value.playing }
+        val resumed = player.state.value
+        assertEquals("Account choice must not start a fresh wave", starts, fixture.waveSelections.size)
+        assertEquals("The saved track must survive the direct shortcut", saved.current?.id, resumed.current?.id)
+        assertTrue("Expected saved position4, got ${resumed.positionSeconds}", resumed.positionSeconds in 4..6)
+        assertEquals(ids, resumed.queue.map(Track::id))
+        assertEquals(audio, player.bufferedWaveAudioIds())
+    }
     @Test fun uncachedFirstStreamDoesNotWaitForUnrelatedOfflineAuditLock() {
         compose.runOnIdle { fixture.offline.clear() }
         waitFor { fixture.offline.state.value.ready && fixture.offline.state.value.tracks.isEmpty() }
