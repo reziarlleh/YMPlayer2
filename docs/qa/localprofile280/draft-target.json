@@ -1,0 +1,10 @@
+{
+  "draft": true,
+  "tag": "untagged-b1e90a37a3e506e9389b",
+  "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-b1e90a37a3e506e9389b",
+  "targetCommit": "182f04b893dae1d3db421476e28987d1268960a3",
+  "verifiedCiSource": "cd8225d4b57f23885c95d7fd41cd5323d829417a",
+  "productDiffFromCi": false,
+  "assetsUnchanged": true,
+  "stableLatest": "v2.7.0-build137"
+}
