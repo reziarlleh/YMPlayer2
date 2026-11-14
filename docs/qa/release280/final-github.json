@@ -1,0 +1,26 @@
+{
+  "checkedAtUtc": "2026-11-14T14:39:03.579105+00:00",
+  "verifiedDocumentationCommit": "5cef22ca9a1e3cde5d33591e6ae0b74721b4e899",
+  "remoteMainCommit": "5cef22ca9a1e3cde5d33591e6ae0b74721b4e899",
+  "mainSynchronized": true,
+  "latest": "2.8.0-build144",
+  "normalStableRelease": true,
+  "defaultBranch": "main",
+  "releaseId": 444971492,
+  "fourAcceptedAssetsVerified": true,
+  "productSourcesUnchangedSinceVerifiedCommit": "d6e6e0da0c0c1956070f1658f806c1ed52aa7930",
+  "immutableTagsVerified": {
+    "refs/tags/apk-2.8.0-build144": "d70e225d5684b3cbd01671fe0ba479a780b267ea",
+    "refs/tags/v2.8.0-build144": "96694ccbeadbfcbdb34362658adafd2d563d11f8"
+  },
+  "sourceFeedsMatchLocal": {
+    "manifest": {
+      "blob": "cd7f9afef9a823c3cb652a2b5123b9f4f641a896",
+      "version": "2.8.0-build144"
+    },
+    "stable": {
+      "blob": "cd7f9afef9a823c3cb652a2b5123b9f4f641a896",
+      "version": "2.8.0-build144"
+    }
+  }
+}
