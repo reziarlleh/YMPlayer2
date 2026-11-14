@@ -1,0 +1,1174 @@
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+dev.petrov.ymplayer2.MyWavePlaybackTest:
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=repeatedWaveShortcutWhileTheFirstTrackLoadsKeepsTheSameRequest
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=1
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=repeatedWaveShortcutWhileTheFirstTrackLoadsKeepsTheSameRequest
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=1
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=activeWaveShortcutKeepsPlayingTheSameTrackPositionAndQueue
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=2
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=activeWaveShortcutKeepsPlayingTheSameTrackPositionAndQueue
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=2
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=localProfileWaveShortcutResumesTheSavedTrackPositionAndCompleteQueue
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=3
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=localProfileWaveShortcutResumesTheSavedTrackPositionAndCompleteQueue
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=3
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=pausedWaveShortcutResumesTheSameTrackPositionAndQueue
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=4
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=pausedWaveShortcutResumesTheSameTrackPositionAndQueue
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=4
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=waveShortcutAfterExplicitStopStartsAFreshWave
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=5
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=waveShortcutAfterExplicitStopStartsAFreshWave
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.MyWavePlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=5
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+dev.petrov.ymplayer2.WaveSettingsPlaybackTest:
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=applyingUnchangedSettingsKeepsTheWaveTrackAndPosition
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=6
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=applyingUnchangedSettingsKeepsTheWaveTrackAndPosition
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=6
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=remoteCanSelectAnAlreadySelectedChipAndNavigateBetweenGroups
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=7
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=remoteCanSelectAnAlreadySelectedChipAndNavigateBetweenGroups
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=7
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=settingsDoNotInterruptMyWaveAndSelectedSeedsSurviveContinuationAndPausedRestore
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=8
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=settingsDoNotInterruptMyWaveAndSelectedSeedsSurviveContinuationAndPausedRestore
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=8
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=failedSettingsReadCanRetryWithoutRestartingMyWave
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=9
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=failedSettingsReadCanRetryWithoutRestartingMyWave
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=9
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=closeResetRecreationAndProfileIsolationKeepChoicesAndQueueSeparate
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=10
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=closeResetRecreationAndProfileIsolationKeepChoicesAndQueueSeparate
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveSettingsPlaybackTest
+
+
+INSTRUMENTATION_STATUS: current=10
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+dev.petrov.ymplayer2.AccountActionContinuationTest:
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=choosingAnAccountStartsTheRequestedWaveWithoutASecondClick
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=11
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=choosingAnAccountStartsTheRequestedWaveWithoutASecondClick
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=11
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=cancellingOfferDoesNotCreateOrRunAnything
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=12
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=cancellingOfferDoesNotCreateOrRunAnything
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=12
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=choosingAnAccountOpensClipsOnceAcrossProfileRootAndRotation
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=13
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=choosingAnAccountOpensClipsOnceAcrossProfileRootAndRotation
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=13
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=aNewConnectionPublishesOnlyAfterNameAndThenContinuesTheOriginalWave
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=14
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=aNewConnectionPublishesOnlyAfterNameAndThenContinuesTheOriginalWave
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=14
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=choosingAnAccountContinuesRadioAndYandexSearch
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=15
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=choosingAnAccountContinuesRadioAndYandexSearch
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=15
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=cancellingConnectionRemovesTheUnfinishedEntryAndThePendingAction
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=16
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=cancellingConnectionRemovesTheUnfinishedEntryAndThePendingAction
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=16
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=ordinaryProfileChoiceNeverStartsWaveOrClips
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=17
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=ordinaryProfileChoiceNeverStartsWaveOrClips
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=17
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=dpadAccountChoiceContinuesClipsImmediately
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=18
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=dpadAccountChoiceContinuesClipsImmediately
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.AccountActionContinuationTest
+
+
+INSTRUMENTATION_STATUS: current=18
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+dev.petrov.ymplayer2.OfflineSourceStateTest:
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=returningFromRadioPreservesMyWavePositionAndPreparedFiles
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+
+INSTRUMENTATION_STATUS: current=19
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=returningFromRadioPreservesMyWavePositionAndPreparedFiles
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+
+INSTRUMENTATION_STATUS: current=19
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+
+INSTRUMENTATION_STATUS: current=20
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+
+INSTRUMENTATION_STATUS: current=20
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=returningFromALocalListRestoresMyWaveWithoutRequestingANewSession
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+
+INSTRUMENTATION_STATUS: current=21
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=returningFromALocalListRestoresMyWaveWithoutRequestingANewSession
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest
+
+
+INSTRUMENTATION_STATUS: current=21
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+dev.petrov.ymplayer2.ProfileRestoreTest:
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=detachDuringProfileReadPreservesIncomingCheckpointForNextProcess
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ProfileRestoreTest
+
+
+INSTRUMENTATION_STATUS: current=22
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=detachDuringProfileReadPreservesIncomingCheckpointForNextProcess
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ProfileRestoreTest
+
+
+INSTRUMENTATION_STATUS: current=22
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ProfileRestoreTest
+
+
+INSTRUMENTATION_STATUS: current=23
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.ProfileRestoreTest
+
+
+INSTRUMENTATION_STATUS: current=23
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+dev.petrov.ymplayer2.WaveQueuePrefetchTest:
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=durableStopCannotResurrectAnOlderPreparedQueueCheckpoint
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+
+
+INSTRUMENTATION_STATUS: current=24
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=durableStopCannotResurrectAnOlderPreparedQueueCheckpoint
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+
+
+INSTRUMENTATION_STATUS: current=24
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+
+
+INSTRUMENTATION_STATUS: current=25
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+
+
+INSTRUMENTATION_STATUS: current=25
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+
+
+INSTRUMENTATION_STATUS: current=26
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+
+
+INSTRUMENTATION_STATUS: current=26
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+
+
+INSTRUMENTATION_STATUS: current=27
+
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+
+INSTRUMENTATION_STATUS: numtests=27
+
+
+INSTRUMENTATION_STATUS: stream=.
+
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+
+INSTRUMENTATION_STATUS: test=explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession
+
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.WaveQueuePrefetchTest
+
+
+INSTRUMENTATION_STATUS: current=27
+
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+
+INSTRUMENTATION_RESULT: stream=
+
+
+
+
+
+Time: 198.076
+
+
+
+
+
+OK (27 tests)
+
+
+
+
+
+
+
+
+INSTRUMENTATION_CODE: -1

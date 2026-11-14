@@ -706,8 +706,11 @@ audio files survive app restarts: up to ten tracks, including the previous one.
 Saved playback can continue from these files while the internet reconnects.
 A saved pause keeps the same track and position; background preparation does not
 select another track. New recommendations are requested as you advance.
-Explicit Stop clears the window for a fresh start. Applying settings with
-**Start My Vibe** immediately starts a new selection. An internet connection is
+Explicit Stop clears the window for a fresh start. Applying changed settings with
+**Start My Vibe** immediately starts a new selection. Selecting **My Vibe** again
+keeps the same queue, track and position, continuing playback or resuming a pause.
+This is fixed in candidate2.8.0-build144; the stable2.7.0-build137 still resets an
+already active Vibe when you select it again. An internet connection is
 needed after the prepared tracks run out. This separate
 Vibe cache does not add songs to your permanent offline collection.
 

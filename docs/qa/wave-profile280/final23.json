@@ -1,0 +1,22 @@
+{
+  "serial": "emulator-5580",
+  "classes": [
+    "dev.petrov.ymplayer2.MyWavePlaybackTest#localProfileWaveShortcutResumesTheSavedTrackPositionAndCompleteQueue",
+    "dev.petrov.ymplayer2.MyWavePlaybackTest#activeWaveShortcutKeepsPlayingTheSameTrackPositionAndQueue",
+    "dev.petrov.ymplayer2.MyWavePlaybackTest#pausedWaveShortcutResumesTheSameTrackPositionAndQueue",
+    "dev.petrov.ymplayer2.MyWavePlaybackTest#waveShortcutAfterExplicitStopStartsAFreshWave",
+    "dev.petrov.ymplayer2.MyWavePlaybackTest#repeatedWaveShortcutWhileTheFirstTrackLoadsKeepsTheSameRequest",
+    "dev.petrov.ymplayer2.WaveSettingsPlaybackTest",
+    "dev.petrov.ymplayer2.AccountActionContinuationTest",
+    "dev.petrov.ymplayer2.OfflineSourceStateTest#returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork",
+    "dev.petrov.ymplayer2.OfflineSourceStateTest#returningFromALocalListRestoresMyWaveWithoutRequestingANewSession",
+    "dev.petrov.ymplayer2.OfflineSourceStateTest#returningFromRadioPreservesMyWavePositionAndPreparedFiles",
+    "dev.petrov.ymplayer2.ProfileRestoreTest",
+    "dev.petrov.ymplayer2.WaveQueuePrefetchTest#explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession",
+    "dev.petrov.ymplayer2.WaveQueuePrefetchTest#durableStopCannotResurrectAnOlderPreparedQueueCheckpoint",
+    "dev.petrov.ymplayer2.WaveQueuePrefetchTest#applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail",
+    "dev.petrov.ymplayer2.WaveQueuePrefetchTest#restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard"
+  ],
+  "passed": 27,
+  "success": true
+}

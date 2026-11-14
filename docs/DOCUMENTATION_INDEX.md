@@ -1,15 +1,11 @@
 # Документация YMPlayer2
 
-[Текущий2.8.0/143: APK и Draft](MANUAL_2_8_0_BUILD143.md) ·
-[продолжение функции/имена/проверки](ACCOUNT_ACTION_CONTINUATION_2_8_0.md) ·
-[план2.8.0](PLAN_2_8_0.md) · [полный состав](RELEASE_2_8_0_NOTES.md).
-Реализовано и проверено на эмуляторах; приёмка/публичная публикация143 ожидаются.
-Latest/feeds2.7.0-build137. История: [138/139](USER_PROFILES_2_8_0_VERIFICATION.md),
-[диагностика140](SESSION_COMMAND_DIAGNOSTICS_2_8_0.md),
-[уточнение141](LOCAL_AND_YANDEX_PROFILES_2_8_0.md),
-[первоначальная сверка Draft/порядка](RELEASE_ORDER_AUDIT_2026_11_14.md).
-После139 возобновлён D-004: [свежий№111/лог137](FORUM_FOX7_FRESH_137_2026_11_13.md).
-Причина Pause не установлена.
+[Текущий2.8.0/144: APK и Draft](MANUAL_2_8_0_BUILD144.md) ·
+[B-050: кнопка волны/готовые файлы/проверки](LOCAL_PROFILE_WAVE_RETURN_2_8_0.md) ·
+[план](PLAN_2_8_0.md) · [полный состав](RELEASE_2_8_0_NOTES.md).
+27 native23/35/CI/подписанный upgrade прошли; приёмка144 ожидается, stable2.7.0-build137.
+История: [профили143](ACCOUNT_ACTION_CONTINUATION_2_8_0.md),
+[диагностика140](SESSION_COMMAND_DIAGNOSTICS_2_8_0.md), [138/139](USER_PROFILES_2_8_0_VERIFICATION.md).
 
 [Опубликованный2.7.0-build137, Android6+: GitHub/Latest/feed и доставка](RELEASE_2_7_0_VERIFICATION.md).
 [4PDA№109, шапка и история Android9+/10+](FORUM_RELEASE_2_7_0_2026_11_13.md).

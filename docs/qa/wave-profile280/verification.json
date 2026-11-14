@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-14",
+  "version": "2.8.0-build144",
+  "codeCI": "d6e6e0da0c0c1956070f1658f806c1ed52aa7930",
+  "unit": {
+    "core": {
+      "tests": 182,
+      "errors": 0,
+      "failures": 0
+    },
+    "app": {
+      "tests": 4,
+      "errors": 0,
+      "failures": 0
+    }
+  },
+  "debugLint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 134,
+    "NewApi": 0,
+    "LintError": 0
+  },
+  "releaseCheck": "assembleRelease + lintVitalRelease + signing/OAuth/badging",
+  "native": {
+    "API23": 27,
+    "API35": 27
+  },
+  "nativeBuild": "Final product code compiled before allocator advanced Build143 to144; final signed144 tested separately.",
+  "initialNative": "Red on143: duplicate start. First fix:24 of26 pass on each API, then discovered cross-profile cache deletion and corrected Stop test waiting.",
+  "apk": {
+    "bytes": 4700326,
+    "sha256": "5247b2c178ead602c00496e65e6ee2d5838abbc67bacebbc1d8faa90ca197e60"
+  },
+  "ownerAcceptance": "pending",
+  "stable": "2.7.0-build137"
+}
