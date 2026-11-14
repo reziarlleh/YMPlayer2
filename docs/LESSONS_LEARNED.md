@@ -2,8 +2,8 @@
 
 ### 2026-11-14 — при правке Draft явно сохранять тег и перечитывать URL
 
-PATCH target_commitish с draft=true без tag_name вернул служебный тег unt agged
-(без пробела), хотя название выпуска оставалось2.8.0-build141. Полный payload
+PATCH target_commitish с draft=true без tag_name вернул служебный тег `untagged-…`,
+хотя название выпуска оставалось2.8.0-build141. Полный payload
 с явным v2.8.0-build141 восстановил нужное значение; GitHub изменил служебный URL.
 Assets/подпись/Latest не менялись. После сохранения перечитывать tag_name, html_url,
 Draft/Latest и обновлять ссылки; одно правильное название релиза этого не доказывает.
