@@ -54,5 +54,7 @@ Stable/Latest/update feeds остаются137 до принятия и разр
 на23/28/35 и signed139→140/lifecycle23/35 прошли. По одному десятиминутному
 idle-тесту явно пропущено. [Отчёт](SESSION_COMMAND_DIAGNOSTICS_2_8_0.md).
 Владелец ещё не принимал140; Stable/Latest/feeds137 и шапка4PDA не менялись.
+APK140 и3 служебных файла доступны в [актуальном GitHub Draft](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-7c20c8968a656ff3fd44),
+полная загрузка/hash проверены; это подготовка к проверке, не публичный выпуск.
 Следующий шаг — его проверка UX; при новых исправлениях продолжается2.8.0,
 повышается только Build. RepoWise недоступен из-за tree_sitter.

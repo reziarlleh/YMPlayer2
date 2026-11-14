@@ -1,5 +1,9 @@
 # Карта переноса и модулей
 
+14 ноября: [упорядочена подготовка GitHub Releases](RELEASE_ORDER_AUDIT_2026_11_14.md) —
+один Draft140 с тем же APK, старый отозванный Draft122 убран с сохранением тега
+и резервной копии. Код/границы модулей/версия APK не менялись; Latest137.
+
 14 ноября: в140 добавлен контекст media-команд в core/OperationDiagnostic и
 playback/AudioService, снимок прежнего intent в AndroidPlayback, lifecycle
 в MainActivity. Политика управления сохранена; новых модулей/разрешений нет.

@@ -1,7 +1,7 @@
 # Текущий статус YMPlayer2
 
 Текущий цикл — [2.8.0: пользовательские профили и диагностика команд](PLAN_2_8_0.md).
-**2.8.0-build140** — неопубликованный локальный кандидат,
+**2.8.0-build140** — неопубликованный подписанный кандидат,
 [подписанный APK готов](MANUAL_2_8_0_BUILD140.md). Сохранены именные пользователи,
 свои аккаунты/оформление и выбор на паузе; добавлен контекст Play/Pause/Stop
 и Activity foreground/background. Политика воспроизведения не менялась.
@@ -13,6 +13,11 @@ Signed139→140 сохранил UID/firstInstallTime/marker/профили на
 Stable/Latest/feeds остаются2.7.0-build137. D-004/Fox_7 открыт до нового лога/ответа.
 [GitHub CI43492806999](https://github.com/reziarlleh/YMPlayer2/actions/runs/43492806999)
 успешен для исходников140, commitdc74372.
+14 ноября APK и3 служебных файла размещены в одном
+[актуальном GitHub Draft140](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-7c20c8968a656ff3fd44).
+Отозванный Draft122 убран после резервного копирования; тег сохранён.
+[Порядок Releases и проверка полной загрузки файлов](RELEASE_ORDER_AUDIT_2026_11_14.md).
+Публичный Latest и update feeds остаются137.
 
 13 ноября2026 владелец принял **2.7.0-build137** и поручил GitHub→пост4PDA→шапку.
 [Обычный стабильный релиз](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.7.0-build137)

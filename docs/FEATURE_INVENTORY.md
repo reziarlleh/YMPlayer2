@@ -5,6 +5,8 @@
 на паузе. [Профильная матрица138/139, включая TV28](USER_PROFILES_2_8_0_VERIFICATION.md)
 сохранена; [APK140/диагностика команд23/28/35](SESSION_COMMAND_DIAGNOSTICS_2_8_0.md)
 готовы. Владельческая приёмка/публикация ещё предстоят.
+Подготовленный APK140 доступен в [GitHub Draft](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-7c20c8968a656ff3fd44);
+публичный канал137. [Сверка доставки](RELEASE_ORDER_AUDIT_2026_11_14.md).
 
 Текущий стабильный выпуск: **2.7.0-build137**, принят и опубликован13 ноября2026.
 В [опубликованном2.7.0-build137](MANUAL_2_7_0_BUILD137.md) все11 Android-модулей

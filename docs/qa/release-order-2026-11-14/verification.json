@@ -1,0 +1,120 @@
+{
+  "checkedAt": "2026-11-14T03:01:06.584201+00:00",
+  "removedObsoleteDraft": {
+    "id": 427406363,
+    "tag": "v2.6.4-build122",
+    "assetsBackedUp": [
+      {
+        "id": 687126544,
+        "name": "build.json",
+        "bytes": 546,
+        "sha256": "7f1144d8b3933ddeb63b643969cafefd0dcd7d08929f86b6f937169972f1be28"
+      },
+      {
+        "id": 687126562,
+        "name": "SHA256.txt",
+        "bytes": 94,
+        "sha256": "c736d1c1b1dca61e73ff0896066bbaaf194a73b7a9320997845c4647f42a9be7"
+      },
+      {
+        "id": 687126563,
+        "name": "signature.txt",
+        "bytes": 978,
+        "sha256": "54130fee6b3f329459976260a63d0c077ae38bd0523cdc46d4a6a61661d0bad1"
+      },
+      {
+        "id": 687126543,
+        "name": "YMPlayer-2.6.4-build122.apk",
+        "bytes": 7004557,
+        "sha256": "cc0c1fc0462987303d4adaa1fe61babd0427d342fb31017bf251f364719fc571"
+      }
+    ],
+    "gitTagPreserved": true
+  },
+  "currentDraft": {
+    "id": 444971492,
+    "tag": "v2.8.0-build140",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-7c20c8968a656ff3fd44",
+    "draft": true,
+    "prerelease": false,
+    "target": "9717d735b5d29bc5ee382edc63e0cd66cceee1ab",
+    "files": [
+      {
+        "id": 746081985,
+        "name": "build.json",
+        "bytes": 344,
+        "sha256": "089cbad9dffd2fff175a19931d1337e11f3951a11f658fdff13aaf0c5af438db",
+        "fullDownloadMatchesLocal": true
+      },
+      {
+        "id": 746081990,
+        "name": "SHA256.txt",
+        "bytes": 94,
+        "sha256": "cba4a8aea61b032893a63491ad43148ba78c712c4f6ac0b0356fbb1d1d90f762",
+        "fullDownloadMatchesLocal": true
+      },
+      {
+        "id": 746081984,
+        "name": "signature.txt",
+        "bytes": 14227,
+        "sha256": "ef80374ea77fe50e0559e971eb67b786d388a44e0713e86cae9a8fcd36c4db1a",
+        "fullDownloadMatchesLocal": true
+      },
+      {
+        "id": 746081986,
+        "name": "YMPlayer-2.8.0-build140.apk",
+        "bytes": 4694242,
+        "sha256": "df17395d08fb0efefab4be05fbb6ef914f9b759f0fcd9dc425acc607cb6f144b",
+        "fullDownloadMatchesLocal": true
+      }
+    ]
+  },
+  "draftCountAfter": 1,
+  "stableLatest": "v2.7.0-build137",
+  "stableReleaseId": 444073690,
+  "published140": false,
+  "autoUpdateChanged": false,
+  "apkRebuilt": false,
+  "afterTop": [
+    {
+      "tag": "v2.8.0-build140",
+      "draft": true,
+      "prerelease": false
+    },
+    {
+      "tag": "v2.7.0-build137",
+      "draft": false,
+      "prerelease": false
+    },
+    {
+      "tag": "v2.6.6-build132",
+      "draft": false,
+      "prerelease": false
+    },
+    {
+      "tag": "v2.6.6-build131",
+      "draft": false,
+      "prerelease": true
+    },
+    {
+      "tag": "v2.6.6-build129",
+      "draft": false,
+      "prerelease": true
+    },
+    {
+      "tag": "v2.6.6-build127",
+      "draft": false,
+      "prerelease": true
+    },
+    {
+      "tag": "v2.6.6-build126",
+      "draft": false,
+      "prerelease": true
+    },
+    {
+      "tag": "v2.6.5-build125",
+      "draft": false,
+      "prerelease": false
+    }
+  ]
+}
