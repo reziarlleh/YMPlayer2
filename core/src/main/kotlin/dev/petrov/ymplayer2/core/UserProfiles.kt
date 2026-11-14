@@ -45,7 +45,7 @@ class UserProfiles(initial: List<Profile>,
         val current = it.firstOrNull { p -> p.id == id && p.canSignIn }
         val complete = connected && account != null && label.isNotBlank()
         val next = if (current == null || connected && account != null && label.isBlank()) it else it.map { p ->
-            if (p.id == id) p.copy(name = label.ifBlank { if (connected && !p.userNamed && p.defaultNumber == null) p.name else "Яндекс" },
+            if (p.id == id) p.copy(name = label.ifBlank { if (!p.provisional && !p.userNamed && p.defaultNumber == null) p.name else "Яндекс" },
                 defaultNumber = null, userNamed = false, accountConnected = complete,
                 provisional = p.provisional && !complete) else p
         }

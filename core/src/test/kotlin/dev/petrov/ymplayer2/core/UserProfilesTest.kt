@@ -8,6 +8,18 @@ import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UserProfilesTest {
+    @Test fun losingTheSignInKeepsTheLastYandexNameButNeverPublishesAnUnfinishedConnection() = runTest {
+        val users = UserProfiles(listOf(UserProfiles.localProfile()), {}, newId = { "driver" })
+        val draft = users.createYandex()
+        users.updateAccount(draft.id, null, connected = true)
+        assertTrue(users.state.value.last().provisional)
+        users.updateAccountName(draft.id, "Мария")
+        users.updateAccount(draft.id, null, connected = false)
+        val saved = users.state.value.last()
+        assertEquals("Мария", saved.name)
+        assertFalse(saved.provisional)
+        assertFalse(saved.accountConnected)
+    }
     @Test fun builtInLocalProfileCannotBeRenamedDeletedOrGivenAnAccountName() = runTest {
         val local = UserProfiles.localProfile()
         var cleaned = false

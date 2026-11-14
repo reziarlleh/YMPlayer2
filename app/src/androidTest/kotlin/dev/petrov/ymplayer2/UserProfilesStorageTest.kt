@@ -78,6 +78,7 @@ class UserProfilesStorageTest {
         assertEquals(listOf("local", "owner", "wife"), users.state.value.map(Profile::id))
         users.updateAccountName("owner", "Имя Яндекса")
         users.updateAccountName("wife", "Другое имя")
+        users.updateAccount("wife", null, connected = false)
         val bytes = file.readBytes()
         val reloaded = loadUserProfiles(context)
         assertArrayEquals(bytes, file.readBytes())
