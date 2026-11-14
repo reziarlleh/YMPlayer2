@@ -1,0 +1,11 @@
+{
+  "serial": "emulator-5582",
+  "version": "2.8.0-build143",
+  "accountOfferObserved": true,
+  "cancelPreservedLocalAndCreatedNoProfile": true,
+  "connectionProvisionalUntilName": true,
+  "cancelRemovedUnfinishedConnection": true,
+  "originalSelectionRestored": true,
+  "javaCrash": false,
+  "networkRestored": true
+}

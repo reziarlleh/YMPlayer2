@@ -1,0 +1,225 @@
+{
+  "date": "2026-11-14",
+  "codeCommit": "9c73d249900f3c672056b8a3eb354cfa0494a5de",
+  "version": "2.8.0-build143",
+  "unit": {
+    "core": {
+      "tests": 182,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "debug": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 134,
+      "NewApi": 0
+    },
+    "release": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 132,
+      "NewApi": 0
+    }
+  },
+  "native": {
+    "actions23": {
+      "passed": 8,
+      "methods": [
+        "aNewConnectionPublishesOnlyAfterNameAndThenContinuesTheOriginalWave",
+        "cancellingConnectionRemovesTheUnfinishedEntryAndThePendingAction",
+        "cancellingOfferDoesNotCreateOrRunAnything",
+        "choosingAnAccountContinuesRadioAndYandexSearch",
+        "choosingAnAccountOpensClipsOnceAcrossProfileRootAndRotation",
+        "choosingAnAccountStartsTheRequestedWaveWithoutASecondClick",
+        "dpadAccountChoiceContinuesClipsImmediately",
+        "ordinaryProfileChoiceNeverStartsWaveOrClips"
+      ],
+      "runnerSuccess": true
+    },
+    "actions35": {
+      "passed": 8,
+      "methods": [
+        "aNewConnectionPublishesOnlyAfterNameAndThenContinuesTheOriginalWave",
+        "cancellingConnectionRemovesTheUnfinishedEntryAndThePendingAction",
+        "cancellingOfferDoesNotCreateOrRunAnything",
+        "choosingAnAccountContinuesRadioAndYandexSearch",
+        "choosingAnAccountOpensClipsOnceAcrossProfileRootAndRotation",
+        "choosingAnAccountStartsTheRequestedWaveWithoutASecondClick",
+        "dpadAccountChoiceContinuesClipsImmediately",
+        "ordinaryProfileChoiceNeverStartsWaveOrClips"
+      ],
+      "runnerSuccess": true
+    },
+    "actions-tv28": {
+      "passed": 8,
+      "methods": [
+        "aNewConnectionPublishesOnlyAfterNameAndThenContinuesTheOriginalWave",
+        "cancellingConnectionRemovesTheUnfinishedEntryAndThePendingAction",
+        "cancellingOfferDoesNotCreateOrRunAnything",
+        "choosingAnAccountContinuesRadioAndYandexSearch",
+        "choosingAnAccountOpensClipsOnceAcrossProfileRootAndRotation",
+        "choosingAnAccountStartsTheRequestedWaveWithoutASecondClick",
+        "dpadAccountChoiceContinuesClipsImmediately",
+        "ordinaryProfileChoiceNeverStartsWaveOrClips"
+      ],
+      "runnerSuccess": true
+    },
+    "profiles23": {
+      "passed": 23,
+      "methods": [
+        "choosingAnAccountForClipsInvokesTheRealActivityLaunchOnce",
+        "connectionRequiresConfirmationAndRepeatedClickCreatesOnlyOneProfile",
+        "createdUsersRestoreTheirOwnEncryptedSessionsAndRenamingDoesNotRequireSignIn",
+        "damagedUserListIsPreservedAndCannotBeOverwrittenByEditing",
+        "deletingTheActiveUserSelectsAnotherPausedUserAndKeepsTheirPreferences",
+        "detachDuringProfileReadPreservesIncomingCheckpointForNextProcess",
+        "encryptedSessionsSurviveNewStoreRejectCrossProfileAndDeleteIndependently",
+        "encryptedStoreReadsBuild7SchemaAndPersistsOAuthBeforeAccountMetadata",
+        "existingAccountsCanBeChosenWithoutCreatingAProfile",
+        "freshInstallHasOnlyTheProtectedLocalUserAndYandexUsersSurviveReload",
+        "languageThemeAndScaleBelongToTheSelectedUserIncludingLegacyDefaults",
+        "localHasNoDeleteRenameOrSignInAndNewAccountNamesReachTheProfileList",
+        "localOnlineActionsOfferAccountChoiceAndCancelKeepsTheLocalPlayer",
+        "noAccountsOnlyOffersConnectionAndCancelCreatesNothing",
+        "oldSlotsAndEncryptedAccountsKeepTheirIdentityAfterMigrationAndRename",
+        "parsesDeviceAndTokenProtocolAndKeepsDeviceIdsDistinctAndStable",
+        "rapidRepeatedAddCreatesOnlyOneYandexUser",
+        "rejectsWrongVerificationHostAndInvalidResponsesWithoutLeakingBody",
+        "schemaOneMigrationIsIdempotentAndPreservesIdsAliasesAndCheckpoints",
+        "selectingAnotherUserRestoresTheirSkinWithoutChangingTheFirstUser",
+        "slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile",
+        "switchingUsersRestoresTheirOwnTrackAndPositionButNeverStartsPlayback",
+        "transportMatchesLegacyHeadersAndClassifiesFailuresWithoutReadingErrorBodies"
+      ],
+      "runnerSuccess": false
+    },
+    "profiles35": {
+      "passed": 23,
+      "methods": [
+        "choosingAnAccountForClipsInvokesTheRealActivityLaunchOnce",
+        "connectionRequiresConfirmationAndRepeatedClickCreatesOnlyOneProfile",
+        "createdUsersRestoreTheirOwnEncryptedSessionsAndRenamingDoesNotRequireSignIn",
+        "damagedUserListIsPreservedAndCannotBeOverwrittenByEditing",
+        "deletingTheActiveUserSelectsAnotherPausedUserAndKeepsTheirPreferences",
+        "detachDuringProfileReadPreservesIncomingCheckpointForNextProcess",
+        "encryptedSessionsSurviveNewStoreRejectCrossProfileAndDeleteIndependently",
+        "encryptedStoreReadsBuild7SchemaAndPersistsOAuthBeforeAccountMetadata",
+        "existingAccountsCanBeChosenWithoutCreatingAProfile",
+        "freshInstallHasOnlyTheProtectedLocalUserAndYandexUsersSurviveReload",
+        "languageThemeAndScaleBelongToTheSelectedUserIncludingLegacyDefaults",
+        "localHasNoDeleteRenameOrSignInAndNewAccountNamesReachTheProfileList",
+        "localOnlineActionsOfferAccountChoiceAndCancelKeepsTheLocalPlayer",
+        "noAccountsOnlyOffersConnectionAndCancelCreatesNothing",
+        "oldSlotsAndEncryptedAccountsKeepTheirIdentityAfterMigrationAndRename",
+        "parsesDeviceAndTokenProtocolAndKeepsDeviceIdsDistinctAndStable",
+        "rapidRepeatedAddCreatesOnlyOneYandexUser",
+        "rejectsWrongVerificationHostAndInvalidResponsesWithoutLeakingBody",
+        "schemaOneMigrationIsIdempotentAndPreservesIdsAliasesAndCheckpoints",
+        "selectingAnotherUserRestoresTheirSkinWithoutChangingTheFirstUser",
+        "slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile",
+        "switchingUsersRestoresTheirOwnTrackAndPositionButNeverStartsPlayback",
+        "transportMatchesLegacyHeadersAndClassifiesFailuresWithoutReadingErrorBodies"
+      ],
+      "runnerSuccess": false
+    },
+    "profiles-tv28": {
+      "passed": 16,
+      "methods": [
+        "choosingAnAccountForClipsInvokesTheRealActivityLaunchOnce",
+        "connectionRequiresConfirmationAndRepeatedClickCreatesOnlyOneProfile",
+        "createdUsersRestoreTheirOwnEncryptedSessionsAndRenamingDoesNotRequireSignIn",
+        "damagedUserListIsPreservedAndCannotBeOverwrittenByEditing",
+        "deletingTheActiveUserSelectsAnotherPausedUserAndKeepsTheirPreferences",
+        "existingAccountsCanBeChosenWithoutCreatingAProfile",
+        "freshInstallHasOnlyTheProtectedLocalUserAndYandexUsersSurviveReload",
+        "languageThemeAndScaleBelongToTheSelectedUserIncludingLegacyDefaults",
+        "localHasNoDeleteRenameOrSignInAndNewAccountNamesReachTheProfileList",
+        "localOnlineActionsOfferAccountChoiceAndCancelKeepsTheLocalPlayer",
+        "noAccountsOnlyOffersConnectionAndCancelCreatesNothing",
+        "oldSlotsAndEncryptedAccountsKeepTheirIdentityAfterMigrationAndRename",
+        "rapidRepeatedAddCreatesOnlyOneYandexUser",
+        "schemaOneMigrationIsIdempotentAndPreservesIdsAliasesAndCheckpoints",
+        "selectingAnotherUserRestoresTheirSkinWithoutChangingTheFirstUser",
+        "switchingUsersRestoresTheirOwnTrackAndPositionButNeverStartsPlayback"
+      ],
+      "runnerSuccess": false
+    },
+    "fixes23": {
+      "passed": 2,
+      "methods": [
+        "completedConnectionShowsItsYandexNameAndOnlyTheDeleteOption",
+        "dpadAddsAYandexUserAndOpensSignInWithoutATouch"
+      ],
+      "runnerSuccess": true
+    },
+    "fixes35": {
+      "passed": 2,
+      "methods": [
+        "completedConnectionShowsItsYandexNameAndOnlyTheDeleteOption",
+        "dpadAddsAYandexUserAndOpensSignInWithoutATouch"
+      ],
+      "runnerSuccess": true
+    },
+    "fixes-tv28": {
+      "passed": 2,
+      "methods": [
+        "completedConnectionShowsItsYandexNameAndOnlyTheDeleteOption",
+        "dpadAddsAYandexUserAndOpensSignInWithoutATouch"
+      ],
+      "runnerSuccess": true
+    },
+    "cache23": {
+      "passed": 7,
+      "methods": [
+        "createdUsersRestoreTheirOwnEncryptedSessionsAndRenamingDoesNotRequireSignIn",
+        "damagedUserListIsPreservedAndCannotBeOverwrittenByEditing",
+        "freshInstallHasOnlyTheProtectedLocalUserAndYandexUsersSurviveReload",
+        "languageThemeAndScaleBelongToTheSelectedUserIncludingLegacyDefaults",
+        "oldSlotsAndEncryptedAccountsKeepTheirIdentityAfterMigrationAndRename",
+        "schemaOneMigrationIsIdempotentAndPreservesIdsAliasesAndCheckpoints",
+        "selectingAnotherUserRestoresTheirSkinWithoutChangingTheFirstUser"
+      ],
+      "runnerSuccess": true
+    },
+    "cache35": {
+      "passed": 7,
+      "methods": [
+        "createdUsersRestoreTheirOwnEncryptedSessionsAndRenamingDoesNotRequireSignIn",
+        "damagedUserListIsPreservedAndCannotBeOverwrittenByEditing",
+        "freshInstallHasOnlyTheProtectedLocalUserAndYandexUsersSurviveReload",
+        "languageThemeAndScaleBelongToTheSelectedUserIncludingLegacyDefaults",
+        "oldSlotsAndEncryptedAccountsKeepTheirIdentityAfterMigrationAndRename",
+        "schemaOneMigrationIsIdempotentAndPreservesIdsAliasesAndCheckpoints",
+        "selectingAnotherUserRestoresTheirSkinWithoutChangingTheFirstUser"
+      ],
+      "runnerSuccess": true
+    }
+  },
+  "uniqueNative": {
+    "API23": 33,
+    "API35": 33,
+    "TV28": 26
+  },
+  "finalStorageRepeats": {
+    "API23": 7,
+    "API35": 7
+  },
+  "apk": {
+    "name": "YMPlayer-2.8.0-build143.apk",
+    "bytes": 4700317,
+    "sha256": "82c10602596375f2848f93894aced172c5d4e7b7d104e2905d79deb7e4b79245",
+    "minSdk": 23
+  },
+  "ownerAcceptance": "pending",
+  "publicStable": "2.7.0-build137",
+  "repoWise": "unavailable: tree_sitter"
+}

@@ -1,0 +1,15 @@
+{
+  "version": "2.8.0-build143",
+  "manualBeta": false,
+  "development": true,
+  "stableVersion": "2.7.0-build137",
+  "localFeeds": {
+    "manifest": "2.7.0-build137",
+    "stable": "2.7.0-build137"
+  },
+  "documents": 300,
+  "localLinks": 3111,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}

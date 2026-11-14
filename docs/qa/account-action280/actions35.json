@@ -1,0 +1,8 @@
+{
+  "serial": "emulator-5582",
+  "classes": [
+    "dev.petrov.ymplayer2.AccountActionContinuationTest"
+  ],
+  "passed": 8,
+  "success": true
+}

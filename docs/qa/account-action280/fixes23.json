@@ -1,0 +1,9 @@
+{
+  "serial": "emulator-5580",
+  "classes": [
+    "dev.petrov.ymplayer2.UserProfilesUiTest#dpadAddsAYandexUserAndOpensSignInWithoutATouch",
+    "dev.petrov.ymplayer2.UserProfilesUiTest#completedConnectionShowsItsYandexNameAndOnlyTheDeleteOption"
+  ],
+  "passed": 2,
+  "success": true
+}

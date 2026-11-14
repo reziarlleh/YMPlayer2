@@ -163,17 +163,21 @@ position, history and personal collection. Switching profiles does not mix accou
 From2.8.0, profiles represent people: family members or drivers sharing a car.
 A fresh installation has one built-in **Local** profile for device/USB music,
 local playlists and settings. It cannot be renamed or removed and does not sign
-in to Yandex. Select **Add Yandex profile** to create a separate profile and open
-device-code sign-in. Its name comes from the Yandex account; until available,
-the label is **Yandex**. A temporary name lookup failure does not undo sign-in.
-**⋮** beside a Yandex profile lets you rename or remove it. Renaming keeps the
-account and data and takes priority over automatic naming. Removing the active
-profile asks for confirmation and returns to Local paused. Music files are kept.
+in to Yandex. **Add Yandex profile** opens device-code sign-in. A new profile
+appears in the list once sign-in succeeds and its account name is available.
+If the name could not be loaded, use **Refresh account details**; you do not need
+to approve an already completed sign-in again. **Cancel sign-in** removes the
+unfinished connection. Names always come from Yandex and cannot be edited.
+**⋮** beside a Yandex profile lets you remove it with confirmation. Removing the
+active profile returns to Local paused. Your music files are kept.
 
 An account-only action from Local offers a choice of Yandex profiles. If none
 exist, it offers to connect an account. Connecting requires confirmation;
 **Cancel** preserves the current section and local playback. Opening the offer
-does not create a profile or request a sign-in code.
+does not create a profile or request a sign-in code. Choosing an account or
+completing sign-in immediately continues the original action. If you requested
+My Vibe or offline playback, it starts without a second tap. Selecting a user
+directly in Profiles still opens their player paused.
 
 Selecting another user restores their queue and position **paused**. Press Play
 when you are ready. Language, theme, selected skin and interface scale are also
@@ -182,8 +186,9 @@ audio-quality settings and the physical cache location remain shared.
 
 Existing Main, On the road, Guest and previously created profiles retain their
 IDs, accounts and data; Local is added separately. Cached account details provide
-automatic names without another sign-in. Explicit aliases are preserved and
-never translated. Local music works in every profile.
+account names without another sign-in, replacing old custom aliases. Account
+names are never translated and remain available after signing out. Local music
+works in every profile.
 
 ## Your collection, recommendations and My Vibe
 

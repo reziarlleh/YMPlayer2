@@ -1,0 +1,66 @@
+{
+  "serial": "emulator-5582",
+  "oldApk": "YMPlayer-2.8.0-build142.apk",
+  "newApk": "YMPlayer-2.8.0-build143.apk",
+  "networkBefore": {
+    "wifi": "1",
+    "data": "1"
+  },
+  "before": {
+    "uid": "10209",
+    "firstInstallTime": "2026-11-13 07:24:44",
+    "version": "2.8.0-build142"
+  },
+  "oldProfile": "local",
+  "beforeProfiles": [
+    {
+      "id": "local",
+      "name": "Локальный",
+      "userNamed": false,
+      "accountConnected": false,
+      "provisional": false
+    },
+    {
+      "id": "owner",
+      "name": "Яндекс",
+      "userNamed": false,
+      "accountConnected": false,
+      "provisional": false
+    },
+    {
+      "id": "road",
+      "name": "Яндекс",
+      "userNamed": false,
+      "accountConnected": false,
+      "provisional": false
+    },
+    {
+      "id": "guest",
+      "name": "Яндекс",
+      "userNamed": false,
+      "accountConnected": false,
+      "provisional": false
+    }
+  ],
+  "after": {
+    "uid": "10209",
+    "firstInstallTime": "2026-11-13 07:24:44",
+    "version": "2.8.0-build143"
+  },
+  "launch": "Starting: Intent { cmp=dev.petrov.ymplayer2/.MainActivity }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: dev.petrov.ymplayer2/.MainActivity\r\nTotalTime: 2930\r\nWaitTime: 2944\r\nComplete",
+  "selectedProfile": "local",
+  "migratedIds": [
+    "local",
+    "owner",
+    "road",
+    "guest"
+  ],
+  "privateMarkerPreserved": true,
+  "markerSha256": "da62747d94abaa95f357626a3f1c81ebd9029aa534965d8a1288bf0304e0cab1",
+  "sameUid": true,
+  "sameFirstInstallTime": true,
+  "sameSelectedProfile": true,
+  "appVisible": true,
+  "javaCrash": false,
+  "networkRestored": true
+}

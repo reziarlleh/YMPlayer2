@@ -1,0 +1,37 @@
+{
+  "releaseId": 444971492,
+  "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-c72a21a5958c35d114b2",
+  "tag": "v2.8.0-build143",
+  "draft": true,
+  "prerelease": false,
+  "sourceCommitAtUpload": "9c73d249900f3c672056b8a3eb354cfa0494a5de",
+  "assets": [
+    {
+      "name": "YMPlayer-2.8.0-build143.apk",
+      "size": 4700317,
+      "sha256": "82c10602596375f2848f93894aced172c5d4e7b7d104e2905d79deb7e4b79245",
+      "id": 746979225
+    },
+    {
+      "name": "build.json",
+      "size": 344,
+      "sha256": "81e179e72cd0a38a6b3fd343b5b37a93d7af4107413526dcd46c9c94c8131562",
+      "id": 746979238
+    },
+    {
+      "name": "SHA256.txt",
+      "size": 94,
+      "sha256": "e528faf557b03efe77891ccf634e561a101b1ee2e9d233bcf04fae1a29f960dd",
+      "id": 746979235
+    },
+    {
+      "name": "signature.txt",
+      "size": 14227,
+      "sha256": "85b8469cbca3f220f474ac80b2d1b8c3e576c07ab06c3e11e907735ea6d59636",
+      "id": 746979234
+    }
+  ],
+  "latest": "v2.7.0-build137",
+  "previousDraftBackedUp": true,
+  "previousApkRemovedAfterVerification": true
+}
