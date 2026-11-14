@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+    "checkedAtUtc": "2026-11-14T14:18:28.570294+00:00",
+    "status": 200,
+    "version": "2.8.0-build144",
+    "code": 144,
+    "minSdk": 23,
+    "matchesExpected": true,
+    "responseSha256": "3c3dea81c0566d07e8d550a0bec307a6a012ac8d1207fb233860c9bc772747f4"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "checkedAtUtc": "2026-11-14T14:18:28.571293+00:00",
+    "status": 200,
+    "version": "2.8.0-build144",
+    "code": 144,
+    "minSdk": 23,
+    "matchesExpected": true,
+    "responseSha256": "3c3dea81c0566d07e8d550a0bec307a6a012ac8d1207fb233860c9bc772747f4"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "checkedAtUtc": "2026-11-14T14:18:28.571293+00:00",
+    "status": 200,
+    "version": "2.7.0-build137",
+    "code": 137,
+    "minSdk": 23,
+    "matchesExpected": false,
+    "responseSha256": "516a7ff975cee93fedeb45589d1378d67f3824e8157b723923fcd7de71a3d4eb"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "checkedAtUtc": "2026-11-14T14:18:28.572293+00:00",
+    "status": 200,
+    "version": "2.8.0-build144",
+    "code": 144,
+    "minSdk": 23,
+    "matchesExpected": true,
+    "responseSha256": "3c3dea81c0566d07e8d550a0bec307a6a012ac8d1207fb233860c9bc772747f4"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-11-14T14:18:28.572293+00:00",
+    "status": 200,
+    "version": "2.8.0-build144",
+    "code": 144,
+    "minSdk": 23,
+    "matchesExpected": true,
+    "responseSha256": "3c3dea81c0566d07e8d550a0bec307a6a012ac8d1207fb233860c9bc772747f4"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-11-14T14:18:28.573293+00:00",
+    "status": 200,
+    "version": "2.7.0-build137",
+    "code": 137,
+    "minSdk": 23,
+    "matchesExpected": false,
+    "responseSha256": "516a7ff975cee93fedeb45589d1378d67f3824e8157b723923fcd7de71a3d4eb"
+  }
+]

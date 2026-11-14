@@ -1,0 +1,45 @@
+{
+  "checkedAtUtc": "2026-11-14T14:18:28.564650+00:00",
+  "version": "2.8.0-build144",
+  "releaseId": 444971492,
+  "releaseUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.0-build144",
+  "publishedAt": "2026-11-14T13:55:54Z",
+  "draft": false,
+  "prerelease": false,
+  "isLatest": true,
+  "defaultBranch": "main",
+  "publicRepository": true,
+  "releaseBodyMatchesCumulativeNotes": true,
+  "verifiedProductSourceCommit": "d6e6e0da0c0c1956070f1658f806c1ed52aa7930",
+  "productSourcesUnchanged": true,
+  "sourceTagCommit": "96694ccbeadbfcbdb34362658adafd2d563d11f8",
+  "distributionTagCommit": "d70e225d5684b3cbd01671fe0ba479a780b267ea",
+  "bothTagsPushedAndVerified": true,
+  "assets": [
+    {
+      "name": "YMPlayer-2.8.0-build144.apk",
+      "bytes": 4700326,
+      "sha256": "5247b2c178ead602c00496e65e6ee2d5838abbc67bacebbc1d8faa90ca197e60",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.0-build144/YMPlayer-2.8.0-build144.apk"
+    },
+    {
+      "name": "build.json",
+      "bytes": 508,
+      "sha256": "e1c3428ff21d3c4702dc99c6db2b8c4e2f29ab109bd729ece0c1b329bba6a178",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.0-build144/build.json"
+    },
+    {
+      "name": "SHA256.txt",
+      "bytes": 94,
+      "sha256": "09ecf8e00cfccd1f3b9da95fcd1e3631edbce8fd3cd85a48fc2f4b449946ab66",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.0-build144/SHA256.txt"
+    },
+    {
+      "name": "signature.txt",
+      "bytes": 14227,
+      "sha256": "85b8469cbca3f220f474ac80b2d1b8c3e576c07ab06c3e11e907735ea6d59636",
+      "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.0-build144/signature.txt"
+    }
+  ],
+  "originalAcceptedAssetsRetained": true
+}

@@ -1,10 +1,8 @@
 # YMPlayer2 — user guide
 
-This guide covers stable2.7.0 and the upcoming2.8.0, for Android6 and later.
-The2.8.0 profile changes are marked in the relevant sections; that release is
-still being reviewed before publication.
-The published stable release is **2.7.0-build137**, for Android6 and later.
-[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.7.0-build137) · [Signing and verification](MANUAL_2_7_0_BUILD137.md).
+This guide covers the stable **YMPlayer2 2.8.0-build144**, for Android 6 and later.
+[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.0-build144) ·
+[Signing and verification](MANUAL_2_8_0_BUILD144.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -695,7 +693,7 @@ position to the beginning of the track.
 In the **2.6.6-build133** manual candidate, dismissing the system media card
 keeps the selected track, paused position and prepared Vibe tracks. Reopening
 the app stays silent. Use Stop in the app or the TV panel to reset the Vibe.
-This fix is not yet included in the stable build132.
+This behavior is included in the current release.
 
 A background service started only to provide media metadata stays silent and
 does not replace your saved playback mode. A temporary account-storage error
@@ -709,8 +707,7 @@ select another track. New recommendations are requested as you advance.
 Explicit Stop clears the window for a fresh start. Applying changed settings with
 **Start My Vibe** immediately starts a new selection. Selecting **My Vibe** again
 keeps the same queue, track and position, continuing playback or resuming a pause.
-This is fixed in candidate2.8.0-build144; the stable2.7.0-build137 still resets an
-already active Vibe when you select it again. An internet connection is
+An internet connection is
 needed after the prepared tracks run out. This separate
 Vibe cache does not add songs to your permanent offline collection.
 

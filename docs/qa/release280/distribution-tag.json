@@ -1,0 +1,12 @@
+{
+  "tag": "apk-2.8.0-build144",
+  "sourceTag": "v2.8.0-build144",
+  "sourceCommit": "96694ccbeadbfcbdb34362658adafd2d563d11f8",
+  "treeBytes": 4715794,
+  "apkSha256": "5247b2c178ead602c00496e65e6ee2d5838abbc67bacebbc1d8faa90ca197e60",
+  "reused": false,
+  "pushed": true,
+  "commit": "d70e225d5684b3cbd01671fe0ba479a780b267ea",
+  "tree": "37247589f042b11526c5d281adb9a645bf25b25e",
+  "remoteCheckedAtUtc": "2026-11-14T14:18:28.564650+00:00"
+}

@@ -1,10 +1,13 @@
 # Документация YMPlayer2
 
-[Текущий2.8.0/144: APK и Draft](MANUAL_2_8_0_BUILD144.md) ·
-[B-050: кнопка волны/готовые файлы/проверки](LOCAL_PROFILE_WAVE_RETURN_2_8_0.md) ·
-[план](PLAN_2_8_0.md) · [полный состав](RELEASE_2_8_0_NOTES.md).
-27 native23/35/CI/подписанный upgrade прошли; приёмка144 ожидается, stable2.7.0-build137.
-История: [профили143](ACCOUNT_ACTION_CONTINUATION_2_8_0.md),
+[Текущий stable 2.8.0-build144: GitHub/feeds/доставка](RELEASE_2_8_0_VERIFICATION.md) ·
+[пост 4PDA №113 и свежая шапка](FORUM_RELEASE_2_8_0_2026_11_14.md) ·
+[полный состав](RELEASE_2_8_0_NOTES.md) · [завершённый план](PLAN_2_8_0.md) ·
+[APK/ручные проверки](MANUAL_2_8_0_BUILD144.md).
+Владелец принял 144; опубликован тот же APK, Latest/манифесты 144/min23.
+Основной CDN feed актуален, Gcore137 — D-001. D-004 не закрыт.
+История: [B-050/27 native23/35](LOCAL_PROFILE_WAVE_RETURN_2_8_0.md),
+[профили 143/TV28](ACCOUNT_ACTION_CONTINUATION_2_8_0.md),
 [диагностика140](SESSION_COMMAND_DIAGNOSTICS_2_8_0.md), [138/139](USER_PROFILES_2_8_0_VERIFICATION.md).
 
 [Опубликованный2.7.0-build137, Android6+: GitHub/Latest/feed и доставка](RELEASE_2_7_0_VERIFICATION.md).
