@@ -62,7 +62,7 @@ class UserProfilesStorageTest {
         val users = loadUserProfiles(context)
         assertEquals(listOf("local", "owner", "road", "guest"), users.state.value.map(Profile::id))
         assertTrue(users.state.value.none(Profile::guest))
-        users.rename("road", "Жена")
+        users.updateAccountName("road", "Жена")
         assertEquals("Жена", loadUserProfiles(context).state.value.first { it.id == "road" }.name)
         assertEquals("fixture-account", accounts.read("road")?.account?.id)
         assertEquals("saved queue marker", context.getSharedPreferences("playback", Context.MODE_PRIVATE).getString("queue:road", null))
@@ -83,7 +83,7 @@ class UserProfilesStorageTest {
         assertArrayEquals(bytes, file.readBytes())
         assertEquals(users.state.value, reloaded.state.value)
         assertEquals("Имя Яндекса", reloaded.state.value[1].name)
-        assertEquals("Мама", reloaded.state.value[2].name)
+        assertEquals("Другое имя", reloaded.state.value[2].name)
         assertEquals("wife", context.getSharedPreferences("playback", Context.MODE_PRIVATE).getString("profile", null))
         assertEquals("queue marker", context.getSharedPreferences("playback", Context.MODE_PRIVATE).getString("queue:wife", null))
     }
@@ -120,13 +120,13 @@ class UserProfilesStorageTest {
             withTimeout(10_000) { auth.state.first { it.profileId == other.id && it.phase == AuthPhase.SIGNED_IN } }
             assertEquals("b", auth.state.value.account?.id)
             assertTrue(runCatching { auth.withSession(first.id) { "wrong user" } }.isFailure)
-            users.rename(other.id, "Супруга")
+            users.updateAccountName(other.id, "Жена из Яндекса")
             val restoredUsers = loadUserProfiles(context)
             val restoredAuth = AccountAuth({ restoredUsers.state.value }, api, store, scope)
             withContext(Dispatchers.Main.immediate) { restoredAuth.activate(other.id) }
             withTimeout(10_000) { restoredAuth.state.first { it.phase == AuthPhase.SIGNED_IN } }
             assertEquals("b", restoredAuth.state.value.account?.id)
-            assertEquals("Супруга", restoredUsers.state.value.first { it.id == other.id }.name)
+            assertEquals("Жена из Яндекса", restoredUsers.state.value.first { it.id == other.id }.name)
         } finally {
             scope.coroutineContext[Job]!!.cancelAndJoin()
             store.write(first.id, null); store.write(other.id, null)

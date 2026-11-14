@@ -747,9 +747,7 @@ Vous pouvez ajouter du texte entre les variables. Exemple: {number}. {artist} - 
     <string name="offline_verify_start" formatted="false">"Vérification du cache hors connexion…"</string>
     <string name="profile_default_name" formatted="false">"Utilisateur @0@"</string>
     <string name="profile_add" formatted="false">"Ajouter un profil Yandex"</string>
-    <string name="profile_name" formatted="false">"Nom de l’utilisateur"</string>
     <string name="profile_options" formatted="false">"Options de l’utilisateur"</string>
-    <string name="profile_rename" formatted="false">"Renommer l’utilisateur"</string>
     <string name="profile_delete" formatted="false">"Supprimer l’utilisateur"</string>
     <string name="profile_delete_title" formatted="false">"Supprimer l’utilisateur « @0@ » ?"</string>
     <string name="profile_delete_hint" formatted="false">"Sa connexion Yandex, ses favoris locaux, ses playlists, son historique et ses réglages seront supprimés de cet appareil. Les fichiers musicaux et les dossiers partagés seront conservés."</string>

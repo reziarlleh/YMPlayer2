@@ -17,7 +17,7 @@ import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.prismFocus
 import kotlinx.coroutines.delay
 
-@Composable internal fun AccountScreen(auth: AccountAuth, profile: Profile) {
+@Composable internal fun AccountScreen(auth: AccountAuth, profile: Profile, cancelConnection: () -> Unit = auth::cancel) {
     val current by auth.state.collectAsStateWithLifecycle()
     val state = current.takeIf { it.profileId == profile.id } ?: AccountAuthState(profile.id)
     val browser = LocalUriHandler.current
@@ -30,7 +30,7 @@ import kotlinx.coroutines.delay
     }
     LazyColumn(Modifier.fillMaxSize().testTag("account_screen"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         item { Text(tr(Msg.msg_c39959813ccd), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { Text(tr(Msg.msg_031396ebc4da, profileName(profile)), color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("account_profile")) }
+        item { Text(if (profile.provisional) tr(Msg.account_connect) else tr(Msg.msg_031396ebc4da, profileName(profile)), color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("account_profile")) }
         when (state.phase) {
             AuthPhase.LOADING, AuthPhase.REQUESTING, AuthPhase.VERIFYING -> {
                 item { LinearProgressIndicator(Modifier.fillMaxWidth()) }
@@ -52,7 +52,7 @@ import kotlinx.coroutines.delay
                 item { Text(tr(Msg.msg_306af95e29b6)) }
             }
             AuthPhase.SIGNED_IN -> {
-                item { Text(tr(Msg.msg_bb7c04530661), style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("auth_connected")) }
+                item { Text(tr(if (profile.provisional && state.account == null) Msg.msg_e21e6ad5c123 else Msg.msg_bb7c04530661), style = MaterialTheme.typography.titleLarge, modifier = Modifier.testTag("auth_connected")) }
                 state.account?.let { account -> item { Text(account.name, fontWeight = FontWeight.Bold) } }
                 item { Text(tr(Msg.msg_2d6b68932448)) }
                 if (state.updatingAccount) item { Text(tr(Msg.msg_e21e6ad5c123)) }
@@ -75,8 +75,8 @@ import kotlinx.coroutines.delay
         }
         if (state.phase == AuthPhase.WAITING) state.issue?.let { issue -> item { Text(trIssue(issue), modifier = Modifier.testTag("auth_network_wait")) } }
         state.diagnostic?.let { code -> item { Text(tr(Msg.msg_78ca838c8f88, code), style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("auth_diagnostic")) } }
-        if (state.phase in setOf(AuthPhase.REQUESTING, AuthPhase.WAITING, AuthPhase.VERIFYING)) item {
-            OutlinedButton(auth::cancel, Modifier.prismFocus().testTag("auth_cancel")) { Text(tr(Msg.msg_a4ee02a4c189)) }
+        if (profile.provisional || state.phase in setOf(AuthPhase.REQUESTING, AuthPhase.WAITING, AuthPhase.VERIFYING)) item {
+            OutlinedButton(cancelConnection, Modifier.prismFocus().testTag("auth_cancel")) { Text(tr(Msg.msg_a4ee02a4c189)) }
         }
     }
     if (confirmLogout) AlertDialog(onDismissRequest = { confirmLogout = false }, title = { Text(tr(Msg.msg_350675f4e001)) },

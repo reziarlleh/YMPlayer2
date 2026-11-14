@@ -14,8 +14,8 @@ import java.io.File
 fun loadUserProfiles(context: Context, beforeRemove: suspend (String, String) -> Unit = { _, _ -> }): UserProfiles {
     val app = context.applicationContext
     val file = AtomicFile(File(app.filesDir, "user-profiles.json"))
-    val legacy = listOf("owner", "road", "guest").mapIndexed { i, id ->
-        Profile(id, "Пользователь ${i + 1}", "", defaultNumber = i + 1)
+    val legacy = listOf("owner", "road", "guest").map { id ->
+        Profile(id, "Яндекс", "")
     }
     val local = UserProfiles.localProfile()
     var writable = true
@@ -25,13 +25,15 @@ fun loadUserProfiles(context: Context, beforeRemove: suspend (String, String) ->
             check(maxOf(file.baseFile.length(), File(file.baseFile.path + ".bak").length()) <= 1_048_576)
             val json = JSONObject(file.openRead().bufferedReader().use { it.readText() })
             val schema = json.getInt("schema")
-            require(schema in 1..2)
-            migration = schema != 2
+            require(schema in 1..3)
+            migration = schema != 3
             val rows = json.getJSONArray("profiles")
             (0 until rows.length()).map { rows.getJSONObject(it).let { row ->
-                Profile(row.getString("id"), row.getString("name"), "",
-                    defaultNumber = row.optInt("defaultNumber").takeIf { it > 0 },
-                    userNamed = if (schema == 1) row.optInt("defaultNumber") <= 0 else row.getBoolean("userNamed"))
+                val manual = if (schema == 1) row.optInt("defaultNumber") <= 0 else row.optBoolean("userNamed")
+                val cachedName = !manual && row.optInt("defaultNumber") <= 0
+                Profile(row.getString("id"), if (cachedName) row.getString("name") else "Яндекс", "",
+                    accountConnected = schema == 3 && row.optBoolean("accountConnected"),
+                    provisional = schema == 3 && row.optBoolean("provisional"))
             } }.also { rows ->
                 require(rows.isNotEmpty() && rows.map(Profile::id).distinct().size == rows.size)
                 rows.forEach { require(it.id.matches(Regex("[a-zA-Z0-9_-]{1,64}"))); UserProfiles.checkedName(it.name) }
@@ -50,9 +52,9 @@ fun loadUserProfiles(context: Context, beforeRemove: suspend (String, String) ->
         listOf(local) + legacy
     }
     fun write(rows: List<Profile>) {
-        val json = JSONObject().put("schema", 2).put("profiles", JSONArray(rows.map {
+        val json = JSONObject().put("schema", 3).put("profiles", JSONArray(rows.map {
             JSONObject().put("id", it.id).put("name", it.name).put("defaultNumber", it.defaultNumber)
-                .put("userNamed", it.userNamed)
+                .put("userNamed", false).put("accountConnected", it.accountConnected).put("provisional", it.provisional)
         }))
         val stream = file.startWrite()
         try { stream.write(json.toString().toByteArray(Charsets.UTF_8)); file.finishWrite(stream) }

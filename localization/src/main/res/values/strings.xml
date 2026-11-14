@@ -747,9 +747,7 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="offline_verify_start" formatted="false">"Checking the offline cache…"</string>
     <string name="profile_default_name" formatted="false">"User @0@"</string>
     <string name="profile_add" formatted="false">"Add Yandex profile"</string>
-    <string name="profile_name" formatted="false">"User name"</string>
     <string name="profile_options" formatted="false">"User options"</string>
-    <string name="profile_rename" formatted="false">"Rename user"</string>
     <string name="profile_delete" formatted="false">"Remove user"</string>
     <string name="profile_delete_title" formatted="false">"Remove user “@0@”?"</string>
     <string name="profile_delete_hint" formatted="false">"Their Yandex sign-in, local favorites, playlists, history and settings will be removed from this device. Music files and shared folders will be kept."</string>

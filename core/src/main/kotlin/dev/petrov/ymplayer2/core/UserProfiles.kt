@@ -20,18 +20,17 @@ class UserProfiles(initial: List<Profile>,
     val state = mutable.asStateFlow()
     private val working = MutableStateFlow(false)
     val busy = working.asStateFlow()
+    private val refreshingAccounts = MutableStateFlow(false)
+    val accountsLoading = refreshingAccounts.asStateFlow()
+    fun setAccountsLoading(value: Boolean) { refreshingAccounts.value = value }
 
-    suspend fun create(name: String): Profile = create(name, userNamed = true)
-    suspend fun createYandex(): Profile = create("Яндекс", userNamed = false)
-    private suspend fun create(name: String, userNamed: Boolean): Profile = mutate {
-        val profile = Profile(newId(), checkedName(name), "", userNamed = userNamed)
+    suspend fun create(name: String): Profile = create(name, userNamed = true, provisional = false)
+    suspend fun createYandex(): Profile = create("Яндекс", userNamed = false, provisional = true)
+    private suspend fun create(name: String, userNamed: Boolean, provisional: Boolean): Profile = mutate {
+        val profile = Profile(newId(), checkedName(name), "", userNamed = userNamed, provisional = provisional)
         require(!profile.isLocal)
         require(it.none { p -> p.id == profile.id })
         (it + profile) to profile
-    }
-    suspend fun rename(id: String, name: String) = mutate {
-        require(it.any { p -> p.id == id && !p.isLocal })
-        it.map { p -> if (p.id == id) p.copy(name = checkedName(name), defaultNumber = null, userNamed = true) else p } to Unit
     }
     suspend fun remove(id: String) = mutate {
         require(it.size > 1 && it.any { p -> p.id == id && !p.isLocal })
@@ -40,11 +39,15 @@ class UserProfiles(initial: List<Profile>,
         remaining to Unit
     }
     /** Cache account names for inactive rows too. Late results cannot recreate a removed user. */
-    suspend fun updateAccountName(id: String, name: String) = mutate {
-        val label = name.map { c -> if (c.isISOControl()) ' ' else c }.joinToString("").trim().take(MAX_NAME_LENGTH)
-        val current = it.firstOrNull { p -> p.id == id && p.canSignIn && !p.userNamed }
-        val next = if (current == null || label.isBlank()) it else it.map { p ->
-            if (p.id == id) p.copy(name = label, defaultNumber = null) else p
+    suspend fun updateAccountName(id: String, name: String) = updateAccount(id, YandexAccount("", name), connected = true)
+    suspend fun updateAccount(id: String, account: YandexAccount?, connected: Boolean) = mutate {
+        val label = account?.name.orEmpty().map { c -> if (c.isISOControl()) ' ' else c }.joinToString("").trim().take(MAX_NAME_LENGTH)
+        val current = it.firstOrNull { p -> p.id == id && p.canSignIn }
+        val complete = connected && account != null && label.isNotBlank()
+        val next = if (current == null || connected && account != null && label.isBlank()) it else it.map { p ->
+            if (p.id == id) p.copy(name = label.ifBlank { if (connected && !p.userNamed && p.defaultNumber == null) p.name else "Яндекс" },
+                defaultNumber = null, userNamed = false, accountConnected = complete,
+                provisional = p.provisional && !complete) else p
         }
         next to Unit
     }

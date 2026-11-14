@@ -747,9 +747,7 @@
     <string name="offline_verify_start" formatted="false">"Офлайн кэш тексеріліп жатыр…"</string>
     <string name="profile_default_name" formatted="false">"Пайдаланушы @0@"</string>
     <string name="profile_add" formatted="false">"Яндекс профилін қосу"</string>
-    <string name="profile_name" formatted="false">"Пайдаланушының аты"</string>
     <string name="profile_options" formatted="false">"Пайдаланушы параметрлері"</string>
-    <string name="profile_rename" formatted="false">"Пайдаланушының атын өзгерту"</string>
     <string name="profile_delete" formatted="false">"Пайдаланушыны жою"</string>
     <string name="profile_delete_title" formatted="false">"«@0@» пайдаланушысын жою керек пе?"</string>
     <string name="profile_delete_hint" formatted="false">"Осы құрылғыдан оның Яндекс аккаунтына кіру деректері, жергілікті таңдаулылары, плейлисттері, тарихы және параметрлері жойылады. Музыка файлдары мен ортақ қалталар сақталады."</string>

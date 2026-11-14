@@ -747,9 +747,7 @@
     <string name="offline_verify_start" formatted="false">"Перевіряємо офлайн-кеш…"</string>
     <string name="profile_default_name" formatted="false">"Користувач @0@"</string>
     <string name="profile_add" formatted="false">"Додати профіль Яндекса"</string>
-    <string name="profile_name" formatted="false">"Ім’я користувача"</string>
     <string name="profile_options" formatted="false">"Параметри користувача"</string>
-    <string name="profile_rename" formatted="false">"Перейменувати користувача"</string>
     <string name="profile_delete" formatted="false">"Видалити користувача"</string>
     <string name="profile_delete_title" formatted="false">"Видалити користувача «@0@»?"</string>
     <string name="profile_delete_hint" formatted="false">"Його вхід у Яндекс, локальне вибране, плейлісти, історію та налаштування буде видалено з цього пристрою. Музичні файли й спільні папки залишаться."</string>

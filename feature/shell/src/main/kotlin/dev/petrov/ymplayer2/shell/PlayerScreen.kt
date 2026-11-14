@@ -34,7 +34,7 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
 /** Only artwork is flexible. Transport and actions never live in a scroll container. */
 @Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {},
     taste: MusicTaste? = null, signIn: () -> Unit = {}, artist: (ArtistRef) -> Unit = {}, equalizer: (Boolean) -> Unit = {}, playlists: CloudPlaylists? = null, collections: UserCollections? = null, offline: OfflineMusic? = null,
-    listShortcut: PlayerListShortcut? = null) {
+    listShortcut: PlayerListShortcut? = null, accountAction: ((AccountActionKind) -> Unit)? = null) {
     var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var issue by remember { mutableStateOf(false) }
@@ -75,11 +75,11 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 if (taste != null) {
                     SourceShortcut(UiIcon.WAVE, tr(Msg.msg_de1ea8c09caa), myWaveActive, true, "player_source_wave") {
-                        if (account?.signedIn == true) player.playMyWave() else signIn()
+                        if (account?.signedIn == true) player.playMyWave() else accountAction?.invoke(AccountActionKind.MY_WAVE) ?: signIn()
                     }
                     SourceShortcut(UiIcon.OFFLINE, tr(Msg.player_source_offline), state.pendingSource == PlaybackSource.OFFLINE || state.origin.source == PlaybackSource.OFFLINE,
                         cached?.enabled == true, "player_source_offline") {
-                        if (state.profileId == UserProfiles.LOCAL_PROFILE_ID) signIn() else player.playOffline()
+                        if (state.profileId == UserProfiles.LOCAL_PROFILE_ID) accountAction?.invoke(AccountActionKind.OFFLINE_PLAY) ?: signIn() else player.playOffline()
                     }
                     SourceShortcut(UiIcon.PLAYLIST, userList.label, !sourcePending && userList.selected, userList.enabled, "player_source_list", userList.play)
                     if (myWaveActive && waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),

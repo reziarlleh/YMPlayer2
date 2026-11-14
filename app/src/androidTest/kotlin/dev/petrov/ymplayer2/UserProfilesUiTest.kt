@@ -39,7 +39,7 @@ class UserProfilesUiTest {
         }
     }
 
-    @Test fun createRenameAndDeleteThroughTheActualUserInterface() {
+    @Test fun completedConnectionShowsItsYandexNameAndOnlyTheDeleteOption() {
         val before = graph.library.profiles.map(Profile::id).toSet()
         compose.onNodeWithTag("profiles").performClick()
         row("profile_add").performClick()
@@ -50,12 +50,17 @@ class UserProfilesUiTest {
         compose.onNodeWithTag("account_screen").assertExists()
         compose.onNodeWithTag("profile_name").assertDoesNotExist()
         assertFalse(graph.playback.state.value.playing)
+        assertTrue(graph.library.profiles.first { it.id == id }.provisional)
+        userMutation {
+            dev.petrov.ymplayer2.yandex.KeystoreAccountStore(compose.activity).write(id,
+                AccountSession(YandexAccount("ui-name", "Основной"), OAuthCredentials("fixture-name", null, null)))
+            graph.accounts.activate(original); graph.accounts.activate(id)
+        }
+        waitFor { graph.library.profiles.any { it.id == id && !it.provisional && it.name == "Основной" } }
         compose.onNodeWithTag("profiles").performClick()
         row("profile_menu_$id").performClick()
-        compose.onNodeWithTag("profile_rename_$id").performClick()
-        compose.onNodeWithTag("profile_name").performTextReplacement("Основной")
-        compose.onNodeWithTag("profile_save").performClick()
-        waitFor { graph.library.profiles.first { it.id == id }.name == "Основной" }
+        compose.onNodeWithTag("profile_rename_$id").assertDoesNotExist()
+        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
         compose.runOnIdle { AppLanguages.select("en") }
         row("profile_$id").assertTextContains("Основной")
         row("profile_$original").performClick()
@@ -78,6 +83,7 @@ class UserProfilesUiTest {
         added += graph.library.profiles.filter { it.id !in before }.map(Profile::id)
         compose.onNodeWithTag("account_screen").assertExists()
         compose.runOnIdle { compose.activity.onBackPressedDispatcher.onBackPressed() }
+        waitFor { added.none { id -> graph.library.profiles.any { it.id == id } } }
     }
 
     @Test fun rapidRepeatedAddCreatesOnlyOneYandexUser() {
@@ -112,6 +118,30 @@ class UserProfilesUiTest {
         compose.onNodeWithTag("profile_menu_local").assertDoesNotExist()
     }
     private fun <T> userMutationResult(action: suspend () -> T): T = runBlocking { withContext(Dispatchers.Main.immediate) { action() } }
+
+    @Test fun choosingAnAccountForClipsInvokesTheRealActivityLaunchOnce() {
+        val account = YandexAccount("clip-route", "Аккаунт клипов")
+        val profile = userMutationResult { graph.users.createYandex() }.also { added += it.id }
+        userMutation {
+            dev.petrov.ymplayer2.yandex.KeystoreAccountStore(compose.activity).write(profile.id,
+                AccountSession(account, OAuthCredentials("fixture-clip-route", null, null)))
+            graph.users.updateAccount(profile.id, account, connected = true)
+            graph.playback.switchProfile(UserProfiles.LOCAL_PROFILE_ID)
+        }
+        waitFor { graph.playback.state.value.profileId == UserProfiles.LOCAL_PROFILE_ID }
+        compose.onNodeWithTag("profiles").performClick(); row("profile_local").performClick()
+        val instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+        val monitor = instrumentation.addMonitor(ClipActivity::class.java.name,
+            android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_CANCELED, null), true)
+        try {
+            compose.onNodeWithTag("nav_clips").performClick()
+            compose.onNodeWithTag("account_choice_${profile.id}").performClick()
+            waitFor { monitor.hits == 1 }
+            assertEquals(profile.id, graph.playback.state.value.profileId)
+            compose.activityRule.scenario.recreate(); compose.waitForIdle()
+            assertEquals(1, monitor.hits)
+        } finally { instrumentation.removeMonitor(monitor) }
+    }
 
     @Test fun localOnlineActionsOfferAccountChoiceAndCancelKeepsTheLocalPlayer() {
         compose.runOnIdle { graph.playback.switchProfile(UserProfiles.LOCAL_PROFILE_ID) }

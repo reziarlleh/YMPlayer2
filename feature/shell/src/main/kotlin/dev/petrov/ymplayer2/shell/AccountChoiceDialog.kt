@@ -19,11 +19,11 @@ import kotlinx.coroutines.launch
 /** Opening the offer neither creates a profile nor starts OAuth. Both need an explicit action. */
 @Composable internal fun AccountChoiceDialog(profiles: List<Profile>, users: UserProfiles?,
     dismiss: () -> Unit, select: (String) -> Unit, created: (String) -> Unit) {
-    val accounts = profiles.filter(Profile::canSignIn)
+    val accounts = profiles.filter { it.canSignIn && it.accountConnected }
     val scope = rememberCoroutineScope()
     var busy by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
-    val working = busy || users?.busy?.collectAsState()?.value == true
+    val working = busy || users?.busy?.collectAsState()?.value == true || users?.accountsLoading?.collectAsState()?.value == true
     AlertDialog(onDismissRequest = { if (!working) dismiss() },
         modifier = Modifier.testTag("account_choice"),
         title = { Text(tr(if (accounts.isEmpty()) Msg.account_connect_title else Msg.account_choose_title)) },

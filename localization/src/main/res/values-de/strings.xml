@@ -747,9 +747,7 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="offline_verify_start" formatted="false">"Offline-Cache wird geprüft…"</string>
     <string name="profile_default_name" formatted="false">"Benutzer @0@"</string>
     <string name="profile_add" formatted="false">"Yandex-Profil hinzufügen"</string>
-    <string name="profile_name" formatted="false">"Name des Benutzers"</string>
     <string name="profile_options" formatted="false">"Benutzeroptionen"</string>
-    <string name="profile_rename" formatted="false">"Benutzer umbenennen"</string>
     <string name="profile_delete" formatted="false">"Benutzer entfernen"</string>
     <string name="profile_delete_title" formatted="false">"Benutzer „@0@“ entfernen?"</string>
     <string name="profile_delete_hint" formatted="false">"Die Yandex-Anmeldung, lokalen Favoriten, Playlists, der Verlauf und die Einstellungen dieses Benutzers werden von diesem Gerät entfernt. Musikdateien und gemeinsam genutzte Ordner bleiben erhalten."</string>

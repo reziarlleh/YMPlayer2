@@ -32,7 +32,7 @@ class AccountChoiceDialogTest {
         assertEquals(listOf(UserProfiles.localProfile()), users.state.value)
     }
     @Test fun existingAccountsCanBeChosenWithoutCreatingAProfile() {
-        val wife = Profile("wife", "Мария", "", userNamed = true)
+        val wife = Profile("wife", "Мария", "", accountConnected = true)
         val users = UserProfiles(listOf(UserProfiles.localProfile(), wife), {})
         var selected: String? = null
         compose.setContent { val profiles = users.state.collectAsState().value
@@ -55,5 +55,7 @@ class AccountChoiceDialogTest {
         compose.waitUntil(5_000) { created == 1 && !users.busy.value }
         assertEquals(2, users.state.value.size)
         assertEquals(UserProfiles.localProfile(), users.state.value.first())
+        assertTrue(users.state.value.last().provisional)
+        assertEquals(listOf(UserProfiles.localProfile()), users.state.value.filterNot(Profile::provisional))
     }
 }

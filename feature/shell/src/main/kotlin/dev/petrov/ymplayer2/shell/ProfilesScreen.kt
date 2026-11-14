@@ -28,9 +28,7 @@ import kotlinx.coroutines.launch
     val managerBusy = users?.busy?.collectAsState()?.value == true
     val working = busy || managerBusy
     var issue by remember { mutableStateOf(false) }
-    var editing by remember { mutableStateOf<Profile?>(null) }
     var deleting by remember { mutableStateOf<Profile?>(null) }
-    var name by remember { mutableStateOf("") }
     val writable = users?.writable == true
     fun mutate(action: suspend () -> Unit) {
         if (busy || users?.busy?.value == true) return
@@ -52,12 +50,12 @@ import kotlinx.coroutines.launch
         if (users != null && !writable) item { Text(tr(Msg.profiles_read_failed), color = MaterialTheme.colorScheme.error) }
         if (working) item { LinearProgressIndicator(Modifier.fillMaxWidth().testTag("profile_busy")) }
         if (issue) item { Text(tr(Msg.profiles_save_failed), color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("profile_error")) }
-        if (account != null && profiles.firstOrNull { it.id == current }?.isLocal != true) item {
+        if (account != null && profiles.firstOrNull { it.id == current }?.let { !it.isLocal && !it.provisional } == true) item {
             OutlinedButton(account, Modifier.fillMaxWidth().prismFocus().testTag("account_open"), enabled = !working) {
                 Text(tr(Msg.msg_43b07d243705, profiles.firstOrNull { it.id == current }?.let(::profileName).orEmpty()))
             }
         }
-        items(profiles, key = Profile::id) { profile ->
+        items(profiles.filterNot(Profile::provisional), key = Profile::id) { profile ->
             var menu by remember(profile.id) { mutableStateOf(false) }
             Surface(onClick = { select(profile.id) }, Modifier.fillMaxWidth().prismFocus().testTag("profile_${profile.id}"), enabled = !working,
                 color = if (current == profile.id) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
@@ -71,9 +69,6 @@ import kotlinx.coroutines.launch
                             SkinIcon(UiIcon.MORE, tr(Msg.profile_options))
                         }
                         DropdownMenu(menu, { menu = false }) {
-                            DropdownMenuItem(text = { Text(tr(Msg.profile_rename)) }, onClick = {
-                                menu = false; name = profileName(profile); editing = profile
-                            }, modifier = Modifier.prismFocus().testTag("profile_rename_${profile.id}"))
                             DropdownMenuItem(text = { Text(tr(Msg.profile_delete)) }, enabled = profiles.size > 1, onClick = {
                                 menu = false; deleting = profile
                             }, modifier = Modifier.prismFocus().testTag("profile_delete_${profile.id}"))
@@ -92,20 +87,6 @@ import kotlinx.coroutines.launch
         }
         item { Text(tr(Msg.profile_pause_hint), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
-    if (editing != null) AlertDialog(onDismissRequest = { if (!working) editing = null },
-        title = { Text(tr(Msg.profile_rename)) },
-        text = { Column {
-            OutlinedTextField(name, { name = it.take(UserProfiles.MAX_NAME_LENGTH) }, singleLine = true,
-                label = { Text(tr(Msg.profile_name)) }, modifier = Modifier.fillMaxWidth().testTag("profile_name"), enabled = !working)
-            if (issue) Text(tr(Msg.profiles_save_failed), color = MaterialTheme.colorScheme.error)
-        } }, confirmButton = {
-            TextButton({ mutate {
-                users!!.rename(editing!!.id, name)
-                editing = null
-            } }, Modifier.prismFocus().testTag("profile_save"), enabled = !working && runCatching { UserProfiles.checkedName(name) }.isSuccess) {
-                Text(trMessage("Сохранить"))
-            }
-        }, dismissButton = { TextButton({ editing = null }, Modifier.prismFocus(), enabled = !working) { Text(trMessage("Отмена")) } })
     deleting?.let { profile -> AlertDialog(onDismissRequest = { if (!working) deleting = null },
         title = { Text(tr(Msg.profile_delete_title, profileName(profile))) },
         text = { Column { Text(tr(Msg.profile_delete_hint)); if (issue) Text(tr(Msg.profiles_save_failed), color = MaterialTheme.colorScheme.error) } },

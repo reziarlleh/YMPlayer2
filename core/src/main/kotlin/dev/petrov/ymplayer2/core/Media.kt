@@ -20,8 +20,9 @@ data class Track(
 )
 
 data class Profile(val id: String, val name: String, val description: String, val guest: Boolean = false,
-    /** Only generated names are translated. A user's name is always opaque. */
-    val defaultNumber: Int? = null, val userNamed: Boolean = false) {
+    /** Legacy naming flags are read during migration. Account names are opaque. */
+    val defaultNumber: Int? = null, val userNamed: Boolean = false,
+    val accountConnected: Boolean = false, val provisional: Boolean = false) {
     val isLocal: Boolean get() = id == UserProfiles.LOCAL_PROFILE_ID
     val canSignIn: Boolean get() = !guest && !isLocal
 }

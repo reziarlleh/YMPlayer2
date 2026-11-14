@@ -60,7 +60,9 @@ private val destinations get() = listOf(
         if (savedRoute == "clips") initialRoute.takeUnless { it == "clips" } ?: "player" else savedRoute
     } }
     var aboutOpen by rememberSaveable { mutableStateOf(false) }
-    var accountChoice by remember(playback.profileId) { mutableStateOf(false) }
+    val accountRequest by model.accountContinuation.collectAsStateWithLifecycle()
+    val authState = model.accounts?.state?.collectAsStateWithLifecycle()?.value
+    val accountCatalog = model.online?.catalog?.collectAsStateWithLifecycle()?.value
     fun localProfile() = model.catalog.profiles.firstOrNull { it.id == model.player.state.value.profileId }?.isLocal == true
     var artistFrom by rememberSaveable { mutableStateOf("player") }
     var exitAt by remember { mutableStateOf<Long?>(null) }
@@ -76,10 +78,8 @@ private val destinations get() = listOf(
     var searchQuery by rememberSaveable(playback.profileId) { mutableStateOf("") }
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "offline", "history", "recent")) "library" else route
-    val navigate: (String) -> Unit = {
-        if (localProfile() && it in setOf("account", "radio", "clips", "artist", "offline")) {
-            accountChoice = true
-        } else if (it == "clips") {
+    val navigateDirect: (String) -> Unit = {
+        if (it == "clips") {
             exitAt = null
             openClips?.invoke()
         } else {
@@ -90,8 +90,44 @@ private val destinations get() = listOf(
             onRouteChanged(if (it == "artist") artistFrom else it)
         }
     }
+    fun requestAccount(action: AccountAction) = model.requestAccount(action, route)
+    val navigate: (String) -> Unit = { destination ->
+        val kind = when (destination) {
+            "account" -> AccountActionKind.ACCOUNT; "radio" -> AccountActionKind.RADIO
+            "clips" -> AccountActionKind.CLIPS; "offline" -> AccountActionKind.OFFLINE_LIST
+            else -> null
+        }
+        if (localProfile() && kind != null) requestAccount(AccountAction(kind))
+        else { model.cancelAccountAction(); navigateDirect(destination) }
+    }
+    LaunchedEffect(accountRequest, playback.profileId, playback.connected, authState, accountCatalog?.profileId, accountCatalog?.phase, profiles) {
+        val pending = accountRequest ?: return@LaunchedEffect
+        val target = pending.targetProfile ?: return@LaunchedEffect
+        if (profiles.none { it.id == target && it.canSignIn }) { model.cancelAccountAction(); return@LaunchedEffect }
+        if (playback.profileId != target || authState?.profileId != target || authState.phase == AuthPhase.LOADING) return@LaunchedEffect
+        if (authState.phase != AuthPhase.SIGNED_IN) { navigateDirect("account"); return@LaunchedEffect }
+        if (profiles.firstOrNull { it.id == target }?.provisional == true) return@LaunchedEffect
+        if (model.online != null && (accountCatalog?.profileId != target || !accountCatalog.enabled)) return@LaunchedEffect
+        if (!playback.connected || !model.consumeAccountAction(pending)) return@LaunchedEffect
+        when (pending.action.kind) {
+            AccountActionKind.ACCOUNT -> navigateDirect("account")
+            AccountActionKind.CLIPS -> { navigateDirect(pending.returnRoute); navigateDirect("clips") }
+            AccountActionKind.RADIO -> navigateDirect("radio")
+            AccountActionKind.MY_WAVE -> { navigateDirect("player"); model.player.playMyWave() }
+            AccountActionKind.OFFLINE_PLAY -> { navigateDirect("player"); model.player.playOffline() }
+            AccountActionKind.OFFLINE_LIST -> navigateDirect("offline")
+            AccountActionKind.OFFLINE_SEARCH -> { onlineSource = false; offlineSearch = true; searchQuery = pending.action.query; navigateDirect("search") }
+            AccountActionKind.YANDEX_LIBRARY, AccountActionKind.YANDEX_SEARCH -> {
+                onlineSource = true; offlineSearch = false; searchQuery = pending.action.query
+                navigateDirect(if (pending.action.kind == AccountActionKind.YANDEX_SEARCH) "search" else "library")
+            }
+            AccountActionKind.ARTIST -> pending.action.artist?.let {
+                artistFrom = pending.returnRoute; model.online?.openArtistCard(it); navigateDirect("artist")
+            }
+        }
+    }
     val openArtist: (ArtistRef) -> Unit = { artist ->
-        if (localProfile()) accountChoice = true else model.online?.let { music ->
+        if (localProfile()) requestAccount(AccountAction(AccountActionKind.ARTIST, artist = artist)) else model.online?.let { music ->
             if (route != "artist") artistFrom = route
             music.openArtistCard(artist)
             navigate("artist")
@@ -193,7 +229,8 @@ private val destinations get() = listOf(
                                 // Each route/profile owns its scroll, filters, detail and text field state.
                                 holder.SaveableStateProvider("${playback.profileId}:$route") {
                                     when (route) {
-                                        "player" -> PlayerViewportFit { PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists, model.collections, model.offline) }
+                                        "player" -> PlayerViewportFit { PlayerScreen(playback, model.player, widePlayer, short, { navigate("queue") }, demo, { navigate("folders") }, model.taste, { navigate("account") }, openArtist, equalizer, model.cloudPlaylists, model.collections, model.offline,
+                                            accountAction = { requestAccount(AccountAction(it)) }) }
                                         "artist" -> model.online?.let { OnlineScreen(it, model.player, false, { navigate("account") }, model.taste, artist = openArtist, standalone = true, closeArtist = closeArtist, playlists = model.cloudPlaylists, exporter = exporter) }
                                         "library", "search" -> Column(Modifier.fillMaxSize()) {
                                             if (route == "library") Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -203,9 +240,9 @@ private val destinations get() = listOf(
                                             model.online?.let {
                                                 if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (route == "search" && offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
                                                     FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text(tr(Msg.msg_00231affc201)) }, choice("local").prismFocus().testTag("source_local"))
-                                                    FilterChip(onlineSource, { if (localProfile()) accountChoice = true else { onlineSource = true; offlineSearch = false } }, { Text(tr(Msg.msg_c39959813ccd)) }, choice("yandex").prismFocus().testTag("source_yandex"))
+                                                    FilterChip(onlineSource, { if (localProfile()) requestAccount(AccountAction(if (route == "search") AccountActionKind.YANDEX_SEARCH else AccountActionKind.YANDEX_LIBRARY, searchQuery)) else { onlineSource = true; offlineSearch = false } }, { Text(tr(Msg.msg_c39959813ccd)) }, choice("yandex").prismFocus().testTag("source_yandex"))
                                                     if (model.offline != null) FilterChip(route == "search" && offlineSearch, {
-                                                        if (localProfile()) accountChoice = true
+                                                        if (localProfile()) requestAccount(AccountAction(if (route == "search") AccountActionKind.OFFLINE_SEARCH else AccountActionKind.OFFLINE_LIST, searchQuery))
                                                         else if (route == "search") { onlineSource = false; offlineSearch = true }
                                                         else navigate("offline")
                                                     }, { Text(tr(Msg.msg_aa07f084155c)) }, choice("offline").prismFocus().testTag("open_offline"))
@@ -224,7 +261,7 @@ private val destinations get() = listOf(
                                             noLocalRoots = library.roots.isEmpty(),
                                             music = model.online, taste = model.taste, cached = cachedTracks,
                                             artist = openArtist, cloudPlaylists = model.cloudPlaylists, signIn = { navigate("account") },
-                                            onlineHome = { if (localProfile()) accountChoice = true else onlineSource = true }, waveStarted = { navigate("player") },
+                                            onlineHome = { if (localProfile()) requestAccount(AccountAction(AccountActionKind.YANDEX_LIBRARY)) else onlineSource = true }, waveStarted = { navigate("player") },
                                             cacheOnly = cacheOnly, searchQuery = searchQuery.takeIf { route == "search" }, onSearchQueryChange = { searchQuery = it },
                                             collectionStore = model.collections,
                                             retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
@@ -235,10 +272,19 @@ private val destinations get() = listOf(
                                         "history" -> HistoryScreen(model, openArtist)
                                         "recent" -> RecentScreen(model) { collectionTrack = it }
                                         "profiles" -> ProfilesScreen(profiles, playback.profileId, model.accounts?.let { { navigate("account") } },
-                                            model.catalog.users, created = { model.player.switchProfile(it); navigate(if (model.accounts != null) "account" else "player") }) {
-                                            model.player.switchProfile(it); navigate("player")
+                                            model.catalog.users, created = {
+                                                model.requestAccount(AccountAction(AccountActionKind.ACCOUNT), "profiles")
+                                                model.selectAccount(it)
+                                            }) {
+                                            model.cancelAccountAction(restoreOrigin = false)
+                                            model.player.switchProfile(it); navigateDirect("player")
                                         }
-                                        "account" -> model.accounts?.let { auth -> profiles.firstOrNull { it.id == playback.profileId }?.let { AccountScreen(auth, it) } }
+                                        "account" -> model.accounts?.let { auth -> profiles.firstOrNull { it.id == playback.profileId }?.let { profile ->
+                                            AccountScreen(auth, profile) {
+                                                val previous = model.accountContinuation.value?.returnRoute ?: "profiles"
+                                                auth.cancel(); model.cancelAccountAction(); navigateDirect(previous)
+                                            }
+                                        } }
                                         "quality" -> model.audioQuality?.let { AudioQualityScreen(it) }
                                         "offline_settings" -> model.offline?.let { OfflineSettingsScreen(it, syncOffline, { navigate("account") }, cacheLocation, pickCacheFolder, resetCacheFolder, exporting, auditOffline) }
                                         "settings" -> SettingsScreen(version, theme, { saveTheme(it); theme = it }, catalogState, { catalogState = it }, demo, model.offline?.let { { navigate("offline_settings") } }, model.audioQuality?.let { { navigate("quality") } }, diagnostics?.let { { navigate("diagnostics") } }, sideBar?.let { { navigate("sidebar") } }, updates?.let { { navigate("updates") } }, skins?.let { { navigate("skins") } }, about = { aboutOpen = true }, language = { navigate("language") }, scale = { navigate("interface_scale") })
@@ -276,10 +322,9 @@ private val destinations get() = listOf(
             }
         }
         if (aboutOpen) AboutDialog(version) { aboutOpen = false }
-        if (accountChoice) AccountChoiceDialog(profiles, model.catalog.users,
-            dismiss = { accountChoice = false },
-            select = { accountChoice = false; model.player.switchProfile(it); navigate("player") },
-            created = { accountChoice = false; model.player.switchProfile(it); navigate("account") })
+        if (accountRequest?.targetProfile == null && accountRequest != null) AccountChoiceDialog(profiles, model.catalog.users,
+            dismiss = { model.cancelAccountAction() },
+            select = model::selectAccount, created = model::selectAccount)
         if (exporter != null) AudioExportDialog(exporter, pickExportFolder)
         if (updates != null) {
             val updateState by updates.state.collectAsStateWithLifecycle()

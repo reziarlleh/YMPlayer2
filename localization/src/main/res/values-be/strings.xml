@@ -747,9 +747,7 @@
     <string name="offline_verify_start" formatted="false">"Правяраем афлайн-кэш…"</string>
     <string name="profile_default_name" formatted="false">"Карыстальнік @0@"</string>
     <string name="profile_add" formatted="false">"Дадаць профіль Яндэкса"</string>
-    <string name="profile_name" formatted="false">"Імя карыстальніка"</string>
     <string name="profile_options" formatted="false">"Налады карыстальніка"</string>
-    <string name="profile_rename" formatted="false">"Перайменаваць карыстальніка"</string>
     <string name="profile_delete" formatted="false">"Выдаліць карыстальніка"</string>
     <string name="profile_delete_title" formatted="false">"Выдаліць карыстальніка «@0@»?"</string>
     <string name="profile_delete_hint" formatted="false">"Яго ўваход у Яндэкс, лакальнае абранае, плэйлісты, гісторыя і налады будуць выдалены з гэтай прылады. Музычныя файлы і агульныя папкі застануцца."</string>

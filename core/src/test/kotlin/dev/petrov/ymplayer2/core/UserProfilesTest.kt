@@ -13,22 +13,26 @@ class UserProfilesTest {
         var cleaned = false
         val users = UserProfiles(listOf(local, Profile("driver", "Яндекс", "")), {}, { _, _ -> cleaned = true })
         assertTrue(runCatching { users.remove(local.id) }.isFailure)
-        assertTrue(runCatching { users.rename(local.id, "Другое") }.isFailure)
         users.updateAccountName(local.id, "Имя аккаунта")
         assertEquals(local, users.state.value.first())
         assertFalse(local.canSignIn)
         assertFalse(cleaned)
     }
-    @Test fun yandexNameArrivesLaterWithoutChangingIdentityOrOverwritingAnExplicitAlias() = runTest {
+    @Test fun aConnectionStaysProvisionalUntilYandexReturnsItsName() = runTest {
         val users = UserProfiles(listOf(UserProfiles.localProfile()), {}, newId = { "driver" })
         val profile = users.createYandex()
         assertTrue(profile.canSignIn)
         assertFalse(profile.userNamed)
+        assertTrue(profile.provisional)
+        users.updateAccount(profile.id, null, connected = true)
+        assertTrue(users.state.value.last().provisional)
+        assertFalse(users.state.value.last().accountConnected)
         users.updateAccountName(profile.id, "  Мария\nПетрова  ")
         assertEquals("Мария Петрова", users.state.value.last().name)
-        users.rename(profile.id, "Мама")
+        assertFalse(users.state.value.last().provisional)
+        assertTrue(users.state.value.last().accountConnected)
         users.updateAccountName(profile.id, "Мария")
-        assertEquals("Мама", users.state.value.last().name)
+        assertEquals("Мария", users.state.value.last().name)
         users.remove(profile.id)
         users.updateAccountName(profile.id, "Поздний ответ")
         assertEquals(listOf(UserProfiles.localProfile()), users.state.value)
@@ -46,19 +50,22 @@ class UserProfilesTest {
     }
     private val owner = Profile("owner", "Пользователь 1", "", defaultNumber = 1)
 
-    @Test fun renamingKeepsLegacyIdentityAndTreatsTheNewNameAsOpaque() = runTest {
+    @Test fun accountNamesReplaceOldAliasesWithoutChangingLegacyIdentity() = runTest {
         var disk = listOf(owner)
         val users = UserProfiles(disk, { disk = it })
-        users.rename("owner", "  Семья / Müller  ")
+        users.updateAccountName("owner", "  Семья / Müller  ")
         assertEquals("owner", disk.single().id)
         assertEquals("Семья / Müller", disk.single().name)
         assertNull(disk.single().defaultNumber)
-        assertTrue(disk.single().userNamed)
+        assertFalse(disk.single().userNamed)
+        val aliased = UserProfiles(listOf(Profile("wife", "Мама", "", userNamed = true)), {})
+        aliased.updateAccountName("wife", "Мария")
+        assertEquals("Мария", aliased.state.value.single().name)
     }
     @Test fun failedWriteCannotPublishAnUnsavedProfileOrRename() = runTest {
         val users = UserProfiles(listOf(owner), { throw IOException() }, newId = { "driver" })
         assertTrue(runCatching { users.create("Водитель") }.isFailure)
-        assertTrue(runCatching { users.rename("owner", "Жена") }.isFailure)
+        assertTrue(runCatching { users.updateAccountName("owner", "Жена") }.isFailure)
         assertEquals(listOf(owner), users.state.value)
     }
     @Test fun concurrentAddsAreSerializedInsteadOfOverwritingEachOther() = runTest {

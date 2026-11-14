@@ -11851,22 +11851,6 @@
     }
   },
   {
-    "key": "profile_name",
-    "source": "Имя пользователя",
-    "english": "User name",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
-    ],
-    "translations": {
-      "be": "Імя карыстальніка",
-      "kk": "Пайдаланушының аты",
-      "uk": "Ім’я користувача",
-      "de": "Name des Benutzers",
-      "es": "Nombre del usuario",
-      "fr": "Nom de l’utilisateur"
-    }
-  },
-  {
     "key": "profile_options",
     "source": "Параметры пользователя",
     "english": "User options",
@@ -11880,22 +11864,6 @@
       "de": "Benutzeroptionen",
       "es": "Opciones del usuario",
       "fr": "Options de l’utilisateur"
-    }
-  },
-  {
-    "key": "profile_rename",
-    "source": "Переименовать пользователя",
-    "english": "Rename user",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/ProfilesScreen.kt"
-    ],
-    "translations": {
-      "be": "Перайменаваць карыстальніка",
-      "kk": "Пайдаланушының атын өзгерту",
-      "uk": "Перейменувати користувача",
-      "de": "Benutzer umbenennen",
-      "es": "Cambiar nombre del usuario",
-      "fr": "Renommer l’utilisateur"
     }
   },
   {

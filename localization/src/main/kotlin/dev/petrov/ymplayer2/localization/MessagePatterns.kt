@@ -6247,14 +6247,6 @@ private fun patterns74() = listOf(
     MessagePattern(Msg.profile_add, "ru", "Добавить профиль Яндекс"),
     MessagePattern(Msg.profile_add, "es", "Añadir perfil de Yandex"),
     MessagePattern(Msg.profile_add, "uk", "Додати профіль Яндекса"),
-    MessagePattern(Msg.profile_name, "be", "Імя карыстальніка"),
-    MessagePattern(Msg.profile_name, "en", "User name"),
-    MessagePattern(Msg.profile_name, "fr", "Nom de l’utilisateur"),
-    MessagePattern(Msg.profile_name, "de", "Name des Benutzers"),
-    MessagePattern(Msg.profile_name, "kk", "Пайдаланушының аты"),
-    MessagePattern(Msg.profile_name, "ru", "Имя пользователя"),
-    MessagePattern(Msg.profile_name, "es", "Nombre del usuario"),
-    MessagePattern(Msg.profile_name, "uk", "Ім’я користувача"),
     MessagePattern(Msg.profile_options, "be", "Налады карыстальніка"),
     MessagePattern(Msg.profile_options, "en", "User options"),
     MessagePattern(Msg.profile_options, "fr", "Options de l’utilisateur"),
@@ -6263,14 +6255,6 @@ private fun patterns74() = listOf(
     MessagePattern(Msg.profile_options, "ru", "Параметры пользователя"),
     MessagePattern(Msg.profile_options, "es", "Opciones del usuario"),
     MessagePattern(Msg.profile_options, "uk", "Параметри користувача"),
-    MessagePattern(Msg.profile_rename, "be", "Перайменаваць карыстальніка"),
-    MessagePattern(Msg.profile_rename, "en", "Rename user"),
-    MessagePattern(Msg.profile_rename, "fr", "Renommer l’utilisateur"),
-    MessagePattern(Msg.profile_rename, "de", "Benutzer umbenennen"),
-    MessagePattern(Msg.profile_rename, "kk", "Пайдаланушының атын өзгерту"),
-    MessagePattern(Msg.profile_rename, "ru", "Переименовать пользователя"),
-    MessagePattern(Msg.profile_rename, "es", "Cambiar nombre del usuario"),
-    MessagePattern(Msg.profile_rename, "uk", "Перейменувати користувача"),
     MessagePattern(Msg.profile_delete, "be", "Выдаліць карыстальніка"),
     MessagePattern(Msg.profile_delete, "en", "Remove user"),
     MessagePattern(Msg.profile_delete, "fr", "Supprimer l’utilisateur"),
@@ -6315,9 +6299,6 @@ private fun patterns74() = listOf(
     MessagePattern(Msg.profiles_save_failed, "en", "Could not save the profile changes. Please try again."),
     MessagePattern(Msg.profiles_save_failed, "fr", "Impossible d’enregistrer les modifications du profil. Réessayez."),
     MessagePattern(Msg.profiles_save_failed, "de", "Die Änderungen am Profil konnten nicht gespeichert werden. Bitte erneut versuchen."),
-)
-
-private fun patterns75() = listOf(
     MessagePattern(Msg.profiles_save_failed, "kk", "Профильдегі өзгерістер сақталмады. Қайталап көріңіз."),
     MessagePattern(Msg.profiles_save_failed, "ru", "Не удалось сохранить изменения профиля. Повторите попытку."),
     MessagePattern(Msg.profiles_save_failed, "es", "No se pudieron guardar los cambios del perfil. Inténtalo de nuevo."),
@@ -6334,6 +6315,9 @@ private fun patterns75() = listOf(
     MessagePattern(Msg.profile_local, "en", "Local"),
     MessagePattern(Msg.profile_local, "fr", "Local"),
     MessagePattern(Msg.profile_local, "de", "Lokal"),
+)
+
+private fun patterns75() = listOf(
     MessagePattern(Msg.profile_local, "kk", "Жергілікті"),
     MessagePattern(Msg.profile_local, "ru", "Локальный"),
     MessagePattern(Msg.profile_local, "es", "Local"),

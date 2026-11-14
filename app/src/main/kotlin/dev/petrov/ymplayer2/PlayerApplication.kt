@@ -165,17 +165,19 @@ class PlayerApplication : Application(), PlaybackHost {
         AccountAuth({ library.profiles },
             YandexDeviceApi(this, BuildConfig.YANDEX_CLIENT_ID, BuildConfig.YANDEX_CLIENT_SECRET), store, scope).also { auth ->
             // Cached names of inactive accounts need neither network nor another OAuth exchange.
+            users.setAccountsLoading(true)
             scope.launch {
-                users.state.value.filter { it.canSignIn && !it.userNamed }.forEach { profile ->
-                    try { store.read(profile.id)?.account?.let { users.updateAccountName(profile.id, it.name) } }
+                try { users.state.value.filter { it.canSignIn }.forEach { profile ->
+                    try { val saved = store.read(profile.id); users.updateAccount(profile.id, saved?.account, saved != null) }
                     catch (cancelled: CancellationException) { throw cancelled }
-                    catch (_: Exception) { /* Keep the account and its original label. */ }
-                }
+                    catch (_: Exception) { /* Preserve cached details if encrypted storage cannot be read. */ }
+                } } finally { users.setAccountsLoading(false) }
             }
             scope.launch {
                 auth.state.collect { state ->
-                    state.account?.let { account ->
-                        try { users.updateAccountName(state.profileId, account.name) }
+                    if (state.phase == dev.petrov.ymplayer2.core.AuthPhase.SIGNED_IN || state.phase == dev.petrov.ymplayer2.core.AuthPhase.SIGNED_OUT ||
+                        state.phase == dev.petrov.ymplayer2.core.AuthPhase.ERROR && state.account != null) {
+                        try { users.updateAccount(state.profileId, state.account, state.phase != dev.petrov.ymplayer2.core.AuthPhase.SIGNED_OUT) }
                         catch (cancelled: CancellationException) { throw cancelled }
                         catch (_: Exception) { /* Naming must never turn successful sign-in into an error. */ }
                     }

@@ -8,8 +8,8 @@ import dev.petrov.ymplayer2.localization.Msg
 /** Built-in labels only; a renamed profile must retain the owner's text. */
 internal fun profileName(profile: Profile): String {
     if (profile.isLocal) return tr(Msg.profile_local)
-    if (!profile.userNamed && profile.name == "Яндекс") return tr(Msg.msg_5ed92773c808)
-    if (profile.userNamed) return profile.name
+    if (profile.accountConnected) return profile.name
+    if (profile.name == "Яндекс") return tr(Msg.msg_5ed92773c808)
     profile.defaultNumber?.let { return tr(Msg.profile_default_name, it) }
     val builtIn = when (profile.id) { "owner" -> "Основной"; "road" -> "В дороге"; "guest" -> "Гость"; else -> null }
     return if (profile.name == builtIn) trMessage(profile.name) else profile.name
