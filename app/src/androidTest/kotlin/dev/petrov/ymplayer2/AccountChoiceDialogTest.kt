@@ -20,7 +20,8 @@ class AccountChoiceDialogTest {
         val users = UserProfiles(listOf(UserProfiles.localProfile()), {})
         var dismissed = false
         var created = false
-        compose.setContent { PrismTheme { AccountChoiceDialog(users.state.value, users,
+        compose.setContent { val profiles = users.state.collectAsState().value
+            PrismTheme { AccountChoiceDialog(profiles, users,
             { dismissed = true }, { error("No account to select") }, { created = true }) } }
         compose.onNodeWithTag("account_choice_connect").assertExists()
         assertEquals(1, users.state.value.size)
@@ -34,7 +35,8 @@ class AccountChoiceDialogTest {
         val wife = Profile("wife", "Мария", "", userNamed = true)
         val users = UserProfiles(listOf(UserProfiles.localProfile(), wife), {})
         var selected: String? = null
-        compose.setContent { PrismTheme { AccountChoiceDialog(users.state.value, users,
+        compose.setContent { val profiles = users.state.collectAsState().value
+            PrismTheme { AccountChoiceDialog(profiles, users,
             {}, { selected = it }, { error("Must select instead of creating") }) } }
         compose.onNodeWithTag("account_choice_local").assertDoesNotExist()
         compose.onNodeWithTag("account_choice_wife").assertTextContains("Мария").performClick()
