@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-14",
+  "defaultBranch": "main",
+  "verifiedMain": "1e00bf8368848e10744d1b3f82046b3c944e6e45",
+  "codeCI": "9c73d249900f3c672056b8a3eb354cfa0494a5de",
+  "codeUnchangedSinceCI": true,
+  "trackedWorktreeCleanBeforeEvidence": true,
+  "currentDrafts": [
+    {
+      "id": 444971492,
+      "tag": "v2.8.0-build143"
+    }
+  ],
+  "draftUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-c72a21a5958c35d114b2",
+  "latest": "v2.7.0-build137",
+  "githubFeeds": {
+    "stable": {
+      "version": "2.7.0-build137",
+      "sha256": "516a7ff975cee93fedeb45589d1378d67f3824e8157b723923fcd7de71a3d4eb"
+    },
+    "manifest": {
+      "version": "2.7.0-build137",
+      "sha256": "516a7ff975cee93fedeb45589d1378d67f3824e8157b723923fcd7de71a3d4eb"
+    }
+  },
+  "readmeMatchesGitHub": true,
+  "documentationErrors": [],
+  "publicReleasePerformed": false,
+  "forumChanged": false
+}
