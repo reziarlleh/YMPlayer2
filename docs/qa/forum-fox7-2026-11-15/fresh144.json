@@ -1,0 +1,262 @@
+{
+  "checkedAtUtc": "2026-11-15T13:10:41.482748+00:00",
+  "post": {
+    "id": "146023243",
+    "number": 114,
+    "author": "Fox_7",
+    "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=146023243",
+    "reportedSetup": {
+      "playerOnHeadUnit": true,
+      "launcher": "AGAMA",
+      "YMPlayer2SelectedInLauncher": true,
+      "musicLeftPlayingBeforeIgnitionOff": true,
+      "playerVisibleAfterIgnitionOn": true,
+      "earlierAutoplayRetoggleReportedHelpful": true
+    }
+  },
+  "diagnostic": {
+    "attachment": "36553124",
+    "name": "YMPlayer2-diagnostics-20261115-122513.txt",
+    "url": "https://4pda.to/forum/dl/post/36553124/YMPlayer2-diagnostics-20261115-122513.txt",
+    "status": 200,
+    "bytes": 7583,
+    "sha256": "633c031214a5cadc55b3027a88d137716bd5bad7919d62f4b57f7d117ae45f44",
+    "version": "2.8.0-build144",
+    "api": 28,
+    "exported": "2026-11-15 12:25:16.945",
+    "rawKeptIgnored": true
+  },
+  "timeline": [
+    {
+      "time": "2026-11-15 12:23:25.742",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1042179318"
+      }
+    },
+    {
+      "time": "2026-11-15 12:23:26.521",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "80",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1042180097"
+      }
+    },
+    {
+      "time": "2026-11-15 12:23:26.522",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PAUSE",
+        "reason": "CONTROLLER",
+        "position": "80",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-15 12:23:45.251",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1042198827"
+      }
+    },
+    {
+      "time": "2026-11-15 12:23:54.648",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PLAY",
+        "reason": "COMMAND",
+        "position": "81",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-15 12:24:11.462",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1042224169"
+      }
+    },
+    {
+      "time": "2026-11-15 12:24:11.580",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1042224287"
+      }
+    },
+    {
+      "time": "2026-11-15 12:24:34.084",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1042247770"
+      }
+    },
+    {
+      "time": "2026-11-15 12:24:34.989",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "121",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1042248675"
+      }
+    },
+    {
+      "time": "2026-11-15 12:24:34.990",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PAUSE",
+        "reason": "CONTROLLER",
+        "position": "121",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-15 12:24:59.304",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1042272990"
+      }
+    },
+    {
+      "time": "2026-11-15 12:25:05.608",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PLAY",
+        "reason": "COMMAND",
+        "position": "122",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-15 12:25:14.224",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1042286737"
+      }
+    }
+  ],
+  "controllerCommands": [
+    {
+      "time": "2026-11-15 12:23:26.521",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "80",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1042180097"
+      }
+    },
+    {
+      "time": "2026-11-15 12:24:34.989",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "121",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1042248675"
+      }
+    }
+  ],
+  "pauseSenderConfirmed": "altergames.carlauncher",
+  "controllerPlayCommandsRecorded": 0,
+  "noRecordedEvents": [
+    "APP_OPEN",
+    "SESSION_RESTORE",
+    "AUDIO_SERVICE_CREATED",
+    "AUDIO_SERVICE_DESTROYED",
+    "SESSION_RELEASE",
+    "LAUNCH_RESUME_STARTED",
+    "AUDIO_PLAYBACK"
+  ],
+  "waveObservations": {
+    "allSeenBatches": 16,
+    "tracksReturnedPerBatch": 5,
+    "acceptedPerBatch": 0,
+    "feedbackHttp400": 2,
+    "networkKinds": {
+      "TLS": 2,
+      "DNS": 21
+    },
+    "causeOfDuplicateResponsesNotEstablished": true,
+    "notProofOfPauseCause": true
+  },
+  "source": {
+    "head": "0403e12c06c8f11dd9b8a4cbb3064217a6ee8e26",
+    "pathsCompared": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt",
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt",
+      "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt",
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt"
+    ],
+    "unchangedWholeFilesBetween144And145": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt",
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
+    ],
+    "unchangedSectionsBetween144And145": [
+      "PlayerApplication.restoreLaunch",
+      "MainActivity.onStart/onStop"
+    ],
+    "otherEditsInApplicationAndActivity": "offline profile deletion and cache folder transfers",
+    "handlersUnchangedBetween144And145": true,
+    "sameHandlersInCurrentHead": true
+  },
+  "primaryReferences": {
+    "package": "https://play.google.com/store/apps/details?id=altergames.carlauncher",
+    "controllerAttribution": "https://developer.android.com/reference/androidx/media3/session/MediaSession#getControllerForCurrentRequest()",
+    "launcherGuide": "https://altercars.ru/agama/instructions/ru.html"
+  },
+  "scope": {
+    "productCodeChanged": false,
+    "newApkCreated": false,
+    "releaseChanged": false,
+    "forumPostsCreated": 0,
+    "headerEdited": false,
+    "emulatorsUsed": false,
+    "physicalAcceptanceClaimed": false,
+    "repowiseAvailable": false
+  }
+}
