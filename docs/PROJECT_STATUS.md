@@ -9,6 +9,9 @@
 signed144→145/UID/данные/R8 UI23/35 подтверждены. Ожидается приёмка владельцем;
 стабильный канал и форум сохраняют144.
 
+Исходники/документы/кандидат отправлены в main, [CI43680196168 success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43680196168).
+Один Draft145 с четырьмя сверенными assets; [доставка/Latest/feeds](qa/portable281/github-delivery.json).
+
 Текущий стабильный выпуск — **2.8.0-build144**, принят владельцем и опубликован
 14 ноября 2026. [GitHub/Latest/автообновление](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.0-build144), тот же APK без пересборки,
 Android 6+. Оба source feed —144/min23;4 из 6 динамических URL подтверждены,

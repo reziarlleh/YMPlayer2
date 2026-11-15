@@ -127,6 +127,25 @@ Build145 выдан штатным Build-Release.ps1; package прежний, mi
 `08d023356b06ca71f457040ef4f6d17d269acf7c740cd0cc80b5767cbcfbdb72`.
 Состав обычного релиза ещё не опубликован; готов [полный текст2.8.1](RELEASE_2_8_1_NOTES.md).
 
+## GitHub и документы
+
+15 ноября исходники/документы/APK145 отправлены в main, commit2f3d26a.
+[GitHub CI43680196168 — success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43680196168).
+Поддерживается один [Draft145](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-20476b6037eea600e950),
+четыре файла: APK, SHA256.txt, signature.txt, build.json. Все скачаны обратно,
+их SHA совпали с локальными и server digest. Публичный APK из source commit
+полностью скачан по HTTP200 и совпал. Внешние mirrors145 не публиковались.
+Фактические default branch=main/public, Latest и оба raw source feed —144.
+[Датированная проверка доставки](qa/portable281/github-delivery.json).
+
+README сохраняет описание опубликованного144; RU/EN инструкции явно отмечают
+кандидат145, новые пути/перенос и содержат настоящие R8-снимки. План, статус,
+багрепорт, карты функций/модулей, версии, CHANGELOG, журнал и ошибочные решения
+актуализированы. Check-Documentation.py --github прошёл без ошибок/отсутствующих
+целей; README blob совпал. Форум не изменялся.
+При обновлении Draft по API его служебный URL изменился; перечитан новый адрес,
+ссылки исправлены. tag_name v2.8.1-build145 и байты assets сохранены.
+
 ## Границы
 
 SAF в этих проверках — независимый тестовый DocumentsProvider на эмуляторе,

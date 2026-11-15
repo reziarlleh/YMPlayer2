@@ -2,7 +2,8 @@
 
 15 ноября 2026. [Скачать APK](../releases/2.8.1-build145/YMPlayer-2.8.1-build145.apk) ·
 [полный состав](RELEASE_2_8_1_NOTES.md) · [проверки](OFFLINE_CACHE_2_8_1_VERIFICATION.md).
-Текущий GitHub Draft будет указан в отчёте после загрузки. Stable/Latest/автообновление
+[GitHub Draft с четырьмя файлами](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-20476b6037eea600e950).
+Stable/Latest/автообновление
 сохраняют **2.8.0-build144**; приёмка владельцем и обычная публикация ещё не выполнены.
 
 APK: `releases/2.8.1-build145/YMPlayer-2.8.1-build145.apk`, 4757699 bytes.
@@ -29,3 +30,7 @@ firstInstallTime, профили/выбор и приватный файл. R8 U
 по подтверждённым лайкам с сетью. Для реального удаления сначала иметь резервную
 копию: внутренние файлы Android удаляет вместе с приложением, общие папки остаются.
 Эмуляторные проверки не приравниваются к физической приёмке USB/ГУ владельца.
+
+GitHub CI исходников [43680196168 — success](https://github.com/reziarlleh/YMPlayer2/actions/runs/43680196168).
+Все4 assets скачаны обратно и совпали; публичный APK из source commit2f3d26a
+проверен полной HTTP-загрузкой. [Доставка/Latest/feeds](qa/portable281/github-delivery.json).
