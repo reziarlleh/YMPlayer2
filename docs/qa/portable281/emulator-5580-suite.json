@@ -1,0 +1,47 @@
+{
+  "checkedAtUtc": "2026-11-15T04:36:44.295299+00:00",
+  "serial": "emulator-5580",
+  "api": "23",
+  "stage": "suite",
+  "tests": 110,
+  "runs": [
+    {
+      "label": "cache-final",
+      "classes": [
+        "PortableCacheTest",
+        "FileTransferTest",
+        "SettingsScopeTest"
+      ],
+      "tests": 36,
+      "log": "emulator-5580-cache-final.txt"
+    },
+    {
+      "label": "personal-ui-final",
+      "classes": [
+        "LocalizationTest",
+        "AppearancePersistenceTest",
+        "InterfaceScaleTest",
+        "InterfaceScalePlaybackTest",
+        "SkinUiTest",
+        "AboutTest"
+      ],
+      "tests": 21,
+      "log": "emulator-5580-personal-ui-final.txt"
+    },
+    {
+      "label": "playback-final",
+      "classes": [
+        "UserProfilesUiTest",
+        "WaveQueuePrefetchTest",
+        "OfflineSourceStateTest",
+        "OfflineCachePlaybackLatencyTest",
+        "OfflineColdSwitchTest",
+        "OfflineColdCatalogTest"
+      ],
+      "tests": 53,
+      "log": "emulator-5580-playback-final.txt"
+    }
+  ],
+  "debugApkSha256": "2a6ae72f98a2a54126322e3044a0036221da509d4a642dfdd0deaa2a570677e5",
+  "testApkSha256": "68a0ffd28d979962e3247256a4fbaedba8a590c05591debb9921b4fb67e17075"
+}

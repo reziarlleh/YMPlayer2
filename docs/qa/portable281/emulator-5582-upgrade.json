@@ -1,0 +1,27 @@
+{
+  "checkedAtUtc": "2026-11-15T04:37:22.259612+00:00",
+  "serial": "emulator-5582",
+  "api": "35",
+  "stage": "upgrade",
+  "tests": 2,
+  "runs": [
+    {
+      "label": "old-writer",
+      "classes": [
+        "LegacyCacheProducerTest"
+      ],
+      "tests": 1,
+      "log": "emulator-5582-old-writer.txt"
+    },
+    {
+      "label": "upgraded-reader",
+      "classes": [
+        "LegacyCacheConsumerTest"
+      ],
+      "tests": 1,
+      "log": "emulator-5582-upgraded-reader.txt"
+    }
+  ],
+  "debugApkSha256": "2a6ae72f98a2a54126322e3044a0036221da509d4a642dfdd0deaa2a570677e5",
+  "testApkSha256": "68a0ffd28d979962e3247256a4fbaedba8a590c05591debb9921b4fb67e17075"
+}

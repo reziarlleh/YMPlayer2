@@ -1,5 +1,16 @@
 # Проверка руководства пользователя
 
+15 ноября2026 / кандидат **2.8.1-build145**: RU/EN руководства сверены с новыми
+SettingsScreen/ProfileSettingsScreen, OfflineSettingsScreen, CacheDirectories,
+CacheLocationController/LikedFileStore и удалением профилей. Общие enabled/Wi-Fi/
+качество и музыкальные папки отделены от персонального расположения. Описаны
+legacy/new импорт, обновление, очистка и повторный SAF-доступ после uninstall.
+Стабильная загрузка144 явно отделена от кандидата145. Снимки общих/персональных
+настроек получены из настоящего подписанного R8 APK145 на эмуляторах API23 (RU)
+и35 (EN), текущий встроенный Локальный; это не рендер и не личный аккаунт.
+Прежние иллюстрации сохранены как датированные примеры. [Проверки/источники](OFFLINE_CACHE_2_8_1_VERIFICATION.md),
+[матрица](qa/portable281/matrix.json). Исторические сверки ниже.
+
 2026-10-07 / stable **2.5.0-build97**: обе инструкции сверены с ShellApp,
 RadioScreen/RadioController, LaunchStateStore/ClipCheckpointStore и LocalTagLabels.
 Убраны указания ставить ручную beta; обновлены сеть/Retry, восстановление ранее

@@ -1,8 +1,10 @@
 # YMPlayer2 — user guide
 
-This guide covers the stable **YMPlayer2 2.8.0-build144**, for Android 6 and later.
-[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.0-build144) ·
-[Signing and verification](MANUAL_2_8_0_BUILD144.md).
+This guide has been updated for the **YMPlayer2 2.8.1-build145** manual candidate, for Android 6 and later.
+The new cache locations and settings layout belong to that candidate.
+The stable release and app updater still provide **2.8.0-build144**.
+[Stable APK144](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.0-build144) ·
+[Candidate145, signing and verification](MANUAL_2_8_1_BUILD145.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -167,7 +169,8 @@ If the name could not be loaded, use **Refresh account details**; you do not nee
 to approve an already completed sign-in again. **Cancel sign-in** removes the
 unfinished connection. Names always come from Yandex and cannot be edited.
 **⋮** beside a Yandex profile lets you remove it with confirmation. Removing the
-active profile returns to Local paused. Your music files are kept.
+active profile returns to Local paused. Your local music and custom cache folder
+are kept; the removed profile’s private cache is deleted.
 
 An account-only action from Local offers a choice of Yandex profiles. If none
 exist, it offers to connect an account. Connecting requires confirmation;
@@ -179,8 +182,10 @@ directly in Profiles still opens their player paused.
 
 Selecting another user restores their queue and position **paused**. Press Play
 when you are ready. Language, theme, selected skin and interface scale are also
-personal from2.8.0. Connected folders, Android permissions, installed skin packages,
-audio-quality settings and the physical cache location remain shared.
+personal from2.8.0. Connected local/USB folders, Android permissions, installed skin
+packages, audio quality, the cache switch and the Wi-Fi rule remain shared. From2.8.1,
+each Yandex profile has its own cache location. Open **Profiles → Profile settings**
+for the current user’s personal options. The gear button opens General settings.
 
 Existing Main, On the road, Guest and previously created profiles retain their
 IDs, accounts and data; Local is added separately. Cached account details provide
@@ -315,13 +320,20 @@ saving, the whole playlist change is rejected; adjust your selection and retry.
 
 ## Offline music
 
-**Settings → Offline cache settings** contains the cache switch, Wi-Fi-only
-option, synchronization, cancellation and deletion. **Library → Offline**
-contains the downloaded tracks and **Play downloads**. Settings and track lists
-are separate pages.
+**Settings → Offline cache settings** contains the shared cache switch, Wi-Fi-only
+rule and download quality. These apply to every profile.
 
-1. Enable the offline cache and check whether downloads should use Wi-Fi only.
-2. Select **Sync liked tracks** and wait for completion.
+**Profiles → Profile settings → Profile offline cache** contains the selected user’s
+folder, synchronization, integrity check and clear command. Turn the cache on in
+General settings and sign in to that profile’s Yandex account to change folders
+or synchronize. Back returns to the relevant general or personal settings.
+
+**Library → Offline** contains the downloaded tracks and **Play downloads**;
+settings and track lists remain separate.
+
+1. Enable the cache and choose the Wi-Fi rule in General settings.
+2. Open **Profiles → Profile settings → Profile offline cache**, select
+   **Sync liked tracks** and wait for completion.
 3. Open **Library → Offline** and play the list or a track.
 
 Only liked tracks and their covers are synchronized. Favorite artists, albums
@@ -378,14 +390,41 @@ temporary next-track preparation is separate from this permanent cache.
 
 ## Cache location and MP3 export
 
-Open **Settings → Offline cache settings → Choose cache folder** and select
-a device or USB folder in the system picker. The app creates its own
-YMPlayer2-offline-… subfolder. It checks access and free space, copies every
-profile/account’s audio, covers and metadata, verifies each copy, then removes
-the original cache. Other files in the selected folder are not touched.
-Keep the drive connected. **Cancel move** preserves the original until the
-location has been committed. Use **Move to internal storage** to return.
-The current track may keep playing; the next cache read can wait for the move.
+Open **Profiles → Profile settings → Profile offline cache → Choose cache folder**.
+With shared caching enabled, choose a regular device or USB folder. Every Yandex
+profile has its own location; one can use private storage while another uses USB.
+Music folders in the local library remain shared.
+
+- Empty folder: the app creates its own YMPlayer2-offline-… subfolder and moves
+  only this profile’s cache, preserving other profiles and unrelated files.
+- Existing portable cache for the same account: confirm attaching and merging.
+  Valid audio is reused without downloading it again. Two profiles cannot use
+  the same live root; separate subfolders on one drive are allowed.
+- Old cache: choose a set and confirm conversion. This requires a connection and
+  the current account’s confirmed Liked tracks. Matching songs are imported;
+  the original unbound old set is retained.
+- Another account or an unsupported newer format: attaching is refused without
+  rewriting those files.
+
+Free space is checked before copying. Files and checksums are verified before
+committing the new location and removing the old managed cache. **Cancel move**
+keeps the original until commitment; afterwards cleanup finishes. **Move to
+internal storage** moves only this profile. Keep the USB drive connected.
+A missing drive or revoked access does not silently select another location.
+
+Updating adopts known old caches in place without downloading them again. When
+shared caching is off, conversion waits until it is enabled; paths and files stay.
+Private caches are removed with the app or profile. A cache in a regular shared
+folder survives. After reinstalling or moving devices, sign in to the same Yandex
+account, grant Android folder access again and select the complete folder containing
+**ymplayer2-cache.json**, audio, artwork and checksums. Copy the entire folder.
+Sign-in credentials, settings and playback queues are not stored in it. App-private
+folders are unsuitable for keeping files after uninstalling.
+
+Synchronization reuses matching files, downloads missing songs and removes unliked
+tracks only from this profile’s managed cache. A full check repairs damaged files.
+Older app versions do not support the new cache; keep a backup until you have
+verified the result. [Implementation and checks](OFFLINE_CACHE_2_8_1_VERIFICATION.md).
 
 In **Library → Offline → …**, or the **…** menu of a Yandex album/playlist,
 select **Export MP3 (to USB / folder)**. Choose **128, 192, 256 or 320 kbps**
@@ -496,16 +535,20 @@ buttons also work.
 
 *This illustration uses a local test video and sample metadata on TV29.*
 
+<p><img src="qa/portable281/api35-general-settings.png" width="280" alt="General settings in 2.8.1"><img src="qa/portable281/api35-profile-settings.png" width="280" alt="Profile settings in 2.8.1"></p>
+
+*Signed candidate145 on an Android15 emulator, using the built-in Local profile.*
+
 ## Language and skins
 
-Choose **Settings → App language**. Auto follows the system and is the default.
+Choose **Profiles → Profile settings → App language**. Auto follows the system and is the default.
 The list includes Belarusian, English, French, German, Kazakh, Russian, Spanish
 and Ukrainian, ordered by their English names. Each entry also shows its native
 name. Changing language keeps playback running and leaves your music, playlist
 and skin names unchanged.
 From2.8.0 the language choice is saved separately for each user.
 
-**Appearance** chooses Dark, Light or System. The choice is saved immediately
+In **Profiles → Profile settings**, **Appearance** chooses Dark, Light or System. The choice is saved immediately
 and survives app termination. System follows Android’s current light or dark theme. **Skins** chooses the palette and
 supported icon artwork. Built-in Oxide (Оксид), Harbor (Гавань), Olive (Олива)
 and Silver (Серебро) skins have both
@@ -523,7 +566,7 @@ See [skin packages](../skins/README.md) and the [author guide](SKIN_AUTHOR_GUIDE
 
 ## Interface size
 
-Open **Settings → Interface size**. Use the slider or **− / +** to adjust text,
+Open **Profiles → Profile settings → Interface size**. Use the slider or **− / +** to adjust text,
 buttons and spacing from **50 to 200%** in **10%** steps. The default is 100%;
 **Reset to 100%** restores it. On a remote, Left/Right adjust the slider and
 Up/Down move focus to other controls.
@@ -737,7 +780,7 @@ media on the next library refresh when the folder or USB drive is available; arc
 
 ---
 
-This guide describes released features. Earlier screenshot versions and their
+The new cache and settings screens describe the 2.8.1 manual candidate. Earlier screenshot versions and their
 test origins are documented in [the documentation verification note](USER_GUIDE_VERIFICATION.md).
 
 

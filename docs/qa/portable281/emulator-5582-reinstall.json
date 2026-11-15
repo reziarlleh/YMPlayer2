@@ -1,0 +1,27 @@
+{
+  "checkedAtUtc": "2026-11-15T05:04:29.629805+00:00",
+  "serial": "emulator-5582",
+  "api": "35",
+  "stage": "reinstall",
+  "tests": 2,
+  "runs": [
+    {
+      "label": "reinstall-producer",
+      "classes": [
+        "PortableCacheReinstallTest#producePrivateAndSafCachesBeforeActualUninstall"
+      ],
+      "tests": 1,
+      "log": "emulator-5582-reinstall-producer.txt"
+    },
+    {
+      "label": "reinstall-consumer",
+      "classes": [
+        "PortableCacheReinstallTest#restoreSafCacheWithNewIdentityAfterActualUninstall"
+      ],
+      "tests": 1,
+      "log": "emulator-5582-reinstall-consumer.txt"
+    }
+  ],
+  "debugApkSha256": "2a6ae72f98a2a54126322e3044a0036221da509d4a642dfdd0deaa2a570677e5",
+  "testApkSha256": "0c274ca364984f1d913bd4e1f4a3374854d6a392c582f945391c0cfea6539761"
+}

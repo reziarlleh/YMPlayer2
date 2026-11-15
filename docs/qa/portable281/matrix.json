@@ -1,0 +1,54 @@
+{
+  "checkedAtUtc": "2026-11-15T05:08:10.452634+00:00",
+  "productSourceCommit": "ed7fa354fe7def537a7520eb650345b109668dd0",
+  "version": "2.8.1-build145",
+  "bytes": 4757699,
+  "build": {
+    "channel": "stable",
+    "sha256": "08d023356b06ca71f457040ef4f6d17d269acf7c740cd0cc80b5767cbcfbdb72",
+    "builtAtUtc": "2026-11-15T04:51:14.6060637Z",
+    "versionCode": 145,
+    "updateChannel": "stable",
+    "runtimeAcceptance": "pending",
+    "applicationId": "dev.petrov.ymplayer2",
+    "minSdk": 23,
+    "versionName": "2.8.1-build145"
+  },
+  "core": {
+    "tests": 182,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 4,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "debugLint": {
+    "errors": 0,
+    "warnings": 137,
+    "NewApi": 0
+  },
+  "releaseLintVital": "passed",
+  "translations": {
+    "messages": 777,
+    "completePacks": 8
+  },
+  "native": {
+    "API23": {
+      "suite": 110,
+      "oldWriterUpgrade": 2,
+      "actualReinstall": 2
+    },
+    "API35": {
+      "suite": 110,
+      "oldWriterUpgrade": 2,
+      "actualReinstall": 2
+    }
+  },
+  "oldWriterApkSha256": "a6c272f0a5ed539a4b8326d994736ab204374ecc330ba6bca8171425391bda73",
+  "acceptance": "owner pending",
+  "stableFeed": "2.8.0-build144"
+}
