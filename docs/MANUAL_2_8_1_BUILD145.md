@@ -1,10 +1,10 @@
-# YMPlayer2 2.8.1-build145 — подписанный кандидат
+# YMPlayer2 2.8.1-build145 — подписанный APK
 
 15 ноября 2026. [Скачать APK](../releases/2.8.1-build145/YMPlayer-2.8.1-build145.apk) ·
 [полный состав](RELEASE_2_8_1_NOTES.md) · [проверки](OFFLINE_CACHE_2_8_1_VERIFICATION.md).
-[GitHub Draft с четырьмя файлами](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-20476b6037eea600e950).
-Stable/Latest/автообновление
-сохраняют **2.8.0-build144**; приёмка владельцем и обычная публикация ещё не выполнены.
+15 ноября владелец поручил стабильный выпуск того же APK.
+[Публикация и доставка](RELEASE_2_8_1_VERIFICATION.md); новая физическая проверка
+на устройстве владельца этим поручением не заявляется.
 
 APK: `releases/2.8.1-build145/YMPlayer-2.8.1-build145.apk`, 4757699 bytes.
 SHA256: `08d023356b06ca71f457040ef4f6d17d269acf7c740cd0cc80b5767cbcfbdb72`. Пакет `dev.petrov.ymplayer2`, versionCode145,
