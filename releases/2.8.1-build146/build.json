@@ -1,0 +1,16 @@
+{
+  "updateChannel": "stable",
+  "runtimeAcceptance": "emulator-diagnostic-verified",
+  "sha256": "4bf6aef1993af9a1f83541654497db3dc431ad10e34a6747c559796bc0f8a3ff",
+  "versionName": "2.8.1-build146",
+  "minSdk": 23,
+  "channel": "stable",
+  "applicationId": "dev.petrov.ymplayer2",
+  "builtAtUtc": "2026-11-15T14:12:02.9576987Z",
+  "versionCode": 146,
+  "ownerAcceptance": "manual-test-requested",
+  "publication": "manual-only-no-update-feed",
+  "diagnosticPurpose": "raw media button versus resolved transport command; D-004 pending",
+  "openObservation": "D-009: API35 service recovery native test; no baseline comparison",
+  "productSourceCommit": "2a78a954dbeabfba0d08cba5b7b041d4c276ed9a"
+}
