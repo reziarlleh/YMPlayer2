@@ -258,5 +258,16 @@
     "emulatorsUsed": false,
     "physicalAcceptanceClaimed": false,
     "repowiseAvailable": false
+  },
+  "requestSemanticsClarification": {
+    "checkedAtUtc": "2026-11-15T13:33:47.065524+00:00",
+    "originalMediaButtonEventRecorded": false,
+    "resolvedPlayerPauseRecorded": true,
+    "explicitPauseVersusToggleKnown": false,
+    "media3Version": "1.11.0",
+    "toggleSelectsFrom": "playWhenReady",
+    "sourceUrl": "https://raw.githubusercontent.com/androidx/media/1.11.0/libraries/session/src/main/java/androidx/media3/session/MediaSessionImpl.java",
+    "sourceSha256": "f4ed802e5c1cf4e8f303e089fad7e95ee9052efcbe8687f673aac6d1d8eb5c22",
+    "newDiagnosticsImplemented": false
   }
 }

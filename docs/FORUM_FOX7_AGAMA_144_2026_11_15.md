@@ -1,4 +1,13 @@
-# Fox_7 — отправитель Pause установлен в диагностике144
+# Fox_7 — запросы Agama приводят к Pause в диагностике144
+
+**Уточнение по гипотезе владельца о переключателе Play/Pause.** Запись
+SESSION_COMMAND отражает уже вызванный метод Player после обработки Media3.
+Пакет инициатора установлен, но исходная команда Agama не записана: это могла
+быть явная Pause или KEYCODE_MEDIA_PLAY_PAUSE/HEADSETHOOK, преобразованный в Pause.
+Следовательно, формулировка «Agama прислала именно отдельную команду Pause»
+избыточна. Доказан запрос от Agama, приведший к pause(); алгоритм самого лаунчера
+по этому экспорту не устанавливается.
+
 
 15 ноября2026 прочитаны свежая страница темы и [ответ№114](https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=146023243).
 Fox_7 использует YMPlayer2 на магнитоле с AGAMA, выбирает плеер в лаунчере,
@@ -52,8 +61,9 @@ MediaSession.controllerForCurrentRequest: это отправитель конк
   Точное регрессионное влияние всех изменений2.8.0 на решения самого Agama
   этим сравнением не установлено.
 
-В этом файле подтверждена конкретная цепочка: Agama отправил Pause; команды
-Play от него после возврата нет; YMPlayer2 соблюдает сохранённую Pause.
+В этом файле подтверждена конкретная цепочка: запросы от Agama привели к pause();
+вызова play() от его контроллера после возврата не записано; YMPlayer2 сохраняет
+полученную Pause. Исходный код медиакнопки не записан и остаётся неизвестным.
 Это существенно уточняет D-004, но не закрывает автоматически старые1003,
 другие устройства/авторов и весь исторический набор жалоб.
 
@@ -84,3 +94,28 @@ PLAYBACK_STARTED из UI сам по себе не доказывает слыш
 клипов не трогались. Продуктовый код, номер APK, feeds и форум не менялись;
 эмуляторы/физические тесты для чтения журнала не запускались. RepoWise CLI
 недоступен из-за missing tree_sitter; сверены фактические исходники.
+
+## Play/Pause: сверка с точной версией Media3
+
+В проекте media3=1.11.0. Проверены официальный Android API reference и
+[MediaSessionImpl.java именно1.11.0](https://github.com/androidx/media/blob/1.11.0/libraries/session/src/main/java/androidx/media3/session/MediaSessionImpl.java#L1715).
+При KEYCODE_MEDIA_PLAY_PAUSE/HEADSETHOOK библиотека выбирает pause() при
+playWhenReady=true и play() при false. Это не проверка слышимого звука/isPlaying:
+буферизация или подавление аудио могут различать эти состояния.
+[Официальная таблица](https://developer.android.com/reference/androidx/media3/session/MediaSession#media-key-events-mapping).
+
+Наш SessionPlayer наследует getPlayWhenReady от ForwardingPlayer и не заменяет
+общую кнопку постоянной паузой. onMediaButtonEvent не переопределён; Media3
+обрабатывает исходную кнопку до диагностического observe(PAUSE/PLAY).
+Гипотеза рассогласования состояния при toggle допустима, но данным файлом
+не подтверждена. Обе записанные Pause следуют вскоре за APP_BACKGROUND;
+отдельного события переключателя при APP_FOREGROUND журнал не содержит.
+
+Для различения исходного toggle и явной Pause достаточно будущей диагностики
+через [onMediaButtonEvent](https://developer.android.com/reference/androidx/media3/session/MediaSession.Callback#onMediaButtonEvent(androidx.media3.session.MediaSession,androidx.media3.session.MediaSession.ControllerInfo,android.content.Intent)):
+keyCode/action/repeatCount, package, playWhenReady/isPlaying/playbackState и
+suppressionReason до обработки, затем итоговый SESSION_COMMAND. Возвращать
+false для штатной обработки Media3, не перехватывать/переиначивать кнопку.
+Прямые transportControls.play()/pause() не обязаны вызывать этот callback,
+поэтому имеющуюся запись итогового Player-метода необходимо сохранить.
+Такая диагностика пока не реализована; код/APK/канал не менялись.
