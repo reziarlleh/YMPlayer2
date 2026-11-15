@@ -1,0 +1,11 @@
+{
+  "tag": "apk-2.8.1-build145",
+  "sourceTag": "v2.8.1-build145",
+  "sourceCommit": "81a1ee5aabf192f67b30faca8fde025d77e12dd4",
+  "commit": "63466a85f7ec090e394920162f757f68930fff3c",
+  "treeBytes": 4773177,
+  "apkSha256": "08d023356b06ca71f457040ef4f6d17d269acf7c740cd0cc80b5767cbcfbdb72",
+  "reused": true,
+  "pushed": true,
+  "remoteCheckedAtUtc": "2026-11-15T11:24:20.393516+00:00"
+}

@@ -1,10 +1,7 @@
 # YMPlayer2 — user guide
 
-This guide has been updated for the **YMPlayer2 2.8.1-build145** manual candidate, for Android 6 and later.
-The new cache locations and settings layout belong to that candidate.
-The stable release and app updater still provide **2.8.0-build144**.
-[Stable APK144](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.0-build144) ·
-[Candidate145, signing and verification](MANUAL_2_8_1_BUILD145.md).
+This guide covers the stable **YMPlayer2 2.8.1-build145**, for Android6 and later.
+[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.1-build145) · [Signing and verification](MANUAL_2_8_1_BUILD145.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -19,7 +16,7 @@ You do not need a Yandex account to play your own files.
 
 ## Install and get started
 
-Version2.7.0 requires Android6 or later; stable2.6.6 requires Android9 or later.
+YMPlayer2 requires Android6 or later.
 The same APK works on phones, tablets, Android
 TV and car head units; the layout adapts to the screen.
 
@@ -537,7 +534,7 @@ buttons also work.
 
 <p><img src="qa/portable281/api35-general-settings.png" width="280" alt="General settings in 2.8.1"><img src="qa/portable281/api35-profile-settings.png" width="280" alt="Profile settings in 2.8.1"></p>
 
-*Signed candidate145 on an Android15 emulator, using the built-in Local profile.*
+*Signed build145 on an Android15 emulator, using the built-in Local profile.*
 
 ## Language and skins
 
@@ -733,7 +730,7 @@ Disconnecting Bluetooth or headphones may pause the music. Reopening the app
 keeps that pause; press Play to continue. Stop ends playback and resets the
 position to the beginning of the track.
 
-In the **2.6.6-build133** manual candidate, dismissing the system media card
+Dismissing the system media card
 keeps the selected track, paused position and prepared Vibe tracks. Reopening
 the app stays silent. Use Stop in the app or the TV panel to reset the Vibe.
 This behavior is included in the current release.
@@ -780,7 +777,7 @@ media on the next library refresh when the folder or USB drive is available; arc
 
 ---
 
-The new cache and settings screens describe the 2.8.1 manual candidate. Earlier screenshot versions and their
+The cache and settings screens match the stable 2.8.1 release. Earlier screenshot versions and their
 test origins are documented in [the documentation verification note](USER_GUIDE_VERIFICATION.md).
 
 
