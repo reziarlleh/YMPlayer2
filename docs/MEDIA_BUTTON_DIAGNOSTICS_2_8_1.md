@@ -82,8 +82,8 @@ LAUNCH при повторном SERVICE_RELEASE. PLAY сохранён, но в
 в рамках этого ручного APK не заявляется.
 
 Сводка и компактные свидетельства: [qa/mediabutton281](qa/mediabutton281/verification.json).
-RepoWise context/update проверяется отдельно; missing tree_sitter не заменяется
-заявлением об обновлённом индексе. Фактические исходники сверены напрямую.
+RepoWise context и последующий update отказали: missing tree_sitter. Индекс не
+объявляется обновлённым. Фактические исходники сверены напрямую.
 
 ## APK и проверка пользователем
 
@@ -91,7 +91,20 @@ RepoWise context/update проверяется отдельно; missing tree_si
 minSDK23/Android6+, target36, прежний dev.petrov.ymplayer2 и сертификат
 fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec, v1+v2.
 SHA256: 4bf6aef1993af9a1f83541654497db3dc431ad10e34a6747c559796bc0f8a3ff.
-Ссылка доставки будет добавлена после проверки удалённых байтов.
+[Скачать APK без входа](https://raw.githubusercontent.com/reziarlleh/YMPlayer2/ae81564152ad76c52166da91596439a1b1c19eb7/releases/2.8.1-build146/YMPlayer-2.8.1-build146.apk).
+Прямая неизменяемая ссылка проверена полной загрузкой без авторизации: HTTP200,
+4757698bytes и SHA совпали. [Проверка HTTP и feed](qa/mediabutton281/http.json).
+
+Сохранён единственный актуальный [GitHub Draft146](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-1167245afeed93a6af93)
+с четырьмя файлами; каждый скачан и совпал с локальным.
+[Доказательство assets/Latest](qa/mediabutton281/github-draft-assets.json).
+Продуктовый source commit2a78a954dbeabfba0d08cba5b7b041d4c276ed9a,
+delivery commitae81564152ad76c52166da91596439a1b1c19eb7; APK не пересобирался
+для размещения. Оба source feed145,5/6 динамических URL145; прежний Gcore stable144
+остаётся D-001.146 не включён в автообновление,4PDA не менялся.
+
+[CI43723627992](https://github.com/reziarlleh/YMPlayer2/actions/runs/43723627992)
+проверяет точный source commit; итог будет зафиксирован после завершения.
 
 1. Установить APK поверх текущей версии, без удаления приложения.
 2. Запустить музыку, очистить диагностику и воспроизвести обычное

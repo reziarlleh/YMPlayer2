@@ -1,0 +1,55 @@
+{
+  "checkedAtUtc": "2026-11-15T14:21:15.007280+00:00",
+  "id": 446113004,
+  "tag": "v2.8.1-build146",
+  "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-1167245afeed93a6af93",
+  "draft": true,
+  "target": "ae81564152ad76c52166da91596439a1b1c19eb7",
+  "currentDrafts": 1,
+  "assets": [
+    {
+      "name": "build.json",
+      "bytes": 714,
+      "sha256": "bddbc04ebf393c4327cedc56047a2edfc04025ad724d9bb77bb8e92e6f2b75bf",
+      "matchesLocal": true
+    },
+    {
+      "name": "SHA256.txt",
+      "bytes": 94,
+      "sha256": "2a3e3d9e091db3ae463d55604acb2818b5f993957696348c706c926375a49d42",
+      "matchesLocal": true
+    },
+    {
+      "name": "signature.txt",
+      "bytes": 14227,
+      "sha256": "c55379889eca8b57df3fddd6945552f00f8796e4c46c225455509e5e42597abf",
+      "matchesLocal": true
+    },
+    {
+      "name": "YMPlayer-2.8.1-build146.apk",
+      "bytes": 4757698,
+      "sha256": "4bf6aef1993af9a1f83541654497db3dc431ad10e34a6747c559796bc0f8a3ff",
+      "matchesLocal": true
+    }
+  ],
+  "latestTag": "v2.8.1-build145",
+  "latestId": 445827772,
+  "latestAssets": [
+    {
+      "name": "build.json",
+      "size": 518
+    },
+    {
+      "name": "SHA256.txt",
+      "size": 94
+    },
+    {
+      "name": "signature.txt",
+      "size": 14227
+    },
+    {
+      "name": "YMPlayer-2.8.1-build145.apk",
+      "size": 4757699
+    }
+  ]
+}

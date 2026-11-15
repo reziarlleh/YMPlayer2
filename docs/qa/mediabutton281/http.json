@@ -1,0 +1,76 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/ae81564152ad76c52166da91596439a1b1c19eb7/releases/2.8.1-build146/YMPlayer-2.8.1-build146.apk",
+    "checkedAtUtc": "2026-11-15T14:20:06.891747+00:00",
+    "status": 200,
+    "bytes": 4757698,
+    "sha256": "4bf6aef1993af9a1f83541654497db3dc431ad10e34a6747c559796bc0f8a3ff",
+    "matchesExpected": true
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+    "checkedAtUtc": "2026-11-15T14:20:06.892745+00:00",
+    "status": 200,
+    "bytes": 2974,
+    "sha256": "b28a50d8edf8c49e5aca3c7663c068bee7c61a728da3e54b35f0c84fb9202d61",
+    "version": "2.8.1-build145",
+    "code": 145,
+    "minSdk": 23,
+    "matchesExpected": true
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "checkedAtUtc": "2026-11-15T14:20:06.892745+00:00",
+    "status": 200,
+    "bytes": 2974,
+    "sha256": "b28a50d8edf8c49e5aca3c7663c068bee7c61a728da3e54b35f0c84fb9202d61",
+    "version": "2.8.1-build145",
+    "code": 145,
+    "minSdk": 23,
+    "matchesExpected": true
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "checkedAtUtc": "2026-11-15T14:20:06.893746+00:00",
+    "status": 200,
+    "bytes": 2974,
+    "sha256": "b28a50d8edf8c49e5aca3c7663c068bee7c61a728da3e54b35f0c84fb9202d61",
+    "version": "2.8.1-build145",
+    "code": 145,
+    "minSdk": 23,
+    "matchesExpected": true
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-11-15T14:20:06.894747+00:00",
+    "status": 200,
+    "bytes": 2974,
+    "sha256": "b28a50d8edf8c49e5aca3c7663c068bee7c61a728da3e54b35f0c84fb9202d61",
+    "version": "2.8.1-build145",
+    "code": 145,
+    "minSdk": 23,
+    "matchesExpected": true
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "checkedAtUtc": "2026-11-15T14:20:06.894747+00:00",
+    "status": 200,
+    "bytes": 4652,
+    "sha256": "3c3dea81c0566d07e8d550a0bec307a6a012ac8d1207fb233860c9bc772747f4",
+    "version": "2.8.0-build144",
+    "code": 144,
+    "minSdk": 23,
+    "matchesExpected": false
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-11-15T14:20:06.895747+00:00",
+    "status": 200,
+    "bytes": 2974,
+    "sha256": "b28a50d8edf8c49e5aca3c7663c068bee7c61a728da3e54b35f0c84fb9202d61",
+    "version": "2.8.1-build145",
+    "code": 145,
+    "minSdk": 23,
+    "matchesExpected": true
+  }
+]

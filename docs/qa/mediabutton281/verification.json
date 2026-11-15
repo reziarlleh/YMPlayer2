@@ -1,5 +1,5 @@
 {
-  "checkedAtUtc": "2026-11-15T14:16:30.316871+00:00",
+  "checkedAtUtc": "2026-11-15T19:16:30.316871+05:00",
   "version": "2.8.1-build146",
   "stableLatest": "2.8.1-build145",
   "sourceFeeds": 145,
@@ -79,6 +79,6 @@
   "physicalAgamaChecked": false,
   "d004Resolved": false,
   "behaviorChanged": false,
-  "ci": "pending-source-push",
-  "delivery": "pending-remote-verification"
+  "ci": "in-progress: https://github.com/reziarlleh/YMPlayer2/actions/runs/43723627992",
+  "delivery": "verified: public raw HTTP200/SHA256 plus single Draft446113004 four assets"
 }
