@@ -31,8 +31,8 @@ SHA256 `08d023356b06ca71f457040ef4f6d17d269acf7c740cd0cc80b5767cbcfbdb72`.
 README, обе инструкции, статус/план, карты функций/модулей, багрепорт, журнал
 и AGENTS приведены к stable145. D-008 закрыт в145; D-004/Fox_7 и другие
 персональные наблюдения не объявлены исправленными. Новый набор целей не начат.
-Проверка документов выполняется tools/Check-Documentation.py, после push —
-с --github; результаты — `qa/release281/documentation-local.json` и
+Проверки tools/Check-Documentation.py локально и после push с --github прошли:
+ошибок и несуществующих локальных ссылок нет, Latest/README совпали. Результаты — `qa/release281/documentation-local.json` и
 `qa/release281/documentation-github.json`.
 
 Регрессия продукта ради публикации не повторялась: сохранены110 native23/35,
