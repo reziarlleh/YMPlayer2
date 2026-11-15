@@ -98,7 +98,7 @@ SHA256: 4bf6aef1993af9a1f83541654497db3dc431ad10e34a6747c559796bc0f8a3ff.
 Прямая неизменяемая ссылка проверена полной загрузкой без авторизации: HTTP200,
 4757698bytes и SHA совпали. [Проверка HTTP и feed](qa/mediabutton281/http.json).
 
-Сохранён единственный актуальный [GitHub Draft146](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-1167245afeed93a6af93)
+Сохранён единственный актуальный [GitHub Draft146](https://github.com/reziarlleh/YMPlayer2/releases/tag/untagged-3655f9e639a3dd7178be)
 с четырьмя файлами; каждый скачан и совпал с локальным.
 [Доказательство assets/Latest](qa/mediabutton281/github-draft-assets.json).
 Продуктовый source commit2a78a954dbeabfba0d08cba5b7b041d4c276ed9a,
