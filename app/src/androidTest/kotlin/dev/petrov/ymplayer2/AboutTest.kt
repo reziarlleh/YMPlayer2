@@ -52,6 +52,12 @@ class AboutTest {
         compose.onNodeWithTag("settings").performClick()
         compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("settings_about"))
     }
+    private fun awaitClosed() = compose.waitUntil(5000) {
+        compose.onAllNodesWithTag("about_dialog").fetchSemanticsNodes().isEmpty()
+    }
+    private fun awaitCloseFocus() = compose.waitUntil(5000) {
+        compose.onAllNodes(hasTestTag("about_close") and isFocused()).fetchSemanticsNodes().isNotEmpty()
+    }
     private fun screenshot(label: String) {
         if (InstrumentationRegistry.getArguments().getString("aboutScreenshots") != "true") return
         compose.waitForIdle()
@@ -94,13 +100,17 @@ class AboutTest {
         compose.onNodeWithTag("settings_about").performClick()
         assertAbout()
         InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
+        awaitClosed()
         compose.onNodeWithTag("about_dialog").assertDoesNotExist()
-        compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("theme_light"))
+        compose.onNodeWithTag("profiles").performClick()
+        compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+        compose.onNodeWithTag("profile_settings").performClick()
+        compose.onNodeWithTag("profile_settings_list").performScrollToNode(hasTestTag("theme_light"))
         compose.onNodeWithTag("theme_light").performClick()
         compose.onNodeWithTag("about_logo").performClick()
         assertAbout(); screenshot("light")
         compose.onNodeWithTag("about_close").performScrollTo().performClick()
-        compose.onNodeWithTag("navigate_up").performClick()
+        compose.onNodeWithTag("nav_player").performClick()
         compose.onNodeWithTag("player_viewport").assertIsDisplayed()
         screenshot("header-light")
     }
@@ -123,6 +133,7 @@ class AboutTest {
         focus("about_logo")
         compose.onNodeWithTag("about_logo").performKeyInput { pressKey(Key.DirectionCenter) }
         assertAbout()
+        awaitCloseFocus()
         compose.onNodeWithTag("about_close").assertIsFocused().performKeyInput { pressKey(Key.DirectionCenter) }
         compose.onNodeWithTag("about_dialog").assertDoesNotExist()
         settingsAbout()
@@ -130,10 +141,12 @@ class AboutTest {
         focus("settings_about")
         compose.onNodeWithTag("settings_about").performKeyInput { pressKey(Key.DirectionCenter) }
         assertAbout()
+        awaitCloseFocus()
         compose.onNodeWithTag("about_close").assertIsFocused().performKeyInput { pressKey(Key.DirectionLeft) }
         compose.onNodeWithTag("about_github").assertIsFocused().performKeyInput { pressKey(Key.DirectionUp) }
-        compose.onNodeWithTag("about_donate").assertIsFocused()
+        compose.onNodeWithTag("about_licenses").assertIsFocused()
         InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
+        awaitClosed()
         compose.onNodeWithTag("about_dialog").assertDoesNotExist()
     }
 }

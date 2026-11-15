@@ -34,6 +34,7 @@ class OfflineColdCatalogTest {
             override fun getSharedPreferences(name: String, mode: Int) = app.getSharedPreferences("cold-catalog-fixture-$name", mode)
         }
         context.filesDir.deleteRecursively(); context.filesDir.mkdirs()
+        context.getSharedPreferences("offline-locations-v2",0).edit().clear().commit()
         context.getSharedPreferences("offline-location",0).edit().clear().putString("uri", TestStorageProvider.tree.toString()).commit()
         control("storage-reset"); control("storage-seed-catalog", extras = seedExtras())
         control("storage-catalog-counters-reset")
@@ -113,9 +114,15 @@ class OfflineColdCatalogTest {
     @Test fun privateIndexCannotBypassStorageAccessOrLeakAnotherOwnerOrLocation() = runBlocking {
         store().catalog(owner)
         assertTrue(store().catalog(OfflineOwner("other","account")).isEmpty())
-        context.getSharedPreferences("offline-location",0).edit().putString("uri",TestStorageProvider.exportTree.toString()).commit()
+        val preferences = context.getSharedPreferences("offline-locations-v2",0)
+        val bindingKey = java.security.MessageDigest.getInstance("SHA-256").digest((owner.profileId + "\u0000" + owner.accountId).toByteArray())
+            .joinToString("") { "%02x".format(it.toInt() and 255) }
+        val previous = preferences.getString(bindingKey,null)!!
+        val other = org.json.JSONObject(previous).put("uri", android.provider.DocumentsContract.buildDocumentUriUsingTree(
+            TestStorageProvider.exportTree,android.provider.DocumentsContract.getTreeDocumentId(TestStorageProvider.exportTree)).toString()).put("external",true)
+        preferences.edit().putString(bindingKey,other.toString()).commit()
         assertTrue(store().catalog(owner).isEmpty())
-        context.getSharedPreferences("offline-location",0).edit().putString("uri",TestStorageProvider.tree.toString()).commit()
+        preferences.edit().putString(bindingKey,previous).commit()
         control("storage-unavailable","true")
         assertTrue("Cached metadata must not grant access to a disconnected provider",runCatching { store().catalog(owner) }.isFailure)
     }

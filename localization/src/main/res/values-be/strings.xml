@@ -203,7 +203,7 @@
     <string name="msg_4a1236b53aa7" formatted="false">"Журнал ачышчаны."</string>
     <string name="msg_4a59253d0fb2" formatted="false">"Калі праграма стала карыснай, можна падтрымаць яе распрацоўку."</string>
     <string name="msg_4a87a9c8e472" formatted="false">"Абнаўленне каталога…"</string>
-    <string name="msg_4b39689e6190" formatted="false">"Мова агульная для ўсіх профіляў гэтай прылады. Назвы музыкі, плэйлістаў і скінаў не перакладаюцца."</string>
+    <string name="msg_4b39689e6190" formatted="false">"Мова захоўваецца для бягучага профілю. Назвы музыкі, плэйлістоў і скінаў не перакладаюцца."</string>
     <string name="msg_4cffda4eecf8" formatted="false">"Уваход у Яндэкс недаступны ў гэтай зборцы. Лакальная музыка працягвае працаваць."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"Прыбраць «@0@» (пазіцыя @1@) з «@2@»? Іншыя ўваходжанні гэтага трэка застануцца."</string>
     <string name="msg_4e882842072f" formatted="false">"Захаваны ўваход будзе выдалены толькі з профілю «@0@» на гэтай прыладзе. Лакальныя файлы, чарга і плэйлісты застануцца."</string>
@@ -762,5 +762,26 @@
     <string name="account_connect_title" formatted="false">"Падключыць акаўнт Яндэкса?"</string>
     <string name="account_connect_offer" formatted="false">"Каб карыстацца гэтай функцыяй, дадайце профіль Яндэкса і ўвайдзіце ў акаўнт."</string>
     <string name="account_connect" formatted="false">"Падключыць акаўнт"</string>
+    <string name="cache_profile_delete_hint" formatted="false">"Унутраны кэш профілю будзе выдалены. Кэш у выбранай папцы захаваецца."</string>
+    <string name="cache_profile_location_hint" formatted="false">"Кожны профіль мае сваё размяшчэнне. Уключэнне кэша, правіла Wi-Fi і якасць спампоўвання агульныя."</string>
+    <string name="cache_folder_found" formatted="false">"Знойдзены афлайн-кэш"</string>
+    <string name="cache_legacy_import_notice" formatted="false">"Стары кэш будзе пераўтвораны для гэтага профілю з выкарыстаннем трэкаў са спіса «Мне падабаецца». Спраўныя файлы захаваюцца. Старыя версіі праграмы не чытаюць новы фармат."</string>
+    <string name="cache_connect_merge_notice" formatted="false">"Падключыць кэш гэтага акаўнта і аб’яднаць з бягучым? Спраўныя файлы не будуць спампоўвацца паўторна."</string>
+    <string name="cache_folder_track_count" formatted="false">"Трэкаў у папцы:"</string>
+    <string name="cache_connect_action" formatted="false">"Падключыць кэш"</string>
+    <string name="cache_empty_folder" formatted="false">"Пусты кэш"</string>
+    <string name="cache_passport_invalid" formatted="false">"Апісанне афлайн-кэша пашкоджана."</string>
+    <string name="cache_format_unsupported" formatted="false">"Гэты фармат кэша патрабуе іншай версіі YMPlayer2."</string>
+    <string name="cache_account_mismatch" formatted="false">"Гэты кэш належыць іншаму акаўнту Яндэкса."</string>
+    <string name="cache_profile_folder_in_use" formatted="false">"Гэтую папку ўжо выкарыстоўвае іншы профіль."</string>
+    <string name="cache_legacy_likes_required" formatted="false">"Для падключэння старога кэша патрэбны спіс «Мне падабаецца»."</string>
+    <string name="cache_connected" formatted="false">"Афлайн-кэш падключаны."</string>
+    <string name="cache_connect_failed" formatted="false">"Не ўдалося падключыць або перанесці кэш. Зыходныя файлы захаваны."</string>
+    <string name="cache_choose_yandex_profile" formatted="false">"Выберыце профіль Яндэкса."</string>
+    <string name="settings_shared_title" formatted="false">"Агульныя налады"</string>
+    <string name="settings_profile_title" formatted="false">"Налады профілю"</string>
+    <string name="cache_profile_title" formatted="false">"Афлайн-кэш профілю"</string>
+    <string name="cache_shared_settings_hint" formatted="false">"Гэтыя налады агульныя для ўсіх профіляў. Выбар папкі, сінхранізацыя і ачыстка кэша знаходзяцца ў наладах профілю."</string>
+    <string name="cache_global_disabled_hint" formatted="false">"Афлайн-кэш выключаны. Уключыце яго ў агульных наладах."</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

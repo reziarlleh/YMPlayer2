@@ -26,6 +26,12 @@ class OfflineColdSwitchTest {
     private fun waitFor(timeout: Long = 25_000, predicate: () -> Boolean) = compose.waitUntil(timeout,predicate)
     @Before fun prepare() {
         waitFor { h.library.state.value.ready && !h.library.state.value.scanning && player.state.value.connected }
+        compose.runOnIdle {
+            player.stop(); h.offline.cancel()
+            h.context.getSharedPreferences("offline-location", 0).edit().clear().commit()
+            h.context.getSharedPreferences("offline-locations-v2", 0).edit().clear().commit()
+            h.offline.reloadCache()
+        }
         control("storage-reset")
         compose.runOnIdle {
             player.stop(); player.switchProfile("owner"); player.chooseSource(null); player.clearQueue(); h.offline.setEnabled(true)

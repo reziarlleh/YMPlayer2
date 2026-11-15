@@ -203,7 +203,7 @@
     <string name="msg_4a1236b53aa7" formatted="false">"Журнал очищен."</string>
     <string name="msg_4a59253d0fb2" formatted="false">"Если приложение пригодилось, можно поддержать его разработку."</string>
     <string name="msg_4a87a9c8e472" formatted="false">"Обновляем каталог…"</string>
-    <string name="msg_4b39689e6190" formatted="false">"Язык общий для устройства. Названия музыки, плейлистов и скинов не переводятся."</string>
+    <string name="msg_4b39689e6190" formatted="false">"Язык сохраняется для текущего профиля. Названия музыки, плейлистов и скинов не переводятся."</string>
     <string name="msg_4cffda4eecf8" formatted="false">"Вход в Яндекс недоступен в этой сборке. Локальная музыка продолжает работать."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"Убрать «@0@» (позиция @1@) из «@2@»? Другие вхождения трека сохранятся."</string>
     <string name="msg_4e882842072f" formatted="false">"Сохранённый вход будет удалён только из профиля «@0@» на этом устройстве. Локальные файлы, очередь и плейлисты останутся."</string>
@@ -762,5 +762,26 @@
     <string name="account_connect_title" formatted="false">"Подключить аккаунт Яндекса?"</string>
     <string name="account_connect_offer" formatted="false">"Чтобы пользоваться этой функцией, добавьте профиль Яндекса и войдите в аккаунт."</string>
     <string name="account_connect" formatted="false">"Подключить аккаунт"</string>
+    <string name="cache_profile_delete_hint" formatted="false">"Внутренний кэш профиля будет удалён. Кэш в выбранной папке сохранится."</string>
+    <string name="cache_profile_location_hint" formatted="false">"Расположение отдельно для каждого профиля. Включение, Wi-Fi и качество общие."</string>
+    <string name="cache_folder_found" formatted="false">"Найден офлайн-кэш"</string>
+    <string name="cache_legacy_import_notice" formatted="false">"Старый кэш будет преобразован для этого профиля. Подойдут треки из «Мне нравится». Исправные файлы сохранятся; старое приложение новый формат не поддерживает."</string>
+    <string name="cache_connect_merge_notice" formatted="false">"Подключить кэш этого аккаунта и объединить с текущим? Исправные файлы не будут скачиваться заново."</string>
+    <string name="cache_folder_track_count" formatted="false">"Треков в папке:"</string>
+    <string name="cache_connect_action" formatted="false">"Подключить кэш"</string>
+    <string name="cache_empty_folder" formatted="false">"Пустой кэш"</string>
+    <string name="cache_passport_invalid" formatted="false">"Повреждено описание офлайн-кэша."</string>
+    <string name="cache_format_unsupported" formatted="false">"Этот формат кэша требует другой версии YMPlayer2."</string>
+    <string name="cache_account_mismatch" formatted="false">"Этот кэш принадлежит другому аккаунту Яндекса."</string>
+    <string name="cache_profile_folder_in_use" formatted="false">"Эта папка уже используется другим профилем."</string>
+    <string name="cache_legacy_likes_required" formatted="false">"Для подключения старого кэша нужен список «Мне нравится»."</string>
+    <string name="cache_connected" formatted="false">"Офлайн-кэш подключён."</string>
+    <string name="cache_connect_failed" formatted="false">"Не удалось подключить или перенести кэш. Исходные файлы сохранены."</string>
+    <string name="cache_choose_yandex_profile" formatted="false">"Выберите профиль Яндекса."</string>
+    <string name="settings_shared_title" formatted="false">"Общие настройки"</string>
+    <string name="settings_profile_title" formatted="false">"Настройки профиля"</string>
+    <string name="cache_profile_title" formatted="false">"Офлайн-кэш профиля"</string>
+    <string name="cache_shared_settings_hint" formatted="false">"Эти параметры общие для всех профилей. Папка, синхронизация и очистка находятся в настройках профиля."</string>
+    <string name="cache_global_disabled_hint" formatted="false">"Офлайн-кэш выключен. Включите его в общих настройках."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

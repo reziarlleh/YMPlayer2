@@ -36,7 +36,13 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         override fun getSharedPreferences(name: String, mode: Int) = super.getSharedPreferences("online-fixture-$name", mode)
         override fun getFilesDir() = java.io.File(super.getFilesDir(), "online-fixture").apply { mkdirs() }
     }
-    init { context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit() }
+    init {
+        context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit()
+        // Each harness starts independently. The test provider is destructively reset by
+        // individual fixtures; its old folder bindings must not survive into another test.
+        for (name in listOf("offline-location", "offline-locations-v2"))
+            context.getSharedPreferences(name, Context.MODE_PRIVATE).edit().clear().commit()
+    }
     private val sessions = mutableMapOf("owner" to session("1"), "road" to session("2"))
     val auth = AccountAuth({ library.profiles }, object : DeviceAuthApi {
         override val configured = true

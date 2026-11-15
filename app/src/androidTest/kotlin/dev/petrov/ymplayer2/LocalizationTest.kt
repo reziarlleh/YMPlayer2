@@ -27,8 +27,10 @@ class LocalizationTest {
     }
     @After fun finish() { compose.runOnIdle { h.player.stop(); AppLanguages.select("ru") } }
     private fun openLanguages() {
-        compose.onNodeWithTag("settings").performClick()
-        compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("settings_language"))
+        compose.onNodeWithTag("profiles").performClick()
+        compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+        compose.onNodeWithTag("profile_settings").performClick()
+        compose.onNodeWithTag("profile_settings_list").performScrollToNode(hasTestTag("settings_language"))
         compose.onNodeWithTag("settings_language").performClick()
     }
     private fun selectLanguage(tag: String) {
@@ -75,7 +77,10 @@ class LocalizationTest {
         compose.onNodeWithText("English (English)").assertIsDisplayed()
         capture("language-en")
         compose.onNodeWithTag("navigate_up").performClick()
-        compose.onNodeWithTag("settings_list").assertIsDisplayed()
+        compose.onNodeWithTag("profile_settings_list").assertIsDisplayed()
+        capture("profile-settings-en")
+        compose.onNodeWithTag("settings").performClick()
+        capture("general-settings-en")
         compose.onNodeWithTag("manage_folders").assertDoesNotExist()
         compose.onNodeWithTag("settings_list").performScrollToNode(hasTestTag("settings_offline"))
         compose.onNodeWithTag("settings_offline").assertTextEquals("Offline cache settings").performClick()
@@ -164,7 +169,8 @@ class LocalizationTest {
             assertTrue(trMessage(tr(key, title)).contains(title))
         }
         InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
-        compose.onNodeWithTag("settings_list").assertIsDisplayed()
+        waitFor { compose.onAllNodesWithTag("profile_settings_list").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("profile_settings_list").assertIsDisplayed()
     }
     @Test fun nativeClipLabelsSwitchWithoutChangingTitlesOrController() {
         compose.runOnIdle {
@@ -266,12 +272,21 @@ class LocalizationTest {
             compose.onNodeWithTag("offline_enabled").assertIsDisplayed()
             compose.onNodeWithTag("offline_list").assertDoesNotExist()
             capture("cache-${language.tag}-large")
-            compose.onNodeWithTag("offline_settings_list").performScrollToNode(hasTestTag("offline_sync"))
+            compose.onNodeWithTag("cache_choose_folder").assertDoesNotExist()
+            compose.onNodeWithTag("offline_sync").assertDoesNotExist()
+            compose.onNodeWithTag("profiles").performClick()
+            compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+            compose.onNodeWithTag("profile_settings").performClick()
+            compose.onNodeWithTag("profile_settings_list").performScrollToNode(hasTestTag("profile_cache"))
+            compose.onNodeWithTag("profile_cache").performClick()
+            compose.onNodeWithTag("offline_enabled").assertDoesNotExist()
+            compose.onNodeWithTag("profile_cache_settings_list").performScrollToNode(hasTestTag("offline_sync"))
             compose.onNodeWithTag("offline_sync").assertIsDisplayed()
             compose.onNodeWithTag("offline_sync").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
             compose.onNodeWithTag("offline_sync").assertIsFocused()
             compose.onNodeWithTag("navigate_up").performClick()
-            compose.onNodeWithTag("settings_list").assertIsDisplayed()
+            compose.onNodeWithTag("profile_settings_list").assertIsDisplayed()
+            compose.onNodeWithTag("settings").performClick()
         }
     }
 }

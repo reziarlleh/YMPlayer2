@@ -63,7 +63,7 @@ public class TestStorageProvider extends DocumentsProvider {
         }
     }
     private MatrixCursor cursor(String[] projection) { return new MatrixCursor(projection == null ? new String[]{DocumentsContract.Document.COLUMN_DOCUMENT_ID, DocumentsContract.Document.COLUMN_DISPLAY_NAME, DocumentsContract.Document.COLUMN_MIME_TYPE, DocumentsContract.Document.COLUMN_SIZE, DocumentsContract.Document.COLUMN_LAST_MODIFIED, DocumentsContract.Document.COLUMN_FLAGS} : projection); }
-    private boolean catalogFile(String id) { return id.contains("/v1/") && id.matches(".*\\.(json|audio|cover|sha256)"); }
+    private boolean catalogFile(String id) { return id.matches(".*/[a-f0-9]{64}\\.(json|audio|cover)(\\.sha256)?"); }
     private void catalogAwait(CountDownLatch gate) throws FileNotFoundException {
         if (gate == null || gate.getCount() == 0) return;
         catalogWaiters.incrementAndGet();
@@ -78,7 +78,7 @@ public class TestStorageProvider extends DocumentsProvider {
     }
     @Override public MatrixCursor queryChildDocuments(String id, String[] projection, String sort) throws FileNotFoundException {
         catalogChildren.incrementAndGet();
-        if (id.contains("/v1/")) catalogAwait(catalogChildrenGate);
+        if (id.contains("/v1/") || id.contains("/YMPlayer2-offline-")) catalogAwait(catalogChildrenGate);
         MatrixCursor c = cursor(projection); File[] children = file(id).listFiles(); if (children == null) throw new FileNotFoundException();
         for (File f : children) row(c, id + "/" + f.getName(), f); return c;
     }
@@ -102,7 +102,7 @@ public class TestStorageProvider extends DocumentsProvider {
     }
     private void delete(File file) { File[] children = file.listFiles(); if (children != null) for (File f : children) delete(f); file.delete(); }
     @Override public ParcelFileDescriptor openDocument(String id, String mode, CancellationSignal signal) throws FileNotFoundException {
-        if (mode.equals("r") && id.contains("/v1/") && id.endsWith(".json")) { catalogJsonOpens.incrementAndGet(); catalogAwait(catalogJsonGate); }
+        if (mode.equals("r") && catalogFile(id) && id.endsWith(".json")) { catalogJsonOpens.incrementAndGet(); catalogAwait(catalogJsonGate); }
         if (failWrite && !mode.equals("r")) throw new FileNotFoundException();
         File source = file(id);
         if (mode.equals("r") && id.endsWith(".audio")) {

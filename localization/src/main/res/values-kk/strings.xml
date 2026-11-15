@@ -203,7 +203,7 @@
     <string name="msg_4a1236b53aa7" formatted="false">"Журнал тазартылды."</string>
     <string name="msg_4a59253d0fb2" formatted="false">"Қолданба пайдалы болса, оның әзірленуіне қолдау көрсете аласыз."</string>
     <string name="msg_4a87a9c8e472" formatted="false">"Каталог жаңартылуда…"</string>
-    <string name="msg_4b39689e6190" formatted="false">"Тіл осы құрылғыдағы барлық профильге ортақ. Музыка, плейлист және скин атаулары аударылмайды."</string>
+    <string name="msg_4b39689e6190" formatted="false">"Тіл ағымдағы профиль үшін сақталады. Музыка, плейлист және скин атаулары аударылмайды."</string>
     <string name="msg_4cffda4eecf8" formatted="false">"Бұл жинақта Yandex аккаунтына кіру қолжетімсіз. Жергілікті музыка жұмыс істей береді."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"«@0@» трегін (@1@-орын) «@2@» тізімінен алып тастау керек пе? Осы тректің басқа көшірмелері тізімде қалады."</string>
     <string name="msg_4e882842072f" formatted="false">"Сақталған кіру деректері тек осы құрылғыдағы «@0@» профилінен жойылады. Жергілікті файлдар, кезек және плейлисттер сақталады."</string>
@@ -762,5 +762,26 @@
     <string name="account_connect_title" formatted="false">"Яндекс аккаунтын қосу керек пе?"</string>
     <string name="account_connect_offer" formatted="false">"Бұл мүмкіндікті пайдалану үшін Яндекс профилін қосып, аккаунтқа кіріңіз."</string>
     <string name="account_connect" formatted="false">"Аккаунтты қосу"</string>
+    <string name="cache_profile_delete_hint" formatted="false">"Профильдің ішкі кэші жойылады. Таңдалған қалтадағы кэш сақталады."</string>
+    <string name="cache_profile_location_hint" formatted="false">"Әр профильдің сақтау орны бөлек. Кэшті қосу, Wi-Fi шарты және жүктеу сапасы барлығына ортақ."</string>
+    <string name="cache_folder_found" formatted="false">"Офлайн кэш табылды"</string>
+    <string name="cache_legacy_import_notice" formatted="false">"Ескі кэш осы профильге бейімделеді. «Ұнайды» тізіміндегі тректер алынады. Жарамды файлдар сақталады. Қолданбаның ескі нұсқалары жаңа пішімді оқи алмайды."</string>
+    <string name="cache_connect_merge_notice" formatted="false">"Осы аккаунттың кэшін қосып, ағымдағы кэшпен біріктірейік пе? Жарамды файлдар қайта жүктелмейді."</string>
+    <string name="cache_folder_track_count" formatted="false">"Қалтадағы тректер:"</string>
+    <string name="cache_connect_action" formatted="false">"Кэшті қосу"</string>
+    <string name="cache_empty_folder" formatted="false">"Бос кэш"</string>
+    <string name="cache_passport_invalid" formatted="false">"Офлайн кэш туралы мәліметтер бүлінген."</string>
+    <string name="cache_format_unsupported" formatted="false">"Бұл кэш пішімі үшін YMPlayer2 қолданбасының басқа нұсқасы қажет."</string>
+    <string name="cache_account_mismatch" formatted="false">"Бұл кэш басқа Яндекс аккаунтына тиесілі."</string>
+    <string name="cache_profile_folder_in_use" formatted="false">"Бұл қалтаны басқа профиль пайдаланып жатыр."</string>
+    <string name="cache_legacy_likes_required" formatted="false">"Ескі кэшті қосу үшін «Ұнайды» тізімі қажет."</string>
+    <string name="cache_connected" formatted="false">"Офлайн кэш қосылды."</string>
+    <string name="cache_connect_failed" formatted="false">"Кэшті қосу немесе көшіру мүмкін болмады. Бастапқы файлдар сақталды."</string>
+    <string name="cache_choose_yandex_profile" formatted="false">"Яндекс профилін таңдаңыз."</string>
+    <string name="settings_shared_title" formatted="false">"Жалпы баптаулар"</string>
+    <string name="settings_profile_title" formatted="false">"Профиль баптаулары"</string>
+    <string name="cache_profile_title" formatted="false">"Профильдің офлайн кэші"</string>
+    <string name="cache_shared_settings_hint" formatted="false">"Бұл баптаулар барлық профильге ортақ. Қалтаны таңдау, кэшті синхрондау және тазалау профиль баптауларында орналасқан."</string>
+    <string name="cache_global_disabled_hint" formatted="false">"Офлайн кэш өшірулі. Оны жалпы баптауларда қосыңыз."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

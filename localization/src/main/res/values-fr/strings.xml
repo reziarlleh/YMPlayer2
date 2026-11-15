@@ -203,7 +203,7 @@
     <string name="msg_4a1236b53aa7" formatted="false">"Journal vidé."</string>
     <string name="msg_4a59253d0fb2" formatted="false">"Si cette application vous est utile, vous pouvez soutenir son développement."</string>
     <string name="msg_4a87a9c8e472" formatted="false">"Actualisation de la bibliothèque…"</string>
-    <string name="msg_4b39689e6190" formatted="false">"La langue s’applique à tous les profils de cet appareil. Les noms des titres, playlists et thèmes ne sont pas traduits."</string>
+    <string name="msg_4b39689e6190" formatted="false">"La langue est enregistrée pour le profil actuel. Les noms des titres, des playlists et des thèmes ne sont pas traduits."</string>
     <string name="msg_4cffda4eecf8" formatted="false">"La connexion à Yandex n’est pas disponible dans cette version. La musique locale reste accessible."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"Retirer « @0@ » (position @1@) de « @2@ » ? Les autres occurrences de ce titre seront conservées."</string>
     <string name="msg_4e882842072f" formatted="false">"La connexion enregistrée sera supprimée uniquement du profil « @0@ » sur cet appareil. Les fichiers locaux, la file d’attente et les playlists seront conservés."</string>
@@ -762,5 +762,26 @@ Vous pouvez ajouter du texte entre les variables. Exemple: {number}. {artist} - 
     <string name="account_connect_title" formatted="false">"Connecter un compte Yandex ?"</string>
     <string name="account_connect_offer" formatted="false">"Pour utiliser cette fonction, ajoutez un profil Yandex et connectez-vous."</string>
     <string name="account_connect" formatted="false">"Connecter un compte"</string>
+    <string name="cache_profile_delete_hint" formatted="false">"Le cache interne du profil sera supprimé. Le cache dans un dossier choisi sera conservé."</string>
+    <string name="cache_profile_location_hint" formatted="false">"Chaque profil a son propre emplacement. L’activation du cache, la règle Wi-Fi et la qualité de téléchargement sont communes."</string>
+    <string name="cache_folder_found" formatted="false">"Cache hors connexion trouvé"</string>
+    <string name="cache_legacy_import_notice" formatted="false">"L’ancien cache sera converti pour ce profil en reprenant les titres de vos Titres aimés. Les fichiers valides seront conservés. Les anciennes versions de l’application ne peuvent pas lire le nouveau format."</string>
+    <string name="cache_connect_merge_notice" formatted="false">"Connecter le cache de ce compte et le fusionner avec le cache actuel ? Les fichiers valides ne seront pas téléchargés à nouveau."</string>
+    <string name="cache_folder_track_count" formatted="false">"Titres dans le dossier :"</string>
+    <string name="cache_connect_action" formatted="false">"Connecter le cache"</string>
+    <string name="cache_empty_folder" formatted="false">"Cache vide"</string>
+    <string name="cache_passport_invalid" formatted="false">"Les informations du cache hors connexion sont endommagées."</string>
+    <string name="cache_format_unsupported" formatted="false">"Ce format de cache nécessite une autre version de YMPlayer2."</string>
+    <string name="cache_account_mismatch" formatted="false">"Ce cache appartient à un autre compte Yandex."</string>
+    <string name="cache_profile_folder_in_use" formatted="false">"Ce dossier est déjà utilisé par un autre profil."</string>
+    <string name="cache_legacy_likes_required" formatted="false">"La liste des Titres aimés est nécessaire pour connecter un ancien cache."</string>
+    <string name="cache_connected" formatted="false">"Cache hors connexion connecté."</string>
+    <string name="cache_connect_failed" formatted="false">"Impossible de connecter ou de déplacer le cache. Les fichiers d’origine sont conservés."</string>
+    <string name="cache_choose_yandex_profile" formatted="false">"Choisissez un profil Yandex."</string>
+    <string name="settings_shared_title" formatted="false">"Paramètres généraux"</string>
+    <string name="settings_profile_title" formatted="false">"Paramètres du profil"</string>
+    <string name="cache_profile_title" formatted="false">"Cache hors connexion du profil"</string>
+    <string name="cache_shared_settings_hint" formatted="false">"Ces paramètres s’appliquent à tous les profils. Le choix du dossier, la synchronisation et la suppression du cache se trouvent dans les paramètres du profil."</string>
+    <string name="cache_global_disabled_hint" formatted="false">"Le cache hors connexion est désactivé. Activez-le dans les paramètres généraux."</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

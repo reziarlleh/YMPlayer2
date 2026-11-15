@@ -31,6 +31,13 @@ class OfflineCachePlaybackLatencyTest {
 
     @Before fun prepare() {
         waitFor { h.library.state.value.ready && !h.library.state.value.scanning && player.state.value.connected }
+        // storage-reset destroys this provider's files, so discard its fixture bindings too.
+        compose.runOnIdle {
+            player.stop(); h.offline.cancel()
+            h.context.getSharedPreferences("offline-location", 0).edit().clear().commit()
+            h.context.getSharedPreferences("offline-locations-v2", 0).edit().clear().commit()
+            h.offline.reloadCache()
+        }
         control("storage-reset")
         compose.runOnIdle {
             player.stop(); player.switchProfile("owner"); player.clearQueue(); h.offline.setEnabled(true)
@@ -73,6 +80,8 @@ class OfflineCachePlaybackLatencyTest {
             h.streamFailure = null; h.failure = null; h.offlineNetwork = true; h.internet.available.value = true
         }
         waitFor { stats().getInt("activePipes") == 0 }
+        compose.runOnIdle { h.offline.clear() }
+        waitFor { h.offline.state.value.ready && h.offline.state.value.tracks.isEmpty() }
         compose.runOnIdle { h.cacheLocation.move(null) }
         waitFor { !h.cacheLocation.state.value.moving }
     }

@@ -203,7 +203,7 @@
     <string name="msg_4a1236b53aa7" formatted="false">"Log cleared."</string>
     <string name="msg_4a59253d0fb2" formatted="false">"If you enjoy the app, you can support its development."</string>
     <string name="msg_4a87a9c8e472" formatted="false">"Refreshing library…"</string>
-    <string name="msg_4b39689e6190" formatted="false">"The language setting applies to the whole device. Music, playlist and skin names stay in their original language."</string>
+    <string name="msg_4b39689e6190" formatted="false">"The language is saved for the current profile. Music, playlist and skin names are not translated."</string>
     <string name="msg_4cffda4eecf8" formatted="false">"Yandex sign-in is unavailable in this build. Local music still works."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"Remove “@0@” (position @1@) from “@2@”? Other occurrences of this track will be kept."</string>
     <string name="msg_4e882842072f" formatted="false">"Saved sign-in will be removed only from the “@0@” profile on this device. Local files, queues and playlists will be kept."</string>
@@ -762,5 +762,26 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="account_connect_title" formatted="false">"Connect a Yandex account?"</string>
     <string name="account_connect_offer" formatted="false">"To use this feature, add a Yandex profile and sign in."</string>
     <string name="account_connect" formatted="false">"Connect account"</string>
+    <string name="cache_profile_delete_hint" formatted="false">"The profile’s internal cache will be deleted. Its cache in a chosen folder will be kept."</string>
+    <string name="cache_profile_location_hint" formatted="false">"Each profile has its own location. The cache switch, Wi-Fi rule and download quality are shared."</string>
+    <string name="cache_folder_found" formatted="false">"Offline cache found"</string>
+    <string name="cache_legacy_import_notice" formatted="false">"The old cache will be converted for this profile using songs in Liked tracks. Valid files will be kept. Older app versions cannot read the new format."</string>
+    <string name="cache_connect_merge_notice" formatted="false">"Connect this account’s cache and merge it with the current one? Valid files will not be downloaded again."</string>
+    <string name="cache_folder_track_count" formatted="false">"Tracks in folder:"</string>
+    <string name="cache_connect_action" formatted="false">"Connect cache"</string>
+    <string name="cache_empty_folder" formatted="false">"Empty cache"</string>
+    <string name="cache_passport_invalid" formatted="false">"The offline cache information is damaged."</string>
+    <string name="cache_format_unsupported" formatted="false">"This cache format requires a different version of YMPlayer2."</string>
+    <string name="cache_account_mismatch" formatted="false">"This cache belongs to another Yandex account."</string>
+    <string name="cache_profile_folder_in_use" formatted="false">"This folder is already used by another profile."</string>
+    <string name="cache_legacy_likes_required" formatted="false">"Liked tracks must be available to connect an old cache."</string>
+    <string name="cache_connected" formatted="false">"Offline cache connected."</string>
+    <string name="cache_connect_failed" formatted="false">"Could not connect or move the cache. The original files are intact."</string>
+    <string name="cache_choose_yandex_profile" formatted="false">"Choose a Yandex profile."</string>
+    <string name="settings_shared_title" formatted="false">"General settings"</string>
+    <string name="settings_profile_title" formatted="false">"Profile settings"</string>
+    <string name="cache_profile_title" formatted="false">"Profile offline cache"</string>
+    <string name="cache_shared_settings_hint" formatted="false">"These settings apply to all profiles. Choose the folder, synchronize or clear a cache in the profile settings."</string>
+    <string name="cache_global_disabled_hint" formatted="false">"Offline caching is off. Turn it on in General settings."</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

@@ -18,7 +18,9 @@ class InterfaceScaleTest {
     @Before fun setup() { original = preferences.read(); compose.runOnIdle { preferences.save(100) } }
     @After fun restore() { compose.runOnIdle { preferences.save(original) } }
     private fun editor() {
-        compose.onNodeWithTag("settings").performClick()
+        compose.onNodeWithTag("profiles").performClick()
+        compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+        compose.onNodeWithTag("profile_settings").performClick()
         compose.onNodeWithTag("settings_scale").performScrollTo().performClick()
         compose.onNodeWithTag("scale_value").assertTextEquals("100%")
     }

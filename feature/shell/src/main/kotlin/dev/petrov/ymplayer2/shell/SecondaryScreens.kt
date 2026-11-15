@@ -20,28 +20,37 @@ import dev.petrov.ymplayer2.core.Profile
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
-@Composable internal fun SettingsScreen(version: String, theme: String, setTheme: (String) -> Unit, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null, skins: (() -> Unit)? = null, about: () -> Unit = {}, language: () -> Unit = {}, scale: () -> Unit = {}) {
+@Composable internal fun SettingsScreen(version: String, catalog: CatalogState, setCatalog: (CatalogState) -> Unit, demo: Boolean = true, offline: (() -> Unit)? = null, quality: (() -> Unit)? = null, diagnostics: (() -> Unit)? = null, sideBar: (() -> Unit)? = null, updates: (() -> Unit)? = null, about: () -> Unit = {}) {
     LazyColumn(Modifier.fillMaxSize().testTag("settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        item { Text(tr(Msg.msg_985b5e0f2ccf), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
-        item { OutlinedButton(language, Modifier.fillMaxWidth().prismFocus().testTag("settings_language")) { Text(trMessage("Язык приложения")) } }
-        item { OutlinedButton(scale, Modifier.fillMaxWidth().prismFocus().testTag("settings_scale")) { Text(trMessage("Масштаб интерфейса")) } }
+        item { Text(trMessage("Общие настройки"), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
+        item { OutlinedButton(about, Modifier.fillMaxWidth().prismFocus().testTag("settings_about")) { Text(tr(Msg.msg_eca626bab07b)) } }
         if (quality != null) item { OutlinedButton(quality, Modifier.fillMaxWidth().prismFocus().testTag("settings_quality")) { Text(tr(Msg.msg_995011f87d4b)) } }
-        item { Text(tr(Msg.msg_1731619efa3a), style = MaterialTheme.typography.titleMedium) }
-        if (skins != null) item { OutlinedButton(skins, Modifier.fillMaxWidth().prismFocus().testTag("settings_skins")) { Text(tr(Msg.msg_6dd43bf971fd)) } }
-        items(listOf("dark" to tr(Msg.msg_1eecfcaa7bdb), "light" to tr(Msg.msg_f0cd3a603372), "system" to tr(Msg.msg_29e4a4bd7a17))) { (id, label) ->
-            Choice(label, theme == id, "theme_$id") { setTheme(id) }
-        }
         if (demo) {
             item { HorizontalDivider(); Text(tr(Msg.msg_25a86516eb0c), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 16.dp)) }
             items(CatalogState.entries) { item -> Choice(trMessage(item.label), catalog == item, "state_${item.name}") { setCatalog(item) } }
         }
         if (offline != null) item { OutlinedButton(offline, Modifier.fillMaxWidth().prismFocus().testTag("settings_offline")) { Text(tr(Msg.msg_fd6e72f72d55)) } }
-        if (diagnostics != null) item { OutlinedButton(diagnostics, Modifier.fillMaxWidth().prismFocus().testTag("settings_diagnostics")) { Text(tr(Msg.msg_da4da4e3527c)) } }
         if (sideBar != null) item { OutlinedButton(sideBar, Modifier.fillMaxWidth().prismFocus().testTag("settings_sidebar")) { Text(tr(Msg.msg_43fb606c5b6f)) } }
         if (updates != null) item { OutlinedButton(updates, Modifier.fillMaxWidth().prismFocus().testTag("settings_updates")) { Text(tr(Msg.msg_7e0c5e62a006)) } }
-        item { OutlinedButton(about, Modifier.fillMaxWidth().prismFocus().testTag("settings_about")) { Text(tr(Msg.msg_eca626bab07b)) } }
-        item { HorizontalDivider(); Text("YMPlayer 2 · $version", fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp)) }
+        if (diagnostics != null) item { OutlinedButton(diagnostics, Modifier.fillMaxWidth().prismFocus().testTag("settings_diagnostics")) { Text(tr(Msg.msg_da4da4e3527c)) } }
+        item { HorizontalDivider(); Text("YMPlayer2 · $version", fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp)) }
         item { Text(if (demo) tr(Msg.msg_a75ec8e3fe3a) else tr(Msg.msg_eb2c88237bfa), color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    }
+}
+
+@Composable internal fun ProfileSettingsScreen(profile: Profile, theme: String, setTheme: (String) -> Unit,
+    skins: (() -> Unit)?, language: () -> Unit, scale: () -> Unit, cache: (() -> Unit)?) {
+    LazyColumn(Modifier.fillMaxSize().testTag("profile_settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        item { Text(trMessage("Настройки профиля"), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
+        item { Text(profileName(profile), style = MaterialTheme.typography.titleMedium) }
+        item { OutlinedButton(language, Modifier.fillMaxWidth().prismFocus().testTag("settings_language")) { Text(trMessage("Язык приложения")) } }
+        item { OutlinedButton(scale, Modifier.fillMaxWidth().prismFocus().testTag("settings_scale")) { Text(trMessage("Масштаб интерфейса")) } }
+        item { Text(tr(Msg.msg_1731619efa3a), style = MaterialTheme.typography.titleMedium) }
+        if (skins != null) item { OutlinedButton(skins, Modifier.fillMaxWidth().prismFocus().testTag("settings_skins")) { Text(tr(Msg.msg_6dd43bf971fd)) } }
+        items(listOf("dark" to tr(Msg.msg_1eecfcaa7bdb), "light" to tr(Msg.msg_f0cd3a603372), "system" to tr(Msg.msg_29e4a4bd7a17))) { (id, label) ->
+            Choice(label, theme == id, "theme_$id") { setTheme(id) }
+        }
+        if (cache != null) item { OutlinedButton(cache, Modifier.fillMaxWidth().prismFocus().testTag("profile_cache")) { Text(trMessage("Офлайн-кэш профиля")) } }
     }
 }
 

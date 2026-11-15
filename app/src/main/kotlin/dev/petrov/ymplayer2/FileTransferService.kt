@@ -24,10 +24,16 @@ class FileTransferService : Service() {
             manager.createNotificationChannel(NotificationChannel(CHANNEL, trMessage("Файловые операции"), NotificationManager.IMPORTANCE_LOW))
         val first = notification()
         if (Build.VERSION.SDK_INT >= 29) startForeground(ID, first, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC) else startForeground(ID, first)
-        if (graph.cacheLocation.state.value.moving || graph.audioExporter.state.value.running) return START_NOT_STICKY
         watching?.cancel()
-        when (intent?.action) {
-            MOVE -> graph.cacheLocation.move(intent.getStringExtra("destination"))
+        if (!graph.cacheLocation.state.value.moving && !graph.audioExporter.state.value.running) when (intent?.action) {
+            MOVE, CONNECT -> {
+                val cached = graph.offline.state.value
+                val owner = cached.owner
+                if (cached.enabled && owner != null && owner.profileId == intent.getStringExtra("cacheProfile") && owner.accountId == intent.getStringExtra("cacheAccount")) {
+                    if (intent.action == MOVE) graph.cacheLocation.move(intent.getStringExtra("destination"))
+                    else intent.getStringExtra("destination")?.let(graph.cacheLocation::confirm)
+                }
+            }
             EXPORT -> intent.getStringExtra("destination")?.let(graph.audioExporter::start)
         }
         watching = scope.launch {
@@ -52,6 +58,7 @@ class FileTransferService : Service() {
     override fun onDestroy() { graph.cacheLocation.cancel(); graph.audioExporter.cancel(); scope.cancel(); super.onDestroy() }
     companion object {
         const val MOVE = "dev.petrov.ymplayer2.MOVE_CACHE"
+        const val CONNECT = "dev.petrov.ymplayer2.CONNECT_CACHE"
         const val EXPORT = "dev.petrov.ymplayer2.EXPORT_MP3"
         private const val CANCEL = "dev.petrov.ymplayer2.CANCEL_TRANSFER"
         private const val CHANNEL = "file-transfers"

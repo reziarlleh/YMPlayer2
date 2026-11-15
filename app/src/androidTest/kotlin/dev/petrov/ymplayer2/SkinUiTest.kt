@@ -27,7 +27,9 @@ class SkinUiTest {
         val repo = compose.activity.skins
         compose.waitUntil(10000) { repo.state.value.ready }
         runBlocking { repo.restore().join() }
-        compose.onNodeWithTag("settings").performClick()
+        compose.onNodeWithTag("profiles").performClick()
+        compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+        compose.onNodeWithTag("profile_settings").performClick()
         compose.onNodeWithTag("settings_skins").performScrollTo().performClick()
         dpad("skin_choose_harbor")
         node("skin_preview_name").assertTextEquals("Предпросмотр: Гавань")

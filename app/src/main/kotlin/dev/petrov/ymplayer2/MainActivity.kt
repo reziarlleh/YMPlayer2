@@ -165,16 +165,31 @@ class MainActivity : ComponentActivity() {
                 if (uri != null) graph.skins.inspect(uri)
             }
             val startTransfer: (String, String?) -> Unit = { action, destination ->
-                try { androidx.core.content.ContextCompat.startForegroundService(this, Intent(this, FileTransferService::class.java).setAction(action).putExtra("destination", destination)) }
+                try {
+                    val command = Intent(this, FileTransferService::class.java).setAction(action).putExtra("destination", destination)
+                    if (action == FileTransferService.MOVE || action == FileTransferService.CONNECT) {
+                        val cached = graph.offline.state.value
+                        val owner = cached.owner
+                        if (cached.enabled && owner != null) {
+                            command.putExtra("cacheProfile", owner.profileId).putExtra("cacheAccount", owner.accountId)
+                            androidx.core.content.ContextCompat.startForegroundService(this, command)
+                        }
+                    } else androidx.core.content.ContextCompat.startForegroundService(this, command)
+                }
                 catch (_: Exception) {
-                    if (action == FileTransferService.MOVE) graph.cacheLocation.report("Не удалось запустить перенос кэша.")
+                    if (action == FileTransferService.MOVE || action == FileTransferService.CONNECT) graph.cacheLocation.report("Не удалось запустить перенос кэша.")
                     else graph.audioExporter.report("Не удалось запустить экспорт MP3.")
                 }
             }
+            var cachePickerProfile by rememberSaveable { mutableStateOf<String?>(null) }
+            var cachePickerAccount by rememberSaveable { mutableStateOf<String?>(null) }
             val cachePicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
                 if (uri != null) try {
                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                    startTransfer(FileTransferService.MOVE, uri.toString())
+                    val cached = graph.offline.state.value
+                    val owner = cached.owner
+                    if (cached.enabled && owner != null && owner.profileId == cachePickerProfile && owner.accountId == cachePickerAccount)
+                        startTransfer(FileTransferService.MOVE, uri.toString())
                 } catch (_: Exception) { graph.cacheLocation.report("Не удалось получить доступ к выбранной папке.") }
             }
             val exportPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
@@ -200,9 +215,15 @@ class MainActivity : ComponentActivity() {
                 if (android.os.Build.VERSION.SDK_INT <= 29) folderMethods = true else openSystemFolder()
             }, cacheLocation = graph.cacheLocation, exporter = graph.audioExporter,
                 pickCacheFolder = {
-                    try { cachePicker.launch(null) }
+                    try {
+                        val owner = graph.offline.state.value.takeIf { it.enabled }?.owner
+                        cachePickerProfile = owner?.profileId
+                        cachePickerAccount = owner?.accountId
+                        if (owner != null) cachePicker.launch(null)
+                    }
                     catch (_: ActivityNotFoundException) { graph.cacheLocation.report("Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.") }
                 }, resetCacheFolder = { startTransfer(FileTransferService.MOVE, null) },
+                confirmCacheFolder = { startTransfer(FileTransferService.CONNECT, it) },
                 pickExportFolder = {
                     try { exportPicker.launch(null) }
                     catch (_: ActivityNotFoundException) { graph.audioExporter.report("Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.") }

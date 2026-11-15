@@ -58,6 +58,25 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     private var retryAutomaticAfterLoad = false
     private val downloadQueueLock = kotlinx.coroutines.sync.Mutex()
     private var automaticJob: Job? = null
+    private var storageChanging = false
+    private var storageRevision = 0L
+    fun beginStorageChange(): Long {
+        storageChanging = true
+        val revision = ++storageRevision
+        cancel()
+        return revision
+    }
+    fun endStorageChange(revision: Long, reload: Boolean = true) {
+        if (revision != storageRevision) return
+        storageChanging = false
+        if (reload || !state.value.ready) reloadCache() else retryAutomatic()
+    }
+    suspend fun confirmedCacheKeys(owner: OfflineOwner): Set<String> {
+        if (!state.value.enabled || !owns(owner)) throw CancellationException("Offline owner changed")
+        val keys = api.keys(owner.profileId)
+        if (!state.value.enabled || !owns(owner)) throw CancellationException("Offline owner changed")
+        return keys - taste.excludedPendingTracks(owner)
+    }
     private class TrackIndex(val owner: OfflineOwner, val tracks: List<Track>, val byKey: Map<String, Track>)
     @Volatile private var trackIndex: TrackIndex? = null
 
@@ -107,7 +126,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     }
     fun retryAutomatic() {
         val owner = state.value.owner ?: return
-        if (!state.value.enabled) return
+        if (!state.value.enabled || storageChanging) return
         // The catalog owns its initial snapshot. Publishing downloads before it
         // completes would let that older snapshot discard their ready tracks.
         if (!state.value.ready) { retryAutomaticAfterLoad = true; return }
@@ -216,7 +235,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         generation++; job?.cancel(); loadJob?.cancel(); automaticJob?.cancel(); job = null; passKeys = null
         mutable.value = state.value.copy(running = false, message = "Синхронизация остановлена. Готовые файлы сохранены.")
         // Cancelling a transfer must not leave a cold catalog permanently unready.
-        if (!state.value.ready && state.value.enabled) state.value.owner?.let { load(it, retryAutomaticWhenReady = false) }
+        if (!state.value.ready && state.value.enabled && !storageChanging) state.value.owner?.let { load(it, retryAutomaticWhenReady = false) }
     }
     /** Re-read URIs after a committed location change without changing membership or account. */
     fun reloadCache() {
@@ -230,7 +249,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     fun verifyAndRepair() = synchronize(verifyAll = true)
     private fun synchronize(verifyAll: Boolean) {
         val owner = state.value.owner ?: return
-        if (!state.value.enabled || !state.value.ready || state.value.running) return
+        if (!state.value.enabled || !state.value.ready || state.value.running || storageChanging) return
         val ticket = ++generation; val revision = membershipRevision
         excluded = emptySet(); passKeys = null
         mutable.value = state.value.copy(running = true, total = 0, checked = 0, audioFailures = 0, coverFailures = 0, noCover = 0,

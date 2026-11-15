@@ -3270,18 +3270,18 @@
   },
   {
     "key": "msg_4b39689e6190",
-    "source": "Язык общий для устройства. Названия музыки, плейлистов и скинов не переводятся.",
-    "english": "The language setting applies to the whole device. Music, playlist and skin names stay in their original language.",
+    "source": "Язык сохраняется для текущего профиля. Названия музыки, плейлистов и скинов не переводятся.",
+    "english": "The language is saved for the current profile. Music, playlist and skin names are not translated.",
     "locations": [
       "presentation adapter / language settings"
     ],
     "translations": {
-      "be": "Мова агульная для ўсіх профіляў гэтай прылады. Назвы музыкі, плэйлістаў і скінаў не перакладаюцца.",
-      "fr": "La langue s’applique à tous les profils de cet appareil. Les noms des titres, playlists et thèmes ne sont pas traduits.",
-      "de": "Die Sprache gilt für alle Profile auf diesem Gerät. Namen von Musik, Playlists und Skins werden nicht übersetzt.",
-      "kk": "Тіл осы құрылғыдағы барлық профильге ортақ. Музыка, плейлист және скин атаулары аударылмайды.",
-      "es": "El idioma se aplica a todos los perfiles del dispositivo. Los nombres de la música, las listas y los temas no se traducen.",
-      "uk": "Мова спільна для всіх профілів цього пристрою. Назви музики, плейлистів і скінів не перекладаються."
+      "be": "Мова захоўваецца для бягучага профілю. Назвы музыкі, плэйлістоў і скінаў не перакладаюцца.",
+      "de": "Die Sprache wird für das aktuelle Profil gespeichert. Namen von Musik, Playlists und Skins werden nicht übersetzt.",
+      "es": "El idioma se guarda para el perfil actual. Los nombres de la música, las listas y los temas no se traducen.",
+      "fr": "La langue est enregistrée pour le profil actuel. Les noms des titres, des playlists et des thèmes ne sont pas traduits.",
+      "kk": "Тіл ағымдағы профиль үшін сақталады. Музыка, плейлист және скин атаулары аударылмайды.",
+      "uk": "Мова зберігається для поточного профілю. Назви музики, плейлистів і скінів не перекладаються."
     }
   },
   {
@@ -12088,6 +12088,384 @@
       "de": "Konto verbinden",
       "es": "Conectar cuenta",
       "fr": "Connecter un compte"
+    }
+  },
+  {
+    "key": "cache_profile_delete_hint",
+    "source": "Внутренний кэш профиля будет удалён. Кэш в выбранной папке сохранится.",
+    "english": "The profile’s internal cache will be deleted. Its cache in a chosen folder will be kept.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Унутраны кэш профілю будзе выдалены. Кэш у выбранай папцы захаваецца.",
+      "de": "Der interne Cache dieses Profils wird gelöscht. Der Cache in einem gewählten Ordner bleibt erhalten.",
+      "es": "Se eliminará la caché interna del perfil. Se conservará la caché de una carpeta elegida.",
+      "fr": "Le cache interne du profil sera supprimé. Le cache dans un dossier choisi sera conservé.",
+      "kk": "Профильдің ішкі кэші жойылады. Таңдалған қалтадағы кэш сақталады.",
+      "uk": "Внутрішній кеш профілю буде видалено. Кеш у вибраній папці збережеться."
+    }
+  },
+  {
+    "key": "cache_profile_location_hint",
+    "source": "Расположение отдельно для каждого профиля. Включение, Wi-Fi и качество общие.",
+    "english": "Each profile has its own location. The cache switch, Wi-Fi rule and download quality are shared.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Кожны профіль мае сваё размяшчэнне. Уключэнне кэша, правіла Wi-Fi і якасць спампоўвання агульныя.",
+      "de": "Jedes Profil hat einen eigenen Speicherort. Aktivierung, WLAN-Regel und Downloadqualität gelten für alle Profile.",
+      "es": "Cada perfil tiene su propia ubicación. La activación de la caché, la regla de Wi-Fi y la calidad de descarga son comunes.",
+      "fr": "Chaque profil a son propre emplacement. L’activation du cache, la règle Wi-Fi et la qualité de téléchargement sont communes.",
+      "kk": "Әр профильдің сақтау орны бөлек. Кэшті қосу, Wi-Fi шарты және жүктеу сапасы барлығына ортақ.",
+      "uk": "Кожен профіль має власне розташування. Увімкнення кешу, правило Wi-Fi та якість завантаження спільні."
+    }
+  },
+  {
+    "key": "cache_folder_found",
+    "source": "Найден офлайн-кэш",
+    "english": "Offline cache found",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Знойдзены афлайн-кэш",
+      "de": "Offline-Cache gefunden",
+      "es": "Se ha encontrado una caché sin conexión",
+      "fr": "Cache hors connexion trouvé",
+      "kk": "Офлайн кэш табылды",
+      "uk": "Знайдено офлайн-кеш"
+    }
+  },
+  {
+    "key": "cache_legacy_import_notice",
+    "source": "Старый кэш будет преобразован для этого профиля. Подойдут треки из «Мне нравится». Исправные файлы сохранятся; старое приложение новый формат не поддерживает.",
+    "english": "The old cache will be converted for this profile using songs in Liked tracks. Valid files will be kept. Older app versions cannot read the new format.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Стары кэш будзе пераўтвораны для гэтага профілю з выкарыстаннем трэкаў са спіса «Мне падабаецца». Спраўныя файлы захаваюцца. Старыя версіі праграмы не чытаюць новы фармат.",
+      "de": "Der alte Cache wird für dieses Profil umgewandelt. Dabei werden Titel aus deinen Lieblingssongs übernommen. Intakte Dateien bleiben erhalten. Ältere App-Versionen können das neue Format nicht lesen.",
+      "es": "La caché antigua se convertirá para este perfil usando canciones de Me gusta. Se conservarán los archivos válidos. Las versiones anteriores de la aplicación no pueden leer el nuevo formato.",
+      "fr": "L’ancien cache sera converti pour ce profil en reprenant les titres de vos Titres aimés. Les fichiers valides seront conservés. Les anciennes versions de l’application ne peuvent pas lire le nouveau format.",
+      "kk": "Ескі кэш осы профильге бейімделеді. «Ұнайды» тізіміндегі тректер алынады. Жарамды файлдар сақталады. Қолданбаның ескі нұсқалары жаңа пішімді оқи алмайды.",
+      "uk": "Старий кеш буде перетворено для цього профілю з використанням треків зі списку «Мені подобається». Справні файли збережуться. Старі версії застосунку не читають новий формат."
+    }
+  },
+  {
+    "key": "cache_connect_merge_notice",
+    "source": "Подключить кэш этого аккаунта и объединить с текущим? Исправные файлы не будут скачиваться заново.",
+    "english": "Connect this account’s cache and merge it with the current one? Valid files will not be downloaded again.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Падключыць кэш гэтага акаўнта і аб’яднаць з бягучым? Спраўныя файлы не будуць спампоўвацца паўторна.",
+      "de": "Den Cache dieses Kontos einbinden und mit dem aktuellen zusammenführen? Intakte Dateien werden nicht erneut heruntergeladen.",
+      "es": "¿Conectar la caché de esta cuenta y combinarla con la actual? Los archivos válidos no se descargarán de nuevo.",
+      "fr": "Connecter le cache de ce compte et le fusionner avec le cache actuel ? Les fichiers valides ne seront pas téléchargés à nouveau.",
+      "kk": "Осы аккаунттың кэшін қосып, ағымдағы кэшпен біріктірейік пе? Жарамды файлдар қайта жүктелмейді.",
+      "uk": "Підключити кеш цього облікового запису й об’єднати з поточним? Справні файли не завантажуватимуться повторно."
+    }
+  },
+  {
+    "key": "cache_folder_track_count",
+    "source": "Треков в папке:",
+    "english": "Tracks in folder:",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Трэкаў у папцы:",
+      "de": "Titel im Ordner:",
+      "es": "Canciones en la carpeta:",
+      "fr": "Titres dans le dossier :",
+      "kk": "Қалтадағы тректер:",
+      "uk": "Треків у папці:"
+    }
+  },
+  {
+    "key": "cache_connect_action",
+    "source": "Подключить кэш",
+    "english": "Connect cache",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Падключыць кэш",
+      "de": "Cache einbinden",
+      "es": "Conectar caché",
+      "fr": "Connecter le cache",
+      "kk": "Кэшті қосу",
+      "uk": "Підключити кеш"
+    }
+  },
+  {
+    "key": "cache_empty_folder",
+    "source": "Пустой кэш",
+    "english": "Empty cache",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Пусты кэш",
+      "de": "Leerer Cache",
+      "es": "Caché vacía",
+      "fr": "Cache vide",
+      "kk": "Бос кэш",
+      "uk": "Порожній кеш"
+    }
+  },
+  {
+    "key": "cache_passport_invalid",
+    "source": "Повреждено описание офлайн-кэша.",
+    "english": "The offline cache information is damaged.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Апісанне афлайн-кэша пашкоджана.",
+      "de": "Die Angaben zum Offline-Cache sind beschädigt.",
+      "es": "La información de la caché sin conexión está dañada.",
+      "fr": "Les informations du cache hors connexion sont endommagées.",
+      "kk": "Офлайн кэш туралы мәліметтер бүлінген.",
+      "uk": "Опис офлайн-кешу пошкоджено."
+    }
+  },
+  {
+    "key": "cache_format_unsupported",
+    "source": "Этот формат кэша требует другой версии YMPlayer2.",
+    "english": "This cache format requires a different version of YMPlayer2.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Гэты фармат кэша патрабуе іншай версіі YMPlayer2.",
+      "de": "Dieses Cache-Format benötigt eine andere Version von YMPlayer2.",
+      "es": "Este formato de caché requiere otra versión de YMPlayer2.",
+      "fr": "Ce format de cache nécessite une autre version de YMPlayer2.",
+      "kk": "Бұл кэш пішімі үшін YMPlayer2 қолданбасының басқа нұсқасы қажет.",
+      "uk": "Цей формат кешу потребує іншої версії YMPlayer2."
+    }
+  },
+  {
+    "key": "cache_account_mismatch",
+    "source": "Этот кэш принадлежит другому аккаунту Яндекса.",
+    "english": "This cache belongs to another Yandex account.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Гэты кэш належыць іншаму акаўнту Яндэкса.",
+      "de": "Dieser Cache gehört zu einem anderen Yandex-Konto.",
+      "es": "Esta caché pertenece a otra cuenta de Yandex.",
+      "fr": "Ce cache appartient à un autre compte Yandex.",
+      "kk": "Бұл кэш басқа Яндекс аккаунтына тиесілі.",
+      "uk": "Цей кеш належить іншому обліковому запису Яндекса."
+    }
+  },
+  {
+    "key": "cache_profile_folder_in_use",
+    "source": "Эта папка уже используется другим профилем.",
+    "english": "This folder is already used by another profile.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Гэтую папку ўжо выкарыстоўвае іншы профіль.",
+      "de": "Dieser Ordner wird bereits von einem anderen Profil verwendet.",
+      "es": "Otro perfil ya utiliza esta carpeta.",
+      "fr": "Ce dossier est déjà utilisé par un autre profil.",
+      "kk": "Бұл қалтаны басқа профиль пайдаланып жатыр.",
+      "uk": "Цю папку вже використовує інший профіль."
+    }
+  },
+  {
+    "key": "cache_legacy_likes_required",
+    "source": "Для подключения старого кэша нужен список «Мне нравится».",
+    "english": "Liked tracks must be available to connect an old cache.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Для падключэння старога кэша патрэбны спіс «Мне падабаецца».",
+      "de": "Zum Einbinden eines alten Caches muss die Liste deiner Lieblingssongs verfügbar sein.",
+      "es": "Para conectar una caché antigua se necesita la lista Me gusta.",
+      "fr": "La liste des Titres aimés est nécessaire pour connecter un ancien cache.",
+      "kk": "Ескі кэшті қосу үшін «Ұнайды» тізімі қажет.",
+      "uk": "Для підключення старого кешу потрібен список «Мені подобається»."
+    }
+  },
+  {
+    "key": "cache_connected",
+    "source": "Офлайн-кэш подключён.",
+    "english": "Offline cache connected.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Афлайн-кэш падключаны.",
+      "de": "Offline-Cache eingebunden.",
+      "es": "Caché sin conexión conectada.",
+      "fr": "Cache hors connexion connecté.",
+      "kk": "Офлайн кэш қосылды.",
+      "uk": "Офлайн-кеш підключено."
+    }
+  },
+  {
+    "key": "cache_connect_failed",
+    "source": "Не удалось подключить или перенести кэш. Исходные файлы сохранены.",
+    "english": "Could not connect or move the cache. The original files are intact.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Не ўдалося падключыць або перанесці кэш. Зыходныя файлы захаваны.",
+      "de": "Cache konnte nicht eingebunden oder verschoben werden. Die ursprünglichen Dateien sind erhalten.",
+      "es": "No se pudo conectar o trasladar la caché. Los archivos originales se conservan.",
+      "fr": "Impossible de connecter ou de déplacer le cache. Les fichiers d’origine sont conservés.",
+      "kk": "Кэшті қосу немесе көшіру мүмкін болмады. Бастапқы файлдар сақталды.",
+      "uk": "Не вдалося підключити або перенести кеш. Початкові файли збережено."
+    }
+  },
+  {
+    "key": "cache_choose_yandex_profile",
+    "source": "Выберите профиль Яндекса.",
+    "english": "Choose a Yandex profile.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Выберыце профіль Яндэкса.",
+      "de": "Wähle ein Yandex-Profil.",
+      "es": "Elige un perfil de Yandex.",
+      "fr": "Choisissez un profil Yandex.",
+      "kk": "Яндекс профилін таңдаңыз.",
+      "uk": "Виберіть профіль Яндекса."
+    }
+  },
+  {
+    "key": "settings_shared_title",
+    "source": "Общие настройки",
+    "english": "General settings",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Агульныя налады",
+      "de": "Allgemeine Einstellungen",
+      "es": "Ajustes generales",
+      "fr": "Paramètres généraux",
+      "kk": "Жалпы баптаулар",
+      "uk": "Загальні налаштування"
+    }
+  },
+  {
+    "key": "settings_profile_title",
+    "source": "Настройки профиля",
+    "english": "Profile settings",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Налады профілю",
+      "de": "Profileinstellungen",
+      "es": "Ajustes del perfil",
+      "fr": "Paramètres du profil",
+      "kk": "Профиль баптаулары",
+      "uk": "Налаштування профілю"
+    }
+  },
+  {
+    "key": "cache_profile_title",
+    "source": "Офлайн-кэш профиля",
+    "english": "Profile offline cache",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Афлайн-кэш профілю",
+      "de": "Offline-Cache des Profils",
+      "es": "Caché sin conexión del perfil",
+      "fr": "Cache hors connexion du profil",
+      "kk": "Профильдің офлайн кэші",
+      "uk": "Офлайн-кеш профілю"
+    }
+  },
+  {
+    "key": "cache_shared_settings_hint",
+    "source": "Эти параметры общие для всех профилей. Папка, синхронизация и очистка находятся в настройках профиля.",
+    "english": "These settings apply to all profiles. Choose the folder, synchronize or clear a cache in the profile settings.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Гэтыя налады агульныя для ўсіх профіляў. Выбар папкі, сінхранізацыя і ачыстка кэша знаходзяцца ў наладах профілю.",
+      "de": "Diese Einstellungen gelten für alle Profile. Ordnerauswahl, Synchronisierung und Leeren des Caches findest du in den Profileinstellungen.",
+      "es": "Estos ajustes se aplican a todos los perfiles. La carpeta, la sincronización y el borrado de la caché están en los ajustes del perfil.",
+      "fr": "Ces paramètres s’appliquent à tous les profils. Le choix du dossier, la synchronisation et la suppression du cache se trouvent dans les paramètres du profil.",
+      "kk": "Бұл баптаулар барлық профильге ортақ. Қалтаны таңдау, кэшті синхрондау және тазалау профиль баптауларында орналасқан.",
+      "uk": "Ці параметри спільні для всіх профілів. Вибір папки, синхронізація та очищення кешу розташовані в налаштуваннях профілю."
+    }
+  },
+  {
+    "key": "cache_global_disabled_hint",
+    "source": "Офлайн-кэш выключен. Включите его в общих настройках.",
+    "english": "Offline caching is off. Turn it on in General settings.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheDirectories.kt",
+      "library/offline/src/main/kotlin/dev/petrov/ymplayer2/offline/CacheLocationController.kt"
+    ],
+    "translations": {
+      "be": "Афлайн-кэш выключаны. Уключыце яго ў агульных наладах.",
+      "de": "Der Offline-Cache ist deaktiviert. Aktiviere ihn in den allgemeinen Einstellungen.",
+      "es": "La caché sin conexión está desactivada. Actívala en los ajustes generales.",
+      "fr": "Le cache hors connexion est désactivé. Activez-le dans les paramètres généraux.",
+      "kk": "Офлайн кэш өшірулі. Оны жалпы баптауларда қосыңыз.",
+      "uk": "Офлайн-кеш вимкнено. Увімкніть його в загальних налаштуваннях."
     }
   }
 ]

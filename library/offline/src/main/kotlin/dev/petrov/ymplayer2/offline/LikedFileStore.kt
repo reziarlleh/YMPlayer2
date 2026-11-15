@@ -55,15 +55,24 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         catalogGeneration.incrementAndGet()
         synchronized(proofLock) { proofs.clear(); proofGeneration++ }; roots.clear()
     }
-    fun locationState() = directories.state()
-    internal fun locationIdentity() = directories.identity()
-    suspend fun move(destination: String?, progress: (Long, Long) -> Unit) = withContext(Dispatchers.IO) {
+    fun locationState(owner: OfflineOwner? = rootOwner) = directories.state(owner)
+    internal fun locationIdentity(owner: OfflineOwner? = rootOwner) = runCatching { owner?.let(directories::identity) }.getOrNull()
+    internal suspend fun inspectLocation(owner: OfflineOwner, destination: String) = directories.inspect(owner, destination)
+    internal suspend fun move(owner: OfflineOwner, destination: String?, candidate: CacheDirectories.Candidate?,
+        liked: Set<String>?, allowed: () -> Boolean, progress: (Long, Long) -> Unit) = withContext(Dispatchers.IO) {
         locationLease.withLock { lock.withLock {
             invalidateAll()
-            catalogIndex.clearLocation(directories.identity())
-            try { directories.migrate(destination, progress) }
-            finally { catalogIndex.clearLocation(directories.identity()); invalidateAll() }
+            catalogIndex.clear(owner, directories.identity(owner))
+            try { directories.migrate(owner, destination, candidate, liked, allowed, progress) }
+            finally { catalogIndex.clear(owner, directories.identity(owner)); invalidateAll() }
         } }
+    }
+    suspend fun move(destination: String?, progress: (Long, Long) -> Unit) = withContext(Dispatchers.IO) {
+        val owner = rootOwner ?: throw IOException("Выберите профиль Яндекса.")
+        move(owner, destination, null, null, { true }, progress)
+    }
+    suspend fun removeProfile(profile: String, knownAccount: String? = null) = withContext(Dispatchers.IO) {
+        locationLease.withLock { lock.withLock { directories.removeProfile(profile, knownAccount); invalidateAll() } }
     }
     private fun hash(value: String) = digest(value.toByteArray())
     private fun digest(bytes: ByteArray): String {
@@ -76,12 +85,12 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     }
     private fun root(owner: OfflineOwner, refresh: Boolean = false, recover: Boolean = true): StorageNode {
         if (rootOwner != owner) { invalidateAll(); rootOwner = owner }
-        val identity = directories.identity().orEmpty()
+        val identity = directories.identity(owner).orEmpty()
         if (!refresh) roots[identity]?.let { return it }
         return directories.owner(owner).also { root ->
             // SAF rename is not atomic. Restore app-generated backups left by process death.
             if (recover) recoverBackups(owner, identity, root, root.listFiles().orEmpty())
-            roots.clear(); roots[identity] = root
+            roots.clear(); roots[directories.identity(owner).orEmpty()] = root
         }
     }
     private fun recoverBackups(owner: OfflineOwner, identity: String?, root: StorageNode, files: List<StorageNode>): Boolean {
@@ -111,7 +120,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         // Resolving a root is brief. Enumerating and reading thousands of metadata
         // documents must not hold the mutex needed to prepare a selected track.
         val (root, identity, initialGeneration) = lock.withLock {
-            Triple(root(owner, refresh = true, recover = false), directories.identity(), catalogGeneration.get())
+            Triple(root(owner, refresh = true, recover = false), directories.identity(owner), catalogGeneration.get())
         }
         var generation = initialGeneration
         var inventory = root.listSnapshot().orEmpty()
@@ -155,7 +164,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         currentCoroutineContext().ensureActive()
         val job = currentCoroutineContext()[Job]
         catalogIndex.replace(owner, identity, nextIndex) {
-            job?.isActive != false && catalogGeneration.get() == generation && rootOwner == owner && directories.identity() == identity
+            job?.isActive != false && catalogGeneration.get() == generation && rootOwner == owner && directories.identity(owner) == identity
         }
         return CatalogSnapshot(files, trackMetadata, tracks)
     }
@@ -211,7 +220,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
     private suspend fun syncTrack(owner: OfflineOwner, track: Track, resolve: suspend () -> String, allowed: () -> Boolean,
         transfer: () -> Unit, verifyExisting: Boolean): OfflineItem = withContext(Dispatchers.IO) { locationLease.withLock {
         val root = lock.withLock { root(owner) }
-        val identity = directories.identity()
+        val identity = directories.identity(owner)
         val audio = part(root, track.id, ".audio")
         val cover = part(root, track.id, ".cover")
         try {
@@ -302,7 +311,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             if (!allowed()) return@withLock
             catalogGeneration.incrementAndGet()
             val keep = keys.mapTo(hashSetOf(), ::hash)
-            root(owner).listFiles()?.filter { !it.name.endsWith(".part") && it.name.substringBefore('.') !in keep }?.forEach {
+            root(owner).listFiles()?.filter { !it.name.endsWith(".part") && it.name.substringBefore('.').matches(Regex("[a-f0-9]{64}")) && it.name.substringBefore('.') !in keep }?.forEach {
                 invalidate(it)
                 if (!it.delete() && it.exists()) throw IOException("Cannot remove offline entry")
             }
@@ -313,12 +322,14 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         lock.withLock {
             val root = root(owner)
             invalidateAll()
-            catalogIndex.clear(owner, directories.identity())
-            if (!root.deleteRecursively()) throw IOException("Cannot clear offline files")
+            catalogIndex.clear(owner, directories.identity(owner))
+            root.listFiles().orEmpty().filter { it.name.substringBefore('.').matches(Regex("[a-f0-9]{64}")) }.forEach {
+                if (!it.delete() && it.exists()) throw IOException("Cannot clear offline files")
+            }
         }
     }
     override suspend fun audio(owner: OfflineOwner, trackId: String): String? = withContext(Dispatchers.IO) {
-        val identity = directories.identity()
+        val identity = directories.identity(owner)
         val selected = lock.withLock {
             val root = root(owner); val file = part(root, trackId, ".audio")
             val metadata = part(root, trackId, ".json")
@@ -331,7 +342,7 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         try {
             if (!valid(selected.first, selected.second, true)) return@withContext null
             lock.withLock {
-                if (directories.identity() != identity || !selected.first.isFile || selected.first.length() <= 0) null
+                if (directories.identity(owner) != identity || !selected.first.isFile || selected.first.length() <= 0) null
                 else selected.first.uri.toString()
             }
         } catch (e: CancellationException) { throw e }

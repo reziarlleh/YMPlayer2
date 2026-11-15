@@ -203,7 +203,7 @@
     <string name="msg_4a1236b53aa7" formatted="false">"Protokoll geleert."</string>
     <string name="msg_4a59253d0fb2" formatted="false">"Wenn dir die App gefällt, kannst du ihre Entwicklung unterstützen."</string>
     <string name="msg_4a87a9c8e472" formatted="false">"Mediathek wird aktualisiert…"</string>
-    <string name="msg_4b39689e6190" formatted="false">"Die Sprache gilt für alle Profile auf diesem Gerät. Namen von Musik, Playlists und Skins werden nicht übersetzt."</string>
+    <string name="msg_4b39689e6190" formatted="false">"Die Sprache wird für das aktuelle Profil gespeichert. Namen von Musik, Playlists und Skins werden nicht übersetzt."</string>
     <string name="msg_4cffda4eecf8" formatted="false">"Die Yandex-Anmeldung ist in diesem Build nicht verfügbar. Lokale Musik funktioniert weiterhin."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"„@0@“ (Position @1@) aus „@2@“ entfernen? Andere Einträge dieses Titels bleiben erhalten."</string>
     <string name="msg_4e882842072f" formatted="false">"Die gespeicherte Anmeldung wird nur im Profil „@0@“ auf diesem Gerät entfernt. Lokale Dateien, Warteschlange und Playlists bleiben erhalten."</string>
@@ -762,5 +762,26 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="account_connect_title" formatted="false">"Yandex-Konto verbinden?"</string>
     <string name="account_connect_offer" formatted="false">"Fügen Sie ein Yandex-Profil hinzu und melden Sie sich an, um diese Funktion zu nutzen."</string>
     <string name="account_connect" formatted="false">"Konto verbinden"</string>
+    <string name="cache_profile_delete_hint" formatted="false">"Der interne Cache dieses Profils wird gelöscht. Der Cache in einem gewählten Ordner bleibt erhalten."</string>
+    <string name="cache_profile_location_hint" formatted="false">"Jedes Profil hat einen eigenen Speicherort. Aktivierung, WLAN-Regel und Downloadqualität gelten für alle Profile."</string>
+    <string name="cache_folder_found" formatted="false">"Offline-Cache gefunden"</string>
+    <string name="cache_legacy_import_notice" formatted="false">"Der alte Cache wird für dieses Profil umgewandelt. Dabei werden Titel aus deinen Lieblingssongs übernommen. Intakte Dateien bleiben erhalten. Ältere App-Versionen können das neue Format nicht lesen."</string>
+    <string name="cache_connect_merge_notice" formatted="false">"Den Cache dieses Kontos einbinden und mit dem aktuellen zusammenführen? Intakte Dateien werden nicht erneut heruntergeladen."</string>
+    <string name="cache_folder_track_count" formatted="false">"Titel im Ordner:"</string>
+    <string name="cache_connect_action" formatted="false">"Cache einbinden"</string>
+    <string name="cache_empty_folder" formatted="false">"Leerer Cache"</string>
+    <string name="cache_passport_invalid" formatted="false">"Die Angaben zum Offline-Cache sind beschädigt."</string>
+    <string name="cache_format_unsupported" formatted="false">"Dieses Cache-Format benötigt eine andere Version von YMPlayer2."</string>
+    <string name="cache_account_mismatch" formatted="false">"Dieser Cache gehört zu einem anderen Yandex-Konto."</string>
+    <string name="cache_profile_folder_in_use" formatted="false">"Dieser Ordner wird bereits von einem anderen Profil verwendet."</string>
+    <string name="cache_legacy_likes_required" formatted="false">"Zum Einbinden eines alten Caches muss die Liste deiner Lieblingssongs verfügbar sein."</string>
+    <string name="cache_connected" formatted="false">"Offline-Cache eingebunden."</string>
+    <string name="cache_connect_failed" formatted="false">"Cache konnte nicht eingebunden oder verschoben werden. Die ursprünglichen Dateien sind erhalten."</string>
+    <string name="cache_choose_yandex_profile" formatted="false">"Wähle ein Yandex-Profil."</string>
+    <string name="settings_shared_title" formatted="false">"Allgemeine Einstellungen"</string>
+    <string name="settings_profile_title" formatted="false">"Profileinstellungen"</string>
+    <string name="cache_profile_title" formatted="false">"Offline-Cache des Profils"</string>
+    <string name="cache_shared_settings_hint" formatted="false">"Diese Einstellungen gelten für alle Profile. Ordnerauswahl, Synchronisierung und Leeren des Caches findest du in den Profileinstellungen."</string>
+    <string name="cache_global_disabled_hint" formatted="false">"Der Offline-Cache ist deaktiviert. Aktiviere ihn in den allgemeinen Einstellungen."</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

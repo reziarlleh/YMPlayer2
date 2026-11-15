@@ -194,6 +194,7 @@ class PlayerApplication : Application(), PlaybackHost {
             withTimeout(20_000) { playback.state.first { it.profileId == replacement } }
         }
         accounts.activate(playback.state.value.profileId)
+        offlineStore.removeProfile(id, runCatching { accounts.savedAccount(id)?.id }.getOrNull())
         collections.removeProfile(id)
         history.clear(id)
         accounts.forgetProfile(id)

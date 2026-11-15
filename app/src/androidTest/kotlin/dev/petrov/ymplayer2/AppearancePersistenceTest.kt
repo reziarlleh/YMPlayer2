@@ -12,8 +12,11 @@ import org.junit.runner.RunWith
 class AppearancePersistenceTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun systemChoiceIsDurableBeforeStopAndSurvivesActivityRecreation() {
-        compose.onNodeWithTag("settings").performClick()
-        compose.onNodeWithTag("theme_system").performScrollTo().performClick()
+        compose.onNodeWithTag("profiles").performClick()
+        compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+        compose.onNodeWithTag("profile_settings").performClick()
+        compose.onNodeWithTag("profile_settings_list").performScrollToNode(hasTestTag("theme_system"))
+        compose.onNodeWithTag("theme_system").performClick()
         assertEquals("system", ThemePreferences(compose.activity).read())
         compose.activityRule.scenario.recreate()
         compose.onNodeWithTag("theme_system").assertIsSelected()

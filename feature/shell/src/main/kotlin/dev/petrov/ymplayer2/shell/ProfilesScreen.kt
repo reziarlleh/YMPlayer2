@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable internal fun ProfilesScreen(profiles: List<Profile>, current: String, account: (() -> Unit)? = null,
-    users: UserProfiles? = null, created: ((String) -> Unit)? = null, select: (String) -> Unit) {
+    users: UserProfiles? = null, created: ((String) -> Unit)? = null, settings: (() -> Unit)? = null, select: (String) -> Unit) {
     val scope = rememberCoroutineScope()
     var busy by remember { mutableStateOf(false) }
     val managerBusy = users?.busy?.collectAsState()?.value == true
@@ -77,6 +77,11 @@ import kotlinx.coroutines.launch
                 }
             }
         }
+        if (settings != null) item {
+            OutlinedButton(settings, Modifier.fillMaxWidth().prismFocus().testTag("profile_settings"), enabled = !working) {
+                Text(trMessage("Настройки профиля"))
+            }
+        }
         if (users != null) item {
             Button({ mutate {
                 val profile = users.createYandex()
@@ -89,7 +94,7 @@ import kotlinx.coroutines.launch
     }
     deleting?.let { profile -> AlertDialog(onDismissRequest = { if (!working) deleting = null },
         title = { Text(tr(Msg.profile_delete_title, profileName(profile))) },
-        text = { Column { Text(tr(Msg.profile_delete_hint)); if (issue) Text(tr(Msg.profiles_save_failed), color = MaterialTheme.colorScheme.error) } },
+        text = { Column { Text(tr(Msg.profile_delete_hint)); Text(trMessage("Внутренний кэш профиля будет удалён. Кэш в выбранной папке сохранится.")); if (issue) Text(tr(Msg.profiles_save_failed), color = MaterialTheme.colorScheme.error) } },
         confirmButton = { TextButton({ mutate { users!!.remove(profile.id); deleting = null } },
             Modifier.prismFocus().testTag("profile_delete_confirm"), enabled = !working) { Text(trMessage("Удалить")) } },
         dismissButton = { TextButton({ deleting = null }, Modifier.prismFocus(), enabled = !working) { Text(trMessage("Отмена")) } }) }

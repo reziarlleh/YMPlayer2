@@ -18,7 +18,7 @@ import dev.petrov.ymplayer2.localization.*
     LazyColumn(Modifier.fillMaxSize().testTag("language_list"), contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text(trMessage("Язык приложения"), style = MaterialTheme.typography.headlineSmall) }
-        item { Text(trMessage("Язык общий для устройства. Названия музыки, плейлистов и скинов не переводятся.")) }
+        item { Text(trMessage("Язык сохраняется для текущего профиля. Названия музыки, плейлистов и скинов не переводятся.")) }
         item { LanguageChoice("system", trMessage("Авто — как в системе"), state.selected == "system") }
         AppLanguages.available.forEach { language ->
             item(key = language.tag) { LanguageChoice(language.tag, language.label, state.selected == language.tag) }

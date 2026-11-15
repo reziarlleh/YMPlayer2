@@ -55,3 +55,34 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             }, confirmButton = { TextButton({ editingCache = null }) { Text(tr(Msg.msg_a7a4033657e8)) } })
     }
 }
+
+/** The global cache page uses the same quality choices as the audio settings. */
+@Composable internal fun AudioQualityPicker(preferences: AudioQualityPreferences, cache: Boolean, enabled: Boolean = true) {
+    val state by preferences.state.collectAsStateWithLifecycle()
+    var editing by remember { mutableStateOf(false) }
+    LaunchedEffect(enabled) { if (!enabled) editing = false }
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(tr(if (cache) Msg.msg_e30fc8a5eb01 else Msg.msg_01fc82460086), style = MaterialTheme.typography.titleMedium)
+        OutlinedButton({ editing = true }, Modifier.fillMaxWidth().prismFocus().testTag(if (cache) "quality_cache" else "quality_stream"), enabled = enabled) {
+            Text(trMessage((if (cache) state.cache else state.stream).label))
+        }
+    }
+    if (editing && enabled) AlertDialog(onDismissRequest = { editing = false },
+        title = { Text(tr(if (cache) Msg.msg_2718e917ffb3 else Msg.msg_a5e1aeda4ccc)) }, text = {
+            LazyColumn(Modifier.heightIn(max = 320.dp).testTag("quality_options"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                items(AudioQuality.entries, key = AudioQuality::key) { option ->
+                    val current = if (cache) state.cache else state.stream
+                    Surface(onClick = { if (cache) preferences.setCache(option) else preferences.setStream(option); editing = false },
+                        modifier = Modifier.fillMaxWidth().prismFocus().testTag("quality_option_${option.name}").semantics {
+                            selected = option == current; role = Role.RadioButton
+                        }, shape = MaterialTheme.shapes.medium,
+                        color = if (option == current) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface) {
+                        Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            SkinIcon(if (option == current) UiIcon.CHOICE_ON else UiIcon.CHOICE_OFF, null)
+                            Text(trMessage(option.label), Modifier.weight(1f))
+                        }
+                    }
+                }
+            }
+        }, confirmButton = { TextButton({ editing = false }) { Text(tr(Msg.msg_a7a4033657e8)) } })
+}

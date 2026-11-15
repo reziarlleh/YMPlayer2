@@ -203,7 +203,7 @@
     <string name="msg_4a1236b53aa7" formatted="false">"Registro vaciado."</string>
     <string name="msg_4a59253d0fb2" formatted="false">"Si la aplicación te resulta útil, puedes apoyar su desarrollo."</string>
     <string name="msg_4a87a9c8e472" formatted="false">"Actualizando biblioteca…"</string>
-    <string name="msg_4b39689e6190" formatted="false">"El idioma se aplica a todos los perfiles del dispositivo. Los nombres de la música, las listas y los temas no se traducen."</string>
+    <string name="msg_4b39689e6190" formatted="false">"El idioma se guarda para el perfil actual. Los nombres de la música, las listas y los temas no se traducen."</string>
     <string name="msg_4cffda4eecf8" formatted="false">"El acceso a Yandex no está disponible en esta compilación. La música local sigue funcionando."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"¿Quitar «@0@» (posición @1@) de «@2@»? Se conservarán las demás apariciones de esta canción."</string>
     <string name="msg_4e882842072f" formatted="false">"La sesión guardada se eliminará solo del perfil «@0@» de este dispositivo. Se conservarán los archivos locales, la cola y las listas."</string>
@@ -762,5 +762,26 @@ Puedes añadir tu propio texto entre las variables. Ejemplo: {number}. {artist} 
     <string name="account_connect_title" formatted="false">"¿Conectar una cuenta de Yandex?"</string>
     <string name="account_connect_offer" formatted="false">"Para usar esta función, añade un perfil de Yandex e inicia sesión."</string>
     <string name="account_connect" formatted="false">"Conectar cuenta"</string>
+    <string name="cache_profile_delete_hint" formatted="false">"Se eliminará la caché interna del perfil. Se conservará la caché de una carpeta elegida."</string>
+    <string name="cache_profile_location_hint" formatted="false">"Cada perfil tiene su propia ubicación. La activación de la caché, la regla de Wi-Fi y la calidad de descarga son comunes."</string>
+    <string name="cache_folder_found" formatted="false">"Se ha encontrado una caché sin conexión"</string>
+    <string name="cache_legacy_import_notice" formatted="false">"La caché antigua se convertirá para este perfil usando canciones de Me gusta. Se conservarán los archivos válidos. Las versiones anteriores de la aplicación no pueden leer el nuevo formato."</string>
+    <string name="cache_connect_merge_notice" formatted="false">"¿Conectar la caché de esta cuenta y combinarla con la actual? Los archivos válidos no se descargarán de nuevo."</string>
+    <string name="cache_folder_track_count" formatted="false">"Canciones en la carpeta:"</string>
+    <string name="cache_connect_action" formatted="false">"Conectar caché"</string>
+    <string name="cache_empty_folder" formatted="false">"Caché vacía"</string>
+    <string name="cache_passport_invalid" formatted="false">"La información de la caché sin conexión está dañada."</string>
+    <string name="cache_format_unsupported" formatted="false">"Este formato de caché requiere otra versión de YMPlayer2."</string>
+    <string name="cache_account_mismatch" formatted="false">"Esta caché pertenece a otra cuenta de Yandex."</string>
+    <string name="cache_profile_folder_in_use" formatted="false">"Otro perfil ya utiliza esta carpeta."</string>
+    <string name="cache_legacy_likes_required" formatted="false">"Para conectar una caché antigua se necesita la lista Me gusta."</string>
+    <string name="cache_connected" formatted="false">"Caché sin conexión conectada."</string>
+    <string name="cache_connect_failed" formatted="false">"No se pudo conectar o trasladar la caché. Los archivos originales se conservan."</string>
+    <string name="cache_choose_yandex_profile" formatted="false">"Elige un perfil de Yandex."</string>
+    <string name="settings_shared_title" formatted="false">"Ajustes generales"</string>
+    <string name="settings_profile_title" formatted="false">"Ajustes del perfil"</string>
+    <string name="cache_profile_title" formatted="false">"Caché sin conexión del perfil"</string>
+    <string name="cache_shared_settings_hint" formatted="false">"Estos ajustes se aplican a todos los perfiles. La carpeta, la sincronización y el borrado de la caché están en los ajustes del perfil."</string>
+    <string name="cache_global_disabled_hint" formatted="false">"La caché sin conexión está desactivada. Actívala en los ajustes generales."</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

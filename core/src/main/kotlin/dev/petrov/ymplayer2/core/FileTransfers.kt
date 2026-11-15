@@ -2,12 +2,17 @@ package dev.petrov.ymplayer2.core
 
 import kotlinx.coroutines.flow.StateFlow
 
+data class CacheFolderOption(val id: String, val label: String, val tracks: Int, val legacy: Boolean)
+data class CacheFolderSelection(val options: List<CacheFolderOption>)
 data class CacheLocationState(val label: String = "Внутренняя память приложения", val external: Boolean = false,
-    val moving: Boolean = false, val copiedBytes: Long = 0, val totalBytes: Long = 0, val message: String? = null)
+    val moving: Boolean = false, val copiedBytes: Long = 0, val totalBytes: Long = 0, val message: String? = null,
+    val owner: OfflineOwner? = null, val enabled: Boolean = false, val selection: CacheFolderSelection? = null)
 interface CacheLocationAccess {
     val state: StateFlow<CacheLocationState>
     fun move(destination: String?)
     fun cancel()
+    fun confirm(option: String) = Unit
+    fun dismiss() = Unit
 }
 
 data class AudioExportRequest(val profile: String, val title: String, val entity: MusicEntity? = null,

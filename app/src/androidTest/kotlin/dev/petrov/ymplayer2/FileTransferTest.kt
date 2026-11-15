@@ -44,7 +44,10 @@ class FileTransferTest {
         control("storage-fail-write", "false"); control("storage-space", (2L * 1024 * 1024 * 1024).toString())
         compose.runOnIdle { h.audioExporter.cancel(); h.cacheLocation.cancel(); h.player.stop() }
         waitFor { !h.audioExporter.state.value.running && !h.cacheLocation.state.value.moving }
-        compose.runOnIdle { h.cacheLocation.move(null) }; waitFor { !h.cacheLocation.state.value.moving }
+        if (h.offline.state.value.owner != null) {
+            compose.runOnIdle { h.offline.clear() }; waitFor { h.offline.state.value.ready }
+            compose.runOnIdle { h.cacheLocation.move(null) }; waitFor { !h.cacheLocation.state.value.moving }
+        }
     }
     private fun move() {
         compose.runOnIdle { h.cacheLocation.move(TestStorageProvider.tree.toString()) }
@@ -116,6 +119,40 @@ class FileTransferTest {
         assertTrue(rows.all { it.first.endsWith(".mp3") })
         assertTrue(rows.isNotEmpty()); rows.forEach { assertMp3(it.second) }
     }
+    @Test fun disabledGlobalCacheRejectsFolderChangesAndRetainsTheConfiguredPath() {
+        val previous = h.cacheLocation.state.value.label
+        compose.runOnIdle { h.offline.setEnabled(false); h.cacheLocation.move(TestStorageProvider.tree.toString()) }
+        waitFor { !h.cacheLocation.state.value.enabled }
+        assertFalse(h.cacheLocation.state.value.moving)
+        assertEquals(previous, h.cacheLocation.state.value.label)
+        assertTrue(entries(TestStorageProvider.tree).isEmpty())
+        compose.runOnIdle { h.offline.setEnabled(true) }
+        waitFor { h.offline.state.value.ready }
+        assertEquals(2, h.offline.state.value.tracks.size)
+    }
+    @Test fun controllerUsesTheSelectedProfilesOwnFolder() {
+        val original = h.offline.state.value.tracks.associate { it.id to hash(it.uri!!) }
+        move(); assertTrue(h.cacheLocation.state.value.external)
+        compose.runOnIdle { h.player.switchProfile("road") }
+        waitFor { h.offline.state.value.owner == OfflineOwner("road", "2") && h.offline.state.value.ready && h.cacheLocation.state.value.owner == OfflineOwner("road", "2") }
+        assertFalse(h.cacheLocation.state.value.external)
+        compose.runOnIdle { h.player.switchProfile("owner") }
+        waitFor { h.offline.state.value.owner == owner && h.offline.state.value.ready && h.cacheLocation.state.value.owner == owner }
+        assertTrue(h.cacheLocation.state.value.external)
+        assertEquals(original, h.offline.state.value.tracks.associate { it.id to hash(it.uri!!) })
+    }
+    @Test fun selectingExistingCacheAsksForConfirmationAndGlobalDisableCancelsTheSelection() {
+        move()
+        val original = h.offline.state.value.tracks.associate { it.id to it.uri }
+        compose.runOnIdle { h.cacheLocation.move(TestStorageProvider.tree.toString()) }
+        waitFor { h.cacheLocation.state.value.selection != null && !h.cacheLocation.state.value.moving }
+        assertEquals(original, h.offline.state.value.tracks.associate { it.id to it.uri })
+        compose.runOnIdle { h.offline.setEnabled(false) }
+        waitFor { h.cacheLocation.state.value.selection == null }
+        compose.runOnIdle { h.cacheLocation.confirm("0"); h.offline.setEnabled(true) }
+        waitFor { h.offline.state.value.ready }
+        assertEquals(original, h.offline.state.value.tracks.associate { it.id to it.uri })
+    }
     @Test fun blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack() {
         val damaged = h.offline.state.value.tracks.first { it.tasteTarget().key == "1" }
         File(Uri.parse(damaged.uri).path!!).writeBytes(byteArrayOf(1, 2, 3))
@@ -127,6 +164,21 @@ class FileTransferTest {
                 assertNotNull("A stalled network resolver must not block cached playback", withTimeout(5000) { h.offlineStore.audio(owner, "yandex:2:7") })
             } finally { sync.cancelAndJoin() }
         }
+    }
+    @Test fun movingALikedCachePreservesThePausedWaveQueueAndItsNextTrack() {
+        compose.runOnIdle { h.player.playMyWave() }
+        waitFor { h.player.state.value.playing && h.player.state.value.positionSeconds >= 1 }
+        compose.runOnIdle { h.player.toggle() }
+        waitFor { !h.player.state.value.playing && h.player.state.value.queue.size >= 10 }
+        val before = h.player.state.value
+        move()
+        assertFalse(h.player.state.value.playing)
+        assertEquals(before.current?.id, h.player.state.value.current?.id)
+        assertEquals(before.queue.map { it.id }, h.player.state.value.queue.map { it.id })
+        assertTrue(h.player.state.value.positionSeconds >= before.positionSeconds - 1)
+        val next = before.queue[before.queue.indexOfFirst { it.id == before.current?.id } + 1].id
+        compose.runOnIdle { h.player.toggle(); h.player.skip(1) }
+        waitFor { h.player.state.value.playing && h.player.state.value.current?.id == next }
     }
     private fun export(request: AudioExportRequest, template: String) {
         compose.runOnIdle { h.audioExporter.ask(request); h.audioExporter.template(template); h.audioExporter.start(TestStorageProvider.exportTree.toString()) }

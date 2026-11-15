@@ -34,7 +34,9 @@ class InterfaceScalePlaybackTest {
         val before = player.state.value
         val engineField = OnlineHarness::class.java.getDeclaredField("engine").apply { isAccessible = true }
         val engine = compose.runOnIdle { engineField.get(harness) }
-        compose.onNodeWithTag("settings").performClick()
+        compose.onNodeWithTag("profiles").performClick()
+        compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+        compose.onNodeWithTag("profile_settings").performClick()
         compose.onNodeWithTag("settings_scale").performScrollTo().performClick()
         compose.onNodeWithTag("scale_slider").performSemanticsAction(SemanticsActions.SetProgress) { it(130f) }
         compose.onNodeWithTag("scale_value").assertTextEquals("130%")

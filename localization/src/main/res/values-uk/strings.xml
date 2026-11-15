@@ -203,7 +203,7 @@
     <string name="msg_4a1236b53aa7" formatted="false">"Журнал очищено."</string>
     <string name="msg_4a59253d0fb2" formatted="false">"Якщо застосунок став у пригоді, можна підтримати його розробку."</string>
     <string name="msg_4a87a9c8e472" formatted="false">"Оновлення каталогу…"</string>
-    <string name="msg_4b39689e6190" formatted="false">"Мова спільна для всіх профілів цього пристрою. Назви музики, плейлистів і скінів не перекладаються."</string>
+    <string name="msg_4b39689e6190" formatted="false">"Мова зберігається для поточного профілю. Назви музики, плейлистів і скінів не перекладаються."</string>
     <string name="msg_4cffda4eecf8" formatted="false">"Вхід у Яндекс недоступний у цій збірці. Локальна музика працює далі."</string>
     <string name="msg_4e50f6bdc764" formatted="false">"Прибрати «@0@» (позиція @1@) з «@2@»? Інші входження цього треку збережуться."</string>
     <string name="msg_4e882842072f" formatted="false">"Збережений вхід буде видалено лише з профілю «@0@» на цьому пристрої. Локальні файли, черга й плейлисти залишаться."</string>
@@ -762,5 +762,26 @@
     <string name="account_connect_title" formatted="false">"Підключити акаунт Яндекса?"</string>
     <string name="account_connect_offer" formatted="false">"Щоб користуватися цією функцією, додайте профіль Яндекса та ввійдіть в акаунт."</string>
     <string name="account_connect" formatted="false">"Підключити акаунт"</string>
+    <string name="cache_profile_delete_hint" formatted="false">"Внутрішній кеш профілю буде видалено. Кеш у вибраній папці збережеться."</string>
+    <string name="cache_profile_location_hint" formatted="false">"Кожен профіль має власне розташування. Увімкнення кешу, правило Wi-Fi та якість завантаження спільні."</string>
+    <string name="cache_folder_found" formatted="false">"Знайдено офлайн-кеш"</string>
+    <string name="cache_legacy_import_notice" formatted="false">"Старий кеш буде перетворено для цього профілю з використанням треків зі списку «Мені подобається». Справні файли збережуться. Старі версії застосунку не читають новий формат."</string>
+    <string name="cache_connect_merge_notice" formatted="false">"Підключити кеш цього облікового запису й об’єднати з поточним? Справні файли не завантажуватимуться повторно."</string>
+    <string name="cache_folder_track_count" formatted="false">"Треків у папці:"</string>
+    <string name="cache_connect_action" formatted="false">"Підключити кеш"</string>
+    <string name="cache_empty_folder" formatted="false">"Порожній кеш"</string>
+    <string name="cache_passport_invalid" formatted="false">"Опис офлайн-кешу пошкоджено."</string>
+    <string name="cache_format_unsupported" formatted="false">"Цей формат кешу потребує іншої версії YMPlayer2."</string>
+    <string name="cache_account_mismatch" formatted="false">"Цей кеш належить іншому обліковому запису Яндекса."</string>
+    <string name="cache_profile_folder_in_use" formatted="false">"Цю папку вже використовує інший профіль."</string>
+    <string name="cache_legacy_likes_required" formatted="false">"Для підключення старого кешу потрібен список «Мені подобається»."</string>
+    <string name="cache_connected" formatted="false">"Офлайн-кеш підключено."</string>
+    <string name="cache_connect_failed" formatted="false">"Не вдалося підключити або перенести кеш. Початкові файли збережено."</string>
+    <string name="cache_choose_yandex_profile" formatted="false">"Виберіть профіль Яндекса."</string>
+    <string name="settings_shared_title" formatted="false">"Загальні налаштування"</string>
+    <string name="settings_profile_title" formatted="false">"Налаштування профілю"</string>
+    <string name="cache_profile_title" formatted="false">"Офлайн-кеш профілю"</string>
+    <string name="cache_shared_settings_hint" formatted="false">"Ці параметри спільні для всіх профілів. Вибір папки, синхронізація та очищення кешу розташовані в налаштуваннях профілю."</string>
+    <string name="cache_global_disabled_hint" formatted="false">"Офлайн-кеш вимкнено. Увімкніть його в загальних налаштуваннях."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

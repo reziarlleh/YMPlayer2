@@ -253,6 +253,8 @@ class AccountAuth(
         }
         withContext(NonCancellable) { writes.withLock { store.write(profile, null) } }
     }
+    /** Account identity only; used to retire private data without exposing credentials or making network requests. */
+    suspend fun savedAccount(profile: String): YandexAccount? = writes.withLock { store.read(profile)?.account }
 
     private fun fail(profile: String, failure: AuthFailure, diagnostic: String? = null) {
         val message = when (failure) {

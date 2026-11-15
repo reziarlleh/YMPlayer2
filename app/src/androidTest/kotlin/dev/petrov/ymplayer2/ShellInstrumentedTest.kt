@@ -87,8 +87,11 @@ class ShellInstrumentedTest {
     }
 
     @Test fun errorCanBeRetriedAndThemeSurvivesRecreation() {
-        compose.onNodeWithTag("settings").performClick()
+        compose.onNodeWithTag("profiles").performClick()
+        compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+        compose.onNodeWithTag("profile_settings").performClick()
         compose.onNodeWithTag("theme_light").performScrollTo().performClick()
+        compose.onNodeWithTag("settings").performClick()
         scrollTag("state_ERROR", "settings_list").performClick()
         nav("library")
         compose.onNodeWithText("Не удалось загрузить медиатеку").performScrollTo().assertIsDisplayed()
@@ -96,8 +99,10 @@ class ShellInstrumentedTest {
         scrollTag("track_yandex:1", "catalog_list").assertIsDisplayed()
         compose.activityRule.scenario.recreate()
         compose.onNodeWithTag("track_yandex:1").assertIsDisplayed()
-        compose.onNodeWithTag("settings").performClick()
-        scrollTag("theme_light", "settings_list").assertIsSelected()
+        compose.onNodeWithTag("profiles").performClick()
+        compose.onNodeWithTag("profiles_list").performScrollToNode(hasTestTag("profile_settings"))
+        compose.onNodeWithTag("profile_settings").performClick()
+        scrollTag("theme_light", "profile_settings_list").assertIsSelected()
     }
 
     @Test fun tvDpadFirstPressPlaysAndRightMovesToNext() {
