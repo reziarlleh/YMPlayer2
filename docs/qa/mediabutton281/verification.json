@@ -79,6 +79,6 @@
   "physicalAgamaChecked": false,
   "d004Resolved": false,
   "behaviorChanged": false,
-  "ci": "in-progress: https://github.com/reziarlleh/YMPlayer2/actions/runs/43723627992",
+  "ci": "success: https://github.com/reziarlleh/YMPlayer2/actions/runs/43723627992 (source2a78a95)",
   "delivery": "verified: public raw HTTP200/SHA256 plus single Draft446113004 four assets"
 }

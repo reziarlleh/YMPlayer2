@@ -28,8 +28,12 @@ Activity видна, Java-crash нет. RepoWise context/update недоступ
 Тот же APK отправлен в delivery commitae81564 и единственный Draft446113004;
 public raw по commit скачан без авторизации, SHA совпал. Все4 Draft-assets
 скачаны и совпали. Latest/оба raw feed145,5/6 динамических145, Gcore stable144
-остаётся D-001. Форум не менялся. Check-Documentation локально прошёл;
-source2a78a95 запустил CI43723627992, итог и после-push --github ещё фиксируются.
+остаётся D-001. Форум не менялся. Check-Documentation локально и после push
+с --github прошёл: ссылок с ошибками нет, Latest/README совпали.
+Source2a78a95 прошёл CI43723627992: переводы, JVM, оба debug APK, lint/buildSrc.
+Собственные эмуляторы закрыты. Shell media-dispatch в пустом release-сеансе
+не дал raw-команды: это не считается R8-доказательством callback; signed-проверка
+подтверждает upgrade/видимость Activity, сами команды проверены native23/28/35.
 Проверка AGAMA пользователем и причина D-004 ожидаются; D-009 открыт отдельно.
 
 ## 15 ноября2026 — гипотеза владельца: Agama может отправлять Play/Pause
