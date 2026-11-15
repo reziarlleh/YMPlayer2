@@ -46,7 +46,7 @@ class PortableCacheReinstallTest {
     private fun digest(uri: String): String = instrumentation.targetContext.contentResolver.openInputStream(Uri.parse(uri))!!.use {
         MessageDigest.getInstance("SHA-256").digest(it.readBytes()).joinToString("") { b -> "%02x".format(b.toInt() and 255) }
     }
-    @Test fun producePrivateAndSafCachesBeforeActualUninstall() = runBlocking {
+    @Test fun producePrivateAndSafCachesBeforeActualUninstall() = runBlocking<Unit> {
         assumeTrue(InstrumentationRegistry.getArguments().getString("cacheReinstallPhase") == "producer")
         val context = Isolated(instrumentation.targetContext)
         val data = 32000; val wav = ByteBuffer.allocate(44 + data).order(ByteOrder.LITTLE_ENDIAN)
@@ -68,7 +68,7 @@ class PortableCacheReinstallTest {
             .put("oldProfile", customOwner.profileId).put("firstInstallTime", context.packageManager.getPackageInfo(context.packageName, 0).firstInstallTime).toString()
         context.contentResolver.openOutputStream(marker(true), "wt")!!.use { it.write(saved.toByteArray()) }
     }
-    @Test fun restoreSafCacheWithNewIdentityAfterActualUninstall() = runBlocking {
+    @Test fun restoreSafCacheWithNewIdentityAfterActualUninstall() = runBlocking<Unit> {
         assumeTrue(InstrumentationRegistry.getArguments().getString("cacheReinstallPhase") == "consumer")
         val saved = JSONObject(instrumentation.targetContext.contentResolver.openInputStream(marker(false))!!.bufferedReader().use { it.readText() })
         val context = Isolated(instrumentation.targetContext)
