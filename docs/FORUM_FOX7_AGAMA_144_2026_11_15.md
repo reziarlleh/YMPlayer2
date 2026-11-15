@@ -105,17 +105,20 @@ playWhenReady=true и play() при false. Это не проверка слыш
 [Официальная таблица](https://developer.android.com/reference/androidx/media3/session/MediaSession#media-key-events-mapping).
 
 Наш SessionPlayer наследует getPlayWhenReady от ForwardingPlayer и не заменяет
-общую кнопку постоянной паузой. onMediaButtonEvent не переопределён; Media3
+общую кнопку постоянной паузой. В разобранных144/145 onMediaButtonEvent не переопределён; Media3
 обрабатывает исходную кнопку до диагностического observe(PAUSE/PLAY).
 Гипотеза рассогласования состояния при toggle допустима, но данным файлом
 не подтверждена. Обе записанные Pause следуют вскоре за APP_BACKGROUND;
 отдельного события переключателя при APP_FOREGROUND журнал не содержит.
 
-Для различения исходного toggle и явной Pause достаточно будущей диагностики
+Для различения исходного toggle и явной Pause предложена диагностика
 через [onMediaButtonEvent](https://developer.android.com/reference/androidx/media3/session/MediaSession.Callback#onMediaButtonEvent(androidx.media3.session.MediaSession,androidx.media3.session.MediaSession.ControllerInfo,android.content.Intent)):
 keyCode/action/repeatCount, package, playWhenReady/isPlaying/playbackState и
 suppressionReason до обработки, затем итоговый SESSION_COMMAND. Возвращать
 false для штатной обработки Media3, не перехватывать/переиначивать кнопку.
 Прямые transportControls.play()/pause() не обязаны вызывать этот callback,
 поэтому имеющуюся запись итогового Player-метода необходимо сохранить.
-Такая диагностика пока не реализована; код/APK/канал не менялись.
+На этапе этого разбора диагностика ещё не реализовывалась. Затем владелец
+поручил тестовый APK: [2.8.1-build146](MEDIA_BUTTON_DIAGNOSTICS_2_8_1.md)
+добавляет наблюдение исходной кнопки без изменения политики воспроизведения.
+Это не доказывает исходную команду в старом файле144 и не закрывает D-004.

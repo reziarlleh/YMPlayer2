@@ -2,6 +2,9 @@
 package dev.petrov.ymplayer2
 
 import android.content.ComponentName
+import android.content.Intent
+import android.os.SystemClock
+import android.view.KeyEvent
 import android.media.browse.MediaBrowser as PlatformBrowser
 import android.media.session.MediaController as PlatformController
 import androidx.media3.exoplayer.ExoPlayer
@@ -14,6 +17,7 @@ import dev.petrov.ymplayer2.core.Source
 import dev.petrov.ymplayer2.playback.AudioService
 import dev.petrov.ymplayer2.playback.LaunchStateStore
 import dev.petrov.ymplayer2.playback.sessionPlayer
+import dev.petrov.ymplayer2.playback.observeMediaButtonEvent
 import kotlinx.coroutines.runBlocking
 import org.junit.*
 import org.junit.Assert.*
@@ -43,11 +47,32 @@ class SessionCommandDiagnosticsTest {
     }
     private fun journal() = runBlocking { app.diagnostics.snapshot() }
     private fun commands() = journal().lineSequence().filter { "operation=SESSION_COMMAND " in it }.toList()
+    private fun mediaButtons() = journal().lineSequence().filter { "operation=SESSION_MEDIA_BUTTON " in it }.toList()
     private fun pauseRequest(line: String) = " command=PAUSE " in line || " command=SET_PLAY_WHEN_READY_FALSE " in line
     private fun playRequest(line: String) = " command=PLAY " in line || " command=SET_PLAY_WHEN_READY_TRUE " in line
     private fun playFixture() {
         main { app.playback.playQueue(listOf(app.library.testTracks.first().id)) }
         await { app.playback.state.value.playing }
+    }
+    private fun <T> withPlatformController(action: (PlatformController) -> T): T {
+        val connected = CountDownLatch(1)
+        val platform = main { PlatformBrowser(context, service, object : PlatformBrowser.ConnectionCallback() {
+            override fun onConnected() { connected.countDown() }
+            override fun onConnectionFailed() { connected.countDown() }
+        }, null) }
+        main { platform.connect() }
+        try {
+            assertTrue(connected.await(20, TimeUnit.SECONDS))
+            assertTrue(platform.isConnected)
+            return action(main { PlatformController(context, platform.sessionToken) })
+        } finally { main { platform.disconnect() } }
+    }
+    private fun sendMediaKey(controller: PlatformController, keyCode: Int) {
+        val time = SystemClock.uptimeMillis()
+        main {
+            assertTrue(controller.dispatchMediaButtonEvent(KeyEvent(time, time, KeyEvent.ACTION_DOWN, keyCode, 0)))
+            assertTrue(controller.dispatchMediaButtonEvent(KeyEvent(time, time + 20, KeyEvent.ACTION_UP, keyCode, 0)))
+        }
     }
 
     @Before fun setup() {
@@ -91,24 +116,63 @@ class SessionCommandDiagnosticsTest {
     }
 
     @Test fun platformControllerPauseIsRecordedThroughTheLegacySession() {
-        val connected = CountDownLatch(1)
-        val platform = main { PlatformBrowser(context, service, object : PlatformBrowser.ConnectionCallback() {
-            override fun onConnected() { connected.countDown() }
-            override fun onConnectionFailed() { connected.countDown() }
-        }, null) }
-        main { platform.connect() }
-        try {
-            assertTrue(connected.await(20, TimeUnit.SECONDS))
-            assertTrue(platform.isConnected)
-            val controller = main { PlatformController(context, platform.sessionToken) }
+        withPlatformController { controller ->
             playFixture()
             main { controller.transportControls.pause() }
             await { !app.playback.state.value.playing && commands().any(::pauseRequest) }
             val pause = commands().last()
             assertFalse(pause, "controllerOrigin=NO_CONTROLLER" in pause)
             assertTrue(pause, "controllerPackage=" in pause)
+            assertTrue(pause, "playWhenReady=true" in pause)
+            assertTrue(mediaButtons().isEmpty())
             assertFalse(LaunchStateStore(context).read(app.playback.state.value.profileId).playing)
-        } finally { main { platform.disconnect() } }
+        }
+    }
+
+    @Test fun rawToggleIsRecordedBeforeBothResolvedActionsAndKeyUpDoesNotToggleAgain() {
+        withPlatformController { controller ->
+            playFixture()
+            sendMediaKey(controller, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE)
+            await { !app.playback.state.value.playing && commands().any(::pauseRequest) && mediaButtons().any { "keyAction=UP" in it } }
+            val rawPause = mediaButtons().first { "keyAction=DOWN" in it }
+            val pause = commands().last(::pauseRequest)
+            assertTrue(rawPause, "key=PLAY_PAUSE keyCode=85 keyAction=DOWN keyRepeat=0" in rawPause)
+            assertTrue(rawPause, "controllerPackage=" in rawPause && "playWhenReady=true" in rawPause)
+            assertTrue(pause, "playWhenReady=true" in pause)
+            assertTrue(journal().indexOf(rawPause) < journal().indexOf(pause))
+            assertEquals(1, commands().size)
+            sendMediaKey(controller, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE)
+            await { app.playback.state.value.playing && commands().any(::playRequest) && mediaButtons().count { "keyAction=UP" in it } == 2 }
+            val rawPlay = mediaButtons().last { "keyAction=DOWN" in it }
+            val play = commands().last(::playRequest)
+            assertTrue(rawPlay, "key=PLAY_PAUSE" in rawPlay && "playWhenReady=false" in rawPlay)
+            assertTrue(play, "playWhenReady=false" in play)
+            assertTrue(journal().indexOf(rawPlay) < journal().indexOf(play))
+            assertEquals(2, commands().size)
+        }
+    }
+
+    @Test fun separatePauseAndPlayMediaKeysRetainTheirOriginalIdentity() {
+        withPlatformController { controller ->
+            playFixture()
+            sendMediaKey(controller, KeyEvent.KEYCODE_MEDIA_PAUSE)
+            await { !app.playback.state.value.playing && commands().any(::pauseRequest) && mediaButtons().any { "keyAction=UP" in it } }
+            assertTrue(mediaButtons().any { "key=PAUSE keyCode=127 keyAction=DOWN" in it })
+            sendMediaKey(controller, KeyEvent.KEYCODE_MEDIA_PLAY)
+            await { app.playback.state.value.playing && commands().any(::playRequest) && mediaButtons().any { "key=PLAY keyCode=126 keyAction=UP" in it } }
+            assertTrue(mediaButtons().any { "key=PLAY keyCode=126 keyAction=DOWN" in it })
+            assertFalse(mediaButtons().any { "key=PLAY_PAUSE" in it })
+        }
+    }
+
+    @Test fun failedMediaButtonObserverNeverConsumesTheEvent() {
+        val event = KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE)
+        val intent = Intent(Intent.ACTION_MEDIA_BUTTON).putExtra(Intent.EXTRA_KEY_EVENT, event)
+        var observed = 0
+        assertFalse(observeMediaButtonEvent(intent) { observed++; throw IllegalStateException("diagnostic fixture") })
+        assertEquals(1, observed)
+        assertFalse(observeMediaButtonEvent(Intent(Intent.ACTION_MEDIA_BUTTON)) { fail("No key supplied") })
+        assertFalse(observeMediaButtonEvent(Intent("unrelated").putExtra(Intent.EXTRA_KEY_EVENT, event)) { fail("Not a media button") })
     }
 
     @Test fun failedDiagnosticObserverCannotSwallowPause() {

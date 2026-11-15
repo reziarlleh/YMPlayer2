@@ -16,8 +16,13 @@ import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.datasource.ResolvingDataSource
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import android.net.Uri
+import android.content.Intent
+import android.view.KeyEvent
+import androidx.core.content.IntentCompat
 import dev.petrov.ymplayer2.core.SessionCommandOrigin
 import dev.petrov.ymplayer2.core.SessionTransportCommand
+import dev.petrov.ymplayer2.core.SessionMediaButton
+import dev.petrov.ymplayer2.core.SessionKeyAction
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.LibraryResult
@@ -133,6 +138,32 @@ internal object BrowserSources {
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 private fun browserCallback(playback: AndroidPlayback, diagnostic: (AudioServiceEvent) -> Unit) = object : MediaLibraryService.MediaLibrarySession.Callback {
+    override fun onMediaButtonEvent(session: MediaSession, controllerInfo: MediaSession.ControllerInfo, intent: Intent): Boolean =
+        observeMediaButtonEvent(intent) { key ->
+            val button = when (key.keyCode) {
+                KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> SessionMediaButton.PLAY_PAUSE
+                KeyEvent.KEYCODE_HEADSETHOOK -> SessionMediaButton.HEADSET_HOOK
+                KeyEvent.KEYCODE_MEDIA_PLAY -> SessionMediaButton.PLAY
+                KeyEvent.KEYCODE_MEDIA_PAUSE -> SessionMediaButton.PAUSE
+                KeyEvent.KEYCODE_MEDIA_STOP -> SessionMediaButton.STOP
+                KeyEvent.KEYCODE_MEDIA_NEXT -> SessionMediaButton.NEXT
+                KeyEvent.KEYCODE_MEDIA_PREVIOUS -> SessionMediaButton.PREVIOUS
+                KeyEvent.KEYCODE_MEDIA_FAST_FORWARD -> SessionMediaButton.FAST_FORWARD
+                KeyEvent.KEYCODE_MEDIA_REWIND -> SessionMediaButton.REWIND
+                else -> SessionMediaButton.OTHER
+            }
+            val action = when (key.action) {
+                KeyEvent.ACTION_DOWN -> SessionKeyAction.DOWN
+                KeyEvent.ACTION_UP -> SessionKeyAction.UP
+                KeyEvent.ACTION_MULTIPLE -> SessionKeyAction.MULTIPLE
+                else -> SessionKeyAction.OTHER
+            }
+            val origin = if (session.isMediaNotificationController(controllerInfo))
+                SessionCommandOrigin.MEDIA_NOTIFICATION_CONTROLLER else SessionCommandOrigin.MEDIA_CONTROLLER
+            playback.recordMediaButton(button, key.keyCode, action, key.repeatCount, key.eventTime, key.downTime,
+                origin, controllerInfo.packageName)
+        }
+
     override fun onConnectAsync(session: MediaSession, controller: MediaSession.ControllerInfo): ListenableFuture<MediaSession.ConnectionResult> {
         val result = MediaSession.ConnectionResult.AcceptedResultBuilder(session, controller).build()
         android.util.Log.i("YMPlayerSession", "controller=${controller.packageName} trusted=${controller.isTrusted} playPause=${result.availablePlayerCommands.contains(Player.COMMAND_PLAY_PAUSE)}")
@@ -164,6 +195,15 @@ private fun browserCallback(playback: AndroidPlayback, diagnostic: (AudioService
     override fun onAddMediaItems(session: MediaSession, controller: MediaSession.ControllerInfo,
         mediaItems: List<MediaItem>): ListenableFuture<List<MediaItem>> = Futures.immediateFuture(
         mediaItems.singleOrNull()?.mediaId?.let(BrowserSources::launchItem)?.let(::listOf).orEmpty())
+}
+
+/** Observe only: false always leaves Media3 responsible for mapping/handling the key. */
+internal fun observeMediaButtonEvent(intent: Intent, observe: (KeyEvent) -> Unit): Boolean {
+    try {
+        if (intent.action == Intent.ACTION_MEDIA_BUTTON)
+            IntentCompat.getParcelableExtra(intent, Intent.EXTRA_KEY_EVENT, KeyEvent::class.java)?.let(observe)
+    } catch (_: Exception) { /* Diagnostics must never consume an input event. */ }
+    return false
 }
 
 /** A wave still has a next item when its network request is in flight. The same commands

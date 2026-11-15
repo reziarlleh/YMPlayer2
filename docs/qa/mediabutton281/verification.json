@@ -1,0 +1,84 @@
+{
+  "checkedAtUtc": "2026-11-15T14:16:30.316871+00:00",
+  "version": "2.8.1-build146",
+  "stableLatest": "2.8.1-build145",
+  "sourceFeeds": 145,
+  "unit": {
+    "core": {
+      "tests": 184,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "debugLint": {
+    "errors": 0,
+    "warnings": 137,
+    "newApi": 0,
+    "lintError": 0
+  },
+  "diagnosticNative": {
+    "23": {
+      "passed": 6,
+      "failed": 0
+    },
+    "28": {
+      "passed": 6,
+      "failed": 0
+    },
+    "35": {
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "recoveryNativeFinal": {
+    "28": {
+      "passed": 3,
+      "failed": 0
+    },
+    "35": {
+      "passed": 2,
+      "failed": 1,
+      "open": "D-009"
+    }
+  },
+  "recoveryInitial": {
+    "28": {
+      "passed": 3,
+      "failed": 0
+    },
+    "35": {
+      "passed": 1,
+      "failed": 2
+    }
+  },
+  "recoveryFixtureCorrection": "Activity before Play; unchanged assertions; D-009 still fails",
+  "artifact": {
+    "name": "YMPlayer-2.8.1-build146.apk",
+    "size": 4757698,
+    "sha256": "4bf6aef1993af9a1f83541654497db3dc431ad10e34a6747c559796bc0f8a3ff",
+    "minSdk": 23,
+    "targetSdk": 36,
+    "signerSha256": "fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec",
+    "schemes": [
+      "v1",
+      "v2"
+    ],
+    "oauthVerified": true
+  },
+  "signedUpgrade": [
+    "api23-upgrade.json",
+    "api28-upgrade.json"
+  ],
+  "physicalAgamaChecked": false,
+  "d004Resolved": false,
+  "behaviorChanged": false,
+  "ci": "pending-source-push",
+  "delivery": "pending-remote-verification"
+}

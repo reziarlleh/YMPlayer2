@@ -1118,14 +1118,28 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     internal fun sessionPlay() = command(playing = true, intentReason = SessionStateReason.CONTROLLER) { playSession() }
     /** Observe a facade request before it changes durable intent; never changes playback itself. */
     internal fun recordControllerCommand(command: SessionTransportCommand, origin: SessionCommandOrigin, packageName: String?) {
+        recordSessionRequest(DiagnosticOperation.SESSION_COMMAND, origin, packageName, command = command)
+    }
+    internal fun recordMediaButton(button: SessionMediaButton, keyCode: Int, action: SessionKeyAction, repeat: Int,
+        eventTime: Long, downTime: Long, origin: SessionCommandOrigin, packageName: String?) {
+        recordSessionRequest(DiagnosticOperation.SESSION_MEDIA_BUTTON, origin, packageName,
+            button = button, keyCode = keyCode, action = action, repeat = repeat, eventTime = eventTime, downTime = downTime)
+    }
+    private fun recordSessionRequest(operation: DiagnosticOperation, origin: SessionCommandOrigin, packageName: String?,
+        command: SessionTransportCommand? = null, button: SessionMediaButton? = null, keyCode: Int? = null,
+        action: SessionKeyAction? = null, repeat: Int? = null, eventTime: Long? = null, downTime: Long? = null) {
         val saved = launchState.read(state.value.profileId)
         val music = saved.output == PlaybackOutput.MUSIC
-        diagnostic(OperationDiagnostic(DiagnosticOperation.SESSION_COMMAND,
+        val player = engine
+        diagnostic(OperationDiagnostic(operation,
             intent = if (!music) null else when {
                 saved.playing -> SessionIntent.PLAY; saved.stopped -> SessionIntent.STOP; else -> SessionIntent.PAUSE
-            }, positionSeconds = if (music) state.value.positionSeconds else null, engineState = engine?.playbackState,
+            }, positionSeconds = if (music) state.value.positionSeconds else null, engineState = player?.playbackState,
             transportCommand = command, controllerOrigin = origin, controllerPackage = packageName,
-            elapsedRealtimeMillis = android.os.SystemClock.elapsedRealtime()))
+            elapsedRealtimeMillis = android.os.SystemClock.elapsedRealtime(),
+            mediaButton = button, keyCode = keyCode, keyAction = action, keyRepeat = repeat,
+            keyEventMillis = eventTime, keyDownMillis = downTime, playWhenReady = player?.playWhenReady,
+            isPlaying = player?.isPlaying, suppressionReason = player?.playbackSuppressionReason))
     }
     private fun playSession() {
         mutable.value = state.value.copy(error = null)

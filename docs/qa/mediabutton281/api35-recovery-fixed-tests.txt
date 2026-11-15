@@ -1,0 +1,155 @@
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest
+
+INSTRUMENTATION_STATUS: current=1
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: numtests=3
+
+INSTRUMENTATION_STATUS: stream=
+
+dev.petrov.ymplayer2.SessionRecoveryTest:
+
+INSTRUMENTATION_STATUS: test=existingActivityResumesMusicAfterServiceDiesInBackground
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest
+
+INSTRUMENTATION_STATUS: current=1
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: numtests=3
+
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Reopen state
+
+	at org.junit.Assert.fail(Assert.java:89)
+
+	at org.junit.Assert.assertTrue(Assert.java:42)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:45)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:42)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:213)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.existingActivityResumesMusicAfterServiceDiesInBackground(SessionRecoveryTest.kt:184)
+
+
+
+INSTRUMENTATION_STATUS: stream=
+
+Error in existingActivityResumesMusicAfterServiceDiesInBackground(dev.petrov.ymplayer2.SessionRecoveryTest):
+
+java.lang.AssertionError: Reopen state
+
+	at org.junit.Assert.fail(Assert.java:89)
+
+	at org.junit.Assert.assertTrue(Assert.java:42)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:45)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:42)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:213)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.existingActivityResumesMusicAfterServiceDiesInBackground(SessionRecoveryTest.kt:184)
+
+
+
+INSTRUMENTATION_STATUS: test=existingActivityResumesMusicAfterServiceDiesInBackground
+
+INSTRUMENTATION_STATUS_CODE: -2
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest
+
+INSTRUMENTATION_STATUS: current=2
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: numtests=3
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: test=musicPausedSurvivesOrdinaryExit
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest
+
+INSTRUMENTATION_STATUS: current=2
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: numtests=3
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: test=musicPausedSurvivesOrdinaryExit
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest
+
+INSTRUMENTATION_STATUS: current=3
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: numtests=3
+
+INSTRUMENTATION_STATUS: stream=
+
+INSTRUMENTATION_STATUS: test=musicPlayingSurvivesOrdinaryExit
+
+INSTRUMENTATION_STATUS_CODE: 1
+
+INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest
+
+INSTRUMENTATION_STATUS: current=3
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+
+INSTRUMENTATION_STATUS: numtests=3
+
+INSTRUMENTATION_STATUS: stream=.
+
+INSTRUMENTATION_STATUS: test=musicPlayingSurvivesOrdinaryExit
+
+INSTRUMENTATION_STATUS_CODE: 0
+
+INSTRUMENTATION_RESULT: stream=
+
+
+
+Time: 38.767
+
+There was 1 failure:
+
+1) existingActivityResumesMusicAfterServiceDiesInBackground(dev.petrov.ymplayer2.SessionRecoveryTest)
+
+java.lang.AssertionError: Reopen state
+
+	at org.junit.Assert.fail(Assert.java:89)
+
+	at org.junit.Assert.assertTrue(Assert.java:42)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:45)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:42)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:213)
+
+	at dev.petrov.ymplayer2.SessionRecoveryTest.existingActivityResumesMusicAfterServiceDiesInBackground(SessionRecoveryTest.kt:184)
+
+
+
+FAILURES!!!
+
+Tests run: 3,  Failures: 1
+
+
+
+
+
+INSTRUMENTATION_CODE: -1

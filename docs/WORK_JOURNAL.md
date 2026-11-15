@@ -1,5 +1,34 @@
 # Журнал работы
 
+## 15 ноября2026 — ручной2.8.1-build146 для исходных медиакоманд
+
+По поручению владельца добавлены SESSION_MEDIA_BUTTON, исходные key/action/repeat/
+time, package/origin и снимок playWhenReady/isPlaying/state/suppression. Callback
+всегда возвращает false; команды, ручная пауза и восстановление не переписаны.
+Прямые controller.play/pause продолжают записываться. Типизированные поля без
+Intent/extras/токенов; пользовательских строк и новых переводов нет.
+
+184 core+4 app JVM, debug APK/androidTest и lint0 errors/137 warnings/0NewApi
+прошли. По6 native-команд на23/28/35 прошли; реальная трасса35 показывает toggle
+при playWhenReady=true/isPlaying=false → итоговая Pause. Это подтверждает
+возможность механизма, не конкретное действие AGAMA уFox_7.
+
+В старом recovery setup35 Play до Activity получал AUDIO_FOCUS_LOSS. Setup исправлен
+на Activity→Play с прежними assert; обычные Play/Pause выходы прошли. Принудительный
+stopService при возврате существующей Activity35 всё ещё не возобновился: D-009,
+причина/наличие регрессии не установлены. API28 этот сценарий прошёл. Не выдавать
+пакет дополнительных тестов за полностью зелёный; не добавлять безусловный Play.
+
+Build146 выделен штатным Build-Release, releaseState=development; подписанный APK
+4757698bytes/4bf6aef1…f8a3ff, min23/прежний сертификат/v1+v2, R8/lintVital/OAuth
+прошли. Signed145→146 на23/28 сохранил UID/firstInstallTime/профили/marker,
+Activity видна, Java-crash нет. RepoWise context/update недоступны: tree_sitter;
+фактические исходники сверены. [Отчёт/свидетельства](MEDIA_BUTTON_DIAGNOSTICS_2_8_1.md).
+
+Следующий шаг этой задачи — доставить тот же APK по проверенной ручной ссылке,
+сверить удалённые байты и stable145/feeds, завершить CI/документационную проверку.
+Форум не трогать. Проверка AGAMA пользователем и причина D-004 ещё ожидаются.
+
 ## 15 ноября2026 — гипотеза владельца: Agama может отправлять Play/Pause
 
 По вопросу владельца проверены фактический sessionPlayer, версия Media3 в проекте

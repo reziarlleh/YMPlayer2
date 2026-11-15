@@ -1,0 +1,10 @@
+{
+  "serial": "emulator-5556",
+  "classes": [
+    "dev.petrov.ymplayer2.SessionRecoveryTest#musicPlayingSurvivesOrdinaryExit",
+    "dev.petrov.ymplayer2.SessionRecoveryTest#musicPausedSurvivesOrdinaryExit",
+    "dev.petrov.ymplayer2.SessionRecoveryTest#existingActivityResumesMusicAfterServiceDiesInBackground"
+  ],
+  "passed": 0,
+  "success": false
+}

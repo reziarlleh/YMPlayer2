@@ -1,5 +1,12 @@
 # Карта переноса и модулей
 
+15 ноября2026, ручной146: core/OperationDiagnostic хранит типизированные
+keyCode/action/repeat/time и playWhenReady/isPlaying/suppression; AudioService
+наблюдает onMediaButtonEvent до штатной Media3-обработки и возвращает false.
+AndroidPlayback добавляет одинаковый снимок флагов к исходной кнопке и итоговому
+SESSION_COMMAND. Данные, разрешения, настройки и политика проигрывания не меняются.
+[Проверки/доставка](MEDIA_BUTTON_DIAGNOSTICS_2_8_1.md).
+
 15 ноября2026 **2.8.1-build145 опубликован** по разрешению владельца, без
 пересборки. Код переносимых кэшей и разделения настроек не менялся при публикации.
 [Доставка и форум](RELEASE_2_8_1_VERIFICATION.md).

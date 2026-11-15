@@ -184,6 +184,10 @@ class SessionRecoveryTest {
     @Test fun existingActivityResumesMusicAfterServiceDiesInBackground() = ordinaryExit(false, true, destroyService = true, existingActivity = true)
     private fun ordinaryExit(radio: Boolean, playing: Boolean, destroyService: Boolean = false, existingActivity: Boolean = false) {
         prepareMusic()
+        // Playback starts while the user is in the player. Android 15+ can deny
+        // an initial audio-focus request made before any Activity/foreground service.
+        app.navigation.edit().putString("route", "search").commit()
+        val first = instrument.startActivitySync(Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         if (radio) {
             val station = runBlocking { YandexRadioApi(app.accounts).station("europa-plus", "moscow") }
             main { app.radio.switchProfile("owner"); app.radio.play(station) }
@@ -194,8 +198,6 @@ class SessionRecoveryTest {
             waitFor("Music playing") { app.playback.state.value.playing }
             if (!playing) main { app.playback.toggle() }
         }
-        app.navigation.edit().putString("route", "search").commit()
-        val first = instrument.startActivitySync(Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         main { if (existingActivity) first.moveTaskToBack(true) else first.finish() }
         waitFor("Exit") { if (existingActivity) !(first as MainActivity).lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.STARTED) else first.isDestroyed }
         if (destroyService) {

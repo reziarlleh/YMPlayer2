@@ -4,10 +4,14 @@ enum class DiagnosticOperation { HTTP, WAVE_START, WAVE_NEXT, WAVE_DRAIN, WAVE_R
     AUDIO_PREPARE, AUDIO_PLAYBACK, LIST_CONTINUATION, TASTE_READ, TASTE_WRITE, TASTE_DEFERRED,
     OFFLINE_DOWNLOAD, OFFLINE_DELETE, MP3_EXPORT, CLIP_STREAM, CLIP_PLAYBACK, RADIO_STREAM, RADIO_PLAYBACK, RADIO_ON_AIR,
     LAUNCH_RESUME_WAIT, LAUNCH_RESUME_RETRY, LAUNCH_RESUME_STARTED, LAUNCH_RESUME_CANCELLED, LAUNCH_RESUME_EXHAUSTED,
-    SESSION_INTENT, SESSION_RESTORE, SESSION_RELEASE, SESSION_COMMAND, APP_FOREGROUND, APP_BACKGROUND }
+    SESSION_INTENT, SESSION_RESTORE, SESSION_RELEASE, SESSION_COMMAND, SESSION_MEDIA_BUTTON, APP_FOREGROUND, APP_BACKGROUND }
 enum class SessionIntent { PLAY, PAUSE, STOP }
 enum class SessionTransportCommand { PLAY, PAUSE, STOP, SET_PLAY_WHEN_READY_TRUE, SET_PLAY_WHEN_READY_FALSE }
 enum class SessionCommandOrigin { MEDIA_CONTROLLER, MEDIA_NOTIFICATION_CONTROLLER, NO_CONTROLLER }
+
+enum class SessionMediaButton { PLAY_PAUSE, HEADSET_HOOK, PLAY, PAUSE, STOP, NEXT, PREVIOUS, FAST_FORWARD, REWIND, OTHER }
+
+enum class SessionKeyAction { DOWN, UP, MULTIPLE, OTHER }
 enum class SessionStateReason { COMMAND, CONTROLLER, SOURCE_SELECTION, LAUNCH, METADATA_ONLY, SERVICE_RELEASE, SERVICE_TASK_REMOVED,
     AUDIO_FOCUS_LOSS, AUDIO_BECOMING_NOISY, LIST_ENDED, ACCOUNT_SIGNED_OUT, CONTROLLER_STOP, NOTIFICATION_STOP }
 enum class DiagnosticCategory { OK, NETWORK, SERVER, ACCESS, UNAVAILABLE, PROTOCOL, NO_PROGRESS, DECODER, STORAGE, APPLICATION }
@@ -20,7 +24,11 @@ data class OperationDiagnostic(val operation: DiagnosticOperation, val category:
     val intent: SessionIntent? = null, val reason: SessionStateReason? = null,
     val positionSeconds: Int? = null, val engineState: Int? = null,
     val transportCommand: SessionTransportCommand? = null, val controllerOrigin: SessionCommandOrigin? = null,
-    val controllerPackage: String? = null, val elapsedRealtimeMillis: Long? = null) {
+    val controllerPackage: String? = null, val elapsedRealtimeMillis: Long? = null,
+    val mediaButton: SessionMediaButton? = null, val keyCode: Int? = null,
+    val keyAction: SessionKeyAction? = null, val keyRepeat: Int? = null,
+    val keyEventMillis: Long? = null, val keyDownMillis: Long? = null,
+    val playWhenReady: Boolean? = null, val isPlaying: Boolean? = null, val suppressionReason: Int? = null) {
     fun line() = buildString {
         append("operation=${operation.name} category=${category.name}")
         httpStatus?.let { append(" http=$it") }; network?.let { append(" network=${it.name}") }
@@ -38,6 +46,15 @@ data class OperationDiagnostic(val operation: DiagnosticOperation, val category:
         controllerPackage?.takeIf { it.length in 1..200 && it.matches(CONTROLLER_PACKAGE) }
             ?.let { append(" controllerPackage=$it") }
         elapsedRealtimeMillis?.let { append(" elapsedMs=${it.coerceAtLeast(0)}") }
+        mediaButton?.let { append(" key=${it.name}") }
+        keyCode?.let { append(" keyCode=${it.coerceIn(0, 10000)}") }
+        keyAction?.let { append(" keyAction=${it.name}") }
+        keyRepeat?.let { append(" keyRepeat=${it.coerceIn(0, 1000)}") }
+        keyEventMillis?.let { append(" keyEventMs=${it.coerceAtLeast(0)}") }
+        keyDownMillis?.let { append(" keyDownMs=${it.coerceAtLeast(0)}") }
+        playWhenReady?.let { append(" playWhenReady=$it") }
+        isPlaying?.let { append(" isPlaying=$it") }
+        suppressionReason?.let { append(" suppression=${it.coerceIn(0, 1000)}") }
     }
     private companion object { val CONTROLLER_PACKAGE = Regex("[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*") }
 }

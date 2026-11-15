@@ -45,4 +45,18 @@ class OperationDiagnosticTest {
             assertEquals("operation=SESSION_COMMAND category=OK", line)
         }
     }
+    @Test fun mediaButtonDistinguishesRequestedPlaybackFromAudiblePlayback() {
+        val line = OperationDiagnostic(DiagnosticOperation.SESSION_MEDIA_BUTTON,
+            mediaButton = SessionMediaButton.PLAY_PAUSE, keyCode = 85, keyAction = SessionKeyAction.DOWN,
+            keyRepeat = 0, keyEventMillis = 1240, keyDownMillis = 1230,
+            playWhenReady = true, isPlaying = false, engineState = 3, suppressionReason = 1).line()
+        assertEquals("operation=SESSION_MEDIA_BUTTON category=OK engineState=3 key=PLAY_PAUSE keyCode=85 keyAction=DOWN keyRepeat=0 keyEventMs=1240 keyDownMs=1230 playWhenReady=true isPlaying=false suppression=1", line)
+    }
+    @Test fun mediaButtonCountersCannotExpandOrInjectDiagnosticData() {
+        val line = OperationDiagnostic(DiagnosticOperation.SESSION_MEDIA_BUTTON,
+            mediaButton = SessionMediaButton.OTHER, keyCode = Int.MAX_VALUE, keyAction = SessionKeyAction.UP,
+            keyRepeat = -1, keyEventMillis = -2, keyDownMillis = -3, suppressionReason = -4,
+            controllerPackage = "com.widget\nprivate-token").line()
+        assertEquals("operation=SESSION_MEDIA_BUTTON category=OK key=OTHER keyCode=10000 keyAction=UP keyRepeat=0 keyEventMs=0 keyDownMs=0 suppression=0", line)
+    }
 }
