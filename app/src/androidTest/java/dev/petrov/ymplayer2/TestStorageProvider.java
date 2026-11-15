@@ -155,10 +155,8 @@ public class TestStorageProvider extends DocumentsProvider {
             audioOpens.set(0);
             unavailable = false; failWrite = false; available = 2L * 1024 * 1024 * 1024; delete(base());
             new File(base(), "store").mkdirs(); new File(base(), "export").mkdirs();
-            int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION;
-            getContext().grantUriPermission("dev.petrov.ymplayer2.dev", tree, flags);
-            getContext().grantUriPermission("dev.petrov.ymplayer2.dev", exportTree, flags);
-            getContext().grantUriPermission("dev.petrov.ymplayer2.dev", DocumentsContract.buildRootsUri(AUTHORITY), Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            grantAccess();
+        } else if (method.equals("storage-grant")) { grantAccess();
         } else if (method.equals("storage-space")) available = Long.parseLong(arg);
         else if (method.equals("storage-unavailable")) unavailable = Boolean.parseBoolean(arg);
         else if (method.equals("storage-fail-write")) failWrite = Boolean.parseBoolean(arg);
@@ -220,6 +218,12 @@ public class TestStorageProvider extends DocumentsProvider {
         }
         else return super.call(method, arg, extras);
         return Bundle.EMPTY;
+    }
+    private void grantAccess() {
+        int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION;
+        getContext().grantUriPermission("dev.petrov.ymplayer2.dev", tree, flags);
+        getContext().grantUriPermission("dev.petrov.ymplayer2.dev", exportTree, flags);
+        getContext().grantUriPermission("dev.petrov.ymplayer2.dev", DocumentsContract.buildRootsUri(AUTHORITY), Intent.FLAG_GRANT_READ_URI_PERMISSION);
     }
     private void resetCatalogCounters() { catalogQueries.set(0); catalogFileQueries.set(0); catalogChildren.set(0); catalogJsonOpens.set(0); }
     private void releaseCatalogGates() {

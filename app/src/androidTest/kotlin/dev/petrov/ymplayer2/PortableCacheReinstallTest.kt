@@ -70,6 +70,10 @@ class PortableCacheReinstallTest {
     }
     @Test fun restoreSafCacheWithNewIdentityAfterActualUninstall() = runBlocking<Unit> {
         assumeTrue(InstrumentationRegistry.getArguments().getString("cacheReinstallPhase") == "consumer")
+        assertTrue("Uninstall must revoke the previous folder grant", runCatching { marker(false) }.exceptionOrNull() is SecurityException)
+        // The user chooses the folder again after reinstalling. Regrant access without
+        // storage-reset: the independent provider and its existing files must survive.
+        instrumentation.targetContext.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "storage-grant", null, null)
         val saved = JSONObject(instrumentation.targetContext.contentResolver.openInputStream(marker(false))!!.bufferedReader().use { it.readText() })
         val context = Isolated(instrumentation.targetContext)
         assertFalse("Default cache must be removed by uninstall", File(Uri.parse(saved.getString("private")).path!!).exists())
