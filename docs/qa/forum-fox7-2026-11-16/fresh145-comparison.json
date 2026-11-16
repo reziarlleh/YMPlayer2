@@ -1,0 +1,453 @@
+{
+  "checkedAtUtc": "2026-11-16T13:12:17.565036+00:00",
+  "post": {
+    "id": "146043622",
+    "number": 118,
+    "author": "Fox_7",
+    "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=146043622",
+    "reportedModes": [
+      "AGAMA autoplay disabled",
+      "AGAMA autoplay enabled; wait for player; three attempts"
+    ]
+  },
+  "diagnostics": [
+    {
+      "labelReportedByUser": "autoplay-off",
+      "attachment": "36561700",
+      "name": "YMPlayer2-diagnostics-20261116-155615.txt",
+      "url": "https://4pda.to/forum/dl/post/36561700/YMPlayer2-diagnostics-20261116-155615.txt",
+      "status": 200,
+      "bytes": 4719,
+      "sha256": "faefe0a2cddc4b29016ef3f170d8b8a19058479ef3306de168ec0b4852577335",
+      "version": "2.8.1-build145",
+      "api": 28,
+      "exported": "2026-11-16 15:56:17.192",
+      "rawKeptIgnored": true
+    },
+    {
+      "labelReportedByUser": "autoplay-on",
+      "attachment": "36561759",
+      "name": "YMPlayer2-diagnostics-20261116-160014.txt",
+      "url": "https://4pda.to/forum/dl/post/36561759/YMPlayer2-diagnostics-20261116-160014.txt",
+      "status": 200,
+      "bytes": 6420,
+      "sha256": "915be6ca4d02d60812b594fb634572b2a51ea6150cd964c2b9491f7ae88a861f",
+      "version": "2.8.1-build145",
+      "api": 28,
+      "exported": "2026-11-16 16:00:17.677",
+      "rawKeptIgnored": true
+    }
+  ],
+  "cumulativeJournal": true,
+  "sharedPrefixEvents": 53,
+  "newSecondFileEvents": 24,
+  "firstFileTimeline": [
+    {
+      "time": "2026-11-16 15:46:26.970",
+      "event": "JOURNAL_CLEARED",
+      "fields": {}
+    },
+    {
+      "time": "2026-11-16 15:46:31.265",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1140762959"
+      }
+    },
+    {
+      "time": "2026-11-16 15:46:57.085",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1140788779"
+      }
+    },
+    {
+      "time": "2026-11-16 15:47:14.114",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1140805808"
+      }
+    },
+    {
+      "time": "2026-11-16 15:47:21.784",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1140813478"
+      }
+    },
+    {
+      "time": "2026-11-16 15:48:20.011",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1140871705"
+      }
+    },
+    {
+      "time": "2026-11-16 15:48:20.538",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "77",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1140872233"
+      }
+    },
+    {
+      "time": "2026-11-16 15:48:20.540",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PAUSE",
+        "reason": "CONTROLLER",
+        "position": "77",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-16 15:49:33.272",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1140944967"
+      }
+    },
+    {
+      "time": "2026-11-16 15:49:51.260",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PAUSE",
+        "position": "78",
+        "engineState": "3",
+        "command": "PLAY",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "android",
+        "elapsedMs": "1140962954"
+      }
+    },
+    {
+      "time": "2026-11-16 15:49:51.261",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PLAY",
+        "reason": "CONTROLLER",
+        "position": "78",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-16 15:53:42.151",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1141193845"
+      }
+    },
+    {
+      "time": "2026-11-16 15:53:43.092",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "165",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1141194786"
+      }
+    },
+    {
+      "time": "2026-11-16 15:53:43.093",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PAUSE",
+        "reason": "CONTROLLER",
+        "position": "165",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-16 15:55:48.198",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1141319892"
+      }
+    },
+    {
+      "time": "2026-11-16 15:56:07.650",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PLAY",
+        "reason": "COMMAND",
+        "position": "167",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-16 15:56:16.266",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1141350112"
+      }
+    }
+  ],
+  "newSecondFileTimeline": [
+    {
+      "time": "2026-11-16 15:56:17.244",
+      "event": "JOURNAL_EXPORTED",
+      "fields": {}
+    },
+    {
+      "time": "2026-11-16 15:56:17.365",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1141351211"
+      }
+    },
+    {
+      "time": "2026-11-16 15:56:21.666",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1141355512"
+      }
+    },
+    {
+      "time": "2026-11-16 15:58:23.534",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1141477379"
+      }
+    },
+    {
+      "time": "2026-11-16 15:58:37.847",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1141491698"
+      }
+    },
+    {
+      "time": "2026-11-16 15:58:38.612",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "55",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1141492464"
+      }
+    },
+    {
+      "time": "2026-11-16 15:58:38.613",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PAUSE",
+        "reason": "CONTROLLER",
+        "position": "55",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-16 15:59:55.282",
+      "event": "APP_FOREGROUND",
+      "fields": {
+        "operation": "APP_FOREGROUND",
+        "category": "OK",
+        "elapsedMs": "1141569134"
+      }
+    },
+    {
+      "time": "2026-11-16 16:00:08.649",
+      "event": "SESSION_INTENT",
+      "fields": {
+        "operation": "SESSION_INTENT",
+        "category": "OK",
+        "intent": "PLAY",
+        "reason": "COMMAND",
+        "position": "57",
+        "engineState": "3"
+      }
+    },
+    {
+      "time": "2026-11-16 16:00:16.369",
+      "event": "APP_BACKGROUND",
+      "fields": {
+        "operation": "APP_BACKGROUND",
+        "category": "OK",
+        "elapsedMs": "1141589596"
+      }
+    }
+  ],
+  "firstFileCommands": [
+    {
+      "time": "2026-11-16 15:48:20.538",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "77",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1140872233"
+      }
+    },
+    {
+      "time": "2026-11-16 15:49:51.260",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PAUSE",
+        "position": "78",
+        "engineState": "3",
+        "command": "PLAY",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "android",
+        "elapsedMs": "1140962954"
+      }
+    },
+    {
+      "time": "2026-11-16 15:53:43.092",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "165",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1141194786"
+      }
+    }
+  ],
+  "newSecondFileCommands": [
+    {
+      "time": "2026-11-16 15:58:38.612",
+      "event": "SESSION_COMMAND",
+      "fields": {
+        "operation": "SESSION_COMMAND",
+        "category": "OK",
+        "intent": "PLAY",
+        "position": "55",
+        "engineState": "3",
+        "command": "PAUSE",
+        "controllerOrigin": "MEDIA_CONTROLLER",
+        "controllerPackage": "altergames.carlauncher",
+        "elapsedMs": "1141492464"
+      }
+    }
+  ],
+  "rawKeyEventsRecorded": 0,
+  "engineFlagsBeforeCommandRecorded": false,
+  "controllerPlayFromAgamaRecorded": 0,
+  "systemPlay": {
+    "time": "2026-11-16 15:49:51.260",
+    "package": "android",
+    "originalAppBehindSystemNotEstablished": true
+  },
+  "noRecordedEvents": [
+    "APP_OPEN",
+    "SESSION_RESTORE",
+    "SESSION_RELEASE",
+    "AUDIO_SERVICE_CREATED",
+    "AUDIO_SERVICE_DESTROYED"
+  ],
+  "noRecordedStop": true,
+  "networkKinds": {
+    "TLS": 1,
+    "DNS": 6
+  },
+  "feedbackHttp400": 6,
+  "deliveredForumApk": {
+    "post": "146027011",
+    "number": 117,
+    "attachment": "36555242",
+    "url": "https://4pda.to/forum/dl/post/36555242/YMPlayer-2.8.1-build146.apk",
+    "status": 200,
+    "bytes": 4757698,
+    "sha256": "4bf6aef1993af9a1f83541654497db3dc431ad10e34a6747c559796bc0f8a3ff",
+    "version": "2.8.1-build146",
+    "versionCode": 146,
+    "minSdk": 23,
+    "identicalToBuilt146": true
+  },
+  "source": {
+    "head": "d28d9840ed737489fb6ef88d3acb13be1844044a",
+    "versionHeader": "DiagnosticsJournal.writeDocument reads installed PackageManager versionName at export",
+    "unchangedFilesSince145": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/DiagnosticsJournal.kt",
+      "app/src/main/kotlin/dev/petrov/ymplayer2/PlayerApplication.kt",
+      "app/src/main/kotlin/dev/petrov/ymplayer2/MainActivity.kt"
+    ],
+    "checkedHandlers": [
+      "AudioService.sessionPlayer",
+      "AndroidPlayback.sessionPause/pauseSession",
+      "restoreForegroundSessionIfNeeded"
+    ]
+  },
+  "conclusion": {
+    "d004Resolved": false,
+    "toggleVsExplicitPauseEstablished": false,
+    "userTested146Established": false,
+    "nextStep": "Install existing146 over current app; verify About shows146; clear journal; repeat one scenario and export before manual Play"
+  },
+  "scope": {
+    "productCodeChanged": false,
+    "apkCreated": false,
+    "releaseChanged": false,
+    "forumPostsCreated": 0,
+    "headerEdited": false,
+    "emulatorsUsed": false,
+    "repowiseAvailable": false,
+    "httpSessionClosed": true
+  }
+}
