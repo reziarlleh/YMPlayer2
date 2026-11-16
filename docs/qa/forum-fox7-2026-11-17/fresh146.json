@@ -1,0 +1,105 @@
+{
+  "checkedDate": "2026-11-17",
+  "post": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=146047637",
+  "attachment": "https://4pda.to/forum/dl/post/36563423/YMPlayer2-diagnostics-20261116-200136.txt",
+  "receipt": {
+    "file": "YMPlayer2-diagnostics-20261116-200136.txt",
+    "bytes": 8237,
+    "sha256": "f8a00845edcbf6ebe46378ba945d6ba898780b8d7fa9edd88cbf94ced17746bc"
+  },
+  "declaredBuild": "2.8.1-build146",
+  "api": 28,
+  "excerpt": [
+    {
+      "time": "2026-11-16 19:59:04.708",
+      "operation": "APP_BACKGROUND",
+      "category": "OK",
+      "elapsedMs": "1155913126"
+    },
+    {
+      "time": "2026-11-16 19:59:05.005",
+      "operation": "SESSION_MEDIA_BUTTON",
+      "category": "OK",
+      "intent": "PLAY",
+      "position": "125",
+      "engineState": "3",
+      "controllerOrigin": "MEDIA_CONTROLLER",
+      "controllerPackage": "altergames.carlauncher",
+      "elapsedMs": "1155913422",
+      "key": "PLAY_PAUSE",
+      "keyCode": "85",
+      "keyAction": "DOWN",
+      "keyRepeat": "0",
+      "keyEventMs": "0",
+      "keyDownMs": "0",
+      "playWhenReady": "true",
+      "isPlaying": "true",
+      "suppression": "0"
+    },
+    {
+      "time": "2026-11-16 19:59:05.007",
+      "operation": "SESSION_MEDIA_BUTTON",
+      "category": "OK",
+      "intent": "PLAY",
+      "position": "125",
+      "engineState": "3",
+      "controllerOrigin": "MEDIA_CONTROLLER",
+      "controllerPackage": "altergames.carlauncher",
+      "elapsedMs": "1155913424",
+      "key": "PLAY_PAUSE",
+      "keyCode": "85",
+      "keyAction": "UP",
+      "keyRepeat": "0",
+      "keyEventMs": "0",
+      "keyDownMs": "0",
+      "playWhenReady": "true",
+      "isPlaying": "true",
+      "suppression": "0"
+    },
+    {
+      "time": "2026-11-16 19:59:05.312",
+      "operation": "SESSION_COMMAND",
+      "category": "OK",
+      "intent": "PLAY",
+      "position": "125",
+      "engineState": "3",
+      "command": "PAUSE",
+      "controllerOrigin": "MEDIA_CONTROLLER",
+      "controllerPackage": "altergames.carlauncher",
+      "elapsedMs": "1155913729",
+      "playWhenReady": "true",
+      "isPlaying": "true",
+      "suppression": "0"
+    },
+    {
+      "time": "2026-11-16 19:59:05.313",
+      "operation": "SESSION_INTENT",
+      "category": "OK",
+      "intent": "PAUSE",
+      "reason": "CONTROLLER",
+      "position": "125",
+      "engineState": "3"
+    },
+    {
+      "time": "2026-11-16 20:00:30.267",
+      "operation": "APP_FOREGROUND",
+      "category": "OK",
+      "elapsedMs": "1155998684"
+    },
+    {
+      "time": "2026-11-16 20:00:41.140",
+      "operation": "SESSION_INTENT",
+      "category": "OK",
+      "intent": "PLAY",
+      "reason": "COMMAND",
+      "position": "126",
+      "engineState": "3"
+    }
+  ],
+  "conclusions": [
+    "AGAMA raw PLAY_PAUSE85 DOWN/UP while isPlaying=true and playWhenReady=true.",
+    "Resolved Pause is consistent with toggle semantics; position is preserved.",
+    "No external Play is recorded between foreground and subsequent in-app Play.",
+    "The log does not establish the installed AGAMA version or its internal autoplay decision."
+  ]
+}

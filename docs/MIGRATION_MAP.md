@@ -1,5 +1,9 @@
 # Карта переноса и модулей
 
+17 ноября: [анализ146 и эмуляция AGAMA](FORUM_FOX7_AGAMA_146_2026_11_16.md)
+уточнили D-004; функции, модули и политика Play/Pause не менялись. Внутреннее
+ожидание AGAMA воспроизведено, конкретная причина Fox_7 ещё не доказана.
+
 15 ноября2026, ручной146: core/OperationDiagnostic хранит типизированные
 keyCode/action/repeat/time и playWhenReady/isPlaying/suppression; AudioService
 наблюдает onMediaButtonEvent до штатной Media3-обработки и возвращает false.
