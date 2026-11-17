@@ -132,6 +132,27 @@ class ClipTouchControlsTest {
         waitFor("Remote Back still closes ClipActivity") { scenario.state == Lifecycle.State.DESTROYED }
     }
 
+    @Test fun eachTouchToRemoteHandoffConsumesEnterAndHeldOkWithoutStartingVideo() = withClip { scenario ->
+        for (code in listOf(KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_DPAD_RIGHT)) {
+            tapVideo(scenario)
+            scenario.onActivity { focusVideo(it) }
+            if (code == KeyEvent.KEYCODE_DPAD_CENTER) {
+                val down = SystemClock.uptimeMillis()
+                instrument.sendKeySync(KeyEvent(down, down, KeyEvent.ACTION_DOWN, code, 0))
+                instrument.sendKeySync(KeyEvent(down, down + 100, KeyEvent.ACTION_DOWN, code, 1))
+                instrument.sendKeySync(KeyEvent(down, down + 200, KeyEvent.ACTION_UP, code, 0))
+                instrument.waitForIdleSync()
+            } else key(code)
+            scenario.onActivity {
+                assertEquals("A new remote handoff must choose Play, even after earlier remote use",
+                    trMessage("Воспроизвести"), it.currentFocus?.contentDescription)
+                assertFalse("The reveal press and its repeat/release must not start the paused clip", controller(it).player.playWhenReady)
+            }
+            key(KeyEvent.KEYCODE_DPAD_UP)
+            scenario.onActivity { assertEquals(trMessage("← Назад"), it.currentFocus?.contentDescription) }
+        }
+    }
+
     private fun withClip(block: (ActivityScenario<ClipActivity>) -> Unit) {
         val fixtureScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         val profile = runBlocking { withContext(Dispatchers.Main.immediate) { app.users.createYandex() } }.id

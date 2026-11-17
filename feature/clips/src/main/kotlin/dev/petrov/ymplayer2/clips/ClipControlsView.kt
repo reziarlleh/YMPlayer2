@@ -16,6 +16,7 @@ import android.os.Looper
 import android.view.Gravity
 import android.view.View
 import android.view.KeyEvent
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -31,6 +32,12 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
     private var latest = ClipWaveState()
     private var shown = true
     private var revealKey: Int? = null
+    private var remoteFocusPending = false
+    private val touchModeChanged = ViewTreeObserver.OnTouchModeChangeListener { inTouchMode ->
+        // Older Android may focus the first button before delivering the navigation key.
+        // Keep the handoff pending until our remote handler chooses the intended control.
+        if (inTouchMode) remoteFocusPending = true
+    }
     private val top = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL }
     private val bottom = LinearLayout(context).apply { orientation = LinearLayout.VERTICAL }
     private val back = button(tr(Msg.msg_7e59467db9e7), close)
@@ -191,7 +198,7 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
                 KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER)) return false
         // Android may consume the first navigation DOWN while leaving touch mode
         // and focus the video. Its UP still needs to enter the controls, not click.
-        if ((!shown || !hasFocus()) && event.action in setOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
+        if ((remoteFocusPending || !shown || !hasFocus()) && event.action in setOf(KeyEvent.ACTION_DOWN, KeyEvent.ACTION_UP)) {
             if (event.action == KeyEvent.ACTION_DOWN) revealKey = code
             showControls(focus = true)
             return true
@@ -200,12 +207,13 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         return false
     }
     fun showControls(focus: Boolean = true) {
-        val restoreFocus = focus && (!shown || !hasFocus())
+        val restoreFocus = focus && (remoteFocusPending || !shown || !hasFocus())
         shown = true; display()
         if (restoreFocus) {
             // Center/Enter may be consumed here before Android leaves touch mode. This explicit
             // remote-focus request keeps buttons touch-clickable without making them touch-focusable.
             listOf(play, retry, next, previous, back).firstOrNull { it.isEnabled && it.visibility == VISIBLE }?.requestFocusFromTouch()
+            remoteFocusPending = false
         }
         scheduleHide()
     }
@@ -222,7 +230,16 @@ class ClipControlsView(context: Context, private val controller: ClipWaveControl
         bottom.visibility = if (shown) VISIBLE else GONE
         if (!shown) (parent as? View)?.requestFocus()
     }
-    override fun onDetachedFromWindow() { handler.removeCallbacks(hide); super.onDetachedFromWindow() }
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        remoteFocusPending = isInTouchMode
+        viewTreeObserver.addOnTouchModeChangeListener(touchModeChanged)
+    }
+    override fun onDetachedFromWindow() {
+        viewTreeObserver.takeIf { it.isAlive }?.removeOnTouchModeChangeListener(touchModeChanged)
+        handler.removeCallbacks(hide)
+        super.onDetachedFromWindow()
+    }
 
     private fun label(value: String, sp: Float, bold: Boolean = false) = TextView(context).apply {
         text = value; textSize = sp; setTextColor(palette.text)
