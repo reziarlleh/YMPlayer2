@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.2-build148/build.json",
+    "status": 200,
+    "bytes": 590,
+    "sha256": "eb68b1307eab9ab511e1d2c12f211b937fd3c878b3776ae706aa6c32a98d9f41",
+    "matches": true,
+    "checkedAtUtc": "2026-11-17T14:34:42.480105+00:00"
+  },
+  {
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.2-build148/SHA256.txt",
+    "status": 200,
+    "bytes": 94,
+    "sha256": "cfd74de06c8bebc36fdc04ed2c2a89e91afbd083deac89d532a119b30eb6ab50",
+    "matches": true,
+    "checkedAtUtc": "2026-11-17T14:34:42.415604+00:00"
+  },
+  {
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.2-build148/signature.txt",
+    "status": 200,
+    "bytes": 14227,
+    "sha256": "b498dc496954f60a26bb8ef49eeab1a2f0f6a999ad521f409721e4eb06357622",
+    "matches": true,
+    "checkedAtUtc": "2026-11-17T14:34:42.420679+00:00"
+  },
+  {
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.2-build148/YMPlayer-2.8.2-build148.apk",
+    "status": 200,
+    "bytes": 4763189,
+    "sha256": "39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8",
+    "matches": true,
+    "checkedAtUtc": "2026-11-17T14:34:43.905575+00:00"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.8.2-build148/releases/2.8.2-build148/YMPlayer-2.8.2-build148.apk",
+    "status": 200,
+    "bytes": 4763189,
+    "sha256": "39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8",
+    "matches": true,
+    "checkedAtUtc": "2026-11-17T14:34:45.001354+00:00"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.8.2-build148/releases/2.8.2-build148/YMPlayer-2.8.2-build148.apk",
+    "status": 200,
+    "bytes": 4763189,
+    "sha256": "39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8",
+    "matches": true,
+    "checkedAtUtc": "2026-11-17T14:34:45.620737+00:00"
+  }
+]

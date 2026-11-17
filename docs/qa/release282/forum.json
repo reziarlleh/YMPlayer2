@@ -1,0 +1,203 @@
+{
+  "checkedAtUtc": "2026-11-17T14:42:08.284958+00:00",
+  "version": "2.8.2-build148",
+  "topic": "https://4pda.to/forum/index.php?showtopic=1127108",
+  "publicationTransport": "direct HTTP client",
+  "post": {
+    "id": "146062690",
+    "number": 124,
+    "author": "reziarlleh",
+    "url": "https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=146062690",
+    "attachment": "36569652",
+    "newMessagesCreated": 1,
+    "fullVersionChangesUnderSpoiler": true
+  },
+  "header": {
+    "postId": "145319180",
+    "version": "2.8.2",
+    "date": "17.11.2026",
+    "android": "6.0+",
+    "attachment": "36569671",
+    "originalSha256": "becf67fa13e863274e542047c9e8477c0eda8a65dded38e5489fabdbe3bfb1d4",
+    "freshBaseSha256": "becf67fa13e863274e542047c9e8477c0eda8a65dded38e5489fabdbe3bfb1d4",
+    "savedSha256": "abadf4b38d23ac04aca68cc5ff06f238d11279e2af85589f73f929ec4822ff84",
+    "matchesReviewedTarget": true,
+    "screenshotsUnchanged": true,
+    "iconOutsideSpoilers": true,
+    "authorLayoutPreserved": true,
+    "oldAttachments": [
+      {
+        "id": "36253064",
+        "name": "YMPlayer-2.1.0-build64.apk",
+        "bytes": 4870013
+      },
+      {
+        "id": "36253082",
+        "name": "YMPlayer-2.0.2-build62.apk",
+        "bytes": 4833622
+      },
+      {
+        "id": "36253083",
+        "name": "YMPlayer-v1.1.0-release-b114.apk",
+        "bytes": 15322030
+      },
+      {
+        "id": "36420773",
+        "name": "phone-player.png",
+        "bytes": 187743
+      },
+      {
+        "id": "36420774",
+        "name": "phone-library.png",
+        "bytes": 144547
+      },
+      {
+        "id": "36420775",
+        "name": "phone-radio.png",
+        "bytes": 125356
+      },
+      {
+        "id": "36420776",
+        "name": "phone-skins.png",
+        "bytes": 91921
+      },
+      {
+        "id": "36420777",
+        "name": "tv-radio.png",
+        "bytes": 123713
+      },
+      {
+        "id": "36420778",
+        "name": "tv-skins.png",
+        "bytes": 56766
+      },
+      {
+        "id": "36421039",
+        "name": "ymplayer2-icon.png",
+        "bytes": 4862
+      },
+      {
+        "id": "36553838",
+        "name": "YMPlayer-2.8.1-build145.apk",
+        "bytes": 4757699
+      }
+    ],
+    "finalAttachments": [
+      {
+        "id": "36253064",
+        "name": "YMPlayer-2.1.0-build64.apk",
+        "bytes": 4870013
+      },
+      {
+        "id": "36253082",
+        "name": "YMPlayer-2.0.2-build62.apk",
+        "bytes": 4833622
+      },
+      {
+        "id": "36253083",
+        "name": "YMPlayer-v1.1.0-release-b114.apk",
+        "bytes": 15322030
+      },
+      {
+        "id": "36420773",
+        "name": "phone-player.png",
+        "bytes": 187743
+      },
+      {
+        "id": "36420774",
+        "name": "phone-library.png",
+        "bytes": 144547
+      },
+      {
+        "id": "36420775",
+        "name": "phone-radio.png",
+        "bytes": 125356
+      },
+      {
+        "id": "36420776",
+        "name": "phone-skins.png",
+        "bytes": 91921
+      },
+      {
+        "id": "36420777",
+        "name": "tv-radio.png",
+        "bytes": 123713
+      },
+      {
+        "id": "36420778",
+        "name": "tv-skins.png",
+        "bytes": 56766
+      },
+      {
+        "id": "36421039",
+        "name": "ymplayer2-icon.png",
+        "bytes": 4862
+      },
+      {
+        "id": "36569671",
+        "name": "YMPlayer-2.8.2-build148.apk",
+        "bytes": 4763189
+      }
+    ],
+    "otherTenAttachmentsPreserved": true,
+    "removedDuplicate145": "36553838",
+    "canonical145InPost115Preserved": true,
+    "history145OneLineInAndroid6Group": true,
+    "historyAndroid9And10GroupsPreserved": true
+  },
+  "downloads": [
+    {
+      "verification": "post148-downloaded.apk",
+      "attachment": "36569652",
+      "version": "2.8.2-build148",
+      "bytes": 4763189,
+      "sha256": "39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8",
+      "matches": true
+    },
+    {
+      "verification": "header148-downloaded.apk",
+      "attachment": "36569671",
+      "version": "2.8.2-build148",
+      "bytes": 4763189,
+      "sha256": "39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8",
+      "matches": true
+    },
+    {
+      "verification": "post145-before-downloaded.apk",
+      "attachment": "36553825",
+      "version": "2.8.1-build145",
+      "bytes": 4757699,
+      "sha256": "08d023356b06ca71f457040ef4f6d17d269acf7c740cd0cc80b5767cbcfbdb72",
+      "matches": true
+    },
+    {
+      "verification": "post145-after-downloaded.apk",
+      "attachment": "36553825",
+      "version": "2.8.1-build145",
+      "bytes": 4757699,
+      "sha256": "08d023356b06ca71f457040ef4f6d17d269acf7c740cd0cc80b5767cbcfbdb72",
+      "matches": true
+    }
+  ],
+  "rules": [
+    {
+      "url": "https://4pda.to/forum/index.php?act=announce&f=212&st=250",
+      "status": 200,
+      "revision": "Редакция действует с 23.10.2026",
+      "sha256": "53bd6afc92e3720f1a925ad6c45e51e64ec6098707c60a132311394b7c2ed03c"
+    },
+    {
+      "url": "https://4pda.to/forum/index.php?act=announce&f=212&st=368",
+      "status": 200,
+      "revision": "Редакция действует с 04.10.2025",
+      "sha256": "f0acc346cdd436dc22502ca5ee5d7b083c19af792888e5f4babeb67975b5562e"
+    }
+  ],
+  "rebase": {
+    "initialSha256": "becf67fa13e863274e542047c9e8477c0eda8a65dded38e5489fabdbe3bfb1d4",
+    "beforeSaveSha256": "becf67fa13e863274e542047c9e8477c0eda8a65dded38e5489fabdbe3bfb1d4",
+    "freshServerRechecked": true,
+    "baseChanged": false
+  },
+  "privateSessionFilesNotPublished": true
+}

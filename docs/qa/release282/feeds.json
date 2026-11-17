@@ -1,0 +1,44 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+    "status": 200,
+    "versionName": "2.8.2-build148",
+    "metadataMatches": true,
+    "checkedAtUtc": "2026-11-17T14:39:28.201749+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "status": 200,
+    "versionName": "2.8.2-build148",
+    "metadataMatches": true,
+    "checkedAtUtc": "2026-11-17T14:39:28.163651+00:00"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "status": 200,
+    "versionName": "2.8.2-build148",
+    "metadataMatches": true,
+    "checkedAtUtc": "2026-11-17T14:39:28.208748+00:00"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "status": 200,
+    "versionName": "2.8.2-build148",
+    "metadataMatches": true,
+    "checkedAtUtc": "2026-11-17T14:39:28.214756+00:00"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "status": 200,
+    "versionName": "2.8.1-build145",
+    "metadataMatches": false,
+    "checkedAtUtc": "2026-11-17T14:39:28.156661+00:00"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "status": 200,
+    "versionName": "2.8.2-build148",
+    "metadataMatches": true,
+    "checkedAtUtc": "2026-11-17T14:39:28.111690+00:00"
+  }
+]
