@@ -8,8 +8,8 @@
   "builtAtUtc": "2026-11-17T10:58:45.4049643Z",
   "applicationId": "dev.petrov.ymplayer2",
   "updateChannel": "stable",
-  "ownerAcceptance": "pending",
-  "publication": "manual-only",
+  "ownerAcceptance": "release-authorized",
+  "publication": "approved-for-stable",
   "productSourceCommit": "36b13f16c10fa5d75cdffc799b91e546aec00630",
   "expandedMediaDiagnostics": true,
   "resolvedFindings": [
