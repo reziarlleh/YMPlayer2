@@ -21,6 +21,7 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
     override val state = mutable.asStateFlow()
     private var engine: ExoPlayer? = null
     private var generation = 0L
+    val launchRevision: Long get() = generation
     private var work: Job? = null
     private var polling: Job? = null
     private var retry: Job? = null

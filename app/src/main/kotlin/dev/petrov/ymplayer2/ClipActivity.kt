@@ -33,6 +33,7 @@ class ClipActivity : ComponentActivity() {
     private var clipProfile: String? = null
     private var internetCheck: dev.petrov.ymplayer2.core.InternetCheck? = null
     private var initialClipStarted = false
+    private var initialPlayRequested = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,13 +43,19 @@ class ClipActivity : ComponentActivity() {
         val profile = graph.playback.state.value.profileId
         clipProfile = profile
         graph.accounts.activate(profile)
-        val checkpoint = graph.clipCheckpoints.read(profile)?.let {
-            if (intent.getBooleanExtra(EXTRA_PLAY, false)) it.copy(playing = true) else it
+        val savedClip = graph.clipCheckpoints.read(profile)
+        initialPlayRequested = when {
+            savedInstanceState != null -> savedClip?.playing ?: true
+            intent.getBooleanExtra(EXTRA_PLAY, false) -> true
+            graph.playbackStart.mode(profile) == dev.petrov.ymplayer2.core.PlaybackStartMode.OFF -> false
+            graph.playbackStart.mode(profile) == dev.petrov.ymplayer2.core.PlaybackStartMode.ON -> true
+            else -> savedClip?.playing ?: true
         }
+        val checkpoint = savedClip?.copy(playing = initialPlayRequested)
         graph.radio.release()
         graph.playback.connect()
         graph.playback.pauseForClips()
-        graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, checkpoint?.playing ?: true)
+        graph.launchState.write(profile, dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS, initialPlayRequested)
         graph.enterClips()
         val preloader = ClipMediaPreloader(this)
         val player = preloader.player.apply {
@@ -111,7 +118,7 @@ class ClipActivity : ComponentActivity() {
                 graph.accounts.state.first { it.profileId == profile && it.phase != dev.petrov.ymplayer2.core.AuthPhase.LOADING }
                 graph.internet.available.first { it }
                 initialClipStarted = true
-                clips?.start(checkpoint)
+                clips?.start(checkpoint, initialPlayRequested)
             }
         } }
     }
@@ -133,7 +140,11 @@ class ClipActivity : ComponentActivity() {
         val graph = application as PlayerApplication
         val profile = clipProfile ?: return
         if (graph.playback.state.value.profileId != profile) { finish(); return }
-        val playIntent = if (!initialClipStarted && intent.getBooleanExtra(EXTRA_PLAY, false)) true
+        if (graph.uiStarted(this) == dev.petrov.ymplayer2.core.PlaybackStartMode.ON) {
+            initialPlayRequested = true
+            if (initialClipStarted) clips?.playOnInterfaceOpen()
+        }
+        val playIntent = if (!initialClipStarted) initialPlayRequested
             else graph.clipCheckpoints.read(profile)?.playing ?: graph.launchState.read(profile).playing
         // Music/CWG may have acquired audio while video was in the background.
         graph.radio.release()
@@ -150,6 +161,7 @@ class ClipActivity : ComponentActivity() {
         clips?.suspendForBackground()
         val graph = application as PlayerApplication
         graph.clipCheckpoints.flush(); graph.launchState.flush(); graph.navigation.edit().commit()
+        graph.uiStopped(this, isChangingConfigurations)
         super.onStop()
     }
     override fun onDestroy() {

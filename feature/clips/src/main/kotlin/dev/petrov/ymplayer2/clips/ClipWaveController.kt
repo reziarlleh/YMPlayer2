@@ -50,6 +50,7 @@ class ClipWaveController(
     private var reportedStart = false
     private var closed = false
     private var backgroundPlaying: Boolean? = null
+    private var initialPlaying: Boolean? = null
     private var savedSecond = -1L
     fun checkpoint(force: Boolean = false) {
         val clip = current() ?: return
@@ -94,8 +95,9 @@ class ClipWaveController(
     }
 
     init { player.addListener(listener) }
-    fun start(checkpoint: ClipCheckpoint? = null) {
+    fun start(checkpoint: ClipCheckpoint? = null, playing: Boolean? = null) {
         if (closed || loadingJob?.isActive == true || sessionId.isNotEmpty()) return
+        initialPlaying = playing
         mutable.value = ClipWaveState()
         loadingJob = scope.launch {
             val generation = ++operation
@@ -126,7 +128,15 @@ class ClipWaveController(
         announcedSessions.clear()
         player.stop(); preloader?.reset(); start(checkpoint)
     }
-    fun pause() { backgroundPlaying = null; player.pause(); checkpoint(force = true) }
+    fun pause() {
+        if (loadingJob?.isActive == true) initialPlaying = false
+        backgroundPlaying = null; player.pause(); checkpoint(force = true)
+    }
+    fun playOnInterfaceOpen() {
+        if (loadingJob?.isActive == true || current() == null) initialPlaying = true
+        if (backgroundPlaying != null) backgroundPlaying = true else if (current() != null) player.play()
+        checkpoint(force = true)
+    }
     fun toggle() {
         if (player.playWhenReady) player.pause() else if (mutable.value.clip != null) player.play()
         checkpoint(force = true)
@@ -194,19 +204,21 @@ class ClipWaveController(
         catch (_: Exception) { null }
     }
     private fun show(clip: QueuedClip, stream: ClipStream, positionMs: Long = 0, playing: Boolean = true) {
+        val requested = initialPlaying ?: playing
+        initialPlaying = null
         if (announcedSessions.add(clip.sessionId)) {
             send(clip, ClipFeedback.QUEUE_STARTED)
             if (announcedSessions.size > 40) announcedSessions.remove(announcedSessions.first())
         }
         reportedStart = false
         val item = mediaItem(clip.clip, stream)
-        if (preloader != null) preloader.play(item, positionMs, playing && backgroundPlaying == null) else {
+        if (preloader != null) preloader.play(item, positionMs, requested && backgroundPlaying == null) else {
             player.setMediaItem(item)
             player.seekTo(positionMs.coerceAtLeast(0))
-            player.playWhenReady = playing && backgroundPlaying == null
+            player.playWhenReady = requested && backgroundPlaying == null
             player.prepare()
         }
-        if (backgroundPlaying != null) backgroundPlaying = playing
+        if (backgroundPlaying != null) backgroundPlaying = requested
         mutable.value = ClipWaveState(clip = clip.clip, nextClip = upcoming(), loading = false,
             canGoBack = cursor > 0, preview = stream.preview, playing = player.isPlaying, playRequested = player.playWhenReady)
         checkpoint(force = true)

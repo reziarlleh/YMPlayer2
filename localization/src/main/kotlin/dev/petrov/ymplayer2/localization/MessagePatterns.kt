@@ -92,6 +92,7 @@ internal val messagePatterns = buildList {
     addAll(patterns75())
     addAll(patterns76())
     addAll(patterns77())
+    addAll(patterns78())
 }
 
 private fun patterns0() = listOf(
@@ -6546,4 +6547,55 @@ private fun patterns77() = listOf(
     MessagePattern(Msg.cache_global_disabled_hint, "ru", "Офлайн-кэш выключен. Включите его в общих настройках."),
     MessagePattern(Msg.cache_global_disabled_hint, "es", "La caché sin conexión está desactivada. Actívala en los ajustes generales."),
     MessagePattern(Msg.cache_global_disabled_hint, "uk", "Офлайн-кеш вимкнено. Увімкніть його в загальних налаштуваннях."),
+    MessagePattern(Msg.profile_playback_start, "be", "Пачатак прайгравання"),
+    MessagePattern(Msg.profile_playback_start, "en", "Playback on app open"),
+    MessagePattern(Msg.profile_playback_start, "fr", "Lecture à l’ouverture"),
+    MessagePattern(Msg.profile_playback_start, "de", "Wiedergabe beim Öffnen"),
+    MessagePattern(Msg.profile_playback_start, "kk", "Ойнатуды бастау"),
+    MessagePattern(Msg.profile_playback_start, "ru", "Старт воспроизведения"),
+    MessagePattern(Msg.profile_playback_start, "es", "Reproducción al abrir"),
+    MessagePattern(Msg.profile_playback_start, "uk", "Початок відтворення"),
+    MessagePattern(Msg.profile_start_off, "be", "Выкл"),
+    MessagePattern(Msg.profile_start_off, "en", "Off"),
+    MessagePattern(Msg.profile_start_off, "fr", "Désactivé"),
+    MessagePattern(Msg.profile_start_off, "de", "Aus"),
+    MessagePattern(Msg.profile_start_off, "kk", "Өшірулі"),
+    MessagePattern(Msg.profile_start_off, "ru", "Выкл"),
+    MessagePattern(Msg.profile_start_off, "es", "Desactivado"),
+    MessagePattern(Msg.profile_start_off, "uk", "Вимк"),
+    MessagePattern(Msg.profile_start_on, "be", "Укл"),
+    MessagePattern(Msg.profile_start_on, "en", "On"),
+    MessagePattern(Msg.profile_start_on, "fr", "Activé"),
+    MessagePattern(Msg.profile_start_on, "de", "Ein"),
+)
+
+private fun patterns78() = listOf(
+    MessagePattern(Msg.profile_start_on, "kk", "Қосулы"),
+    MessagePattern(Msg.profile_start_on, "ru", "Вкл"),
+    MessagePattern(Msg.profile_start_on, "es", "Activado"),
+    MessagePattern(Msg.profile_start_on, "uk", "Увімк"),
+    MessagePattern(Msg.profile_start_auto_description, "be", "Аднаўляць апошні стан прайгравання."),
+    MessagePattern(Msg.profile_start_auto_description, "en", "Restore the last playback state."),
+    MessagePattern(Msg.profile_start_auto_description, "fr", "Rétablir le dernier état de lecture."),
+    MessagePattern(Msg.profile_start_auto_description, "de", "Den letzten Wiedergabestatus wiederherstellen."),
+    MessagePattern(Msg.profile_start_auto_description, "kk", "Ойнатудың соңғы күйін қалпына келтіру."),
+    MessagePattern(Msg.profile_start_auto_description, "ru", "Восстанавливать последнее состояние."),
+    MessagePattern(Msg.profile_start_auto_description, "es", "Restaurar el último estado de reproducción."),
+    MessagePattern(Msg.profile_start_auto_description, "uk", "Відновлювати останній стан відтворення."),
+    MessagePattern(Msg.profile_start_off_description, "be", "Не запускаць аўтаматычна. Музыка, якая ўжо грае ў фоне, працягвае граць."),
+    MessagePattern(Msg.profile_start_off_description, "en", "Do not start automatically. Music already playing in the background continues."),
+    MessagePattern(Msg.profile_start_off_description, "fr", "Ne pas démarrer automatiquement. La musique déjà en cours en arrière-plan continue."),
+    MessagePattern(Msg.profile_start_off_description, "de", "Nicht automatisch starten. Bereits im Hintergrund laufende Wiedergabe läuft weiter."),
+    MessagePattern(Msg.profile_start_off_description, "kk", "Автоматты түрде бастамау. Фонда ойнап тұрған музыка жалғаса береді."),
+    MessagePattern(Msg.profile_start_off_description, "ru", "Не запускать автоматически. Уже играющая фоном музыка продолжает играть."),
+    MessagePattern(Msg.profile_start_off_description, "es", "No iniciar automáticamente. La música que ya suena en segundo plano continúa."),
+    MessagePattern(Msg.profile_start_off_description, "uk", "Не запускати автоматично. Музика, що вже грає у фоні, продовжує грати."),
+    MessagePattern(Msg.profile_start_on_description, "be", "Працягваць прайграванне пры кожным адкрыцці праграмы."),
+    MessagePattern(Msg.profile_start_on_description, "en", "Resume playback whenever you open the app."),
+    MessagePattern(Msg.profile_start_on_description, "fr", "Reprendre la lecture à chaque ouverture de l’application."),
+    MessagePattern(Msg.profile_start_on_description, "de", "Die Wiedergabe bei jedem Öffnen der App fortsetzen."),
+    MessagePattern(Msg.profile_start_on_description, "kk", "Қолданба ашылған сайын ойнатуды жалғастыру."),
+    MessagePattern(Msg.profile_start_on_description, "ru", "Продолжать воспроизведение при каждом открытии приложения."),
+    MessagePattern(Msg.profile_start_on_description, "es", "Reanudar la reproducción cada vez que se abre la aplicación."),
+    MessagePattern(Msg.profile_start_on_description, "uk", "Продовжувати відтворення під час кожного відкриття застосунку."),
 )

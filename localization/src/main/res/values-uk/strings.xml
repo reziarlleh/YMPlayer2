@@ -783,5 +783,11 @@
     <string name="cache_profile_title" formatted="false">"Офлайн-кеш профілю"</string>
     <string name="cache_shared_settings_hint" formatted="false">"Ці параметри спільні для всіх профілів. Вибір папки, синхронізація та очищення кешу розташовані в налаштуваннях профілю."</string>
     <string name="cache_global_disabled_hint" formatted="false">"Офлайн-кеш вимкнено. Увімкніть його в загальних налаштуваннях."</string>
+    <string name="profile_playback_start" formatted="false">"Початок відтворення"</string>
+    <string name="profile_start_off" formatted="false">"Вимк"</string>
+    <string name="profile_start_on" formatted="false">"Увімк"</string>
+    <string name="profile_start_auto_description" formatted="false">"Відновлювати останній стан відтворення."</string>
+    <string name="profile_start_off_description" formatted="false">"Не запускати автоматично. Музика, що вже грає у фоні, продовжує грати."</string>
+    <string name="profile_start_on_description" formatted="false">"Продовжувати відтворення під час кожного відкриття застосунку."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
 </resources>

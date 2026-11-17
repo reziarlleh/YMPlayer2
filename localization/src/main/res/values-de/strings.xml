@@ -783,5 +783,11 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="cache_profile_title" formatted="false">"Offline-Cache des Profils"</string>
     <string name="cache_shared_settings_hint" formatted="false">"Diese Einstellungen gelten für alle Profile. Ordnerauswahl, Synchronisierung und Leeren des Caches findest du in den Profileinstellungen."</string>
     <string name="cache_global_disabled_hint" formatted="false">"Der Offline-Cache ist deaktiviert. Aktiviere ihn in den allgemeinen Einstellungen."</string>
+    <string name="profile_playback_start" formatted="false">"Wiedergabe beim Öffnen"</string>
+    <string name="profile_start_off" formatted="false">"Aus"</string>
+    <string name="profile_start_on" formatted="false">"Ein"</string>
+    <string name="profile_start_auto_description" formatted="false">"Den letzten Wiedergabestatus wiederherstellen."</string>
+    <string name="profile_start_off_description" formatted="false">"Nicht automatisch starten. Bereits im Hintergrund laufende Wiedergabe läuft weiter."</string>
+    <string name="profile_start_on_description" formatted="false">"Die Wiedergabe bei jedem Öffnen der App fortsetzen."</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

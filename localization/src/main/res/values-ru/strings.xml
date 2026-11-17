@@ -783,5 +783,11 @@
     <string name="cache_profile_title" formatted="false">"Офлайн-кэш профиля"</string>
     <string name="cache_shared_settings_hint" formatted="false">"Эти параметры общие для всех профилей. Папка, синхронизация и очистка находятся в настройках профиля."</string>
     <string name="cache_global_disabled_hint" formatted="false">"Офлайн-кэш выключен. Включите его в общих настройках."</string>
+    <string name="profile_playback_start" formatted="false">"Старт воспроизведения"</string>
+    <string name="profile_start_off" formatted="false">"Выкл"</string>
+    <string name="profile_start_on" formatted="false">"Вкл"</string>
+    <string name="profile_start_auto_description" formatted="false">"Восстанавливать последнее состояние."</string>
+    <string name="profile_start_off_description" formatted="false">"Не запускать автоматически. Уже играющая фоном музыка продолжает играть."</string>
+    <string name="profile_start_on_description" formatted="false">"Продолжать воспроизведение при каждом открытии приложения."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

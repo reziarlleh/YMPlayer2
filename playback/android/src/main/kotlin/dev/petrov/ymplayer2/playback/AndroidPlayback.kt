@@ -122,6 +122,16 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     fun connect() { context.startService(Intent(context, AudioService::class.java)) }
     /** Only an explicit application launch requests automatic playback; service creation stays silent. */
     fun resumeOnLaunch() = resumeOnLaunch(launchRevision)
+    /** Explicit opt-in policy. Reuse the cancellable launch path without replacing the selection. */
+    fun playOnInterfaceOpen(expectedRevision: Long) {
+        if (expectedRevision != launchRevision || radioMode) return
+        val current = state.value
+        if (current.current == null && !current.wave) return
+        val player = engine
+        if (player?.isPlaying == true || player?.playWhenReady == true && player.playbackState == Player.STATE_BUFFERING) return
+        launchState.write(current.profileId, PlaybackOutput.MUSIC, true)
+        resumeOnLaunch(expectedRevision)
+    }
     /** Repair a broken saved session on foreground return; leave healthy playback and manual Pause/Stop alone. */
     fun restoreForegroundSessionIfNeeded() {
         val player = engine ?: return
@@ -382,7 +392,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 mutable.value = state.value.copy(playing = false, buffering = false, error = if (remote)
                     failure?.message() ?: "Не удалось воспроизвести музыку Яндекса. Проверьте сеть и доступ к треку; нажмите воспроизведение для повтора."
                     else "Не удалось воспроизвести файл. Проверьте носитель или выберите другой трек.")
-                if (remote && state.value.wave && failureDiagnostic.category in setOf(DiagnosticCategory.NETWORK, DiagnosticCategory.SERVER) &&
+                if (remote && state.value.wave && (player.playWhenReady || waveAdvance && waveResume) &&
+                    failureDiagnostic.category in setOf(DiagnosticCategory.NETWORK, DiagnosticCategory.SERVER) &&
                     launchResumeProfile == null && launchResumeValid(state.value.profileId)) {
                     val revision = launchRevision
                     scope.launch {

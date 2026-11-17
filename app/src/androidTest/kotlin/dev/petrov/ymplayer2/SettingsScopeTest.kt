@@ -11,6 +11,8 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import androidx.compose.runtime.*
+import dev.petrov.ymplayer2.core.PlaybackStartMode
 
 @RunWith(AndroidJUnit4::class)
 class SettingsScopeTest {
@@ -45,5 +47,19 @@ class SettingsScopeTest {
         compose.onNodeWithTag("profile_cache").performClick()
         assertEquals(listOf("language", "cache"), actions)
         for (tag in listOf("offline_enabled", "offline_wifi", "settings_updates", "settings_diagnostics", "settings_about")) compose.onNodeWithTag(tag).assertDoesNotExist()
+    }
+    @Test fun playbackStartChoicesAreInProfileSettingsAndSelectionIsApplied() {
+        var selected by mutableStateOf(PlaybackStartMode.AUTO)
+        compose.setContent { PrismTheme {
+            ProfileSettingsScreen(Profile("fixture-user", "User", ""), "system", {}, null, {}, {}, null,
+                startMode = selected, setStartMode = { selected = it })
+        } }
+        compose.onNodeWithTag("profile_playback_start").performClick()
+        compose.onNodeWithTag("startup_mode_AUTO").assertIsSelected()
+        compose.onNodeWithTag("startup_mode_OFF").assertIsDisplayed()
+        compose.onNodeWithTag("startup_mode_ON").performClick()
+        compose.runOnIdle { assertEquals(PlaybackStartMode.ON, selected) }
+        compose.onNodeWithTag("profile_playback_start").performClick()
+        compose.onNodeWithTag("startup_mode_ON").assertIsSelected()
     }
 }

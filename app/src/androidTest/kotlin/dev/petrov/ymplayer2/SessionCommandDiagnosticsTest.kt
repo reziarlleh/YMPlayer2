@@ -14,6 +14,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import dev.petrov.ymplayer2.core.Source
+import dev.petrov.ymplayer2.core.PlaybackStartMode
 import dev.petrov.ymplayer2.playback.AudioService
 import dev.petrov.ymplayer2.playback.LaunchStateStore
 import dev.petrov.ymplayer2.playback.sessionPlayer
@@ -35,6 +36,7 @@ class SessionCommandDiagnosticsTest {
     private val service get() = ComponentName(context, AudioService::class.java)
     private lateinit var screen: ActivityScenario<MainActivity>
     private lateinit var browser: MediaBrowser
+    private var previousStartMode: Pair<String, PlaybackStartMode>? = null
     private fun <T> main(action: () -> T): T {
         val value = AtomicReference<T>()
         instrumentation.runOnMainSync { value.set(action()) }
@@ -76,6 +78,11 @@ class SessionCommandDiagnosticsTest {
     }
 
     @Before fun setup() {
+        main {
+            val id = app.playback.state.value.profileId
+            previousStartMode = id to app.playbackStart.mode(id)
+            app.playbackStart.set(id, PlaybackStartMode.AUTO)
+        }
         context.contentResolver.call(android.net.Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
         screen = ActivityScenario.launch(MainActivity::class.java)
@@ -88,6 +95,7 @@ class SessionCommandDiagnosticsTest {
         if (::browser.isInitialized) main { app.playback.stop(); browser.release() }
         if (::screen.isInitialized) screen.close()
         runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) }
+        main { previousStartMode?.let { (id, mode) -> app.playbackStart.set(id, mode) } }
     }
 
     @Test fun media3CommandsAreAttributedAndForegroundKeepsManualPause() {

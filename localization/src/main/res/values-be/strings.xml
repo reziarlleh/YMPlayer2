@@ -783,5 +783,11 @@
     <string name="cache_profile_title" formatted="false">"Афлайн-кэш профілю"</string>
     <string name="cache_shared_settings_hint" formatted="false">"Гэтыя налады агульныя для ўсіх профіляў. Выбар папкі, сінхранізацыя і ачыстка кэша знаходзяцца ў наладах профілю."</string>
     <string name="cache_global_disabled_hint" formatted="false">"Афлайн-кэш выключаны. Уключыце яго ў агульных наладах."</string>
+    <string name="profile_playback_start" formatted="false">"Пачатак прайгравання"</string>
+    <string name="profile_start_off" formatted="false">"Выкл"</string>
+    <string name="profile_start_on" formatted="false">"Укл"</string>
+    <string name="profile_start_auto_description" formatted="false">"Аднаўляць апошні стан прайгравання."</string>
+    <string name="profile_start_off_description" formatted="false">"Не запускаць аўтаматычна. Музыка, якая ўжо грае ў фоне, працягвае граць."</string>
+    <string name="profile_start_on_description" formatted="false">"Працягваць прайграванне пры кожным адкрыцці праграмы."</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

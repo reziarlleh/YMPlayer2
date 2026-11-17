@@ -30,6 +30,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.json.JSONObject
 import org.junit.Assert.*
@@ -132,8 +134,9 @@ class ClipTouchControlsTest {
 
     private fun withClip(block: (ActivityScenario<ClipActivity>) -> Unit) {
         val fixtureScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        val profile = runBlocking { withContext(Dispatchers.Main.immediate) { app.users.createYandex() } }.id
         val session = AccountSession(YandexAccount("touch-fixture", "Touch fixture"), OAuthCredentials("fixture", null, null))
-        val accounts = AccountAuth(DemoCatalog().profiles, object : DeviceAuthApi {
+        val accounts = AccountAuth(listOf(Profile(profile, "Touch fixture", "")), object : DeviceAuthApi {
             override val configured = true
             override suspend fun requestCode(profileId: String) = error("No OAuth request in this fixture")
             override suspend fun poll(code: DeviceChallenge) = error("No OAuth poll in this fixture")
@@ -152,8 +155,6 @@ class ClipTouchControlsTest {
             }
         }
         val checkpointPreferences = context.getSharedPreferences("clip-checkpoints", 0)
-        val previousCheckpoint = checkpointPreferences.getString("owner", null)
-        val oldLaunch = app.launchState.read("owner")
         val media = File(context.cacheDir, "touch-controls-fixture.mp4")
         instrument.context.assets.open("clip-transport/fixture.mp4").use { input -> media.outputStream().use(input::copyTo) }
         val clips = listOf("one", "two", "three").map { id ->
@@ -163,13 +164,13 @@ class ClipTouchControlsTest {
         try {
             instrument.runOnMainSync {
                 AppLanguages.initialize(context, "clip-touch-fixture-language", "ru")
-                app.radio.release(); app.playback.connect(); app.playback.switchProfile("owner")
-                accounts.activate("owner")
+                app.radio.release(); app.playback.connect(); app.playback.switchProfile(profile)
+                accounts.activate(profile)
             }
             waitFor("Local fixture account and playback profile") {
-                accounts.state.value.phase == AuthPhase.SIGNED_IN && app.playback.state.value.profileId == "owner"
+                accounts.state.value.phase == AuthPhase.SIGNED_IN && app.playback.state.value.profileId == profile
             }
-            checkpointPreferences.edit().remove("owner").commit()
+            checkpointPreferences.edit().remove(profile).commit()
             ActivityScenario.launch<ClipActivity>(Intent(context, ClipActivity::class.java)).use { scenario ->
                 scenario.onActivity { activity ->
                     val wave = controller(activity)
@@ -207,11 +208,9 @@ class ClipTouchControlsTest {
             }
         } finally {
             fixtureScope.cancel()
-            checkpointPreferences.edit().apply {
-                if (previousCheckpoint == null) remove("owner") else putString("owner", previousCheckpoint)
-            }.commit()
-            app.launchState.write("owner", oldLaunch.output, oldLaunch.playing)
-            instrument.runOnMainSync { app.playback.stop(); app.leaveClips() }
+            runBlocking { withContext(Dispatchers.Main.immediate) {
+                app.playback.stop(); app.leaveClips(); app.users.remove(profile)
+            } }
         }
     }
 

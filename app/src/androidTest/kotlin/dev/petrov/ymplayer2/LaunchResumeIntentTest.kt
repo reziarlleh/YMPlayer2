@@ -63,6 +63,22 @@ class LaunchResumeIntentTest {
         compose.runOnIdle { player.saveForExit() }
     }
 
+    @Test fun explicitInterfacePolicyContinuesThePreparedWaveInsteadOfStartingAnotherQueue() {
+        compose.runOnIdle { player.playMyWave() }
+        waitFor { player.state.value.playing && player.state.value.current != null && !player.state.value.waveLoading }
+        val id = player.state.value.current!!.id
+        compose.runOnIdle { player.seek(4); fixture.systemPlayer.pause() }
+        waitFor { !player.state.value.playing && player.state.value.positionSeconds >= 4 }
+        val queue = runBlocking { player.queuePage(0, 10).items.map(Track::id) }
+        val revision = player.launchRevision
+        compose.runOnIdle { player.playOnInterfaceOpen(revision) }
+        waitFor { player.state.value.playing }
+        assertEquals(id, player.state.value.current?.id)
+        assertTrue(player.state.value.positionSeconds >= 4)
+        val restored = runBlocking { player.queuePage(0, 10).items.map(Track::id) }
+        assertEquals(queue, restored.take(queue.size))
+    }
+
     @Test fun failedNetworkPreparationRetainsPlayForNextForegroundLaunch() {
         failOnlineStream()
         assertEquals(PlaybackOutput.MUSIC, launch.read("owner").output)

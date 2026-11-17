@@ -783,5 +783,11 @@
     <string name="cache_profile_title" formatted="false">"Профильдің офлайн кэші"</string>
     <string name="cache_shared_settings_hint" formatted="false">"Бұл баптаулар барлық профильге ортақ. Қалтаны таңдау, кэшті синхрондау және тазалау профиль баптауларында орналасқан."</string>
     <string name="cache_global_disabled_hint" formatted="false">"Офлайн кэш өшірулі. Оны жалпы баптауларда қосыңыз."</string>
+    <string name="profile_playback_start" formatted="false">"Ойнатуды бастау"</string>
+    <string name="profile_start_off" formatted="false">"Өшірулі"</string>
+    <string name="profile_start_on" formatted="false">"Қосулы"</string>
+    <string name="profile_start_auto_description" formatted="false">"Ойнатудың соңғы күйін қалпына келтіру."</string>
+    <string name="profile_start_off_description" formatted="false">"Автоматты түрде бастамау. Фонда ойнап тұрған музыка жалғаса береді."</string>
+    <string name="profile_start_on_description" formatted="false">"Қолданба ашылған сайын ойнатуды жалғастыру."</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

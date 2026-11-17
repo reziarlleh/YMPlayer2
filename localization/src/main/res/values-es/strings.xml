@@ -783,5 +783,11 @@ Puedes añadir tu propio texto entre las variables. Ejemplo: {number}. {artist} 
     <string name="cache_profile_title" formatted="false">"Caché sin conexión del perfil"</string>
     <string name="cache_shared_settings_hint" formatted="false">"Estos ajustes se aplican a todos los perfiles. La carpeta, la sincronización y el borrado de la caché están en los ajustes del perfil."</string>
     <string name="cache_global_disabled_hint" formatted="false">"La caché sin conexión está desactivada. Actívala en los ajustes generales."</string>
+    <string name="profile_playback_start" formatted="false">"Reproducción al abrir"</string>
+    <string name="profile_start_off" formatted="false">"Desactivado"</string>
+    <string name="profile_start_on" formatted="false">"Activado"</string>
+    <string name="profile_start_auto_description" formatted="false">"Restaurar el último estado de reproducción."</string>
+    <string name="profile_start_off_description" formatted="false">"No iniciar automáticamente. La música que ya suena en segundo plano continúa."</string>
+    <string name="profile_start_on_description" formatted="false">"Reanudar la reproducción cada vez que se abre la aplicación."</string>
     <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

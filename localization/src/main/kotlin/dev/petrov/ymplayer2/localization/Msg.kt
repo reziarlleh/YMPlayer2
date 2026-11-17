@@ -778,5 +778,11 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     settings_profile_title("Настройки профиля", "Profile settings", R.string.settings_profile_title),
     cache_profile_title("Офлайн-кэш профиля", "Profile offline cache", R.string.cache_profile_title),
     cache_shared_settings_hint("Эти параметры общие для всех профилей. Папка, синхронизация и очистка находятся в настройках профиля.", "These settings apply to all profiles. Choose the folder, synchronize or clear a cache in the profile settings.", R.string.cache_shared_settings_hint),
-    cache_global_disabled_hint("Офлайн-кэш выключен. Включите его в общих настройках.", "Offline caching is off. Turn it on in General settings.", R.string.cache_global_disabled_hint);
+    cache_global_disabled_hint("Офлайн-кэш выключен. Включите его в общих настройках.", "Offline caching is off. Turn it on in General settings.", R.string.cache_global_disabled_hint),
+    profile_playback_start("Старт воспроизведения", "Playback on app open", R.string.profile_playback_start),
+    profile_start_off("Выкл", "Off", R.string.profile_start_off),
+    profile_start_on("Вкл", "On", R.string.profile_start_on),
+    profile_start_auto_description("Восстанавливать последнее состояние.", "Restore the last playback state.", R.string.profile_start_auto_description),
+    profile_start_off_description("Не запускать автоматически. Уже играющая фоном музыка продолжает играть.", "Do not start automatically. Music already playing in the background continues.", R.string.profile_start_off_description),
+    profile_start_on_description("Продолжать воспроизведение при каждом открытии приложения.", "Resume playback whenever you open the app.", R.string.profile_start_on_description);
 }

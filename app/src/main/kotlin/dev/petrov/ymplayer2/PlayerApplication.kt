@@ -20,6 +20,7 @@ import dev.petrov.ymplayer2.offline.LikedFileStore
 import dev.petrov.ymplayer2.yandex.YandexLikedMusicApi
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
+import androidx.lifecycle.withResumed
 
 class PlayerApplication : Application(), PlaybackHost {
     override fun onCreate() {
@@ -38,6 +39,56 @@ class PlayerApplication : Application(), PlaybackHost {
     val skins by lazy { dev.petrov.ymplayer2.designsystem.skin.SkinRepository(this, scope) }
     val launchState by lazy { dev.petrov.ymplayer2.playback.LaunchStateStore(this) }
     val clipCheckpoints by lazy { dev.petrov.ymplayer2.clips.ClipCheckpointStore(this) }
+    val playbackStart by lazy { loadPlaybackStartSettings(this) }
+    private val uiEntries = dev.petrov.ymplayer2.core.PlaybackUiEntries()
+    private var interfacePlayJob: Job? = null
+    /** One entry across the main/video Activities, excluding configuration handoffs. */
+    fun uiStarted(owner: androidx.activity.ComponentActivity): dev.petrov.ymplayer2.core.PlaybackStartMode? {
+        if (!uiEntries.started(owner)) return null
+        val profile = playback.state.value.profileId
+        val mode = playbackStart.mode(profile)
+        diagnostics.record(dev.petrov.ymplayer2.core.OperationDiagnostic(when (mode) {
+            dev.petrov.ymplayer2.core.PlaybackStartMode.AUTO -> dev.petrov.ymplayer2.core.DiagnosticOperation.STARTUP_AUTO
+            dev.petrov.ymplayer2.core.PlaybackStartMode.OFF -> dev.petrov.ymplayer2.core.DiagnosticOperation.STARTUP_OFF
+            dev.petrov.ymplayer2.core.PlaybackStartMode.ON -> dev.petrov.ymplayer2.core.DiagnosticOperation.STARTUP_ON
+        }, elapsedRealtimeMillis = android.os.SystemClock.elapsedRealtime()))
+        if (mode == dev.petrov.ymplayer2.core.PlaybackStartMode.ON) {
+            interfacePlayJob?.cancel()
+            val output = launchState.read(profile).output
+            val revision = playback.launchRevision
+            val radioRevision = radio.launchRevision
+            interfacePlayJob = scope.launch {
+                if (output == dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS) return@launch
+                // Newer Android versions require a genuinely foreground UI to obtain audio focus.
+                owner.lifecycle.withResumed { }
+                if (output == dev.petrov.ymplayer2.playback.PlaybackOutput.RADIO || musicNeedsAccount(profile))
+                    online.catalog.first { it.profileId == profile && it.phase != dev.petrov.ymplayer2.core.AuthPhase.LOADING }
+                playback.state.first { it.connected }
+                if (!uiEntries.isVisible || playback.state.value.profileId != profile ||
+                    playbackStart.mode(profile) != dev.petrov.ymplayer2.core.PlaybackStartMode.ON ||
+                    launchState.read(profile).output != output || playback.launchRevision != revision) return@launch
+                when (output) {
+                    dev.petrov.ymplayer2.playback.PlaybackOutput.MUSIC -> playback.playOnInterfaceOpen(revision)
+                    dev.petrov.ymplayer2.playback.PlaybackOutput.RADIO -> if (radio.launchRevision == radioRevision &&
+                        !radio.state.value.playing && !radio.state.value.buffering && !radio.state.value.reconnecting)
+                        radio.restoreOnLaunch(profile, true)
+                    dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS -> Unit
+                }
+            }
+        }
+        return mode
+    }
+    fun uiStopped(owner: Any, changingConfiguration: Boolean) {
+        if (uiEntries.stopped(owner, changingConfiguration)) { interfacePlayJob?.cancel(); interfacePlayJob = null }
+    }
+    private fun musicNeedsAccount(profile: String): Boolean {
+        val queue = runCatching { org.json.JSONObject(getSharedPreferences("playback", MODE_PRIVATE)
+            .getString("queue:$profile", "{}")!!) }.getOrNull()
+        val rows = queue?.optJSONArray("tracks")
+        return queue?.optBoolean("wave") == true || (0 until (rows?.length() ?: 0)).any {
+            rows?.optJSONObject(it)?.let { track -> track.optString("id") == queue?.optString("current") && track.optString("source") == "YANDEX" } == true
+        }
+    }
     val navigation by lazy { getSharedPreferences("navigation", MODE_PRIVATE) }
     val radioNavigation by lazy { getSharedPreferences("radio-navigation", MODE_PRIVATE) }
     val internet by lazy { AndroidInternetConnection(this, scope) }
@@ -63,35 +114,33 @@ class PlayerApplication : Application(), PlaybackHost {
     fun restoreLaunch(freshActivity: Boolean = true): Boolean {
         if (launchRestored) {
             playback.connect()
-            playback.restoreForegroundSessionIfNeeded()
+            if (playbackStart.mode(playback.state.value.profileId) == dev.petrov.ymplayer2.core.PlaybackStartMode.AUTO)
+                playback.restoreForegroundSessionIfNeeded()
             return freshActivity && clipActivities == 0 && navigation.getString("route", "player") == "clips" &&
                 launchState.read(playback.state.value.profileId).output == dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS
         }
         launchRestored = true
         val profile = playback.state.value.profileId
         val saved = launchState.read(profile)
+        val automatic = playbackStart.mode(profile) == dev.petrov.ymplayer2.core.PlaybackStartMode.AUTO
         val revision = playback.launchRevision
         accounts.activate(profile)
         playback.connect()
         return when (saved.output) {
             dev.petrov.ymplayer2.playback.PlaybackOutput.MUSIC -> {
-                if (!saved.stopped) {
-                    val queue = runCatching { org.json.JSONObject(getSharedPreferences("playback", MODE_PRIVATE)
-                        .getString("queue:$profile", "{}")!!) }.getOrNull()
-                    val rows = queue?.optJSONArray("tracks")
-                    val remote = queue?.optBoolean("wave") == true || (0 until (rows?.length() ?: 0)).any {
-                        rows?.optJSONObject(it)?.let { track -> track.optString("id") == queue?.optString("current") && track.optString("source") == "YANDEX" } == true
-                    }
+                if (automatic && !saved.stopped) {
+                    val remote = musicNeedsAccount(profile)
                     if (!remote) playback.resumeOnLaunch(revision) else scope.launch {
                         // Resolve the checkpoint only after account restoration; never autoplay a replacement output.
                         online.catalog.first { it.profileId == profile && it.phase != dev.petrov.ymplayer2.core.AuthPhase.LOADING }
-                        if (playback.state.value.profileId == profile && launchState.read(profile) == saved) playback.resumeOnLaunch(revision)
+                        if (playback.state.value.profileId == profile && launchState.read(profile) == saved &&
+                            playbackStart.mode(profile) == dev.petrov.ymplayer2.core.PlaybackStartMode.AUTO) playback.resumeOnLaunch(revision)
                     }
                 }
                 false
             }
             dev.petrov.ymplayer2.playback.PlaybackOutput.RADIO -> {
-                radio.restoreOnLaunch(profile, saved.playing); false
+                radio.restoreOnLaunch(profile, automatic && saved.playing); false
             }
             dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS -> clipActivities == 0 && navigation.getString("route", "player") == "clips"
         }
@@ -198,6 +247,7 @@ class PlayerApplication : Application(), PlaybackHost {
         collections.removeProfile(id)
         history.clear(id)
         accounts.forgetProfile(id)
+        playbackStart.remove(id)
         withContext(Dispatchers.IO) {
             listOf("playback", "launch-state", "radio", "radio-navigation", "clip-checkpoints",
                 "wave-settings", "appearance", "app-language", "skins", "yandex-devices").forEach { name ->

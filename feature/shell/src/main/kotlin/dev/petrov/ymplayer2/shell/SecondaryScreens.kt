@@ -5,8 +5,10 @@ import dev.petrov.ymplayer2.localization.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -17,6 +19,7 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.Role
 import dev.petrov.ymplayer2.core.Profile
+import dev.petrov.ymplayer2.core.PlaybackStartMode
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 
@@ -39,12 +42,19 @@ import dev.petrov.ymplayer2.designsystem.skin.*
 }
 
 @Composable internal fun ProfileSettingsScreen(profile: Profile, theme: String, setTheme: (String) -> Unit,
-    skins: (() -> Unit)?, language: () -> Unit, scale: () -> Unit, cache: (() -> Unit)?) {
+    skins: (() -> Unit)?, language: () -> Unit, scale: () -> Unit, cache: (() -> Unit)?,
+    startMode: PlaybackStartMode? = null, setStartMode: (PlaybackStartMode) -> Unit = {}) {
+    var startDialog by remember(profile.id) { mutableStateOf(false) }
     LazyColumn(Modifier.fillMaxSize().testTag("profile_settings_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item { Text(trMessage("Настройки профиля"), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
         item { Text(profileName(profile), style = MaterialTheme.typography.titleMedium) }
         item { OutlinedButton(language, Modifier.fillMaxWidth().prismFocus().testTag("settings_language")) { Text(trMessage("Язык приложения")) } }
         item { OutlinedButton(scale, Modifier.fillMaxWidth().prismFocus().testTag("settings_scale")) { Text(trMessage("Масштаб интерфейса")) } }
+        if (startMode != null) item {
+            OutlinedButton({ startDialog = true }, Modifier.fillMaxWidth().prismFocus().testTag("profile_playback_start")) {
+                Text(tr(Msg.profile_playback_start) + ": " + startModeLabel(startMode))
+            }
+        }
         item { Text(tr(Msg.msg_1731619efa3a), style = MaterialTheme.typography.titleMedium) }
         if (skins != null) item { OutlinedButton(skins, Modifier.fillMaxWidth().prismFocus().testTag("settings_skins")) { Text(tr(Msg.msg_6dd43bf971fd)) } }
         items(listOf("dark" to tr(Msg.msg_1eecfcaa7bdb), "light" to tr(Msg.msg_f0cd3a603372), "system" to tr(Msg.msg_29e4a4bd7a17))) { (id, label) ->
@@ -52,7 +62,28 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         }
         if (cache != null) item { OutlinedButton(cache, Modifier.fillMaxWidth().prismFocus().testTag("profile_cache")) { Text(trMessage("Офлайн-кэш профиля")) } }
     }
+    if (startDialog && startMode != null) AlertDialog(onDismissRequest = { startDialog = false },
+        title = { Text(tr(Msg.profile_playback_start)) }, text = {
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                PlaybackStartMode.entries.forEach { mode ->
+                    val description = when (mode) {
+                        PlaybackStartMode.AUTO -> tr(Msg.profile_start_auto_description)
+                        PlaybackStartMode.OFF -> tr(Msg.profile_start_off_description)
+                        PlaybackStartMode.ON -> tr(Msg.profile_start_on_description)
+                    }
+                    Choice(startModeLabel(mode) + "\n" + description, startMode == mode, "startup_mode_${mode.name}") {
+                        setStartMode(mode); startDialog = false
+                    }
+                }
+            }
+        }, confirmButton = {})
 }
+
+@Composable private fun startModeLabel(mode: PlaybackStartMode) = tr(when (mode) {
+    PlaybackStartMode.AUTO -> Msg.msg_8dca2f783130
+    PlaybackStartMode.OFF -> Msg.profile_start_off
+    PlaybackStartMode.ON -> Msg.profile_start_on
+})
 
 @Composable private fun Choice(label: String, selected: Boolean, tag: String, click: () -> Unit) {
     Surface(click, Modifier.fillMaxWidth().prismFocus().testTag(tag).semantics { this.selected = selected; role = Role.RadioButton }, shape = MaterialTheme.shapes.medium,

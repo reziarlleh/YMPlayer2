@@ -38,18 +38,19 @@ class ClipStartupTest {
     @Test fun explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause() {
         val app = context.applicationContext as PlayerApplication
         val store = KeystoreAccountStore(context)
-        val previous = runBlocking { store.read("owner") }
-        val prefs = context.getSharedPreferences("clip-checkpoints", 0)
-        val previousCheckpoint = prefs.getString("owner", null)
+        val profile = runBlocking { withContext(Dispatchers.Main.immediate) { app.users.createYandex() } }.id
         val file = video()
         val clip = YandexClip("startup", "Startup", "Fixture", "", null, Uri.fromFile(file).toString(), 12, emptyList(), "")
         val field = ClipActivity::class.java.getDeclaredField("clips").apply { isAccessible = true }
         try {
-            runBlocking { store.write("owner", AccountSession(YandexAccount("fixture", "Fixture"), OAuthCredentials("fixture", null, null))) }
-            instrument.runOnMainSync { app.playback.connect(); app.playback.switchProfile("owner"); app.accounts.activate("road") }
-            waitFor("Playback connected") { app.playback.state.value.connected && app.playback.state.value.profileId == "owner" }
-            for (explicit in listOf(false, true)) {
-                instrument.runOnMainSync { app.clipCheckpoints.write("owner", ClipCheckpoint(clip, "", 3000, false)) }
+            runBlocking { store.write(profile, AccountSession(YandexAccount("fixture", "Fixture"), OAuthCredentials("fixture", null, null))) }
+            instrument.runOnMainSync { app.playback.connect(); app.playback.switchProfile(profile); app.accounts.activate("local") }
+            waitFor("Playback connected") { app.playback.state.value.connected && app.playback.state.value.profileId == profile }
+            for ((mode, explicit, expected) in listOf(
+                Triple(PlaybackStartMode.AUTO, false, false), Triple(PlaybackStartMode.OFF, false, false),
+                Triple(PlaybackStartMode.ON, false, true), Triple(PlaybackStartMode.OFF, true, true))) {
+                instrument.runOnMainSync { app.playbackStart.set(profile, mode) }
+                instrument.runOnMainSync { app.clipCheckpoints.write(profile, ClipCheckpoint(clip, "", 3000, false)) }
                 val intent = Intent(context, ClipActivity::class.java).putExtra(ClipActivity.EXTRA_PLAY, explicit)
                 ActivityScenario.launch<ClipActivity>(intent).use { scenario ->
                     var ready = false
@@ -62,10 +63,19 @@ class ClipStartupTest {
                     }
                     scenario.onActivity {
                         val player = (field.get(it) as ClipWaveController).player
-                        assertEquals("Explicit entry starts; restored pause stays paused", explicit, player.playWhenReady)
-                        assertEquals(explicit, player.isPlaying)
+                        assertEquals("$mode / explicit=$explicit", expected, player.playWhenReady)
+                        assertEquals(expected, player.isPlaying)
                         val root = it.findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup
-                        assertEquals("Video must block idle screensavers only while playing", explicit, root.getChildAt(0).keepScreenOn)
+                        assertEquals("Video must block idle screensavers only while playing", expected, root.getChildAt(0).keepScreenOn)
+                    }
+                    if (mode == PlaybackStartMode.ON && !explicit) {
+                        scenario.onActivity { (field.get(it) as ClipWaveController).pause() }
+                        scenario.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
+                        scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
+                        waitFor("ON resumes a manually paused clip on UI return") {
+                            scenario.onActivity { ready = (field.get(it) as ClipWaveController).player.isPlaying }
+                            ready
+                        }
                     }
                     if (explicit) {
                         lateinit var videoView: android.view.View
@@ -88,12 +98,22 @@ class ClipStartupTest {
                             ready
                         }
                     }
+                    scenario.onActivity { (field.get(it) as ClipWaveController).pause() }
+                    scenario.recreate()
+                    waitFor("Recreated video restores its paused checkpoint") {
+                        scenario.onActivity { ready = (field.get(it) as ClipWaveController).player.playbackState == Player.STATE_READY }
+                        ready
+                    }
+                    scenario.onActivity {
+                        assertFalse("Recreation is not a new UI entry, including an earlier explicit Play",
+                            (field.get(it) as ClipWaveController).player.playWhenReady)
+                    }
                 }
             }
         } finally {
-            runBlocking { store.write("owner", previous) }
-            prefs.edit().apply { if (previousCheckpoint == null) remove("owner") else putString("owner", previousCheckpoint) }.commit()
-            instrument.runOnMainSync { app.accounts.activate("guest"); app.accounts.activate("owner"); app.playback.stop(); app.leaveClips() }
+            runBlocking { withContext(Dispatchers.Main.immediate) {
+                app.playback.stop(); app.leaveClips(); app.users.remove(profile)
+            } }
         }
     }
     @Test fun pendingAutoplayShowsPauseAndOnePlayResumesPausedClip() {

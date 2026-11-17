@@ -51,10 +51,12 @@ class MainActivity : ComponentActivity() {
         graph.radio.saveForExit()
         graph.navigation.edit().commit()
         graph.radioNavigation.edit().commit()
+        graph.uiStopped(this, isChangingConfigurations)
         super.onStop()
     }
     override fun onStart() {
         super.onStart()
+        (application as PlayerApplication).uiStarted(this)
         (application as PlayerApplication).diagnostics.record(dev.petrov.ymplayer2.core.OperationDiagnostic(
             dev.petrov.ymplayer2.core.DiagnosticOperation.APP_FOREGROUND,
             elapsedRealtimeMillis = android.os.SystemClock.elapsedRealtime()))
@@ -199,6 +201,7 @@ class MainActivity : ComponentActivity() {
                 } catch (_: Exception) { graph.audioExporter.report("Не удалось получить доступ к выбранной папке.") }
             }
             key(activeProfile.profileId) { ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
+                playbackStart = graph.playbackStart,
                 initialTheme = appearance.read(), saveTheme = appearance::save,
                 initialRoute = graph.shellRoute(),
                 internet = graph.internet,

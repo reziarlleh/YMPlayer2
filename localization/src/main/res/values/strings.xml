@@ -783,5 +783,11 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="cache_profile_title" formatted="false">"Profile offline cache"</string>
     <string name="cache_shared_settings_hint" formatted="false">"These settings apply to all profiles. Choose the folder, synchronize or clear a cache in the profile settings."</string>
     <string name="cache_global_disabled_hint" formatted="false">"Offline caching is off. Turn it on in General settings."</string>
+    <string name="profile_playback_start" formatted="false">"Playback on app open"</string>
+    <string name="profile_start_off" formatted="false">"Off"</string>
+    <string name="profile_start_on" formatted="false">"On"</string>
+    <string name="profile_start_auto_description" formatted="false">"Restore the last playback state."</string>
+    <string name="profile_start_off_description" formatted="false">"Do not start automatically. Music already playing in the background continues."</string>
+    <string name="profile_start_on_description" formatted="false">"Resume playback whenever you open the app."</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

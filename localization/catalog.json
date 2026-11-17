@@ -12467,5 +12467,101 @@
       "kk": "Офлайн кэш өшірулі. Оны жалпы баптауларда қосыңыз.",
       "uk": "Офлайн-кеш вимкнено. Увімкніть його в загальних налаштуваннях."
     }
+  },
+  {
+    "key": "profile_playback_start",
+    "source": "Старт воспроизведения",
+    "english": "Playback on app open",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ],
+    "translations": {
+      "be": "Пачатак прайгравання",
+      "fr": "Lecture à l’ouverture",
+      "de": "Wiedergabe beim Öffnen",
+      "kk": "Ойнатуды бастау",
+      "es": "Reproducción al abrir",
+      "uk": "Початок відтворення"
+    }
+  },
+  {
+    "key": "profile_start_off",
+    "source": "Выкл",
+    "english": "Off",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ],
+    "translations": {
+      "be": "Выкл",
+      "fr": "Désactivé",
+      "de": "Aus",
+      "kk": "Өшірулі",
+      "es": "Desactivado",
+      "uk": "Вимк"
+    }
+  },
+  {
+    "key": "profile_start_on",
+    "source": "Вкл",
+    "english": "On",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ],
+    "translations": {
+      "be": "Укл",
+      "fr": "Activé",
+      "de": "Ein",
+      "kk": "Қосулы",
+      "es": "Activado",
+      "uk": "Увімк"
+    }
+  },
+  {
+    "key": "profile_start_auto_description",
+    "source": "Восстанавливать последнее состояние.",
+    "english": "Restore the last playback state.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ],
+    "translations": {
+      "be": "Аднаўляць апошні стан прайгравання.",
+      "fr": "Rétablir le dernier état de lecture.",
+      "de": "Den letzten Wiedergabestatus wiederherstellen.",
+      "kk": "Ойнатудың соңғы күйін қалпына келтіру.",
+      "es": "Restaurar el último estado de reproducción.",
+      "uk": "Відновлювати останній стан відтворення."
+    }
+  },
+  {
+    "key": "profile_start_off_description",
+    "source": "Не запускать автоматически. Уже играющая фоном музыка продолжает играть.",
+    "english": "Do not start automatically. Music already playing in the background continues.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ],
+    "translations": {
+      "be": "Не запускаць аўтаматычна. Музыка, якая ўжо грае ў фоне, працягвае граць.",
+      "fr": "Ne pas démarrer automatiquement. La musique déjà en cours en arrière-plan continue.",
+      "de": "Nicht automatisch starten. Bereits im Hintergrund laufende Wiedergabe läuft weiter.",
+      "kk": "Автоматты түрде бастамау. Фонда ойнап тұрған музыка жалғаса береді.",
+      "es": "No iniciar automáticamente. La música que ya suena en segundo plano continúa.",
+      "uk": "Не запускати автоматично. Музика, що вже грає у фоні, продовжує грати."
+    }
+  },
+  {
+    "key": "profile_start_on_description",
+    "source": "Продолжать воспроизведение при каждом открытии приложения.",
+    "english": "Resume playback whenever you open the app.",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SecondaryScreens.kt"
+    ],
+    "translations": {
+      "be": "Працягваць прайграванне пры кожным адкрыцці праграмы.",
+      "fr": "Reprendre la lecture à chaque ouverture de l’application.",
+      "de": "Die Wiedergabe bei jedem Öffnen der App fortsetzen.",
+      "kk": "Қолданба ашылған сайын ойнатуды жалғастыру.",
+      "es": "Reanudar la reproducción cada vez que se abre la aplicación.",
+      "uk": "Продовжувати відтворення під час кожного відкриття застосунку."
+    }
   }
 ]
