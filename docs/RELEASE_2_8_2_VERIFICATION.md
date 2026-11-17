@@ -21,6 +21,8 @@ SHA256 `39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8`. Па�
 
 ## Публикация
 
-Подготовлены полный состав версии и разрешение выпуска. Далее: исходный v-tag,
-минимальный immutable apk-tag, regular Latest с четырьмя assets, оба feed,
-полные загрузки и сверка метаданных, затем4PDA. Итог фиксируется по обратному чтению.
+GitHub regular release опубликован и выбран Latest. Четыре assets совпали
+по digest/размеру; исходный v-tag и минимальный apk-tag созданы впервые,
+удалённые ссылки сверены. [GitHub](qa/release282/github.json),
+[immutable distribution](qa/release282/distribution-tag.json).
+Оба source feed148/min23; далее проверяются HTTP-доставка, CDN и4PDA.

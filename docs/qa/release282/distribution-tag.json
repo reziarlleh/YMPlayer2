@@ -1,0 +1,10 @@
+{
+  "tag": "apk-2.8.2-build148",
+  "sourceTag": "v2.8.2-build148",
+  "sourceCommit": "80c641b5f7d9cefe7cfeeca4a3cfbd53b2b22c67",
+  "commit": "003fd3799d594b2579aabc27d57da92519597f5f",
+  "treeBytes": 4778100,
+  "apkSha256": "39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8",
+  "pushed": true,
+  "remoteCheckedAtUtc": "2026-11-17T14:33:05.796833+00:00"
+}

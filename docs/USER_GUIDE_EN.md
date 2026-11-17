@@ -1,7 +1,7 @@
 # YMPlayer2 — user guide
 
-This guide covers the stable **YMPlayer2 2.8.1-build145**, for Android6 and later.
-[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.1-build145) · [Signing and verification](MANUAL_2_8_1_BUILD145.md).
+This guide covers the stable **YMPlayer2 2.8.2-build148**, for Android6 and later.
+[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.2-build148) · [Signing and verification](MANUAL_2_8_2_BUILD148.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -528,7 +528,7 @@ panel is unaffected. Rotation keeps the clip and playback position.
 On a remote, the first arrow/OK press reveals hidden controls and focuses
 play/pause. The next press operates the controls. Media Play/Pause/Next/Previous
 buttons also work.
-In the manual2.8.2 candidate, returning from touch controls follows the same rule:
+Returning from touch controls follows the same rule:
 the first OK selects play/pause; the next press operates it.
 
 <p align="center"><img src="qa/patch-2-1-1/clip-tv-progress.png" width="800" alt="TV video controls: playback progress within the current-track panel"></p>
@@ -722,8 +722,7 @@ Signed beta93 on Android9: the station grid with the English interface.
 
 ## Returning to your session
 
-The manual **2.8.2** candidate adds **Profiles → Profile settings → Playback
-on app open** (the stable download above is still2.8.1). Each profile chooses:
+Open **Profiles → Profile settings → Playback on app open**. Each profile chooses:
 
 - **Auto** — the default; keeps the existing restoration rules described below.
 - **Off** — does not automatically start saved playback. Audio already playing
