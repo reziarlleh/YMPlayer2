@@ -1,0 +1,57 @@
+{
+  "source": "Local test setup and red/green evidence; raw logs remain in ignored .local-build/startup282.",
+  "attempts": [
+    {
+      "kind": "runner setup",
+      "observed": "Instrumentation initially used production ID instead of debug .dev suffix. No test executed.",
+      "resolution": "Read actual pm list instrumentation and correct the component."
+    },
+    {
+      "kind": "product red/green",
+      "case": "metadataOnlyWavePreparationFailureAfterSeekCannotSkipSavedTrack",
+      "apis": [
+        23,
+        35
+      ],
+      "before": {
+        "tests": 17,
+        "failures": 1
+      },
+      "after": {
+        "tests": 17,
+        "failures": 0
+      },
+      "fixedInBuild": 147,
+      "finding": "B-051"
+    },
+    {
+      "kind": "legacy test fixture",
+      "observed": "Clip startup/input fixtures assumed owner/road/guest in a new install.",
+      "resolution": "Create/remove a temporary actual user profile; retain input assertions."
+    },
+    {
+      "kind": "test policy precondition",
+      "observed": "An existing ON preference makes warm UI return resume by design.",
+      "resolution": "Session diagnostic tests explicitly select Auto and restore the previous policy."
+    },
+    {
+      "kind": "signed host fixture",
+      "observed": "Checkpoint was seeded before indexing and guessed /data/user/0 canonical URI; Android uses /data/data. API35 dumpsys also names playback states.",
+      "resolution": "Index the local WAV first, read its actual reference and parse both state formats."
+    },
+    {
+      "kind": "emulator UI setup",
+      "api": 35,
+      "observed": "A stale System UI ANR dialog, then the Android ImmersiveModeConfirmation tutorial, held focus outside ClipActivity.",
+      "resolution": "Dismiss/restart the own emulator; confirm fullscreen onboarding. Six input tests then passed."
+    },
+    {
+      "kind": "open finding",
+      "api": 23,
+      "finding": "D-010",
+      "tests": 6,
+      "failures": 1,
+      "isolatedRepeatFailures": 1
+    }
+  ]
+}

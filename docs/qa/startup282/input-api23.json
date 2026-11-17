@@ -1,0 +1,17 @@
+{
+  "api": 23,
+  "productSourceCommit": "bc244ad3e5b0251c2f51ed9542e7657c6ee753ac",
+  "class": "ClipTouchControlsTest",
+  "tests": 6,
+  "passed": 5,
+  "failures": 1,
+  "allPassed": false,
+  "openFinding": "D-010",
+  "failedMethod": "dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode",
+  "observed": "First DPAD Center after touchscreen mode focuses Back, expected Play. Window focus belongs to ClipActivity.",
+  "isolatedRepeat": {
+    "tests": 1,
+    "failures": 1,
+    "rawSha256": "ebb40df541255e603c16c110aa138cf908bcdc4aa27dd6e84050a6848e66904a"
+  }
+}

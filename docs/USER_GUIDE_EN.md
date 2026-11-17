@@ -213,7 +213,8 @@ Switching from My Vibe to Offline, a local list or radio keeps its current
 song, position and prepared queue. Select **My Vibe** to resume them. Complete
 audio files are reused, so you can return while offline. New recommendations
 are fetched as you advance. Explicitly stopping My Vibe clears its queue;
-applying settings or selecting the already active My Vibe starts a fresh one.
+applying changed Vibe settings starts a fresh selection. Selecting the active My Vibe
+keeps its prepared queue, track and position.
 The saved queue belongs to its profile and account; another account cannot use it.
 
 In2.6.4, three icons at the top of the player select **My Vibe**, **Offline**
@@ -718,6 +719,23 @@ Signed beta93 on Android9: the station grid with the English interface.
 [Example of a full station card](qa/radio-catalog-2026-10-07/emulator-5560-signed93-detail.png).
 
 ## Returning to your session
+
+The manual **2.8.2** candidate adds **Profiles → Profile settings → Playback
+on app open** (the stable download above is still2.8.1). Each profile chooses:
+
+- **Auto** — the default; keeps the existing restoration rules described below.
+- **Off** — does not automatically start saved playback. Audio already playing
+  in the background continues when you open the UI. Manual Play still works.
+- **On** — continues the selected source whenever you open the app, including
+  returning to an existing paused background player. It keeps the track, queue
+  and position; radio returns to the live broadcast. An empty local queue stays stopped.
+
+Rotation and navigation inside the app do not trigger another start. Ordinary
+profile switching opens the other profile paused. A newer Pause, Stop, source
+or profile change cancels a pending start; On applies at the next real UI entry.
+A background service starting only for system media controls is not a UI entry.
+
+The following describes **Auto**.
 
 In **2.5.0**, the app remembers the selected section and
 last player. Music and clips return to their saved position: playing content

@@ -1,0 +1,15 @@
+{
+  "api": 35,
+  "productSourceCommit": "bc244ad3e5b0251c2f51ed9542e7657c6ee753ac",
+  "results": [
+    {
+      "class": "ClipTouchControlsTest",
+      "ok": true,
+      "tests": 6,
+      "failures": 0,
+      "seconds": 30.98
+    }
+  ],
+  "allPassed": true,
+  "precondition": "Confirmed the Android ImmersiveModeConfirmation onboarding overlay; it had held window focus outside the app."
+}

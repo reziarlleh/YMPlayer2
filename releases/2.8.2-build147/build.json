@@ -1,0 +1,18 @@
+{
+  "channel": "stable",
+  "updateChannel": "stable",
+  "versionCode": 147,
+  "versionName": "2.8.2-build147",
+  "minSdk": 23,
+  "applicationId": "dev.petrov.ymplayer2",
+  "runtimeAcceptance": "emulator-verified",
+  "builtAtUtc": "2026-11-17T07:37:22.7145891Z",
+  "sha256": "7cdea33edbe95c6f252905da87eb0211fd8c9fbe0f046deb78da8cfa451cdcd3",
+  "ownerAcceptance": "pending",
+  "publication": "manual-only",
+  "productSourceCommit": "bc244ad3e5b0251c2f51ed9542e7657c6ee753ac",
+  "expandedMediaDiagnostics": true,
+  "knownOpenFindings": [
+    "D-010"
+  ]
+}

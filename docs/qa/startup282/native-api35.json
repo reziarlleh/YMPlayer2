@@ -1,0 +1,37 @@
+{
+  "recordedAtUtc": "2026-11-17T07:36:14.025682+00:00",
+  "avd": "YM2_Compat_API35",
+  "api": 35,
+  "serial": "emulator-5558",
+  "source": "Local SAF/media fixtures and fake protocol transports, no personal token.",
+  "results": [
+    {
+      "class": "PlaybackStartPolicyTest",
+      "ok": true,
+      "tests": 8,
+      "seconds": 50.7
+    },
+    {
+      "class": "SettingsScopeTest",
+      "ok": true,
+      "tests": 3,
+      "seconds": 17.28
+    },
+    {
+      "class": "LaunchResumeIntentTest",
+      "ok": true,
+      "tests": 17,
+      "seconds": 98.89
+    },
+    {
+      "class": "ClipStartupTest",
+      "ok": true,
+      "tests": 3,
+      "seconds": 62.92
+    }
+  ],
+  "allPassed": true,
+  "scope": "Startup policies, personal settings UI, wave queue/intent, clip startup/lifecycle. Input and radio/session have separate receipts.",
+  "complete": true,
+  "productSourceCommit": "bc244ad3e5b0251c2f51ed9542e7657c6ee753ac"
+}

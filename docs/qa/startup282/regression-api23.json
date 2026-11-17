@@ -1,0 +1,22 @@
+{
+  "api": 23,
+  "productSourceCommit": "bc244ad3e5b0251c2f51ed9542e7657c6ee753ac",
+  "scope": "Real Media3/platform session commands and raw diagnostics; radio fixture regression.",
+  "results": [
+    {
+      "class": "SessionCommandDiagnosticsTest",
+      "ok": true,
+      "tests": 6,
+      "failures": 0,
+      "seconds": 15.8
+    },
+    {
+      "class": "RadioPlaybackTest",
+      "ok": true,
+      "tests": 9,
+      "seconds": 28.38
+    }
+  ],
+  "complete": true,
+  "allPassed": true
+}
