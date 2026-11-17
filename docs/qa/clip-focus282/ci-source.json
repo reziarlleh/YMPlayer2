@@ -1,0 +1,115 @@
+{
+  "conclusion": "success",
+  "headSha": "36b13f16c10fa5d75cdffc799b91e546aec00630",
+  "jobs": [
+    {
+      "completedAt": "2026-11-17T11:02:30Z",
+      "conclusion": "success",
+      "databaseId": 133991635606,
+      "name": "build",
+      "startedAt": "2026-11-17T10:56:43Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-17T10:56:48Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-17T10:56:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T10:57:20Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 2,
+          "startedAt": "2026-11-17T10:56:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T10:57:20Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6",
+          "number": 3,
+          "startedAt": "2026-11-17T10:57:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T10:57:38Z",
+          "conclusion": "success",
+          "name": "Run gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb",
+          "number": 4,
+          "startedAt": "2026-11-17T10:57:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T10:57:46Z",
+          "conclusion": "success",
+          "name": "Install Android SDK packages",
+          "number": 5,
+          "startedAt": "2026-11-17T10:57:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T10:57:47Z",
+          "conclusion": "success",
+          "name": "Verify translation catalog and generated resources",
+          "number": 6,
+          "startedAt": "2026-11-17T10:57:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T11:02:11Z",
+          "conclusion": "success",
+          "name": "Unit tests, APK compilation and lint",
+          "number": 7,
+          "startedAt": "2026-11-17T10:57:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T11:02:17Z",
+          "conclusion": "success",
+          "name": "Metadata transformation contract",
+          "number": 8,
+          "startedAt": "2026-11-17T11:02:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T11:02:27Z",
+          "conclusion": "success",
+          "name": "Post Run gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb",
+          "number": 14,
+          "startedAt": "2026-11-17T11:02:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T11:02:27Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6",
+          "number": 15,
+          "startedAt": "2026-11-17T11:02:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T11:02:27Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 16,
+          "startedAt": "2026-11-17T11:02:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-17T11:02:27Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-11-17T11:02:27Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/reziarlleh/YMPlayer2/actions/runs/44069457433/job/133991635606"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/reziarlleh/YMPlayer2/actions/runs/44069457433"
+}

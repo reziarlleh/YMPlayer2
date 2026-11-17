@@ -1,0 +1,25 @@
+{
+  "recordedAtUtc": "2026-11-17T10:51:36.569892+00:00",
+  "avd": "YM2_API23",
+  "api": 23,
+  "serial": "emulator-5554",
+  "source": "Local SAF/media fixtures and fake protocol transports, no personal token.",
+  "results": [
+    {
+      "class": "ClipTouchControlsTest",
+      "ok": true,
+      "tests": 7,
+      "failures": 0,
+      "seconds": 12.7
+    },
+    {
+      "class": "ClipStartupTest",
+      "ok": true,
+      "tests": 3,
+      "failures": 0,
+      "seconds": 9.92
+    }
+  ],
+  "complete": true,
+  "allPassed": true
+}

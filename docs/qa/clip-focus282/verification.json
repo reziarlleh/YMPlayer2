@@ -1,0 +1,51 @@
+{
+  "checkedAtUtc": "2026-11-17T11:07:36.189096+00:00",
+  "version": "2.8.2-build148",
+  "productSourceCommit": "36b13f16c10fa5d75cdffc799b91e546aec00630",
+  "resolvedFinding": "D-010",
+  "beforeApi23": {
+    "tests": 6,
+    "failures": 1
+  },
+  "after": {
+    "23": {
+      "input": 7,
+      "clipLifecycle": 3,
+      "failures": 0
+    },
+    "35": {
+      "input": 7,
+      "clipLifecycle": 3,
+      "failures": 0
+    }
+  },
+  "setupIssue35": {
+    "window": "Application Not Responding: com.google.android.apps.nexuslauncher",
+    "excludedFromProductResult": true,
+    "resolution": "Stopped only the stuck launcher in our QA AVD; unchanged input test then passed7/7."
+  },
+  "artifact": {
+    "bytes": 4763189,
+    "sha256": "39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8",
+    "minSdk": 23,
+    "targetSdk": 36,
+    "originalSigner": true,
+    "v1": true,
+    "v2": true,
+    "releaseLintVital": "passed"
+  },
+  "signedUpgrade": [
+    23,
+    35
+  ],
+  "sameStartupPolicyAndDiagnosticsAs147": true,
+  "ci": {
+    "id": 44069457433,
+    "conclusion": "success",
+    "commit": "36b13f16c10fa5d75cdffc799b91e546aec00630"
+  },
+  "physicalTvChecked": false,
+  "focusProof": "Real input and decoder in debug APK using the production ClipControlsView.",
+  "signedProof": "Product signing/package/SDK, 147 to148 with UID/data/profile/startup-setting retention and successful MainActivity launch.",
+  "stableLatest": "2.8.1-build145"
+}
