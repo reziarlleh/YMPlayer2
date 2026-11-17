@@ -72,4 +72,9 @@ debug APK; физический пульт/TV и авторизация реал
 Stable/Latest/оба исходных feed остаются2.8.1-build145, новой публикации4PDA нет.
 
 RepoWise context дважды недоступен (`tree_sitter`); использованы целевые исходники.
+`repowise update` также завершился отсутствием того же модуля. Индекс не заменял проверки.
 Полный состав новой версии сохраняет [режимы старта и расширенную диагностику147](PLAYBACK_START_2_8_2_VERIFICATION.md).
+
+Ручной APK доставлен в main и скачан по immutable URL полностью: HTTP200, размер
+и SHA256 совпали. [Доставка/Latest/исходные feed](qa/clip-focus282/github-delivery.json),
+[проверка документов после push](qa/clip-focus282/documentation-github.json).

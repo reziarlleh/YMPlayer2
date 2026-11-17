@@ -528,6 +528,8 @@ panel is unaffected. Rotation keeps the clip and playback position.
 On a remote, the first arrow/OK press reveals hidden controls and focuses
 play/pause. The next press operates the controls. Media Play/Pause/Next/Previous
 buttons also work.
+In the manual2.8.2 candidate, returning from touch controls follows the same rule:
+the first OK selects play/pause; the next press operates it.
 
 <p align="center"><img src="qa/patch-2-1-1/clip-tv-progress.png" width="800" alt="TV video controls: playback progress within the current-track panel"></p>
 

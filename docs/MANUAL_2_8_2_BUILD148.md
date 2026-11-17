@@ -5,6 +5,10 @@
 [SHA256](../releases/2.8.2-build148/SHA256.txt) · [подпись](../releases/2.8.2-build148/signature.txt) ·
 [метаданные](../releases/2.8.2-build148/build.json).
 
+[Прямая загрузка APK](https://raw.githubusercontent.com/reziarlleh/YMPlayer2/e9699764d2edd715780fe9a8bb6198dd2fb1735f/releases/2.8.2-build148/YMPlayer-2.8.2-build148.apk).
+Проверена полная загрузка: HTTP200/4763189 bytes/SHA256 совпали.
+[Доставка и сохранённый stable145](qa/clip-focus282/github-delivery.json).
+
 Первый OK после сенсорного управления клипами выбирает Play, следующее нажатие
 выполняет действие. Первое удержание/отпускание не запускает и не закрывает клип.
 Одиночные касания, стрелки и Enter проверены на настоящем Android input/декодере.

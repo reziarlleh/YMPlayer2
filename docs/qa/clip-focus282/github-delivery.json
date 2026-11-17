@@ -1,0 +1,32 @@
+{
+  "checkedAtUtc": "2026-11-17T11:12:07.081920+00:00",
+  "deliveryCommit": "e9699764d2edd715780fe9a8bb6198dd2fb1735f",
+  "productSourceCommit": "36b13f16c10fa5d75cdffc799b91e546aec00630",
+  "artifact": {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/e9699764d2edd715780fe9a8bb6198dd2fb1735f/releases/2.8.2-build148/YMPlayer-2.8.2-build148.apk",
+    "status": 200,
+    "contentType": "application/octet-stream",
+    "bytes": 4763189,
+    "sha256": "39560d85c0a43a9a7f9ce6fe4f2edd99a2902ec7abf8ba90bd3fef0a2a7d4eb8"
+  },
+  "sourceFeeds": [
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/e9699764d2edd715780fe9a8bb6198dd2fb1735f/update/manifest.json",
+      "status": 200,
+      "contentType": "text/plain; charset=utf-8",
+      "version": "2.8.1-build145"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/e9699764d2edd715780fe9a8bb6198dd2fb1735f/update/stable.json",
+      "status": 200,
+      "contentType": "text/plain; charset=utf-8",
+      "version": "2.8.1-build145"
+    }
+  ],
+  "githubLatest": {
+    "draft": false,
+    "prerelease": false,
+    "tag": "v2.8.1-build145"
+  },
+  "publication": "Public source/APK for manual verification only. No new GitHub release or update feed was published."
+}
