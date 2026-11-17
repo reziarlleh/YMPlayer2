@@ -1,0 +1,707 @@
+{
+  "recordedAtUtc": "2026-11-17T02:37:11.527214+00:00",
+  "latestAssumption": "Owner17Nov: use latest AGAMA as primary scenario; actual Fox_7 version remains unverified.",
+  "latestHeader": "https://4pda.to/forum/index.php?showtopic=835814",
+  "headerReceipt": {
+    "file": "agama-topic-fresh-20261117.html",
+    "bytes": 373879,
+    "sha256": "0c289fb98a90f96f46651256110b000700e358a03824fb1c624ac4c016510088"
+  },
+  "apk": {
+    "file": "Agama_v6.1.3.apk",
+    "bytes": 18299214,
+    "sha256": "e6e6b9365f64f09de5dfb509630a62b097ef265000e89a5feba462fbe64b634b",
+    "version": "6.1.3",
+    "versionCode": 61302,
+    "signerSha256": "2d64e1ec90590cb6d1a96a445098d37287a216494e1d5323e4c57d3f648b3192"
+  },
+  "player": {
+    "version": "2.8.1-build146",
+    "modified": false,
+    "media": "Synthetic local900secondWAV; not genuine Yandex offline cache"
+  },
+  "avd": {
+    "name": "YM2_AGAMA_GOOGLE28",
+    "api": 28,
+    "display": "1024x600/160dpi",
+    "architecture": "x86_64"
+  },
+  "cycles": [
+    {
+      "label": "agama613-player",
+      "phases": [
+        {
+          "phase": "before",
+          "hostUtc": "2026-11-17T01:54:00.587904+00:00",
+          "state": 2,
+          "position": 459000,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "asleep",
+          "hostUtc": "2026-11-17T01:54:11.381053+00:00",
+          "state": 2,
+          "position": 459000,
+          "speed": "0.0",
+          "foreground": "",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake2",
+          "hostUtc": "2026-11-17T01:54:14.845232+00:00",
+          "state": 2,
+          "position": 459000,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        }
+      ],
+      "validPlayingSetup": false,
+      "complete": false,
+      "sleepPreferencesBefore": {
+        "sleep_Screen": true,
+        "sleep_Power": null
+      },
+      "playerPidUnchanged": true,
+      "commands": [
+        {
+          "time": "2026-11-17 01:54:01.171",
+          "operation": "SESSION_MEDIA_BUTTON",
+          "category": "OK",
+          "intent": "PAUSE",
+          "position": "459",
+          "engineState": "3",
+          "controllerOrigin": "MEDIA_CONTROLLER",
+          "controllerPackage": "altergames.carlauncher",
+          "elapsedMs": "117076",
+          "key": "PAUSE",
+          "keyCode": "127",
+          "keyAction": "DOWN",
+          "keyRepeat": "0",
+          "keyEventMs": "0",
+          "keyDownMs": "0",
+          "playWhenReady": "false",
+          "isPlaying": "false",
+          "suppression": "0"
+        },
+        {
+          "time": "2026-11-17 01:54:01.178",
+          "operation": "SESSION_COMMAND",
+          "category": "OK",
+          "intent": "PAUSE",
+          "position": "459",
+          "engineState": "3",
+          "command": "PAUSE",
+          "controllerOrigin": "MEDIA_NOTIFICATION_CONTROLLER",
+          "controllerPackage": "dev.petrov.ymplayer2",
+          "elapsedMs": "117084",
+          "playWhenReady": "false",
+          "isPlaying": "false",
+          "suppression": "0"
+        },
+        {
+          "time": "2026-11-17 01:54:01.179",
+          "operation": "SESSION_INTENT",
+          "category": "OK",
+          "intent": "PAUSE",
+          "reason": "CONTROLLER",
+          "position": "459",
+          "engineState": "3"
+        },
+        {
+          "time": "2026-11-17 01:54:01.180",
+          "operation": "SESSION_MEDIA_BUTTON",
+          "category": "OK",
+          "intent": "PAUSE",
+          "position": "459",
+          "engineState": "3",
+          "controllerOrigin": "MEDIA_CONTROLLER",
+          "controllerPackage": "altergames.carlauncher",
+          "elapsedMs": "117086",
+          "key": "PAUSE",
+          "keyCode": "127",
+          "keyAction": "UP",
+          "keyRepeat": "0",
+          "keyEventMs": "0",
+          "keyDownMs": "0",
+          "playWhenReady": "false",
+          "isPlaying": "false",
+          "suppression": "0"
+        },
+        {
+          "time": "2026-11-17 01:54:01.454",
+          "operation": "APP_BACKGROUND",
+          "category": "OK",
+          "elapsedMs": "117361"
+        },
+        {
+          "time": "2026-11-17 01:54:12.091",
+          "operation": "APP_FOREGROUND",
+          "category": "OK",
+          "elapsedMs": "127997"
+        }
+      ]
+    },
+    {
+      "label": "agama613-player85",
+      "phases": [
+        {
+          "phase": "before",
+          "hostUtc": "2026-11-17T01:59:15.764444+00:00",
+          "state": 3,
+          "position": 685908,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "asleep",
+          "hostUtc": "2026-11-17T02:00:41.694764+00:00",
+          "state": 2,
+          "position": 688540,
+          "speed": "0.0",
+          "foreground": "",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake2",
+          "hostUtc": "2026-11-17T02:00:45.026950+00:00",
+          "state": 2,
+          "position": 688540,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake10",
+          "hostUtc": "2026-11-17T02:00:53.545161+00:00",
+          "state": 2,
+          "position": 688540,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake20",
+          "hostUtc": "2026-11-17T02:01:03.808516+00:00",
+          "state": 2,
+          "position": 688540,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake30",
+          "hostUtc": "2026-11-17T02:01:14.276792+00:00",
+          "state": 2,
+          "position": 688540,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        }
+      ],
+      "validPlayingSetup": true,
+      "complete": true,
+      "sleepPreferencesBefore": {
+        "sleep_Screen": true,
+        "sleep_Power": null
+      },
+      "playerPidUnchanged": true,
+      "commands": [
+        {
+          "time": "2026-11-17 01:59:16.271",
+          "operation": "SESSION_COMMAND",
+          "category": "OK",
+          "intent": "PLAY",
+          "position": "688",
+          "engineState": "3",
+          "command": "PAUSE",
+          "controllerOrigin": "MEDIA_CONTROLLER",
+          "controllerPackage": "altergames.carlauncher",
+          "elapsedMs": "432177",
+          "playWhenReady": "true",
+          "isPlaying": "true",
+          "suppression": "0"
+        },
+        {
+          "time": "2026-11-17 01:59:16.271",
+          "operation": "SESSION_INTENT",
+          "category": "OK",
+          "intent": "PAUSE",
+          "reason": "CONTROLLER",
+          "position": "688",
+          "engineState": "3"
+        },
+        {
+          "time": "2026-11-17 01:59:16.618",
+          "operation": "APP_BACKGROUND",
+          "category": "OK",
+          "elapsedMs": "432524"
+        },
+        {
+          "time": "2026-11-17 02:00:42.258",
+          "operation": "APP_FOREGROUND",
+          "category": "OK",
+          "elapsedMs": "518165"
+        }
+      ]
+    },
+    {
+      "label": "agama613-clean-player85",
+      "phases": [
+        {
+          "phase": "before",
+          "hostUtc": "2026-11-17T02:10:31.775799+00:00",
+          "state": 3,
+          "position": 53000,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "asleep",
+          "hostUtc": "2026-11-17T02:11:57.411913+00:00",
+          "state": 2,
+          "position": 55504,
+          "speed": "0.0",
+          "foreground": "",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake2",
+          "hostUtc": "2026-11-17T02:12:00.126061+00:00",
+          "state": 2,
+          "position": 55504,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake10",
+          "hostUtc": "2026-11-17T02:12:08.458717+00:00",
+          "state": 2,
+          "position": 55504,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake20",
+          "hostUtc": "2026-11-17T02:12:18.694780+00:00",
+          "state": 2,
+          "position": 55504,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake30",
+          "hostUtc": "2026-11-17T02:12:29.139264+00:00",
+          "state": 2,
+          "position": 55504,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{9f5dfd9 u0 dev.petrov.ymplayer2/.MainActivity t18}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        }
+      ],
+      "validPlayingSetup": true,
+      "complete": true,
+      "sleepPreferencesBefore": {
+        "sleep_Screen": true,
+        "sleep_Power": null
+      },
+      "playerPidUnchanged": true,
+      "commands": [
+        {
+          "time": "2026-11-17 02:10:31.852",
+          "operation": "SESSION_COMMAND",
+          "category": "OK",
+          "intent": "PLAY",
+          "position": "55",
+          "engineState": "3",
+          "command": "PAUSE",
+          "controllerOrigin": "MEDIA_CONTROLLER",
+          "controllerPackage": "altergames.carlauncher",
+          "elapsedMs": "1107758",
+          "playWhenReady": "true",
+          "isPlaying": "true",
+          "suppression": "0"
+        },
+        {
+          "time": "2026-11-17 02:10:31.853",
+          "operation": "SESSION_INTENT",
+          "category": "OK",
+          "intent": "PAUSE",
+          "reason": "CONTROLLER",
+          "position": "55",
+          "engineState": "3"
+        },
+        {
+          "time": "2026-11-17 02:10:32.447",
+          "operation": "APP_BACKGROUND",
+          "category": "OK",
+          "elapsedMs": "1108349"
+        },
+        {
+          "time": "2026-11-17 02:11:57.448",
+          "operation": "APP_FOREGROUND",
+          "category": "OK",
+          "elapsedMs": "1193354"
+        }
+      ]
+    },
+    {
+      "label": "agama613-clean-home85",
+      "phases": [
+        {
+          "phase": "before",
+          "hostUtc": "2026-11-17T02:14:23.069310+00:00",
+          "state": 3,
+          "position": 58335,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{e3f8400 u0 altergames.carlauncher/.MainActivity t19}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "asleep",
+          "hostUtc": "2026-11-17T02:15:48.615726+00:00",
+          "state": 2,
+          "position": 60845,
+          "speed": "0.0",
+          "foreground": "",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake2",
+          "hostUtc": "2026-11-17T02:15:51.542052+00:00",
+          "state": 2,
+          "position": 60845,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{e3f8400 u0 altergames.carlauncher/.MainActivity t19}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake10",
+          "hostUtc": "2026-11-17T02:15:59.793486+00:00",
+          "state": 2,
+          "position": 60845,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{e3f8400 u0 altergames.carlauncher/.MainActivity t19}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake20",
+          "hostUtc": "2026-11-17T02:16:10.542145+00:00",
+          "state": 3,
+          "position": 67006,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{e3f8400 u0 altergames.carlauncher/.MainActivity t19}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        },
+        {
+          "phase": "wake30",
+          "hostUtc": "2026-11-17T02:16:20.781761+00:00",
+          "state": 3,
+          "position": 77751,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{e3f8400 u0 altergames.carlauncher/.MainActivity t19}",
+          "autoplay": "1101",
+          "playerPid": 4681
+        }
+      ],
+      "validPlayingSetup": true,
+      "complete": true,
+      "sleepPreferencesBefore": {
+        "sleep_Screen": true,
+        "sleep_Power": null
+      },
+      "playerPidUnchanged": true,
+      "commands": [
+        {
+          "time": "2026-11-17 02:14:23.796",
+          "operation": "SESSION_COMMAND",
+          "category": "OK",
+          "intent": "PLAY",
+          "position": "60",
+          "engineState": "3",
+          "command": "PAUSE",
+          "controllerOrigin": "MEDIA_CONTROLLER",
+          "controllerPackage": "altergames.carlauncher",
+          "elapsedMs": "1339703",
+          "playWhenReady": "true",
+          "isPlaying": "true",
+          "suppression": "0"
+        },
+        {
+          "time": "2026-11-17 02:14:23.797",
+          "operation": "SESSION_INTENT",
+          "category": "OK",
+          "intent": "PAUSE",
+          "reason": "CONTROLLER",
+          "position": "60",
+          "engineState": "3"
+        },
+        {
+          "time": "2026-11-17 02:16:01.870",
+          "operation": "SESSION_COMMAND",
+          "category": "OK",
+          "intent": "PAUSE",
+          "position": "61",
+          "engineState": "3",
+          "command": "PLAY",
+          "controllerOrigin": "MEDIA_CONTROLLER",
+          "controllerPackage": "altergames.carlauncher",
+          "elapsedMs": "1437776",
+          "playWhenReady": "false",
+          "isPlaying": "false",
+          "suppression": "0"
+        },
+        {
+          "time": "2026-11-17 02:16:01.871",
+          "operation": "SESSION_INTENT",
+          "category": "OK",
+          "intent": "PLAY",
+          "reason": "CONTROLLER",
+          "position": "61",
+          "engineState": "3"
+        }
+      ]
+    },
+    {
+      "label": "agama613-sleep-on-control",
+      "phases": [
+        {
+          "phase": "before",
+          "hostUtc": "2026-11-17T02:28:16.013732+00:00",
+          "state": 3,
+          "position": 122855,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "asleep",
+          "hostUtc": "2026-11-17T02:28:26.752174+00:00",
+          "state": 2,
+          "position": 123852,
+          "speed": "0.0",
+          "foreground": "",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "wake2",
+          "hostUtc": "2026-11-17T02:28:29.252728+00:00",
+          "state": 2,
+          "position": 123852,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "wake10",
+          "hostUtc": "2026-11-17T02:28:37.642391+00:00",
+          "state": 2,
+          "position": 123852,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "wake20",
+          "hostUtc": "2026-11-17T02:28:47.898044+00:00",
+          "state": 2,
+          "position": 123852,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "wake30",
+          "hostUtc": "2026-11-17T02:28:58.141429+00:00",
+          "state": 2,
+          "position": 123852,
+          "speed": "0.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        }
+      ],
+      "validPlayingSetup": true,
+      "complete": true,
+      "sleepPreferencesBefore": {
+        "sleep_Screen": true,
+        "sleep_Power": null
+      },
+      "playerPidUnchanged": true,
+      "commands": [
+        {
+          "time": "2026-11-17 02:28:16.926",
+          "operation": "SESSION_COMMAND",
+          "category": "OK",
+          "intent": "PLAY",
+          "position": "123",
+          "engineState": "3",
+          "command": "PAUSE",
+          "controllerOrigin": "MEDIA_CONTROLLER",
+          "controllerPackage": "altergames.carlauncher",
+          "elapsedMs": "177341",
+          "playWhenReady": "true",
+          "isPlaying": "true",
+          "suppression": "0"
+        },
+        {
+          "time": "2026-11-17 02:28:16.927",
+          "operation": "SESSION_INTENT",
+          "category": "OK",
+          "intent": "PAUSE",
+          "reason": "CONTROLLER",
+          "position": "123",
+          "engineState": "3"
+        },
+        {
+          "time": "2026-11-17 02:28:17.203",
+          "operation": "APP_BACKGROUND",
+          "category": "OK",
+          "elapsedMs": "177619"
+        },
+        {
+          "time": "2026-11-17 02:28:26.960",
+          "operation": "APP_FOREGROUND",
+          "category": "OK",
+          "elapsedMs": "187376"
+        }
+      ]
+    },
+    {
+      "label": "agama613-sleep-off-control",
+      "phases": [
+        {
+          "phase": "before",
+          "hostUtc": "2026-11-17T02:30:59.763744+00:00",
+          "state": 3,
+          "position": 124081,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "asleep",
+          "hostUtc": "2026-11-17T02:31:10.434141+00:00",
+          "state": 3,
+          "position": 132993,
+          "speed": "1.0",
+          "foreground": "",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "wake2",
+          "hostUtc": "2026-11-17T02:31:13.825653+00:00",
+          "state": 3,
+          "position": 139006,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "wake10",
+          "hostUtc": "2026-11-17T02:31:22.205063+00:00",
+          "state": 3,
+          "position": 148007,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "wake20",
+          "hostUtc": "2026-11-17T02:31:32.546104+00:00",
+          "state": 3,
+          "position": 157008,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        },
+        {
+          "phase": "wake30",
+          "hostUtc": "2026-11-17T02:31:42.779200+00:00",
+          "state": 3,
+          "position": 166004,
+          "speed": "1.0",
+          "foreground": "mResumedActivity: ActivityRecord{c4607ab u0 dev.petrov.ymplayer2/.MainActivity t22}",
+          "playerPid": 4442,
+          "autoplay": "1101"
+        }
+      ],
+      "validPlayingSetup": true,
+      "complete": true,
+      "sleepPreferencesBefore": {
+        "sleep_Screen": false,
+        "sleep_Power": false
+      },
+      "playerPidUnchanged": true,
+      "commands": [
+        {
+          "time": "2026-11-17 02:31:00.718",
+          "operation": "APP_BACKGROUND",
+          "category": "OK",
+          "elapsedMs": "341134"
+        },
+        {
+          "time": "2026-11-17 02:31:11.500",
+          "operation": "APP_FOREGROUND",
+          "category": "OK",
+          "elapsedMs": "351916"
+        }
+      ]
+    }
+  ],
+  "pauseOrigin": {
+    "version": "AGAMA6.1.3",
+    "trigger": "Configured screen-off or external-power-off conditions enter MainActivity sleep routine.",
+    "command": "PAUSE_AND_STOP calls MediaController.pause() or key127/key85 fallback, then stopSelf() of AGAMA MusicService.",
+    "scope": "Stops its own service; analysed route does not issue player.stop or kill the YMPlayer2 process.",
+    "sourceProof": "Local unmodified signed APK inspection plus actual incoming Pause in emulator.",
+    "reference": "https://altercars.ru/agama/instructions/ru.html",
+    "control": "Same player/media/autoplay1101/API28/PID; only AGAMA Screen-off sleep checkbox changed in native UI."
+  },
+  "limitations": [
+    "Screen off/on is not a real head-unit kernel suspend or cold boot.",
+    "Trial/License error observed; normal UI touch used, licensing not modified.",
+    "First agama613-player setup was PAUSED and interrupted; not counted as a sleep/autoplay result.",
+    "Upgraded4.3->6.1.3 and clean6.1.3 initialization are separate conditions.",
+    "Initial trial/UI startup was not treated as readiness; home control followed removal of emulator fullscreen override and normal UI initialization.",
+    "No user Yandex token, real offline-cache or wave comparison in emulator.",
+    "No product source change, new build or forum write."
+  ]
+}

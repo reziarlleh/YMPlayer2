@@ -1,0 +1,490 @@
+{
+  "files": [
+    {
+      "receipt": {
+        "file": "YMPlayer2-diagnostics-20261116-155615.txt",
+        "bytes": 4719,
+        "sha256": "faefe0a2cddc4b29016ef3f170d8b8a19058479ef3306de168ec0b4852577335"
+      },
+      "intervals": [
+        {
+          "background": {
+            "time": "2026-11-16 15:46:31.265",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1140762959"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:46:57.085",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1140788779"
+          },
+          "wallSeconds": 25.82,
+          "elapsedSeconds": 25.82,
+          "systemElapsedDaysAtStart": 13.203274988425926
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:47:14.114",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1140805808"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:47:21.784",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1140813478"
+          },
+          "wallSeconds": 7.67,
+          "elapsedSeconds": 7.67,
+          "systemElapsedDaysAtStart": 13.203770925925927
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:48:20.011",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1140871705"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:49:33.272",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1140944967"
+          },
+          "wallSeconds": 73.261,
+          "elapsedSeconds": 73.262,
+          "systemElapsedDaysAtStart": 13.204533622685185
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:53:42.151",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1141193845"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:55:48.198",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1141319892"
+          },
+          "wallSeconds": 126.047,
+          "elapsedSeconds": 126.047,
+          "systemElapsedDaysAtStart": 13.208262094907408
+        }
+      ],
+      "networkEvents": [
+        {
+          "time": "2026-11-16 15:48:12.542",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "TLS"
+        },
+        {
+          "time": "2026-11-16 15:48:13.883",
+          "operation": "HTTP",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:13.885",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:16.362",
+          "operation": "HTTP",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:16.365",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:19.897",
+          "operation": "HTTP",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:19.900",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        }
+      ],
+      "cumulativeWarning": "155615 is the prefix of160014; do not count common intervals as separate experiments."
+    },
+    {
+      "receipt": {
+        "file": "YMPlayer2-diagnostics-20261116-160014.txt",
+        "bytes": 6420,
+        "sha256": "915be6ca4d02d60812b594fb634572b2a51ea6150cd964c2b9491f7ae88a861f"
+      },
+      "intervals": [
+        {
+          "background": {
+            "time": "2026-11-16 15:46:31.265",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1140762959"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:46:57.085",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1140788779"
+          },
+          "wallSeconds": 25.82,
+          "elapsedSeconds": 25.82,
+          "systemElapsedDaysAtStart": 13.203274988425926
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:47:14.114",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1140805808"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:47:21.784",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1140813478"
+          },
+          "wallSeconds": 7.67,
+          "elapsedSeconds": 7.67,
+          "systemElapsedDaysAtStart": 13.203770925925927
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:48:20.011",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1140871705"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:49:33.272",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1140944967"
+          },
+          "wallSeconds": 73.261,
+          "elapsedSeconds": 73.262,
+          "systemElapsedDaysAtStart": 13.204533622685185
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:53:42.151",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1141193845"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:55:48.198",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1141319892"
+          },
+          "wallSeconds": 126.047,
+          "elapsedSeconds": 126.047,
+          "systemElapsedDaysAtStart": 13.208262094907408
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:56:16.266",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1141350112"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:56:17.365",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1141351211"
+          },
+          "wallSeconds": 1.099,
+          "elapsedSeconds": 1.099,
+          "systemElapsedDaysAtStart": 13.210070740740742
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:56:21.666",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1141355512"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:58:23.534",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1141477379"
+          },
+          "wallSeconds": 121.868,
+          "elapsedSeconds": 121.867,
+          "systemElapsedDaysAtStart": 13.21013324074074
+        },
+        {
+          "background": {
+            "time": "2026-11-16 15:58:37.847",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1141491698"
+          },
+          "foreground": {
+            "time": "2026-11-16 15:59:55.282",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1141569134"
+          },
+          "wallSeconds": 77.435,
+          "elapsedSeconds": 77.436,
+          "systemElapsedDaysAtStart": 13.211709467592593
+        }
+      ],
+      "networkEvents": [
+        {
+          "time": "2026-11-16 15:48:12.542",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "TLS"
+        },
+        {
+          "time": "2026-11-16 15:48:13.883",
+          "operation": "HTTP",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:13.885",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:16.362",
+          "operation": "HTTP",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:16.365",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:19.897",
+          "operation": "HTTP",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 15:48:19.900",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        }
+      ],
+      "cumulativeWarning": "155615 is the prefix of160014; do not count common intervals as separate experiments."
+    },
+    {
+      "receipt": {
+        "file": "YMPlayer2-diagnostics-20261116-200136.txt",
+        "bytes": 8237,
+        "sha256": "f8a00845edcbf6ebe46378ba945d6ba898780b8d7fa9edd88cbf94ced17746bc"
+      },
+      "intervals": [
+        {
+          "background": {
+            "time": "2026-11-16 19:59:04.708",
+            "operation": "APP_BACKGROUND",
+            "category": "OK",
+            "elapsedMs": "1155913126"
+          },
+          "foreground": {
+            "time": "2026-11-16 20:00:30.267",
+            "operation": "APP_FOREGROUND",
+            "category": "OK",
+            "elapsedMs": "1155998684"
+          },
+          "wallSeconds": 85.559,
+          "elapsedSeconds": 85.558,
+          "systemElapsedDaysAtStart": 13.378624143518518
+        }
+      ],
+      "networkEvents": [
+        {
+          "time": "2026-11-16 19:58:57.469",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:57.471",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:57.522",
+          "operation": "WAVE_START",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:57.524",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:57.566",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:57.568",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:58.810",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:58.813",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:58.868",
+          "operation": "WAVE_START",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:58.869",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:58.929",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:58:58.933",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:01.295",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:01.296",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:01.328",
+          "operation": "WAVE_START",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:01.329",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:01.366",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:01.367",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:04.849",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:04.851",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:04.948",
+          "operation": "WAVE_START",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:04.950",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:05.094",
+          "operation": "WAVE_NEXT",
+          "category": "NETWORK",
+          "network": "DNS"
+        },
+        {
+          "time": "2026-11-16 19:59:05.095",
+          "operation": "AUDIO_PREPARE",
+          "category": "NETWORK",
+          "network": "DNS"
+        }
+      ],
+      "cumulativeWarning": "155615 is the prefix of160014; do not count common intervals as separate experiments."
+    }
+  ],
+  "clockSource": "MainActivity.onStart/onStop -> SystemClock.elapsedRealtime()",
+  "clockReference": "https://developer.android.com/reference/android/os/SystemClock#elapsedRealtime()",
+  "limits": [
+    "Intervals measure Activity lifecycle, not ignition or exact CPU suspend.",
+    "Continuous system elapsed time over13days rules out ordinary Android reboot within the85-second interval.",
+    "DNS failures do not establish when network became connected/validated after wake."
+  ],
+  "proposedComparison": [
+    "Keep the same AGAMA settings for wave and already downloaded offline cache.",
+    "Clear diagnostic journal separately before each attempt; ensure playback before ignition off.",
+    "Use the same90-120second off interval, wait60seconds after return, export before manualPlay.",
+    "Change network availability only in a separate follow-up experiment."
+  ],
+  "api30Message": {
+    "source": "app/src/main/kotlin/dev/petrov/ymplayer2/CrashDiagnostics.kt",
+    "meaning": "Android historical process-exit API is absent below30; this optional section is skipped.",
+    "reference": "https://developer.android.com/reference/android/app/ActivityManager#getHistoricalProcessExitReasons(java.lang.String,int,int)"
+  }
+}
