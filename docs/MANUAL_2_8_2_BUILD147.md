@@ -10,6 +10,10 @@ Latest/автообновление остаются **2.8.1-build145**; на4PD
 [SHA256](../releases/2.8.2-build147/SHA256.txt) ·
 [Подпись](../releases/2.8.2-build147/signature.txt).
 
+[Прямая загрузка APK](https://raw.githubusercontent.com/reziarlleh/YMPlayer2/4f21d212b3cb8ae5a4360e20b123c96245f45f94/releases/2.8.2-build147/YMPlayer-2.8.2-build147.apk).
+Файл с GitHub скачан полностью, HTTP200/4763191 bytes/SHA256 совпали;
+[датированная проверка доставки](qa/startup282/github-delivery.json).
+
 Android6/API23+, target36, прежний `dev.petrov.ymplayer2`, подписи v1+v2.
 Сертификат SHA256:
 `fbc7f884d76568e5b5f7be16e83b4a39f1fedad334ebd0be7fba7aa0bea406ec`.

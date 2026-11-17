@@ -104,3 +104,6 @@ RepoWise context недоступен: отсутствует Python-модул�
 CLI. Навигация и сверка выполнены по целевым исходникам; индекс не выдаётся за
 сборку/тест. Stable/Latest/оба исходных feed остаются2.8.1-build145.
 Форум не менялся; D-004 отложен, D-009 не объявляется исправленным.
+Ручной APK доставлен в main и скачан по immutable URL с полным совпадением
+размера/хэша: [HTTP/Latest/оба исходных feed](qa/startup282/github-delivery.json).
+[После push проверены документы и GitHub](qa/startup282/documentation-github.json).
