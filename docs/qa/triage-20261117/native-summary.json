@@ -1,0 +1,1737 @@
+{
+  "checkedAtUtc": "2026-11-18T03:07:47.537794+00:00",
+  "productSourceCommit": "91bcb50f5d694f37c81074cce52a4eef6d56b9f4",
+  "description": "Last completed result per native method across the recorded phases; original negatives retained. ADB-interrupted partial phase is completed by local-tail. Not a claim of live account or physical-device acceptance.",
+  "devices": {
+    "api23": {
+      "counts": {
+        "pass": 211,
+        "skip": 2,
+        "fail": 1
+      },
+      "knownFailure": "D-011",
+      "methods": {
+        "ClipStartupTest#explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipStartupTest#firstSurfaceAndReattachedSurfaceKeepVideoProportionsWithoutRotation": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipStartupTest#pendingAutoplayShowsPauseAndOnePlayResumesPausedClip": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipTouchControlsTest#dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipTouchControlsTest#eachTouchToRemoteHandoffConsumesEnterAndHeldOkWithoutStartingVideo": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipTouchControlsTest#firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipTouchControlsTest#firstTouchOnRetryExecutesConnectionActionExactlyOnce": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipTouchControlsTest#firstTouchOnUnfocusedBackClosesTheRealClipActivity": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipTouchControlsTest#firstTouchOnUnfocusedPlayAndPauseExecutesImmediately": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ClipTouchControlsTest#videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "EngineHandoffTest#coldInterfacePlaySurvivesEngineReplacement": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "EngineHandoffTest#coldInterfacePlayWaitsForSavedMetadata": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "EngineHandoffTest#emptyOfflineCheckpointStillAttachesAConnectedEngine": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "EngineHandoffTest#metadataOnlyAttachKeepsSavedPlaySilent": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "EngineHandoffTest#newerPauseCancelsColdInterfacePlay": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "EngineHandoffTest#newerPauseCancelsThePendingForegroundPlay": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "EngineHandoffTest#pendingForegroundPlaySurvivesAnotherEngineReplacement": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "FileTransferTest#albumAndPlaylistExportFetchEveryPage": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#anExportDialogFromThePreviousAccountCannotStartAfterSignOut": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#controllerUsesTheSelectedProfilesOwnFolder": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#disabledGlobalCacheRejectsFolderChangesAndRetainsTheConfiguredPath": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#insufficientCapacityAndProviderFailureKeepOriginalCache": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#movingALikedCachePreservesThePausedWaveQueueAndItsNextTrack": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#selectingExistingCacheAsksForConfirmationAndGlobalDisableCancelsTheSelection": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "FileTransferTest#templateHelpPreviewValidationAndPersistence": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LaunchResumeIntentTest#emptyEngineCannotErasePausedWaveTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitInterfacePolicyContinuesThePreparedWaveInsteadOfStartingAnotherQueue": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitLogoutMustCancelSavedWavePlay": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitPauseAfterNetworkFailureRemainsPausedAfterEngineRestart": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitPausePendingSlowMetadataClearsDurableIntent": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitStopPendingSlowMetadataClearsDurableIntent": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#failedNetworkPreparationRetainsPlayForNextForegroundLaunch": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#foregroundRepairCannotOverrideExplicitStop": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#launchPlayPendingSlowMetadataRetainsDurableIntent": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#media3TaskCleanupMustNotReplaceSavedPlayWithPause": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#metadataOnlyEngineRestartPreservesManualPauseAndPosition": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#metadataOnlyEngineRestartPreservesSavedPlayAndPosition": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#metadataOnlyWavePreparationFailureAfterSeekCannotSkipSavedTrack": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#metadataOnlyWaveReconnectAndPositionUpdateMustNotEraseSavedPlay": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#pauseAfterForegroundRepairRequestCancelsThePendingPlay": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#returningFromRadioPersistsMusicOwnershipAndPlayBeforeRestart": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LaunchResumeIntentTest#staleLaunchQueuedBeforeEngineRestartCannotEraseNewPlay": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "LocalPlaybackTest#indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot": {
+          "status": "pass",
+          "receipt": "api23-local-confirmed.json"
+        },
+        "LocalPlaybackTest#manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo": {
+          "status": "pass",
+          "receipt": "api23-local-confirmed.json"
+        },
+        "LocalPlaybackTest#nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack": {
+          "status": "pass",
+          "receipt": "api23-local-confirmed.json"
+        },
+        "LocalPlaybackTest#profileCheckpointsAndServiceRestartStayPaused": {
+          "status": "pass",
+          "receipt": "api23-local-confirmed.json"
+        },
+        "LocalPlaybackTest#refreshRequestedDuringOldScanRechecksNewlyAvailableStorage": {
+          "status": "pass",
+          "receipt": "api23-local-confirmed.json"
+        },
+        "LocalPlaybackTest#transientExternalAudioFocusPausesAndRestoresPlayback": {
+          "status": "pass",
+          "receipt": "api23-local-confirmed.json"
+        },
+        "LocalizationTest#allPacksHandlePluralsAndCachedMessagesWithoutTranslatingArguments": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LocalizationTest#choicePersistsAndAutoFollowsSupportedSystemLanguagesWithEnglishFallback": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LocalizationTest#liveAudioProfileAndSettingsSurviveLanguageSwitch": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LocalizationTest#longTranslatedCacheSettingsRemainReachable": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LocalizationTest#nativeClipLabelsSwitchWithoutChangingTitlesOrController": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LocalizationTest#nestedUpdateErrorsTranslateInEveryDirectionWithoutChangingHostNames": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LocalizationTest#remoteReachesLastLanguageAndLeavesSelectedRowVertically": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LocalizationTest#remoteSelectsLanguageAndAppMessagesKeepUserArgumentsIntact": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "LocalizationTest#switchUpdatesCurrentScreenAndKeepsOfflineSeparation": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "Mp3ExportQualityTest#eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#anotherProfileCannotOverwriteTheOwnersOfflineBookmark": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#anotherProfileStartsItsOwnWaveInsteadOfResumingTheOwnersBookmark": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#changedSettingsDoNotReviveTheParkedOldWave": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#explicitWaveStopCannotResurrectAParkedWindowViaOffline": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#localListCanReplaceAPlayingOfflineQueue": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#localListCanReplaceAnEmptyOfflineQueue": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#myWaveBookmarkSurvivesRestartWhileOfflineIsSelected": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#removingBookmarkedCachedTrackFallsBackToAnExistingTrack": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#returningFromALocalListRestoresMyWaveWithoutRequestingANewSession": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#returningFromRadioPreservesMyWavePositionAndPreparedFiles": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndRepeatList": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndRepeatOne": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndShuffle": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "OfflineSourceStateTest#stoppingOfflineDoesNotEraseTheParkedMyWave": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PlaybackStartPolicyTest#aNewPauseCancelsAnOlderInterfacePlayRequest": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#autoKeepsWarmManualPause": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#coldEntryPoliciesRespectSavedPlayOrPause": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#offDoesNotInterruptMusicAlreadyPlayingInBackground": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#offWithEmptyQueueRemainsStopped": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#onDoesNotUndoManualPauseOnConfigurationRecreation": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#onResumesWarmPauseAtSameTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#profilePreferencesPersistIndependentlyAndMissingProfilesDefaultToAuto": {
+          "status": "pass",
+          "receipt": "api23-interface-final.json"
+        },
+        "PortableCacheTest#aMovePreservesUnrelatedFilesInTheFormerCustomCacheDirectory": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#copiedLegacyImportUsesOnlyConfirmedLikesAndPreservesUnknownOriginalFiles": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#copiedPortableCacheAttachesToAnotherInstallationAndNewProfileWithoutNetwork": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#deletingProfilesRemovesPrivateRootsButLeavesPortableCustomCachesAttachable": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#disablingGloballyDefersLegacyMigrationAndForbidsMoves": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#genuineArtworkAndItsChecksumSurviveTheMove": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#globalDisableDuringCopyCannotCommitTheNewLocation": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#interruptedCopyKeepsOriginalBindingAndRemovesOnlyItsGeneratedPartialRoot": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#mergingWithReusableTargetAudioStillCopiesMissingGenuineArtwork": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#mismatchAndUnsupportedFormatNeverRewriteThePickedFolder": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#newProfilesDoNotInheritTheOldGlobalCustomLocation": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#newlyAddedProfileDoesNotNeedTheOldProfilesUnavailableUsb": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#oldSharedExternalLocationIsAdoptedIndividuallyAndMovingOnePreservesTheOther": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#processDeathJournalRollsBackAnUncommittedTargetAndFinishesCommittedCleanup": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#retainAndClearNeverDeleteThePortablePassportOrAnotherOwnersFiles": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#sameAccountProfilesHaveIndependentFilesAndCannotAttachEachOthersLiveRoot": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "PortableCacheTest#v1PrivateMigrationKeepsBothProfilesAndDoesNotResolveAudioAgain": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ProfileRestoreTest#detachDuringProfileReadPreservesIncomingCheckpointForNextProcess": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "ProfileRestoreTest#slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "RadioProtocolTest#stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SessionCommandDiagnosticsTest#failedDiagnosticObserverCannotSwallowPause": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SessionCommandDiagnosticsTest#failedMediaButtonObserverNeverConsumesTheEvent": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SessionCommandDiagnosticsTest#media3CommandsAreAttributedAndForegroundKeepsManualPause": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SessionCommandDiagnosticsTest#platformControllerPauseIsRecordedThroughTheLegacySession": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SessionCommandDiagnosticsTest#rawToggleIsRecordedBeforeBothResolvedActionsAndKeyUpDoesNotToggleAgain": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SessionCommandDiagnosticsTest#separatePauseAndPlayMediaKeysRetainTheirOriginalIdentity": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SessionRecoveryTest#existingActivityResumesMusicAfterServiceDiesInBackground": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "SessionRecoveryTest#musicPausedSurvivesOrdinaryExit": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "SessionRecoveryTest#musicPlayingSurvivesOrdinaryExit": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "SessionRecoveryTest#musicResumesAfterServiceDestructionWithoutProcessDeath": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "SkinPackageTest#bundledThemesAreActualValidExternalPackages": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SkinPackageTest#compressedOversizeAndBadVectorAreRejected": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SkinPackageTest#importPreviewApplyRestartCorruptionAndRemovalAreIsolated": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SkinPackageTest#incompatibleUnknownAndMalformedFieldsAreRejected": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SkinPackageTest#partialPaletteAndVectorInheritOtherRoles": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SkinPackageTest#unsafeArchivePathsUnusedFilesAndDuplicatesAreRejected": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "SystemBrowserTest#media3BrowserPublishesOnlyLegacySourcesAndRejectsInjectedMedia": {
+          "status": "pass",
+          "receipt": "api23-local-final.json"
+        },
+        "SystemBrowserTest#mediaButtonRestartsStoppedServiceAndResumesSavedLocalTrack": {
+          "status": "pass",
+          "receipt": "api23-local-final.json"
+        },
+        "SystemBrowserTest#notificationDismissalStopsPlaybackRemovesCardAndAllowsNextPlay": {
+          "status": "pass",
+          "receipt": "api23-local-final.json"
+        },
+        "SystemBrowserTest#platformBrowserCanBrowseSameRootWithoutStartingPlayback": {
+          "status": "fail",
+          "receipt": "api23-local-final.json"
+        },
+        "SystemBrowserTest#selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue": {
+          "status": "pass",
+          "receipt": "api23-local-final.json"
+        },
+        "SystemBrowserTest#tvCardHasExplicitOpenAndStopIntents": {
+          "status": "skip",
+          "reason": "TvExtender starts at API26; annotated minSdk26 in the current test."
+        },
+        "SystemBrowserTest#tvDismissalStopsRadioAndDoesNotRestartItsRetryOrOnAirPolling": {
+          "status": "skip",
+          "reason": "TvExtender starts at API26; annotated minSdk26 in the current test."
+        },
+        "UpdateLifecycleTest#checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "UserProfilesStorageTest#createdUsersRestoreTheirOwnEncryptedSessionsAndRenamingDoesNotRequireSignIn": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "UserProfilesStorageTest#damagedUserListIsPreservedAndCannotBeOverwrittenByEditing": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "UserProfilesStorageTest#freshInstallHasOnlyTheProtectedLocalUserAndYandexUsersSurviveReload": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "UserProfilesStorageTest#languageThemeAndScaleBelongToTheSelectedUserIncludingLegacyDefaults": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "UserProfilesStorageTest#oldSlotsAndEncryptedAccountsKeepTheirIdentityAfterMigrationAndRename": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "UserProfilesStorageTest#schemaOneMigrationIsIdempotentAndPreservesIdsAliasesAndCheckpoints": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "UserProfilesStorageTest#selectingAnotherUserRestoresTheirSkinWithoutChangingTheFirstUser": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#actualMedia3NoisyReasonAfterStopPreservesStopped": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#backgroundBlockedListsKeepPausedWindowButNewLocalDislikeCanSkip": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#delayedConnectionRetryCannotOverrideNewPause": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#delayedConnectionRetryCannotOverrideNewStop": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#fullRestoredWindowContinuesFromSavedTailCursor": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#missingMiddleFileCannotJumpToLaterCachedTrackOrLoseBack": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#systemStopAfterExplicitStopCannotUndoItsMarker": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#systemStopRetainsPlayingWavePositionAndCompleteAudio": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#transientNetworkErrorKeepsCurrentTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#transientServerErrorKeepsCurrentTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveAuditRegressionTest#visiblePlayAfterFailedEndStartsOnFirstPress": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#anotherAccountCannotInheritSavedWaveWindow": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#cachedWaveResumesWhileLocalLibraryIsStillScanning": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#completePausedWindowRestoresOnNewAdapterWithServerUnavailable": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#completePlayingWindowRestoresOnNewAdapterWithServerUnavailable": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#delayedAccountRestorePreservesOnlineListTrackPositionAndPlay": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#delayedAccountRestorePreservesWaveTrackPositionAndPlay": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#expiredSavedTokenKeepsPausedTrackPositionAndAllAudio": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#failedAccountStorageCannotErasePausedWaveCheckpoint": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#failedAccountStorageCannotErasePlayingWaveCheckpoint": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#failedPausedWavePreparationCannotSkipTheSavedTrack": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#legacyGlobalFeedbackSessionMigratesWithoutReplacingCachedQueue": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#legacyPausedCheckpointKeepsTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#legacyStoppedCheckpointRemainsStopped": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#metadataOnlyColdRestoreDoesNotRequestPlay": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#noisyPauseRestoresWaveAsPausedAtTheSamePosition": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#pauseAfterLaunchRequestWinsOverMetadataRefresh": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#pauseAfterTouchPlayWhileAccountLoadsStillWins": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#pauseWhileAccountLoadsCancelsLatePlay": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#perItemFeedbackSessionsSurviveColdQueueRestore": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#readyAccountBeforeDelayedLibraryPreservesWavePause": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#readyAccountBeforeDelayedLibraryPreservesWavePlay": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#readyAccountBeforeDelayedLibraryPreservesWaveStop": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#savedOnlineListPauseRemainsPaused": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#savedOnlineListStopRemainsStopped": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#savedWavePausePreservesTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#savedWaveStopRemainsStoppedAtZero": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#stopWhileAccountLoadsCancelsLatePlay": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveColdRestoreTest#touchPlayWhilePausedAccountLoadsIsExecutedWhenReady": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#allTenEntriesContainRealAudioAndAdvancingReplenishesWithoutGrowingStorage": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#changedQualityDiscardsInflightTailButKeepsAlreadyPreparedAudio": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#durableStopCannotResurrectAnOlderPreparedQueueCheckpoint": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#missingAndTruncatedFutureFilesAreRepairedWithoutReplacingTheSavedQueue": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#ordinaryLongPlaylistRetainsItsTracksWithoutDownloadingTheWholeList": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#pausedFullWindowSurvivesRestartWithoutReplacingQueueOrDownloadingAgain": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#rapidNextRetainsPreviousAudioDownloadAndPreviousUsesItsCompleteFile": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#realStorageWriteFailureKeepsPlayingAndWaitsForExplicitRetry": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#restartRetainsAllTenCandidatesAndTheirCompleteFiles": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#slowTailCannotDelayStartOrPreparedNextAndEarlyNextWaitsForOneExistingDownload": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#sourceChangeCancelsTailAndCannotPublishItsLateFile": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveQueuePrefetchTest#zeroPositionPauseKeepsTheWholePreparedWindowAcrossRestart": {
+          "status": "pass",
+          "receipt": "api23-final.json"
+        },
+        "WaveSettingsAdapterTest#authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#customRecoveryRetainsAllSettingsAndNeverUsesLegacy": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#customSeedsContinuationAndFeedbackStayOnChosenActivity": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#echoedWholeBatchAdvancesItsLastCursorWithoutStartingANewSession": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#emptyCustomRecoveryKeepsCursorForTheNextAttempt": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#failedCustomSessionDoesNotFallBackToUnfilteredWave": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#failedLegacyAfterEmptyModernReplyIsNotRequestedTwice": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#modernFeedbackUsesTheIssuingSessionAndJsonEvents": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#objectSessionAndLegacyFallbackNeverReplaceTheRequestedSeed": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#repeatedTenTrackSessionUsesLegacyRecoveryWithOriginalStationAndCursor": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#stationFallbackFeedbackUsesJsonAndIncludesDislikeDuration": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor": {
+          "status": "pass",
+          "receipt": "api23-fixes4.json"
+        }
+      }
+    },
+    "api35": {
+      "counts": {
+        "pass": 214
+      },
+      "knownFailure": null,
+      "methods": {
+        "ClipStartupTest#explicitOpenPlaysPausedCheckpointButAutomaticRestoreKeepsPause": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipStartupTest#firstSurfaceAndReattachedSurfaceKeepVideoProportionsWithoutRotation": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipStartupTest#pendingAutoplayShowsPauseAndOnePlayResumesPausedClip": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipTouchControlsTest#dpadFocusAndCenterStillControlPlaybackAndNavigationAfterTouchMode": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipTouchControlsTest#eachTouchToRemoteHandoffConsumesEnterAndHeldOkWithoutStartingVideo": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipTouchControlsTest#firstTouchAfterSwitchingBetweenNextAndPreviousChangesClipOnce": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipTouchControlsTest#firstTouchOnRetryExecutesConnectionActionExactlyOnce": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipTouchControlsTest#firstTouchOnUnfocusedBackClosesTheRealClipActivity": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipTouchControlsTest#firstTouchOnUnfocusedPlayAndPauseExecutesImmediately": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ClipTouchControlsTest#videoTouchHidesAndRevealsControlsWithoutEatingTheNextPause": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "EngineHandoffTest#coldInterfacePlaySurvivesEngineReplacement": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "EngineHandoffTest#coldInterfacePlayWaitsForSavedMetadata": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "EngineHandoffTest#emptyOfflineCheckpointStillAttachesAConnectedEngine": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "EngineHandoffTest#metadataOnlyAttachKeepsSavedPlaySilent": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "EngineHandoffTest#newerPauseCancelsColdInterfacePlay": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "EngineHandoffTest#newerPauseCancelsThePendingForegroundPlay": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "EngineHandoffTest#pendingForegroundPlaySurvivesAnotherEngineReplacement": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "FileTransferTest#albumAndPlaylistExportFetchEveryPage": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#anExportDialogFromThePreviousAccountCannotStartAfterSignOut": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#blockedSyncResolutionDoesNotBlockAnAlreadyCachedTrack": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#controllerUsesTheSelectedProfilesOwnFolder": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#disabledGlobalCacheRejectsFolderChangesAndRetainsTheConfiguredPath": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#exportCancellationRetainsReadyMp3AndRemovesTemporaryFiles": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#exportDialogAndHelpFollowAllEightLanguagesWithoutTranslatingTrackNames": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#exportQualityHasExplicitChoicesAndPersistsWithoutChangingPlayback": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#insufficientCapacityAndProviderFailureKeepOriginalCache": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#interruptedCopyAndRestartRecoveryPreserveSourceAndRemovePartialFolder": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#movePreservesBytesAndCatalogAndOfflinePlaybackThenReturnsInternal": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#movingALikedCachePreservesThePausedWaveQueueAndItsNextTrack": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#newExportCleansInterruptedPartsButKeepsPublishedFilesWithStableDocumentIds": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#offlineWavExportsRealMp3WithoutNetworkAndNeverOverwritesCollision": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#remoteSourceIsDownloadedToDestinationWithTheWorkingMusicUserAgent": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#selectingExistingCacheAsksForConfirmationAndGlobalDisableCancelsTheSelection": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "FileTransferTest#templateHelpPreviewValidationAndPersistence": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LaunchResumeIntentTest#emptyEngineCannotErasePausedWaveTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitInterfacePolicyContinuesThePreparedWaveInsteadOfStartingAnotherQueue": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitLogoutMustCancelSavedWavePlay": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitPauseAfterNetworkFailureRemainsPausedAfterEngineRestart": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitPausePendingSlowMetadataClearsDurableIntent": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#explicitStopPendingSlowMetadataClearsDurableIntent": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#failedNetworkPreparationRetainsPlayForNextForegroundLaunch": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#foregroundRepairCannotOverrideExplicitStop": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#launchPlayPendingSlowMetadataRetainsDurableIntent": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#media3TaskCleanupMustNotReplaceSavedPlayWithPause": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#metadataOnlyEngineRestartPreservesManualPauseAndPosition": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#metadataOnlyEngineRestartPreservesSavedPlayAndPosition": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#metadataOnlyWavePreparationFailureAfterSeekCannotSkipSavedTrack": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#metadataOnlyWaveReconnectAndPositionUpdateMustNotEraseSavedPlay": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#pauseAfterForegroundRepairRequestCancelsThePendingPlay": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#returningFromRadioPersistsMusicOwnershipAndPlayBeforeRestart": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LaunchResumeIntentTest#staleLaunchQueuedBeforeEngineRestartCannotEraseNewPlay": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "LocalPlaybackTest#indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot": {
+          "status": "pass",
+          "receipt": "api35-local-confirmed.json"
+        },
+        "LocalPlaybackTest#manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo": {
+          "status": "pass",
+          "receipt": "api35-local-confirmed.json"
+        },
+        "LocalPlaybackTest#nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack": {
+          "status": "pass",
+          "receipt": "api35-local-tail.json"
+        },
+        "LocalPlaybackTest#profileCheckpointsAndServiceRestartStayPaused": {
+          "status": "pass",
+          "receipt": "api35-local-confirmed.json"
+        },
+        "LocalPlaybackTest#refreshRequestedDuringOldScanRechecksNewlyAvailableStorage": {
+          "status": "pass",
+          "receipt": "api35-local-confirmed.json"
+        },
+        "LocalPlaybackTest#transientExternalAudioFocusPausesAndRestoresPlayback": {
+          "status": "pass",
+          "receipt": "api35-local-confirmed.json"
+        },
+        "LocalizationTest#allPacksHandlePluralsAndCachedMessagesWithoutTranslatingArguments": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LocalizationTest#choicePersistsAndAutoFollowsSupportedSystemLanguagesWithEnglishFallback": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LocalizationTest#liveAudioProfileAndSettingsSurviveLanguageSwitch": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LocalizationTest#longTranslatedCacheSettingsRemainReachable": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LocalizationTest#nativeClipLabelsSwitchWithoutChangingTitlesOrController": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LocalizationTest#nestedUpdateErrorsTranslateInEveryDirectionWithoutChangingHostNames": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LocalizationTest#remoteReachesLastLanguageAndLeavesSelectedRowVertically": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LocalizationTest#remoteSelectsLanguageAndAppMessagesKeepUserArgumentsIntact": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "LocalizationTest#switchUpdatesCurrentScreenAndKeepsOfflineSeparation": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "Mp3ExportQualityTest#eachSelectedBitrateIsWrittenToRealMp3IncludingMp3SourceReencoding": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#anotherProfileCannotOverwriteTheOwnersOfflineBookmark": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#anotherProfileStartsItsOwnWaveInsteadOfResumingTheOwnersBookmark": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#changedSettingsDoNotReviveTheParkedOldWave": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#explicitWaveStopCannotResurrectAParkedWindowViaOffline": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#localListCanReplaceAPlayingOfflineQueue": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#localListCanReplaceAnEmptyOfflineQueue": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#myWaveBookmarkSurvivesRestartWhileOfflineIsSelected": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#offlineBookmarkSurvivesAnEngineRestartWhileWaveIsSelected": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#pausedOfflineProcessRestorePreservesPositionAndModeWithoutAutoplay": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#removingBookmarkedCachedTrackFallsBackToAnExistingTrack": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#returningFromALocalListRestoresMyWaveWithoutRequestingANewSession": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#returningFromRadioPreservesMyWavePositionAndPreparedFiles": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndRepeatList": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndRepeatOne": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#returningFromWaveRestoresOfflineTrackPositionAndShuffle": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "OfflineSourceStateTest#stoppingOfflineDoesNotEraseTheParkedMyWave": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PlaybackStartPolicyTest#aNewPauseCancelsAnOlderInterfacePlayRequest": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#autoKeepsWarmManualPause": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#coldEntryPoliciesRespectSavedPlayOrPause": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#offDoesNotInterruptMusicAlreadyPlayingInBackground": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#offWithEmptyQueueRemainsStopped": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#onDoesNotUndoManualPauseOnConfigurationRecreation": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#onResumesWarmPauseAtSameTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "PlaybackStartPolicyTest#profilePreferencesPersistIndependentlyAndMissingProfilesDefaultToAuto": {
+          "status": "pass",
+          "receipt": "api35-interface-final.json"
+        },
+        "PortableCacheTest#aMovePreservesUnrelatedFilesInTheFormerCustomCacheDirectory": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#copiedLegacyImportUsesOnlyConfirmedLikesAndPreservesUnknownOriginalFiles": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#copiedPortableCacheAttachesToAnotherInstallationAndNewProfileWithoutNetwork": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#deletingProfilesRemovesPrivateRootsButLeavesPortableCustomCachesAttachable": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#disablingGloballyDefersLegacyMigrationAndForbidsMoves": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#genuineArtworkAndItsChecksumSurviveTheMove": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#globalDisableDuringCopyCannotCommitTheNewLocation": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#interruptedCopyKeepsOriginalBindingAndRemovesOnlyItsGeneratedPartialRoot": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#mergingWithReusableTargetAudioStillCopiesMissingGenuineArtwork": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#mismatchAndUnsupportedFormatNeverRewriteThePickedFolder": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#newProfilesDoNotInheritTheOldGlobalCustomLocation": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#newlyAddedProfileDoesNotNeedTheOldProfilesUnavailableUsb": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#oldSharedExternalLocationIsAdoptedIndividuallyAndMovingOnePreservesTheOther": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#processDeathJournalRollsBackAnUncommittedTargetAndFinishesCommittedCleanup": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#retainAndClearNeverDeleteThePortablePassportOrAnotherOwnersFiles": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#sameAccountProfilesHaveIndependentFilesAndCannotAttachEachOthersLiveRoot": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "PortableCacheTest#v1PrivateMigrationKeepsBothProfilesAndDoesNotResolveAudioAgain": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ProfileRestoreTest#detachDuringProfileReadPreservesIncomingCheckpointForNextProcess": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "ProfileRestoreTest#slowProfileReadNeverPublishesOutgoingTrackIntoIncomingProfile": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "RadioProtocolTest#stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SessionCommandDiagnosticsTest#failedDiagnosticObserverCannotSwallowPause": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SessionCommandDiagnosticsTest#failedMediaButtonObserverNeverConsumesTheEvent": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SessionCommandDiagnosticsTest#media3CommandsAreAttributedAndForegroundKeepsManualPause": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SessionCommandDiagnosticsTest#platformControllerPauseIsRecordedThroughTheLegacySession": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SessionCommandDiagnosticsTest#rawToggleIsRecordedBeforeBothResolvedActionsAndKeyUpDoesNotToggleAgain": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SessionCommandDiagnosticsTest#separatePauseAndPlayMediaKeysRetainTheirOriginalIdentity": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SessionRecoveryTest#existingActivityResumesMusicAfterServiceDiesInBackground": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "SessionRecoveryTest#musicPausedSurvivesOrdinaryExit": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "SessionRecoveryTest#musicPlayingSurvivesOrdinaryExit": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "SessionRecoveryTest#musicResumesAfterServiceDestructionWithoutProcessDeath": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "SkinPackageTest#bundledThemesAreActualValidExternalPackages": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SkinPackageTest#compressedOversizeAndBadVectorAreRejected": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SkinPackageTest#importPreviewApplyRestartCorruptionAndRemovalAreIsolated": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SkinPackageTest#incompatibleUnknownAndMalformedFieldsAreRejected": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SkinPackageTest#partialPaletteAndVectorInheritOtherRoles": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SkinPackageTest#unsafeArchivePathsUnusedFilesAndDuplicatesAreRejected": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "SystemBrowserTest#media3BrowserPublishesOnlyLegacySourcesAndRejectsInjectedMedia": {
+          "status": "pass",
+          "receipt": "api35-local-final.json"
+        },
+        "SystemBrowserTest#mediaButtonRestartsStoppedServiceAndResumesSavedLocalTrack": {
+          "status": "pass",
+          "receipt": "api35-local-final.json"
+        },
+        "SystemBrowserTest#notificationDismissalStopsPlaybackRemovesCardAndAllowsNextPlay": {
+          "status": "pass",
+          "receipt": "api35-local-final.json"
+        },
+        "SystemBrowserTest#platformBrowserCanBrowseSameRootWithoutStartingPlayback": {
+          "status": "pass",
+          "receipt": "api35-local-final.json"
+        },
+        "SystemBrowserTest#selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue": {
+          "status": "pass",
+          "receipt": "api35-local-final.json"
+        },
+        "SystemBrowserTest#tvCardHasExplicitOpenAndStopIntents": {
+          "status": "pass",
+          "receipt": "api35-local-final.json"
+        },
+        "SystemBrowserTest#tvDismissalStopsRadioAndDoesNotRestartItsRetryOrOnAirPolling": {
+          "status": "pass",
+          "receipt": "api35-local-final.json"
+        },
+        "UpdateLifecycleTest#checkingAndDownloadingSurviveActivityRecreationWithoutDuplicateRequests": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "UserProfilesStorageTest#createdUsersRestoreTheirOwnEncryptedSessionsAndRenamingDoesNotRequireSignIn": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "UserProfilesStorageTest#damagedUserListIsPreservedAndCannotBeOverwrittenByEditing": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "UserProfilesStorageTest#freshInstallHasOnlyTheProtectedLocalUserAndYandexUsersSurviveReload": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "UserProfilesStorageTest#languageThemeAndScaleBelongToTheSelectedUserIncludingLegacyDefaults": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "UserProfilesStorageTest#oldSlotsAndEncryptedAccountsKeepTheirIdentityAfterMigrationAndRename": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "UserProfilesStorageTest#schemaOneMigrationIsIdempotentAndPreservesIdsAliasesAndCheckpoints": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "UserProfilesStorageTest#selectingAnotherUserRestoresTheirSkinWithoutChangingTheFirstUser": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#actualMedia3NoisyReasonAfterStopPreservesStopped": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#backgroundBlockedListsKeepPausedWindowButNewLocalDislikeCanSkip": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#delayedConnectionRetryCannotOverrideNewPause": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#delayedConnectionRetryCannotOverrideNewStop": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#fullRestoredWindowContinuesFromSavedTailCursor": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#missingMiddleFileCannotJumpToLaterCachedTrackOrLoseBack": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#systemStopAfterExplicitStopCannotUndoItsMarker": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#systemStopRetainsPlayingWavePositionAndCompleteAudio": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#transientNetworkErrorKeepsCurrentTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#transientServerErrorKeepsCurrentTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveAuditRegressionTest#visiblePlayAfterFailedEndStartsOnFirstPress": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#anotherAccountCannotInheritSavedWaveWindow": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#cachedWaveResumesWhileLocalLibraryIsStillScanning": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#completePausedWindowRestoresOnNewAdapterWithServerUnavailable": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#completePlayingWindowRestoresOnNewAdapterWithServerUnavailable": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#delayedAccountRestorePreservesOnlineListTrackPositionAndPlay": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#delayedAccountRestorePreservesWaveTrackPositionAndPlay": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#expiredSavedTokenKeepsPausedTrackPositionAndAllAudio": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#failedAccountStorageCannotErasePausedWaveCheckpoint": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#failedAccountStorageCannotErasePlayingWaveCheckpoint": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#failedPausedWavePreparationCannotSkipTheSavedTrack": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#legacyGlobalFeedbackSessionMigratesWithoutReplacingCachedQueue": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#legacyPausedCheckpointKeepsTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#legacyStoppedCheckpointRemainsStopped": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#metadataOnlyColdRestoreDoesNotRequestPlay": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#noisyAfterTouchPlayWhileAccountLoadsKeepsPreparedPause": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#noisyPauseRestoresWaveAsPausedAtTheSamePosition": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#pauseAfterLaunchRequestWinsOverMetadataRefresh": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#pauseAfterTouchPlayWhileAccountLoadsStillWins": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#pauseWhileAccountLoadsCancelsLatePlay": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#perItemFeedbackSessionsSurviveColdQueueRestore": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#readyAccountBeforeDelayedLibraryPreservesWavePause": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#readyAccountBeforeDelayedLibraryPreservesWavePlay": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#readyAccountBeforeDelayedLibraryPreservesWaveStop": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#savedOnlineListPauseRemainsPaused": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#savedOnlineListStopRemainsStopped": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#savedWavePausePreservesTrackAndPosition": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#savedWaveStopRemainsStoppedAtZero": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#stopWhileAccountLoadsCancelsLatePlay": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveColdRestoreTest#touchPlayWhilePausedAccountLoadsIsExecutedWhenReady": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#allTenEntriesContainRealAudioAndAdvancingReplenishesWithoutGrowingStorage": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#applyingNewSettingsImmediatelyStartsNewWaveAndDiscardsLateOldTail": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#changedQualityDiscardsInflightTailButKeepsAlreadyPreparedAudio": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#durableStopCannotResurrectAnOlderPreparedQueueCheckpoint": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#explicitStopClearsTheWholeWaveWindowAndNextPlayStartsANewSession": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#missingAndTruncatedFutureFilesAreRepairedWithoutReplacingTheSavedQueue": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#ordinaryLongPlaylistRetainsItsTracksWithoutDownloadingTheWholeList": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#pausedFullWindowSurvivesRestartWithoutReplacingQueueOrDownloadingAgain": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#rapidNextRetainsPreviousAudioDownloadAndPreviousUsesItsCompleteFile": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#realStorageWriteFailureKeepsPlayingAndWaitsForExplicitRetry": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#restartRetainsAllTenCandidatesAndTheirCompleteFiles": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#restartingWaveDoesNotTreatItsUnplayedCachedTailAsHeard": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#slowTailCannotDelayStartOrPreparedNextAndEarlyNextWaitsForOneExistingDownload": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#sourceChangeCancelsTailAndCannotPublishItsLateFile": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveQueuePrefetchTest#zeroPositionPauseKeepsTheWholePreparedWindowAcrossRestart": {
+          "status": "pass",
+          "receipt": "api35-final.json"
+        },
+        "WaveSettingsAdapterTest#authenticationFailureDuringLegacyRecoveryNeverFallsBackOrResetsTheWave": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#customRecoveryRetainsAllSettingsAndNeverUsesLegacy": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#customSeedsContinuationAndFeedbackStayOnChosenActivity": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#echoedWholeBatchAdvancesItsLastCursorWithoutStartingANewSession": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#emptyCustomRecoveryKeepsCursorForTheNextAttempt": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#failedCustomSessionDoesNotFallBackToUnfilteredWave": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#failedLegacyAfterEmptyModernReplyIsNotRequestedTwice": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#modernFeedbackUsesTheIssuingSessionAndJsonEvents": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#objectSessionAndLegacyFallbackNeverReplaceTheRequestedSeed": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#realPublicSettingsShapeKeepsRegionalLabelsAndNeverUsesDefaultUserId": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#repeatedTenTrackSessionUsesLegacyRecoveryWithOriginalStationAndCursor": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#stationFallbackFeedbackUsesJsonAndIncludesDislikeDuration": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#stuckLegacyRecoveryUsesLatestDrainedCursorAndPreservesEveryObjectSeed": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#temporarySessionFailureThenThreeLegacyTracksRecoversWithoutReplayingHistory": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        },
+        "WaveSettingsAdapterTest#unavailableModernRecoveryFallsBackToSameLegacyStationAndCursor": {
+          "status": "pass",
+          "receipt": "api35-fixes4.json"
+        }
+      }
+    }
+  }
+}

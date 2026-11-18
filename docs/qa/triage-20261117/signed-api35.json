@@ -1,0 +1,88 @@
+{
+  "recordedAtUtc": "2026-11-18T03:10:03.487013+00:00",
+  "avd": "YM2_Compat_API35",
+  "api": 35,
+  "version": "2.8.3-build150",
+  "apkSha256": "0149eb9093d5889696caa10174e1d3a5979002e86a9fad19adcedfb0fc22a53d",
+  "method": "Signed R8 APK; root-seeded local WAV/checkpoints in own QA emulator, actual process stops/restarts. No OAuth/network fixture.",
+  "coldCases": [
+    {
+      "mode": "AUTO",
+      "savedPlaying": true,
+      "expectedPlaying": true,
+      "state": 3,
+      "positionMillis": 15029,
+      "newProcess": true
+    },
+    {
+      "mode": "AUTO",
+      "savedPlaying": false,
+      "expectedPlaying": false,
+      "state": 2,
+      "positionMillis": 15000,
+      "newProcess": true
+    },
+    {
+      "mode": "OFF",
+      "savedPlaying": true,
+      "expectedPlaying": false,
+      "state": 2,
+      "positionMillis": 15000,
+      "newProcess": true
+    },
+    {
+      "mode": "ON",
+      "savedPlaying": false,
+      "expectedPlaying": true,
+      "state": 3,
+      "positionMillis": 15020,
+      "newProcess": true
+    }
+  ],
+  "seedGuards": [
+    {
+      "mode": "default",
+      "noProcessBeforeEnable": true
+    },
+    {
+      "mode": "AUTO",
+      "noProcessBeforeEnable": true
+    },
+    {
+      "mode": "AUTO",
+      "noProcessBeforeEnable": true
+    },
+    {
+      "mode": "OFF",
+      "noProcessBeforeEnable": true
+    },
+    {
+      "mode": "ON",
+      "noProcessBeforeEnable": true
+    }
+  ],
+  "oldPlayback": {
+    "state": 3,
+    "positionMillis": 15000
+  },
+  "upgrade": {
+    "before": {
+      "uid": "10214",
+      "firstInstallTime": "2026-11-18 03:10:05",
+      "version": "2.8.2-build148"
+    },
+    "after": {
+      "uid": "10214",
+      "firstInstallTime": "2026-11-18 03:10:05",
+      "version": "2.8.3-build150"
+    },
+    "sameUid": true,
+    "sameFirstInstallTime": true,
+    "privateMarkerPreserved": true,
+    "audioPreserved": true
+  },
+  "defaultAutoRestoresOldPlay": true,
+  "signedProfileUiPersistsOff": true,
+  "allPassed": true,
+  "networkRestored": true
+}

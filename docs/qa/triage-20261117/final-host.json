@@ -1,5 +1,5 @@
 {
-  "checkedAtUtc": "2026-11-18T02:15:20.699223+00:00",
+  "checkedAtUtc": "2026-11-18T03:07:47.537794+00:00",
   "jvm": [
     {
       "module": "core",
@@ -27,5 +27,7 @@
     "Warning": 138
   },
   "translations": "Validated 783 messages, 8 complete language packs; generated files current.",
-  "nativeSource": "api23-final.json and api35-final.json; initial critical cases in fixes4"
+  "nativeSource": "api23-final.json and api35-final.json; initial critical cases in fixes4",
+  "productSourceCommit": "91bcb50f5d694f37c81074cce52a4eef6d56b9f4",
+  "log": "final150-host.log"
 }
