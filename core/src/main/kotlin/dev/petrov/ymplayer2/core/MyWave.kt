@@ -2,7 +2,7 @@ package dev.petrov.ymplayer2.core
 
 import kotlinx.coroutines.CancellationException
 
-data class WaveTrack(val track: Track, val batchId: String, val station: String = "user:onyourwave")
+data class WaveTrack(val track: Track, val batchId: String, val station: String = "user:onyourwave", val sessionId: String = "")
 data class WaveBatch(val tracks: List<WaveTrack>, val sessionId: String = "", val cursor: String = "", val request: WaveRequest = WaveRequest())
 enum class WaveFeedback(val wire: String) { RADIO_STARTED("radioStarted"), STARTED("trackStarted"), FINISHED("trackFinished"), SKIP("skip"), DISLIKE("dislike") }
 interface MyWaveApi {

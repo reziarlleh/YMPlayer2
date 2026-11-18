@@ -1,0 +1,17 @@
+{
+  "checkedAtUtc": "2026-11-18T03:04:17.770291+00:00",
+  "serial": "emulator-5558",
+  "avd": "YM2_Compat_API35",
+  "phase": "local-tail",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "LocalPlaybackTest#nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack",
+      "passed": true,
+      "tests": 1,
+      "seconds": 31.16
+    }
+  ],
+  "complete": true,
+  "allPassed": true
+}

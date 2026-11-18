@@ -64,12 +64,14 @@ class WaveColdRestoreTest {
     @Test fun expiredSavedTokenKeepsPlayingIntentWithoutSkippingOrErasingQueue() = coldRestore(fullQueue = true, expiredToken = true)
     @Test fun cachedWaveResumesWhileLocalLibraryIsStillScanning() = coldRestore(fullQueue = true, accountFirst = true, holdLibraryUntilResumed = true)
     @Test fun anotherAccountCannotInheritSavedWaveWindow() = coldRestore(fullQueue = true, otherAccount = true)
+    @Test fun perItemFeedbackSessionsSurviveColdQueueRestore() = coldRestore(savedTransport = "pause", fullQueue = true, feedbackSessions = "per-item")
+    @Test fun legacyGlobalFeedbackSessionMigratesWithoutReplacingCachedQueue() = coldRestore(savedTransport = "pause", fullQueue = true, feedbackSessions = "legacy")
 
     private fun coldRestore(savedTransport: String = "play", duringAccount: String? = null,
         pauseAfterResume: Boolean = false, wave: Boolean = true, requestLaunch: Boolean = true,
         legacy: Boolean = false, unavailablePaused: Boolean = false, accountFirst: Boolean = false,
         accountUnavailable: Boolean = false, fullQueue: Boolean = false, expiredToken: Boolean = false,
-        holdLibraryUntilResumed: Boolean = false, otherAccount: Boolean = false) {
+        holdLibraryUntilResumed: Boolean = false, otherAccount: Boolean = false, feedbackSessions: String? = null) {
         if (wave) compose.runOnIdle { f.player.playMyWave() }
         else {
             compose.runOnIdle { f.online.search("fixture", MusicKind.TRACKS, false) }
@@ -80,6 +82,8 @@ class WaveColdRestoreTest {
         if (fullQueue) waitFor("All ten complete files") { f.player.state.value.queue.size == 10 &&
             !f.player.state.value.waveLoading && f.player.bufferedWaveAudioIds().size == 10 }
         val preparedIds = f.player.state.value.queue.map(Track::id)
+        val expectedSessions = preparedIds.mapIndexed { index, id -> id to
+            if (feedbackSessions == "legacy") "legacy-shared-session" else "issuing-session-$index" }.toMap()
         val requests = f.waveRequests.size
         val streams = f.resolved.size
         var expectedId: String? = null
@@ -115,6 +119,15 @@ class WaveColdRestoreTest {
                 f.waveFailure = MusicFailure.NETWORK; f.streamFailure = MusicFailure.NETWORK
             }
             f.closeEngineForColdRestore()
+            if (feedbackSessions != null) {
+                val prefs = f.context.getSharedPreferences("playback", 0)
+                val checkpoint = org.json.JSONObject(prefs.getString("queue:owner", "{}")!!)
+                checkpoint.put("waveSession", if (feedbackSessions == "legacy") "legacy-shared-session" else "newer-tail-session")
+                if (feedbackSessions == "legacy") checkpoint.remove("waveSessions")
+                else checkpoint.put("waveSessions", org.json.JSONObject(expectedSessions))
+                prefs.edit().putString("queue:owner", checkpoint.toString()).commit()
+                f.waveFeedback.clear()
+            }
             if (legacy) f.context.getSharedPreferences("launch-state", 0).edit().remove("stopped:owner").commit()
         }
 
@@ -247,6 +260,20 @@ class WaveColdRestoreTest {
             }
             assertEquals(wave, restored.state.value.wave)
             if (wave) assertEquals(PlaybackSource.MY_WAVE, restored.state.value.origin.source)
+            if (feedbackSessions != null) {
+                val first = requireNotNull(expectedId)
+                compose.runOnIdle { restored.toggle() }
+                waitFor("Restored current item sent its own session feedback") {
+                    f.waveFeedback.any { it.second.track.id == first && it.third == WaveFeedback.STARTED }
+                }
+                assertEquals(expectedSessions[first], f.waveFeedback.last { it.second.track.id == first && it.third == WaveFeedback.STARTED }.second.sessionId)
+                val next = preparedIds[preparedIds.indexOf(first) + 1]
+                compose.runOnIdle { restored.skip(1) }
+                waitFor("Restored successor retained its independent feedback session") {
+                    f.waveFeedback.any { it.second.track.id == next && it.third == WaveFeedback.STARTED }
+                }
+                assertEquals(expectedSessions[next], f.waveFeedback.last { it.second.track.id == next && it.third == WaveFeedback.STARTED }.second.sessionId)
+            }
         } finally {
             accountGate.complete(Unit)
             compose.runOnIdle {

@@ -1,0 +1,47 @@
+{
+  "checkedAtUtc": "2026-11-18T03:02:18.038686+00:00",
+  "serial": "emulator-5554",
+  "avd": "YM2_API23",
+  "phase": "local-confirmed",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "LocalPlaybackTest#indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot",
+      "passed": true,
+      "tests": 1,
+      "seconds": 6.94
+    },
+    {
+      "test": "LocalPlaybackTest#manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo",
+      "passed": true,
+      "tests": 1,
+      "seconds": 7.05
+    },
+    {
+      "test": "LocalPlaybackTest#profileCheckpointsAndServiceRestartStayPaused",
+      "passed": true,
+      "tests": 1,
+      "seconds": 6.3
+    },
+    {
+      "test": "LocalPlaybackTest#refreshRequestedDuringOldScanRechecksNewlyAvailableStorage",
+      "passed": true,
+      "tests": 1,
+      "seconds": 5.05
+    },
+    {
+      "test": "LocalPlaybackTest#transientExternalAudioFocusPausesAndRestoresPlayback",
+      "passed": true,
+      "tests": 1,
+      "seconds": 6.45
+    },
+    {
+      "test": "LocalPlaybackTest#nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack",
+      "passed": true,
+      "tests": 1,
+      "seconds": 11.97
+    }
+  ],
+  "complete": true,
+  "allPassed": true
+}

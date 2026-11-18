@@ -1,0 +1,21 @@
+{
+  "basis": "Unchanged product source36b13f1 / stable148; before product fixes",
+  "jvm": [
+    {
+      "module": "core",
+      "tests": 186,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "module": "app",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "lint": {
+    "Warning": 138
+  },
+  "nativeSource": "api23-baseline.json and api35-baseline.json"
+}

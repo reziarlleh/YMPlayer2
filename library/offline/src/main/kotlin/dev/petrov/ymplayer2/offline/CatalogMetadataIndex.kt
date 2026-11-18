@@ -69,9 +69,6 @@ internal class CatalogMetadataIndex(context: Context) {
         }
     }
     fun clear(owner: OfflineOwner, location: String?) = synchronized(monitor) { file(owner, location).delete() }
-    fun clearLocation(location: String?) = synchronized(monitor) {
-        File(directory, hash(location.orEmpty())).listFiles()?.forEach { it.delete() }
-    }
     private fun write(file: AtomicFile, entries: Map<String, Entry>, allowed: () -> Boolean) {
         // A missing/unwritable index merely costs a metadata scan next time.
         runCatching {

@@ -1,0 +1,55 @@
+{
+  "checkedAtUtc": "2026-11-18T02:48:28.566811+00:00",
+  "serial": "emulator-5554",
+  "avd": "YM2_API23",
+  "phase": "local-final",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "LocalPlaybackTest#indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot",
+      "passed": false,
+      "tests": null,
+      "seconds": 21.28,
+      "failureExcerpt": "omposeTimeoutException: Condition still not satisfied after 15000 ms\r\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:48)\r\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:388)\r\r\n\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest\r\r\nINSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:48)\r\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:388)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=1\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 19.88\r\r\nThere was 1 failure:\r\r\n1) indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(dev.petrov.ymplayer2.LocalPlaybackTest)\r\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:48)\r\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:388)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 1,  Failures: 1\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    },
+    {
+      "test": "LocalPlaybackTest#manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo",
+      "passed": true,
+      "tests": 1,
+      "seconds": 6.72
+    },
+    {
+      "test": "LocalPlaybackTest#profileCheckpointsAndServiceRestartStayPaused",
+      "passed": true,
+      "tests": 1,
+      "seconds": 5.92
+    },
+    {
+      "test": "LocalPlaybackTest#refreshRequestedDuringOldScanRechecksNewlyAvailableStorage",
+      "passed": true,
+      "tests": 1,
+      "seconds": 4.55
+    },
+    {
+      "test": "LocalPlaybackTest#transientExternalAudioFocusPausesAndRestoresPlayback",
+      "passed": true,
+      "tests": 1,
+      "seconds": 7.33
+    },
+    {
+      "test": "LocalPlaybackTest#nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack",
+      "passed": true,
+      "tests": 1,
+      "seconds": 10.67
+    },
+    {
+      "test": "SystemBrowserTest",
+      "passed": false,
+      "tests": null,
+      "seconds": 73.84,
+      "failureExcerpt": "rtTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SystemBrowserTest.platformBrowserCanBrowseSameRootWithoutStartingPlayback(SystemBrowserTest.kt:181)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=3\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_STATUS: numtests=5\r\r\nINSTRUMENTATION_STATUS: stream=\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=notificationDismissalStopsPlaybackRemovesCardAndAllowsNextPlay\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SystemBrowserTest\r\r\nINSTRUMENTATION_STATUS: current=4\r\r\nINSTRUMENTATION_STATUS_CODE: 1\r\r\nINSTRUMENTATION_STATUS: numtests=5\r\r\nINSTRUMENTATION_STATUS: stream=.\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=notificationDismissalStopsPlaybackRemovesCardAndAllowsNextPlay\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SystemBrowserTest\r\r\nINSTRUMENTATION_STATUS: current=4\r\r\nINSTRUMENTATION_STATUS_CODE: 0\r\r\nINSTRUMENTATION_STATUS: numtests=5\r\r\nINSTRUMENTATION_STATUS: stream=\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=media3BrowserPublishesOnlyLegacySourcesAndRejectsInjectedMedia\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SystemBrowserTest\r\r\nINSTRUMENTATION_STATUS: current=5\r\r\nINSTRUMENTATION_STATUS_CODE: 1\r\r\nINSTRUMENTATION_STATUS: numtests=5\r\r\nINSTRUMENTATION_STATUS: stream=.\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=media3BrowserPublishesOnlyLegacySourcesAndRejectsInjectedMedia\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SystemBrowserTest\r\r\nINSTRUMENTATION_STATUS: current=5\r\r\nINSTRUMENTATION_STATUS_CODE: 0\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 72.525\r\r\nThere was 1 failure:\r\r\n1) platformBrowserCanBrowseSameRootWithoutStartingPlayback(dev.petrov.ymplayer2.SystemBrowserTest)\r\r\njava.lang.AssertionError: Platform browser did not receive expected children: null\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SystemBrowserTest.platformBrowserCanBrowseSameRootWithoutStartingPlayback(SystemBrowserTest.kt:181)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 5,  Failures: 1\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    }
+  ],
+  "complete": true,
+  "allPassed": false
+}

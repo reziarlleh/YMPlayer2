@@ -48,6 +48,23 @@ class OfflineSourceStateTest {
 
     @Test fun returningFromWaveRestoresOfflineTrackPositionAndShuffle() = roundTrip(shuffle = true)
     @Test fun returningFromWaveRestoresOfflineTrackPositionAndRepeatOne() = roundTrip(repeat = RepeatMode.ONE)
+    @Test fun localListCanReplaceAPlayingOfflineQueue() = offlineToLocal(empty = false)
+    @Test fun localListCanReplaceAnEmptyOfflineQueue() = offlineToLocal(empty = true)
+    private fun offlineToLocal(empty: Boolean) {
+        if (empty) {
+            compose.runOnIdle { h.offline.clear() }
+            waitFor { h.offline.state.value.ready && h.offline.state.value.tracks.isEmpty() }
+        }
+        compose.runOnIdle { player.playOffline() }
+        waitFor { player.state.value.origin.source == PlaybackSource.OFFLINE && player.state.value.pendingSource == null }
+        if (empty) assertTrue(player.state.value.queue.isEmpty()) else waitFor { player.state.value.playing }
+        val local = h.library.testTracks.first().id
+        compose.runOnIdle { player.playQueue(listOf(local)) }
+        waitFor { player.state.value.origin.source == PlaybackSource.LIST && player.state.value.current?.id == local && player.state.value.playing }
+        // Local SAF audio is also offline-capable; source, not this flag,
+        // distinguishes it from the outgoing Yandex cache.
+        assertEquals(Source.LOCAL, player.state.value.current!!.source)
+    }
     @Test fun returningFromWaveRestoresOfflineTrackPositionAndRepeatList() = roundTrip(repeat = RepeatMode.ALL)
 
     @Test fun returningFromOfflineRestoresTheWholeMyWaveWindowAndPositionWithoutNetwork() = waveRoundTrip()

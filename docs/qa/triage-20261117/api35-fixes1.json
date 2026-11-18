@@ -1,0 +1,36 @@
+{
+  "checkedAtUtc": "2026-11-17T15:53:38.641110+00:00",
+  "serial": "emulator-5558",
+  "avd": "YM2_Compat_API35",
+  "phase": "fixes1",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "SessionRecoveryTest#existingActivityResumesMusicAfterServiceDiesInBackground",
+      "passed": true,
+      "tests": 1,
+      "seconds": 14.3
+    },
+    {
+      "test": "SystemBrowserTest#selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue",
+      "passed": true,
+      "tests": 1,
+      "seconds": 6.67
+    },
+    {
+      "test": "WaveSettingsAdapterTest",
+      "passed": true,
+      "tests": 15,
+      "seconds": 3.0
+    },
+    {
+      "test": "EngineHandoffTest",
+      "passed": false,
+      "tests": null,
+      "seconds": 74.08,
+      "failureExcerpt": "v.petrov.ymplayer2.EngineHandoffTest):\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.EngineHandoffTest.fixtures(EngineHandoffTest.kt:30)\r\n\r\nINSTRUMENTATION_STATUS: test=newerPauseCancelsThePendingForegroundPlay\r\nINSTRUMENTATION_STATUS_CODE: -2\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 71.254\r\nThere were 3 failures:\r\n1) pendingForegroundPlaySurvivesAnotherEngineReplacement(dev.petrov.ymplayer2.EngineHandoffTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.EngineHandoffTest.fixtures(EngineHandoffTest.kt:30)\r\n2) metadataOnlyAttachKeepsSavedPlaySilent(dev.petrov.ymplayer2.EngineHandoffTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.EngineHandoffTest.fixtures(EngineHandoffTest.kt:30)\r\n3) newerPauseCancelsThePendingForegroundPlay(dev.petrov.ymplayer2.EngineHandoffTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.EngineHandoffTest.fixtures(EngineHandoffTest.kt:30)\r\n\r\nFAILURES!!!\r\nTests run: 3,  Failures: 3\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    }
+  ],
+  "complete": true,
+  "allPassed": false
+}

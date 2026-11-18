@@ -38,6 +38,7 @@ class LocalPlaybackTest {
     private val graph get() = compose.activity.application as PlayerApplication
     private val player get() = graph.playback
     private val library get() = graph.library
+    private val localProfile = dev.petrov.ymplayer2.core.UserProfiles.LOCAL_PROFILE_ID
     private lateinit var roadProfile: String
     private lateinit var guestProfile: String
     private fun fixtureProfile(id: String, name: String) = runBlocking {
@@ -45,6 +46,9 @@ class LocalPlaybackTest {
     }
     private fun provider(method: String, arg: String? = null) = compose.activity.contentResolver.call(android.net.Uri.parse("content://dev.petrov.ymplayer2.test.control"), method, arg, null)
     private fun waitFor(condition: () -> Boolean) = compose.waitUntil(15000, condition)
+    private fun engineIdentity() = compose.runOnIdle {
+        AndroidPlayback::class.java.getDeclaredField("engine").apply { isAccessible = true }.get(player)
+    }
 
     @Before fun fixtures() {
         // Navigation is now durable. Each independent fixture explicitly selects its starting screen.
@@ -52,15 +56,22 @@ class LocalPlaybackTest {
         waitFor { library.state.value.ready && !library.state.value.scanning && player.state.value.connected }
         roadProfile = fixtureProfile("road", "Fixture road").id
         guestProfile = fixtureProfile("guest", "Fixture guest").id
-        compose.runOnIdle {
-            player.stop()
-            library.profiles.forEach { player.switchProfile(it.id); player.chooseSource(null); player.setRepeatMode(RepeatMode.OFF); player.setShuffle(false) }
-            player.switchProfile("owner")
-        }
+        compose.runOnIdle { player.stop() }
         runBlocking { library.state.value.roots.forEach { library.forgetFolder(it.uri) } }
         provider("fixtures")
         runBlocking { library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { library.testTracks.size == 2 && player.state.value.queue.size == 2 }
+        waitFor { library.testTracks.size == 2 }
+        // Profile restores are asynchronous; do not queue a tour of all profiles
+        // against one outgoing profile's command generation.
+        for (profile in listOf(localProfile, roadProfile, guestProfile)) {
+            compose.runOnIdle { player.switchProfile(profile) }
+            waitFor { player.state.value.profileId == profile }
+            compose.runOnIdle { player.chooseSource(null); player.setRepeatMode(RepeatMode.OFF); player.setShuffle(false) }
+            waitFor { player.state.value.automaticLocal && player.state.value.queueCount == 2 &&
+                player.state.value.repeatMode == RepeatMode.OFF && !player.state.value.shuffle }
+        }
+        compose.runOnIdle { player.switchProfile(localProfile) }
+        waitFor { player.state.value.profileId == localProfile && player.state.value.queueCount == 2 }
     }
     @After fun stop() { compose.runOnIdle { player.stop() }; provider("unavailable", "false") }
 
@@ -76,15 +87,15 @@ class LocalPlaybackTest {
         } finally { compose.runOnIdle { dev.petrov.ymplayer2.localization.AppLanguages.select("ru") } }
     }
     @Test fun historyRecordsAudiblePlaybackAndOpensFromLibraryWithConfirmedClear() {
-        runBlocking { graph.history.clear("owner") }
+        runBlocking { graph.history.clear(localProfile) }
         val track = library.testTracks.first()
         compose.runOnIdle { player.playQueue(listOf(track.id)); player.toggle() }
         waitFor { player.state.value.current?.id == track.id && !player.state.value.playing }
-        assertEquals(0, runBlocking { graph.history.page("owner").total })
+        assertEquals(0, runBlocking { graph.history.page(localProfile).total })
         compose.runOnIdle { player.toggle() }
-        waitFor { runBlocking { graph.history.page("owner").total == 1 } }
+        waitFor { runBlocking { graph.history.page(localProfile).total == 1 } }
         compose.runOnIdle { player.stop() }
-        val entry = runBlocking { graph.history.page("owner").items.single() }
+        val entry = runBlocking { graph.history.page(localProfile).items.single() }
         assertEquals(track.id, entry.track.id); assertNull(entry.track.uri)
         compose.onNodeWithTag("nav_library").performClick()
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
@@ -93,9 +104,9 @@ class LocalPlaybackTest {
         compose.onNodeWithTag("history_list").assertIsDisplayed()
         compose.onNodeWithTag("track_${track.id}").assertIsDisplayed()
         compose.onNodeWithTag("history_clear").performClick()
-        assertEquals(1, runBlocking { graph.history.page("owner").total })
+        assertEquals(1, runBlocking { graph.history.page(localProfile).total })
         compose.onNodeWithTag("history_clear_confirm").performClick()
-        waitFor { runBlocking { graph.history.page("owner").total == 0 } }
+        waitFor { runBlocking { graph.history.page(localProfile).total == 0 } }
         compose.onNodeWithTag("history_empty").assertIsDisplayed()
         assertEquals(2, library.testTracks.size)
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
@@ -148,16 +159,16 @@ class LocalPlaybackTest {
         waitFor { store.state.value.ready }
         val ids = library.testTracks.map { it.id }.asReversed()
         val name = "Batch-${System.nanoTime()}"
-        assertTrue(store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.CreateMany(name, ids + ids.first())))
-        val list = store.state.value.profile("owner").playlists.single { it.name == name }
+        assertTrue(store.edit(localProfile, dev.petrov.ymplayer2.core.CollectionEdit.CreateMany(name, ids + ids.first())))
+        val list = store.state.value.profile(localProfile).playlists.single { it.name == name }
         try {
             assertEquals(ids, list.tracks.map { it.id })
-            assertFalse(store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.AddMany(list.id, listOf(ids.first(), "missing"))))
-            assertEquals(ids, store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.map { it.id })
+            assertFalse(store.edit(localProfile, dev.petrov.ymplayer2.core.CollectionEdit.AddMany(list.id, listOf(ids.first(), "missing"))))
+            assertEquals(ids, store.state.value.profile(localProfile).playlists.single { it.id == list.id }.tracks.map { it.id })
             assertFalse(store.state.value.profile(roadProfile).playlists.any { it.id == list.id })
             store.reload()
-            assertEquals(ids, store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.map { it.id })
-        } finally { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) }
+            assertEquals(ids, store.state.value.profile(localProfile).playlists.single { it.id == list.id }.tracks.map { it.id })
+        } finally { store.edit(localProfile, dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) }
     }
 
     @Test fun bulkSelectionSurvivesPaginationAndAddsInChosenOrderWithRemote() {
@@ -168,8 +179,8 @@ class LocalPlaybackTest {
         val store = graph.collections
         waitFor { store.state.value.ready }
         val name = "Selection-${System.nanoTime()}"
-        assertTrue(runBlocking { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Create(name)) })
-        val list = store.state.value.profile("owner").playlists.single { it.name == name }
+        assertTrue(runBlocking { store.edit(localProfile, dev.petrov.ymplayer2.core.CollectionEdit.Create(name)) })
+        val list = store.state.value.profile(localProfile).playlists.single { it.name == name }
         compose.runOnIdle { player.clearQueue() }
         waitFor { player.state.value.queueCount == 0 }
         fun action(tag: String) {
@@ -192,8 +203,8 @@ class LocalPlaybackTest {
             }
             compose.onNodeWithTag("bulk_playlist").performClick()
             compose.onNodeWithTag("bulk_playlist_${list.id}").performClick()
-            waitFor { store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.size == 2 }
-            assertEquals(listOf(first.id, last.id), store.state.value.profile("owner").playlists.single { it.id == list.id }.tracks.map { it.id })
+            waitFor { store.state.value.profile(localProfile).playlists.single { it.id == list.id }.tracks.size == 2 }
+            assertEquals(listOf(first.id, last.id), store.state.value.profile(localProfile).playlists.single { it.id == list.id }.tracks.map { it.id })
             action("bulk_start")
             action("select_${last.id}")
             androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
@@ -206,7 +217,7 @@ class LocalPlaybackTest {
             waitFor { player.state.value.queueCount == 2 }
             assertEquals(listOf(last.id, first.id), runBlocking { player.queuePage(0).items.map { it.id } })
             assertFalse(player.state.value.playing)
-        } finally { runBlocking { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) } }
+        } finally { runBlocking { store.edit(localProfile, dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) } }
     }
 
     @Test fun recentBulkSelectionCreatesLocalPlaylistThroughNameDialog() {
@@ -225,13 +236,13 @@ class LocalPlaybackTest {
         compose.onNodeWithTag("bulk_new_playlist").performClick()
         compose.onNodeWithTag("playlist_name").performTextInput(name)
         compose.onNodeWithTag("playlist_save").performClick()
-        waitFor { store.state.value.profile("owner").playlists.any { it.name == name } }
-        val list = store.state.value.profile("owner").playlists.single { it.name == name }
+        waitFor { store.state.value.profile(localProfile).playlists.any { it.name == name } }
+        val list = store.state.value.profile(localProfile).playlists.single { it.name == name }
         try {
             assertEquals(ids, list.tracks.map { it.id })
             waitFor { compose.onAllNodesWithTag("bulk_start").fetchSemanticsNodes().isNotEmpty() }
             compose.onNodeWithTag("bulk_start").assertIsDisplayed()
-        } finally { runBlocking { store.edit("owner", dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) } }
+        } finally { runBlocking { store.edit(localProfile, dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) } }
     }
 
     @Test fun bulkSelectionResetsOnFilterProfileSectionAndBack() {
@@ -340,7 +351,7 @@ class LocalPlaybackTest {
             waitFor { cursor.state.value.connected && cursor.state.value.queueCount == 62 }
             assertEquals(order.first().id, cursor.state.value.current?.id)
             gate = CompletableDeferred()
-            compose.runOnIdle { cursor.select(order[50].id); cursor.seek(7); cursor.toggle() }
+            compose.runOnIdle { cursor.select(order[50].id); cursor.seek(7); cursor.sessionPause() }
             assertFalse(cursor.state.value.playing)
             gate.complete(Unit); gate = null
             waitFor { cursor.state.value.current?.id == order[50].id && cursor.state.value.positionSeconds == 7 && !cursor.state.value.playing }
@@ -353,7 +364,7 @@ class LocalPlaybackTest {
                 cursor.skip(1)
             }
             waitFor { cursor.state.value.current?.id == order[51].id && !cursor.state.value.playing }
-            compose.runOnIdle { cursor.select(order[50].id); cursor.seek(7); cursor.toggle() }
+            compose.runOnIdle { cursor.select(order[50].id); cursor.seek(7); cursor.sessionPause() }
             waitFor { cursor.state.value.current?.id == order[50].id && cursor.state.value.positionSeconds == 7 && !cursor.state.value.playing }
             compose.runOnIdle { cursor.detach(); engine.release() }
             compose.waitForIdle()
@@ -373,7 +384,7 @@ class LocalPlaybackTest {
             assertFalse(cursor.state.value.playing)
             compose.runOnIdle { cursor.chooseSource(Source.USB) }
             waitFor { cursor.state.value.queueCount == 0 }
-            compose.runOnIdle { cursor.select(order[50].id); cursor.toggle() }
+            compose.runOnIdle { cursor.select(order[50].id); cursor.sessionPause() }
             waitFor { cursor.state.value.current?.id == order[50].id && !cursor.state.value.playing }
             assertNull(cursor.state.value.automaticSource)
             compose.runOnIdle { cursor.chooseSource(Source.LOCAL) }
@@ -384,7 +395,7 @@ class LocalPlaybackTest {
             compose.runOnIdle { cursor.setRepeatMode(RepeatMode.ALL); cursor.select(order.last().id); cursor.seek(29) }
             waitFor { cursor.state.value.current?.id == order.first().id }
             assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 29)
-            compose.runOnIdle { cursor.setShuffle(true); cursor.toggle() }
+            compose.runOnIdle { cursor.setShuffle(true); cursor.sessionPause() }
             waitFor { cursor.state.value.shuffle && !cursor.state.value.playing &&
                 compose.runOnIdle { engine.mediaItemCount <= 3 } }
             val shuffledCurrent = cursor.state.value.current!!.id
@@ -456,7 +467,7 @@ class LocalPlaybackTest {
             waitFor { cursor.state.value.connected && cursor.state.value.queueCount == 62 }
             val selected = listOf(order[50].id, order[4].id, order[20].id)
             gate = CompletableDeferred()
-            compose.runOnIdle { cursor.playQueue(selected, order[4].id); cursor.seek(7); cursor.toggle() }
+            compose.runOnIdle { cursor.playQueue(selected, order[4].id); cursor.seek(7); cursor.sessionPause() }
             assertFalse(cursor.state.value.playing)
             gate.complete(Unit); gate = null
             waitFor { cursor.state.value.current?.id == order[4].id && cursor.state.value.positionSeconds == 7 && !cursor.state.value.playing }
@@ -538,11 +549,11 @@ class LocalPlaybackTest {
             assertEquals(first, cursor.state.value.current?.id)
             assertTrue(requested.all { it <= 3 })
             compose.runOnIdle { cursor.seek(7); cursor.detach(); engine.release() }
-            val saved = JSONObject(context.getSharedPreferences("playback", 0).getString("queue:owner", "{}")!!)
+            val saved = JSONObject(context.getSharedPreferences("playback", 0).getString("queue:$localProfile", "{}")!!)
             assertTrue(saved.getBoolean("referenceOrder"))
             assertEquals(0, saved.getJSONArray("ids").length())
             assertEquals(1, saved.getJSONArray("tracks").length())
-            assertEquals(62, org.json.JSONArray(context.getSharedPreferences("playback", 0).getString("references:owner", "[]")!!).length())
+            assertEquals(62, org.json.JSONArray(context.getSharedPreferences("playback", 0).getString("references:$localProfile", "[]")!!).length())
             assertFalse(saved.getJSONArray("tracks").getJSONObject(0).has("uri"))
             compose.runOnIdle { engine = ExoPlayer.Builder(context).build(); cursor.attach(engine) }
             waitFor { cursor.state.value.connected && cursor.state.value.current?.id == first && cursor.state.value.queueCount == 62 }
@@ -576,8 +587,8 @@ class LocalPlaybackTest {
                 .put("artist", it.artist).put("source", it.source.name).put("duration", it.durationSeconds).put("tint", it.tint) }))
             .put("current", tracks.first().id).put("position", 9).put("followLibrary", false)
         val prefs = context.getSharedPreferences("playback", 0)
-        prefs.edit().clear().putString("profile", "owner").putString("queue:owner", old.toString())
-            .putString("repeat:owner", "ALL").putBoolean("shuffle:owner", true).commit()
+        prefs.edit().clear().putString("profile", localProfile).putString("queue:$localProfile", old.toString())
+            .putString("repeat:$localProfile", "ALL").putBoolean("shuffle:$localProfile", true).commit()
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         lateinit var cursor: AndroidPlayback
         lateinit var engine: ExoPlayer
@@ -588,10 +599,10 @@ class LocalPlaybackTest {
             assertFalse(cursor.state.value.playing)
             assertTrue(cursor.state.value.shuffle); assertEquals(RepeatMode.OFF, cursor.state.value.repeatMode)
             assertEquals(tracks.map(Track::id), runBlocking { cursor.queuePage(0, 3).items.map(Track::id) })
-            val converted = JSONObject(prefs.getString("queue:owner", "{}")!!)
+            val converted = JSONObject(prefs.getString("queue:$localProfile", "{}")!!)
             assertTrue(converted.getBoolean("referenceOrder"))
             assertEquals(0, converted.getJSONArray("ids").length())
-            assertEquals(tracks.map(Track::id), org.json.JSONArray(prefs.getString("references:owner", "[]")!!).let { rows ->
+            assertEquals(tracks.map(Track::id), org.json.JSONArray(prefs.getString("references:$localProfile", "[]")!!).let { rows ->
                 (0 until rows.length()).map { rows.getJSONObject(it).getString("id") }
             })
             assertTrue(compose.runOnIdle { engine.mediaItemCount } <= 3)
@@ -624,8 +635,8 @@ class LocalPlaybackTest {
         compose.runOnIdle { player.select(selected); player.seek(7) }
         val prefs = graph.getSharedPreferences("playback", 0)
         waitFor { player.state.value.current?.id == selected && player.state.value.positionSeconds >= 7 &&
-            JSONObject(prefs.getString("queue:owner", "{}")!!).optString("current") == selected }
-        val saved = JSONObject(prefs.getString("queue:owner", "{}")!!)
+            JSONObject(prefs.getString("queue:$localProfile", "{}")!!).optString("current") == selected }
+        val saved = JSONObject(prefs.getString("queue:$localProfile", "{}")!!)
         assertTrue(saved.getBoolean("followLibrary"))
         assertEquals(0, saved.getJSONArray("ids").length())
         assertEquals(1, saved.getJSONArray("tracks").length())
@@ -739,20 +750,23 @@ class LocalPlaybackTest {
         assertNull(player.state.value.error)
     }
 
+    @Suppress("DEPRECATION")
     @Test fun transientExternalAudioFocusPausesAndRestoresPlayback() {
         val manager = compose.activity.getSystemService(AudioManager::class.java)
-        val request = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+        val listener = AudioManager.OnAudioFocusChangeListener { }
+        val request = if (android.os.Build.VERSION.SDK_INT >= 26) AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
             .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
             .setOnAudioFocusChangeListener { }
-            .build()
+            .build() else null
         compose.runOnIdle { player.select(library.testTracks.first().id) }
         waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
         try {
-            assertEquals(AudioManager.AUDIOFOCUS_REQUEST_GRANTED, manager.requestAudioFocus(request))
+            assertEquals(AudioManager.AUDIOFOCUS_REQUEST_GRANTED, if (android.os.Build.VERSION.SDK_INT >= 26 && request != null) manager.requestAudioFocus(request)
+                else manager.requestAudioFocus(listener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT))
             waitFor { !player.state.value.playing }
         } finally {
-            manager.abandonAudioFocusRequest(request)
+            if (android.os.Build.VERSION.SDK_INT >= 26 && request != null) manager.abandonAudioFocusRequest(request) else manager.abandonAudioFocus(listener)
         }
         waitFor { player.state.value.playing }
     }
@@ -761,14 +775,15 @@ class LocalPlaybackTest {
         compose.runOnIdle { player.seek(7); player.switchProfile(guestProfile) }
         waitFor { player.state.value.profileId == guestProfile }
         assertFalse(player.state.value.playing)
-        compose.runOnIdle { player.seek(12); player.switchProfile("owner") }
-        waitFor { player.state.value.profileId == "owner" && player.state.value.positionSeconds == 7 }
+        compose.runOnIdle { player.seek(12); player.switchProfile(localProfile) }
+        waitFor { player.state.value.profileId == localProfile && player.state.value.positionSeconds == 7 }
         assertEquals(7, player.state.value.positionSeconds)
         compose.activityRule.scenario.recreate()
         waitFor { player.state.value.positionSeconds == 7 }
         assertEquals(7, player.state.value.positionSeconds)
+        val previous = engineIdentity()
         compose.runOnIdle { compose.activity.stopService(Intent(compose.activity, AudioService::class.java)) }
-        waitFor { !player.state.value.connected }
+        waitFor { engineIdentity() !== previous }
         compose.runOnIdle { player.connect() }
         waitFor { player.state.value.connected && player.state.value.positionSeconds == 7 }
         assertFalse(player.state.value.playing)
@@ -834,8 +849,9 @@ class LocalPlaybackTest {
         compose.runOnIdle { player.clearQueue() }
         runBlocking { library.refresh() }
         assertTrue(player.state.value.queue.isEmpty())
+        val previous = engineIdentity()
         compose.runOnIdle { compose.activity.stopService(Intent(compose.activity, AudioService::class.java)) }
-        waitFor { !player.state.value.connected }
+        waitFor { engineIdentity() !== previous }
         compose.runOnIdle { player.connect() }
         waitFor { player.state.value.connected }
         assertTrue(player.state.value.queue.isEmpty())
@@ -869,7 +885,7 @@ class LocalPlaybackTest {
         assertEquals(order, player.state.value.queue.map { it.id })
         compose.runOnIdle { player.switchProfile(guestProfile) }
         assertEquals(RepeatMode.OFF, player.state.value.repeatMode); assertFalse(player.state.value.shuffle)
-        compose.runOnIdle { player.switchProfile("owner") }
+        compose.runOnIdle { player.switchProfile(localProfile) }
         assertEquals(RepeatMode.OFF, player.state.value.repeatMode); assertTrue(player.state.value.shuffle)
         compose.runOnIdle { compose.activity.stopService(Intent(compose.activity, AudioService::class.java)) }
         waitFor { !player.state.value.connected }

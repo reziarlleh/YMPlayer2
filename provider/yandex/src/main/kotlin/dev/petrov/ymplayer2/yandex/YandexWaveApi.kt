@@ -5,7 +5,10 @@ import kotlinx.coroutines.CancellationException
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.URLEncoder
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 /** Port of 1.x getMyWaveFastStart / getMoreMyWave / rotorStationFeedback. */
 class YandexWaveApi(private val music: YandexMusicApi, private val diagnostic: (OperationDiagnostic) -> Unit = {}) : MyWaveApi {
@@ -84,18 +87,28 @@ class YandexWaveApi(private val music: YandexMusicApi, private val diagnostic: (
         }
         val unresolved = candidates.filterValues { it == null }.keys.toList()
         val resolved = if (unresolved.isEmpty()) emptyMap() else music.tracks(token, unresolved).associateBy { it.tasteTarget().key }
-        val tracks = candidates.mapNotNull { (id, track) -> (track ?: resolved[id])?.let { WaveTrack(it, batch, request.station) } }
+        val tracks = candidates.mapNotNull { (id, track) -> (track ?: resolved[id])?.let { WaveTrack(it, batch, request.station, session) } }
         return WaveBatch(tracks, session, continuation, request)
     }
     override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) {
         if (item.batchId.isBlank()) return
         music.account(profileId) { token, uid ->
-            val form = mutableListOf("type" to type.wire, "timestamp" to String.format(Locale.US, "%.3f", System.currentTimeMillis() / 1000.0))
-            if (type == WaveFeedback.RADIO_STARTED) form += "from" to "mobile-radio-user-$uid"
-            else form += "trackId" to item.track.tasteTarget().key
-            if (type in setOf(WaveFeedback.FINISHED, WaveFeedback.SKIP)) form += "totalPlayedSeconds" to playedSeconds.coerceAtLeast(0).toString()
-            val result = music.api(token, "/rotor/station/${stationPath(item.station)}/feedback?batch-id=${encode(item.batchId)}", form)
-            if (result != "ok") throw MusicException(MusicFailure.RESPONSE)
+            val event = JSONObject().put("type", type.wire).put("timestamp",
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }.format(Date()))
+            if (type != WaveFeedback.RADIO_STARTED) event.put("trackId", item.track.tasteTarget().key)
+            if (type in setOf(WaveFeedback.FINISHED, WaveFeedback.SKIP, WaveFeedback.DISLIKE))
+                event.put("totalPlayedSeconds", playedSeconds.coerceAtLeast(0))
+            val modern = item.sessionId.isNotBlank()
+            val body = if (modern) JSONObject().put("event", event).put("batchId", item.batchId) else event
+            if (type == WaveFeedback.RADIO_STARTED) body.put("from", "mobile-radio-user-$uid")
+            // Batch IDs belong to the session that issued the item, even after recovery
+            // has created a different session for the tail of the prepared queue.
+            val path = if (modern) "/rotor/session/${encode(item.sessionId)}/feedback"
+                else "/rotor/station/${stationPath(item.station)}/feedback?batch-id=${encode(item.batchId)}"
+            val result = music.api(token, path, json = body)
+            if (result != "ok" && !(modern && result is JSONObject)) throw MusicException(MusicFailure.RESPONSE)
         }
     }
     private fun encode(value: String) = URLEncoder.encode(value, "UTF-8")

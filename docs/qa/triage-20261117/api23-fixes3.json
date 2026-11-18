@@ -1,0 +1,70 @@
+{
+  "checkedAtUtc": "2026-11-18T01:51:57.377145+00:00",
+  "serial": "emulator-5554",
+  "avd": "YM2_API23",
+  "phase": "fixes3",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "SessionRecoveryTest#musicPlayingSurvivesOrdinaryExit",
+      "passed": false,
+      "tests": null,
+      "seconds": 28.0,
+      "failureExcerpt": "java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicPlayingSurvivesOrdinaryExit(SessionRecoveryTest.kt:179)\r\r\n\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=musicPlayingSurvivesOrdinaryExit\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest\r\r\nINSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicPlayingSurvivesOrdinaryExit(SessionRecoveryTest.kt:179)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=1\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 27.314\r\r\nThere was 1 failure:\r\r\n1) musicPlayingSurvivesOrdinaryExit(dev.petrov.ymplayer2.SessionRecoveryTest)\r\r\njava.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicPlayingSurvivesOrdinaryExit(SessionRecoveryTest.kt:179)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 1,  Failures: 1\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    },
+    {
+      "test": "SessionRecoveryTest#musicPausedSurvivesOrdinaryExit",
+      "passed": false,
+      "tests": null,
+      "seconds": 28.06,
+      "failureExcerpt": "sert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicPausedSurvivesOrdinaryExit(SessionRecoveryTest.kt:180)\r\r\n\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=musicPausedSurvivesOrdinaryExit\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest\r\r\nINSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicPausedSurvivesOrdinaryExit(SessionRecoveryTest.kt:180)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=1\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 27.269\r\r\nThere was 1 failure:\r\r\n1) musicPausedSurvivesOrdinaryExit(dev.petrov.ymplayer2.SessionRecoveryTest)\r\r\njava.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicPausedSurvivesOrdinaryExit(SessionRecoveryTest.kt:180)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 1,  Failures: 1\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    },
+    {
+      "test": "SessionRecoveryTest#musicResumesAfterServiceDestructionWithoutProcessDeath",
+      "passed": false,
+      "tests": null,
+      "seconds": 27.86,
+      "failureExcerpt": "player2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicResumesAfterServiceDestructionWithoutProcessDeath(SessionRecoveryTest.kt:183)\r\r\n\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=musicResumesAfterServiceDestructionWithoutProcessDeath\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest\r\r\nINSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicResumesAfterServiceDestructionWithoutProcessDeath(SessionRecoveryTest.kt:183)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=1\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 27.046\r\r\nThere was 1 failure:\r\r\n1) musicResumesAfterServiceDestructionWithoutProcessDeath(dev.petrov.ymplayer2.SessionRecoveryTest)\r\r\njava.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit$default(SessionRecoveryTest.kt:186)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.musicResumesAfterServiceDestructionWithoutProcessDeath(SessionRecoveryTest.kt:183)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 1,  Failures: 1\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    },
+    {
+      "test": "SessionRecoveryTest#existingActivityResumesMusicAfterServiceDiesInBackground",
+      "passed": false,
+      "tests": null,
+      "seconds": 27.59,
+      "failureExcerpt": "v.petrov.ymplayer2.SessionRecoveryTest):\r\r\njava.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.existingActivityResumesMusicAfterServiceDiesInBackground(SessionRecoveryTest.kt:185)\r\r\n\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=existingActivityResumesMusicAfterServiceDiesInBackground\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SessionRecoveryTest\r\r\nINSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.existingActivityResumesMusicAfterServiceDiesInBackground(SessionRecoveryTest.kt:185)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=1\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 26.822\r\r\nThere was 1 failure:\r\r\n1) existingActivityResumesMusicAfterServiceDiesInBackground(dev.petrov.ymplayer2.SessionRecoveryTest)\r\r\njava.lang.AssertionError: Music playing\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor(SessionRecoveryTest.kt:46)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.waitFor$default(SessionRecoveryTest.kt:43)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:200)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.existingActivityResumesMusicAfterServiceDiesInBackground(SessionRecoveryTest.kt:185)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 1,  Failures: 1\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    },
+    {
+      "test": "SystemBrowserTest#selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue",
+      "passed": false,
+      "tests": null,
+      "seconds": 16.22,
+      "failureExcerpt": "ATUS: stream=\r\r\ndev.petrov.ymplayer2.SystemBrowserTest:\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SystemBrowserTest\r\r\nINSTRUMENTATION_STATUS: current=1\r\r\nINSTRUMENTATION_STATUS_CODE: 1\r\r\nINSTRUMENTATION_STATUS: numtests=1\r\r\nINSTRUMENTATION_STATUS: stream=\r\r\nError in selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue(dev.petrov.ymplayer2.SystemBrowserTest):\r\r\njava.lang.AssertionError: Expected player state was not reached\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SystemBrowserTest.awaitState(SystemBrowserTest.kt:119)\r\r\n\tat dev.petrov.ymplayer2.SystemBrowserTest.selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue(SystemBrowserTest.kt:197)\r\r\n\r\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\r\nINSTRUMENTATION_STATUS: test=selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue\r\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.SystemBrowserTest\r\r\nINSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Expected player state was not reached\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SystemBrowserTest.awaitState(SystemBrowserTest.kt:119)\r\r\n\tat dev.petrov.ymplayer2.SystemBrowserTest.selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue(SystemBrowserTest.kt:197)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=1\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 15.494\r\r\nThere was 1 failure:\r\r\n1) selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue(dev.petrov.ymplayer2.SystemBrowserTest)\r\r\njava.lang.AssertionError: Expected player state was not reached\r\r\n\tat org.junit.Assert.fail(Assert.java:89)\r\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\r\n\tat dev.petrov.ymplayer2.SystemBrowserTest.awaitState(SystemBrowserTest.kt:119)\r\r\n\tat dev.petrov.ymplayer2.SystemBrowserTest.selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue(SystemBrowserTest.kt:197)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 1,  Failures: 1\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    },
+    {
+      "test": "EngineHandoffTest",
+      "passed": true,
+      "tests": 4,
+      "seconds": 10.84
+    },
+    {
+      "test": "WaveSettingsAdapterTest",
+      "passed": true,
+      "tests": 15,
+      "seconds": 0.83
+    },
+    {
+      "test": "WaveColdRestoreTest#perItemFeedbackSessionsSurviveColdQueueRestore",
+      "passed": true,
+      "tests": 1,
+      "seconds": 6.27
+    },
+    {
+      "test": "WaveColdRestoreTest#legacyGlobalFeedbackSessionMigratesWithoutReplacingCachedQueue",
+      "passed": true,
+      "tests": 1,
+      "seconds": 6.91
+    }
+  ],
+  "complete": true,
+  "allPassed": false
+}

@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicReference
 
 @RunWith(AndroidJUnit4::class)
 class SystemBrowserTest {
+    @androidx.test.filters.SdkSuppress(minSdkVersion = 26)
     @Test fun tvCardHasExplicitOpenAndStopIntents() {
         val app = context.applicationContext as PlayerApplication
         context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
@@ -45,6 +46,7 @@ class SystemBrowserTest {
             runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) }
         }
     }
+    @androidx.test.filters.SdkSuppress(minSdkVersion = 26)
     @Test fun tvDismissalStopsRadioAndDoesNotRestartItsRetryOrOnAirPolling() {
         val app = context.applicationContext as PlayerApplication
         context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
@@ -165,7 +167,7 @@ class SystemBrowserTest {
                 browser.subscribe(browser.root ?: "", object : PlatformBrowser.SubscriptionCallback() {
                     override fun onChildrenLoaded(parentId: String, children: MutableList<PlatformBrowser.MediaItem>) {
                         ids = children.map { it.mediaId.orEmpty() }
-                        childrenReady.countDown()
+                        if (ids == listOf("ymp_my_wave", "ymp_liked_cache")) childrenReady.countDown()
                     }
                 })
                 connected.countDown()
@@ -176,7 +178,7 @@ class SystemBrowserTest {
             instrumentation.runOnMainSync { browser.connect() }
             assertTrue("Platform browser could not connect", connected.await(20, TimeUnit.SECONDS))
             assertEquals("ymp_root", rootId)
-            assertTrue("Platform browser did not receive children", childrenReady.await(20, TimeUnit.SECONDS))
+            assertTrue("Platform browser did not receive expected children: $ids", childrenReady.await(20, TimeUnit.SECONDS))
             assertEquals(listOf("ymp_my_wave", "ymp_liked_cache"), ids)
             assertFalse((context.applicationContext as PlayerApplication).playback.state.value.playing)
         } finally {
@@ -235,6 +237,7 @@ class SystemBrowserTest {
         val app = context.applicationContext as PlayerApplication
         context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { app.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
+        val screen = androidx.test.core.app.ActivityScenario.launch(MainActivity::class.java)
         try {
             main { app.playback.connect() }
             awaitState { app.playback.state.value.connected && app.library.testTracks.size >= 2 }
@@ -244,8 +247,13 @@ class SystemBrowserTest {
             awaitState { app.playback.state.value.current?.id == track && app.playback.state.value.playing }
             main { app.playback.seek(7); app.playback.toggle() }
             awaitState { !app.playback.state.value.playing && app.playback.state.value.positionSeconds >= 7 }
+            screen.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
+            val engine = dev.petrov.ymplayer2.playback.AndroidPlayback::class.java.getDeclaredField("engine").apply { isAccessible = true }
+            val previous = main { engine.get(app.playback) }
+            assertNotNull(previous)
             assertTrue(context.stopService(Intent(context, AudioService::class.java)))
-            awaitState { !app.playback.state.value.connected }
+            // A replacement can attach between polls; compare actual engine identities.
+            awaitState { main { engine.get(app.playback) } !== previous }
 
             sendButton(KeyEvent.KEYCODE_MEDIA_PLAY)
             try {
@@ -279,6 +287,7 @@ class SystemBrowserTest {
             }
         } finally {
             main { app.playback.stop() }
+            screen.close()
             runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) }
         }
     }

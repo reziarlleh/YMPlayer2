@@ -1,0 +1,165 @@
+{
+  "checkedAtUtc": "2026-11-18T02:38:31.812560+00:00",
+  "serial": "emulator-5558",
+  "avd": "YM2_Compat_API35",
+  "phase": "final",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "OfflineSourceStateTest",
+      "passed": true,
+      "tests": 17,
+      "seconds": 112.22
+    },
+    {
+      "test": "WaveColdRestoreTest",
+      "passed": true,
+      "tests": 30,
+      "seconds": 205.88
+    },
+    {
+      "test": "LaunchResumeIntentTest",
+      "passed": true,
+      "tests": 17,
+      "seconds": 105.2
+    },
+    {
+      "test": "PlaybackStartPolicyTest",
+      "passed": true,
+      "tests": 8,
+      "seconds": 56.0
+    },
+    {
+      "test": "ProfileRestoreTest",
+      "passed": true,
+      "tests": 2,
+      "seconds": 21.02
+    },
+    {
+      "test": "WaveAuditRegressionTest",
+      "passed": true,
+      "tests": 11,
+      "seconds": 113.53
+    },
+    {
+      "test": "WaveQueuePrefetchTest",
+      "passed": true,
+      "tests": 15,
+      "seconds": 327.06
+    },
+    {
+      "test": "PortableCacheTest",
+      "passed": true,
+      "tests": 17,
+      "seconds": 17.0
+    },
+    {
+      "test": "UserProfilesStorageTest",
+      "passed": true,
+      "tests": 7,
+      "seconds": 16.44
+    },
+    {
+      "test": "FileTransferTest",
+      "passed": true,
+      "tests": 17,
+      "seconds": 161.5
+    },
+    {
+      "test": "Mp3ExportQualityTest",
+      "passed": true,
+      "tests": 1,
+      "seconds": 6.97
+    },
+    {
+      "test": "ClipTouchControlsTest",
+      "passed": true,
+      "tests": 7,
+      "seconds": 37.84
+    },
+    {
+      "test": "ClipStartupTest",
+      "passed": true,
+      "tests": 3,
+      "seconds": 38.17
+    },
+    {
+      "test": "SessionCommandDiagnosticsTest",
+      "passed": true,
+      "tests": 6,
+      "seconds": 28.06
+    },
+    {
+      "test": "UpdateLifecycleTest",
+      "passed": true,
+      "tests": 1,
+      "seconds": 16.16
+    },
+    {
+      "test": "SkinPackageTest",
+      "passed": true,
+      "tests": 6,
+      "seconds": 3.97
+    },
+    {
+      "test": "LocalizationTest",
+      "passed": true,
+      "tests": 9,
+      "seconds": 55.03
+    },
+    {
+      "test": "LocalPlaybackTest#indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot",
+      "passed": false,
+      "tests": null,
+      "seconds": 30.31,
+      "failureExcerpt": "mtests=1\r\nINSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:346)\r\n\r\nINSTRUMENTATION_STATUS: stream=\r\nError in indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(dev.petrov.ymplayer2.LocalPlaybackTest):\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:346)\r\n\r\nINSTRUMENTATION_STATUS: test=indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot\r\nINSTRUMENTATION_STATUS_CODE: -2\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 27.203\r\nThere was 1 failure:\r\n1) indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(dev.petrov.ymplayer2.LocalPlaybackTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:346)\r\n\r\nFAILURES!!!\r\nTests run: 1,  Failures: 1\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "LocalPlaybackTest#manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo",
+      "passed": false,
+      "tests": null,
+      "seconds": 29.11,
+      "failureExcerpt": "itRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo(LocalPlaybackTest.kt:462)\r\n\r\nINSTRUMENTATION_STATUS: stream=\r\nError in manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo(dev.petrov.ymplayer2.LocalPlaybackTest):\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo(LocalPlaybackTest.kt:462)\r\n\r\nINSTRUMENTATION_STATUS: test=manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo\r\nINSTRUMENTATION_STATUS_CODE: -2\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 25.759\r\nThere was 1 failure:\r\n1) manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo(dev.petrov.ymplayer2.LocalPlaybackTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo(LocalPlaybackTest.kt:462)\r\n\r\nFAILURES!!!\r\nTests run: 1,  Failures: 1\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "LocalPlaybackTest#profileCheckpointsAndServiceRestartStayPaused",
+      "passed": false,
+      "tests": null,
+      "seconds": 26.48,
+      "failureExcerpt": "INSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.profileCheckpointsAndServiceRestartStayPaused(LocalPlaybackTest.kt:765)\r\n\r\nINSTRUMENTATION_STATUS: stream=\r\nError in profileCheckpointsAndServiceRestartStayPaused(dev.petrov.ymplayer2.LocalPlaybackTest):\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.profileCheckpointsAndServiceRestartStayPaused(LocalPlaybackTest.kt:765)\r\n\r\nINSTRUMENTATION_STATUS: test=profileCheckpointsAndServiceRestartStayPaused\r\nINSTRUMENTATION_STATUS_CODE: -2\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 23.798\r\nThere was 1 failure:\r\n1) profileCheckpointsAndServiceRestartStayPaused(dev.petrov.ymplayer2.LocalPlaybackTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:47)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.profileCheckpointsAndServiceRestartStayPaused(LocalPlaybackTest.kt:765)\r\n\r\nFAILURES!!!\r\nTests run: 1,  Failures: 1\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "LocalPlaybackTest#refreshRequestedDuringOldScanRechecksNewlyAvailableStorage",
+      "passed": true,
+      "tests": 1,
+      "seconds": 10.97
+    },
+    {
+      "test": "LocalPlaybackTest#transientExternalAudioFocusPausesAndRestoresPlayback",
+      "passed": true,
+      "tests": 1,
+      "seconds": 15.58
+    },
+    {
+      "test": "LocalPlaybackTest#nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack",
+      "passed": false,
+      "tests": null,
+      "seconds": 20.88,
+      "failureExcerpt": "INSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\ndev.petrov.ymplayer2.LocalPlaybackTest:\r\nINSTRUMENTATION_STATUS: test=nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.LocalPlaybackTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stack=java.lang.AssertionError\r\n\tat org.junit.Assert.fail(Assert.java:87)\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\n\tat org.junit.Assert.assertFalse(Assert.java:65)\r\n\tat org.junit.Assert.assertFalse(Assert.java:75)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack(LocalPlaybackTest.kt:871)\r\n\r\nINSTRUMENTATION_STATUS: stream=\r\nError in nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack(dev.petrov.ymplayer2.LocalPlaybackTest):\r\njava.lang.AssertionError\r\n\tat org.junit.Assert.fail(Assert.java:87)\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\n\tat org.junit.Assert.assertFalse(Assert.java:65)\r\n\tat org.junit.Assert.assertFalse(Assert.java:75)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack(LocalPlaybackTest.kt:871)\r\n\r\nINSTRUMENTATION_STATUS: test=nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack\r\nINSTRUMENTATION_STATUS_CODE: -2\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 17.794\r\nThere was 1 failure:\r\n1) nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack(dev.petrov.ymplayer2.LocalPlaybackTest)\r\njava.lang.AssertionError\r\n\tat org.junit.Assert.fail(Assert.java:87)\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\n\tat org.junit.Assert.assertFalse(Assert.java:65)\r\n\tat org.junit.Assert.assertFalse(Assert.java:75)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack(LocalPlaybackTest.kt:871)\r\n\r\nFAILURES!!!\r\nTests run: 1,  Failures: 1\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "RadioProtocolTest#stationCollectionPostsUseExistingSessionAndExpectedPayloadOnly",
+      "passed": true,
+      "tests": 1,
+      "seconds": 4.72
+    },
+    {
+      "test": "SystemBrowserTest",
+      "passed": true,
+      "tests": 7,
+      "seconds": 31.8
+    }
+  ],
+  "complete": true,
+  "allPassed": false
+}

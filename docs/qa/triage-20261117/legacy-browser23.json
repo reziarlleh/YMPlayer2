@@ -1,0 +1,12 @@
+{
+  "checkedAtUtc": "2026-11-18T02:58:11.815774+00:00",
+  "finding": "D-011",
+  "api": 23,
+  "observation": "Fresh app: platform MediaBrowser connects to ymp_root but does not receive the expected two children. Media3 browser succeeds separately. Playback/transport unaffected in these probes.",
+  "productBrowserCallbackSameAsStable148": true,
+  "temporaryOnGetChildrenTraceObserved": false,
+  "traceRemoved": true,
+  "knownCause": "Not yet proven. Upstream pre28 native-controller identity handling is a hypothesis, not a confirmed root cause.",
+  "upstream": "https://github.com/androidx/media/blob/release/libraries/session/src/main/java/androidx/media3/session/legacy/MediaBrowserServiceCompat.java",
+  "scope": "Plain framework browser on API23; no claim for API24-27, car head units or external user reports."
+}

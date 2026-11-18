@@ -1,0 +1,215 @@
+{
+  "checkedAtUtc": "2026-11-18T02:15:20.172845+00:00",
+  "acyclic": true,
+  "androidModules": 11,
+  "jvmModules": 1,
+  "modules": [
+    {
+      "module": ":app",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":localization"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":core"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":library:local"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":library:offline"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":playback:android"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":provider:yandex"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":designsystem"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":feature:shell"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":feature:clips"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":headunit:sidebar"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":updater:android"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":core",
+      "dependencies": [],
+      "android": false,
+      "minSdk": []
+    },
+    {
+      "module": ":designsystem",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":localization"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":feature:shell",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":localization"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":core"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":designsystem"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":feature:clips",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":localization"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":designsystem"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":core"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":provider:yandex"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":library:local",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":core"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":playback:android",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":localization"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":core"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":provider:yandex",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":core"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":library:offline",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":core"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":headunit:sidebar",
+      "dependencies": [
+        {
+          "configuration": "implementation",
+          "module": ":localization"
+        },
+        {
+          "configuration": "implementation",
+          "module": ":designsystem"
+        }
+      ],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":updater:android",
+      "dependencies": [],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    },
+    {
+      "module": ":localization",
+      "dependencies": [],
+      "android": true,
+      "minSdk": [
+        "23"
+      ]
+    }
+  ]
+}

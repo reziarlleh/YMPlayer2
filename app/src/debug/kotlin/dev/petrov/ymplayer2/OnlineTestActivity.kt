@@ -213,8 +213,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             waveRequests += id
             delay(waveDelayMillis); waveRequestGates[id]?.await(); waveFailure?.let { throw MusicException(it) }
             if (waveFailuresRemaining > 0) { waveFailuresRemaining--; throw MusicException(MusicFailure.NETWORK) }
-            return WaveBatch(listOf(WaveTrack(onlineTrack(id), "batch$id")),
-                if (waveRecoveryNeedsDrainedCursor) "" else "session", id.toString())
+            val session = if (waveRecoveryNeedsDrainedCursor) "" else "session"
+            return WaveBatch(listOf(WaveTrack(onlineTrack(id), "batch$id", sessionId = session)), session, id.toString())
         }
         private suspend fun repeatedHistory(request: WaveRequest): WaveBatch = batch(4).copy(
             tracks = listOf(1, 2, 3, 1, 2).map { WaveTrack(onlineTrack(it), "repeated4") }, request = request)

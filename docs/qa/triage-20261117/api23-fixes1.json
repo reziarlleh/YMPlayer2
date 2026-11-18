@@ -1,0 +1,37 @@
+{
+  "checkedAtUtc": "2026-11-17T15:53:58.154029+00:00",
+  "serial": "emulator-5554",
+  "avd": "YM2_API23",
+  "phase": "fixes1",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "SessionRecoveryTest#existingActivityResumesMusicAfterServiceDiesInBackground",
+      "passed": false,
+      "tests": null,
+      "seconds": 4.64,
+      "failureExcerpt": "lowing: (Selected = 'true')\r\r\nReason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'nav_search')\r\r\n\r\r\n\tat androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)\r\r\n\tat androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)\r\r\n\tat androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)\r\r\n\tat androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:291)\r\r\n\tat androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)\r\r\n\tat androidx.compose.ui.test.AssertionsKt.assertIsSelected(Assertions.kt:88)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:212)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.existingActivityResumesMusicAfterServiceDiesInBackground(SessionRecoveryTest.kt:184)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=1\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 3.569\r\r\nThere was 1 failure:\r\r\n1) existingActivityResumesMusicAfterServiceDiesInBackground(dev.petrov.ymplayer2.SessionRecoveryTest)\r\r\njava.lang.AssertionError: Failed to assert the following: (Selected = 'true')\r\r\nReason: Expected exactly '1' node but could not find any node that satisfies: (TestTag = 'nav_search')\r\r\n\r\r\n\tat androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)\r\r\n\tat androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)\r\r\n\tat androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)\r\r\n\tat androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:291)\r\r\n\tat androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)\r\r\n\tat androidx.compose.ui.test.AssertionsKt.assertIsSelected(Assertions.kt:88)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.ordinaryExit(SessionRecoveryTest.kt:212)\r\r\n\tat dev.petrov.ymplayer2.SessionRecoveryTest.existingActivityResumesMusicAfterServiceDiesInBackground(SessionRecoveryTest.kt:184)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 1,  Failures: 1\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    },
+    {
+      "test": "SystemBrowserTest#selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue",
+      "passed": true,
+      "tests": 1,
+      "seconds": 3.78
+    },
+    {
+      "test": "WaveSettingsAdapterTest",
+      "passed": true,
+      "tests": 15,
+      "seconds": 1.2
+    },
+    {
+      "test": "EngineHandoffTest",
+      "passed": false,
+      "tests": null,
+      "seconds": 66.06,
+      "failureExcerpt": "eHandoffTest\r\r\nINSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\r\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\r\n\tat dev.petrov.ymplayer2.EngineHandoffTest.fixtures(EngineHandoffTest.kt:30)\r\r\n\r\r\nINSTRUMENTATION_STATUS: current=3\r\r\nINSTRUMENTATION_STATUS_CODE: -2\r\r\nINSTRUMENTATION_RESULT: stream=\r\r\n\r\r\nTime: 64.935\r\r\nThere were 3 failures:\r\r\n1) pendingForegroundPlaySurvivesAnotherEngineReplacement(dev.petrov.ymplayer2.EngineHandoffTest)\r\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\r\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\r\n\tat dev.petrov.ymplayer2.EngineHandoffTest.fixtures(EngineHandoffTest.kt:30)\r\r\n2) metadataOnlyAttachKeepsSavedPlaySilent(dev.petrov.ymplayer2.EngineHandoffTest)\r\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\r\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\r\n\tat dev.petrov.ymplayer2.EngineHandoffTest.fixtures(EngineHandoffTest.kt:30)\r\r\n3) newerPauseCancelsThePendingForegroundPlay(dev.petrov.ymplayer2.EngineHandoffTest)\r\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms\r\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\r\n\tat dev.petrov.ymplayer2.EngineHandoffTest.fixtures(EngineHandoffTest.kt:30)\r\r\n\r\r\nFAILURES!!!\r\r\nTests run: 3,  Failures: 3\r\r\n\r\r\n\r\r\nINSTRUMENTATION_CODE: -1\r\r\n"
+    }
+  ],
+  "complete": true,
+  "allPassed": false
+}

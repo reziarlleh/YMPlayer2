@@ -46,13 +46,17 @@ class WaveSettingsAdapterTest {
             override suspend fun json(url: String, token: String, body: String): String {
                 assertEquals("fixture-token", token); requests += url
                 val request = JSONObject(body)
+                if (url.endsWith("/feedback")) {
+                    assertTrue(url.endsWith("/custom-session/feedback"))
+                    assertEquals("trackStarted", request.getJSONObject("event").getString("type"))
+                    return """{"result":{}}"""
+                }
                 if (url.endsWith("/new")) assertEquals(selection.seeds, (0 until request.getJSONArray("seeds").length()).map { request.getJSONArray("seeds").getString(it) })
                 else assertEquals("7", request.getJSONArray("queue").getString(0))
                 return """{"result":{"radioSessionId":"custom-session","batchId":"b1","sequence":[{"track":{"id":7,"title":"Fixture","durationMs":30000,"available":true,"artists":[],"albums":[{"id":1,"title":"Album"}]}}]}}"""
             }
             override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
-                assertTrue(url.contains("activity:road-trip/feedback")); requests += url
-                return """{"result":"ok"}"""
+                error("The modern activity session must use JSON feedback")
             }
         }
         val api = YandexWaveApi(YandexMusicApi(auth(this), transport))
@@ -60,6 +64,51 @@ class WaveSettingsAdapterTest {
         assertEquals(selection, first.request); assertEquals(selection.station, first.tracks.single().station)
         api.next("owner", first); api.feedback("owner", first.tracks.single(), WaveFeedback.STARTED)
         assertEquals(3, requests.size); assertTrue(requests[1].contains("custom-session/tracks"))
+    }
+    @Test fun modernFeedbackUsesTheIssuingSessionAndJsonEvents() = runBlocking {
+        val events = mutableListOf<JSONObject>()
+        val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String): String {
+                if (url.endsWith("/new")) return waveReply(listOf(7), "issuing-session")
+                assertTrue("A modern batch belongs to its session feedback endpoint", url.endsWith("/rotor/session/issuing-session/feedback"))
+                val feedback = JSONObject(body)
+                assertEquals("fixture", feedback.getString("batchId"))
+                val event = feedback.getJSONObject("event")
+                assertTrue(event.getString("timestamp").matches(Regex("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z")))
+                if (event.getString("type") != "radioStarted") assertEquals("7", event.getString("trackId"))
+                if (event.getString("type") in setOf("trackFinished", "skip", "dislike"))
+                    assertEquals(12, event.getInt("totalPlayedSeconds"))
+                events += event
+                return """{"result":{}}"""
+            }
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String =
+                error("Modern session feedback must not use station/form transport")
+        }))
+        val item = api.start("owner").tracks.single()
+        for (event in WaveFeedback.entries) api.feedback("owner", item, event, 12)
+        assertEquals(WaveFeedback.entries.map { it.wire }, events.map { it.getString("type") })
+    }
+    @Test fun stationFallbackFeedbackUsesJsonAndIncludesDislikeDuration() = runBlocking {
+        var feedback: JSONObject? = null
+        val api = YandexWaveApi(YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun json(url: String, token: String, body: String): String {
+                if (url.endsWith("/new")) throw MusicException(MusicFailure.UNAVAILABLE)
+                assertTrue(url.contains("/rotor/station/user:onyourwave/feedback?batch-id=fixture"))
+                feedback = JSONObject(body)
+                return """{"result":"ok"}"""
+            }
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                assertTrue("Only reading legacy tracks uses the legacy GET transport", url.contains("/tracks?settings2=True"))
+                return waveReply(listOf(7))
+            }
+        }))
+        val item = api.start("owner").tracks.single()
+        api.feedback("owner", item, WaveFeedback.DISLIKE, 9)
+        val sent = requireNotNull(feedback)
+        assertEquals("dislike", sent.getString("type"))
+        assertEquals("7", sent.getString("trackId"))
+        assertEquals(9, sent.getInt("totalPlayedSeconds"))
+        assertTrue(sent.getString("timestamp").endsWith("Z"))
     }
     @Test fun echoedWholeBatchAdvancesItsLastCursorWithoutStartingANewSession() = runBlocking {
         val cursors = mutableListOf<String>()

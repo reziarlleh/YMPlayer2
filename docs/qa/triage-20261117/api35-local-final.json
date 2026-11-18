@@ -1,0 +1,54 @@
+{
+  "checkedAtUtc": "2026-11-18T02:48:57.120666+00:00",
+  "serial": "emulator-5558",
+  "avd": "YM2_Compat_API35",
+  "phase": "local-final",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "LocalPlaybackTest#indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot",
+      "passed": false,
+      "tests": null,
+      "seconds": 45.12,
+      "failureExcerpt": "mtests=1\r\nINSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:48)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:388)\r\n\r\nINSTRUMENTATION_STATUS: stream=\r\nError in indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(dev.petrov.ymplayer2.LocalPlaybackTest):\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:48)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:388)\r\n\r\nINSTRUMENTATION_STATUS: test=indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot\r\nINSTRUMENTATION_STATUS_CODE: -2\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 35.948\r\nThere was 1 failure:\r\n1) indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(dev.petrov.ymplayer2.LocalPlaybackTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:901)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:500)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.waitFor(LocalPlaybackTest.kt:48)\r\n\tat dev.petrov.ymplayer2.LocalPlaybackTest.indexedSelectionsRestoreAndQueuedCommandsNeverEnumerateSnapshot(LocalPlaybackTest.kt:388)\r\n\r\nFAILURES!!!\r\nTests run: 1,  Failures: 1\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    },
+    {
+      "test": "LocalPlaybackTest#manualReferencesUseSelectedIdsAndKeepCommandOrderDuringIo",
+      "passed": true,
+      "tests": 1,
+      "seconds": 21.94
+    },
+    {
+      "test": "LocalPlaybackTest#profileCheckpointsAndServiceRestartStayPaused",
+      "passed": true,
+      "tests": 1,
+      "seconds": 18.67
+    },
+    {
+      "test": "LocalPlaybackTest#refreshRequestedDuringOldScanRechecksNewlyAvailableStorage",
+      "passed": true,
+      "tests": 1,
+      "seconds": 16.98
+    },
+    {
+      "test": "LocalPlaybackTest#transientExternalAudioFocusPausesAndRestoresPlayback",
+      "passed": true,
+      "tests": 1,
+      "seconds": 17.61
+    },
+    {
+      "test": "LocalPlaybackTest#nativeRepeatAndShufflePersistPerProfileAndVisitEveryTrack",
+      "passed": true,
+      "tests": 1,
+      "seconds": 18.98
+    },
+    {
+      "test": "SystemBrowserTest",
+      "passed": true,
+      "tests": 7,
+      "seconds": 76.45
+    }
+  ],
+  "complete": true,
+  "allPassed": false
+}

@@ -1,0 +1,72 @@
+{
+  "checkedAtUtc": "2026-11-18T02:10:01.713602+00:00",
+  "serial": "emulator-5558",
+  "avd": "YM2_Compat_API35",
+  "phase": "fixes4",
+  "source": "Local SAF and Android media-session fixtures, no personal account token",
+  "results": [
+    {
+      "test": "SessionRecoveryTest#musicPlayingSurvivesOrdinaryExit",
+      "passed": true,
+      "tests": 1,
+      "seconds": 17.56
+    },
+    {
+      "test": "SessionRecoveryTest#musicPausedSurvivesOrdinaryExit",
+      "passed": true,
+      "tests": 1,
+      "seconds": 14.08
+    },
+    {
+      "test": "SessionRecoveryTest#musicResumesAfterServiceDestructionWithoutProcessDeath",
+      "passed": true,
+      "tests": 1,
+      "seconds": 19.98
+    },
+    {
+      "test": "SessionRecoveryTest#existingActivityResumesMusicAfterServiceDiesInBackground",
+      "passed": true,
+      "tests": 1,
+      "seconds": 20.67
+    },
+    {
+      "test": "SystemBrowserTest#selectedEmptyLikedCacheDoesNotResumeThePreviousLocalQueue",
+      "passed": true,
+      "tests": 1,
+      "seconds": 10.12
+    },
+    {
+      "test": "EngineHandoffTest",
+      "passed": true,
+      "tests": 4,
+      "seconds": 51.2
+    },
+    {
+      "test": "WaveSettingsAdapterTest",
+      "passed": true,
+      "tests": 15,
+      "seconds": 7.11
+    },
+    {
+      "test": "WaveColdRestoreTest#perItemFeedbackSessionsSurviveColdQueueRestore",
+      "passed": true,
+      "tests": 1,
+      "seconds": 29.62
+    },
+    {
+      "test": "WaveColdRestoreTest#legacyGlobalFeedbackSessionMigratesWithoutReplacingCachedQueue",
+      "passed": true,
+      "tests": 1,
+      "seconds": 26.03
+    },
+    {
+      "test": "OfflineSourceStateTest",
+      "passed": false,
+      "tests": null,
+      "seconds": 146.12,
+      "failureExcerpt": "class=dev.petrov.ymplayer2.OfflineSourceStateTest\r\nINSTRUMENTATION_STATUS: current=16\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=17\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=returningFromWaveRestoresOfflineTrackPositionAndShuffle\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest\r\nINSTRUMENTATION_STATUS: current=17\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=17\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=explicitWaveStopCannotResurrectAParkedWindowViaOffline\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=dev.petrov.ymplayer2.OfflineSourceStateTest\r\nINSTRUMENTATION_STATUS: current=17\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=17\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=explicitWaveStopCannotResurrectAParkedWindowViaOffline\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 140.038\r\nThere were 2 failures:\r\n1) localListCanReplaceAPlayingOfflineQueue(dev.petrov.ymplayer2.OfflineSourceStateTest)\r\njava.lang.AssertionError\r\n\tat org.junit.Assert.fail(Assert.java:87)\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\n\tat org.junit.Assert.assertFalse(Assert.java:65)\r\n\tat org.junit.Assert.assertFalse(Assert.java:75)\r\n\tat dev.petrov.ymplayer2.OfflineSourceStateTest.offlineToLocal(OfflineSourceStateTest.kt:64)\r\n\tat dev.petrov.ymplayer2.OfflineSourceStateTest.localListCanReplaceAPlayingOfflineQueue(OfflineSourceStateTest.kt:51)\r\n2) localListCanReplaceAnEmptyOfflineQueue(dev.petrov.ymplayer2.OfflineSourceStateTest)\r\njava.lang.AssertionError\r\n\tat org.junit.Assert.fail(Assert.java:87)\r\n\tat org.junit.Assert.assertTrue(Assert.java:42)\r\n\tat org.junit.Assert.assertFalse(Assert.java:65)\r\n\tat org.junit.Assert.assertFalse(Assert.java:75)\r\n\tat dev.petrov.ymplayer2.OfflineSourceStateTest.offlineToLocal(OfflineSourceStateTest.kt:64)\r\n\tat dev.petrov.ymplayer2.OfflineSourceStateTest.localListCanReplaceAnEmptyOfflineQueue(OfflineSourceStateTest.kt:52)\r\n\r\nFAILURES!!!\r\nTests run: 17,  Failures: 2\r\n\r\n\r\nINSTRUMENTATION_CODE: -1\r\n"
+    }
+  ],
+  "complete": true,
+  "allPassed": false
+}

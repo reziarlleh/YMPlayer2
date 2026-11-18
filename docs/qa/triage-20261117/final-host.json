@@ -1,0 +1,31 @@
+{
+  "checkedAtUtc": "2026-11-18T02:15:20.699223+00:00",
+  "jvm": [
+    {
+      "module": "core",
+      "tests": 186,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "app",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "buildSrc",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "lintDebug": {
+    "Warning": 138
+  },
+  "translations": "Validated 783 messages, 8 complete language packs; generated files current.",
+  "nativeSource": "api23-final.json and api35-final.json; initial critical cases in fixes4"
+}

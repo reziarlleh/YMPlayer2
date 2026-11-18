@@ -40,6 +40,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private var launchResumeJob: Job? = null
     private var launchResumeFailure: DiagnosticCategory? = null
     private var launchResumeAttempts = 0
+    private var launchResumeAfterAttach = false
+    private var pendingInterfacePlay: Pair<String, Long>? = null
     private var launchPreparePaused = false
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", null)
         ?.takeIf { id -> library.profiles.any { it.id == id } } ?: library.profiles.first().id, emptyList(), connected = false))
@@ -125,6 +127,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     /** Explicit opt-in policy. Reuse the cancellable launch path without replacing the selection. */
     fun playOnInterfaceOpen(expectedRevision: Long) {
         if (expectedRevision != launchRevision || radioMode) return
+        // Connected means an engine exists, not that its saved selection is restored.
+        // Retain the explicit ON request until metadata is ready; newer commands cancel it.
+        if (!ready || restoring) {
+            pendingInterfacePlay = state.value.profileId to expectedRevision
+            if (engine == null) connect()
+            return
+        }
+        pendingInterfacePlay = null
         val current = state.value
         if (current.current == null && !current.wave) return
         val player = engine
@@ -229,6 +239,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val active = launchResumeProfile != null
         launchResumeGeneration++
         launchResumeProfile = null
+        launchResumeAfterAttach = false
+        pendingInterfacePlay = null
         launchResumeFailure = null
         launchPreparePaused = false
         launchResumeJob?.cancel(); launchResumeJob = null
@@ -303,6 +315,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     internal fun attach(player: ExoPlayer) {
         check(engine == null)
         engine = player
+        // Connection describes the engine's lifetime, independently of whether
+        // an empty/unavailable account-scoped source can produce metadata.
+        mutable.value = state.value.copy(connected = true)
         player.addListener(object : Player.Listener {
             override fun onEvents(player: Player, events: Player.Events) { if (engine === player && !radioMode && !updating && !restoring && ready) {
                 publish()
@@ -480,7 +495,10 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     }
 
     internal fun detach() {
-        supersedeLaunchResume()
+        // Service teardown is not a newer user command. Keep only an actual
+        // in-flight foreground Play request; a metadata-only attach stays silent.
+        if (launchResumeProfile?.let(::launchResumeValid) == true) launchResumeAfterAttach = true
+        else if (pendingInterfacePlay != (state.value.profileId to launchRevision)) supersedeLaunchResume()
         cancelPendingSource(recover = false)
         lastAudible = null
         if (ready && !restoring) { publish(); checkpoint() }
@@ -572,6 +590,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
 
     private fun drainPending() {
         while (ready && engine != null && !restoring && pending.isNotEmpty()) pending.removeFirst().invoke()
+        if (ready && engine != null && !restoring) pendingInterfacePlay?.let { (profile, revision) ->
+            pendingInterfacePlay = null
+            if (state.value.profileId == profile) playOnInterfaceOpen(revision)
+        }
+        if (launchResumeAfterAttach && ready && engine != null && !restoring) {
+            launchResumeAfterAttach = false
+            launchResumeProfile?.takeIf(::launchResumeValid)?.let { requestLaunchPlay(launchResumeGeneration, it) }
+        }
     }
 
     private fun diskCommand(playing: Boolean? = null, action: suspend () -> Unit) = command(playing) { startDiskWork(action = action) }
@@ -650,9 +676,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         return referencesFor(indexed.catalogTrackIds(source))
     }
 
-    private suspend fun resolveReferences(refs: List<PlaybackReference>): List<Track> {
+    private suspend fun resolveReferences(refs: List<PlaybackReference>, source: PlaybackSource = state.value.origin.source): List<Track> {
         val profile = state.value.profileId
-        if (state.value.origin.source == PlaybackSource.OFFLINE) return refs.map { ref ->
+        if (source == PlaybackSource.OFFLINE) return refs.map { ref ->
             offline?.cachedTrack(profile, ref.id)?.copy(id = ref.id) ?: ref.remoteTrack(false)
         }
         val local = localTracksByIds(profile, refs.filter { it.saved.source != Source.YANDEX }.map(PlaybackReference::id))
@@ -973,9 +999,13 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             val refs = referencesFor(trackIds)
             if (refs.isEmpty()) return false
             val order = ReferencePlaybackOrder().apply { replace(refs) }
-            val selected = order.reference(startId)?.let { resolveReference(it).takeIf(Track::available) }
-                ?: order.adjacent(null, 1, state.value.shuffle, RepeatMode.OFF, ::resolveReference) ?: return false
+            // Validate the requested list using its source, while the outgoing
+            // source/bookmark remains intact until a playable item is found.
+            suspend fun resolveSelected(ref: PlaybackReference) = resolveReferences(listOf(ref), origin.source).single()
+            val selected = order.reference(startId)?.let { resolveSelected(it).takeIf(Track::available) }
+                ?: order.adjacent(null, 1, state.value.shuffle, RepeatMode.OFF, ::resolveSelected) ?: return false
             cancelWave()
+            activeOfflineOwner = null
             mutable.value = state.value.copy(origin = origin)
             referenceOrder = order
             setReferences(refs, selected.id, 0, resume = true, preserveCurrent = false)
@@ -985,6 +1015,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val queue = trackIds.distinct().mapNotNull { known[it]?.takeIf(Track::available) }
         if (queue.isEmpty()) return false
         cancelWave()
+        activeOfflineOwner = null
         mutable.value = state.value.copy(origin = origin)
         followLibrary = false
         load(queue, queue.indexOfFirst { it.id == startId }.coerceAtLeast(0), 0)
@@ -1056,10 +1087,11 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private fun offlineKey(owner: OfflineOwner) = "${owner.profileId}:${owner.accountId}"
     /** Only local metadata is awaited. Actual selected audio still passes OfflineStore.audio checks. */
     private suspend fun restoreOfflineQueue(profile: String, resume: Boolean, current: JSONObject? = null) {
-        val cache = offline ?: return
+        val cache = offline ?: run { selectEmptyOfflineQueue(profile); return }
         val tracks = cache.readyTracks(profile).filter { it.available && it.offline }
-        if (!cache.state.value.enabled) return
-        val owner = cache.state.value.owner?.takeIf { it.profileId == profile } ?: return
+        if (state.value.profileId != profile) return
+        val owner = cache.state.value.owner?.takeIf { it.profileId == profile }
+        if (!cache.state.value.enabled || owner == null) { selectEmptyOfflineQueue(profile); return }
         if (state.value.profileId != profile || tracks.any { cache.cachedTrack(profile, it.id) == null }) return
         val key = offlineKey(owner)
         val bookmark = runCatching { JSONObject(prefs.getString("offlineState:$key", "")!!) }.getOrNull()
@@ -1090,6 +1122,19 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             load(queue, queue.indexOfFirst { it.id == selected?.id }.coerceAtLeast(0), position)
             if (selected != null) { engine?.prepare(); if (resume) engine?.play() }
         }
+    }
+
+    /** A headless media client can select Offline without an account or enabled cache.
+     * Commit that explicit empty source instead of leaving a resumable unrelated queue. */
+    private fun selectEmptyOfflineQueue(profile: String) {
+        if (state.value.profileId != profile || state.value.pendingSource != PlaybackSource.OFFLINE) return
+        pendingSourceLaunch = null
+        cancelWave(); followLibrary = false; referenceOrder = null; activeOfflineOwner = null
+        mutable.value = state.value.copy(origin = PlaybackOrigin(PlaybackSource.OFFLINE), recommendations = false,
+            continueWave = false).withRepeat(RepeatMode.OFF).withShuffle(false)
+        launchState.write(profile, PlaybackOutput.MUSIC, false, stopped = true)
+        ready = true
+        load(emptyList(), 0, 0)
     }
 
     private fun saveOfflineBookmark() {
@@ -1827,12 +1872,16 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                     (0 until seeds.length()).map { i -> seeds.getString(i) }
                 }.orEmpty()) } ?: WaveRequest()
             val batches = json.optJSONObject("waveBatches")
+            val sessions = json.optJSONObject("waveSessions")
             val savedSeen = json.optJSONArray("waveSeen")
             val oldFuture = if (stoppedWave) restoredTracks.drop(restoredTracks.indexOfFirst { it.id == current } + 1)
                 .mapTo(hashSetOf()) { it.tasteTarget().key } else emptySet()
             waveHistory.restore((0 until (savedSeen?.length() ?: 0)).map { savedSeen!!.optString(it) }.filterNot { it in oldFuture })
             queue.forEach { waveHistory.remember(it.tasteTarget().key) }
-            queue.forEach { waveItems[it.id] = WaveTrack(it, batches?.optString(it.id).orEmpty(), activeWaveRequest.station) }
+            queue.forEach {
+                val session = if (sessions?.has(it.id) == true) sessions.optString(it.id) else json.optString("waveSession")
+                waveItems[it.id] = WaveTrack(it, batches?.optString(it.id).orEmpty(), activeWaveRequest.station, session)
+            }
             waveBatch = WaveBatch(emptyList(), json.optString("waveSession"), json.optString("waveCursor"), activeWaveRequest)
                 .takeUnless { stoppedWave || queue.isEmpty() && it.sessionId.isBlank() && it.cursor.isBlank() }
             // All restored successors already belong to this window. Repair missing files from
@@ -2093,6 +2142,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             .put("offlineAccount", activeOfflineOwner?.takeIf { state.origin.source == PlaybackSource.OFFLINE }?.accountId)
             .put("recommendations", state.recommendations)
             .put("waveBatches", JSONObject().apply { if (state.wave) state.queue.forEach { track -> put(track.id, waveItems[track.id]?.batchId) } })
+            .put("waveSessions", JSONObject().apply { if (state.wave) state.queue.forEach { track -> put(track.id, waveItems[track.id]?.sessionId.orEmpty()) } })
         json.put("referenceOrder", referenceOrder != null)
         referenceOrder?.let { order ->
             if (persistedReferenceOrder !== order || persistedReferenceRevision != order.revision) {

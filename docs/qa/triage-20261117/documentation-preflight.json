@@ -1,0 +1,15 @@
+{
+  "version": "2.8.3-build149",
+  "manualBeta": false,
+  "development": true,
+  "stableVersion": "2.8.2-build148",
+  "localFeeds": {
+    "manifest": "2.8.2-build148",
+    "stable": "2.8.2-build148"
+  },
+  "documents": 329,
+  "localLinks": 3510,
+  "brokenLinks": [],
+  "github": null,
+  "errors": []
+}
