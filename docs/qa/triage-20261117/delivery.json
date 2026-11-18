@@ -1,0 +1,21 @@
+{
+  "checkedAtUtc": "2026-11-18T03:20:13.147389+00:00",
+  "artifactCommit": "a5428ffa07e881e1d4a8c891d27d2813a6537099",
+  "downloadUrl": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/a5428ffa07e881e1d4a8c891d27d2813a6537099/releases/2.8.3-build150/YMPlayer-2.8.3-build150.apk",
+  "status": 200,
+  "size": 4763189,
+  "sha256": "0149eb9093d5889696caa10174e1d3a5979002e86a9fad19adcedfb0fc22a53d",
+  "latest": {
+    "isPrerelease": false,
+    "tagName": "v2.8.2-build148",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.2-build148"
+  },
+  "defaultBranch": "main",
+  "sourceFeeds": {
+    "manifest": "2.8.2-build148",
+    "stable": "2.8.2-build148"
+  },
+  "productSourceCommit": "91bcb50f5d694f37c81074cce52a4eef6d56b9f4",
+  "productSourceUnchangedAfterCiCommit": true,
+  "newStablePublished": false
+}

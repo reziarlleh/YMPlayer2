@@ -1,0 +1,21 @@
+{
+  "version": "2.8.3-build150",
+  "manualBeta": false,
+  "development": true,
+  "stableVersion": "2.8.2-build148",
+  "localFeeds": {
+    "manifest": "2.8.2-build148",
+    "stable": "2.8.2-build148"
+  },
+  "documents": 330,
+  "localLinks": 3549,
+  "brokenLinks": [],
+  "github": {
+    "isPrerelease": false,
+    "tagName": "v2.8.2-build148",
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.2-build148",
+    "readmeBlob": "bafee34e0d451bfb1e111a6de0c535a78f37fdc5",
+    "localReadmeBlob": "bafee34e0d451bfb1e111a6de0c535a78f37fdc5"
+  },
+  "errors": []
+}

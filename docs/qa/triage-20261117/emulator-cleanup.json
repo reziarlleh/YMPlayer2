@@ -1,0 +1,12 @@
+[
+  {
+    "verifiedAvd": "YM2_API23",
+    "stopped": true,
+    "serial": "emulator-5554"
+  },
+  {
+    "verifiedAvd": "YM2_Compat_API35",
+    "stopped": true,
+    "serial": "emulator-5558"
+  }
+]

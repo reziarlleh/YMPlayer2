@@ -1,0 +1,9 @@
+{
+  "checkedAtUtc": "2026-11-18T03:24:39.616253+00:00",
+  "refreshCompleted": false,
+  "targetProductCommit": "91bcb50f5d694f37c81074cce52a4eef6d56b9f4",
+  "confirmedLastSync": "e7c60aba73fdc29073c91b4e517b3f53fa1aed3d",
+  "observed": "Repeated refreshes reached graph/analysis/persist but did not produce a completed current snapshot. Doctor repair reported no store drift; active job stopped after bounded attempts.",
+  "productValidation": "Direct source audit, builds, native tests, signing, CI and delivery did not depend on this index.",
+  "remainingToolingWork": "Diagnose the RepoWise refresh/persist stall separately; do not report the index as current."
+}
