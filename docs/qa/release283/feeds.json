@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/manifest.json",
+    "checkedAtUtc": "2026-11-18T06:54:44.113945+00:00",
+    "status": 200,
+    "versionName": "2.8.3-build150",
+    "metadataMatches": true,
+    "cache": "HIT",
+    "age": null
+  },
+  {
+    "url": "https://raw.githubusercontent.com/reziarlleh/YMPlayer2/main/update/stable.json",
+    "checkedAtUtc": "2026-11-18T06:54:44.113945+00:00",
+    "status": 200,
+    "versionName": "2.8.3-build150",
+    "metadataMatches": true,
+    "cache": "HIT",
+    "age": null
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-11-18T06:54:44.114942+00:00",
+    "status": 200,
+    "versionName": "2.8.3-build150",
+    "metadataMatches": true,
+    "cache": "MISS",
+    "age": "485"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "checkedAtUtc": "2026-11-18T06:54:44.114942+00:00",
+    "status": 200,
+    "versionName": "2.8.3-build150",
+    "metadataMatches": true,
+    "cache": "MISS",
+    "age": "484"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+    "checkedAtUtc": "2026-11-18T06:54:44.115943+00:00",
+    "status": 200,
+    "versionName": "2.8.3-build150",
+    "metadataMatches": true,
+    "cache": "MISS",
+    "age": "11091"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+    "checkedAtUtc": "2026-11-18T06:54:44.115943+00:00",
+    "status": 200,
+    "versionName": "2.8.2-build148",
+    "metadataMatches": false,
+    "cache": "MISS",
+    "age": "13187"
+  }
+]

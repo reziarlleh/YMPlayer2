@@ -1,0 +1,41 @@
+{
+  "checkedAtUtc": "2026-11-18T06:45:39.167921+00:00",
+  "results": [
+    {
+      "name": "stable",
+      "status": 200,
+      "response": {
+        "id": "2Ue7D4aT1dyljI5Y",
+        "status": "finished",
+        "timestamp": "2026-11-18T06:45:40.065Z",
+        "paths": {
+          "/gh/reziarlleh/YMPlayer2@main/update/stable.json": {
+            "throttled": false,
+            "providers": {
+              "CF": true,
+              "FY": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "manifest",
+      "status": 200,
+      "response": {
+        "id": "302Huvtyj2kLqDQh",
+        "status": "finished",
+        "timestamp": "2026-11-18T06:45:39.931Z",
+        "paths": {
+          "/gh/reziarlleh/YMPlayer2@main/update/manifest.json": {
+            "throttled": false,
+            "providers": {
+              "CF": true,
+              "FY": true
+            }
+          }
+        }
+      }
+    }
+  ]
+}
