@@ -1,7 +1,7 @@
 # YMPlayer2 — руководство пользователя
 
-Руководство описывает стабильный **YMPlayer2 2.8.2-build148**, Android6 и новее.
-[Скачать APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.2-build148) · [Подпись и проверки](MANUAL_2_8_2_BUILD148.md).
+Руководство описывает стабильный **YMPlayer2 2.8.3-build150**, Android6 и новее.
+[Скачать APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.3-build150) · [Подпись и проверки](MANUAL_2_8_3_BUILD150.md).
 Верхний ряд плеера содержит три пиктограммы источников; очередь волны — до10 треков.
 Настройки и источники волн, режимы списков доступны в стабильном выпуске.
 Обновление сохраняет данные предыдущих2.x. [English user guide](USER_GUIDE_EN.md).

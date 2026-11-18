@@ -1,0 +1,9 @@
+{
+  "tag": "apk-2.8.3-build150",
+  "sourceTag": "v2.8.3-build150",
+  "sourceCommit": "73e734dba0c6ea131374901ffb57a55c8ac0ddd1",
+  "commit": "be133f04fb4647a76560b1eb537d7517b85705be",
+  "treeBytes": 4778230,
+  "apkSha256": "0149eb9093d5889696caa10174e1d3a5979002e86a9fad19adcedfb0fc22a53d",
+  "remoteCheckedAtUtc": "2026-11-18T03:44:26.975829+00:00"
+}

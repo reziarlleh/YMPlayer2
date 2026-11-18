@@ -1,7 +1,7 @@
 # YMPlayer2 — user guide
 
-This guide covers the stable **YMPlayer2 2.8.2-build148**, for Android6 and later.
-[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.2-build148) · [Signing and verification](MANUAL_2_8_2_BUILD148.md).
+This guide covers the stable **YMPlayer2 2.8.3-build150**, for Android6 and later.
+[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.3-build150) · [Signing and verification](MANUAL_2_8_3_BUILD150.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.

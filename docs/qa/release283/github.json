@@ -1,0 +1,35 @@
+{
+  "checkedAtUtc": "2026-11-18T03:44:59.955355+00:00",
+  "url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.3-build150",
+  "id": 449498027,
+  "tag": "v2.8.3-build150",
+  "latest": "v2.8.3-build150",
+  "publishedAt": "2026-11-18T03:44:59Z",
+  "draft": false,
+  "prerelease": false,
+  "assets": [
+    {
+      "name": "build.json",
+      "bytes": 720,
+      "digest": "sha256:9af3edebd356ce0301afc1050718f4d8df533455b95c0d4fdeb89fdf354628f8"
+    },
+    {
+      "name": "SHA256.txt",
+      "bytes": 94,
+      "digest": "sha256:6e29cc951f19dd2716af26a6116d38c8ffbcb186d03ae02b4e35aa308b407f27"
+    },
+    {
+      "name": "signature.txt",
+      "bytes": 14227,
+      "digest": "sha256:7e9682daf70d0d51b5efaa14c8d68a868154066913077a3a96c01bb9017bb623"
+    },
+    {
+      "name": "YMPlayer-2.8.3-build150.apk",
+      "bytes": 4763189,
+      "digest": "sha256:0149eb9093d5889696caa10174e1d3a5979002e86a9fad19adcedfb0fc22a53d"
+    }
+  ],
+  "productSourceCommit": "91bcb50f5d694f37c81074cce52a4eef6d56b9f4",
+  "sourceUnchanged": true,
+  "cumulativeVersionNotes": true
+}

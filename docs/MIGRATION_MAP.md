@@ -1,6 +1,6 @@
 # Карта переноса и модулей
 
-18 ноября, аудит2.8.3: core/WaveTrack получает необязательный sessionId;
+18 ноября, стабильный [2.8.3-build150](RELEASE_2_8_3_VERIFICATION.md): core/WaveTrack получает необязательный sessionId;
 provider/yandex сериализует session/station JSON feedback по контексту элемента.
 playback/android хранит контекст каждого трека и читает прежний общий waveSession,
 переносит только незавершённый foreground Play через detach/attach и фиксирует

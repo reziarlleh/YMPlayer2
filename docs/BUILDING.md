@@ -1,7 +1,6 @@
 # Сборка YMPlayer2
 
-Актуализировано18 ноября2026: main, стабильная2.8.2-build148;
-ручной кандидат2.8.3-build150 (releaseState=development, feed148).
+Стабильный выпуск на 18 ноября 2026 — 2.8.3-build150 (`releaseState=accepted`).
 [APK и проверка](MANUAL_2_8_3_BUILD150.md).
 Фактические12 модулей (core — JVM, остальные — Android):
 app, core, designsystem, feature:shell, feature:clips, library:local, library:offline,
