@@ -8,8 +8,8 @@
   "minSdk": 23,
   "updateChannel": "stable",
   "applicationId": "dev.petrov.ymplayer2",
-  "ownerAcceptance": "pending",
-  "publication": "manual-review-only",
+  "ownerAcceptance": "release-authorized",
+  "publication": "approved-for-stable",
   "productSourceCommit": "91bcb50f5d694f37c81074cce52a4eef6d56b9f4",
   "expandedMediaDiagnostics": true,
   "resolvedFindings": [
