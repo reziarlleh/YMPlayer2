@@ -1,0 +1,41 @@
+{
+  "checkedAtUtc": "2026-11-19T08:35:45.130263+00:00",
+  "results": [
+    {
+      "url": "https://purge.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/manifest.json",
+      "status": 200,
+      "response": {
+        "id": "3saLZjghoexgHRPz",
+        "status": "finished",
+        "timestamp": "2026-11-19T08:35:44.922Z",
+        "paths": {
+          "/gh/reziarlleh/YMPlayer2@main/update/manifest.json": {
+            "throttled": false,
+            "providers": {
+              "CF": true,
+              "FY": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://purge.jsdelivr.net/gh/reziarlleh/YMPlayer2@main/update/stable.json",
+      "status": 200,
+      "response": {
+        "id": "TcrP6GhAy37e5zhi",
+        "status": "finished",
+        "timestamp": "2026-11-19T08:35:45.051Z",
+        "paths": {
+          "/gh/reziarlleh/YMPlayer2@main/update/stable.json": {
+            "throttled": false,
+            "providers": {
+              "CF": true,
+              "FY": true
+            }
+          }
+        }
+      }
+    }
+  ]
+}
