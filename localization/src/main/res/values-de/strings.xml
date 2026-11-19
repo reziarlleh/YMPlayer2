@@ -789,5 +789,7 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="profile_start_auto_description" formatted="false">"Den letzten Wiedergabestatus wiederherstellen."</string>
     <string name="profile_start_off_description" formatted="false">"Nicht automatisch starten. Bereits im Hintergrund laufende Wiedergabe läuft weiter."</string>
     <string name="profile_start_on_description" formatted="false">"Die Wiedergabe bei jedem Öffnen der App fortsetzen."</string>
+    <string name="search_top" formatted="false">"Top"</string>
+    <string name="search_genre_wave" formatted="false">"Mein Mix nach Genre"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

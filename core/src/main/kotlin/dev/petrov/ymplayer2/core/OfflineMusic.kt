@@ -2,6 +2,9 @@ package dev.petrov.ymplayer2.core
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import java.net.SocketException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 data class OfflineOwner(val profileId: String, val accountId: String)
 data class LikedSnapshot(val keys: Set<String>, val tracks: List<Track>)
@@ -27,12 +30,37 @@ interface OfflineStore {
     suspend fun pendingDownloads(owner: OfflineOwner): Set<String> = emptySet()
     suspend fun pendingDownloads(owner: OfflineOwner, keys: Set<String>) = Unit
 }
-class OfflineException(message: String) : Exception(message)
+open class OfflineException(message: String) : Exception(message)
+private class SyncNetworkUnavailable(message: String) : OfflineException(message)
+
+/** Retry transport errors even while Android still reports an eligible connection. */
+suspend fun <T> retryOfflineTransfer(checkNetwork: () -> Unit, request: suspend () -> T): T {
+    var retries = 0
+    while (true) {
+        checkNetwork()
+        try { return request() }
+        catch (e: CancellationException) { throw e }
+        catch (e: Exception) {
+            val temporaryNetworkError = generateSequence<Throwable>(e) { it.cause }.take(8).any {
+                when (it) {
+                    is MusicException -> it.failure == MusicFailure.NETWORK && (it.httpStatus == null || it.httpStatus == 408)
+                    is SocketException, is SocketTimeoutException, is UnknownHostException -> true
+                    else -> false
+                }
+            }
+            if (!temporaryNetworkError) throw e
+            checkNetwork()
+            if (retries == 2) throw e
+            delay(1_000L * ++retries)
+        }
+    }
+}
 data class OfflineState(
     val owner: OfflineOwner? = null, val ready: Boolean = false, val running: Boolean = false,
     val tracks: List<Track> = emptyList(), val total: Int = 0, val checked: Int = 0,
     val audioFailures: Int = 0, val coverFailures: Int = 0, val noCover: Int = 0,
     val message: String? = null, val wifiOnly: Boolean = true, val enabled: Boolean = true,
+    val waitingForNetwork: Boolean = false,
 ) {
     val bytes get() = tracks.sumOf(Track::sizeBytes)
 }
@@ -199,7 +227,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
         if (state.value.enabled == value) return
         generation++; membershipRevision++; job?.cancel(); loadJob?.cancel(); automaticJob?.cancel(); job = null; passKeys = null; seenTaste = null
         mutable.value = state.value.copy(enabled = value, ready = state.value.owner != null && !value,
-            running = false, tracks = emptyList(), total = 0, checked = 0, audioFailures = 0, coverFailures = 0, noCover = 0,
+            running = false, waitingForNetwork = false, tracks = emptyList(), total = 0, checked = 0, audioFailures = 0, coverFailures = 0, noCover = 0,
             message = if (value) null else "Офлайн-кэш выключен. Для освобождения места удалите ранее сохранённые файлы.")
         saveEnabled(value)
         if (value) state.value.owner?.let(::load)
@@ -233,7 +261,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     fun report(message: String) { mutable.value = state.value.copy(message = message) }
     fun cancel() {
         generation++; job?.cancel(); loadJob?.cancel(); automaticJob?.cancel(); job = null; passKeys = null
-        mutable.value = state.value.copy(running = false, message = "Синхронизация остановлена. Готовые файлы сохранены.")
+        mutable.value = state.value.copy(running = false, waitingForNetwork = false, message = "Синхронизация остановлена. Готовые файлы сохранены.")
         // Cancelling a transfer must not leave a cold catalog permanently unready.
         if (!state.value.ready && state.value.enabled && !storageChanging) state.value.owner?.let { load(it, retryAutomaticWhenReady = false) }
     }
@@ -247,6 +275,25 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
     }
     fun sync() = synchronize(verifyAll = false)
     fun verifyAndRepair() = synchronize(verifyAll = true)
+    private fun syncNetworkMessage() = if (state.value.wifiOnly) "Для синхронизации нужен Wi-Fi." else "Нет сети для синхронизации."
+
+    private suspend fun <T> withSyncConnection(transfer: () -> Unit, step: suspend () -> T): T {
+        while (true) {
+            try { return retryOfflineTransfer(transfer, step) }
+            catch (_: SyncNetworkUnavailable) {
+                val progress = state.value.message
+                mutable.value = state.value.copy(waitingForNetwork = true, message = syncNetworkMessage())
+                val connected = withTimeoutOrNull(90_000L) {
+                    do { delay(1_000L) } while (!network(state.value.wifiOnly))
+                    true
+                }
+                if (connected != true) throw SyncNetworkUnavailable(syncNetworkMessage())
+                currentCoroutineContext().ensureActive()
+                mutable.value = state.value.copy(waitingForNetwork = false, message = progress)
+            }
+        }
+    }
+
     private fun synchronize(verifyAll: Boolean) {
         val owner = state.value.owner ?: return
         if (!state.value.enabled || !state.value.ready || state.value.running || storageChanging) return
@@ -256,12 +303,12 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
             message = if (verifyAll) "Проверяем офлайн-кэш…" else "Получаем «Мне нравится»…")
         fun transfer() {
             if (!valid(owner, ticket)) throw CancellationException("Offline owner changed")
-            if (!network(state.value.wifiOnly)) throw OfflineException(if (state.value.wifiOnly) "Для синхронизации нужен Wi-Fi." else "Нет сети для синхронизации.")
+            if (!network(state.value.wifiOnly)) throw SyncNetworkUnavailable(syncNetworkMessage())
         }
         job = scope.launch {
             try {
                 transfer()
-                val snapshot = api.snapshot(owner.profileId)
+                val snapshot = withSyncConnection(::transfer) { api.snapshot(owner.profileId) }
                 ensureActive()
                 if (!valid(owner, ticket)) return@launch
                 passKeys = snapshot.keys
@@ -288,15 +335,17 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
                 val work = rows.filterNot { it.tasteTarget().key in ready }
                     .sortedBy { if (it.tasteTarget().key in plan.missingAudio) 0 else 1 }
                 for (track in work) {
-                    ensureActive(); transfer()
+                    ensureActive()
                     val key = track.tasteTarget().key
                     if (key in excluded) continue
                     mutable.value = state.value.copy(message = "${state.value.checked + 1}/${snapshot.keys.size} · ${track.title}")
                     val quality = cacheQuality()
                     val allowed = { valid(owner, ticket) && key !in excluded && key !in taste.excludedPendingTracks(owner) }
                     val resolve = suspend { online.stream(owner.profileId, track.id, quality) }
-                    val result = if (verifyAll) store.sync(owner, track, resolve, allowed, ::transfer)
+                    val result = withSyncConnection(::transfer) {
+                        if (verifyAll) store.sync(owner, track, resolve, allowed, ::transfer)
                         else store.syncIncremental(owner, track, resolve, allowed, ::transfer)
+                    }
                     ensureActive()
                     if (!valid(owner, ticket)) return@launch
                     if (key !in excluded) {
@@ -308,8 +357,7 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
                             noCover = state.value.noCover + if (result.noCover) 1 else 0)
                     }
                 }
-                transfer()
-                val keys = api.keys(owner.profileId) - excluded - taste.excludedPendingTracks(owner)
+                val keys = withSyncConnection(::transfer) { api.keys(owner.profileId) } - excluded - taste.excludedPendingTracks(owner)
                 ensureActive()
                 if (!valid(owner, ticket)) return@launch
                 applyMembership(owner, keys)
@@ -327,7 +375,12 @@ class OfflineMusic(private val accounts: AccountAuth, private val taste: MusicTa
                     is MusicException -> e.failure.message()
                     else -> "Не удалось завершить синхронизацию. Готовые файлы сохранены; повторите попытку."
                 })
-            } finally { if (valid(owner, ticket)) { passKeys = null; mutable.value = state.value.copy(running = false) } }
+            } finally {
+                if (valid(owner, ticket)) {
+                    passKeys = null
+                    mutable.value = state.value.copy(running = false, waitingForNetwork = false)
+                }
+            }
         }
     }
     fun clear() {

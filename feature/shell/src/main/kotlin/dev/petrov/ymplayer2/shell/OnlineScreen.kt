@@ -14,6 +14,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -33,14 +35,16 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     val keyboard = LocalSoftwareKeyboardController.current
     val request = state.request
     val query = searchQuery ?: request.query
-    fun changeQuery(value: String) { onSearchQueryChange(value); music.search(value) }
+    val topSelected = search && (request.topSearch || request.collection)
+    fun submitSearch(value: String) { if (topSelected) music.searchTop(value) else music.search(value, request.kind) }
+    fun changeQuery(value: String) { onSearchQueryChange(value); submitSearch(value) }
     val detail = request.entity
     val selection = rememberTrackSelection(playback.profileId, request, query, search)
     fun up() { if (standalone && detail?.kind == MusicKind.ARTISTS) closeArtist() else music.up() }
     BackHandler(detail != null) { up() }
     LaunchedEffect(search, searchQuery, state.profileId, state.signedIn) {
         if (!standalone && detail == null) {
-            if (search && (request.collection || request.query != query)) music.search(query, if (request.collection) MusicKind.TRACKS else request.kind)
+            if (search && (request.collection || request.query != query)) submitSearch(query)
             if (!search && state.signedIn && (!request.collection || !state.loaded && !state.loading && state.issue == null)) music.collection()
         }
     }
@@ -99,9 +103,12 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                         trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, tr(Msg.msg_6e1f7baa472f), { changeQuery("") }) })
                 }
                 item {
-                    ChoiceRow(if (request.recommended) "recommended" else request.kind.name, Modifier.fillMaxWidth()) { choice ->
+                    val selected = if (topSelected) "TOP" else if (request.recommended) "recommended" else request.kind.name
+                    ChoiceRow(selected, Modifier.fillMaxWidth()) { choice ->
+                        if (search) FilterChip(topSelected, { music.searchTop(query, debounce = false) }, { Text(tr(Msg.search_top)) },
+                            choice("TOP").prismFocus().testTag("online_kind_TOP"))
                         MusicKind.entries.forEach { kind ->
-                            FilterChip(request.kind == kind && !request.recommended, { if (search) music.search(query, kind, false) else music.collection(kind) },
+                            FilterChip(!topSelected && request.kind == kind && !request.recommended, { if (search) music.search(query, kind, false) else music.collection(kind) },
                                 { Text(if (search) trMessage(kind.label) else when (kind) {
                                     MusicKind.TRACKS -> tr(Msg.msg_840370e3fad2)
                                     MusicKind.ARTISTS -> tr(Msg.msg_263e20096cc0)
@@ -136,7 +143,11 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             if (shownTracks.isNotEmpty() && !selection.active) item(key = "bulk") { SelectionToolbar(selection, player) }
             items(entries, key = MusicEntry::id) { entry ->
                 val track = entry.track
-                if (track != null) TrackRow(track,
+                val wave = entry.wave
+                if (wave != null) GenreWaveSearchRow(entry, wave) {
+                    keyboard?.hide(); player.playWave(wave.request); waveStarted()
+                }
+                else if (track != null) TrackRow(track,
                     play = { play(track.id) },
                     enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null, taste = taste, artist = artist,
                     checked = if (selection.active) selection.contains(track.id) else null,
@@ -160,5 +171,20 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             }
         }
     }
+    }
+}
+
+@Composable private fun GenreWaveSearchRow(entry: MusicEntry, wave: WaveSearchResult, start: () -> Unit) {
+    Surface(onClick = start, modifier = Modifier.fillMaxWidth().prismFocus().testTag("online_${entry.id}"), shape = MaterialTheme.shapes.medium) {
+        Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            val artwork = Modifier.size(48.dp).clip(MaterialTheme.shapes.small)
+            PublicArtwork(wave.artworkUri, "", artwork, ContentScale.Crop, "online_wave_artwork") {
+                Box(artwork, contentAlignment = Alignment.Center) { SkinIcon(UiIcon.WAVE, null) }
+            }
+            Column(Modifier.weight(1f)) {
+                Text(entry.title, fontWeight = FontWeight.Bold)
+                Text(tr(Msg.search_genre_wave), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
     }
 }

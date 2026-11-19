@@ -789,5 +789,7 @@
     <string name="profile_start_auto_description" formatted="false">"Аднаўляць апошні стан прайгравання."</string>
     <string name="profile_start_off_description" formatted="false">"Не запускаць аўтаматычна. Музыка, якая ўжо грае ў фоне, працягвае граць."</string>
     <string name="profile_start_on_description" formatted="false">"Працягваць прайграванне пры кожным адкрыцці праграмы."</string>
+    <string name="search_top" formatted="false">"Топ"</string>
+    <string name="search_genre_wave" formatted="false">"Мая хваля па жанры"</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

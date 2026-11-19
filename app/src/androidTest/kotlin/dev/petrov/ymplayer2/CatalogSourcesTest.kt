@@ -1,6 +1,7 @@
 package dev.petrov.ymplayer2
 
 
+import android.os.Build
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.graphics.asAndroidBitmap
@@ -21,8 +22,9 @@ class CatalogSourcesTest {
     private fun capture(name: String) {
         val configuration = compose.activity.resources.configuration
         val device = if (configuration.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION) "tv" else "phone"
-        val bitmap = compose.onRoot().captureToImage().asAndroidBitmap()
-        // QA screenshots are private test artifacts, including on API28 without MediaStore.Downloads.
+        val bitmap = if (Build.VERSION.SDK_INT >= 26) compose.onRoot().captureToImage().asAndroidBitmap()
+            else androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot() ?: return
+        // QA screenshots are private test artifacts.
         java.io.File(compose.activity.getExternalFilesDir(null), "catalog-$device-${configuration.fontScale}-$name.png")
             .outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
     }
@@ -340,6 +342,9 @@ class CatalogSourcesTest {
         showTrack(cached.id)
         compose.runOnIdle { player.switchProfile("guest") }
         await { fixture.offline.state.value.owner == null && player.state.value.profileId == "guest" }
+        // The profile change can refocus the search field on short Android 6 windows.
+        compose.onNodeWithTag("search_input").performImeAction()
+        await { compose.onAllNodesWithTag("open_offline").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("open_offline").performClick()
         compose.onNodeWithTag("track_${cached.id}").assertDoesNotExist()
         compose.onNodeWithTag("nav_search").assertIsSelected()

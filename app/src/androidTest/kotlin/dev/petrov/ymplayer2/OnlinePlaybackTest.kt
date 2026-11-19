@@ -28,13 +28,13 @@ class OnlinePlaybackTest {
         waitFor { fixture.library.testTracks.size == 2 && fixture.online.state.value.signedIn }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
-    private fun search() {
+    private fun search(query: String = "fixture") {
         compose.onNodeWithTag("nav_search").performClick(); compose.onNodeWithTag("source_yandex").performClick()
         compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("online_query"))
-        compose.onNodeWithTag("online_query").performTextInput("fixture")
-        try { waitFor { fixture.online.state.value.loaded && !fixture.online.state.value.loading } }
-        catch (e: AssertionError) { throw AssertionError("Fixture search state: ${fixture.online.state.value}; requests=${fixture.requests}", e) }
+        compose.onNodeWithTag("online_query").performTextReplacement(query)
         compose.onNodeWithTag("online_query").performImeAction()
+        try { waitFor { fixture.online.state.value.loaded && fixture.online.state.value.request.query == query } }
+        catch (e: Throwable) { throw AssertionError("Fixture search state: ${fixture.online.state.value}; requests=${fixture.requests}", e) }
         val label = androidx.test.platform.app.InstrumentationRegistry.getArguments().getString("m5Screenshot")
         if (label != null && label.matches(Regex("[a-z0-9-]+"))) {
             compose.waitForIdle()
@@ -44,6 +44,36 @@ class OnlinePlaybackTest {
         }
     }
     private fun action(tag: String) { compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag(tag)); compose.onNodeWithTag(tag).performClick() }
+    @Test fun topSearchPaginatesReturnsFromDetailsAndPlaysGenreWave() {
+        val jazz = WaveRequest("micro-genre:jazz-instrument", "Инструментальный джаз")
+        val rock = WaveRequest("micro-genre:instrumental-rock", "Инструментальный рок")
+        val album = MusicEntity("7", "Тестовый альбом", MusicKind.ALBUMS)
+        val firstPage = listOf(MusicEntry("album:7", album.title, "Альбом", entity = album),
+            MusicEntry("wave:jazz", jazz.title, "", wave = WaveSearchResult(jazz)))
+        compose.runOnIdle {
+            fixture.topSearchPages = mapOf(0 to MusicPage(firstPage, 1),
+                1 to MusicPage(listOf(MusicEntry("wave:rock", rock.title, "", wave = WaveSearchResult(rock)))))
+        }
+        search("инструментал")
+        compose.onNodeWithTag("online_kind_TOP").assertIsSelected()
+        assertEquals(firstPage, fixture.online.state.value.entries)
+        action("online_entity_7")
+        waitFor { fixture.online.state.value.request.entity == album }
+        waitFor { compose.onAllNodesWithTag("navigate_up").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("navigate_up").performClick()
+        waitFor { fixture.online.state.value.request.entity == null && fixture.online.state.value.entries == firstPage }
+        action("online_kind_TRACKS")
+        waitFor { fixture.online.state.value.loaded && !fixture.online.state.value.request.topSearch }
+        assertTrue(fixture.online.state.value.entries.all { it.track != null })
+        action("online_kind_TOP")
+        waitFor { fixture.online.state.value.loaded && fixture.online.state.value.entries == firstPage }
+        action("online_more")
+        waitFor { fixture.online.state.value.entries.size == 3 && fixture.online.state.value.nextPage == null }
+        action("online_wave:rock")
+        waitFor { player.state.value.playing && player.state.value.origin.source == PlaybackSource.OBJECT_WAVE }
+        assertEquals(rock, fixture.waveSelections.last())
+        assertEquals(rock, player.state.value.origin.wave)
+    }
     @Test fun onlineQueueStreamsLazilyAndRecoversPausedWithoutSignedUrls() {
         search(); action("online_more"); waitFor { fixture.online.state.value.entries.size == 2 }
         assertTrue(fixture.resolved.isEmpty())

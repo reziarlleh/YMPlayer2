@@ -784,5 +784,7 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     profile_start_on("Вкл", "On", R.string.profile_start_on),
     profile_start_auto_description("Восстанавливать последнее состояние.", "Restore the last playback state.", R.string.profile_start_auto_description),
     profile_start_off_description("Не запускать автоматически. Уже играющая фоном музыка продолжает играть.", "Do not start automatically. Music already playing in the background continues.", R.string.profile_start_off_description),
-    profile_start_on_description("Продолжать воспроизведение при каждом открытии приложения.", "Resume playback whenever you open the app.", R.string.profile_start_on_description);
+    profile_start_on_description("Продолжать воспроизведение при каждом открытии приложения.", "Resume playback whenever you open the app.", R.string.profile_start_on_description),
+    search_top("Топ", "Top", R.string.search_top),
+    search_genre_wave("Моя волна по жанру", "My Vibe by genre", R.string.search_genre_wave);
 }

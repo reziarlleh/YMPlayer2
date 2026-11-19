@@ -258,8 +258,10 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
                 if (!audioReady) audioReady = valid(audio, track.durationSeconds * 1000L, true, reuseProof = false)
                 if (!audioReady) {
                     if (!track.available) throw MusicException(MusicFailure.UNAVAILABLE)
-                    transfer(); check(allowed)
-                    download(resolve(), audio, 128L * 1024 * 1024, track.durationSeconds * 1000L, true, allowed, transfer)
+                    retryOfflineTransfer(transfer) {
+                        check(allowed)
+                        download(resolve(), audio, 128L * 1024 * 1024, track.durationSeconds * 1000L, true, allowed, transfer)
+                    }
                     audioReady = true
                 }
             } catch (e: CancellationException) { throw e }
@@ -274,7 +276,10 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
                     val uri = track.artworkUri
                     if (uri == null) noCover = true
                     else {
-                        transfer(); check(allowed); download(uri, cover, 8L * 1024 * 1024, 0, false, allowed, transfer)
+                        retryOfflineTransfer(transfer) {
+                            check(allowed)
+                            download(uri, cover, 8L * 1024 * 1024, 0, false, allowed, transfer)
+                        }
                         coverReady = true; coverReplaced = true
                     }
                 }

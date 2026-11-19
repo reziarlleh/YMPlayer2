@@ -789,5 +789,7 @@
     <string name="profile_start_auto_description" formatted="false">"Ойнатудың соңғы күйін қалпына келтіру."</string>
     <string name="profile_start_off_description" formatted="false">"Автоматты түрде бастамау. Фонда ойнап тұрған музыка жалғаса береді."</string>
     <string name="profile_start_on_description" formatted="false">"Қолданба ашылған сайын ойнатуды жалғастыру."</string>
+    <string name="search_top" formatted="false">"Үздік нәтижелер"</string>
+    <string name="search_genre_wave" formatted="false">"Жанр бойынша Менің толқыным"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

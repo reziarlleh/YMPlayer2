@@ -62,6 +62,7 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
     private suspend fun search(token: String, request: MusicRequest, page: Int): MusicPage {
         val query = request.query.trim().take(200)
         if (query.isEmpty()) return MusicPage(emptyList())
+        if (request.topSearch) return topSearch(token, query, page)
         val kind = request.kind.name.lowercase()
         val type = kind.removeSuffix("s")
         val result = api(token, "/search?type=$type&page=$page&nocorrect=false&text=${encode(query)}") as JSONObject
@@ -71,6 +72,36 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
         val perPage = block.optInt("perPage", rows.length()).coerceAtLeast(1)
         val next = if (rows.length() > 0 && (page.toLong() + 1) * perPage < block.optLong("total", 0)) page + 1 else null
         return MusicPage(entries, next)
+    }
+
+    private suspend fun topSearch(token: String, query: String, page: Int): MusicPage {
+        val result = api(token, "/search/instant/mixed?type=track,album,artist,playlist,wave&page=$page&pageSize=20&text=${encode(query)}") as JSONObject
+        val rows = result.optJSONArray("results")?.objects().orEmpty()
+        val entries = rows.mapNotNull { row ->
+            val type = row.optString("type")
+            val item = row.optJSONObject(type) ?: return@mapNotNull null
+            when (type) {
+                "track" -> entry(item, MusicKind.TRACKS)
+                "album" -> entry(item, MusicKind.ALBUMS)
+                "artist" -> entry(item, MusicKind.ARTISTS)
+                "playlist" -> entry(item, MusicKind.PLAYLISTS, item.optString("uid").takeIf { it.matches(NUMERIC) })
+                "wave" -> genreWave(item)
+                else -> null
+            }
+        }.distinctBy(MusicEntry::id)
+        return MusicPage(entries, if (entries.isNotEmpty() && !result.optBoolean("lastPage", true)) page + 1 else null)
+    }
+
+    private fun genreWave(item: JSONObject): MusicEntry? {
+        val title = (item.opt("title") as? String)?.trim()?.take(500)?.takeIf(String::isNotEmpty) ?: return null
+        val seeds = item.optJSONArray("seeds")?.takeIf { it.length() > 0 }?.let { values ->
+            (0 until values.length()).map { values.optString(it) }
+        } ?: item.optJSONObject("id")?.let { listOf("${it.optString("type")}:${it.optString("tag")}") } ?: return null
+        val station = seeds.first()
+        if (station.substringBefore(':') !in setOf("genre", "micro-genre") || seeds.any { !it.matches(WAVE_SEED) }) return null
+        val artwork = item.optString("image").takeIf(String::isNotBlank)
+            ?.let { runCatching { secureUrl(it.replace("%%", "200x200")) }.getOrNull() }
+        return MusicEntry("wave:${seeds.joinToString(",")}", title, "", wave = WaveSearchResult(WaveRequest(station, title, seeds.drop(1)), artwork))
     }
 
     private suspend fun collection(token: String, uid: String, kind: MusicKind, page: Int): MusicPage {
@@ -251,6 +282,7 @@ class YandexMusicApi(private val accounts: AccountAuth, private val transport: M
     companion object {
         private const val PAGE_SIZE = 50
         private val NUMERIC = Regex("[0-9]{1,30}")
+        private val WAVE_SEED = Regex("[A-Za-z0-9_-]{1,96}:[A-Za-z0-9_.-]{1,128}")
         fun secureUrl(value: String): String {
             val url = when { value.startsWith("http://") -> "https://" + value.removePrefix("http://"); value.startsWith("https://") -> value; else -> "https://$value" }
             if (!isYandexMediaUrl(url)) throw MusicException(MusicFailure.RESPONSE)

@@ -40,6 +40,44 @@ class OnlineAdapterTest {
         assertTrue(result.entries.all { it.track!!.source == Source.YANDEX && !it.track!!.offline && it.track!!.uri == null })
         assertEquals("https://avatars.yandex.net/get-music/fixture/400x400", result.entries.first().track!!.artworkUri)
     }
+    @Test fun mixedSearchPreservesServerOrderAndLaunchesTheReturnedGenre() = runBlocking {
+        val station = "micro-genre:jazz-instrument"
+        val api = YandexMusicApi(auth(this), object : MusicTransport {
+            override suspend fun request(url: String, token: String?, form: List<Pair<String, String>>?): String {
+                assertEquals("fixture-token", token)
+                assertTrue(url.contains("/search/instant/mixed?type=track,album,artist,playlist,wave&page=0&pageSize=20&text="))
+                assertNull(form)
+                return """
+                    {"result":{"lastPage":false,"perPage":20,"results":[
+                      {"type":"playlist","playlist":{"kind":4,"owner":{"uid":55},"title":"Instrumental","trackCount":2}},
+                      {"type":"wave","wave":{"id":{"type":"micro-genre","tag":"jazz-instrument"},
+                        "seeds":["$station"],"title":"Инструментальный джаз",
+                        "image":"avatars.mds.yandex.net/get-music-misc/fixture/%%"}},
+                      {"type":"artist","artist":{"id":5,"name":"Instrumentals"}},
+                      {"type":"wave","wave":{"id":{"type":"genre","tag":"allrock"},"title":"Рок"}},
+                      {"type":"wave","wave":{"seeds":["https://example.org"],"title":"Malformed"}}
+                    ]}}
+                """.trimIndent()
+            }
+            override suspend fun json(url: String, token: String, body: String): String {
+                assertTrue(url.endsWith("/rotor/session/new"))
+                val seeds = JSONObject(body).getJSONArray("seeds")
+                assertEquals(1, seeds.length())
+                assertEquals(station, seeds.getString(0))
+                return """{"result":{"radioSessionId":"genre-session","batchId":"genre-batch","sequence":[{"track":""" +
+                    track(9) + "}]}}"
+            }
+        })
+        val result = api.page("owner", MusicRequest("инструментал", topSearch = true), 0)
+        assertEquals(listOf("PLAYLISTS:55:4", "wave:$station", "ARTISTS:null:5", "wave:genre:allrock"), result.entries.map(MusicEntry::id))
+        assertEquals(1, result.nextPage)
+        val genre = result.entries[1].wave!!
+        assertEquals("https://avatars.mds.yandex.net/get-music-misc/fixture/200x200", genre.artworkUri)
+        val batch = YandexWaveApi(api).start("owner", genre.request)
+        assertEquals(station, batch.request.station)
+        assertEquals("genre-session", batch.sessionId)
+        assertEquals("yandex:9:7", batch.tracks.single().track.id)
+    }
     @Test fun entitySearchMapsPlaylistOwnerAndAlbumDetailsKeepDiscOrder() = runBlocking {
         val api = YandexMusicApi(auth(this), MusicTransport { url, _, _ -> when {
             url.contains("type=playlist") -> """{"result":{"playlists":{"total":1,"results":[{"kind":4,"owner":{"uid":55},"title":"Road","trackCount":2}]}}}"""

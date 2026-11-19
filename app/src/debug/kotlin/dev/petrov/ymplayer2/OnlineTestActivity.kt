@@ -62,6 +62,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     val resolved = java.util.concurrent.CopyOnWriteArrayList<Pair<String, String>>()
     var requests = 0
     var onlineTrackCount = 2
+    var topSearchPages = emptyMap<Int, MusicPage>()
     val cloudRows = mutableMapOf("owner" to mutableListOf(CloudPlaylist("77", "1", "Дорожный плейлист")),
         "road" to mutableListOf(CloudPlaylist("88", "2", "Другой аккаунт")))
     val cloudWrites = mutableListOf<String>()
@@ -81,6 +82,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             requests++; delay(50)
             failure?.let { throw MusicException(it) }
             if (request.query == "empty") return MusicPage(emptyList())
+            if (request.topSearch && request.entity == null && topSearchPages.isNotEmpty())
+                return topSearchPages[page] ?: MusicPage(emptyList())
             if (request.kind == MusicKind.PLAYLISTS && request.entity == null) return MusicPage(cloudRows[profileId].orEmpty().map {
                 MusicEntry("PLAYLISTS:${it.ownerId}:${it.id}", it.title, "${it.trackCount} треков", entity = it.entity())
             })

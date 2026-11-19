@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.Manifest
 import android.os.Build
 import android.os.IBinder
+import android.os.PowerManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import dev.petrov.ymplayer2.core.OfflineState
@@ -19,6 +20,10 @@ import kotlinx.coroutines.flow.combine
 open class OfflineSyncService : Service() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     protected open val offline get() = (application as PlayerApplication).offline
+    private val wakeLock by lazy {
+        getSystemService(PowerManager::class.java).newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "$packageName:OfflineSync")
+            .apply { setReferenceCounted(false) }
+    }
     private var watching: Job? = null
     override fun onBind(intent: Intent?): IBinder? = null
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -30,9 +35,11 @@ open class OfflineSyncService : Service() {
         if (Build.VERSION.SDK_INT >= 29) startForeground(ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
         else startForeground(ID, notification)
         if (watching != null) return START_NOT_STICKY
+        keepCpuAwake(!offline.state.value.waitingForNetwork)
         if (intent?.getBooleanExtra(VERIFY, false) == true) offline.verifyAndRepair() else offline.sync()
         watching = scope.launch {
             combine(offline.state, AppLanguages.state) { state, _ -> state }.collect { state ->
+                keepCpuAwake(state.running && !state.waitingForNetwork)
                 if (!state.running) finish()
                 else if (Build.VERSION.SDK_INT < 33 || checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED)
                     manager.notify(ID, notification(state))
@@ -41,8 +48,21 @@ open class OfflineSyncService : Service() {
         return START_NOT_STICKY
     }
     override fun onTimeout(startId: Int, fgsType: Int) { offline.cancel(); offline.report(tr(Msg.msg_ca3bbeeee26d)); finish() }
-    override fun onDestroy() { if (offline.state.value.running) offline.cancel(); scope.cancel(); super.onDestroy() }
-    private fun finish() { ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE); stopSelf() }
+    override fun onDestroy() {
+        scope.cancel()
+        keepCpuAwake(false)
+        if (offline.state.value.running) offline.cancel()
+        super.onDestroy()
+    }
+    private fun keepCpuAwake(active: Boolean) {
+        if (active && !wakeLock.isHeld) wakeLock.acquire(WAKE_LOCK_TIMEOUT_MS)
+        if (!active && wakeLock.isHeld) wakeLock.release()
+    }
+    private fun finish() {
+        keepCpuAwake(false)
+        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
+        stopSelf()
+    }
     private fun notification(state: OfflineState): Notification {
         val open = PendingIntent.getActivity(this, 21, Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val cancel = PendingIntent.getService(this, 22, Intent(this, OfflineSyncService::class.java).setAction(CANCEL), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
@@ -53,6 +73,7 @@ open class OfflineSyncService : Service() {
     }
     companion object {
         const val VERIFY = "verify-offline-cache"
+        private const val WAKE_LOCK_TIMEOUT_MS = 6 * 60 * 60 * 1_000L
         private const val CHANNEL = "offline-sync"
         private const val ID = 201
         private const val CANCEL = "dev.petrov.ymplayer2.OFFLINE_CANCEL"

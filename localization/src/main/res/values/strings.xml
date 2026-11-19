@@ -789,5 +789,7 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="profile_start_auto_description" formatted="false">"Restore the last playback state."</string>
     <string name="profile_start_off_description" formatted="false">"Do not start automatically. Music already playing in the background continues."</string>
     <string name="profile_start_on_description" formatted="false">"Resume playback whenever you open the app."</string>
+    <string name="search_top" formatted="false">"Top"</string>
+    <string name="search_genre_wave" formatted="false">"My Vibe by genre"</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

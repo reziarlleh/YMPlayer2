@@ -120,7 +120,10 @@ private val destinations get() = listOf(
             AccountActionKind.OFFLINE_SEARCH -> { onlineSource = false; offlineSearch = true; searchQuery = pending.action.query; navigateDirect("search") }
             AccountActionKind.YANDEX_LIBRARY, AccountActionKind.YANDEX_SEARCH -> {
                 onlineSource = true; offlineSearch = false; searchQuery = pending.action.query
-                navigateDirect(if (pending.action.kind == AccountActionKind.YANDEX_SEARCH) "search" else "library")
+                if (pending.action.kind == AccountActionKind.YANDEX_SEARCH) {
+                    model.online?.searchTop(searchQuery, debounce = false)
+                    navigateDirect("search")
+                } else navigateDirect("library")
             }
             AccountActionKind.ARTIST -> pending.action.artist?.let {
                 artistFrom = pending.returnRoute; model.online?.openArtistCard(it); navigateDirect("artist")
@@ -240,10 +243,18 @@ private val destinations get() = listOf(
                                                 if (model.history != null) OutlinedButton({ navigate("history") }, Modifier.prismFocus().testTag("open_history")) { Text(tr(Msg.history_title)) }
                                                 if (model.local is IndexedLocalLibrary) OutlinedButton({ navigate("recent") }, Modifier.prismFocus().testTag("open_recent")) { Text(tr(Msg.recent_title)) }
                                             }
-                                            model.online?.let {
+                                            model.online?.let { online ->
                                                 if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (route == "search" && offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
                                                     FilterChip(!onlineSource && (route != "search" || !offlineSearch), { onlineSource = false; offlineSearch = false }, { Text(tr(Msg.msg_00231affc201)) }, choice("local").prismFocus().testTag("source_local"))
-                                                    FilterChip(onlineSource, { if (localProfile()) requestAccount(AccountAction(if (route == "search") AccountActionKind.YANDEX_SEARCH else AccountActionKind.YANDEX_LIBRARY, searchQuery)) else { onlineSource = true; offlineSearch = false } }, { Text(tr(Msg.msg_c39959813ccd)) }, choice("yandex").prismFocus().testTag("source_yandex"))
+                                                    FilterChip(onlineSource, {
+                                                        if (localProfile()) requestAccount(AccountAction(if (route == "search")
+                                                            AccountActionKind.YANDEX_SEARCH else AccountActionKind.YANDEX_LIBRARY, searchQuery))
+                                                        else {
+                                                            if (route == "search" && !onlineSource) online.searchTop(searchQuery, debounce = false)
+                                                            onlineSource = true
+                                                            offlineSearch = false
+                                                        }
+                                                    }, { Text(tr(Msg.msg_c39959813ccd)) }, choice("yandex").prismFocus().testTag("source_yandex"))
                                                     if (model.offline != null) FilterChip(route == "search" && offlineSearch, {
                                                         if (localProfile()) requestAccount(AccountAction(if (route == "search") AccountActionKind.OFFLINE_SEARCH else AccountActionKind.OFFLINE_LIST, searchQuery))
                                                         else if (route == "search") { onlineSource = false; offlineSearch = true }

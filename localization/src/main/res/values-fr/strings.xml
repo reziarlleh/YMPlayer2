@@ -789,5 +789,7 @@ Vous pouvez ajouter du texte entre les variables. Exemple: {number}. {artist} - 
     <string name="profile_start_auto_description" formatted="false">"Rétablir le dernier état de lecture."</string>
     <string name="profile_start_off_description" formatted="false">"Ne pas démarrer automatiquement. La musique déjà en cours en arrière-plan continue."</string>
     <string name="profile_start_on_description" formatted="false">"Reprendre la lecture à chaque ouverture de l’application."</string>
+    <string name="search_top" formatted="false">"Meilleurs résultats"</string>
+    <string name="search_genre_wave" formatted="false">"Mon mix par genre"</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
 </resources>

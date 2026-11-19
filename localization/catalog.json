@@ -12563,5 +12563,37 @@
       "es": "Reanudar la reproducción cada vez que se abre la aplicación.",
       "uk": "Продовжувати відтворення під час кожного відкриття застосунку."
     }
+  },
+  {
+    "key": "search_top",
+    "source": "Топ",
+    "english": "Top",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ],
+    "translations": {
+      "be": "Топ",
+      "fr": "Meilleurs résultats",
+      "de": "Top",
+      "kk": "Үздік нәтижелер",
+      "es": "Destacados",
+      "uk": "Топ"
+    }
+  },
+  {
+    "key": "search_genre_wave",
+    "source": "Моя волна по жанру",
+    "english": "My Vibe by genre",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineScreen.kt"
+    ],
+    "translations": {
+      "be": "Мая хваля па жанры",
+      "fr": "Mon mix par genre",
+      "de": "Mein Mix nach Genre",
+      "kk": "Жанр бойынша Менің толқыным",
+      "es": "Mi mix por género",
+      "uk": "Моя хвиля за жанром"
+    }
   }
 ]

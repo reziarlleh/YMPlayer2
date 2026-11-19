@@ -8,8 +8,11 @@ import kotlinx.coroutines.flow.map
 
 enum class MusicKind(val label: String) { TRACKS("Треки"), ALBUMS("Альбомы"), ARTISTS("Исполнители"), PLAYLISTS("Плейлисты") }
 data class MusicEntity(val id: String, val title: String, val kind: MusicKind, val ownerId: String? = null)
-data class MusicEntry(val id: String, val title: String, val subtitle: String, val track: Track? = null, val entity: MusicEntity? = null)
-data class MusicRequest(val query: String = "", val kind: MusicKind = MusicKind.TRACKS, val collection: Boolean = false, val entity: MusicEntity? = null, val recommended: Boolean = false)
+data class WaveSearchResult(val request: WaveRequest, val artworkUri: String? = null)
+data class MusicEntry(val id: String, val title: String, val subtitle: String, val track: Track? = null,
+    val entity: MusicEntity? = null, val wave: WaveSearchResult? = null)
+data class MusicRequest(val query: String = "", val kind: MusicKind = MusicKind.TRACKS, val collection: Boolean = false,
+    val entity: MusicEntity? = null, val recommended: Boolean = false, val topSearch: Boolean = false)
 data class MusicPage(val entries: List<MusicEntry>, val nextPage: Int? = null)
 enum class MusicFailure { SIGN_IN, NETWORK, ACCESS, UNAVAILABLE, RESPONSE, NO_PROGRESS, STORAGE }
 class MusicException(val failure: MusicFailure, val httpStatus: Int? = null, val networkIssue: NetworkIssue? = null) : Exception(failure.name)
@@ -32,7 +35,7 @@ data class OnlineCatalogState(val profileId: String = "", val phase: AuthPhase =
 }
 data class OnlineMusicState(
     val profileId: String = "", val signedIn: Boolean = false,
-    val request: MusicRequest = MusicRequest(), val entries: List<MusicEntry> = emptyList(),
+    val request: MusicRequest = MusicRequest(topSearch = true), val entries: List<MusicEntry> = emptyList(),
     val loading: Boolean = false, val loaded: Boolean = false, val nextPage: Int? = null,
     val failedPage: Int? = null, val issue: String? = null,
 )
@@ -77,12 +80,17 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
             .associateBy(Track::id).values.toList().takeLast(4000))
         return true
     }
-    fun search(query: String, kind: MusicKind = state.value.request.kind, debounce: Boolean = true) {
-        val request = MusicRequest(query.take(200), kind)
+    fun search(query: String, kind: MusicKind = state.value.request.kind, debounce: Boolean = true) =
+        search(MusicRequest(query.take(200), kind), debounce)
+
+    fun searchTop(query: String, debounce: Boolean = true) =
+        search(MusicRequest(query.take(200), topSearch = true), debounce)
+
+    private fun search(request: MusicRequest, debounce: Boolean) {
         if (request == state.value.request && (state.value.loading || state.value.loaded)) return
         parents.clear(); invalidateRequest()
         mutable.value = OnlineMusicState(state.value.profileId, state.value.signedIn, request)
-        if (query.isNotBlank()) load(0, if (debounce) 350 else 0)
+        if (request.query.isNotBlank()) load(0, if (debounce) 350 else 0)
     }
     fun collection(kind: MusicKind = MusicKind.TRACKS) {
         parents.clear(); invalidateRequest()

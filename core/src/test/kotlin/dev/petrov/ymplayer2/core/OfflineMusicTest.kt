@@ -44,6 +44,7 @@ class OfflineMusicTest {
         private suspend fun save(owner: OfflineOwner, track: Track, allowed: () -> Boolean, transfer: () -> Unit): OfflineItem {
             transfer(); beforeSave()
             if (!allowed()) return OfflineItem(null, false, false, false)
+            transfer()
             val ready = track.copy(offline = true)
             files.getOrPut(owner) { mutableMapOf() }[track.tasteTarget().key] = ready
             downloaded += owner to track.id
@@ -146,7 +147,7 @@ class OfflineMusicTest {
                 snapshots++
                 val captured = liked
                 gate()
-                if (failedSnapshot) throw MusicException(MusicFailure.NETWORK)
+                if (failedSnapshot) throw MusicException(MusicFailure.NETWORK, httpStatus = 503)
                 return LikedSnapshot(captured, captured.map(::track))
             }
             override suspend fun keys(profileId: String) = finalKeys ?: liked
@@ -157,7 +158,9 @@ class OfflineMusicTest {
         }
         val store = Store()
         var network = true
-        val offline: OfflineMusic = OfflineMusic(auth, taste, api, online, store, scope.backgroundScope, network = { network },
+        var wifi = true
+        val offline: OfflineMusic = OfflineMusic(auth, taste, api, online, store, scope.backgroundScope,
+            network = { wifiOnly -> network && (!wifiOnly || wifi) },
             enabled = enabled, saveEnabled = { savedEnabled = it })
         init { auth.activate("owner"); scope.runCurrent() }
     }
@@ -246,6 +249,58 @@ class OfflineMusicTest {
         assertEquals(2, h.store.files[h.owner]?.size)
         h.failedSnapshot = false; h.network = false; h.offline.sync(); runCurrent()
         assertEquals(2, h.store.files[h.owner]?.size); assertTrue(h.offline.state.value.message!!.contains("Wi-Fi"))
+    }
+    @Test fun networkRecoveryRetriesOnlyTheInterruptedTrack() = runTest {
+        val h = Harness(this)
+        h.store.beforeSave = { if (h.store.incrementalCalls.size == 2) h.wifi = false }
+        h.offline.sync(); runCurrent()
+        assertEquals(1, h.offline.state.value.checked)
+        assertTrue(h.offline.state.value.running)
+        assertTrue(h.offline.state.value.waitingForNetwork)
+        advanceTimeBy(2_000); runCurrent()
+        assertEquals(2, h.store.incrementalCalls.size)
+
+        h.wifi = true
+        advanceTimeBy(2_000); runCurrent()
+        assertFalse(h.offline.state.value.running)
+        assertFalse(h.offline.state.value.waitingForNetwork)
+        assertEquals(2, h.offline.state.value.checked)
+        assertEquals(1, h.snapshots)
+        assertEquals(listOf("yandex:1:7", "yandex:2:7", "yandex:2:7"), h.store.incrementalCalls)
+        assertEquals(listOf("yandex:1:7", "yandex:2:7"), h.store.downloaded.map { it.second })
+    }
+    @Test fun timedOutSnapshotRetriesWithWifiStillConnected() = runTest {
+        val h = Harness(this)
+        h.gate = { if (h.snapshots == 1) throw java.net.SocketTimeoutException() }
+        h.offline.sync(); runCurrent()
+        assertTrue(h.offline.state.value.running)
+        assertFalse(h.offline.state.value.waitingForNetwork)
+        advanceTimeBy(2_000); runCurrent()
+        assertEquals(2, h.snapshots)
+        assertEquals(2, h.offline.state.value.checked)
+        assertFalse(h.offline.state.value.running)
+    }
+    @Test fun endingNetworkWaitKeepsCompletedTracksAndDoesNotRestartAfterProfileSwitch() = runTest {
+        val h = Harness(this)
+        h.store.beforeSave = { if (h.store.incrementalCalls.size == 2) h.network = false }
+        h.offline.sync(); runCurrent()
+        assertTrue(h.offline.state.value.waitingForNetwork)
+        advanceTimeBy(91_000); runCurrent()
+        assertFalse(h.offline.state.value.running)
+        assertFalse(h.offline.state.value.waitingForNetwork)
+        assertEquals(setOf("1"), h.store.files[h.owner]?.keys)
+
+        h.network = true
+        h.store.beforeSave = { h.network = false }
+        h.offline.sync(); runCurrent()
+        assertTrue(h.offline.state.value.waitingForNetwork)
+        h.auth.activate("road"); runCurrent()
+        h.network = true
+        advanceTimeBy(2_000); runCurrent()
+        assertEquals("road", h.offline.state.value.owner?.profileId)
+        assertFalse(h.offline.state.value.waitingForNetwork)
+        assertFalse(h.offline.state.value.running)
+        assertEquals(setOf("1"), h.store.files[h.owner]?.keys)
     }
     @Test fun finalServerRecheckRemovesUnlikeFromAnotherClient() = runTest {
         val h = Harness(this); h.finalKeys = setOf("2"); h.liked = setOf("2")

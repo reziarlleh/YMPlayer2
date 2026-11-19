@@ -3,9 +3,12 @@ package dev.petrov.ymplayer2
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.ParcelFileDescriptor
+import android.os.PowerManager
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import dev.petrov.ymplayer2.core.*
 import kotlinx.coroutines.*
 import org.junit.*
@@ -21,6 +24,7 @@ class OfflinePlaybackTest {
     private val h get() = compose.activity.harness
     private val cache get() = h.offline
     private val owner = OfflineOwner("owner", "1")
+    private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private fun waitFor(block: () -> Boolean) = compose.waitUntil(30000, block)
     private lateinit var sourceCover: File
     @Before fun setup() {
@@ -428,6 +432,7 @@ class OfflinePlaybackTest {
     }
     @Test fun foregroundSyncCancelsWithoutStoppingTheAudioPlayer() {
         val gate = CompletableDeferred<Unit>()
+        val retry = CompletableDeferred<Unit>()
         val intent = android.content.Intent(compose.activity, OfflineSyncTestService::class.java)
         compose.runOnIdle {
             h.player.playQueue(h.library.testTracks.map(Track::id))
@@ -437,18 +442,72 @@ class OfflinePlaybackTest {
         }
         try {
             waitFor { OfflineSyncTestService.active != null && cache.state.value.running && cache.state.value.tracks.size == 1 && h.player.state.value.positionSeconds >= 1 }
-            val instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
-            val descriptor = instrumentation.uiAutomation.executeShellCommand("dumpsys activity services dev.petrov.ymplayer2.dev")
-            val services = android.os.ParcelFileDescriptor.AutoCloseInputStream(descriptor).bufferedReader().use { it.readText() }
+            val services = shell("dumpsys activity services dev.petrov.ymplayer2.dev")
             assertTrue(services.contains("OfflineSyncTestService")); assertTrue(services.contains("isForeground=true"))
             File(compose.activity.getExternalFilesDir(null), "offline-service.txt").writeText(services)
-            compose.runOnIdle { cache.cancel() }; gate.complete(Unit)
+            setScreenAwake(false)
+            instrumentation.runOnMainSync {
+                h.streamFailure = MusicFailure.NETWORK
+                h.streamGates = mapOf("yandex:2:7" to retry)
+                gate.complete(Unit)
+            }
+            waitFor { h.resolved.count { it.second == "yandex:2:7" } == 2 }
+            assertTrue(cache.state.value.running)
+            assertFalse(cache.state.value.waitingForNetwork)
+            assertTrue(syncWakeLockHeld())
+            instrumentation.runOnMainSync { cache.cancel() }
             waitFor { OfflineSyncTestService.active == null }
+            assertFalse(syncWakeLockHeld())
             assertTrue(h.player.state.value.playing); assertEquals(1, cache.state.value.tracks.size)
         } finally {
-            compose.runOnIdle { cache.cancel(); compose.activity.stopService(intent) }
+            setScreenAwake(true)
+            instrumentation.runOnMainSync { h.streamFailure = null; cache.cancel(); compose.activity.stopService(intent) }
+            gate.complete(Unit); retry.complete(Unit)
+        }
+    }
+    @Test fun foregroundSyncResumesAfterNetworkLossWithScreenOffAndNoPlayback() {
+        val gate = CompletableDeferred<Unit>()
+        val intent = android.content.Intent(compose.activity, OfflineSyncTestService::class.java)
+        compose.runOnIdle {
+            h.streamGates = mapOf("yandex:2:7" to gate)
+            OfflineSyncTestService.controller = cache
+            androidx.core.content.ContextCompat.startForegroundService(compose.activity, intent)
+        }
+        try {
+            waitFor { cache.state.value.checked == 1 && h.resolved.any { it.second == "yandex:2:7" } }
+            val saved = hash(audio("1"))
+            assertTrue(syncWakeLockHeld())
+            setScreenAwake(false)
+            assertTrue(syncWakeLockHeld())
+            instrumentation.runOnMainSync { h.offlineNetwork = false; gate.complete(Unit) }
+            waitFor { cache.state.value.waitingForNetwork && !syncWakeLockHeld() }
+            assertEquals(1, cache.state.value.checked)
+            instrumentation.runOnMainSync { h.offlineNetwork = true }
+            waitFor { OfflineSyncTestService.active == null && cache.state.value.checked == 2 }
+            assertFalse(syncWakeLockHeld())
+            assertEquals(saved, hash(audio("1")))
+            assertEquals(1, h.resolved.count { it.second == "yandex:1:7" })
+            assertEquals(2, h.resolved.count { it.second == "yandex:2:7" })
+            assertFalse(h.player.state.value.playing)
+            assertFalse(compose.activity.getSystemService(PowerManager::class.java).isInteractive)
+        } finally {
+            setScreenAwake(true)
+            instrumentation.runOnMainSync { h.offlineNetwork = true; cache.cancel(); compose.activity.stopService(intent) }
             gate.complete(Unit)
         }
+    }
+    private fun shell(command: String): String =
+        ParcelFileDescriptor.AutoCloseInputStream(instrumentation.uiAutomation.executeShellCommand(command))
+            .bufferedReader().use { it.readText() }
+
+    private fun syncWakeLockHeld(): Boolean = shell("dumpsys power").lineSequence().any {
+        it.contains("PARTIAL_WAKE_LOCK") && it.contains("${compose.activity.packageName}:OfflineSync")
+    }
+
+    private fun setScreenAwake(awake: Boolean) {
+        shell(if (awake) "input keyevent KEYCODE_WAKEUP" else "input keyevent KEYCODE_SLEEP")
+        val power = compose.activity.getSystemService(PowerManager::class.java)
+        waitFor { power.isInteractive == awake }
     }
     @Test fun foregroundFullCheckCancelsAndNextSyncRepairsKnownCorruption() {
         sync()
