@@ -1,0 +1,11 @@
+{
+  "versionName": "2.9.0-build151",
+  "channel": "stable",
+  "runtimeAcceptance": "pending",
+  "updateChannel": "stable",
+  "sha256": "c31b9a9d2bf22a144fc6f64c636c5d44f5ec26e25292b10a40ce8caf43c3950f",
+  "builtAtUtc": "2026-11-19T07:56:11.4691972Z",
+  "minSdk": 23,
+  "applicationId": "dev.petrov.ymplayer2",
+  "versionCode": 151
+}
