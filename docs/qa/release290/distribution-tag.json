@@ -1,0 +1,12 @@
+{
+  "tag": "apk-2.9.0-build151",
+  "commit": "db71013afaa890a58db5b9b87fcbe4fe6416bfe2",
+  "sourceTag": "v2.9.0-build151",
+  "sourceCommit": "e73af637217bbd1e977a0361138baead53f8b2dc",
+  "apkSha256": "c31b9a9d2bf22a144fc6f64c636c5d44f5ec26e25292b10a40ce8caf43c3950f",
+  "ci": {
+    "conclusion": "success",
+    "headSha": "e2b97a3cb03e65f20118fe2f27e5fe225e919507",
+    "url": "https://github.com/reziarlleh/YMPlayer2/actions/runs/44484365187"
+  }
+}

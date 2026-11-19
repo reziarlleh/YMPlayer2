@@ -1,0 +1,39 @@
+{
+  "recordedAtUtc": "2026-11-19T07:56:40.226615+00:00",
+  "avd": "YM2_Compat_API35",
+  "api": 35,
+  "version": "2.9.0-build151",
+  "apkSha256": "c31b9a9d2bf22a144fc6f64c636c5d44f5ec26e25292b10a40ce8caf43c3950f",
+  "method": "Signed R8 APK; root-seeded local WAV/checkpoints in own QA emulator, actual process stops/restarts. No OAuth/network fixture.",
+  "coldCases": [],
+  "seedGuards": [
+    {
+      "mode": "default",
+      "noProcessBeforeEnable": true
+    }
+  ],
+  "oldPlayback": {
+    "state": 3,
+    "positionMillis": 15000
+  },
+  "upgrade": {
+    "before": {
+      "uid": "10210",
+      "firstInstallTime": "2026-11-17 07:48:26",
+      "version": "2.8.3-build150"
+    },
+    "after": {
+      "uid": "10210",
+      "firstInstallTime": "2026-11-17 07:48:26",
+      "version": "2.9.0-build151"
+    },
+    "sameUid": true,
+    "sameFirstInstallTime": true,
+    "privateMarkerPreserved": true,
+    "audioPreserved": true
+  },
+  "defaultAutoRestoresOldPlay": true,
+  "searchOpened": true,
+  "allPassed": true,
+  "networkRestored": true
+}

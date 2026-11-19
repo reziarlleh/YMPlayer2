@@ -1,7 +1,7 @@
 # YMPlayer2 — user guide
 
-This guide covers the stable **YMPlayer2 2.8.3-build150**, for Android6 and later.
-[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.3-build150) · [Signing and verification](MANUAL_2_8_3_BUILD150.md).
+This guide covers the stable **YMPlayer2 2.9.0-build151**, for Android6 and later.
+[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.0-build151) · [Signing and verification](MANUAL_2_9_0_BUILD151.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -115,7 +115,9 @@ no bundled FFmpeg decoder package. See the [format details in the Russian guide]
 In **Search**, select **All music**, **Yandex Music** or **Offline**. Offline
 search looks only in downloaded liked tracks for the current profile and stays
 on the search page. The query remains when you switch sources. Yandex search
-also supports artists, albums and playlists and requires sign-in.
+also supports artists, albums and playlists and requires sign-in. **Top**
+combines result types. A result labeled **My Wave by genre** starts that
+wave and opens the player.
 
 ## Listening history
 
@@ -348,7 +350,9 @@ In 2.6.5-build125, routine sync and a full integrity check are separate actions:
 **Sync liked tracks** checks your current collection and downloads missing files.
 New audio downloads take priority over artwork repairs and metadata updates for
 saved tracks. Completed audio files are not read in full again. The first check
-on a new storage device still needs to list its files.
+on a new storage device lists its files. Sync can continue with the screen off.
+After a brief network interruption, it resumes the interrupted download when
+a suitable connection returns.
 
 **Check and repair cache** rereads saved audio and artwork, checks their checksums
 and downloads damaged or missing files. Use it if you suspect corruption,

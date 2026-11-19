@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "packageName": "dev.petrov.ymplayer2",
-  "versionCode": 150,
-  "versionName": "2.8.3-build150",
+  "versionCode": 151,
+  "versionName": "2.9.0-build151",
   "channel": "stable",
   "minSdk": 23,
-  "publishedAt": "2026-11-18T03:44:59Z",
-  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.8.3-build150",
-  "releaseNotes": "YMPlayer2 2.8.3\n\n- Исправлена отправка в Яндекс событий запуска волны, начала и окончания трека, пропуска и дизлайка. Теперь каждый трек сохраняет свою сессию после перезапуска, а сохранённые очереди прежних версий читаются.\n- Пересоздание службы воспроизведения сохраняет ожидающий запуск. При холодном открытии режим «Вкл» дожидается трека и позиции. Новая пауза, стоп или смена профиля отменяют ожидающий запуск.\n- При выборе пустого офлайн-кэша через системный медиаклиент открывается пустой офлайн. Подключение плеера определяется корректно и при пустой очереди.\n- Исправлен запуск локального списка при переключении из офлайна. Закладка офлайна сохраняется.\n- Проведён аудит кода и зависимостей, удалён один неиспользуемый метод очистки индекса и актуализирована документация.\n\nНа Android 6 старый системный MediaBrowser может подключиться к плееру, но не показать список источников.\n",
+  "publishedAt": "2026-11-19T08:00:34Z",
+  "releasePageUrl": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.0-build151",
+  "releaseNotes": "YMPlayer2 2.9.0\n\n- В поиске Яндекс Музыки появилась категория «Топ». В общей выдаче видны треки, исполнители, альбомы, плейлисты и волны по жанрам.\n- Жанровую волну можно запустить прямо из результата. Например, по запросу «инструментал» выбрать инструментальный джаз или рок.\n- Исправлено прерывание синхронизации офлайн-кэша при погашенном экране. При кратком обрыве сети синхронизация продолжает загрузку после подключения.\n",
   "apk": {
-    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.8.3-build150/YMPlayer-2.8.3-build150.apk",
-    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.8.3-build150/releases/2.8.3-build150/YMPlayer-2.8.3-build150.apk",
-    "sizeBytes": 4763189,
-    "sha256": "0149eb9093d5889696caa10174e1d3a5979002e86a9fad19adcedfb0fc22a53d"
+    "primaryUrl": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/YMPlayer-2.9.0-build151.apk",
+    "alternativeUrl": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.9.0-build151/releases/2.9.0-build151/YMPlayer-2.9.0-build151.apk",
+    "sizeBytes": 4780948,
+    "sha256": "c31b9a9d2bf22a144fc6f64c636c5d44f5ec26e25292b10a40ce8caf43c3950f"
   }
 }

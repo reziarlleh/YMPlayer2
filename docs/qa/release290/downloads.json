@@ -1,0 +1,44 @@
+[
+  {
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/SHA256.txt",
+    "status": 200,
+    "size": 94,
+    "sha256": "3cc8aa303eb97118e36d9ba2cd2e71f66d143abd6c63896fd90a4943453c2c27",
+    "checkedAtUtc": "2026-11-19T08:19:55.251454+00:00"
+  },
+  {
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/YMPlayer-2.9.0-build151.apk",
+    "status": 200,
+    "size": 4780948,
+    "sha256": "c31b9a9d2bf22a144fc6f64c636c5d44f5ec26e25292b10a40ce8caf43c3950f",
+    "checkedAtUtc": "2026-11-19T08:19:55.254487+00:00"
+  },
+  {
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/build.json",
+    "status": 200,
+    "size": 344,
+    "sha256": "a20a880cbec66145f4b1e7c4df81d2cdd1377480404d79404be2a513d58bf98c",
+    "checkedAtUtc": "2026-11-19T08:19:55.256454+00:00"
+  },
+  {
+    "url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/signature.txt",
+    "status": 200,
+    "size": 14227,
+    "sha256": "2ed18b654ba2c675f477ad17c859b16d6dff43ee921ea9eafa891e6d86aeceec",
+    "checkedAtUtc": "2026-11-19T08:19:55.259461+00:00"
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.9.0-build151/releases/2.9.0-build151/YMPlayer-2.9.0-build151.apk",
+    "status": 200,
+    "size": 4780948,
+    "sha256": "c31b9a9d2bf22a144fc6f64c636c5d44f5ec26e25292b10a40ce8caf43c3950f",
+    "checkedAtUtc": "2026-11-19T08:19:55.261466+00:00"
+  },
+  {
+    "url": "https://gcore.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.9.0-build151/releases/2.9.0-build151/YMPlayer-2.9.0-build151.apk",
+    "status": 200,
+    "size": 4780948,
+    "sha256": "c31b9a9d2bf22a144fc6f64c636c5d44f5ec26e25292b10a40ce8caf43c3950f",
+    "checkedAtUtc": "2026-11-19T08:19:55.263452+00:00"
+  }
+]

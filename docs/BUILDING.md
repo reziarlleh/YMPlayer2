@@ -1,7 +1,7 @@
 # Сборка YMPlayer2
 
-Стабильный выпуск на 18 ноября 2026 — 2.8.3-build150 (`releaseState=accepted`).
-[APK и проверка](MANUAL_2_8_3_BUILD150.md).
+Стабильный выпуск на 19 ноября 2026 — 2.9.0-build151 (`releaseState=accepted`).
+[APK и проверка](MANUAL_2_9_0_BUILD151.md).
 Фактические12 модулей (core — JVM, остальные — Android):
 app, core, designsystem, feature:shell, feature:clips, library:local, library:offline,
 playback:android, provider:yandex, headunit:sidebar, updater:android, localization. Аудиодвижок Media3 1.11.0.

@@ -1,0 +1,41 @@
+{
+  "id": 451033071,
+  "tag_name": "v2.9.0-build151",
+  "name": "YMPlayer2 2.9.0-build151",
+  "draft": false,
+  "prerelease": false,
+  "html_url": "https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.0-build151",
+  "published_at": "2026-11-19T08:00:34Z",
+  "assets": [
+    {
+      "id": 766787757,
+      "name": "SHA256.txt",
+      "size": 94,
+      "digest": "sha256:3cc8aa303eb97118e36d9ba2cd2e71f66d143abd6c63896fd90a4943453c2c27",
+      "browser_download_url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/SHA256.txt"
+    },
+    {
+      "id": 766787761,
+      "name": "YMPlayer-2.9.0-build151.apk",
+      "size": 4780948,
+      "digest": "sha256:c31b9a9d2bf22a144fc6f64c636c5d44f5ec26e25292b10a40ce8caf43c3950f",
+      "browser_download_url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/YMPlayer-2.9.0-build151.apk"
+    },
+    {
+      "id": 766787765,
+      "name": "build.json",
+      "size": 344,
+      "digest": "sha256:a20a880cbec66145f4b1e7c4df81d2cdd1377480404d79404be2a513d58bf98c",
+      "browser_download_url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/build.json"
+    },
+    {
+      "id": 766787756,
+      "name": "signature.txt",
+      "size": 14227,
+      "digest": "sha256:2ed18b654ba2c675f477ad17c859b16d6dff43ee921ea9eafa891e6d86aeceec",
+      "browser_download_url": "https://github.com/reziarlleh/YMPlayer2/releases/download/v2.9.0-build151/signature.txt"
+    }
+  ],
+  "latest": true,
+  "checkedAtUtc": "2026-11-19T08:20:07.032226+00:00"
+}
