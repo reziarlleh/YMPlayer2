@@ -1,12 +1,64 @@
 package dev.petrov.ymplayer2.offline
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
+import android.media.MediaMetadataRetriever
+import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.io.InputStream
+
+internal const val MAX_COVER_BYTES = 8 * 1024 * 1024
+
+internal suspend fun InputStream.readCoverBytes(): ByteArray {
+    val output = ByteArrayOutputStream()
+    val buffer = ByteArray(32 * 1024)
+    while (true) {
+        currentCoroutineContext().ensureActive()
+        val read = read(buffer)
+        if (read < 0) break
+        if (output.size() + read > MAX_COVER_BYTES) throw IOException("Artwork too large")
+        output.write(buffer, 0, read)
+    }
+    return output.toByteArray()
+}
+
+/** JPEG and PNG are understood by older players that display ID3 front covers. */
+internal fun mp3Picture(bytes: ByteArray): Mp3Picture? {
+    if (bytes.size !in 1..MAX_COVER_BYTES || !completeContainer(bytes)) return null
+    val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+    BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
+    if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return null
+    val mime = bounds.outMimeType
+    val dimension = maxOf(bounds.outWidth, bounds.outHeight)
+    if ((mime == "image/jpeg" || mime == "image/png") && bytes.size <= 1024 * 1024 && dimension <= 1024) {
+        return Mp3Picture(mime, bytes)
+    }
+    var sample = 1
+    while (dimension / sample > 1024) sample *= 2
+    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size,
+        BitmapFactory.Options().apply { inSampleSize = sample }) ?: return null
+    return try {
+        val output = ByteArrayOutputStream()
+        if (bitmap.compress(Bitmap.CompressFormat.JPEG, 90, output) && output.size() <= 1024 * 1024)
+            Mp3Picture("image/jpeg", output.toByteArray()) else null
+    } finally { bitmap.recycle() }
+}
+
+internal fun embeddedPicture(context: Context, audio: Uri): ByteArray? {
+    val retriever = MediaMetadataRetriever()
+    return try {
+        retriever.setDataSource(context, audio)
+        retriever.embeddedPicture?.takeIf { it.size in 1..MAX_COVER_BYTES }
+    } catch (_: Exception) { null }
+    finally { runCatching { retriever.release() } }
+}
 
 /** Validate genuine cached artwork without allocating its full decoded dimensions. */
 internal fun validCover(context: Context, file: StorageNode): Boolean = try {
@@ -17,7 +69,7 @@ internal fun validCover(context: Context, file: StorageNode): Boolean = try {
             val chunk = ByteArray(16 * 1024)
             while (true) {
                 val read = input.read(chunk); if (read < 0) break
-                if (output.size() + read > 8 * 1024 * 1024) throw IOException("Artwork too large")
+                if (output.size() + read > MAX_COVER_BYTES) throw IOException("Artwork too large")
                 output.write(chunk, 0, read)
             }
             output.toByteArray()

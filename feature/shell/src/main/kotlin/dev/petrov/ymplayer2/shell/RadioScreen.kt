@@ -35,6 +35,8 @@ import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.UiIcon
 import dev.petrov.ymplayer2.localization.trMessage
+import dev.petrov.ymplayer2.localization.Msg
+import dev.petrov.ymplayer2.localization.tr
 
 @Composable internal fun RadioScreen(radio: RadioController, signIn: () -> Unit) {
     val catalog by radio.state.collectAsStateWithLifecycle()
@@ -43,7 +45,10 @@ import dev.petrov.ymplayer2.localization.trMessage
     val focusTargets = remember { mutableMapOf<String, FocusRequester>() }
     var returnTarget by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
-    val openStation: (RadioStation, String) -> Unit = { station, target -> returnTarget = target; radio.openStation(station) }
+    val openStation: (RadioStation, String, Boolean) -> Unit = { station, target, favourites ->
+        returnTarget = target
+        radio.openStation(station, fromFavourites = favourites, fromPlayer = target.isEmpty())
+    }
     val closeStation: () -> Unit = {
         radio.closeStation()
         scope.launch {
@@ -80,7 +85,7 @@ import dev.petrov.ymplayer2.localization.trMessage
             } else {
                 RadioCatalogPanel(catalog, playback, radio, Modifier.weight(1f).fillMaxWidth(), short, signIn, focusTargets, openStation) { citiesOpen = true }
                 if (collection) RadioPlayerPanel(playback, catalog, radio, signIn, false, short, Modifier.fillMaxWidth())
-                else if (playback.station != null) RadioMiniPlayer(radio) { radio.playback.value.station?.let { openStation(it, "") } }
+                else if (playback.station != null) RadioMiniPlayer(radio) { radio.playback.value.station?.let { openStation(it, "", false) } }
             }
         }
     }
@@ -95,7 +100,7 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
 
 @Composable private fun RadioCatalogPanel(state: RadioCatalogState, playback: RadioPlaybackState, radio: RadioController,
     modifier: Modifier, short: Boolean, signIn: () -> Unit, targets: MutableMap<String, FocusRequester>,
-    open: (RadioStation, String) -> Unit, chooseCity: () -> Unit) {
+    open: (RadioStation, String, Boolean) -> Unit, chooseCity: () -> Unit) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
         if (state.tab == RadioTab.CITIES) Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedButton(chooseCity, Modifier.prismFocus().testTag("radio_choose_city")) {
@@ -121,7 +126,7 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
                     state.favouritesBusy && state.favourites.isEmpty() -> LinearProgressIndicator(Modifier.fillMaxWidth())
                     state.favourites.isEmpty() && state.collectionIssue == null -> Text(trMessage("Любимых станций пока нет. Добавьте их сердечком в плеере."), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     else -> StationCarousel(state.favourites, playback, state, radio, signIn, "radio_favourites", short,
-                        state.favouritesHaveNext && state.collectionIssue == null, { radio.refreshCollection(more = true) }, state.favouritesBusy, targets, open)
+                        state.favouritesHaveNext && state.collectionIssue == null, { radio.refreshCollection(more = true) }, state.favouritesBusy, targets, open, favourites = true)
                 }
                 Text(trMessage("Все станции"), style = MaterialTheme.typography.titleSmall)
                 StationCarousel(state.stations, playback, state, radio, signIn, "radio_stations", short,
@@ -163,27 +168,27 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
 
 @Composable private fun StationCarousel(stations: List<RadioStation>, playback: RadioPlaybackState, state: RadioCatalogState,
     radio: RadioController, signIn: () -> Unit, tag: String, short: Boolean, more: Boolean, loadMore: () -> Unit, busy: Boolean,
-    targets: MutableMap<String, FocusRequester>, open: (RadioStation, String) -> Unit) {
+    targets: MutableMap<String, FocusRequester>, open: (RadioStation, String, Boolean) -> Unit, favourites: Boolean = false) {
     val list = rememberLazyListState()
     LaunchedEffect(list, stations.size, more, busy, state.detail != null) {
         if (more && !busy && state.detail == null) snapshotFlow { list.layoutInfo.visibleItemsInfo.lastOrNull()?.index?.let { it >= stations.size - 3 } == true }
             .distinctUntilChanged().collect { if (it) loadMore() }
     }
     LazyRow(Modifier.fillMaxWidth().testTag(tag), state = list, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        items(stations, key = { it.identity() }) { station -> StationTile(station, playback, state, radio, signIn, tag, short, targets, open, Modifier.width(136.dp)) }
+        items(stations, key = { it.identity() }) { station -> StationTile(station, playback, state, radio, signIn, tag, short, targets, open, Modifier.width(136.dp), favourites) }
     }
 }
 
 @Composable private fun StationTile(station: RadioStation, playback: RadioPlaybackState, state: RadioCatalogState,
     radio: RadioController, signIn: () -> Unit, tag: String, short: Boolean, targets: MutableMap<String, FocusRequester>,
-    open: (RadioStation, String) -> Unit, modifier: Modifier) {
+    open: (RadioStation, String, Boolean) -> Unit, modifier: Modifier, favourites: Boolean = false) {
     val target = "$tag:${station.identity()}"
     val requester = remember(target) { FocusRequester() }
     DisposableEffect(target) { targets[target] = requester; onDispose { targets.remove(target) } }
-    val selected = station.slug == playback.station?.slug && playback.ownsOutput
+    val selected = station.slug == playback.station?.slug && (station.streamSlug == null || station.streamSlug == playback.station?.streamSlug) && playback.ownsOutput
     Surface(modifier, shape = MaterialTheme.shapes.medium, color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface) {
         Column(Modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Surface(onClick = { open(station, target) }, Modifier.fillMaxWidth().focusRequester(requester).prismFocus().testTag("radio_station_${station.slug}"),
+            Surface(onClick = { open(station, target, favourites) }, Modifier.fillMaxWidth().focusRequester(requester).prismFocus().testTag("radio_station_${station.slug}"),
                 color = Color.Transparent, shape = MaterialTheme.shapes.medium) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.padding(2.dp)) {
                     RadioArtwork(station, Modifier.size(if (short) 64.dp else 80.dp))
@@ -193,7 +198,7 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 StationLike(station, state, radio, signIn, Modifier.testTag("radio_station_like_${station.slug}"))
-                ActionIcon(UiIcon.PLAY, trMessage("Включить эфир"), { radio.play(station) }, Modifier.testTag("radio_station_play_${station.slug}"))
+                ActionIcon(UiIcon.PLAY, trMessage("Включить эфир"), { radio.play(station, favourites) }, Modifier.testTag("radio_station_play_${station.slug}"))
             }
         }
     }
@@ -223,11 +228,11 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
                     if (state.detailBusy) LinearProgressIndicator(Modifier.fillMaxWidth())
                     station.description?.let { Text(it, Modifier.fillMaxWidth().testTag("radio_station_description"), style = MaterialTheme.typography.bodyMedium) }
                     state.detailIssue?.let { Text(trMessage(it.text()), color = MaterialTheme.colorScheme.error) }
-                    if (state.detailIssue != null) OutlinedButton({ radio.openStation(station) }, Modifier.prismFocus()) { Text(trMessage("Повторить")) }
+                    if (state.detailIssue != null) OutlinedButton(radio::retryDetail, Modifier.prismFocus()) { Text(trMessage("Повторить")) }
                 }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterHorizontally)) {
                     StationLike(station, state, radio, signIn, Modifier.testTag("radio_detail_like"))
-                    ActionIcon(UiIcon.PLAY, trMessage("Включить эфир"), { radio.play(station) }, Modifier.testTag("radio_detail_play"), primary = true)
+                    ActionIcon(UiIcon.PLAY, trMessage("Включить эфир"), radio::playDetail, Modifier.testTag("radio_detail_play"), primary = true)
                     ActionIcon(UiIcon.STOP, trMessage("Остановить эфир"), radio.audio::stop, Modifier.testTag("radio_detail_stop"),
                         enabled = playback.station?.slug == station.slug && playback.ownsOutput)
                 }
@@ -249,7 +254,9 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
     signIn: () -> Unit, wide: Boolean, short: Boolean, modifier: Modifier) {
     Surface(modifier.testTag("radio_player"), shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surface) {
         Column(Modifier.padding(if (short) 8.dp else 14.dp), verticalArrangement = Arrangement.spacedBy(if (short) 4.dp else 10.dp)) {
-            if (wide && !short) RadioArtwork(playback.station, Modifier.size(136.dp).align(Alignment.CenterHorizontally))
+            if (wide && !short) BoxWithConstraints(Modifier.fillMaxWidth().weight(1f), contentAlignment = Alignment.Center) {
+                RadioArtwork(playback.station, Modifier.size(minOf(136.dp, maxHeight, maxWidth)))
+            }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 if (!wide) RadioArtwork(playback.station, Modifier.size(48.dp))
                 Column(Modifier.weight(1f)) {
@@ -259,23 +266,28 @@ private fun RadioStation.identity() = "$slug:${streamSlug.orEmpty()}"
                         maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.testTag("radio_current_station"))
                     playback.station?.regionName?.takeIf { it.isNotBlank() && !short }?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp, lineHeight = 14.sp) }
                 }
-            }
-            if (playback.issue == null) Column(Modifier.testTag("radio_on_air"), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(trMessage("Сейчас в эфире"), color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp, lineHeight = 14.sp)
-                Text(playback.onAir.title.ifBlank { trMessage("Информация об эфире недоступна") }, maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = if (short) 13.sp else 16.sp, lineHeight = if (short) 16.sp else 20.sp)
-                if (playback.onAir.artist.isNotBlank()) Text(playback.onAir.artist, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 13.sp, lineHeight = 16.sp)
-            }
-            if (wide) Spacer(Modifier.weight(1f))
-            if (playback.issue != null) Text(trMessage(playback.issue!!.text()), color = MaterialTheme.colorScheme.error, fontSize = 11.sp, maxLines = if (short) 1 else 2, overflow = TextOverflow.Ellipsis)
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(22.dp, Alignment.CenterHorizontally), verticalAlignment = Alignment.CenterVertically) {
                 val station = playback.station
                 val liked = station?.slug in catalog.favouriteSlugs
                 ActionIcon(if (liked) UiIcon.FAVORITE else UiIcon.FAVORITE_OFF,
                     trMessage(if (liked) "Убрать из коллекции" else "В коллекцию"),
                     { if (!catalog.signedIn) signIn() else station?.let(radio::like) }, Modifier.testTag("radio_like"),
                     enabled = station != null && station.slug !in catalog.pendingLikes && !catalog.favouritesBusy && (catalog.collectionIssue == null || !catalog.signedIn))
+            }
+            if (playback.issue == null) Column(Modifier.testTag("radio_on_air"), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(trMessage("Сейчас в эфире"), color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 11.sp, lineHeight = 14.sp)
+                Text(playback.onAir.title.ifBlank { trMessage("Информация об эфире недоступна") }, maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = if (short) 13.sp else 16.sp, lineHeight = if (short) 16.sp else 20.sp)
+                if (playback.onAir.artist.isNotBlank()) Text(playback.onAir.artist, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 13.sp, lineHeight = 16.sp)
+            }
+            if (wide && short) Spacer(Modifier.weight(1f))
+            (playback.issue ?: playback.listIssue)?.let { Text(trMessage(it.text()), color = MaterialTheme.colorScheme.error, fontSize = 11.sp, maxLines = if (short) 1 else 2, overflow = TextOverflow.Ellipsis) }
+            FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, itemVerticalAlignment = Alignment.CenterVertically) {
+                val station = playback.station
+                ActionIcon(UiIcon.PREVIOUS, tr(Msg.radio_previous_station), { radio.audio.skip(-1) }, Modifier.testTag("radio_previous"),
+                    enabled = playback.ownsOutput && playback.canPrevious)
                 ActionIcon(UiIcon.PLAY, trMessage("Включить эфир"), { radio.play() }, Modifier.testTag("radio_play"),
                     enabled = station != null && !playback.playing && !playback.buffering && !playback.reconnecting, primary = !short)
+                ActionIcon(UiIcon.NEXT, tr(Msg.radio_next_station), { radio.audio.skip(1) }, Modifier.testTag("radio_next"),
+                    enabled = playback.ownsOutput && playback.canNext)
                 ActionIcon(UiIcon.STOP, trMessage("Остановить эфир"), radio.audio::stop, Modifier.testTag("radio_stop"),
                     enabled = playback.ownsOutput && (playback.playing || playback.buffering || playback.reconnecting))
             }

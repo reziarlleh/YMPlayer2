@@ -67,4 +67,42 @@ class CollectionsTest {
         player.playQueue(listOf("usb:6", "missing"))
         assertEquals(before, player.state.value)
     }
+    @Test fun reorderOneHundredFiftyMoveGroupUndoAndProtectConcurrentEdits() {
+        val songs = (1..150).associate { number ->
+            val track = catalog.getValue("local:4").copy(id = "local:$number", title = "Song $number")
+            track.id to track
+        }
+        val ids = songs.keys.toList()
+        val moving = ids.subList(119, 130).reversed().toSet()
+        val moved = movePlaylistGroup(ids, moving, ids[4])
+        assertEquals(ids.subList(119, 130), moved.subList(4, 15))
+        assertEquals(ids.filterNot(moving::contains), moved.filterNot(moving::contains))
+        val initial = ProfileCollections().edited(CollectionEdit.CreateMany("150", ids), songs) { "p" }
+        val result = initial.edited(CollectionEdit.Reorder("p", ids, moved), emptyMap()) { error("new ID") }
+        assertEquals(ids, orderedPlaylist(result.playlists.single().tracks, songs, PlaylistOrder.ADDED))
+        assertEquals(initial, result.edited(CollectionEdit.Reorder("p", moved, ids), emptyMap()) { error("new ID") })
+        val changed = result.edited(CollectionEdit.RemoveMany("p", setOf(ids.last())), emptyMap()) { error("new ID") }
+        assertThrows(IllegalArgumentException::class.java) {
+            changed.edited(CollectionEdit.Reorder("p", moved, ids), emptyMap()) { error("new ID") }
+        }
+    }
+    @Test fun albumSortUsesDiscAndTrackTagsAndFilesUseNaturalOrder() {
+        val prototype = catalog.getValue("local:4").copy(album = "A")
+        val songs = listOf(
+            prototype.copy(id = "a", fileName = "2.mp3", discNumber = 2, trackNumber = 1),
+            prototype.copy(id = "b", fileName = "10.mp3", discNumber = 1, trackNumber = 10),
+            prototype.copy(id = "c", fileName = "3.mp3", discNumber = 1, trackNumber = 2))
+        val refs = songs.map(Track::saved)
+        assertEquals(listOf("c", "b", "a"), orderedPlaylist(refs, songs.associateBy(Track::id), PlaylistOrder.ALBUM))
+        assertEquals(listOf("a", "c", "b"), orderedPlaylist(refs, songs.associateBy(Track::id), PlaylistOrder.FILE))
+    }
+    @Test fun builtInFavoritesSupportsAtomicBatchOrderAndRemoval() {
+        val ids = listOf("local:4", "usb:3", "local:5")
+        val profile = ProfileCollections().edit(CollectionEdit.FavoriteMany(ids + ids.first()))
+        assertEquals(ids, profile.favorites.map(SavedTrack::id))
+        val reversed = profile.edit(CollectionEdit.Reorder(null, ids, ids.reversed()))
+        assertEquals(ids, orderedPlaylist(reversed.favorites, catalog, PlaylistOrder.ADDED))
+        assertTrue(reversed.playlists.isEmpty())
+        assertEquals(listOf("usb:3"), reversed.edit(CollectionEdit.RemoveMany(null, setOf("local:4", "local:5"))).favorites.map(SavedTrack::id))
+    }
 }

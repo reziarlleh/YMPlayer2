@@ -37,7 +37,8 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         override fun getFilesDir() = java.io.File(super.getFilesDir(), "online-fixture").apply { mkdirs() }
     }
     init {
-        context.getSharedPreferences("playback", Context.MODE_PRIVATE).edit().clear().commit()
+        for (name in listOf("playback", "local-list-queues", "local-list-progress"))
+            context.getSharedPreferences(name, Context.MODE_PRIVATE).edit().clear().commit()
         // Each harness starts independently. The test provider is destructively reset by
         // individual fixtures; its old folder bindings must not survive into another test.
         for (name in listOf("offline-location", "offline-locations-v2"))
@@ -249,6 +250,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         override suspend fun feedback(profileId: String, item: WaveTrack, type: WaveFeedback, playedSeconds: Int) { waveFeedback += Triple(profileId, item, type) }
     }
     val collections = dev.petrov.ymplayer2.library.LocalCollections(context, library, viewModelScope)
+    val mediaFiles = dev.petrov.ymplayer2.library.LocalFileManager(context, (app as PlayerApplication).library, collections)
     val history = dev.petrov.ymplayer2.library.ListeningHistory(context, viewModelScope, "fixture-history.db")
     val launchDiagnostics = java.util.concurrent.CopyOnWriteArrayList<OperationDiagnostic>()
     val player = AndroidPlayback(context, library, viewModelScope, online, taste, waveApi, offline, streamQuality = { audioQuality.state.value.stream }, listened = history::record,
@@ -292,7 +294,7 @@ class OnlineTestActivity : ComponentActivity() {
                 initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), collections = harness.collections, accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists, history = harness.history, radio = harness.radioCatalog) }
             })
             ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it }, internet = harness.internet,
-                cacheLocation = harness.cacheLocation, exporter = harness.audioExporter)
+                cacheLocation = harness.cacheLocation, exporter = harness.audioExporter, mediaFiles = harness.mediaFiles)
         } }
     }
 }

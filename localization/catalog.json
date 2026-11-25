@@ -2802,22 +2802,6 @@
     }
   },
   {
-    "key": "msg_414a326c7fbe",
-    "source": "Моя волна · загружаем…",
-    "english": "My Vibe · loading…",
-    "locations": [
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt"
-    ],
-    "translations": {
-      "be": "Мая хваля · загрузка…",
-      "fr": "Mon mix · chargement…",
-      "de": "Mein Mix · wird geladen…",
-      "kk": "Менің толқыным · жүктелуде…",
-      "es": "Mi mix · cargando…",
-      "uk": "Моя хвиля · завантаження…"
-    }
-  },
-  {
     "key": "msg_417875482e57",
     "source": "Редактирование плейлиста",
     "english": "Editing playlist",
@@ -7334,18 +7318,18 @@
   },
   {
     "key": "msg_af9d1711a669",
-    "source": "Выберите папку в системном окне. Музыка остаётся на своём месте, приложение получает только доступ к чтению.",
-    "english": "Choose a folder in the system picker. Your music stays where it is; the app only gets read access.",
+    "source": "Выберите папку с музыкой. Файлы остаются на месте.",
+    "english": "Choose a folder with music. Your files stay where they are.",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/FoldersScreen.kt"
     ],
     "translations": {
-      "be": "Выберыце папку ў сістэмным акне. Музыка застаецца на сваім месцы, праграма атрымлівае толькі доступ для чытання.",
-      "fr": "Choisissez un dossier dans le sélecteur système. Votre musique reste à sa place ; l’application n’obtient qu’un accès en lecture.",
-      "de": "Wähle einen Ordner im Systemdialog. Deine Musik bleibt an ihrem Speicherort; die App erhält nur Lesezugriff.",
-      "kk": "Жүйелік терезеде қалтаны таңдаңыз. Музыка өз орнында қалады, қолданба тек оқу рұқсатын алады.",
-      "es": "Elige una carpeta en el selector del sistema. La música permanece donde está; la aplicación solo obtiene acceso de lectura.",
-      "uk": "Виберіть папку в системному вікні. Музика залишається на своєму місці, застосунок отримує лише доступ для читання."
+      "be": "Выберыце папку з музыкай. Файлы застаюцца на месцы.",
+      "fr": "Choisissez un dossier de musique. Vos fichiers restent à leur emplacement.",
+      "de": "Wähle einen Ordner mit Musik. Deine Dateien bleiben an ihrem Speicherort.",
+      "kk": "Музыка бар қалтаны таңдаңыз. Файлдар өз орнында қалады.",
+      "es": "Elige una carpeta con música. Tus archivos se quedan donde están.",
+      "uk": "Виберіть папку з музикою. Файли залишаються на місці."
     }
   },
   {
@@ -9222,7 +9206,6 @@
     "english": "My Vibe",
     "locations": [
       "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/PlayerScreen.kt",
-      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/TasteControls.kt",
       "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AudioService.kt",
       "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
     ],
@@ -12594,6 +12577,822 @@
       "kk": "Жанр бойынша Менің толқыным",
       "es": "Mi mix por género",
       "uk": "Моя хвиля за жанром"
+    }
+  },
+  {
+    "key": "files_actions",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Действия",
+    "english": "Actions",
+    "translations": {
+      "be": "Дзеянні",
+      "kk": "Әрекеттер",
+      "uk": "Дії",
+      "de": "Aktionen",
+      "es": "Acciones",
+      "fr": "Actions"
+    }
+  },
+  {
+    "key": "files_append",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "В конец очереди",
+    "english": "Add to end of queue",
+    "translations": {
+      "be": "У канец чаргі",
+      "kk": "Кезек соңына қосу",
+      "uk": "У кінець черги",
+      "de": "Ans Ende der Warteschlange",
+      "es": "Al final de la cola",
+      "fr": "Ajouter en fin de file"
+    }
+  },
+  {
+    "key": "files_copy",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Копировать",
+    "english": "Copy",
+    "translations": {
+      "be": "Скапіяваць",
+      "kk": "Көшіру",
+      "uk": "Копіювати",
+      "de": "Kopieren",
+      "es": "Copiar",
+      "fr": "Copier"
+    }
+  },
+  {
+    "key": "files_create_folder",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Создать папку",
+    "english": "Create folder",
+    "translations": {
+      "be": "Стварыць тэчку",
+      "kk": "Қалта жасау",
+      "uk": "Створити папку",
+      "de": "Ordner erstellen",
+      "es": "Crear carpeta",
+      "fr": "Créer un dossier"
+    }
+  },
+  {
+    "key": "files_delete_many",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Удалить с носителя выбранные файлы (@0@)?",
+    "english": "Delete selected files from storage (@0@)?",
+    "translations": {
+      "be": "Выдаліць з носьбіта выбраныя файлы (@0@)?",
+      "kk": "Таңдалған файлдар тасымалдағыштан жойылсын ба (@0@)?",
+      "uk": "Видалити з носія вибрані файли (@0@)?",
+      "de": "Ausgewählte Dateien vom Speicher löschen (@0@)?",
+      "es": "¿Eliminar del dispositivo los archivos seleccionados (@0@)?",
+      "fr": "Supprimer les fichiers sélectionnés du support (@0@) ?"
+    }
+  },
+  {
+    "key": "files_delete_named",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Удалить с носителя «@0@»?",
+    "english": "Delete “@0@” from storage?",
+    "translations": {
+      "be": "Выдаліць з носьбіта «@0@»?",
+      "kk": "«@0@» тасымалдағыштан жойылсын ба?",
+      "uk": "Видалити з носія «@0@»?",
+      "de": "„@0@“ vom Speicher löschen?",
+      "es": "¿Eliminar «@0@» del dispositivo?",
+      "fr": "Supprimer «@0@» du support ?"
+    }
+  },
+  {
+    "key": "files_destination",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Выберите папку назначения",
+    "english": "Choose destination folder",
+    "translations": {
+      "be": "Выберыце тэчку прызначэння",
+      "kk": "Мақсатты қалтаны таңдаңыз",
+      "uk": "Виберіть папку призначення",
+      "de": "Zielordner wählen",
+      "es": "Elige la carpeta de destino",
+      "fr": "Choisissez le dossier de destination"
+    }
+  },
+  {
+    "key": "files_directory_delete_warning",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Будет удалено всё содержимое папки.",
+    "english": "Everything in this folder will be deleted.",
+    "translations": {
+      "be": "Усё змесціва тэчкі будзе выдалена.",
+      "kk": "Қалтаның барлық мазмұны жойылады.",
+      "uk": "Увесь вміст папки буде видалено.",
+      "de": "Der gesamte Ordnerinhalt wird gelöscht.",
+      "es": "Se eliminará todo el contenido de la carpeta.",
+      "fr": "Tout le contenu de ce dossier sera supprimé."
+    }
+  },
+  {
+    "key": "files_dirs",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Папки",
+    "english": "Folders",
+    "translations": {
+      "be": "Тэчкі",
+      "kk": "Қалталар",
+      "uk": "Папки",
+      "de": "Ordner",
+      "es": "Carpetas",
+      "fr": "Dossiers"
+    }
+  },
+  {
+    "key": "files_empty",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Здесь нет музыки",
+    "english": "No music here",
+    "translations": {
+      "be": "Тут няма музыкі",
+      "kk": "Мұнда музыка жоқ",
+      "uk": "Тут немає музики",
+      "de": "Hier ist keine Musik",
+      "es": "Aquí no hay música",
+      "fr": "Aucune musique ici"
+    }
+  },
+  {
+    "key": "files_issue",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Операция не удалась. Проверьте подключение носителя и доступ к папке.",
+    "english": "Operation failed. Check storage and folder access.",
+    "translations": {
+      "be": "Не ўдалося выканаць аперацыю. Праверце носьбіт і доступ да тэчкі.",
+      "kk": "Әрекет орындалмады. Тасымалдағыш пен қалтаға кіру рұқсатын тексеріңіз.",
+      "uk": "Не вдалося виконати дію. Перевірте носій і доступ до папки.",
+      "de": "Vorgang fehlgeschlagen. Speicher und Ordnerzugriff prüfen.",
+      "es": "La operación falló. Comprueba el dispositivo y el acceso a la carpeta.",
+      "fr": "Échec de l’opération. Vérifiez le support et l’accès au dossier."
+    }
+  },
+  {
+    "key": "files_next",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Играть следующим",
+    "english": "Play next",
+    "translations": {
+      "be": "Прайграць наступным",
+      "kk": "Келесі ойнату",
+      "uk": "Відтворити наступним",
+      "de": "Als Nächstes abspielen",
+      "es": "Reproducir a continuación",
+      "fr": "Lire ensuite"
+    }
+  },
+  {
+    "key": "files_no_matches",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Совпадений нет",
+    "english": "No matches",
+    "translations": {
+      "be": "Супадзенняў няма",
+      "kk": "Сәйкестік жоқ",
+      "uk": "Збігів немає",
+      "de": "Keine Treffer",
+      "es": "Sin resultados",
+      "fr": "Aucun résultat"
+    }
+  },
+  {
+    "key": "files_partial",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Выполнено: @0@. Не удалось: @1@",
+    "english": "Completed: @0@. Failed: @1@",
+    "translations": {
+      "be": "Выканана: @0@. Памылкі: @1@",
+      "kk": "Орындалды: @0@. Орындалмады: @1@",
+      "uk": "Виконано: @0@. Не вдалося: @1@",
+      "de": "Erledigt: @0@. Fehlgeschlagen: @1@",
+      "es": "Completado: @0@. Error: @1@",
+      "fr": "Effectué : @0@. Échec : @1@"
+    }
+  },
+  {
+    "key": "files_play_selected",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Играть выбранные (@0@)",
+    "english": "Play selected (@0@)",
+    "translations": {
+      "be": "Прайграць выбраныя (@0@)",
+      "kk": "Таңдалғандарды ойнату (@0@)",
+      "uk": "Відтворити вибрані (@0@)",
+      "de": "Auswahl abspielen (@0@)",
+      "es": "Reproducir selección (@0@)",
+      "fr": "Lire la sélection (@0@)"
+    }
+  },
+  {
+    "key": "files_play_tree",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Играть папку с подпапками",
+    "english": "Play folder and subfolders",
+    "translations": {
+      "be": "Прайграць тэчку з падтэчкамі",
+      "kk": "Қалтаны ішкі қалталарымен ойнату",
+      "uk": "Відтворити папку з підпапками",
+      "de": "Ordner mit Unterordnern abspielen",
+      "es": "Reproducir carpeta y subcarpetas",
+      "fr": "Lire le dossier et ses sous-dossiers"
+    }
+  },
+  {
+    "key": "files_range",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Выбрать диапазон",
+    "english": "Select range",
+    "translations": {
+      "be": "Выбраць дыяпазон",
+      "kk": "Аралықты таңдау",
+      "uk": "Вибрати діапазон",
+      "de": "Bereich auswählen",
+      "es": "Seleccionar rango",
+      "fr": "Sélectionner une plage"
+    }
+  },
+  {
+    "key": "files_range_end",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Отметьте конец диапазона",
+    "english": "Choose the last item",
+    "translations": {
+      "be": "Выберыце апошні элемент",
+      "kk": "Соңғы элементті таңдаңыз",
+      "uk": "Виберіть останній елемент",
+      "de": "Letzten Eintrag wählen",
+      "es": "Elige el último elemento",
+      "fr": "Choisissez le dernier élément"
+    }
+  },
+  {
+    "key": "files_range_start",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Отметьте начало диапазона",
+    "english": "Choose the first item",
+    "translations": {
+      "be": "Выберыце першы элемент",
+      "kk": "Бірінші элементті таңдаңыз",
+      "uk": "Виберіть перший елемент",
+      "de": "Ersten Eintrag wählen",
+      "es": "Elige el primer elemento",
+      "fr": "Choisissez le premier élément"
+    }
+  },
+  {
+    "key": "files_search_hint",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Найти в этой папке и подпапках",
+    "english": "Search this folder and subfolders",
+    "translations": {
+      "be": "Пошук у тэчцы і падтэчках",
+      "kk": "Осы қалта мен ішкі қалталардан іздеу",
+      "uk": "Пошук у папці й підпапках",
+      "de": "Ordner und Unterordner durchsuchen",
+      "es": "Buscar en la carpeta y subcarpetas",
+      "fr": "Chercher dans le dossier et ses sous-dossiers"
+    }
+  },
+  {
+    "key": "files_select_all",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Выбрать все (@0@)",
+    "english": "Select all (@0@)",
+    "translations": {
+      "be": "Выбраць усе (@0@)",
+      "kk": "Барлығын таңдау (@0@)",
+      "uk": "Вибрати всі (@0@)",
+      "de": "Alle auswählen (@0@)",
+      "es": "Seleccionar todo (@0@)",
+      "fr": "Tout sélectionner (@0@)"
+    }
+  },
+  {
+    "key": "files_select_matches",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Выбрать найденные (@0@)",
+    "english": "Select matches (@0@)",
+    "translations": {
+      "be": "Выбраць знойдзеныя (@0@)",
+      "kk": "Табылғандарды таңдау (@0@)",
+      "uk": "Вибрати знайдені (@0@)",
+      "de": "Treffer auswählen (@0@)",
+      "es": "Seleccionar resultados (@0@)",
+      "fr": "Sélectionner les résultats (@0@)"
+    }
+  },
+  {
+    "key": "files_sort_name",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Имя файла",
+    "english": "File name",
+    "translations": {
+      "be": "Імя файла",
+      "kk": "Файл атауы",
+      "uk": "Ім’я файлу",
+      "de": "Dateiname",
+      "es": "Nombre de archivo",
+      "fr": "Nom du fichier"
+    }
+  },
+  {
+    "key": "files_sort_newest",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Сначала новые",
+    "english": "Newest first",
+    "translations": {
+      "be": "Спачатку новыя",
+      "kk": "Алдымен жаңалары",
+      "uk": "Спочатку нові",
+      "de": "Neueste zuerst",
+      "es": "Más recientes primero",
+      "fr": "Les plus récents d’abord"
+    }
+  },
+  {
+    "key": "files_sort_oldest",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Сначала старые",
+    "english": "Oldest first",
+    "translations": {
+      "be": "Спачатку старыя",
+      "kk": "Алдымен ескілері",
+      "uk": "Спочатку старі",
+      "de": "Älteste zuerst",
+      "es": "Más antiguos primero",
+      "fr": "Les plus anciens d’abord"
+    }
+  },
+  {
+    "key": "files_to_named",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Добавить в «@0@» (@1@)",
+    "english": "Add to “@0@” (@1@)",
+    "translations": {
+      "be": "Дадаць у «@0@» (@1@)",
+      "kk": "«@0@» ішіне қосу (@1@)",
+      "uk": "Додати до «@0@» (@1@)",
+      "de": "Zu „@0@“ hinzufügen (@1@)",
+      "es": "Añadir a «@0@» (@1@)",
+      "fr": "Ajouter à «@0@» (@1@)"
+    }
+  },
+  {
+    "key": "files_unavailable",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalMusicBrowser.kt"
+    ],
+    "source": "Носитель отключён",
+    "english": "Storage disconnected",
+    "translations": {
+      "be": "Носьбіт адключаны",
+      "kk": "Тасымалдағыш ажыратылды",
+      "uk": "Носій відключено",
+      "de": "Speicher getrennt",
+      "es": "Dispositivo desconectado",
+      "fr": "Support déconnecté"
+    }
+  },
+  {
+    "key": "folder_another",
+    "source": "Другая папка",
+    "english": "Another folder",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/FolderAccess.kt"
+    ],
+    "translations": {
+      "be": "Іншая папка",
+      "fr": "Autre dossier",
+      "de": "Anderer Ordner",
+      "kk": "Басқа қалта",
+      "es": "Otra carpeta",
+      "uk": "Інша папка"
+    }
+  },
+  {
+    "key": "folder_connected",
+    "source": "Уже подключена",
+    "english": "Already connected",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/FolderAccess.kt"
+    ],
+    "translations": {
+      "be": "Ужо падключана",
+      "fr": "Déjà connecté",
+      "de": "Bereits verbunden",
+      "kk": "Бұрын қосылған",
+      "es": "Ya conectada",
+      "uk": "Вже підключено"
+    }
+  },
+  {
+    "key": "folder_granted",
+    "source": "Разрешённые папки",
+    "english": "Authorized folders",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/FolderAccess.kt"
+    ],
+    "translations": {
+      "be": "Дазволеныя папкі",
+      "fr": "Dossiers autorisés",
+      "de": "Freigegebene Ordner",
+      "kk": "Рұқсат берілген қалталар",
+      "es": "Carpetas autorizadas",
+      "uk": "Дозволені папки"
+    }
+  },
+  {
+    "key": "folder_last_export",
+    "source": "Последняя папка экспорта",
+    "english": "Last export folder",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/FolderAccess.kt"
+    ],
+    "translations": {
+      "be": "Апошняя папка экспарту",
+      "fr": "Dernier dossier d’exportation",
+      "de": "Letzter Exportordner",
+      "kk": "Соңғы экспорт қалтасы",
+      "es": "Última carpeta de exportación",
+      "uk": "Остання папка експорту"
+    }
+  },
+  {
+    "key": "library_cached_tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OfflineSettingsScreen.kt"
+    ],
+    "source": "Треки в кэше",
+    "english": "Cached tracks",
+    "translations": {
+      "be": "Трэкі ў кэшы",
+      "kk": "Кэштегі тректер",
+      "uk": "Треки в кеші",
+      "de": "Titel im Cache",
+      "es": "Canciones en caché",
+      "fr": "Titres en cache"
+    }
+  },
+  {
+    "key": "library_local_files",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LibraryWorkspace.kt"
+    ],
+    "source": "Локальные файлы",
+    "english": "Local files",
+    "translations": {
+      "be": "Лакальныя файлы",
+      "kk": "Жергілікті файлдар",
+      "uk": "Локальні файли",
+      "de": "Lokale Dateien",
+      "es": "Archivos locales",
+      "fr": "Fichiers locaux"
+    }
+  },
+  {
+    "key": "local_list_history",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalListsShortcut.kt"
+    ],
+    "source": "Последние локальные списки",
+    "english": "Recent local lists",
+    "translations": {
+      "be": "Апошнія лакальныя спісы",
+      "kk": "Соңғы жергілікті тізімдер",
+      "uk": "Останні локальні списки",
+      "de": "Zuletzt gespielte lokale Listen",
+      "es": "Listas locales recientes",
+      "fr": "Listes locales récentes"
+    }
+  },
+  {
+    "key": "local_list_unavailable",
+    "locations": [
+      "playback/android/src/main/kotlin/dev/petrov/ymplayer2/playback/AndroidPlayback.kt"
+    ],
+    "source": "Треки списка недоступны. Проверьте подключение накопителя.",
+    "english": "Tracks in this list are unavailable. Check the storage connection.",
+    "translations": {
+      "be": "Трэкі спіса недаступныя. Праверце падключэнне назапашвальніка.",
+      "kk": "Тізімдегі тректер қолжетімсіз. Жинақтауыштың қосылғанын тексеріңіз.",
+      "uk": "Треки списку недоступні. Перевірте підключення накопичувача.",
+      "de": "Die Titel dieser Liste sind nicht verfügbar. Prüfe, ob das Laufwerk angeschlossen ist.",
+      "es": "Las pistas de esta lista no están disponibles. Comprueba la conexión de la unidad.",
+      "fr": "Les morceaux de cette liste sont indisponibles. Vérifiez que le support est connecté."
+    }
+  },
+  {
+    "key": "local_pin",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalListsShortcut.kt"
+    ],
+    "source": "Закрепить «@0@»",
+    "english": "Pin “@0@”",
+    "translations": {
+      "be": "Замацаваць «@0@»",
+      "kk": "«@0@» тізімін бекіту",
+      "uk": "Закріпити «@0@»",
+      "de": "„@0@“ anheften",
+      "es": "Fijar «@0@»",
+      "fr": "Épingler « @0@ »"
+    }
+  },
+  {
+    "key": "local_selection_name",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalListsShortcut.kt"
+    ],
+    "source": "Выборка · @0@",
+    "english": "Selection · @0@",
+    "translations": {
+      "be": "Выбарка · @0@",
+      "kk": "Таңдалғандар · @0@",
+      "uk": "Вибірка · @0@",
+      "de": "Auswahl · @0@",
+      "es": "Selección · @0@",
+      "fr": "Sélection · @0@"
+    }
+  },
+  {
+    "key": "local_unpin",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalListsShortcut.kt"
+    ],
+    "source": "Открепить «@0@»",
+    "english": "Unpin “@0@”",
+    "translations": {
+      "be": "Адмацаваць «@0@»",
+      "kk": "«@0@» тізімін бекітуден шығару",
+      "uk": "Відкріпити «@0@»",
+      "de": "„@0@“ lösen",
+      "es": "Desfijar «@0@»",
+      "fr": "Désépingler « @0@ »"
+    }
+  },
+  {
+    "key": "playlist_added_order",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "Порядок добавления",
+    "english": "Order added",
+    "translations": {
+      "be": "Парадак дадання",
+      "kk": "Қосылу реті",
+      "uk": "Порядок додавання",
+      "de": "Hinzugefügte Reihenfolge",
+      "es": "Orden de adición",
+      "fr": "Ordre d’ajout"
+    }
+  },
+  {
+    "key": "playlist_move_before",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "Перед треком…",
+    "english": "Before track…",
+    "translations": {
+      "be": "Перад трэкам…",
+      "kk": "Тректің алдына…",
+      "uk": "Перед треком…",
+      "de": "Vor Titel…",
+      "es": "Antes de la pista…",
+      "fr": "Avant le titre…"
+    }
+  },
+  {
+    "key": "playlist_move_first",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "В начало",
+    "english": "To the beginning",
+    "translations": {
+      "be": "У пачатак",
+      "kk": "Басына",
+      "uk": "На початок",
+      "de": "An den Anfang",
+      "es": "Al principio",
+      "fr": "Au début"
+    }
+  },
+  {
+    "key": "playlist_move_last",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "В конец",
+    "english": "To the end",
+    "translations": {
+      "be": "У канец",
+      "kk": "Соңына",
+      "uk": "У кінець",
+      "de": "Ans Ende",
+      "es": "Al final",
+      "fr": "À la fin"
+    }
+  },
+  {
+    "key": "playlist_order_action",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "Упорядочить",
+    "english": "Sort playlist",
+    "translations": {
+      "be": "Упарадкаваць",
+      "kk": "Реттеу",
+      "uk": "Упорядкувати",
+      "de": "Sortieren",
+      "es": "Ordenar",
+      "fr": "Trier"
+    }
+  },
+  {
+    "key": "playlist_range_end",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "Укажите последний трек диапазона",
+    "english": "Choose the last track in the range",
+    "translations": {
+      "be": "Пазначце апошні трэк дыяпазону",
+      "kk": "Аралықтың соңғы трегін таңдаңыз",
+      "uk": "Вкажіть останній трек діапазону",
+      "de": "Letzten Titel des Bereichs wählen",
+      "es": "Elige la última pista del intervalo",
+      "fr": "Sélectionnez le dernier titre de la plage"
+    }
+  },
+  {
+    "key": "playlist_range_start",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "Укажите первый трек диапазона",
+    "english": "Choose the first track in the range",
+    "translations": {
+      "be": "Пазначце першы трэк дыяпазону",
+      "kk": "Аралықтың бірінші трегін таңдаңыз",
+      "uk": "Вкажіть перший трек діапазону",
+      "de": "Ersten Titel des Bereichs wählen",
+      "es": "Elige la primera pista del intervalo",
+      "fr": "Sélectionnez le premier titre de la plage"
+    }
+  },
+  {
+    "key": "playlist_remove_selected",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "Убрать из плейлиста",
+    "english": "Remove from playlist",
+    "translations": {
+      "be": "Прыбраць з плэйліста",
+      "kk": "Ойнату тізімінен алып тастау",
+      "uk": "Прибрати з плейлиста",
+      "de": "Aus Wiedergabeliste entfernen",
+      "es": "Quitar de la lista",
+      "fr": "Retirer de la playlist"
+    }
+  },
+  {
+    "key": "playlist_selected_all",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "Выбрать показанные (@0@)",
+    "english": "Select shown (@0@)",
+    "translations": {
+      "be": "Выбраць паказаныя (@0@)",
+      "kk": "Көрсетілгендерді таңдау (@0@)",
+      "uk": "Вибрати показані (@0@)",
+      "de": "Angezeigte auswählen (@0@)",
+      "es": "Seleccionar las visibles (@0@)",
+      "fr": "Sélectionner les titres affichés (@0@)"
+    }
+  },
+  {
+    "key": "playlist_stale_edit",
+    "locations": [
+      "core/src/main/kotlin/dev/petrov/ymplayer2/core/Collections.kt"
+    ],
+    "source": "Список изменился. Повторите действие.",
+    "english": "The playlist changed. Try again.",
+    "translations": {
+      "be": "Спіс змяніўся. Паўтарыце дзеянне.",
+      "kk": "Тізім өзгерді. Қайталап көріңіз.",
+      "uk": "Список змінився. Повторіть дію.",
+      "de": "Die Liste wurde geändert. Versuche es erneut.",
+      "es": "La lista ha cambiado. Vuelve a intentarlo.",
+      "fr": "La liste a changé. Réessayez."
+    }
+  },
+  {
+    "key": "playlist_undo_order",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/LocalPlaylistDetail.kt"
+    ],
+    "source": "Отменить перестановку",
+    "english": "Undo reorder",
+    "translations": {
+      "be": "Скасаваць перастаноўку",
+      "kk": "Орын ауыстыруды болдырмау",
+      "uk": "Скасувати перестановку",
+      "de": "Umordnung rückgängig machen",
+      "es": "Deshacer reordenación",
+      "fr": "Annuler le changement d’ordre"
+    }
+  },
+  {
+    "key": "radio_next_station",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/RadioScreen.kt"
+    ],
+    "source": "Следующая станция",
+    "english": "Next station",
+    "translations": {
+      "be": "Наступная станцыя",
+      "kk": "Келесі станция",
+      "uk": "Наступна станція",
+      "de": "Nächster Sender",
+      "es": "Emisora siguiente",
+      "fr": "Station suivante"
+    }
+  },
+  {
+    "key": "radio_previous_station",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/RadioScreen.kt"
+    ],
+    "source": "Предыдущая станция",
+    "english": "Previous station",
+    "translations": {
+      "be": "Папярэдняя станцыя",
+      "kk": "Алдыңғы станция",
+      "uk": "Попередня станція",
+      "de": "Vorheriger Sender",
+      "es": "Emisora anterior",
+      "fr": "Station précédente"
     }
   }
 ]

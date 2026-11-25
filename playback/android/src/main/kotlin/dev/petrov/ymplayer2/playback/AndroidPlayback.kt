@@ -30,6 +30,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private val diagnostic: (OperationDiagnostic) -> Unit = {},
     private val networkAvailable: () -> Boolean = { true }) : PlaybackController {
     private val prefs = context.getSharedPreferences("playback", Context.MODE_PRIVATE)
+    private val localBookmarks = LocalListBookmarks(context)
     private val launchState = LaunchStateStore(context)
     private var removingServiceTask = false
     private var launchRevisionValue = 0L
@@ -46,6 +47,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     private val mutable = MutableStateFlow(PlaybackState(prefs.getString("profile", null)
         ?.takeIf { id -> library.profiles.any { it.id == id } } ?: library.profiles.first().id, emptyList(), connected = false))
     override val state = mutable.asStateFlow()
+    init {
+        mutable.value = state.value.copy(localLists = localBookmarks.history(state.value.profileId))
+    }
     override val waveSettings = waveApi?.let { api -> online?.let { music -> WaveSettings(music.accounts, api, scope,
         read = { key -> runCatching { JSONObject(prefs.getString("waveSettings:$key", "{}")!!).let { json ->
             json.keys().asSequence().associateWith { json.getString(it) }
@@ -545,6 +549,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         if (!radioMode && ready && !restoring && state.value.origin.source == PlaybackSource.OFFLINE) {
             publish(); saveOfflineBookmark()
         }
+        if (!radioMode && ready && !restoring && state.value.origin.localList != null) {
+            publish(); saveLocalBookmark()
+        }
         val saved = launchState.read(state.value.profileId)
         // Persist explicit intent before waiting for metadata. Seek/ordering do not
         // implicitly pause, and a queued Play must survive process death as Play.
@@ -921,41 +928,47 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
     }
     override fun enqueue(trackId: String) = enqueueMany(listOf(trackId))
-    override fun enqueueMany(trackIds: List<String>) = diskCommand {
+    // Editing a named playlist's playback queue does not edit the playlist itself.
+    private fun editingLocalSnapshot() = state.value.origin.localList?.let { it.playlistId == null && it != LocalListTarget.favorites } == true
+    override fun enqueueMany(trackIds: List<String>) = placeInQueue(trackIds, next = false)
+    override fun enqueueNext(trackIds: List<String>) = placeInQueue(trackIds, next = true)
+    private fun placeInQueue(trackIds: List<String>, next: Boolean) = diskCommand {
+        if (next && !state.value.supportsQueueOrdering) return@diskCommand
         val ids = trackIds.distinct()
         val known = knownTracks(state.value.profileId).associateBy(Track::id) + localTracksByIds(state.value.profileId, ids)
         val tracks = ids.mapNotNull { known[it]?.takeIf(Track::available) }
         if (tracks.isEmpty()) return@diskCommand
         if (library is IndexedLocalLibrary) {
             val refs = editableReferences()
-            val present = refs.mapTo(hashSetOf(), PlaybackReference::id)
-            val additions = tracks.filter { it.id !in present }.map(PlaybackReference::from)
-            if (additions.isEmpty()) return@diskCommand
-            cancelWave()
-            setReferences(refs + additions)
+            val additions = tracks.map(PlaybackReference::from)
+            val updated = if (next) refs.withNextGroup(additions, state.value.current?.id, PlaybackReference::id)
+                else (refs + additions).distinctBy(PlaybackReference::id)
+            if (updated == refs) return@diskCommand
+            cancelWave(keepLocalList = editingLocalSnapshot() && updated.none { it.saved.source == Source.YANDEX })
+            setReferences(updated)
             return@diskCommand
         }
         val queue = editableQueue()
-        val present = queue.mapTo(hashSetOf(), Track::id)
-        val additions = tracks.filter { it.id !in present }
-        if (additions.isEmpty()) return@diskCommand
-        cancelWave()
+        val updated = if (next) queue.withNextGroup(tracks, state.value.current?.id, Track::id)
+            else (queue + tracks).distinctBy(Track::id)
+        if (updated == queue) return@diskCommand
+        cancelWave(keepLocalList = editingLocalSnapshot() && updated.none { it.source == Source.YANDEX })
         followLibrary = false
-        syncQueue(queue + additions)
+        syncQueue(updated)
     }
     override fun moveInQueue(trackId: String, toIndex: Int) = diskCommand {
         if (library is IndexedLocalLibrary) {
             val refs = editableReferences()
             val from = refs.indexOfFirst { it.id == trackId }
             if (from < 0 || toIndex !in refs.indices || from == toIndex) return@diskCommand
-            cancelWave()
+            cancelWave(keepLocalList = editingLocalSnapshot())
             setReferences(refs.toMutableList().apply { add(toIndex, removeAt(from)) })
             return@diskCommand
         }
         val queue = editableQueue()
         val from = queue.indexOfFirst { it.id == trackId }
         if (from < 0 || toIndex !in queue.indices || from == toIndex) return@diskCommand
-        cancelWave()
+        cancelWave(keepLocalList = editingLocalSnapshot())
         followLibrary = false
         syncQueue(queue.toMutableList().apply { add(toIndex, removeAt(from)) })
     }
@@ -965,7 +978,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             if (refs.none { it.id == trackId }) return@diskCommand
             val before = state.value
             val removingCurrent = before.current?.id == trackId
-            cancelWave()
+            cancelWave(keepLocalList = editingLocalSnapshot())
             if (removingCurrent) engine?.pause()
             setReferences(refs.filterNot { it.id == trackId }, if (removingCurrent) null else before.current?.id,
                 if (removingCurrent) 0 else before.positionSeconds, before.playing && !removingCurrent)
@@ -974,7 +987,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val queue = editableQueue()
         val index = queue.indexOfFirst { it.id == trackId }
         if (index < 0) return@diskCommand
-        cancelWave()
+        cancelWave(keepLocalList = editingLocalSnapshot())
         followLibrary = false
         // Removing the current item must not unexpectedly start its successor.
         if (state.value.current?.id == trackId) { engine?.pause(); mutable.value = state.value.copy(error = null) }
@@ -994,33 +1007,72 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     override fun playList(trackIds: List<String>, startId: String?, origin: PlaybackOrigin) = diskCommand(playing = true) {
         playResolvedQueue(trackIds, startId, origin)
     }
-    private suspend fun playResolvedQueue(trackIds: List<String>, startId: String?, origin: PlaybackOrigin = PlaybackOrigin(PlaybackSource.LIST)): Boolean {
+    override fun resumeLocalList(target: LocalListTarget, members: List<SavedTrack>?) {
+        val profile = state.value.profileId
+        val before = launchState.read(profile)
+        diskCommand(playing = true) {
+            if (state.value.profileId != profile) return@diskCommand
+            val active = state.value
+            val sameMembers = members == null || members.map(SavedTrack::id) ==
+                (referenceOrder?.references?.map(PlaybackReference::id) ?: logicalQueue.map(Track::id))
+            if (active.origin.localList?.key == target.key && active.current?.available == true && sameMembers) {
+                if (active.origin.localList != target) mutable.value = active.copy(origin = target.origin())
+                if (!active.playing) playSession()
+                return@diskCommand
+            }
+            val revision = launchRevision
+            val refs = members?.map(::PlaybackReference) ?: withContext(Dispatchers.IO) { localBookmarks.references(profile, target) }
+            val point = localBookmarks.position(profile, target)
+            if (!playResolvedQueue(refs.map(PlaybackReference::id), point?.trackId, target.origin(), point, refs)) {
+                if (before.output == PlaybackOutput.MUSIC && revision == launchRevision)
+                    launchState.write(profile, before.output, before.playing, before.stopped)
+                mutable.value = state.value.copy(error = "Треки списка недоступны. Проверьте подключение накопителя.")
+            }
+        }
+    }
+
+    override fun pinLocalList(target: LocalListTarget, pinned: Boolean) {
+        val s = state.value
+        mutable.value = s.copy(localLists = localBookmarks.pin(s.profileId, target, pinned))
+    }
+
+    private suspend fun playResolvedQueue(trackIds: List<String>, startId: String?, origin: PlaybackOrigin = PlaybackOrigin(PlaybackSource.LIST),
+        point: LocalListPosition? = null, savedRefs: List<PlaybackReference>? = null): Boolean {
         if (library is IndexedLocalLibrary) {
-            val refs = referencesFor(trackIds)
+            val refs = savedRefs ?: referencesFor(trackIds)
             if (refs.isEmpty()) return false
             val order = ReferencePlaybackOrder().apply { replace(refs) }
             // Validate the requested list using its source, while the outgoing
             // source/bookmark remains intact until a playable item is found.
             suspend fun resolveSelected(ref: PlaybackReference) = resolveReferences(listOf(ref), origin.source).single()
-            val selected = order.reference(startId)?.let { resolveSelected(it).takeIf(Track::available) }
-                ?: order.adjacent(null, 1, state.value.shuffle, RepeatMode.OFF, ::resolveSelected) ?: return false
+            val preferred = order.reference(startId)?.let { resolveSelected(it) }
+            if (point != null && preferred?.available == false) return false
+            val selected = preferred?.takeIf(Track::available)
+                ?: order.adjacent(null, 1, point?.shuffle ?: state.value.shuffle, RepeatMode.OFF, ::resolveSelected) ?: return false
             cancelWave()
             activeOfflineOwner = null
-            mutable.value = state.value.copy(origin = origin)
+            setListOrigin(origin.withLocalTarget(refs), point)
             referenceOrder = order
-            setReferences(refs, selected.id, 0, resume = true, preserveCurrent = false)
+            setReferences(refs, selected.id, point?.takeIf { it.trackId == selected.id }?.seconds ?: 0,
+                resume = true, preserveCurrent = false)
             return true
         }
         val known = knownTracks(state.value.profileId).associateBy(Track::id) + localTracksByIds(state.value.profileId, trackIds)
         val queue = trackIds.distinct().mapNotNull { known[it]?.takeIf(Track::available) }
-        if (queue.isEmpty()) return false
+        if (queue.isEmpty() || point != null && point.trackId in trackIds && queue.none { it.id == point.trackId }) return false
         cancelWave()
         activeOfflineOwner = null
-        mutable.value = state.value.copy(origin = origin)
+        setListOrigin(origin.withLocalTarget(savedRefs ?: queue.map(PlaybackReference::from)), point)
         followLibrary = false
-        load(queue, queue.indexOfFirst { it.id == startId }.coerceAtLeast(0), 0)
+        val index = queue.indexOfFirst { it.id == startId }.coerceAtLeast(0)
+        load(queue, index, point?.takeIf { it.trackId == queue[index].id }?.seconds ?: 0)
         engine?.prepare(); engine?.play()
         return true
+    }
+
+    private fun setListOrigin(origin: PlaybackOrigin, point: LocalListPosition?) {
+        val next = state.value.copy(origin = origin)
+        mutable.value = if (point == null) next else next.withRepeat(point.repeat).withShuffle(point.shuffle)
     }
 
     override fun playMyWave() = command(playing = true) {
@@ -1266,6 +1318,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
     internal fun sessionRepeatMode(): Int = state.value.repeatMode.toPlayerMode()
     internal fun sessionShuffle(): Boolean = state.value.shuffle
     internal fun addModeListener(listener: () -> Unit) { modeListeners += listener }
+    internal fun radioCommandsChanged() { if (radioMode) modeListeners.toList().forEach { it() } }
     internal fun removeModeListener(listener: () -> Unit) { modeListeners -= listener }
 
     private fun applyOrderingModes() {
@@ -1326,7 +1379,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         waveAdvance = false; automaticWaveAdvance = false; waveResume = false; waveStarted = null
         mutable.value = state.value.copy(waveLoading = false, waveIssue = null)
     }
-    private fun cancelWave(discardAudio: Boolean = false) {
+    private fun cancelWave(discardAudio: Boolean = false, keepLocalList: Boolean = false) {
         // A source change suspends a wave; it is not the user's explicit Stop.
         // Snapshot before the new list replaces queue:profile or lends its engine.
         if (state.value.wave && !radioMode) { publish(); checkpoint() }
@@ -1334,7 +1387,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         waveBatch = null; waveItems.clear(); waveHistory.clear()
         activeWaveRequest = WaveRequest()
         waveAccountId = null
-        mutable.value = state.value.copy(wave = false, recommendations = false, origin = PlaybackOrigin(), continueWave = false)
+        val origin = state.value.origin.takeIf { keepLocalList && it.localList != null } ?: PlaybackOrigin()
+        mutable.value = state.value.copy(wave = false, recommendations = false, origin = origin, continueWave = false)
     }
     private fun feedback(id: String?, type: WaveFeedback, seconds: Int = 0) {
         val api = waveApi ?: return
@@ -1792,6 +1846,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         referenceOrder = null
         logicalQueue = emptyList()
         mutable.value = state.value.copy(profileId = validProfile, queue = emptyList(), index = 0, positionSeconds = 0,
+            localLists = localBookmarks.history(validProfile),
             playing = false, error = null, queueOffset = 0, queueTotal = null, currentTrack = null,
             automaticLocal = false, automaticSource = null, queueRevision = 0, referenceQueue = false, explicitQueueIds = null)
         online?.accounts?.activate(validProfile)
@@ -1800,7 +1855,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val savedOrigin = json?.optJSONObject("origin")
         val origin = savedOrigin?.let { PlaybackOrigin(
             runCatching { PlaybackSource.valueOf(it.getString("source")) }.getOrDefault(PlaybackSource.DEVICE),
-            it.optString("title"), it.optJSONObject("wave")?.let { wave -> runCatching { wave.readWaveRequest() }.getOrNull() }) } ?: PlaybackOrigin()
+            it.optString("title"), it.optJSONObject("wave")?.let { wave -> runCatching { wave.readWaveRequest() }.getOrNull() },
+            it.optJSONObject("localList")?.let { list -> runCatching { list.localListTarget() }.getOrNull() }) } ?: PlaybackOrigin()
         mutable.value = state.value.copy(origin = origin)
             .withRepeat(runCatching { RepeatMode.valueOf(prefs.getString("repeat:$validProfile", "OFF")!!) }.getOrDefault(RepeatMode.OFF))
             .withShuffle(prefs.getBoolean("shuffle:$validProfile", false))
@@ -1829,7 +1885,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             val refs = if (json?.optBoolean("referenceOrder", false) == true) saved.values.toList()
                 else (0 until (ids?.length() ?: 0)).mapNotNull { saved[ids!!.optString(it)] }
             startDiskWork(::reconcileOnline) {
-                mutable.value = state.value.copy(recommendations = json?.optBoolean("recommendations", false) == true)
+                mutable.value = state.value.copy(recommendations = json?.optBoolean("recommendations", false) == true,
+                    origin = origin.withLocalTarget(refs))
                 setReferences(refs, json?.optString("current"), json?.optInt("position", 0) ?: 0, resume = false, preserveCurrent = false)
             }
             return
@@ -1861,6 +1918,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         val current = json?.optString("current")
         val index = queue.indexOfFirst { it.id == current }.takeIf { it >= 0 } ?: queue.indexOfFirst { it.available }.coerceAtLeast(0)
         val position = if (queue.getOrNull(index)?.id == current) json?.optInt("position", 0) ?: 0 else 0
+        if (!followLibrary && json?.optBoolean("wave") != true)
+            mutable.value = state.value.copy(origin = state.value.origin.withLocalTarget(queue.map(PlaybackReference::from)))
         mutable.value = state.value.copy(recommendations = json?.optBoolean("recommendations", false) == true)
         if (json?.optBoolean("wave", false) == true && waveApi != null) {
             waveAccountId = json.optString("waveAccount").takeIf { it.isNotBlank() }
@@ -1924,7 +1983,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                 supersedeLaunchResume()
                 writeMusicIntent(false, reason = SessionStateReason.ACCOUNT_SIGNED_OUT)
             }
-            cancelWave(discardAudio = true)
+            cancelWave(discardAudio = true, keepLocalList = true)
             clearMyWaveBookmarks()
             referenceOrder?.let { order ->
                 val keep = order.references.filter { it.saved.source != Source.YANDEX }
@@ -2115,6 +2174,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             }
         }
         if (radioMode) return
+        saveLocalBookmark()
         val state = state.value
         // Commands, focus/disconnect and a finite list's end own the durable transport.
         // Metadata, service cleanup and internal wave pauses only checkpoint selection/progress.
@@ -2136,6 +2196,7 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             .put("waveSelection", if (state.wave) JSONObject().put("station", activeWaveRequest.station)
                 .put("title", activeWaveRequest.title).put("settings", JSONArray(activeWaveRequest.settings)) else JSONObject.NULL)
             .put("origin", JSONObject().put("source", state.origin.source.name).put("title", state.origin.title)
+                .put("localList", state.origin.localList?.json())
                 .put("wave", state.origin.wave?.json() ?: JSONObject.NULL))
             .put("continueWave", state.continueWave)
             .put("repeat", state.repeatMode.name).put("shuffle", state.shuffle)
@@ -2157,6 +2218,28 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
         }
         editor.apply()
     }
+    private fun saveLocalBookmark() {
+        val s = state.value
+        if (s.current == null || s.wave || followLibrary || radioMode) return
+        val order = referenceOrder
+        fun references() = order?.references ?: logicalQueue.map(PlaybackReference::from)
+        var origin = s.origin
+        if (origin.localList == null) {
+            if (!s.playing || origin.source != PlaybackSource.DEVICE || s.current?.source == Source.YANDEX) return
+            val identity = order ?: logicalQueue
+            if (untrackedOrder === identity && untrackedRevision == order?.revision) return
+            origin = PlaybackOrigin(PlaybackSource.LIST).withLocalTarget(references())
+            if (origin.localList == null) {
+                untrackedOrder = identity
+                untrackedRevision = order?.revision
+                return
+            }
+        }
+        val history = localBookmarks.record(s, requireNotNull(origin.localList), order ?: logicalQueue, order?.revision ?: 0, ::references)
+        if (s.localLists != history || s.origin != origin) mutable.value = s.copy(localLists = history, origin = origin)
+    }
+    private var untrackedOrder: Any? = null
+    private var untrackedRevision: Long? = null
     private var lastSavedSecond = -1
 }
 

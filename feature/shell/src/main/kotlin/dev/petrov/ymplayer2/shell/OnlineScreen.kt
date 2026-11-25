@@ -94,7 +94,6 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 }
             }
             if (detail == null) {
-                if (!search && taste != null) item { WaveButton(player, state.signedIn, signIn, waveStarted) }
                 if (search) item {
                     OutlinedTextField(query, ::changeQuery, Modifier.fillMaxWidth().prismFocus().testTag("online_query"),
                         label = { Text(tr(Msg.msg_0918b4ba9268)) }, singleLine = true,

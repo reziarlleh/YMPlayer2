@@ -160,6 +160,11 @@ class PlayerApplication : Application(), PlaybackHost {
     val users by lazy { dev.petrov.ymplayer2.library.loadUserProfiles(this, ::removeProfileData) }
     val library by lazy { SafLibrary(this, scope, users) }
     val collections by lazy { LocalCollections(this, library, scope) }
+    val mediaFiles by lazy {
+        dev.petrov.ymplayer2.library.LocalFileManager(this, library, collections).also { manager ->
+            scope.launch { manager.recoverPending() }
+        }
+    }
     val history by lazy { dev.petrov.ymplayer2.library.ListeningHistory(this, scope) }
     private val musicApi by lazy { YandexMusicApi(accounts, diagnostic = diagnostics::record) }
     val online by lazy { OnlineMusic(accounts, musicApi, scope) }
@@ -249,7 +254,7 @@ class PlayerApplication : Application(), PlaybackHost {
         accounts.forgetProfile(id)
         playbackStart.remove(id)
         withContext(Dispatchers.IO) {
-            listOf("playback", "launch-state", "radio", "radio-navigation", "clip-checkpoints",
+            listOf("playback", "local-list-queues", "local-list-progress", "launch-state", "radio", "radio-navigation", "clip-checkpoints",
                 "wave-settings", "appearance", "app-language", "skins", "yandex-devices").forEach { name ->
                 val prefs = getSharedPreferences(name, MODE_PRIVATE)
                 val keys = prefs.all.keys.filter { key -> key == id || key.endsWith(":$id") ||

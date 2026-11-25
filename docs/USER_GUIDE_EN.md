@@ -1,5 +1,7 @@
 # YMPlayer2 — user guide
 
+In the 2.9.1 test build, open **Library → Local files → Folders** to play a folder and its subfolders. Select folders, uncheck individual tracks, then add the selection to a playlist. Open a playlist to sort it or move selected tracks before a song. **Yandex Music** retains your collection and recommendations. Downloaded likes are under **Profile → Offline cache**.
+
 This guide covers the stable **YMPlayer2 2.9.0-build151**, for Android6 and later.
 [Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.0-build151) · [Signing and verification](MANUAL_2_9_0_BUILD151.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
@@ -203,7 +205,7 @@ uploads are not playable. An uploaded song's artist may have no Yandex catalog
 page. To download a song for offline listening, enable the cache and like it.
 You can also synchronize the
 offline cache, just as you would with other tracks.
-**My Vibe** starts your personalized stream. It prepares the next track while
+Select **My Vibe** on the main player screen to start your personalized stream. It prepares the next track while
 the current one plays. In2.6.4 its temporary window contains up to ten tracks.
 The current and next tracks take priority, then complete audio files for the rest
 are prepared. The previous track and its file remain available for going back;
@@ -231,8 +233,11 @@ playlists in the library; the label below the source icons displays their names.
 <p><img src="qa/maintenance264/player-phone.png" width="300" alt="Three source shortcuts on a phone"><img src="qa/maintenance264/player-tv.png" width="640" alt="Wide player with controls on the left and artwork on the right"></p>
 
 Internal2.6.4 emulator screenshots with test music and Russian UI.
-The third shortcut currently opens Local favorites. Assigning another list to it
-is planned separately and is not available yet.
+In stable 2.9.0 the third shortcut opens Local favorites. In the 2.9.1 test
+build, play a local playlist, folder or selection once to add it to this
+profile’s recent lists. Tap the third shortcut to resume the last list at its
+saved track and position. Hold it, or hold and release OK on a remote, to
+choose a list. Use the pin beside its name to keep it in the five-slot menu. Tap again to unpin it. Even with all five slots pinned, a short press resumes the last list you played, including a sixth one.
 
 A Yandex track, artist, album or playlist has **Start … radio** in its More menu.
 The track menu places artist and album radio commands next to their own names.
@@ -723,6 +728,8 @@ Signed beta93 on Android9: the station grid with the English interface.
 ![Radio / beta93](qa/radio-catalog-2026-10-07/emulator-5560-signed93-return.png)
 
 [Example of a full station card](qa/radio-catalog-2026-10-07/emulator-5560-signed93-detail.png).
+
+In the 2.9.1 manual build, the previous and next media buttons on a headset, a remote or the system player tune the neighbouring station. The radio panel also has these buttons. Starting a station from favourites, a city, a genre, search or the full catalogue keeps that list available while you browse elsewhere. Next loads more stations at a page boundary. The first and last stations only offer the direction that has a neighbour. After Stop, the buttons select a station silently until you press Play.
 
 ## Returning to your session
 

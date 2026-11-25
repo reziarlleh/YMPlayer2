@@ -31,6 +31,65 @@ class RadioPlaybackTest {
         waitFor { f.library.testTracks.size == 2 && f.radio.state.value.profileId == "owner" }
     }
     @After fun stop() { compose.runOnIdle { f.radio.release(); f.player.stop() } }
+    @Test fun pagingErrorLeavesStationPlayingAndLateNextCannotUndoStop() {
+        val stations = (0..21).map { f.radioApi.one.copy(slug = "page-$it") }
+        val line = RadioLineup(RadioListSource(RadioListKind.ALL), stations.take(20), 19, "20")
+        compose.runOnIdle {
+            f.radioApi.catalogRows = stations
+            f.radioApi.onNextPage = { throw RadioException(RadioIssue.NETWORK) }
+            f.radio.play(stations[19], lineup = line)
+        }
+        waitFor { f.radio.state.value.playing }
+        compose.runOnIdle { f.systemPlayer.seekToNextMediaItem() }
+        waitFor { f.radio.state.value.listIssue == RadioIssue.NETWORK }
+        assertEquals(stations[19], f.radio.state.value.station)
+        assertTrue(f.radio.state.value.playing && f.radio.state.value.canNext)
+        val gate = CompletableDeferred<Unit>()
+        compose.runOnIdle {
+            f.radioApi.onNextPage = { withContext(NonCancellable) { gate.await() } }
+            f.systemPlayer.seekToNextMediaItem()
+            f.systemPlayer.seekToNext()
+        }
+        waitFor { f.radioApi.catalogCursors.count { it == "20" } == 2 }
+        compose.runOnIdle { f.radio.stop(); gate.complete(Unit) }
+        compose.waitForIdle()
+        assertEquals(stations[19], f.radio.state.value.station)
+        assertFalse(f.radio.state.value.playing)
+        compose.runOnIdle { f.radioApi.onNextPage = null; f.radio.play(); f.systemPlayer.seekToNext() }
+        waitFor { f.radio.state.value.station == stations[20] && f.radio.state.value.playing }
+        assertNull(f.radio.state.value.listIssue)
+    }
+    @Test fun favouriteDetailUsesItsOwnListAndStoppedNavigationIsSilentAfterProfileReload() {
+        val first = f.radioApi.one
+        val second = f.radioApi.two
+        compose.runOnIdle {
+            f.radioApi.likes["owner"] = setOf(first.slug, second.slug)
+            f.radioApi.catalogRows = listOf(second, first)
+        }
+        compose.onNodeWithTag("nav_radio").performClick()
+        waitFor { f.radioCatalog.state.value.favourites.size == 2 && f.radioCatalog.state.value.stations.size == 2 }
+        compose.onNode(hasTestTag("radio_station_${first.slug}") and hasAnyAncestor(hasTestTag("radio_favourites"))).performClick()
+        compose.onNodeWithTag("radio_detail_play").performClick()
+        waitFor { f.radio.state.value.station?.slug == first.slug && f.radio.state.value.playing }
+        assertFalse(f.radio.state.value.canPrevious)
+        compose.onNodeWithTag("radio_detail_back").performClick()
+        compose.onNodeWithTag("radio_next").performClick()
+        waitFor { f.radio.state.value.station?.slug == second.slug && f.radio.state.value.playing }
+        compose.onNodeWithTag("radio_next").assertIsNotEnabled()
+        compose.onNodeWithTag("radio_stop").assertIsDisplayed().assertIsEnabled().performClick()
+        waitFor { !f.radio.state.value.playing }
+        compose.runOnIdle {
+            f.radio.switchProfile("guest")
+            assertFalse(f.radio.state.value.canPrevious)
+            f.radio.restoreOnLaunch("owner", false)
+        }
+        compose.onNodeWithTag("radio_previous").performClick()
+        waitFor { f.radio.state.value.station?.slug == first.slug }
+        assertFalse(f.radio.state.value.playing || f.radio.state.value.buffering)
+        compose.onNodeWithTag("radio_previous").assertIsNotEnabled()
+        compose.onNodeWithTag("radio_play").performClick()
+        waitFor { f.radio.state.value.playing && f.radio.state.value.station?.slug == first.slug }
+    }
     @Test fun tabsGlobalSearchAndStationCollectionAreUsable() {
         compose.onNodeWithTag("nav_radio").performClick()
         compose.waitUntil(10000) { compose.onAllNodesWithTag("radio_station_one").fetchSemanticsNodes().isNotEmpty() }

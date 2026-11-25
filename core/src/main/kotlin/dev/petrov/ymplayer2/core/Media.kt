@@ -17,6 +17,7 @@ data class Track(
     val artists: List<ArtistRef> = emptyList(), val albumId: String? = null,
     /** Local artwork revision; allows a repaired image at the same URI to refresh. */
     val artworkRevision: String? = null,
+    val fileName: String? = null, val discNumber: Int? = null, val trackNumber: Int? = null,
 )
 
 data class Profile(val id: String, val name: String, val description: String, val guest: Boolean = false,

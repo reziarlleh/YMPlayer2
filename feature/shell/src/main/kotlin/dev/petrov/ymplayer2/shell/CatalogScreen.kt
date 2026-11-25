@@ -154,7 +154,6 @@ import kotlinx.coroutines.CancellationException
                 OutlinedButton(folders, Modifier.prismFocus().testTag("manage_folders")) { SkinIcon(UiIcon.FOLDER, null); Spacer(Modifier.width(8.dp)); Text(tr(Msg.msg_8f458964546a)) }
                 if (music != null) {
                     OutlinedButton(onlineHome, Modifier.prismFocus().testTag("online_home")) { Text(tr(Msg.msg_6d6a9bb2179b)) }
-                    if (taste != null) WaveButton(player, online?.signedIn == true, signIn, waveStarted)
                 }
                 }
             }

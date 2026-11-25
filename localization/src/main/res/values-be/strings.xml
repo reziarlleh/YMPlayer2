@@ -174,7 +174,6 @@
     <string name="msg_3fbf9e4ea1c1" formatted="false">"Папярэдні трэк"</string>
     <string name="msg_407f871778d3" formatted="false">"Скінуць"</string>
     <string name="msg_414209446572" formatted="false">"Прыбраць трэк"</string>
-    <string name="msg_414a326c7fbe" formatted="false">"Мая хваля · загрузка…"</string>
     <string name="msg_417875482e57" formatted="false">"Рэдагаванне плэйліста"</string>
     <string name="msg_4195b215e9f0" formatted="false">"Экспарт у Downloads"</string>
     <string name="msg_422f550c9cff" formatted="false">"Асноўны"</string>
@@ -461,7 +460,7 @@
     <string name="msg_aed87524dfde" formatted="false">"Загрузка журнала…"</string>
     <string name="msg_af45ec8c56b7" formatted="false">"Перамясціць"</string>
     <string name="msg_af72c5eb8791" formatted="false">"На K4811 адкрывайце панэль кароткім свайпам ад сярэдзіны левага або правага краю ці ад цэнтра ніжняга краю. Зона жэста нябачная і займае толькі невялікую частку краю."</string>
-    <string name="msg_af9d1711a669" formatted="false">"Выберыце папку ў сістэмным акне. Музыка застаецца на сваім месцы, праграма атрымлівае толькі доступ для чытання."</string>
+    <string name="msg_af9d1711a669" formatted="false">"Выберыце папку з музыкай. Файлы застаюцца на месцы."</string>
     <string name="msg_b011fc656a0f" formatted="false">"У любімыя альбомы"</string>
     <string name="msg_b095f9e901e7" formatted="false">"Плэйліст ужо выдалены"</string>
     <string name="msg_b0acd0c9bfb1" formatted="false">"Зноў прапаноўваць"</string>
@@ -791,5 +790,56 @@
     <string name="profile_start_on_description" formatted="false">"Працягваць прайграванне пры кожным адкрыцці праграмы."</string>
     <string name="search_top" formatted="false">"Топ"</string>
     <string name="search_genre_wave" formatted="false">"Мая хваля па жанры"</string>
+    <string name="files_actions" formatted="false">"Дзеянні"</string>
+    <string name="files_append" formatted="false">"У канец чаргі"</string>
+    <string name="files_copy" formatted="false">"Скапіяваць"</string>
+    <string name="files_create_folder" formatted="false">"Стварыць тэчку"</string>
+    <string name="files_delete_many" formatted="false">"Выдаліць з носьбіта выбраныя файлы (@0@)?"</string>
+    <string name="files_delete_named" formatted="false">"Выдаліць з носьбіта «@0@»?"</string>
+    <string name="files_destination" formatted="false">"Выберыце тэчку прызначэння"</string>
+    <string name="files_directory_delete_warning" formatted="false">"Усё змесціва тэчкі будзе выдалена."</string>
+    <string name="files_dirs" formatted="false">"Тэчкі"</string>
+    <string name="files_empty" formatted="false">"Тут няма музыкі"</string>
+    <string name="files_issue" formatted="false">"Не ўдалося выканаць аперацыю. Праверце носьбіт і доступ да тэчкі."</string>
+    <string name="files_next" formatted="false">"Прайграць наступным"</string>
+    <string name="files_no_matches" formatted="false">"Супадзенняў няма"</string>
+    <string name="files_partial" formatted="false">"Выканана: @0@. Памылкі: @1@"</string>
+    <string name="files_play_selected" formatted="false">"Прайграць выбраныя (@0@)"</string>
+    <string name="files_play_tree" formatted="false">"Прайграць тэчку з падтэчкамі"</string>
+    <string name="files_range" formatted="false">"Выбраць дыяпазон"</string>
+    <string name="files_range_end" formatted="false">"Выберыце апошні элемент"</string>
+    <string name="files_range_start" formatted="false">"Выберыце першы элемент"</string>
+    <string name="files_search_hint" formatted="false">"Пошук у тэчцы і падтэчках"</string>
+    <string name="files_select_all" formatted="false">"Выбраць усе (@0@)"</string>
+    <string name="files_select_matches" formatted="false">"Выбраць знойдзеныя (@0@)"</string>
+    <string name="files_sort_name" formatted="false">"Імя файла"</string>
+    <string name="files_sort_newest" formatted="false">"Спачатку новыя"</string>
+    <string name="files_sort_oldest" formatted="false">"Спачатку старыя"</string>
+    <string name="files_to_named" formatted="false">"Дадаць у «@0@» (@1@)"</string>
+    <string name="files_unavailable" formatted="false">"Носьбіт адключаны"</string>
+    <string name="folder_another" formatted="false">"Іншая папка"</string>
+    <string name="folder_connected" formatted="false">"Ужо падключана"</string>
+    <string name="folder_granted" formatted="false">"Дазволеныя папкі"</string>
+    <string name="folder_last_export" formatted="false">"Апошняя папка экспарту"</string>
+    <string name="library_cached_tracks" formatted="false">"Трэкі ў кэшы"</string>
+    <string name="library_local_files" formatted="false">"Лакальныя файлы"</string>
+    <string name="local_list_history" formatted="false">"Апошнія лакальныя спісы"</string>
+    <string name="local_list_unavailable" formatted="false">"Трэкі спіса недаступныя. Праверце падключэнне назапашвальніка."</string>
+    <string name="local_pin" formatted="false">"Замацаваць «@0@»"</string>
+    <string name="local_selection_name" formatted="false">"Выбарка · @0@"</string>
+    <string name="local_unpin" formatted="false">"Адмацаваць «@0@»"</string>
+    <string name="playlist_added_order" formatted="false">"Парадак дадання"</string>
+    <string name="playlist_move_before" formatted="false">"Перад трэкам…"</string>
+    <string name="playlist_move_first" formatted="false">"У пачатак"</string>
+    <string name="playlist_move_last" formatted="false">"У канец"</string>
+    <string name="playlist_order_action" formatted="false">"Упарадкаваць"</string>
+    <string name="playlist_range_end" formatted="false">"Пазначце апошні трэк дыяпазону"</string>
+    <string name="playlist_range_start" formatted="false">"Пазначце першы трэк дыяпазону"</string>
+    <string name="playlist_remove_selected" formatted="false">"Прыбраць з плэйліста"</string>
+    <string name="playlist_selected_all" formatted="false">"Выбраць паказаныя (@0@)"</string>
+    <string name="playlist_stale_edit" formatted="false">"Спіс змяніўся. Паўтарыце дзеянне."</string>
+    <string name="playlist_undo_order" formatted="false">"Скасаваць перастаноўку"</string>
+    <string name="radio_next_station" formatted="false">"Наступная станцыя"</string>
+    <string name="radio_previous_station" formatted="false">"Папярэдняя станцыя"</string>
     <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

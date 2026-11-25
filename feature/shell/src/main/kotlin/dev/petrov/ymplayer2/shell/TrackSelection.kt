@@ -3,8 +3,6 @@ package dev.petrov.ymplayer2.shell
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -15,9 +13,6 @@ import androidx.compose.ui.unit.dp
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.designsystem.prismFocus
 import dev.petrov.ymplayer2.localization.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 /** Only explicit choices, in the order chosen; loading a page never replaces this list. */
 @Stable internal class TrackSelection {
@@ -38,12 +33,9 @@ import kotlinx.coroutines.withContext
     val profile = player.state.collectAsState().value.profileId
     val collections = store?.state?.collectAsState()?.value
     var choosing by remember(selection) { mutableStateOf(false) }
-    var creating by remember(selection) { mutableStateOf(false) }
-    var busy by remember(selection) { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
     val focus = LocalFocusManager.current
     fun finish() { focus.clearFocus(force = true); selection.clear() }
-    BackHandler(selection.active && !choosing && !creating) { finish() }
+    BackHandler(selection.active && !choosing) { finish() }
     val localOnly = selection.tracks.isNotEmpty() && selection.tracks.all { it.source != Source.YANDEX }
     Surface(color = MaterialTheme.colorScheme.background) {
         Column(Modifier.fillMaxWidth()) {
@@ -60,26 +52,6 @@ import kotlinx.coroutines.withContext
             }
         }
     }
-    if (choosing && store != null && collections != null) AlertDialog(onDismissRequest = { if (!busy) choosing = false },
-        title = { Text(tr(Msg.bulk_playlist)) }, text = {
-            Column {
-                collections.issue?.let { Text(trIssue(it), color = MaterialTheme.colorScheme.error) }
-                TextButton({ creating = true; choosing = false }, Modifier.prismFocus().testTag("bulk_new_playlist"), enabled = !busy) { Text(trMessage("Новый плейлист")) }
-                LazyColumn(Modifier.heightIn(max = 280.dp)) {
-                    items(collections.profile(profile).playlists, key = LocalPlaylist::id) { list ->
-                        TextButton({
-                            val ids = selection.tracks.map(Track::id)
-                            scope.launch(Dispatchers.Main.immediate) { busy = true; try {
-                                if (store.edit(profile, CollectionEdit.AddMany(list.id, ids))) { choosing = false; finish() }
-                            } finally { busy = false } }
-                        }, Modifier.fillMaxWidth().prismFocus().testTag("bulk_playlist_${list.id}"), enabled = !busy && collections.writable) { Text(list.name) }
-                    }
-                }
-            }
-        }, confirmButton = { TextButton({ choosing = false }, Modifier.prismFocus(), enabled = !busy) { Text(trMessage("Отмена")) } })
-    if (creating && store != null) PlaylistNameDialog("", collections?.issue, { creating = false }) { name ->
-        val saved = store.edit(profile, CollectionEdit.CreateMany(name, selection.tracks.map(Track::id)))
-        withContext(Dispatchers.Main.immediate) { if (saved) { creating = false; finish() } }
-        saved
-    }
+    if (choosing && store != null) SaveTracksToPlaylistDialog(store, profile, selection.tracks.map(Track::id),
+        dismiss = { choosing = false }, saved = { choosing = false; finish() })
 }

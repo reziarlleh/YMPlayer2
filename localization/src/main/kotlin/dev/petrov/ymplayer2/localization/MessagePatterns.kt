@@ -93,6 +93,11 @@ internal val messagePatterns = buildList {
     addAll(patterns76())
     addAll(patterns77())
     addAll(patterns78())
+    addAll(patterns79())
+    addAll(patterns80())
+    addAll(patterns81())
+    addAll(patterns82())
+    addAll(patterns83())
 }
 
 private fun patterns0() = listOf(
@@ -1541,14 +1546,6 @@ private fun patterns17() = listOf(
     MessagePattern(Msg.msg_414209446572, "ru", "Убрать трек"),
     MessagePattern(Msg.msg_414209446572, "es", "Quitar canción"),
     MessagePattern(Msg.msg_414209446572, "uk", "Прибрати трек"),
-    MessagePattern(Msg.msg_414a326c7fbe, "be", "Мая хваля · загрузка…"),
-    MessagePattern(Msg.msg_414a326c7fbe, "en", "My Vibe · loading…"),
-    MessagePattern(Msg.msg_414a326c7fbe, "fr", "Mon mix · chargement…"),
-    MessagePattern(Msg.msg_414a326c7fbe, "de", "Mein Mix · wird geladen…"),
-    MessagePattern(Msg.msg_414a326c7fbe, "kk", "Менің толқыным · жүктелуде…"),
-    MessagePattern(Msg.msg_414a326c7fbe, "ru", "Моя волна · загружаем…"),
-    MessagePattern(Msg.msg_414a326c7fbe, "es", "Mi mix · cargando…"),
-    MessagePattern(Msg.msg_414a326c7fbe, "uk", "Моя хвиля · завантаження…"),
     MessagePattern(Msg.msg_417875482e57, "be", "Рэдагаванне плэйліста"),
     MessagePattern(Msg.msg_417875482e57, "en", "Editing playlist"),
     MessagePattern(Msg.msg_417875482e57, "fr", "Modifier la playlist"),
@@ -1587,9 +1584,6 @@ private fun patterns17() = listOf(
     MessagePattern(Msg.msg_433852b8fe49, "de", "Das Gastprofil spielt lokale Musik ohne Konto ab. Wähle zum Anmelden ein anderes Profil."),
     MessagePattern(Msg.msg_433852b8fe49, "kk", "Қонақ жергілікті музыканы аккаунтсыз тыңдайды. Кіру үшін басқа профильді таңдаңыз."),
     MessagePattern(Msg.msg_433852b8fe49, "ru", "Гость слушает локальную музыку без аккаунта. Для входа выберите другой профиль."),
-)
-
-private fun patterns18() = listOf(
     MessagePattern(Msg.msg_433852b8fe49, "es", "El perfil Invitado reproduce música local sin cuenta. Elige otro perfil para iniciar sesión."),
     MessagePattern(Msg.msg_433852b8fe49, "uk", "Гість слухає локальну музику без облікового запису. Для входу виберіть інший профіль."),
     MessagePattern(Msg.msg_4378c674b4d7, "be", "На гэтай прыладзе пацвярджэнне перазагрузкі недаступнае."),
@@ -1598,6 +1592,9 @@ private fun patterns18() = listOf(
     MessagePattern(Msg.msg_4378c674b4d7, "de", "Die Neustartbestätigung ist auf diesem Gerät nicht verfügbar."),
     MessagePattern(Msg.msg_4378c674b4d7, "kk", "Бұл құрылғыда қайта іске қосуды растау қолжетімсіз."),
     MessagePattern(Msg.msg_4378c674b4d7, "ru", "Подтверждение перезагрузки недоступно на этом устройстве."),
+)
+
+private fun patterns18() = listOf(
     MessagePattern(Msg.msg_4378c674b4d7, "es", "La confirmación de reinicio no está disponible en este dispositivo."),
     MessagePattern(Msg.msg_4378c674b4d7, "uk", "На цьому пристрої підтвердження перезавантаження недоступне."),
     MessagePattern(Msg.msg_4382a728852f, "be", "У кожнага профілю свая чарга. Пасля пераключэння плэер застаецца на паўзе."),
@@ -1670,9 +1667,6 @@ private fun patterns18() = listOf(
     MessagePattern(Msg.msg_44f6f4d66ea4, "de", "Demoprofil"),
     MessagePattern(Msg.msg_44f6f4d66ea4, "kk", "Демо профиль"),
     MessagePattern(Msg.msg_44f6f4d66ea4, "ru", "Демонстрационный профиль"),
-)
-
-private fun patterns19() = listOf(
     MessagePattern(Msg.msg_44f6f4d66ea4, "es", "Perfil de demostración"),
     MessagePattern(Msg.msg_44f6f4d66ea4, "uk", "Демонстраційний профіль"),
     MessagePattern(Msg.msg_455ace36a5e6, "be", "Экспарт MP3"),
@@ -1681,6 +1675,9 @@ private fun patterns19() = listOf(
     MessagePattern(Msg.msg_455ace36a5e6, "de", "MP3 exportieren"),
     MessagePattern(Msg.msg_455ace36a5e6, "kk", "MP3 экспорттау"),
     MessagePattern(Msg.msg_455ace36a5e6, "ru", "Экспорт MP3"),
+)
+
+private fun patterns19() = listOf(
     MessagePattern(Msg.msg_455ace36a5e6, "es", "Exportar MP3"),
     MessagePattern(Msg.msg_455ace36a5e6, "uk", "Експорт MP3"),
     MessagePattern(Msg.msg_460213556ee1, "be", "APK правераны@0@."),
@@ -1753,9 +1750,6 @@ private fun patterns19() = listOf(
     MessagePattern(Msg.msg_48f1c04f18bc, "de", "Nach unten: @0@"),
     MessagePattern(Msg.msg_48f1c04f18bc, "kk", "Төмен жылжыту: @0@"),
     MessagePattern(Msg.msg_48f1c04f18bc, "ru", "Ниже: @0@"),
-)
-
-private fun patterns20() = listOf(
     MessagePattern(Msg.msg_48f1c04f18bc, "es", "Bajar: @0@"),
     MessagePattern(Msg.msg_48f1c04f18bc, "uk", "Нижче: @0@"),
     MessagePattern(Msg.msg_4a1236b53aa7, "be", "Журнал ачышчаны."),
@@ -1764,6 +1758,9 @@ private fun patterns20() = listOf(
     MessagePattern(Msg.msg_4a1236b53aa7, "de", "Protokoll geleert."),
     MessagePattern(Msg.msg_4a1236b53aa7, "kk", "Журнал тазартылды."),
     MessagePattern(Msg.msg_4a1236b53aa7, "ru", "Журнал очищен."),
+)
+
+private fun patterns20() = listOf(
     MessagePattern(Msg.msg_4a1236b53aa7, "es", "Registro vaciado."),
     MessagePattern(Msg.msg_4a1236b53aa7, "uk", "Журнал очищено."),
     MessagePattern(Msg.msg_4a59253d0fb2, "be", "Калі праграма стала карыснай, можна падтрымаць яе распрацоўку."),
@@ -1836,9 +1833,6 @@ private fun patterns20() = listOf(
     MessagePattern(Msg.msg_4f5782c26416, "de", "Die APK kann nicht gelesen werden"),
     MessagePattern(Msg.msg_4f5782c26416, "kk", "APK файлын оқу мүмкін емес"),
     MessagePattern(Msg.msg_4f5782c26416, "ru", "APK не читается"),
-)
-
-private fun patterns21() = listOf(
     MessagePattern(Msg.msg_4f5782c26416, "es", "No se puede leer el APK"),
     MessagePattern(Msg.msg_4f5782c26416, "uk", "Неможливо прочитати APK"),
     MessagePattern(Msg.msg_501cfd0b1690, "be", "Памылка / папярэджанне"),
@@ -1847,6 +1841,9 @@ private fun patterns21() = listOf(
     MessagePattern(Msg.msg_501cfd0b1690, "de", "Fehler / Warnung"),
     MessagePattern(Msg.msg_501cfd0b1690, "kk", "Қате / ескерту"),
     MessagePattern(Msg.msg_501cfd0b1690, "ru", "Ошибка / предупреждение"),
+)
+
+private fun patterns21() = listOf(
     MessagePattern(Msg.msg_501cfd0b1690, "es", "Error / advertencia"),
     MessagePattern(Msg.msg_501cfd0b1690, "uk", "Помилка / попередження"),
     MessagePattern(Msg.msg_502d3a6bd090, "be", "Не ўдалося прачытаць каталог. Паўтарыце пошук."),
@@ -1919,9 +1916,6 @@ private fun patterns21() = listOf(
     MessagePattern(Msg.msg_53c57c59cc24, "de", "Füge Titel über „…“ hinzu. Ziehe zum Sortieren den Griff mit den Strichen oder wähle Position. Änderungen werden bei Yandex gespeichert."),
     MessagePattern(Msg.msg_53c57c59cc24, "kk", "Тректерді «…» арқылы қосыңыз. Ретін өзгерту үшін сызықшалы тұтқаны басып ұстап, тректі сүйреңіз немесе «Орны» түймесін басыңыз. Өзгерістер Yandexте сақталады."),
     MessagePattern(Msg.msg_53c57c59cc24, "ru", "Добавление — через «…». Для перестановки удерживайте значок с полосками и перетащите трек или нажмите «Позиция». Изменения сохраняются в Яндексе."),
-)
-
-private fun patterns22() = listOf(
     MessagePattern(Msg.msg_53c57c59cc24, "es", "Añade canciones desde «…». Para cambiar el orden, arrastra el asa o pulsa Posición. Los cambios se guardan en Yandex."),
     MessagePattern(Msg.msg_53c57c59cc24, "uk", "Додавайте треки через «…». Для зміни порядку утримуйте значок зі смужками й перетягніть трек або натисніть «Позиція». Зміни зберігаються в Яндексі."),
     MessagePattern(Msg.msg_53ee3b3a9092, "be", "Калі прыбраць бягучы трэк, прайграванне стане на паўзу."),
@@ -1930,6 +1924,9 @@ private fun patterns22() = listOf(
     MessagePattern(Msg.msg_53ee3b3a9092, "de", "Wenn du den aktuellen Titel entfernst, wird die Wiedergabe pausiert."),
     MessagePattern(Msg.msg_53ee3b3a9092, "kk", "Ағымдағы тректі алып тастағанда ойнату кідіртіледі."),
     MessagePattern(Msg.msg_53ee3b3a9092, "ru", "Удаление текущего трека ставит воспроизведение на паузу."),
+)
+
+private fun patterns22() = listOf(
     MessagePattern(Msg.msg_53ee3b3a9092, "es", "Al quitar la canción actual, la reproducción se pausa."),
     MessagePattern(Msg.msg_53ee3b3a9092, "uk", "Видалення поточного треку ставить відтворення на паузу."),
     MessagePattern(Msg.msg_5405eb821e3a, "be", "Светлы"),
@@ -2002,9 +1999,6 @@ private fun patterns22() = listOf(
     MessagePattern(Msg.msg_5690c2e63b9d, "de", "Abmelden"),
     MessagePattern(Msg.msg_5690c2e63b9d, "kk", "Шығу"),
     MessagePattern(Msg.msg_5690c2e63b9d, "ru", "Выйти"),
-)
-
-private fun patterns23() = listOf(
     MessagePattern(Msg.msg_5690c2e63b9d, "es", "Cerrar sesión"),
     MessagePattern(Msg.msg_5690c2e63b9d, "uk", "Вийти"),
     MessagePattern(Msg.msg_56f5278a2acc, "be", "Няма сувязі з Яндэкс Музыкай. Праверце сетку і паўтарыце."),
@@ -2013,6 +2007,9 @@ private fun patterns23() = listOf(
     MessagePattern(Msg.msg_56f5278a2acc, "de", "Keine Verbindung zu Yandex Music. Prüfe deine Netzwerkverbindung und versuche es erneut."),
     MessagePattern(Msg.msg_56f5278a2acc, "kk", "Yandex Музыкамен байланыс жоқ. Желі байланысын тексеріп, қайталаңыз."),
     MessagePattern(Msg.msg_56f5278a2acc, "ru", "Нет связи с Яндекс Музыкой. Проверьте сеть и повторите."),
+)
+
+private fun patterns23() = listOf(
     MessagePattern(Msg.msg_56f5278a2acc, "es", "No se puede conectar con Yandex Music. Comprueba la conexión e inténtalo de nuevo."),
     MessagePattern(Msg.msg_56f5278a2acc, "uk", "Немає зв’язку з Яндекс Музикою. Перевірте мережу й повторіть спробу."),
     MessagePattern(Msg.msg_5710ad29b999, "be", "Стварыць новы плэйліст"),
@@ -2085,9 +2082,6 @@ private fun patterns23() = listOf(
     MessagePattern(Msg.msg_58cb4ee024d5, "de", "Zufallswiedergabe"),
     MessagePattern(Msg.msg_58cb4ee024d5, "kk", "Аралас ретпен"),
     MessagePattern(Msg.msg_58cb4ee024d5, "ru", "В случайном порядке"),
-)
-
-private fun patterns24() = listOf(
     MessagePattern(Msg.msg_58cb4ee024d5, "es", "Aleatorio"),
     MessagePattern(Msg.msg_58cb4ee024d5, "uk", "У випадковому порядку"),
     MessagePattern(Msg.msg_58efe74ebc48, "be", "Файл значка не знойдзены: @0@"),
@@ -2096,6 +2090,9 @@ private fun patterns24() = listOf(
     MessagePattern(Msg.msg_58efe74ebc48, "de", "Icon-Datei nicht gefunden: @0@"),
     MessagePattern(Msg.msg_58efe74ebc48, "kk", "Белгіше файлы табылмады: @0@"),
     MessagePattern(Msg.msg_58efe74ebc48, "ru", "Файл значка не найден: @0@"),
+)
+
+private fun patterns24() = listOf(
     MessagePattern(Msg.msg_58efe74ebc48, "es", "Archivo del icono no encontrado: @0@"),
     MessagePattern(Msg.msg_58efe74ebc48, "uk", "Файл значка не знайдено: @0@"),
     MessagePattern(Msg.msg_59134fd3fbf7, "be", "«Меню» даступнае толькі на K4811."),
@@ -2168,9 +2165,6 @@ private fun patterns24() = listOf(
     MessagePattern(Msg.msg_5e3e47e18b27, "de", "1–12 Farben für Platzhalter erforderlich"),
     MessagePattern(Msg.msg_5e3e47e18b27, "kk", "Мұқаба алмастырғыштары үшін 1–12 түс қажет"),
     MessagePattern(Msg.msg_5e3e47e18b27, "ru", "Нужно 1–12 цветов заглушек"),
-)
-
-private fun patterns25() = listOf(
     MessagePattern(Msg.msg_5e3e47e18b27, "es", "Se necesitan entre 1 y 12 colores para las carátulas por defecto"),
     MessagePattern(Msg.msg_5e3e47e18b27, "uk", "Потрібно 1–12 кольорів для заглушок"),
     MessagePattern(Msg.msg_5e4ea237ce6b, "be", "Захавана: @0@ · @1@ МБ"),
@@ -2179,6 +2173,9 @@ private fun patterns25() = listOf(
     MessagePattern(Msg.msg_5e4ea237ce6b, "de", "Gespeichert: @0@ · @1@ MB"),
     MessagePattern(Msg.msg_5e4ea237ce6b, "kk", "Сақталды: @0@ · @1@ МБ"),
     MessagePattern(Msg.msg_5e4ea237ce6b, "ru", "Сохранено: @0@ · @1@ МБ"),
+)
+
+private fun patterns25() = listOf(
     MessagePattern(Msg.msg_5e4ea237ce6b, "es", "Guardados: @0@ · @1@ MB"),
     MessagePattern(Msg.msg_5e4ea237ce6b, "uk", "Збережено: @0@ · @1@ МБ"),
     MessagePattern(Msg.msg_5e66b30bc941, "be", "Музыка побач · Beta"),
@@ -2251,9 +2248,6 @@ private fun patterns25() = listOf(
     MessagePattern(Msg.msg_60bbcc5198aa, "de", "@0@ · @1|track@"),
     MessagePattern(Msg.msg_60bbcc5198aa, "kk", "@0@ · @1|track@"),
     MessagePattern(Msg.msg_60bbcc5198aa, "ru", "@0@ · @1|track@"),
-)
-
-private fun patterns26() = listOf(
     MessagePattern(Msg.msg_60bbcc5198aa, "es", "@0@ · @1|track@"),
     MessagePattern(Msg.msg_60bbcc5198aa, "uk", "@0@ · @1|track@"),
     MessagePattern(Msg.msg_60bbcc5198aa, "ru", "@0@ · @1@ треков"),
@@ -2262,6 +2256,9 @@ private fun patterns26() = listOf(
     MessagePattern(Msg.msg_612f724ec00f, "fr", "Ouvrir le compte"),
     MessagePattern(Msg.msg_612f724ec00f, "de", "Konto öffnen"),
     MessagePattern(Msg.msg_612f724ec00f, "kk", "Аккаунтты ашу"),
+)
+
+private fun patterns26() = listOf(
     MessagePattern(Msg.msg_612f724ec00f, "ru", "Открыть аккаунт"),
     MessagePattern(Msg.msg_612f724ec00f, "es", "Abrir cuenta"),
     MessagePattern(Msg.msg_612f724ec00f, "uk", "Відкрити обліковий запис"),
@@ -2334,9 +2331,6 @@ private fun patterns26() = listOf(
     MessagePattern(Msg.msg_6518414d5226, "fr", "Titre retiré de la playlist."),
     MessagePattern(Msg.msg_6518414d5226, "de", "Titel aus der Playlist entfernt."),
     MessagePattern(Msg.msg_6518414d5226, "kk", "Трек плейлисттен алып тасталды."),
-)
-
-private fun patterns27() = listOf(
     MessagePattern(Msg.msg_6518414d5226, "ru", "Трек убран из плейлиста."),
     MessagePattern(Msg.msg_6518414d5226, "es", "Canción quitada de la lista."),
     MessagePattern(Msg.msg_6518414d5226, "uk", "Трек прибрано з плейлиста."),
@@ -2345,6 +2339,9 @@ private fun patterns27() = listOf(
     MessagePattern(Msg.msg_653f03c94726, "fr", "Titre en cours"),
     MessagePattern(Msg.msg_653f03c94726, "de", "Aktueller Titel"),
     MessagePattern(Msg.msg_653f03c94726, "kk", "Ағымдағы трек"),
+)
+
+private fun patterns27() = listOf(
     MessagePattern(Msg.msg_653f03c94726, "ru", "Текущий трек"),
     MessagePattern(Msg.msg_653f03c94726, "es", "Canción actual"),
     MessagePattern(Msg.msg_653f03c94726, "uk", "Поточний трек"),
@@ -2417,9 +2414,6 @@ private fun patterns27() = listOf(
     MessagePattern(Msg.msg_6713f0c31917, "fr", "Un nombre est requis : @0@"),
     MessagePattern(Msg.msg_6713f0c31917, "de", "Zahl erforderlich: @0@"),
     MessagePattern(Msg.msg_6713f0c31917, "kk", "Сан қажет: @0@"),
-)
-
-private fun patterns28() = listOf(
     MessagePattern(Msg.msg_6713f0c31917, "ru", "Нужно число: @0@"),
     MessagePattern(Msg.msg_6713f0c31917, "es", "Se necesita un número: @0@"),
     MessagePattern(Msg.msg_6713f0c31917, "uk", "Потрібне число: @0@"),
@@ -2428,6 +2422,9 @@ private fun patterns28() = listOf(
     MessagePattern(Msg.msg_673b49c1255b, "fr", "Impossible de lire la réponse de Yandex. Réessayez."),
     MessagePattern(Msg.msg_673b49c1255b, "de", "Die Yandex-Antwort konnte nicht gelesen werden. Versuche es erneut."),
     MessagePattern(Msg.msg_673b49c1255b, "kk", "Yandex жауабын оқу мүмкін болмады. Сұрауды қайталаңыз."),
+)
+
+private fun patterns28() = listOf(
     MessagePattern(Msg.msg_673b49c1255b, "ru", "Не удалось прочитать ответ Яндекса. Повторите запрос."),
     MessagePattern(Msg.msg_673b49c1255b, "es", "No se ha podido leer la respuesta de Yandex. Repite la solicitud."),
     MessagePattern(Msg.msg_673b49c1255b, "uk", "Не вдалося прочитати відповідь Яндекса. Повторіть запит."),
@@ -2500,9 +2497,6 @@ private fun patterns28() = listOf(
     MessagePattern(Msg.msg_6b5623eafb06, "fr", "Modifier la playlist"),
     MessagePattern(Msg.msg_6b5623eafb06, "de", "Playlist bearbeiten"),
     MessagePattern(Msg.msg_6b5623eafb06, "kk", "Плейлистті өңдеу"),
-)
-
-private fun patterns29() = listOf(
     MessagePattern(Msg.msg_6b5623eafb06, "ru", "Изменить список"),
     MessagePattern(Msg.msg_6b5623eafb06, "es", "Editar lista"),
     MessagePattern(Msg.msg_6b5623eafb06, "uk", "Редагувати плейлист"),
@@ -2511,6 +2505,9 @@ private fun patterns29() = listOf(
     MessagePattern(Msg.msg_6bd804f5b776, "fr", "Titre : @0@"),
     MessagePattern(Msg.msg_6bd804f5b776, "de", "Titel: @0@"),
     MessagePattern(Msg.msg_6bd804f5b776, "kk", "Трек: @0@"),
+)
+
+private fun patterns29() = listOf(
     MessagePattern(Msg.msg_6bd804f5b776, "ru", "Трек: @0@"),
     MessagePattern(Msg.msg_6bd804f5b776, "es", "Canción: @0@"),
     MessagePattern(Msg.msg_6bd804f5b776, "uk", "Трек: @0@"),
@@ -2583,9 +2580,6 @@ private fun patterns29() = listOf(
     MessagePattern(Msg.msg_6dd43bf971fd, "fr", "Thèmes"),
     MessagePattern(Msg.msg_6dd43bf971fd, "de", "Skins"),
     MessagePattern(Msg.msg_6dd43bf971fd, "kk", "Скиндер"),
-)
-
-private fun patterns30() = listOf(
     MessagePattern(Msg.msg_6dd43bf971fd, "ru", "Скины"),
     MessagePattern(Msg.msg_6dd43bf971fd, "es", "Temas"),
     MessagePattern(Msg.msg_6dd43bf971fd, "uk", "Скіни"),
@@ -2594,6 +2588,9 @@ private fun patterns30() = listOf(
     MessagePattern(Msg.msg_6e1f7baa472f, "fr", "Effacer la recherche"),
     MessagePattern(Msg.msg_6e1f7baa472f, "de", "Suche löschen"),
     MessagePattern(Msg.msg_6e1f7baa472f, "kk", "Іздеуді тазарту"),
+)
+
+private fun patterns30() = listOf(
     MessagePattern(Msg.msg_6e1f7baa472f, "ru", "Очистить поиск"),
     MessagePattern(Msg.msg_6e1f7baa472f, "es", "Borrar búsqueda"),
     MessagePattern(Msg.msg_6e1f7baa472f, "uk", "Очистити пошук"),
@@ -2666,9 +2663,6 @@ private fun patterns30() = listOf(
     MessagePattern(Msg.msg_717012565e0a, "fr", "Nom de la playlist"),
     MessagePattern(Msg.msg_717012565e0a, "de", "Playlistname"),
     MessagePattern(Msg.msg_717012565e0a, "kk", "Плейлист атауы"),
-)
-
-private fun patterns31() = listOf(
     MessagePattern(Msg.msg_717012565e0a, "ru", "Название плейлиста"),
     MessagePattern(Msg.msg_717012565e0a, "es", "Nombre de la lista"),
     MessagePattern(Msg.msg_717012565e0a, "uk", "Назва плейлиста"),
@@ -2677,6 +2671,9 @@ private fun patterns31() = listOf(
     MessagePattern(Msg.msg_71c815fdaf60, "fr", "Impossible de démarrer le panneau sur cet appareil."),
     MessagePattern(Msg.msg_71c815fdaf60, "de", "Die Seitenleiste konnte auf diesem Gerät nicht gestartet werden."),
     MessagePattern(Msg.msg_71c815fdaf60, "kk", "Бұл құрылғыда панельді іске қосу мүмкін болмады."),
+)
+
+private fun patterns31() = listOf(
     MessagePattern(Msg.msg_71c815fdaf60, "ru", "Не удалось запустить панель на этом устройстве."),
     MessagePattern(Msg.msg_71c815fdaf60, "es", "No se ha podido iniciar el panel en este dispositivo."),
     MessagePattern(Msg.msg_71c815fdaf60, "uk", "Не вдалося запустити панель на цьому пристрої."),
@@ -2749,9 +2746,6 @@ private fun patterns31() = listOf(
     MessagePattern(Msg.msg_741ca2439e4d, "fr", "Pour la musique en ligne, connectez-vous à Yandex dans ce profil. La musique locale reste accessible sans connexion au compte."),
     MessagePattern(Msg.msg_741ca2439e4d, "de", "Melde dich für Online-Musik in diesem Profil bei Yandex an. Lokale Musik ist ohne Anmeldung verfügbar."),
     MessagePattern(Msg.msg_741ca2439e4d, "kk", "Онлайн музыка үшін осы профильде Yandex аккаунтына кіріңіз. Жергілікті музыка кірусіз қолжетімді."),
-)
-
-private fun patterns32() = listOf(
     MessagePattern(Msg.msg_741ca2439e4d, "ru", "Для онлайн-музыки войдите в Яндекс в этом профиле. Локальная музыка доступна без входа."),
     MessagePattern(Msg.msg_741ca2439e4d, "es", "Inicia sesión en Yandex en este perfil para escuchar música en línea. La música local no requiere iniciar sesión."),
     MessagePattern(Msg.msg_741ca2439e4d, "uk", "Для онлайн-музики увійдіть у Яндекс у цьому профілі. Локальна музика доступна без входу."),
@@ -2760,6 +2754,9 @@ private fun patterns32() = listOf(
     MessagePattern(Msg.msg_7435626dd379, "fr", "Masquer après 8 secondes"),
     MessagePattern(Msg.msg_7435626dd379, "de", "Nach 8 Sekunden ausblenden"),
     MessagePattern(Msg.msg_7435626dd379, "kk", "8 секундтан кейін жасыру"),
+)
+
+private fun patterns32() = listOf(
     MessagePattern(Msg.msg_7435626dd379, "ru", "Сворачивать через 8 секунд"),
     MessagePattern(Msg.msg_7435626dd379, "es", "Ocultar tras 8 segundos"),
     MessagePattern(Msg.msg_7435626dd379, "uk", "Ховати через 8 секунд"),
@@ -2832,9 +2829,6 @@ private fun patterns32() = listOf(
     MessagePattern(Msg.msg_778b704b5c1e, "fr", "Impossible d’ouvrir ou d’enregistrer le dossier. Vérifiez les autorisations et réessayez."),
     MessagePattern(Msg.msg_778b704b5c1e, "de", "Der Ordner konnte nicht geöffnet oder gespeichert werden. Prüfe den Zugriff und versuche es erneut."),
     MessagePattern(Msg.msg_778b704b5c1e, "kk", "Қалтаны ашу немесе сақтау мүмкін болмады. Рұқсаттарды тексеріп, қайталаңыз."),
-)
-
-private fun patterns33() = listOf(
     MessagePattern(Msg.msg_778b704b5c1e, "ru", "Не удалось открыть или сохранить папку. Проверьте доступ и повторите."),
     MessagePattern(Msg.msg_778b704b5c1e, "es", "No se ha podido abrir o guardar la carpeta. Comprueba los permisos e inténtalo de nuevo."),
     MessagePattern(Msg.msg_778b704b5c1e, "uk", "Не вдалося відкрити або зберегти папку. Перевірте доступ і повторіть спробу."),
@@ -2843,6 +2837,9 @@ private fun patterns33() = listOf(
     MessagePattern(Msg.msg_7796e6a8c011, "fr", "erreur réseau"),
     MessagePattern(Msg.msg_7796e6a8c011, "de", "Netzwerkfehler"),
     MessagePattern(Msg.msg_7796e6a8c011, "kk", "желі қатесі"),
+)
+
+private fun patterns33() = listOf(
     MessagePattern(Msg.msg_7796e6a8c011, "ru", "ошибка сети"),
     MessagePattern(Msg.msg_7796e6a8c011, "es", "error de red"),
     MessagePattern(Msg.msg_7796e6a8c011, "uk", "помилка мережі"),
@@ -2915,9 +2912,6 @@ private fun patterns33() = listOf(
     MessagePattern(Msg.msg_7ad2cca22536, "fr", "Impossible de charger la file · réessayer"),
     MessagePattern(Msg.msg_7ad2cca22536, "de", "Warteschlange konnte nicht geladen werden · erneut versuchen"),
     MessagePattern(Msg.msg_7ad2cca22536, "kk", "Кезекті жүктеу мүмкін болмады · қайталау"),
-)
-
-private fun patterns34() = listOf(
     MessagePattern(Msg.msg_7ad2cca22536, "ru", "Не удалось загрузить очередь · повторить"),
     MessagePattern(Msg.msg_7ad2cca22536, "es", "No se ha podido cargar la cola · reintentar"),
     MessagePattern(Msg.msg_7ad2cca22536, "uk", "Не вдалося завантажити чергу · повторити"),
@@ -2926,6 +2920,9 @@ private fun patterns34() = listOf(
     MessagePattern(Msg.msg_7b4f20da2143, "fr", "Chemin d’icône vide"),
     MessagePattern(Msg.msg_7b4f20da2143, "de", "Leerer Icon-Pfad"),
     MessagePattern(Msg.msg_7b4f20da2143, "kk", "Белгіше жолы бос"),
+)
+
+private fun patterns34() = listOf(
     MessagePattern(Msg.msg_7b4f20da2143, "ru", "Пустой путь значка"),
     MessagePattern(Msg.msg_7b4f20da2143, "es", "Ruta del icono vacía"),
     MessagePattern(Msg.msg_7b4f20da2143, "uk", "Порожній шлях значка"),
@@ -2998,9 +2995,6 @@ private fun patterns34() = listOf(
     MessagePattern(Msg.msg_8086aac760a1, "fr", "Impossible de lire le fichier. Vérifiez le support ou choisissez un autre titre."),
     MessagePattern(Msg.msg_8086aac760a1, "de", "Die Datei konnte nicht abgespielt werden. Prüfe den Datenträger oder wähle einen anderen Titel."),
     MessagePattern(Msg.msg_8086aac760a1, "kk", "Файлды ойнату мүмкін болмады. Тасымалдағышты тексеріңіз немесе басқа тректі таңдаңыз."),
-)
-
-private fun patterns35() = listOf(
     MessagePattern(Msg.msg_8086aac760a1, "ru", "Не удалось воспроизвести файл. Проверьте носитель или выберите другой трек."),
     MessagePattern(Msg.msg_8086aac760a1, "es", "No se ha podido reproducir el archivo. Comprueba la unidad o elige otra canción."),
     MessagePattern(Msg.msg_8086aac760a1, "uk", "Не вдалося відтворити файл. Перевірте носій або виберіть інший трек."),
@@ -3009,6 +3003,9 @@ private fun patterns35() = listOf(
     MessagePattern(Msg.msg_80cedf587a28, "fr", "Aucun sélecteur de fichier système n’est installé. Il faut un gestionnaire de fichiers compatible avec Storage Access Framework."),
     MessagePattern(Msg.msg_80cedf587a28, "de", "Auf dem Gerät fehlt die System-Dateiauswahl. Du brauchst einen Dateimanager mit Unterstützung für das Storage Access Framework."),
     MessagePattern(Msg.msg_80cedf587a28, "kk", "Құрылғыда жүйелік файл таңдау құралы жоқ. Storage Access Framework қолдайтын файл менеджері қажет."),
+)
+
+private fun patterns35() = listOf(
     MessagePattern(Msg.msg_80cedf587a28, "ru", "На устройстве нет системного выбора файла. Нужен файловый менеджер с поддержкой Storage Access Framework."),
     MessagePattern(Msg.msg_80cedf587a28, "es", "El dispositivo no tiene selector de archivos del sistema. Necesitas un gestor de archivos compatible con Storage Access Framework."),
     MessagePattern(Msg.msg_80cedf587a28, "uk", "На пристрої немає системного вибору файлу. Потрібен файловий менеджер із підтримкою Storage Access Framework."),
@@ -3081,9 +3078,6 @@ private fun patterns35() = listOf(
     MessagePattern(Msg.msg_84a795ddbe75, "fr", "Vous avez 16 thèmes enregistrés. Supprimez-en un avant d’en importer un autre."),
     MessagePattern(Msg.msg_84a795ddbe75, "de", "16 Skins sind gespeichert. Lösche einen, bevor du einen weiteren importierst."),
     MessagePattern(Msg.msg_84a795ddbe75, "kk", "16 скин сақталған. Импорттамас бұрын қажетсізін жойыңыз."),
-)
-
-private fun patterns36() = listOf(
     MessagePattern(Msg.msg_84a795ddbe75, "ru", "Сохранено 16 скинов. Удалите ненужный перед импортом."),
     MessagePattern(Msg.msg_84a795ddbe75, "es", "Tienes 16 temas guardados. Elimina uno antes de importar otro."),
     MessagePattern(Msg.msg_84a795ddbe75, "uk", "Збережено 16 скінів. Видаліть непотрібний перед імпортом."),
@@ -3092,6 +3086,9 @@ private fun patterns36() = listOf(
     MessagePattern(Msg.msg_8514965e4ae0, "fr", "Disponible hors connexion"),
     MessagePattern(Msg.msg_8514965e4ae0, "de", "Offline verfügbar"),
     MessagePattern(Msg.msg_8514965e4ae0, "kk", "Офлайн қолжетімді"),
+)
+
+private fun patterns36() = listOf(
     MessagePattern(Msg.msg_8514965e4ae0, "ru", "Доступно офлайн"),
     MessagePattern(Msg.msg_8514965e4ae0, "es", "Disponible sin conexión"),
     MessagePattern(Msg.msg_8514965e4ae0, "uk", "Доступно офлайн"),
@@ -3164,9 +3161,6 @@ private fun patterns36() = listOf(
     MessagePattern(Msg.msg_895c5b8f961d, "fr", "Version installée : @0@"),
     MessagePattern(Msg.msg_895c5b8f961d, "de", "Installiert: @0@"),
     MessagePattern(Msg.msg_895c5b8f961d, "kk", "Орнатылған: @0@"),
-)
-
-private fun patterns37() = listOf(
     MessagePattern(Msg.msg_895c5b8f961d, "ru", "Установлено: @0@"),
     MessagePattern(Msg.msg_895c5b8f961d, "es", "Instalada: @0@"),
     MessagePattern(Msg.msg_895c5b8f961d, "uk", "Установлено: @0@"),
@@ -3175,6 +3169,9 @@ private fun patterns37() = listOf(
     MessagePattern(Msg.msg_8965271d3c97, "fr", "Effacer"),
     MessagePattern(Msg.msg_8965271d3c97, "de", "Leeren"),
     MessagePattern(Msg.msg_8965271d3c97, "kk", "Тазарту"),
+)
+
+private fun patterns37() = listOf(
     MessagePattern(Msg.msg_8965271d3c97, "ru", "Очистить"),
     MessagePattern(Msg.msg_8965271d3c97, "es", "Vaciar"),
     MessagePattern(Msg.msg_8965271d3c97, "uk", "Очистити"),
@@ -3247,9 +3244,6 @@ private fun patterns37() = listOf(
     MessagePattern(Msg.msg_90c141192bd7, "fr", "Albums"),
     MessagePattern(Msg.msg_90c141192bd7, "de", "Alben"),
     MessagePattern(Msg.msg_90c141192bd7, "kk", "Альбомдар"),
-)
-
-private fun patterns38() = listOf(
     MessagePattern(Msg.msg_90c141192bd7, "ru", "Альбомы"),
     MessagePattern(Msg.msg_90c141192bd7, "es", "Álbumes"),
     MessagePattern(Msg.msg_90c141192bd7, "uk", "Альбоми"),
@@ -3258,6 +3252,9 @@ private fun patterns38() = listOf(
     MessagePattern(Msg.msg_916d4505c137, "fr", "Suppression des fichiers hors connexion de ce compte…"),
     MessagePattern(Msg.msg_916d4505c137, "de", "Offline-Dateien dieses Kontos werden gelöscht…"),
     MessagePattern(Msg.msg_916d4505c137, "kk", "Осы аккаунттың офлайн файлдары жойылуда…"),
+)
+
+private fun patterns38() = listOf(
     MessagePattern(Msg.msg_916d4505c137, "ru", "Удаляем офлайн-файлы этого аккаунта…"),
     MessagePattern(Msg.msg_916d4505c137, "es", "Borrando archivos sin conexión de esta cuenta…"),
     MessagePattern(Msg.msg_916d4505c137, "uk", "Видаляємо офлайн-файли цього облікового запису…"),
@@ -3330,9 +3327,6 @@ private fun patterns38() = listOf(
     MessagePattern(Msg.msg_94117e81a588, "fr", "Le cache hors connexion est désactivé. Les téléchargements existants restent jusqu’à leur suppression avec le bouton ci-dessous."),
     MessagePattern(Msg.msg_94117e81a588, "de", "Der Offline-Cache ist deaktiviert. Bereits heruntergeladene Dateien bleiben erhalten, bis du sie mit der Taste unten löschst."),
     MessagePattern(Msg.msg_94117e81a588, "kk", "Офлайн кэш өшірулі. Бұрын жүктелген файлдар төмендегі батырмамен жойылғанша сақталады."),
-)
-
-private fun patterns39() = listOf(
     MessagePattern(Msg.msg_94117e81a588, "ru", "Офлайн-кэш выключен. Ранее скачанные файлы остаются до удаления кнопкой ниже."),
     MessagePattern(Msg.msg_94117e81a588, "es", "La caché sin conexión está desactivada. Las descargas anteriores se conservan hasta que las borres con el botón de abajo."),
     MessagePattern(Msg.msg_94117e81a588, "uk", "Офлайн-кеш вимкнено. Раніше завантажені файли залишаються, доки ви не видалите їх кнопкою нижче."),
@@ -3341,6 +3335,9 @@ private fun patterns39() = listOf(
     MessagePattern(Msg.msg_954fea171639, "fr", "Sélectionné"),
     MessagePattern(Msg.msg_954fea171639, "de", "Ausgewählt"),
     MessagePattern(Msg.msg_954fea171639, "kk", "Таңдалды"),
+)
+
+private fun patterns39() = listOf(
     MessagePattern(Msg.msg_954fea171639, "ru", "Выбран"),
     MessagePattern(Msg.msg_954fea171639, "es", "Seleccionado"),
     MessagePattern(Msg.msg_954fea171639, "uk", "Вибрано"),
@@ -3413,9 +3410,6 @@ private fun patterns39() = listOf(
     MessagePattern(Msg.msg_9895eb01a837, "fr", "Ce titre ou cette playlist est actuellement indisponible."),
     MessagePattern(Msg.msg_9895eb01a837, "de", "Dieser Titel oder diese Playlist ist derzeit nicht verfügbar."),
     MessagePattern(Msg.msg_9895eb01a837, "kk", "Бұл трек немесе тізім қазір қолжетімсіз."),
-)
-
-private fun patterns40() = listOf(
     MessagePattern(Msg.msg_9895eb01a837, "ru", "Этот трек или список сейчас недоступен."),
     MessagePattern(Msg.msg_9895eb01a837, "es", "Esta canción o lista no está disponible ahora."),
     MessagePattern(Msg.msg_9895eb01a837, "uk", "Цей трек або список зараз недоступний."),
@@ -3424,6 +3418,9 @@ private fun patterns40() = listOf(
     MessagePattern(Msg.msg_98ae0216b918, "fr", "Sources de mise à jour indisponibles : @0@"),
     MessagePattern(Msg.msg_98ae0216b918, "de", "Update-Quellen nicht verfügbar: @0@"),
     MessagePattern(Msg.msg_98ae0216b918, "kk", "Жаңарту дереккөздері қолжетімсіз: @0@"),
+)
+
+private fun patterns40() = listOf(
     MessagePattern(Msg.msg_98ae0216b918, "ru", "Источники обновлений недоступны: @0@"),
     MessagePattern(Msg.msg_98ae0216b918, "es", "Fuentes de actualización no disponibles: @0@"),
     MessagePattern(Msg.msg_98ae0216b918, "uk", "Джерела оновлень недоступні: @0@"),
@@ -3496,9 +3493,6 @@ private fun patterns40() = listOf(
     MessagePattern(Msg.msg_9debd4812638, "fr", "Impossible d’ouvrir un navigateur. Utilisez le QR code ou l’adresse ci-dessus."),
     MessagePattern(Msg.msg_9debd4812638, "de", "Der Browser konnte nicht geöffnet werden. Verwende den QR-Code oder die Adresse oben."),
     MessagePattern(Msg.msg_9debd4812638, "kk", "Браузерді ашу мүмкін болмады. QR кодын немесе жоғарыдағы мекенжайды қолданыңыз."),
-)
-
-private fun patterns41() = listOf(
     MessagePattern(Msg.msg_9debd4812638, "ru", "Не удалось открыть браузер. Используйте QR-код или адрес выше."),
     MessagePattern(Msg.msg_9debd4812638, "es", "No se ha podido abrir el navegador. Usa el código QR o la dirección de arriba."),
     MessagePattern(Msg.msg_9debd4812638, "uk", "Не вдалося відкрити браузер. Скористайтеся QR-кодом або адресою вище."),
@@ -3507,6 +3501,9 @@ private fun patterns41() = listOf(
     MessagePattern(Msg.msg_9e0859f700e2, "fr", "Impossible de vérifier la confirmation. Le code est conservé et la demande sera relancée. Revenez dans l’application après avoir confirmé la connexion."),
     MessagePattern(Msg.msg_9e0859f700e2, "de", "Die Bestätigung konnte nicht geprüft werden. Dein Code bleibt gespeichert, die Anfrage wird wiederholt. Kehre nach der Bestätigung in die App zurück."),
     MessagePattern(Msg.msg_9e0859f700e2, "kk", "Растауды тексеру мүмкін болмады. Код сақталған, сұрау қайталануда. Растағаннан кейін қолданбаға оралыңыз."),
+)
+
+private fun patterns41() = listOf(
     MessagePattern(Msg.msg_9e0859f700e2, "ru", "Не удалось проверить подтверждение. Код сохранён, повторяем запрос. После подтверждения вернитесь в приложение."),
     MessagePattern(Msg.msg_9e0859f700e2, "es", "No se ha podido comprobar la confirmación. El código está guardado y repetimos la solicitud. Vuelve a la aplicación tras confirmar el acceso."),
     MessagePattern(Msg.msg_9e0859f700e2, "uk", "Не вдалося перевірити підтвердження. Код збережено, повторюємо запит. Після підтвердження поверніться в застосунок."),
@@ -3579,9 +3576,6 @@ private fun patterns41() = listOf(
     MessagePattern(Msg.msg_a137dd0ef761, "fr", "Charger plus"),
     MessagePattern(Msg.msg_a137dd0ef761, "de", "Mehr laden"),
     MessagePattern(Msg.msg_a137dd0ef761, "kk", "Тағы жүктеу"),
-)
-
-private fun patterns42() = listOf(
     MessagePattern(Msg.msg_a137dd0ef761, "ru", "Загрузить ещё"),
     MessagePattern(Msg.msg_a137dd0ef761, "es", "Cargar más"),
     MessagePattern(Msg.msg_a137dd0ef761, "uk", "Завантажити ще"),
@@ -3590,6 +3584,9 @@ private fun patterns42() = listOf(
     MessagePattern(Msg.msg_a1f4f5cf6b22, "fr", "Trop de redirections"),
     MessagePattern(Msg.msg_a1f4f5cf6b22, "de", "Zu viele Weiterleitungen"),
     MessagePattern(Msg.msg_a1f4f5cf6b22, "kk", "Қайта бағыттау саны тым көп"),
+)
+
+private fun patterns42() = listOf(
     MessagePattern(Msg.msg_a1f4f5cf6b22, "ru", "Слишком много редиректов"),
     MessagePattern(Msg.msg_a1f4f5cf6b22, "es", "Demasiadas redirecciones"),
     MessagePattern(Msg.msg_a1f4f5cf6b22, "uk", "Забагато перенаправлень"),
@@ -3662,9 +3659,6 @@ private fun patterns42() = listOf(
     MessagePattern(Msg.msg_a55d09b73e40, "fr", "ID de thème non valide"),
     MessagePattern(Msg.msg_a55d09b73e40, "de", "Ungültige Skin-ID"),
     MessagePattern(Msg.msg_a55d09b73e40, "kk", "Скин ID мәні жарамсыз"),
-)
-
-private fun patterns43() = listOf(
     MessagePattern(Msg.msg_a55d09b73e40, "ru", "Недопустимый ID скина"),
     MessagePattern(Msg.msg_a55d09b73e40, "es", "ID del tema no válido"),
     MessagePattern(Msg.msg_a55d09b73e40, "uk", "Неприпустимий ID скіна"),
@@ -3673,6 +3667,9 @@ private fun patterns43() = listOf(
     MessagePattern(Msg.msg_a55fc5d0f320, "fr", "La musique de l’appareil est accessible sans compte. Pour Yandex, connectez-vous dans ce profil."),
     MessagePattern(Msg.msg_a55fc5d0f320, "de", "Musik auf dem Gerät ist ohne Anmeldung verfügbar. Melde dich für Yandex in diesem Profil an."),
     MessagePattern(Msg.msg_a55fc5d0f320, "kk", "Құрылғыдағы музыка кірусіз қолжетімді. Yandex үшін осы профильде кіріңіз."),
+)
+
+private fun patterns43() = listOf(
     MessagePattern(Msg.msg_a55fc5d0f320, "ru", "Музыка устройства доступна без входа. Для Яндекса войдите в этом профиле."),
     MessagePattern(Msg.msg_a55fc5d0f320, "es", "La música del dispositivo no requiere iniciar sesión. Para Yandex, inicia sesión en este perfil."),
     MessagePattern(Msg.msg_a55fc5d0f320, "uk", "Музика пристрою доступна без входу. Для Яндекса увійдіть у цьому профілі."),
@@ -3745,9 +3742,6 @@ private fun patterns43() = listOf(
     MessagePattern(Msg.msg_a94f8a5da271, "fr", "Redémarrer"),
     MessagePattern(Msg.msg_a94f8a5da271, "de", "Neustart"),
     MessagePattern(Msg.msg_a94f8a5da271, "kk", "Қайта іске қосу"),
-)
-
-private fun patterns44() = listOf(
     MessagePattern(Msg.msg_a94f8a5da271, "ru", "Перезагрузка"),
     MessagePattern(Msg.msg_a94f8a5da271, "es", "Reiniciar"),
     MessagePattern(Msg.msg_a94f8a5da271, "uk", "Перезавантаження"),
@@ -3756,6 +3750,9 @@ private fun patterns44() = listOf(
     MessagePattern(Msg.msg_a9bb9fcb7d94, "fr", "Vérification des J’aime et blocages…"),
     MessagePattern(Msg.msg_a9bb9fcb7d94, "de", "Likes und Sperren werden geprüft…"),
     MessagePattern(Msg.msg_a9bb9fcb7d94, "kk", "Ұнатулар мен бұғаттаулар тексерілуде…"),
+)
+
+private fun patterns44() = listOf(
     MessagePattern(Msg.msg_a9bb9fcb7d94, "ru", "Проверяем отметки…"),
     MessagePattern(Msg.msg_a9bb9fcb7d94, "es", "Comprobando Me gusta y bloqueos…"),
     MessagePattern(Msg.msg_a9bb9fcb7d94, "uk", "Перевіряємо позначки…"),
@@ -3828,9 +3825,6 @@ private fun patterns44() = listOf(
     MessagePattern(Msg.msg_ad0502838af2, "fr", "L’archive du thème est trop volumineuse"),
     MessagePattern(Msg.msg_ad0502838af2, "de", "Das Skin-Archiv ist zu groß"),
     MessagePattern(Msg.msg_ad0502838af2, "kk", "Скин архивінің көлемі тым үлкен"),
-)
-
-private fun patterns45() = listOf(
     MessagePattern(Msg.msg_ad0502838af2, "ru", "Слишком большой архив скина"),
     MessagePattern(Msg.msg_ad0502838af2, "es", "El archivo comprimido del tema es demasiado grande"),
     MessagePattern(Msg.msg_ad0502838af2, "uk", "Архів скіна завеликий"),
@@ -3839,6 +3833,9 @@ private fun patterns45() = listOf(
     MessagePattern(Msg.msg_ad6a1e7e39d2, "fr", " · source de secours"),
     MessagePattern(Msg.msg_ad6a1e7e39d2, "de", " · Ersatzquelle"),
     MessagePattern(Msg.msg_ad6a1e7e39d2, "kk", " · қосалқы дереккөз"),
+)
+
+private fun patterns45() = listOf(
     MessagePattern(Msg.msg_ad6a1e7e39d2, "ru", " · резервный источник"),
     MessagePattern(Msg.msg_ad6a1e7e39d2, "es", " · fuente alternativa"),
     MessagePattern(Msg.msg_ad6a1e7e39d2, "uk", " · резервне джерело"),
@@ -3874,14 +3871,14 @@ private fun patterns45() = listOf(
     MessagePattern(Msg.msg_af72c5eb8791, "ru", "На K4811 откройте панель коротким свайпом от середины левого или правого края либо от центра нижнего края. Зона жеста невидима и занимает лишь небольшую часть края."),
     MessagePattern(Msg.msg_af72c5eb8791, "es", "En K4811, abre el panel con un deslizamiento corto desde el centro del borde izquierdo o derecho, o del borde inferior. La zona del gesto es invisible y solo ocupa una pequeña parte del borde."),
     MessagePattern(Msg.msg_af72c5eb8791, "uk", "На K4811 відкривайте панель коротким свайпом від середини лівого чи правого краю або від центру нижнього краю. Зона жесту невидима й займає лише невелику частину краю."),
-    MessagePattern(Msg.msg_af9d1711a669, "be", "Выберыце папку ў сістэмным акне. Музыка застаецца на сваім месцы, праграма атрымлівае толькі доступ для чытання."),
-    MessagePattern(Msg.msg_af9d1711a669, "en", "Choose a folder in the system picker. Your music stays where it is; the app only gets read access."),
-    MessagePattern(Msg.msg_af9d1711a669, "fr", "Choisissez un dossier dans le sélecteur système. Votre musique reste à sa place ; l’application n’obtient qu’un accès en lecture."),
-    MessagePattern(Msg.msg_af9d1711a669, "de", "Wähle einen Ordner im Systemdialog. Deine Musik bleibt an ihrem Speicherort; die App erhält nur Lesezugriff."),
-    MessagePattern(Msg.msg_af9d1711a669, "kk", "Жүйелік терезеде қалтаны таңдаңыз. Музыка өз орнында қалады, қолданба тек оқу рұқсатын алады."),
-    MessagePattern(Msg.msg_af9d1711a669, "ru", "Выберите папку в системном окне. Музыка остаётся на своём месте, приложение получает только доступ к чтению."),
-    MessagePattern(Msg.msg_af9d1711a669, "es", "Elige una carpeta en el selector del sistema. La música permanece donde está; la aplicación solo obtiene acceso de lectura."),
-    MessagePattern(Msg.msg_af9d1711a669, "uk", "Виберіть папку в системному вікні. Музика залишається на своєму місці, застосунок отримує лише доступ для читання."),
+    MessagePattern(Msg.msg_af9d1711a669, "be", "Выберыце папку з музыкай. Файлы застаюцца на месцы."),
+    MessagePattern(Msg.msg_af9d1711a669, "en", "Choose a folder with music. Your files stay where they are."),
+    MessagePattern(Msg.msg_af9d1711a669, "fr", "Choisissez un dossier de musique. Vos fichiers restent à leur emplacement."),
+    MessagePattern(Msg.msg_af9d1711a669, "de", "Wähle einen Ordner mit Musik. Deine Dateien bleiben an ihrem Speicherort."),
+    MessagePattern(Msg.msg_af9d1711a669, "kk", "Музыка бар қалтаны таңдаңыз. Файлдар өз орнында қалады."),
+    MessagePattern(Msg.msg_af9d1711a669, "ru", "Выберите папку с музыкой. Файлы остаются на месте."),
+    MessagePattern(Msg.msg_af9d1711a669, "es", "Elige una carpeta con música. Tus archivos se quedan donde están."),
+    MessagePattern(Msg.msg_af9d1711a669, "uk", "Виберіть папку з музикою. Файли залишаються на місці."),
     MessagePattern(Msg.msg_b011fc656a0f, "be", "У любімыя альбомы"),
     MessagePattern(Msg.msg_b011fc656a0f, "en", "Like album"),
     MessagePattern(Msg.msg_b011fc656a0f, "fr", "Ajouter aux albums favoris"),
@@ -3911,9 +3908,6 @@ private fun patterns45() = listOf(
     MessagePattern(Msg.msg_b0ad5bf65466, "fr", "Modifier la playlist"),
     MessagePattern(Msg.msg_b0ad5bf65466, "de", "Playlist bearbeiten"),
     MessagePattern(Msg.msg_b0ad5bf65466, "kk", "Плейлистті өңдеу"),
-)
-
-private fun patterns46() = listOf(
     MessagePattern(Msg.msg_b0ad5bf65466, "ru", "Редактировать плейлист"),
     MessagePattern(Msg.msg_b0ad5bf65466, "es", "Editar lista"),
     MessagePattern(Msg.msg_b0ad5bf65466, "uk", "Редагувати плейлист"),
@@ -3922,6 +3916,9 @@ private fun patterns46() = listOf(
     MessagePattern(Msg.msg_b0dc6691dc09, "fr", "La mise en veille est réservée au K4811."),
     MessagePattern(Msg.msg_b0dc6691dc09, "de", "Der Ruhemodus ist nur auf K4811 verfügbar."),
     MessagePattern(Msg.msg_b0dc6691dc09, "kk", "Ұйқы режимі тек K4811 құрылғысында қолжетімді."),
+)
+
+private fun patterns46() = listOf(
     MessagePattern(Msg.msg_b0dc6691dc09, "ru", "«Сон» доступен только на K4811."),
     MessagePattern(Msg.msg_b0dc6691dc09, "es", "El modo de suspensión solo está disponible en K4811."),
     MessagePattern(Msg.msg_b0dc6691dc09, "uk", "Режим сну доступний лише на K4811."),
@@ -3994,9 +3991,6 @@ private fun patterns46() = listOf(
     MessagePattern(Msg.msg_b583c0b5f77e, "fr", "Ajouter depuis USB / SD"),
     MessagePattern(Msg.msg_b583c0b5f77e, "de", "Von USB / SD hinzufügen"),
     MessagePattern(Msg.msg_b583c0b5f77e, "kk", "USB / SD құрылғысынан қосу"),
-)
-
-private fun patterns47() = listOf(
     MessagePattern(Msg.msg_b583c0b5f77e, "ru", "Добавить с USB / SD"),
     MessagePattern(Msg.msg_b583c0b5f77e, "es", "Añadir desde USB / SD"),
     MessagePattern(Msg.msg_b583c0b5f77e, "uk", "Додати з USB / SD"),
@@ -4005,6 +3999,9 @@ private fun patterns47() = listOf(
     MessagePattern(Msg.msg_b5c15a505a62, "fr", "Impossible de lire les métadonnées. Actualisez le catalogue des dossiers."),
     MessagePattern(Msg.msg_b5c15a505a62, "de", "Metadaten konnten nicht gelesen werden. Aktualisiere den Ordnerkatalog."),
     MessagePattern(Msg.msg_b5c15a505a62, "kk", "Метадеректерді оқу мүмкін болмады. Қалталар каталогын жаңартыңыз."),
+)
+
+private fun patterns47() = listOf(
     MessagePattern(Msg.msg_b5c15a505a62, "ru", "Не удалось прочитать метаданные. Обновите каталог папок."),
     MessagePattern(Msg.msg_b5c15a505a62, "es", "No se pudieron leer los metadatos. Actualiza el catálogo de carpetas."),
     MessagePattern(Msg.msg_b5c15a505a62, "uk", "Не вдалося прочитати метадані. Оновіть каталог папок."),
@@ -4077,9 +4074,6 @@ private fun patterns47() = listOf(
     MessagePattern(Msg.msg_bcdc88d10948, "fr", "Renommer : @0@"),
     MessagePattern(Msg.msg_bcdc88d10948, "de", "Umbenennen: @0@"),
     MessagePattern(Msg.msg_bcdc88d10948, "kk", "Атауын өзгерту: @0@"),
-)
-
-private fun patterns48() = listOf(
     MessagePattern(Msg.msg_bcdc88d10948, "ru", "Переименовать: @0@"),
     MessagePattern(Msg.msg_bcdc88d10948, "es", "Renombrar: @0@"),
     MessagePattern(Msg.msg_bcdc88d10948, "uk", "Перейменувати: @0@"),
@@ -4088,6 +4082,9 @@ private fun patterns48() = listOf(
     MessagePattern(Msg.msg_bd5f65f27353, "fr", "Musique hors connexion"),
     MessagePattern(Msg.msg_bd5f65f27353, "de", "Offline-Musik"),
     MessagePattern(Msg.msg_bd5f65f27353, "kk", "Офлайн музыка"),
+)
+
+private fun patterns48() = listOf(
     MessagePattern(Msg.msg_bd5f65f27353, "ru", "Офлайн-музыка"),
     MessagePattern(Msg.msg_bd5f65f27353, "es", "Música sin conexión"),
     MessagePattern(Msg.msg_bd5f65f27353, "uk", "Офлайн-музика"),
@@ -4160,9 +4157,6 @@ private fun patterns48() = listOf(
     MessagePattern(Msg.msg_c05d6b17ae05, "en", "Preview: @0@"),
     MessagePattern(Msg.msg_c05d6b17ae05, "fr", "Aperçu : @0@"),
     MessagePattern(Msg.msg_c05d6b17ae05, "de", "Vorschau: @0@"),
-)
-
-private fun patterns49() = listOf(
     MessagePattern(Msg.msg_c05d6b17ae05, "kk", "Алдын ала қарау: @0@"),
     MessagePattern(Msg.msg_c05d6b17ae05, "ru", "Предпросмотр: @0@"),
     MessagePattern(Msg.msg_c05d6b17ae05, "es", "Vista previa: @0@"),
@@ -4171,6 +4165,9 @@ private fun patterns49() = listOf(
     MessagePattern(Msg.msg_c06f71ebf142, "en", "No browser is available. Open the address on your phone and enter the code."),
     MessagePattern(Msg.msg_c06f71ebf142, "fr", "Aucun navigateur n’est disponible. Ouvrez l’adresse indiquée sur votre téléphone et saisissez le code."),
     MessagePattern(Msg.msg_c06f71ebf142, "de", "Kein Browser verfügbar. Öffne die angegebene Adresse auf deinem Smartphone und gib den Code ein."),
+)
+
+private fun patterns49() = listOf(
     MessagePattern(Msg.msg_c06f71ebf142, "kk", "Браузер қолжетімсіз. Көрсетілген мекенжайды телефонда ашып, кодты енгізіңіз."),
     MessagePattern(Msg.msg_c06f71ebf142, "ru", "Браузер недоступен. Откройте указанный адрес на телефоне и введите код."),
     MessagePattern(Msg.msg_c06f71ebf142, "es", "No hay un navegador disponible. Abre la dirección indicada en el teléfono e introduce el código."),
@@ -4243,9 +4240,6 @@ private fun patterns49() = listOf(
     MessagePattern(Msg.msg_c59e474ea979, "en", "Could not read playlists. Your data is still on disk, but editing is temporarily unavailable. Try loading them again."),
     MessagePattern(Msg.msg_c59e474ea979, "fr", "Impossible de lire les playlists. Vos données sont toujours sur le disque, mais la modification est temporairement indisponible. Réessayez de les charger."),
     MessagePattern(Msg.msg_c59e474ea979, "de", "Playlists konnten nicht gelesen werden. Deine Daten sind weiterhin gespeichert, aber die Bearbeitung ist vorübergehend nicht verfügbar. Lade sie erneut."),
-)
-
-private fun patterns50() = listOf(
     MessagePattern(Msg.msg_c59e474ea979, "kk", "Плейлисттерді оқу мүмкін болмады. Деректер дискіде сақталған, бірақ өңдеу уақытша қолжетімсіз. Қайта ашып көріңіз."),
     MessagePattern(Msg.msg_c59e474ea979, "ru", "Не удалось прочитать плейлисты. Данные сохранены на диске; изменения временно недоступны. Повторите чтение."),
     MessagePattern(Msg.msg_c59e474ea979, "es", "No se pudieron leer las listas. Los datos siguen guardados en el disco, pero la edición no está disponible temporalmente. Vuelve a cargarlas."),
@@ -4254,6 +4248,9 @@ private fun patterns50() = listOf(
     MessagePattern(Msg.msg_c5d260f02840, "en", "Completed: @0@ of @1@. Failed: @2@."),
     MessagePattern(Msg.msg_c5d260f02840, "fr", "Terminés : @0@ sur @1@. Échecs : @2@."),
     MessagePattern(Msg.msg_c5d260f02840, "de", "Fertig: @0@ von @1@. Fehler: @2@."),
+)
+
+private fun patterns50() = listOf(
     MessagePattern(Msg.msg_c5d260f02840, "kk", "Дайын: @1@ файлдың @0@-і. Қателер: @2@."),
     MessagePattern(Msg.msg_c5d260f02840, "ru", "Готово: @0@ из @1@. Ошибок: @2@."),
     MessagePattern(Msg.msg_c5d260f02840, "es", "Completados: @0@ de @1@. Errores: @2@."),
@@ -4326,9 +4323,6 @@ private fun patterns50() = listOf(
     MessagePattern(Msg.msg_c78b1aee4241, "en", "A private playlist will be created in your current Yandex account."),
     MessagePattern(Msg.msg_c78b1aee4241, "fr", "Une playlist privée sera créée dans votre compte Yandex actuel."),
     MessagePattern(Msg.msg_c78b1aee4241, "de", "In deinem aktuellen Yandex-Konto wird eine private Playlist erstellt."),
-)
-
-private fun patterns51() = listOf(
     MessagePattern(Msg.msg_c78b1aee4241, "kk", "Қазіргі Yandex аккаунтында жеке плейлист жасалады."),
     MessagePattern(Msg.msg_c78b1aee4241, "ru", "Будет создан приватный плейлист в текущем аккаунте Яндекса."),
     MessagePattern(Msg.msg_c78b1aee4241, "es", "Se creará una lista privada en tu cuenta actual de Yandex."),
@@ -4337,6 +4331,9 @@ private fun patterns51() = listOf(
     MessagePattern(Msg.msg_c7dab06bf537, "en", "NOW PLAYING"),
     MessagePattern(Msg.msg_c7dab06bf537, "fr", "EN COURS"),
     MessagePattern(Msg.msg_c7dab06bf537, "de", "JETZT LÄUFT"),
+)
+
+private fun patterns51() = listOf(
     MessagePattern(Msg.msg_c7dab06bf537, "kk", "ҚАЗІР ОЙНАУДА"),
     MessagePattern(Msg.msg_c7dab06bf537, "ru", "СЕЙЧАС"),
     MessagePattern(Msg.msg_c7dab06bf537, "es", "SONANDO AHORA"),
@@ -4409,9 +4406,6 @@ private fun patterns51() = listOf(
     MessagePattern(Msg.msg_ca48a1a553cc, "en", "Sync liked tracks"),
     MessagePattern(Msg.msg_ca48a1a553cc, "fr", "Synchroniser les titres aimés"),
     MessagePattern(Msg.msg_ca48a1a553cc, "de", "Lieblingstitel synchronisieren"),
-)
-
-private fun patterns52() = listOf(
     MessagePattern(Msg.msg_ca48a1a553cc, "kk", "Ұнаған тректерді синхрондау"),
     MessagePattern(Msg.msg_ca48a1a553cc, "ru", "Синхронизировать «Мне нравится»"),
     MessagePattern(Msg.msg_ca48a1a553cc, "es", "Sincronizar canciones favoritas"),
@@ -4420,6 +4414,9 @@ private fun patterns52() = listOf(
     MessagePattern(Msg.msg_cac09069271e, "en", "Move cancelled. The original cache is intact."),
     MessagePattern(Msg.msg_cac09069271e, "fr", "Déplacement annulé. Le cache d’origine est conservé."),
     MessagePattern(Msg.msg_cac09069271e, "de", "Verschieben abgebrochen. Der ursprüngliche Cache ist erhalten."),
+)
+
+private fun patterns52() = listOf(
     MessagePattern(Msg.msg_cac09069271e, "kk", "Көшіру тоқтатылды. Бастапқы кэш сақталды."),
     MessagePattern(Msg.msg_cac09069271e, "ru", "Перенос отменён. Исходный кэш сохранён."),
     MessagePattern(Msg.msg_cac09069271e, "es", "Traslado cancelado. La caché original se conserva."),
@@ -4492,9 +4489,6 @@ private fun patterns52() = listOf(
     MessagePattern(Msg.msg_ce1456ccd84b, "en", "Remove from playlist: @0@"),
     MessagePattern(Msg.msg_ce1456ccd84b, "fr", "Retirer de la playlist : @0@"),
     MessagePattern(Msg.msg_ce1456ccd84b, "de", "Aus Playlist entfernen: @0@"),
-)
-
-private fun patterns53() = listOf(
     MessagePattern(Msg.msg_ce1456ccd84b, "kk", "Плейлисттен алып тастау: @0@"),
     MessagePattern(Msg.msg_ce1456ccd84b, "ru", "Убрать из плейлиста: @0@"),
     MessagePattern(Msg.msg_ce1456ccd84b, "es", "Quitar de la lista: @0@"),
@@ -4503,6 +4497,9 @@ private fun patterns53() = listOf(
     MessagePattern(Msg.msg_ce1e647fd722, "en", "Repeat off"),
     MessagePattern(Msg.msg_ce1e647fd722, "fr", "Répétition désactivée"),
     MessagePattern(Msg.msg_ce1e647fd722, "de", "Wiederholung aus"),
+)
+
+private fun patterns53() = listOf(
     MessagePattern(Msg.msg_ce1e647fd722, "kk", "Қайталау өшірулі"),
     MessagePattern(Msg.msg_ce1e647fd722, "ru", "Повтор выключен"),
     MessagePattern(Msg.msg_ce1e647fd722, "es", "Repetición desactivada"),
@@ -4575,9 +4572,6 @@ private fun patterns53() = listOf(
     MessagePattern(Msg.msg_d45556f3a844, "en", "Add folder"),
     MessagePattern(Msg.msg_d45556f3a844, "fr", "Ajouter un dossier"),
     MessagePattern(Msg.msg_d45556f3a844, "de", "Ordner hinzufügen"),
-)
-
-private fun patterns54() = listOf(
     MessagePattern(Msg.msg_d45556f3a844, "kk", "Қалта қосу"),
     MessagePattern(Msg.msg_d45556f3a844, "ru", "Добавить папку"),
     MessagePattern(Msg.msg_d45556f3a844, "es", "Añadir carpeta"),
@@ -4586,6 +4580,9 @@ private fun patterns54() = listOf(
     MessagePattern(Msg.msg_d4998bc84141, "en", "Preview"),
     MessagePattern(Msg.msg_d4998bc84141, "fr", "Aperçu"),
     MessagePattern(Msg.msg_d4998bc84141, "de", "Vorschau"),
+)
+
+private fun patterns54() = listOf(
     MessagePattern(Msg.msg_d4998bc84141, "kk", "Алдын ала қарау"),
     MessagePattern(Msg.msg_d4998bc84141, "ru", "Посмотреть"),
     MessagePattern(Msg.msg_d4998bc84141, "es", "Vista previa"),
@@ -4658,9 +4655,6 @@ private fun patterns54() = listOf(
     MessagePattern(Msg.msg_d7b587c84b68, "en", "Sidebar disabled."),
     MessagePattern(Msg.msg_d7b587c84b68, "fr", "Panneau latéral désactivé."),
     MessagePattern(Msg.msg_d7b587c84b68, "de", "Seitenleiste deaktiviert."),
-)
-
-private fun patterns55() = listOf(
     MessagePattern(Msg.msg_d7b587c84b68, "kk", "Бүйірлік панель өшірулі."),
     MessagePattern(Msg.msg_d7b587c84b68, "ru", "Панель выключена."),
     MessagePattern(Msg.msg_d7b587c84b68, "es", "Panel lateral desactivado."),
@@ -4669,6 +4663,9 @@ private fun patterns55() = listOf(
     MessagePattern(Msg.msg_d7c74665073a, "en", "Only the playlist will be deleted. Files and your current queue will be kept."),
     MessagePattern(Msg.msg_d7c74665073a, "fr", "Seule la playlist sera supprimée. Les fichiers et votre file d’attente actuelle sont conservés."),
     MessagePattern(Msg.msg_d7c74665073a, "de", "Nur die Playlist wird gelöscht. Dateien und deine aktuelle Warteschlange bleiben erhalten."),
+)
+
+private fun patterns55() = listOf(
     MessagePattern(Msg.msg_d7c74665073a, "kk", "Тек плейлист жойылады. Файлдар мен қазіргі кезек сақталады."),
     MessagePattern(Msg.msg_d7c74665073a, "ru", "Удалится только плейлист. Файлы и текущая очередь сохранятся."),
     MessagePattern(Msg.msg_d7c74665073a, "es", "Solo se eliminará la lista. Se conservan los archivos y la cola actual."),
@@ -4741,9 +4738,6 @@ private fun patterns55() = listOf(
     MessagePattern(Msg.msg_db66cedc69fc, "en", "Full collection"),
     MessagePattern(Msg.msg_db66cedc69fc, "fr", "Toute la collection"),
     MessagePattern(Msg.msg_db66cedc69fc, "de", "Gesamte Sammlung"),
-)
-
-private fun patterns56() = listOf(
     MessagePattern(Msg.msg_db66cedc69fc, "kk", "Бүкіл жинақ"),
     MessagePattern(Msg.msg_db66cedc69fc, "ru", "Вся коллекция"),
     MessagePattern(Msg.msg_db66cedc69fc, "es", "Toda la colección"),
@@ -4752,6 +4746,9 @@ private fun patterns56() = listOf(
     MessagePattern(Msg.msg_dba20ab53801, "en", "Device"),
     MessagePattern(Msg.msg_dba20ab53801, "fr", "Appareil"),
     MessagePattern(Msg.msg_dba20ab53801, "de", "Gerät"),
+)
+
+private fun patterns56() = listOf(
     MessagePattern(Msg.msg_dba20ab53801, "kk", "Құрылғы"),
     MessagePattern(Msg.msg_dba20ab53801, "ru", "Устройство"),
     MessagePattern(Msg.msg_dba20ab53801, "es", "Dispositivo"),
@@ -4824,9 +4821,6 @@ private fun patterns56() = listOf(
     MessagePattern(Msg.msg_dcefc460162c, "en", "Too much unpacked data"),
     MessagePattern(Msg.msg_dcefc460162c, "fr", "Volume de données décompressées trop important"),
     MessagePattern(Msg.msg_dcefc460162c, "de", "Zu viele entpackte Daten"),
-)
-
-private fun patterns57() = listOf(
     MessagePattern(Msg.msg_dcefc460162c, "kk", "Қаптамадан шығарылған деректер тым көп"),
     MessagePattern(Msg.msg_dcefc460162c, "ru", "Слишком много распакованных данных"),
     MessagePattern(Msg.msg_dcefc460162c, "es", "Demasiados datos descomprimidos"),
@@ -4835,6 +4829,9 @@ private fun patterns57() = listOf(
     MessagePattern(Msg.msg_de042c2d1c9a, "en", "YMPlayer 2 update"),
     MessagePattern(Msg.msg_de042c2d1c9a, "fr", "Mise à jour de YMPlayer 2"),
     MessagePattern(Msg.msg_de042c2d1c9a, "de", "YMPlayer-2-Update"),
+)
+
+private fun patterns57() = listOf(
     MessagePattern(Msg.msg_de042c2d1c9a, "kk", "YMPlayer 2 жаңартуы"),
     MessagePattern(Msg.msg_de042c2d1c9a, "ru", "Обновление YMPlayer 2"),
     MessagePattern(Msg.msg_de042c2d1c9a, "es", "Actualización de YMPlayer 2"),
@@ -4907,9 +4904,6 @@ private fun patterns57() = listOf(
     MessagePattern(Msg.msg_dff16f6f70a1, "en", "Player"),
     MessagePattern(Msg.msg_dff16f6f70a1, "fr", "Lecteur"),
     MessagePattern(Msg.msg_dff16f6f70a1, "de", "Player"),
-)
-
-private fun patterns58() = listOf(
     MessagePattern(Msg.msg_dff16f6f70a1, "kk", "Плеер"),
     MessagePattern(Msg.msg_dff16f6f70a1, "ru", "Плеер"),
     MessagePattern(Msg.msg_dff16f6f70a1, "es", "Reproductor"),
@@ -4918,6 +4912,9 @@ private fun patterns58() = listOf(
     MessagePattern(Msg.msg_e059e8f90790, "en", "Could not save your skin selection"),
     MessagePattern(Msg.msg_e059e8f90790, "fr", "Impossible d’enregistrer le thème choisi"),
     MessagePattern(Msg.msg_e059e8f90790, "de", "Die Skin-Auswahl konnte nicht gespeichert werden"),
+)
+
+private fun patterns58() = listOf(
     MessagePattern(Msg.msg_e059e8f90790, "kk", "Скин таңдауын сақтау мүмкін болмады"),
     MessagePattern(Msg.msg_e059e8f90790, "ru", "Не удалось сохранить выбор оформления"),
     MessagePattern(Msg.msg_e059e8f90790, "es", "No se pudo guardar el tema elegido"),
@@ -4990,9 +4987,6 @@ private fun patterns58() = listOf(
     MessagePattern(Msg.msg_e2be34974ae4, "en", "Create"),
     MessagePattern(Msg.msg_e2be34974ae4, "fr", "Créer"),
     MessagePattern(Msg.msg_e2be34974ae4, "de", "Erstellen"),
-)
-
-private fun patterns59() = listOf(
     MessagePattern(Msg.msg_e2be34974ae4, "kk", "Жасау"),
     MessagePattern(Msg.msg_e2be34974ae4, "ru", "Создать"),
     MessagePattern(Msg.msg_e2be34974ae4, "es", "Crear"),
@@ -5001,6 +4995,9 @@ private fun patterns59() = listOf(
     MessagePattern(Msg.msg_e2ce86b38fd5, "en", "Got it"),
     MessagePattern(Msg.msg_e2ce86b38fd5, "fr", "Compris"),
     MessagePattern(Msg.msg_e2ce86b38fd5, "de", "Verstanden"),
+)
+
+private fun patterns59() = listOf(
     MessagePattern(Msg.msg_e2ce86b38fd5, "kk", "Түсінікті"),
     MessagePattern(Msg.msg_e2ce86b38fd5, "ru", "Понятно"),
     MessagePattern(Msg.msg_e2ce86b38fd5, "es", "Entendido"),
@@ -5073,9 +5070,6 @@ private fun patterns59() = listOf(
     MessagePattern(Msg.msg_e6b3d4be516a, "en", "@0@: unavailable"),
     MessagePattern(Msg.msg_e6b3d4be516a, "fr", "@0@ : action indisponible"),
     MessagePattern(Msg.msg_e6b3d4be516a, "de", "@0@: nicht verfügbar"),
-)
-
-private fun patterns60() = listOf(
     MessagePattern(Msg.msg_e6b3d4be516a, "kk", "@0@: әрекет қолжетімсіз"),
     MessagePattern(Msg.msg_e6b3d4be516a, "ru", "@0@: действие недоступно"),
     MessagePattern(Msg.msg_e6b3d4be516a, "es", "@0@: no disponible"),
@@ -5084,6 +5078,9 @@ private fun patterns60() = listOf(
     MessagePattern(Msg.msg_e85848addc52, "en", "Missing APK URL"),
     MessagePattern(Msg.msg_e85848addc52, "fr", "Adresse de l’APK manquante"),
     MessagePattern(Msg.msg_e85848addc52, "de", "APK-Adresse fehlt"),
+)
+
+private fun patterns60() = listOf(
     MessagePattern(Msg.msg_e85848addc52, "kk", "APK мекенжайы жоқ"),
     MessagePattern(Msg.msg_e85848addc52, "ru", "Нет адреса APK"),
     MessagePattern(Msg.msg_e85848addc52, "es", "Falta la dirección del APK"),
@@ -5156,9 +5153,6 @@ private fun patterns60() = listOf(
     MessagePattern(Msg.msg_eb2c88237bfa, "en", "Local and online music. Sign in to Yandex from Profiles. Downloaded liked tracks are in Offline."),
     MessagePattern(Msg.msg_eb2c88237bfa, "fr", "Musique locale et en ligne. Connectez-vous à Yandex depuis les profils. Les titres aimés téléchargés sont dans la rubrique « Hors connexion »."),
     MessagePattern(Msg.msg_eb2c88237bfa, "de", "Lokale und Online-Musik. Melde dich unter Profile bei Yandex an. Heruntergeladene Lieblingstitel findest du unter Offline."),
-)
-
-private fun patterns61() = listOf(
     MessagePattern(Msg.msg_eb2c88237bfa, "kk", "Жергілікті және онлайн музыка. Yandex аккаунтына Профильдер бөлімінен кіріңіз. Сақталған ұнаған тректер «Офлайн» бөлімінде."),
     MessagePattern(Msg.msg_eb2c88237bfa, "ru", "Локальная и онлайн-музыка. Вход в Яндекс — в профилях. Сохранённое «Мне нравится» — в разделе «Офлайн»."),
     MessagePattern(Msg.msg_eb2c88237bfa, "es", "Música local y en línea. Inicia sesión en Yandex desde Perfiles. Las canciones favoritas descargadas están en «Sin conexión»."),
@@ -5167,6 +5161,9 @@ private fun patterns61() = listOf(
     MessagePattern(Msg.msg_eb9946b15efd, "en", "Reload"),
     MessagePattern(Msg.msg_eb9946b15efd, "fr", "Recharger"),
     MessagePattern(Msg.msg_eb9946b15efd, "de", "Erneut laden"),
+)
+
+private fun patterns61() = listOf(
     MessagePattern(Msg.msg_eb9946b15efd, "kk", "Қайта оқу"),
     MessagePattern(Msg.msg_eb9946b15efd, "ru", "Повторить чтение"),
     MessagePattern(Msg.msg_eb9946b15efd, "es", "Volver a cargar"),
@@ -5239,9 +5236,6 @@ private fun patterns61() = listOf(
     MessagePattern(Msg.msg_ef5631741cc5, "en", "Refreshing likes and blocks…"),
     MessagePattern(Msg.msg_ef5631741cc5, "fr", "Actualisation des mentions J’aime et des blocages…"),
     MessagePattern(Msg.msg_ef5631741cc5, "de", "Likes und Sperren werden aktualisiert…"),
-)
-
-private fun patterns62() = listOf(
     MessagePattern(Msg.msg_ef5631741cc5, "kk", "Ұнату және бұғаттау белгілері жаңартылуда…"),
     MessagePattern(Msg.msg_ef5631741cc5, "ru", "Обновляем отметки…"),
     MessagePattern(Msg.msg_ef5631741cc5, "es", "Actualizando Me gusta y bloqueos…"),
@@ -5250,6 +5244,9 @@ private fun patterns62() = listOf(
     MessagePattern(Msg.msg_efb640146dae, "en", "Back to playlists"),
     MessagePattern(Msg.msg_efb640146dae, "fr", "Retour aux playlists"),
     MessagePattern(Msg.msg_efb640146dae, "de", "Zurück zu Playlists"),
+)
+
+private fun patterns62() = listOf(
     MessagePattern(Msg.msg_efb640146dae, "kk", "Плейлисттерге оралу"),
     MessagePattern(Msg.msg_efb640146dae, "ru", "К плейлистам"),
     MessagePattern(Msg.msg_efb640146dae, "es", "Volver a las listas"),
@@ -5322,9 +5319,6 @@ private fun patterns62() = listOf(
     MessagePattern(Msg.msg_f4e26aa3eef6, "en", "Play / pause"),
     MessagePattern(Msg.msg_f4e26aa3eef6, "fr", "Lecture / pause"),
     MessagePattern(Msg.msg_f4e26aa3eef6, "de", "Wiedergabe / Pause"),
-)
-
-private fun patterns63() = listOf(
     MessagePattern(Msg.msg_f4e26aa3eef6, "kk", "Ойнату / кідірту"),
     MessagePattern(Msg.msg_f4e26aa3eef6, "ru", "Плей / пауза"),
     MessagePattern(Msg.msg_f4e26aa3eef6, "es", "Reproducir / pausar"),
@@ -5333,6 +5327,9 @@ private fun patterns63() = listOf(
     MessagePattern(Msg.msg_f53e106cfc4e, "en", "The selected folder is unavailable."),
     MessagePattern(Msg.msg_f53e106cfc4e, "fr", "Le dossier sélectionné est inaccessible."),
     MessagePattern(Msg.msg_f53e106cfc4e, "de", "Der gewählte Ordner ist nicht verfügbar."),
+)
+
+private fun patterns63() = listOf(
     MessagePattern(Msg.msg_f53e106cfc4e, "kk", "Таңдалған қалта қолжетімсіз."),
     MessagePattern(Msg.msg_f53e106cfc4e, "ru", "Выбранная папка недоступна."),
     MessagePattern(Msg.msg_f53e106cfc4e, "es", "La carpeta elegida no está disponible."),
@@ -5405,9 +5402,6 @@ private fun patterns63() = listOf(
     MessagePattern(Msg.msg_fa58ba03d4c5, "en", "Name ↑"),
     MessagePattern(Msg.msg_fa58ba03d4c5, "fr", "Nom ↑"),
     MessagePattern(Msg.msg_fa58ba03d4c5, "de", "Name ↑"),
-)
-
-private fun patterns64() = listOf(
     MessagePattern(Msg.msg_fa58ba03d4c5, "kk", "Атауы ↑"),
     MessagePattern(Msg.msg_fa58ba03d4c5, "ru", "Название ↑"),
     MessagePattern(Msg.msg_fa58ba03d4c5, "es", "Nombre ↑"),
@@ -5416,6 +5410,9 @@ private fun patterns64() = listOf(
     MessagePattern(Msg.msg_fb7d156c5bfe, "en", "Recommendations"),
     MessagePattern(Msg.msg_fb7d156c5bfe, "fr", "Recommandations"),
     MessagePattern(Msg.msg_fb7d156c5bfe, "de", "Empfehlungen"),
+)
+
+private fun patterns64() = listOf(
     MessagePattern(Msg.msg_fb7d156c5bfe, "kk", "Ұсынымдар"),
     MessagePattern(Msg.msg_fb7d156c5bfe, "ru", "Рекомендации"),
     MessagePattern(Msg.msg_fb7d156c5bfe, "es", "Recomendaciones"),
@@ -5488,9 +5485,6 @@ private fun patterns64() = listOf(
     MessagePattern(Msg.msg_ffdf574befa9, "en", "In order"),
     MessagePattern(Msg.msg_ffdf574befa9, "fr", "Dans l’ordre"),
     MessagePattern(Msg.msg_ffdf574befa9, "de", "Der Reihe nach"),
-)
-
-private fun patterns65() = listOf(
     MessagePattern(Msg.msg_ffdf574befa9, "kk", "Ретімен"),
     MessagePattern(Msg.msg_ffdf574befa9, "ru", "По порядку"),
     MessagePattern(Msg.msg_ffdf574befa9, "es", "En orden"),
@@ -5499,6 +5493,9 @@ private fun patterns65() = listOf(
     MessagePattern(Msg.player_source_device, "en", "Device / USB"),
     MessagePattern(Msg.player_source_device, "fr", "Appareil / USB"),
     MessagePattern(Msg.player_source_device, "de", "Gerät / USB"),
+)
+
+private fun patterns65() = listOf(
     MessagePattern(Msg.player_source_device, "kk", "Құрылғы / USB"),
     MessagePattern(Msg.player_source_device, "ru", "Устройство / USB"),
     MessagePattern(Msg.player_source_device, "es", "Dispositivo / USB"),
@@ -5571,9 +5568,6 @@ private fun patterns65() = listOf(
     MessagePattern(Msg.radio_3a856dcd9b2f, "en", "Genres"),
     MessagePattern(Msg.radio_3a856dcd9b2f, "fr", "Genres"),
     MessagePattern(Msg.radio_3a856dcd9b2f, "de", "Genres"),
-)
-
-private fun patterns66() = listOf(
     MessagePattern(Msg.radio_3a856dcd9b2f, "kk", "Жанрлар"),
     MessagePattern(Msg.radio_3a856dcd9b2f, "ru", "Жанры"),
     MessagePattern(Msg.radio_3a856dcd9b2f, "es", "Géneros"),
@@ -5582,6 +5576,9 @@ private fun patterns66() = listOf(
     MessagePattern(Msg.radio_3c04af3c32f2, "en", "On air now"),
     MessagePattern(Msg.radio_3c04af3c32f2, "fr", "À l’antenne"),
     MessagePattern(Msg.radio_3c04af3c32f2, "de", "Jetzt auf Sendung"),
+)
+
+private fun patterns66() = listOf(
     MessagePattern(Msg.radio_3c04af3c32f2, "kk", "Қазір эфирде"),
     MessagePattern(Msg.radio_3c04af3c32f2, "ru", "Сейчас в эфире"),
     MessagePattern(Msg.radio_3c04af3c32f2, "es", "Ahora en antena"),
@@ -5654,9 +5651,6 @@ private fun patterns66() = listOf(
     MessagePattern(Msg.radio_8a574d8cde01, "en", "Live"),
     MessagePattern(Msg.radio_8a574d8cde01, "fr", "En direct"),
     MessagePattern(Msg.radio_8a574d8cde01, "de", "Live"),
-)
-
-private fun patterns67() = listOf(
     MessagePattern(Msg.radio_8a574d8cde01, "kk", "Тікелей эфир"),
     MessagePattern(Msg.radio_8a574d8cde01, "ru", "Прямой эфир"),
     MessagePattern(Msg.radio_8a574d8cde01, "es", "En directo"),
@@ -5665,6 +5659,9 @@ private fun patterns67() = listOf(
     MessagePattern(Msg.radio_8f602ef87466, "en", "Sign in to Yandex to save your favourite stations."),
     MessagePattern(Msg.radio_8f602ef87466, "fr", "Connectez-vous à Yandex pour enregistrer vos stations favorites."),
     MessagePattern(Msg.radio_8f602ef87466, "de", "Melde dich bei Yandex an, um deine Lieblingssender zu speichern."),
+)
+
+private fun patterns67() = listOf(
     MessagePattern(Msg.radio_8f602ef87466, "kk", "Таңдаулы станцияларды сақтау үшін Яндекске кіріңіз."),
     MessagePattern(Msg.radio_8f602ef87466, "ru", "Войдите в Яндекс, чтобы сохранить любимые станции."),
     MessagePattern(Msg.radio_8f602ef87466, "es", "Inicia sesión en Yandex para guardar tus emisoras favoritas."),
@@ -5737,9 +5734,6 @@ private fun patterns67() = listOf(
     MessagePattern(Msg.radio_c8a8a179fd86, "en", "All cities"),
     MessagePattern(Msg.radio_c8a8a179fd86, "fr", "Toutes les villes"),
     MessagePattern(Msg.radio_c8a8a179fd86, "de", "Alle Städte"),
-)
-
-private fun patterns68() = listOf(
     MessagePattern(Msg.radio_c8a8a179fd86, "kk", "Барлық қалалар"),
     MessagePattern(Msg.radio_c8a8a179fd86, "ru", "Все города"),
     MessagePattern(Msg.radio_c8a8a179fd86, "es", "Todas las ciudades"),
@@ -5748,6 +5742,9 @@ private fun patterns68() = listOf(
     MessagePattern(Msg.radio_d44350efe996, "en", "Can't connect to Radio. Check your connection and try again."),
     MessagePattern(Msg.radio_d44350efe996, "fr", "Connexion à Radio impossible. Vérifiez votre connexion et réessayez."),
     MessagePattern(Msg.radio_d44350efe996, "de", "Keine Verbindung zu Radio. Prüfe deine Internetverbindung und versuche es erneut."),
+)
+
+private fun patterns68() = listOf(
     MessagePattern(Msg.radio_d44350efe996, "kk", "Радиомен байланыс жоқ. Желі қосылымын тексеріп, қайталаңыз."),
     MessagePattern(Msg.radio_d44350efe996, "ru", "Нет связи с Радио. Проверьте сеть и повторите."),
     MessagePattern(Msg.radio_d44350efe996, "es", "No se puede conectar con Radio. Comprueba tu conexión y vuelve a intentarlo."),
@@ -5820,9 +5817,6 @@ private fun patterns68() = listOf(
     MessagePattern(Msg.wave_active, "en", "Energetic"),
     MessagePattern(Msg.wave_active, "fr", "Énergique"),
     MessagePattern(Msg.wave_active, "de", "Energiegeladen"),
-)
-
-private fun patterns69() = listOf(
     MessagePattern(Msg.wave_active, "kk", "Сергек"),
     MessagePattern(Msg.wave_active, "ru", "Бодрое"),
     MessagePattern(Msg.wave_active, "es", "Enérgico"),
@@ -5831,6 +5825,9 @@ private fun patterns69() = listOf(
     MessagePattern(Msg.wave_any, "en", "Any"),
     MessagePattern(Msg.wave_any, "fr", "Au choix"),
     MessagePattern(Msg.wave_any, "de", "Beliebig"),
+)
+
+private fun patterns69() = listOf(
     MessagePattern(Msg.wave_any, "kk", "Кез келген"),
     MessagePattern(Msg.wave_any, "ru", "Любое"),
     MessagePattern(Msg.wave_any, "es", "Cualquiera"),
@@ -5903,9 +5900,6 @@ private fun patterns69() = listOf(
     MessagePattern(Msg.wave_continue_off, "en", "Radio continuation off"),
     MessagePattern(Msg.wave_continue_off, "fr", "Continuation avec la radio désactivée"),
     MessagePattern(Msg.wave_continue_off, "de", "Radio-Fortsetzung aus"),
-)
-
-private fun patterns70() = listOf(
     MessagePattern(Msg.wave_continue_off, "kk", "Толқынмен жалғастыру өшірулі"),
     MessagePattern(Msg.wave_continue_off, "ru", "Продолжение волной выключено"),
     MessagePattern(Msg.wave_continue_off, "es", "Continuación con radio desactivada"),
@@ -5914,6 +5908,9 @@ private fun patterns70() = listOf(
     MessagePattern(Msg.wave_continue_on, "en", "Radio continuation on"),
     MessagePattern(Msg.wave_continue_on, "fr", "Continuation avec la radio activée"),
     MessagePattern(Msg.wave_continue_on, "de", "Radio-Fortsetzung an"),
+)
+
+private fun patterns70() = listOf(
     MessagePattern(Msg.wave_continue_on, "kk", "Толқынмен жалғастыру қосулы"),
     MessagePattern(Msg.wave_continue_on, "ru", "Продолжение волной включено"),
     MessagePattern(Msg.wave_continue_on, "es", "Continuación con radio activada"),
@@ -5986,9 +5983,6 @@ private fun patterns70() = listOf(
     MessagePattern(Msg.wave_language, "en", "Language"),
     MessagePattern(Msg.wave_language, "fr", "Langue"),
     MessagePattern(Msg.wave_language, "de", "Sprache"),
-)
-
-private fun patterns71() = listOf(
     MessagePattern(Msg.wave_language, "kk", "Тілге қарай"),
     MessagePattern(Msg.wave_language, "ru", "По языку"),
     MessagePattern(Msg.wave_language, "es", "Idioma"),
@@ -5997,6 +5991,9 @@ private fun patterns71() = listOf(
     MessagePattern(Msg.wave_mood, "en", "Mood"),
     MessagePattern(Msg.wave_mood, "fr", "Ambiance"),
     MessagePattern(Msg.wave_mood, "de", "Stimmung"),
+)
+
+private fun patterns71() = listOf(
     MessagePattern(Msg.wave_mood, "kk", "Көңіл күйге қарай"),
     MessagePattern(Msg.wave_mood, "ru", "Под настроение"),
     MessagePattern(Msg.wave_mood, "es", "Estado de ánimo"),
@@ -6069,9 +6066,6 @@ private fun patterns71() = listOf(
     MessagePattern(Msg.wave_sleep, "en", "Falling asleep"),
     MessagePattern(Msg.wave_sleep, "fr", "Pour s’endormir"),
     MessagePattern(Msg.wave_sleep, "de", "Einschlafen"),
-)
-
-private fun patterns72() = listOf(
     MessagePattern(Msg.wave_sleep, "kk", "Ұйқыға дайындалып жатырмын"),
     MessagePattern(Msg.wave_sleep, "ru", "Засыпаю"),
     MessagePattern(Msg.wave_sleep, "es", "Para dormir"),
@@ -6080,6 +6074,9 @@ private fun patterns72() = listOf(
     MessagePattern(Msg.wave_source_title, "en", "Radio · @0@"),
     MessagePattern(Msg.wave_source_title, "fr", "Radio · @0@"),
     MessagePattern(Msg.wave_source_title, "de", "Radio · @0@"),
+)
+
+private fun patterns72() = listOf(
     MessagePattern(Msg.wave_source_title, "kk", "Толқын · @0@"),
     MessagePattern(Msg.wave_source_title, "ru", "Волна · @0@"),
     MessagePattern(Msg.wave_source_title, "es", "Radio · @0@"),
@@ -6152,9 +6149,6 @@ private fun patterns72() = listOf(
     MessagePattern(Msg.taste_pending_failure, "en", "Could not save the pending change."),
     MessagePattern(Msg.taste_pending_failure, "fr", "Impossible d’enregistrer la modification en attente."),
     MessagePattern(Msg.taste_pending_failure, "de", "Die ausstehende Änderung konnte nicht gespeichert werden."),
-)
-
-private fun patterns73() = listOf(
     MessagePattern(Msg.taste_pending_failure, "kk", "Кейін жіберілетін өзгерісті сақтау мүмкін болмады."),
     MessagePattern(Msg.taste_pending_failure, "ru", "Не удалось сохранить отложенное изменение."),
     MessagePattern(Msg.taste_pending_failure, "es", "No se pudo guardar el cambio pendiente."),
@@ -6163,6 +6157,9 @@ private fun patterns73() = listOf(
     MessagePattern(Msg.offline_auto_saving, "en", "Saving liked tracks for offline listening…"),
     MessagePattern(Msg.offline_auto_saving, "fr", "Enregistrement des titres aimés pour l’écoute hors connexion…"),
     MessagePattern(Msg.offline_auto_saving, "de", "Titel mit „Gefällt mir“ werden für die Offline-Wiedergabe gespeichert…"),
+)
+
+private fun patterns73() = listOf(
     MessagePattern(Msg.offline_auto_saving, "kk", "Ұнаған тректер офлайн тыңдау үшін сақталып жатыр…"),
     MessagePattern(Msg.offline_auto_saving, "ru", "Сохраняем отмеченные треки офлайн…"),
     MessagePattern(Msg.offline_auto_saving, "es", "Guardando las canciones que te gustan para escucharlas sin conexión…"),
@@ -6235,9 +6232,6 @@ private fun patterns73() = listOf(
     MessagePattern(Msg.profile_default_name, "en", "User @0@"),
     MessagePattern(Msg.profile_default_name, "fr", "Utilisateur @0@"),
     MessagePattern(Msg.profile_default_name, "de", "Benutzer @0@"),
-)
-
-private fun patterns74() = listOf(
     MessagePattern(Msg.profile_default_name, "kk", "Пайдаланушы @0@"),
     MessagePattern(Msg.profile_default_name, "ru", "Пользователь @0@"),
     MessagePattern(Msg.profile_default_name, "es", "Usuario @0@"),
@@ -6246,6 +6240,9 @@ private fun patterns74() = listOf(
     MessagePattern(Msg.profile_add, "en", "Add Yandex profile"),
     MessagePattern(Msg.profile_add, "fr", "Ajouter un profil Yandex"),
     MessagePattern(Msg.profile_add, "de", "Yandex-Profil hinzufügen"),
+)
+
+private fun patterns74() = listOf(
     MessagePattern(Msg.profile_add, "kk", "Яндекс профилін қосу"),
     MessagePattern(Msg.profile_add, "ru", "Добавить профиль Яндекс"),
     MessagePattern(Msg.profile_add, "es", "Añadir perfil de Yandex"),
@@ -6318,9 +6315,6 @@ private fun patterns74() = listOf(
     MessagePattern(Msg.profile_local, "en", "Local"),
     MessagePattern(Msg.profile_local, "fr", "Local"),
     MessagePattern(Msg.profile_local, "de", "Lokal"),
-)
-
-private fun patterns75() = listOf(
     MessagePattern(Msg.profile_local, "kk", "Жергілікті"),
     MessagePattern(Msg.profile_local, "ru", "Локальный"),
     MessagePattern(Msg.profile_local, "es", "Local"),
@@ -6329,6 +6323,9 @@ private fun patterns75() = listOf(
     MessagePattern(Msg.profile_local_hint, "en", "This profile works without a Yandex account. To sign in, add a Yandex profile from the profile list."),
     MessagePattern(Msg.profile_local_hint, "fr", "Ce profil fonctionne sans compte Yandex. Pour vous connecter, ajoutez un profil Yandex depuis la liste des profils."),
     MessagePattern(Msg.profile_local_hint, "de", "Dieses Profil funktioniert ohne Yandex-Konto. Fügen Sie zum Anmelden ein Yandex-Profil in der Profilliste hinzu."),
+)
+
+private fun patterns75() = listOf(
     MessagePattern(Msg.profile_local_hint, "kk", "Бұл профиль Яндекс аккаунтынсыз жұмыс істейді. Кіру үшін профильдер тізімінен бөлек Яндекс профилін қосыңыз."),
     MessagePattern(Msg.profile_local_hint, "ru", "Этот профиль работает без аккаунта Яндекса. Для входа добавьте отдельный профиль Яндекс в списке профилей."),
     MessagePattern(Msg.profile_local_hint, "es", "Este perfil funciona sin una cuenta de Yandex. Para iniciar sesión, añade un perfil de Yandex desde la lista de perfiles."),
@@ -6401,9 +6398,6 @@ private fun patterns75() = listOf(
     MessagePattern(Msg.cache_legacy_import_notice, "en", "The old cache will be converted for this profile using songs in Liked tracks. Valid files will be kept. Older app versions cannot read the new format."),
     MessagePattern(Msg.cache_legacy_import_notice, "fr", "L’ancien cache sera converti pour ce profil en reprenant les titres de vos Titres aimés. Les fichiers valides seront conservés. Les anciennes versions de l’application ne peuvent pas lire le nouveau format."),
     MessagePattern(Msg.cache_legacy_import_notice, "de", "Der alte Cache wird für dieses Profil umgewandelt. Dabei werden Titel aus deinen Lieblingssongs übernommen. Intakte Dateien bleiben erhalten. Ältere App-Versionen können das neue Format nicht lesen."),
-)
-
-private fun patterns76() = listOf(
     MessagePattern(Msg.cache_legacy_import_notice, "kk", "Ескі кэш осы профильге бейімделеді. «Ұнайды» тізіміндегі тректер алынады. Жарамды файлдар сақталады. Қолданбаның ескі нұсқалары жаңа пішімді оқи алмайды."),
     MessagePattern(Msg.cache_legacy_import_notice, "ru", "Старый кэш будет преобразован для этого профиля. Подойдут треки из «Мне нравится». Исправные файлы сохранятся; старое приложение новый формат не поддерживает."),
     MessagePattern(Msg.cache_legacy_import_notice, "es", "La caché antigua se convertirá para este perfil usando canciones de Me gusta. Se conservarán los archivos válidos. Las versiones anteriores de la aplicación no pueden leer el nuevo formato."),
@@ -6412,6 +6406,9 @@ private fun patterns76() = listOf(
     MessagePattern(Msg.cache_connect_merge_notice, "en", "Connect this account’s cache and merge it with the current one? Valid files will not be downloaded again."),
     MessagePattern(Msg.cache_connect_merge_notice, "fr", "Connecter le cache de ce compte et le fusionner avec le cache actuel ? Les fichiers valides ne seront pas téléchargés à nouveau."),
     MessagePattern(Msg.cache_connect_merge_notice, "de", "Den Cache dieses Kontos einbinden und mit dem aktuellen zusammenführen? Intakte Dateien werden nicht erneut heruntergeladen."),
+)
+
+private fun patterns76() = listOf(
     MessagePattern(Msg.cache_connect_merge_notice, "kk", "Осы аккаунттың кэшін қосып, ағымдағы кэшпен біріктірейік пе? Жарамды файлдар қайта жүктелмейді."),
     MessagePattern(Msg.cache_connect_merge_notice, "ru", "Подключить кэш этого аккаунта и объединить с текущим? Исправные файлы не будут скачиваться заново."),
     MessagePattern(Msg.cache_connect_merge_notice, "es", "¿Conectar la caché de esta cuenta y combinarla con la actual? Los archivos válidos no se descargarán de nuevo."),
@@ -6484,9 +6481,6 @@ private fun patterns76() = listOf(
     MessagePattern(Msg.cache_connected, "en", "Offline cache connected."),
     MessagePattern(Msg.cache_connected, "fr", "Cache hors connexion connecté."),
     MessagePattern(Msg.cache_connected, "de", "Offline-Cache eingebunden."),
-)
-
-private fun patterns77() = listOf(
     MessagePattern(Msg.cache_connected, "kk", "Офлайн кэш қосылды."),
     MessagePattern(Msg.cache_connected, "ru", "Офлайн-кэш подключён."),
     MessagePattern(Msg.cache_connected, "es", "Caché sin conexión conectada."),
@@ -6495,6 +6489,9 @@ private fun patterns77() = listOf(
     MessagePattern(Msg.cache_connect_failed, "en", "Could not connect or move the cache. The original files are intact."),
     MessagePattern(Msg.cache_connect_failed, "fr", "Impossible de connecter ou de déplacer le cache. Les fichiers d’origine sont conservés."),
     MessagePattern(Msg.cache_connect_failed, "de", "Cache konnte nicht eingebunden oder verschoben werden. Die ursprünglichen Dateien sind erhalten."),
+)
+
+private fun patterns77() = listOf(
     MessagePattern(Msg.cache_connect_failed, "kk", "Кэшті қосу немесе көшіру мүмкін болмады. Бастапқы файлдар сақталды."),
     MessagePattern(Msg.cache_connect_failed, "ru", "Не удалось подключить или перенести кэш. Исходные файлы сохранены."),
     MessagePattern(Msg.cache_connect_failed, "es", "No se pudo conectar o trasladar la caché. Los archivos originales se conservan."),
@@ -6567,9 +6564,6 @@ private fun patterns77() = listOf(
     MessagePattern(Msg.profile_start_on, "en", "On"),
     MessagePattern(Msg.profile_start_on, "fr", "Activé"),
     MessagePattern(Msg.profile_start_on, "de", "Ein"),
-)
-
-private fun patterns78() = listOf(
     MessagePattern(Msg.profile_start_on, "kk", "Қосулы"),
     MessagePattern(Msg.profile_start_on, "ru", "Вкл"),
     MessagePattern(Msg.profile_start_on, "es", "Activado"),
@@ -6578,6 +6572,9 @@ private fun patterns78() = listOf(
     MessagePattern(Msg.profile_start_auto_description, "en", "Restore the last playback state."),
     MessagePattern(Msg.profile_start_auto_description, "fr", "Rétablir le dernier état de lecture."),
     MessagePattern(Msg.profile_start_auto_description, "de", "Den letzten Wiedergabestatus wiederherstellen."),
+)
+
+private fun patterns78() = listOf(
     MessagePattern(Msg.profile_start_auto_description, "kk", "Ойнатудың соңғы күйін қалпына келтіру."),
     MessagePattern(Msg.profile_start_auto_description, "ru", "Восстанавливать последнее состояние."),
     MessagePattern(Msg.profile_start_auto_description, "es", "Restaurar el último estado de reproducción."),
@@ -6614,4 +6611,427 @@ private fun patterns78() = listOf(
     MessagePattern(Msg.search_genre_wave, "ru", "Моя волна по жанру"),
     MessagePattern(Msg.search_genre_wave, "es", "Mi mix por género"),
     MessagePattern(Msg.search_genre_wave, "uk", "Моя хвиля за жанром"),
+    MessagePattern(Msg.files_actions, "be", "Дзеянні"),
+    MessagePattern(Msg.files_actions, "en", "Actions"),
+    MessagePattern(Msg.files_actions, "fr", "Actions"),
+    MessagePattern(Msg.files_actions, "de", "Aktionen"),
+    MessagePattern(Msg.files_actions, "kk", "Әрекеттер"),
+    MessagePattern(Msg.files_actions, "ru", "Действия"),
+    MessagePattern(Msg.files_actions, "es", "Acciones"),
+    MessagePattern(Msg.files_actions, "uk", "Дії"),
+    MessagePattern(Msg.files_append, "be", "У канец чаргі"),
+    MessagePattern(Msg.files_append, "en", "Add to end of queue"),
+    MessagePattern(Msg.files_append, "fr", "Ajouter en fin de file"),
+    MessagePattern(Msg.files_append, "de", "Ans Ende der Warteschlange"),
+    MessagePattern(Msg.files_append, "kk", "Кезек соңына қосу"),
+    MessagePattern(Msg.files_append, "ru", "В конец очереди"),
+    MessagePattern(Msg.files_append, "es", "Al final de la cola"),
+    MessagePattern(Msg.files_append, "uk", "У кінець черги"),
+    MessagePattern(Msg.files_copy, "be", "Скапіяваць"),
+    MessagePattern(Msg.files_copy, "en", "Copy"),
+    MessagePattern(Msg.files_copy, "fr", "Copier"),
+    MessagePattern(Msg.files_copy, "de", "Kopieren"),
+    MessagePattern(Msg.files_copy, "kk", "Көшіру"),
+    MessagePattern(Msg.files_copy, "ru", "Копировать"),
+    MessagePattern(Msg.files_copy, "es", "Copiar"),
+    MessagePattern(Msg.files_copy, "uk", "Копіювати"),
+    MessagePattern(Msg.files_create_folder, "be", "Стварыць тэчку"),
+    MessagePattern(Msg.files_create_folder, "en", "Create folder"),
+    MessagePattern(Msg.files_create_folder, "fr", "Créer un dossier"),
+    MessagePattern(Msg.files_create_folder, "de", "Ordner erstellen"),
+    MessagePattern(Msg.files_create_folder, "kk", "Қалта жасау"),
+    MessagePattern(Msg.files_create_folder, "ru", "Создать папку"),
+    MessagePattern(Msg.files_create_folder, "es", "Crear carpeta"),
+    MessagePattern(Msg.files_create_folder, "uk", "Створити папку"),
+    MessagePattern(Msg.files_delete_many, "be", "Выдаліць з носьбіта выбраныя файлы (@0@)?"),
+    MessagePattern(Msg.files_delete_many, "en", "Delete selected files from storage (@0@)?"),
+    MessagePattern(Msg.files_delete_many, "fr", "Supprimer les fichiers sélectionnés du support (@0@) ?"),
+    MessagePattern(Msg.files_delete_many, "de", "Ausgewählte Dateien vom Speicher löschen (@0@)?"),
+    MessagePattern(Msg.files_delete_many, "kk", "Таңдалған файлдар тасымалдағыштан жойылсын ба (@0@)?"),
+    MessagePattern(Msg.files_delete_many, "ru", "Удалить с носителя выбранные файлы (@0@)?"),
+    MessagePattern(Msg.files_delete_many, "es", "¿Eliminar del dispositivo los archivos seleccionados (@0@)?"),
+    MessagePattern(Msg.files_delete_many, "uk", "Видалити з носія вибрані файли (@0@)?"),
+    MessagePattern(Msg.files_delete_named, "be", "Выдаліць з носьбіта «@0@»?"),
+    MessagePattern(Msg.files_delete_named, "en", "Delete “@0@” from storage?"),
+    MessagePattern(Msg.files_delete_named, "fr", "Supprimer «@0@» du support ?"),
+    MessagePattern(Msg.files_delete_named, "de", "„@0@“ vom Speicher löschen?"),
+)
+
+private fun patterns79() = listOf(
+    MessagePattern(Msg.files_delete_named, "kk", "«@0@» тасымалдағыштан жойылсын ба?"),
+    MessagePattern(Msg.files_delete_named, "ru", "Удалить с носителя «@0@»?"),
+    MessagePattern(Msg.files_delete_named, "es", "¿Eliminar «@0@» del dispositivo?"),
+    MessagePattern(Msg.files_delete_named, "uk", "Видалити з носія «@0@»?"),
+    MessagePattern(Msg.files_destination, "be", "Выберыце тэчку прызначэння"),
+    MessagePattern(Msg.files_destination, "en", "Choose destination folder"),
+    MessagePattern(Msg.files_destination, "fr", "Choisissez le dossier de destination"),
+    MessagePattern(Msg.files_destination, "de", "Zielordner wählen"),
+    MessagePattern(Msg.files_destination, "kk", "Мақсатты қалтаны таңдаңыз"),
+    MessagePattern(Msg.files_destination, "ru", "Выберите папку назначения"),
+    MessagePattern(Msg.files_destination, "es", "Elige la carpeta de destino"),
+    MessagePattern(Msg.files_destination, "uk", "Виберіть папку призначення"),
+    MessagePattern(Msg.files_directory_delete_warning, "be", "Усё змесціва тэчкі будзе выдалена."),
+    MessagePattern(Msg.files_directory_delete_warning, "en", "Everything in this folder will be deleted."),
+    MessagePattern(Msg.files_directory_delete_warning, "fr", "Tout le contenu de ce dossier sera supprimé."),
+    MessagePattern(Msg.files_directory_delete_warning, "de", "Der gesamte Ordnerinhalt wird gelöscht."),
+    MessagePattern(Msg.files_directory_delete_warning, "kk", "Қалтаның барлық мазмұны жойылады."),
+    MessagePattern(Msg.files_directory_delete_warning, "ru", "Будет удалено всё содержимое папки."),
+    MessagePattern(Msg.files_directory_delete_warning, "es", "Se eliminará todo el contenido de la carpeta."),
+    MessagePattern(Msg.files_directory_delete_warning, "uk", "Увесь вміст папки буде видалено."),
+    MessagePattern(Msg.files_dirs, "be", "Тэчкі"),
+    MessagePattern(Msg.files_dirs, "en", "Folders"),
+    MessagePattern(Msg.files_dirs, "fr", "Dossiers"),
+    MessagePattern(Msg.files_dirs, "de", "Ordner"),
+    MessagePattern(Msg.files_dirs, "kk", "Қалталар"),
+    MessagePattern(Msg.files_dirs, "ru", "Папки"),
+    MessagePattern(Msg.files_dirs, "es", "Carpetas"),
+    MessagePattern(Msg.files_dirs, "uk", "Папки"),
+    MessagePattern(Msg.files_empty, "be", "Тут няма музыкі"),
+    MessagePattern(Msg.files_empty, "en", "No music here"),
+    MessagePattern(Msg.files_empty, "fr", "Aucune musique ici"),
+    MessagePattern(Msg.files_empty, "de", "Hier ist keine Musik"),
+    MessagePattern(Msg.files_empty, "kk", "Мұнда музыка жоқ"),
+    MessagePattern(Msg.files_empty, "ru", "Здесь нет музыки"),
+    MessagePattern(Msg.files_empty, "es", "Aquí no hay música"),
+    MessagePattern(Msg.files_empty, "uk", "Тут немає музики"),
+    MessagePattern(Msg.files_issue, "be", "Не ўдалося выканаць аперацыю. Праверце носьбіт і доступ да тэчкі."),
+    MessagePattern(Msg.files_issue, "en", "Operation failed. Check storage and folder access."),
+    MessagePattern(Msg.files_issue, "fr", "Échec de l’opération. Vérifiez le support et l’accès au dossier."),
+    MessagePattern(Msg.files_issue, "de", "Vorgang fehlgeschlagen. Speicher und Ordnerzugriff prüfen."),
+    MessagePattern(Msg.files_issue, "kk", "Әрекет орындалмады. Тасымалдағыш пен қалтаға кіру рұқсатын тексеріңіз."),
+    MessagePattern(Msg.files_issue, "ru", "Операция не удалась. Проверьте подключение носителя и доступ к папке."),
+    MessagePattern(Msg.files_issue, "es", "La operación falló. Comprueba el dispositivo y el acceso a la carpeta."),
+    MessagePattern(Msg.files_issue, "uk", "Не вдалося виконати дію. Перевірте носій і доступ до папки."),
+    MessagePattern(Msg.files_next, "be", "Прайграць наступным"),
+    MessagePattern(Msg.files_next, "en", "Play next"),
+    MessagePattern(Msg.files_next, "fr", "Lire ensuite"),
+    MessagePattern(Msg.files_next, "de", "Als Nächstes abspielen"),
+    MessagePattern(Msg.files_next, "kk", "Келесі ойнату"),
+    MessagePattern(Msg.files_next, "ru", "Играть следующим"),
+    MessagePattern(Msg.files_next, "es", "Reproducir a continuación"),
+    MessagePattern(Msg.files_next, "uk", "Відтворити наступним"),
+    MessagePattern(Msg.files_no_matches, "be", "Супадзенняў няма"),
+    MessagePattern(Msg.files_no_matches, "en", "No matches"),
+    MessagePattern(Msg.files_no_matches, "fr", "Aucun résultat"),
+    MessagePattern(Msg.files_no_matches, "de", "Keine Treffer"),
+    MessagePattern(Msg.files_no_matches, "kk", "Сәйкестік жоқ"),
+    MessagePattern(Msg.files_no_matches, "ru", "Совпадений нет"),
+    MessagePattern(Msg.files_no_matches, "es", "Sin resultados"),
+    MessagePattern(Msg.files_no_matches, "uk", "Збігів немає"),
+    MessagePattern(Msg.files_partial, "be", "Выканана: @0@. Памылкі: @1@"),
+    MessagePattern(Msg.files_partial, "en", "Completed: @0@. Failed: @1@"),
+    MessagePattern(Msg.files_partial, "fr", "Effectué : @0@. Échec : @1@"),
+    MessagePattern(Msg.files_partial, "de", "Erledigt: @0@. Fehlgeschlagen: @1@"),
+    MessagePattern(Msg.files_partial, "kk", "Орындалды: @0@. Орындалмады: @1@"),
+    MessagePattern(Msg.files_partial, "ru", "Выполнено: @0@. Не удалось: @1@"),
+    MessagePattern(Msg.files_partial, "es", "Completado: @0@. Error: @1@"),
+    MessagePattern(Msg.files_partial, "uk", "Виконано: @0@. Не вдалося: @1@"),
+    MessagePattern(Msg.files_play_selected, "be", "Прайграць выбраныя (@0@)"),
+    MessagePattern(Msg.files_play_selected, "en", "Play selected (@0@)"),
+    MessagePattern(Msg.files_play_selected, "fr", "Lire la sélection (@0@)"),
+    MessagePattern(Msg.files_play_selected, "de", "Auswahl abspielen (@0@)"),
+    MessagePattern(Msg.files_play_selected, "kk", "Таңдалғандарды ойнату (@0@)"),
+    MessagePattern(Msg.files_play_selected, "ru", "Играть выбранные (@0@)"),
+    MessagePattern(Msg.files_play_selected, "es", "Reproducir selección (@0@)"),
+    MessagePattern(Msg.files_play_selected, "uk", "Відтворити вибрані (@0@)"),
+    MessagePattern(Msg.files_play_tree, "be", "Прайграць тэчку з падтэчкамі"),
+    MessagePattern(Msg.files_play_tree, "en", "Play folder and subfolders"),
+    MessagePattern(Msg.files_play_tree, "fr", "Lire le dossier et ses sous-dossiers"),
+    MessagePattern(Msg.files_play_tree, "de", "Ordner mit Unterordnern abspielen"),
+)
+
+private fun patterns80() = listOf(
+    MessagePattern(Msg.files_play_tree, "kk", "Қалтаны ішкі қалталарымен ойнату"),
+    MessagePattern(Msg.files_play_tree, "ru", "Играть папку с подпапками"),
+    MessagePattern(Msg.files_play_tree, "es", "Reproducir carpeta y subcarpetas"),
+    MessagePattern(Msg.files_play_tree, "uk", "Відтворити папку з підпапками"),
+    MessagePattern(Msg.files_range, "be", "Выбраць дыяпазон"),
+    MessagePattern(Msg.files_range, "en", "Select range"),
+    MessagePattern(Msg.files_range, "fr", "Sélectionner une plage"),
+    MessagePattern(Msg.files_range, "de", "Bereich auswählen"),
+    MessagePattern(Msg.files_range, "kk", "Аралықты таңдау"),
+    MessagePattern(Msg.files_range, "ru", "Выбрать диапазон"),
+    MessagePattern(Msg.files_range, "es", "Seleccionar rango"),
+    MessagePattern(Msg.files_range, "uk", "Вибрати діапазон"),
+    MessagePattern(Msg.files_range_end, "be", "Выберыце апошні элемент"),
+    MessagePattern(Msg.files_range_end, "en", "Choose the last item"),
+    MessagePattern(Msg.files_range_end, "fr", "Choisissez le dernier élément"),
+    MessagePattern(Msg.files_range_end, "de", "Letzten Eintrag wählen"),
+    MessagePattern(Msg.files_range_end, "kk", "Соңғы элементті таңдаңыз"),
+    MessagePattern(Msg.files_range_end, "ru", "Отметьте конец диапазона"),
+    MessagePattern(Msg.files_range_end, "es", "Elige el último elemento"),
+    MessagePattern(Msg.files_range_end, "uk", "Виберіть останній елемент"),
+    MessagePattern(Msg.files_range_start, "be", "Выберыце першы элемент"),
+    MessagePattern(Msg.files_range_start, "en", "Choose the first item"),
+    MessagePattern(Msg.files_range_start, "fr", "Choisissez le premier élément"),
+    MessagePattern(Msg.files_range_start, "de", "Ersten Eintrag wählen"),
+    MessagePattern(Msg.files_range_start, "kk", "Бірінші элементті таңдаңыз"),
+    MessagePattern(Msg.files_range_start, "ru", "Отметьте начало диапазона"),
+    MessagePattern(Msg.files_range_start, "es", "Elige el primer elemento"),
+    MessagePattern(Msg.files_range_start, "uk", "Виберіть перший елемент"),
+    MessagePattern(Msg.files_search_hint, "be", "Пошук у тэчцы і падтэчках"),
+    MessagePattern(Msg.files_search_hint, "en", "Search this folder and subfolders"),
+    MessagePattern(Msg.files_search_hint, "fr", "Chercher dans le dossier et ses sous-dossiers"),
+    MessagePattern(Msg.files_search_hint, "de", "Ordner und Unterordner durchsuchen"),
+    MessagePattern(Msg.files_search_hint, "kk", "Осы қалта мен ішкі қалталардан іздеу"),
+    MessagePattern(Msg.files_search_hint, "ru", "Найти в этой папке и подпапках"),
+    MessagePattern(Msg.files_search_hint, "es", "Buscar en la carpeta y subcarpetas"),
+    MessagePattern(Msg.files_search_hint, "uk", "Пошук у папці й підпапках"),
+    MessagePattern(Msg.files_select_all, "be", "Выбраць усе (@0@)"),
+    MessagePattern(Msg.files_select_all, "en", "Select all (@0@)"),
+    MessagePattern(Msg.files_select_all, "fr", "Tout sélectionner (@0@)"),
+    MessagePattern(Msg.files_select_all, "de", "Alle auswählen (@0@)"),
+    MessagePattern(Msg.files_select_all, "kk", "Барлығын таңдау (@0@)"),
+    MessagePattern(Msg.files_select_all, "ru", "Выбрать все (@0@)"),
+    MessagePattern(Msg.files_select_all, "es", "Seleccionar todo (@0@)"),
+    MessagePattern(Msg.files_select_all, "uk", "Вибрати всі (@0@)"),
+    MessagePattern(Msg.files_select_matches, "be", "Выбраць знойдзеныя (@0@)"),
+    MessagePattern(Msg.files_select_matches, "en", "Select matches (@0@)"),
+    MessagePattern(Msg.files_select_matches, "fr", "Sélectionner les résultats (@0@)"),
+    MessagePattern(Msg.files_select_matches, "de", "Treffer auswählen (@0@)"),
+    MessagePattern(Msg.files_select_matches, "kk", "Табылғандарды таңдау (@0@)"),
+    MessagePattern(Msg.files_select_matches, "ru", "Выбрать найденные (@0@)"),
+    MessagePattern(Msg.files_select_matches, "es", "Seleccionar resultados (@0@)"),
+    MessagePattern(Msg.files_select_matches, "uk", "Вибрати знайдені (@0@)"),
+    MessagePattern(Msg.files_sort_name, "be", "Імя файла"),
+    MessagePattern(Msg.files_sort_name, "en", "File name"),
+    MessagePattern(Msg.files_sort_name, "fr", "Nom du fichier"),
+    MessagePattern(Msg.files_sort_name, "de", "Dateiname"),
+    MessagePattern(Msg.files_sort_name, "kk", "Файл атауы"),
+    MessagePattern(Msg.files_sort_name, "ru", "Имя файла"),
+    MessagePattern(Msg.files_sort_name, "es", "Nombre de archivo"),
+    MessagePattern(Msg.files_sort_name, "uk", "Ім’я файлу"),
+    MessagePattern(Msg.files_sort_newest, "be", "Спачатку новыя"),
+    MessagePattern(Msg.files_sort_newest, "en", "Newest first"),
+    MessagePattern(Msg.files_sort_newest, "fr", "Les plus récents d’abord"),
+    MessagePattern(Msg.files_sort_newest, "de", "Neueste zuerst"),
+    MessagePattern(Msg.files_sort_newest, "kk", "Алдымен жаңалары"),
+    MessagePattern(Msg.files_sort_newest, "ru", "Сначала новые"),
+    MessagePattern(Msg.files_sort_newest, "es", "Más recientes primero"),
+    MessagePattern(Msg.files_sort_newest, "uk", "Спочатку нові"),
+    MessagePattern(Msg.files_sort_oldest, "be", "Спачатку старыя"),
+    MessagePattern(Msg.files_sort_oldest, "en", "Oldest first"),
+    MessagePattern(Msg.files_sort_oldest, "fr", "Les plus anciens d’abord"),
+    MessagePattern(Msg.files_sort_oldest, "de", "Älteste zuerst"),
+    MessagePattern(Msg.files_sort_oldest, "kk", "Алдымен ескілері"),
+    MessagePattern(Msg.files_sort_oldest, "ru", "Сначала старые"),
+    MessagePattern(Msg.files_sort_oldest, "es", "Más antiguos primero"),
+    MessagePattern(Msg.files_sort_oldest, "uk", "Спочатку старі"),
+    MessagePattern(Msg.files_to_named, "be", "Дадаць у «@0@» (@1@)"),
+    MessagePattern(Msg.files_to_named, "en", "Add to “@0@” (@1@)"),
+    MessagePattern(Msg.files_to_named, "fr", "Ajouter à «@0@» (@1@)"),
+    MessagePattern(Msg.files_to_named, "de", "Zu „@0@“ hinzufügen (@1@)"),
+)
+
+private fun patterns81() = listOf(
+    MessagePattern(Msg.files_to_named, "kk", "«@0@» ішіне қосу (@1@)"),
+    MessagePattern(Msg.files_to_named, "ru", "Добавить в «@0@» (@1@)"),
+    MessagePattern(Msg.files_to_named, "es", "Añadir a «@0@» (@1@)"),
+    MessagePattern(Msg.files_to_named, "uk", "Додати до «@0@» (@1@)"),
+    MessagePattern(Msg.files_unavailable, "be", "Носьбіт адключаны"),
+    MessagePattern(Msg.files_unavailable, "en", "Storage disconnected"),
+    MessagePattern(Msg.files_unavailable, "fr", "Support déconnecté"),
+    MessagePattern(Msg.files_unavailable, "de", "Speicher getrennt"),
+    MessagePattern(Msg.files_unavailable, "kk", "Тасымалдағыш ажыратылды"),
+    MessagePattern(Msg.files_unavailable, "ru", "Носитель отключён"),
+    MessagePattern(Msg.files_unavailable, "es", "Dispositivo desconectado"),
+    MessagePattern(Msg.files_unavailable, "uk", "Носій відключено"),
+    MessagePattern(Msg.folder_another, "be", "Іншая папка"),
+    MessagePattern(Msg.folder_another, "en", "Another folder"),
+    MessagePattern(Msg.folder_another, "fr", "Autre dossier"),
+    MessagePattern(Msg.folder_another, "de", "Anderer Ordner"),
+    MessagePattern(Msg.folder_another, "kk", "Басқа қалта"),
+    MessagePattern(Msg.folder_another, "ru", "Другая папка"),
+    MessagePattern(Msg.folder_another, "es", "Otra carpeta"),
+    MessagePattern(Msg.folder_another, "uk", "Інша папка"),
+    MessagePattern(Msg.folder_connected, "be", "Ужо падключана"),
+    MessagePattern(Msg.folder_connected, "en", "Already connected"),
+    MessagePattern(Msg.folder_connected, "fr", "Déjà connecté"),
+    MessagePattern(Msg.folder_connected, "de", "Bereits verbunden"),
+    MessagePattern(Msg.folder_connected, "kk", "Бұрын қосылған"),
+    MessagePattern(Msg.folder_connected, "ru", "Уже подключена"),
+    MessagePattern(Msg.folder_connected, "es", "Ya conectada"),
+    MessagePattern(Msg.folder_connected, "uk", "Вже підключено"),
+    MessagePattern(Msg.folder_granted, "be", "Дазволеныя папкі"),
+    MessagePattern(Msg.folder_granted, "en", "Authorized folders"),
+    MessagePattern(Msg.folder_granted, "fr", "Dossiers autorisés"),
+    MessagePattern(Msg.folder_granted, "de", "Freigegebene Ordner"),
+    MessagePattern(Msg.folder_granted, "kk", "Рұқсат берілген қалталар"),
+    MessagePattern(Msg.folder_granted, "ru", "Разрешённые папки"),
+    MessagePattern(Msg.folder_granted, "es", "Carpetas autorizadas"),
+    MessagePattern(Msg.folder_granted, "uk", "Дозволені папки"),
+    MessagePattern(Msg.folder_last_export, "be", "Апошняя папка экспарту"),
+    MessagePattern(Msg.folder_last_export, "en", "Last export folder"),
+    MessagePattern(Msg.folder_last_export, "fr", "Dernier dossier d’exportation"),
+    MessagePattern(Msg.folder_last_export, "de", "Letzter Exportordner"),
+    MessagePattern(Msg.folder_last_export, "kk", "Соңғы экспорт қалтасы"),
+    MessagePattern(Msg.folder_last_export, "ru", "Последняя папка экспорта"),
+    MessagePattern(Msg.folder_last_export, "es", "Última carpeta de exportación"),
+    MessagePattern(Msg.folder_last_export, "uk", "Остання папка експорту"),
+    MessagePattern(Msg.library_cached_tracks, "be", "Трэкі ў кэшы"),
+    MessagePattern(Msg.library_cached_tracks, "en", "Cached tracks"),
+    MessagePattern(Msg.library_cached_tracks, "fr", "Titres en cache"),
+    MessagePattern(Msg.library_cached_tracks, "de", "Titel im Cache"),
+    MessagePattern(Msg.library_cached_tracks, "kk", "Кэштегі тректер"),
+    MessagePattern(Msg.library_cached_tracks, "ru", "Треки в кэше"),
+    MessagePattern(Msg.library_cached_tracks, "es", "Canciones en caché"),
+    MessagePattern(Msg.library_cached_tracks, "uk", "Треки в кеші"),
+    MessagePattern(Msg.library_local_files, "be", "Лакальныя файлы"),
+    MessagePattern(Msg.library_local_files, "en", "Local files"),
+    MessagePattern(Msg.library_local_files, "fr", "Fichiers locaux"),
+    MessagePattern(Msg.library_local_files, "de", "Lokale Dateien"),
+    MessagePattern(Msg.library_local_files, "kk", "Жергілікті файлдар"),
+    MessagePattern(Msg.library_local_files, "ru", "Локальные файлы"),
+    MessagePattern(Msg.library_local_files, "es", "Archivos locales"),
+    MessagePattern(Msg.library_local_files, "uk", "Локальні файли"),
+    MessagePattern(Msg.local_list_history, "be", "Апошнія лакальныя спісы"),
+    MessagePattern(Msg.local_list_history, "en", "Recent local lists"),
+    MessagePattern(Msg.local_list_history, "fr", "Listes locales récentes"),
+    MessagePattern(Msg.local_list_history, "de", "Zuletzt gespielte lokale Listen"),
+    MessagePattern(Msg.local_list_history, "kk", "Соңғы жергілікті тізімдер"),
+    MessagePattern(Msg.local_list_history, "ru", "Последние локальные списки"),
+    MessagePattern(Msg.local_list_history, "es", "Listas locales recientes"),
+    MessagePattern(Msg.local_list_history, "uk", "Останні локальні списки"),
+    MessagePattern(Msg.local_list_unavailable, "be", "Трэкі спіса недаступныя. Праверце падключэнне назапашвальніка."),
+    MessagePattern(Msg.local_list_unavailable, "en", "Tracks in this list are unavailable. Check the storage connection."),
+    MessagePattern(Msg.local_list_unavailable, "fr", "Les morceaux de cette liste sont indisponibles. Vérifiez que le support est connecté."),
+    MessagePattern(Msg.local_list_unavailable, "de", "Die Titel dieser Liste sind nicht verfügbar. Prüfe, ob das Laufwerk angeschlossen ist."),
+    MessagePattern(Msg.local_list_unavailable, "kk", "Тізімдегі тректер қолжетімсіз. Жинақтауыштың қосылғанын тексеріңіз."),
+    MessagePattern(Msg.local_list_unavailable, "ru", "Треки списка недоступны. Проверьте подключение накопителя."),
+    MessagePattern(Msg.local_list_unavailable, "es", "Las pistas de esta lista no están disponibles. Comprueba la conexión de la unidad."),
+    MessagePattern(Msg.local_list_unavailable, "uk", "Треки списку недоступні. Перевірте підключення накопичувача."),
+    MessagePattern(Msg.local_pin, "be", "Замацаваць «@0@»"),
+    MessagePattern(Msg.local_pin, "en", "Pin “@0@”"),
+    MessagePattern(Msg.local_pin, "fr", "Épingler « @0@ »"),
+    MessagePattern(Msg.local_pin, "de", "„@0@“ anheften"),
+)
+
+private fun patterns82() = listOf(
+    MessagePattern(Msg.local_pin, "kk", "«@0@» тізімін бекіту"),
+    MessagePattern(Msg.local_pin, "ru", "Закрепить «@0@»"),
+    MessagePattern(Msg.local_pin, "es", "Fijar «@0@»"),
+    MessagePattern(Msg.local_pin, "uk", "Закріпити «@0@»"),
+    MessagePattern(Msg.local_selection_name, "be", "Выбарка · @0@"),
+    MessagePattern(Msg.local_selection_name, "en", "Selection · @0@"),
+    MessagePattern(Msg.local_selection_name, "fr", "Sélection · @0@"),
+    MessagePattern(Msg.local_selection_name, "de", "Auswahl · @0@"),
+    MessagePattern(Msg.local_selection_name, "kk", "Таңдалғандар · @0@"),
+    MessagePattern(Msg.local_selection_name, "ru", "Выборка · @0@"),
+    MessagePattern(Msg.local_selection_name, "es", "Selección · @0@"),
+    MessagePattern(Msg.local_selection_name, "uk", "Вибірка · @0@"),
+    MessagePattern(Msg.local_unpin, "be", "Адмацаваць «@0@»"),
+    MessagePattern(Msg.local_unpin, "en", "Unpin “@0@”"),
+    MessagePattern(Msg.local_unpin, "fr", "Désépingler « @0@ »"),
+    MessagePattern(Msg.local_unpin, "de", "„@0@“ lösen"),
+    MessagePattern(Msg.local_unpin, "kk", "«@0@» тізімін бекітуден шығару"),
+    MessagePattern(Msg.local_unpin, "ru", "Открепить «@0@»"),
+    MessagePattern(Msg.local_unpin, "es", "Desfijar «@0@»"),
+    MessagePattern(Msg.local_unpin, "uk", "Відкріпити «@0@»"),
+    MessagePattern(Msg.playlist_added_order, "be", "Парадак дадання"),
+    MessagePattern(Msg.playlist_added_order, "en", "Order added"),
+    MessagePattern(Msg.playlist_added_order, "fr", "Ordre d’ajout"),
+    MessagePattern(Msg.playlist_added_order, "de", "Hinzugefügte Reihenfolge"),
+    MessagePattern(Msg.playlist_added_order, "kk", "Қосылу реті"),
+    MessagePattern(Msg.playlist_added_order, "ru", "Порядок добавления"),
+    MessagePattern(Msg.playlist_added_order, "es", "Orden de adición"),
+    MessagePattern(Msg.playlist_added_order, "uk", "Порядок додавання"),
+    MessagePattern(Msg.playlist_move_before, "be", "Перад трэкам…"),
+    MessagePattern(Msg.playlist_move_before, "en", "Before track…"),
+    MessagePattern(Msg.playlist_move_before, "fr", "Avant le titre…"),
+    MessagePattern(Msg.playlist_move_before, "de", "Vor Titel…"),
+    MessagePattern(Msg.playlist_move_before, "kk", "Тректің алдына…"),
+    MessagePattern(Msg.playlist_move_before, "ru", "Перед треком…"),
+    MessagePattern(Msg.playlist_move_before, "es", "Antes de la pista…"),
+    MessagePattern(Msg.playlist_move_before, "uk", "Перед треком…"),
+    MessagePattern(Msg.playlist_move_first, "be", "У пачатак"),
+    MessagePattern(Msg.playlist_move_first, "en", "To the beginning"),
+    MessagePattern(Msg.playlist_move_first, "fr", "Au début"),
+    MessagePattern(Msg.playlist_move_first, "de", "An den Anfang"),
+    MessagePattern(Msg.playlist_move_first, "kk", "Басына"),
+    MessagePattern(Msg.playlist_move_first, "ru", "В начало"),
+    MessagePattern(Msg.playlist_move_first, "es", "Al principio"),
+    MessagePattern(Msg.playlist_move_first, "uk", "На початок"),
+    MessagePattern(Msg.playlist_move_last, "be", "У канец"),
+    MessagePattern(Msg.playlist_move_last, "en", "To the end"),
+    MessagePattern(Msg.playlist_move_last, "fr", "À la fin"),
+    MessagePattern(Msg.playlist_move_last, "de", "Ans Ende"),
+    MessagePattern(Msg.playlist_move_last, "kk", "Соңына"),
+    MessagePattern(Msg.playlist_move_last, "ru", "В конец"),
+    MessagePattern(Msg.playlist_move_last, "es", "Al final"),
+    MessagePattern(Msg.playlist_move_last, "uk", "У кінець"),
+    MessagePattern(Msg.playlist_order_action, "be", "Упарадкаваць"),
+    MessagePattern(Msg.playlist_order_action, "en", "Sort playlist"),
+    MessagePattern(Msg.playlist_order_action, "fr", "Trier"),
+    MessagePattern(Msg.playlist_order_action, "de", "Sortieren"),
+    MessagePattern(Msg.playlist_order_action, "kk", "Реттеу"),
+    MessagePattern(Msg.playlist_order_action, "ru", "Упорядочить"),
+    MessagePattern(Msg.playlist_order_action, "es", "Ordenar"),
+    MessagePattern(Msg.playlist_order_action, "uk", "Упорядкувати"),
+    MessagePattern(Msg.playlist_range_end, "be", "Пазначце апошні трэк дыяпазону"),
+    MessagePattern(Msg.playlist_range_end, "en", "Choose the last track in the range"),
+    MessagePattern(Msg.playlist_range_end, "fr", "Sélectionnez le dernier titre de la plage"),
+    MessagePattern(Msg.playlist_range_end, "de", "Letzten Titel des Bereichs wählen"),
+    MessagePattern(Msg.playlist_range_end, "kk", "Аралықтың соңғы трегін таңдаңыз"),
+    MessagePattern(Msg.playlist_range_end, "ru", "Укажите последний трек диапазона"),
+    MessagePattern(Msg.playlist_range_end, "es", "Elige la última pista del intervalo"),
+    MessagePattern(Msg.playlist_range_end, "uk", "Вкажіть останній трек діапазону"),
+    MessagePattern(Msg.playlist_range_start, "be", "Пазначце першы трэк дыяпазону"),
+    MessagePattern(Msg.playlist_range_start, "en", "Choose the first track in the range"),
+    MessagePattern(Msg.playlist_range_start, "fr", "Sélectionnez le premier titre de la plage"),
+    MessagePattern(Msg.playlist_range_start, "de", "Ersten Titel des Bereichs wählen"),
+    MessagePattern(Msg.playlist_range_start, "kk", "Аралықтың бірінші трегін таңдаңыз"),
+    MessagePattern(Msg.playlist_range_start, "ru", "Укажите первый трек диапазона"),
+    MessagePattern(Msg.playlist_range_start, "es", "Elige la primera pista del intervalo"),
+    MessagePattern(Msg.playlist_range_start, "uk", "Вкажіть перший трек діапазону"),
+    MessagePattern(Msg.playlist_remove_selected, "be", "Прыбраць з плэйліста"),
+    MessagePattern(Msg.playlist_remove_selected, "en", "Remove from playlist"),
+    MessagePattern(Msg.playlist_remove_selected, "fr", "Retirer de la playlist"),
+    MessagePattern(Msg.playlist_remove_selected, "de", "Aus Wiedergabeliste entfernen"),
+)
+
+private fun patterns83() = listOf(
+    MessagePattern(Msg.playlist_remove_selected, "kk", "Ойнату тізімінен алып тастау"),
+    MessagePattern(Msg.playlist_remove_selected, "ru", "Убрать из плейлиста"),
+    MessagePattern(Msg.playlist_remove_selected, "es", "Quitar de la lista"),
+    MessagePattern(Msg.playlist_remove_selected, "uk", "Прибрати з плейлиста"),
+    MessagePattern(Msg.playlist_selected_all, "be", "Выбраць паказаныя (@0@)"),
+    MessagePattern(Msg.playlist_selected_all, "en", "Select shown (@0@)"),
+    MessagePattern(Msg.playlist_selected_all, "fr", "Sélectionner les titres affichés (@0@)"),
+    MessagePattern(Msg.playlist_selected_all, "de", "Angezeigte auswählen (@0@)"),
+    MessagePattern(Msg.playlist_selected_all, "kk", "Көрсетілгендерді таңдау (@0@)"),
+    MessagePattern(Msg.playlist_selected_all, "ru", "Выбрать показанные (@0@)"),
+    MessagePattern(Msg.playlist_selected_all, "es", "Seleccionar las visibles (@0@)"),
+    MessagePattern(Msg.playlist_selected_all, "uk", "Вибрати показані (@0@)"),
+    MessagePattern(Msg.playlist_stale_edit, "be", "Спіс змяніўся. Паўтарыце дзеянне."),
+    MessagePattern(Msg.playlist_stale_edit, "en", "The playlist changed. Try again."),
+    MessagePattern(Msg.playlist_stale_edit, "fr", "La liste a changé. Réessayez."),
+    MessagePattern(Msg.playlist_stale_edit, "de", "Die Liste wurde geändert. Versuche es erneut."),
+    MessagePattern(Msg.playlist_stale_edit, "kk", "Тізім өзгерді. Қайталап көріңіз."),
+    MessagePattern(Msg.playlist_stale_edit, "ru", "Список изменился. Повторите действие."),
+    MessagePattern(Msg.playlist_stale_edit, "es", "La lista ha cambiado. Vuelve a intentarlo."),
+    MessagePattern(Msg.playlist_stale_edit, "uk", "Список змінився. Повторіть дію."),
+    MessagePattern(Msg.playlist_undo_order, "be", "Скасаваць перастаноўку"),
+    MessagePattern(Msg.playlist_undo_order, "en", "Undo reorder"),
+    MessagePattern(Msg.playlist_undo_order, "fr", "Annuler le changement d’ordre"),
+    MessagePattern(Msg.playlist_undo_order, "de", "Umordnung rückgängig machen"),
+    MessagePattern(Msg.playlist_undo_order, "kk", "Орын ауыстыруды болдырмау"),
+    MessagePattern(Msg.playlist_undo_order, "ru", "Отменить перестановку"),
+    MessagePattern(Msg.playlist_undo_order, "es", "Deshacer reordenación"),
+    MessagePattern(Msg.playlist_undo_order, "uk", "Скасувати перестановку"),
+    MessagePattern(Msg.radio_next_station, "be", "Наступная станцыя"),
+    MessagePattern(Msg.radio_next_station, "en", "Next station"),
+    MessagePattern(Msg.radio_next_station, "fr", "Station suivante"),
+    MessagePattern(Msg.radio_next_station, "de", "Nächster Sender"),
+    MessagePattern(Msg.radio_next_station, "kk", "Келесі станция"),
+    MessagePattern(Msg.radio_next_station, "ru", "Следующая станция"),
+    MessagePattern(Msg.radio_next_station, "es", "Emisora siguiente"),
+    MessagePattern(Msg.radio_next_station, "uk", "Наступна станція"),
+    MessagePattern(Msg.radio_previous_station, "be", "Папярэдняя станцыя"),
+    MessagePattern(Msg.radio_previous_station, "en", "Previous station"),
+    MessagePattern(Msg.radio_previous_station, "fr", "Station précédente"),
+    MessagePattern(Msg.radio_previous_station, "de", "Vorheriger Sender"),
+    MessagePattern(Msg.radio_previous_station, "kk", "Алдыңғы станция"),
+    MessagePattern(Msg.radio_previous_station, "ru", "Предыдущая станция"),
+    MessagePattern(Msg.radio_previous_station, "es", "Emisora anterior"),
+    MessagePattern(Msg.radio_previous_station, "uk", "Попередня станція"),
 )

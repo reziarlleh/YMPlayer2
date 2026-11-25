@@ -12,8 +12,6 @@ import dev.petrov.ymplayer2.core.Track
 import dev.petrov.ymplayer2.core.Mp3Quality
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import java.io.ByteArrayOutputStream
-import java.io.DataOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.nio.ByteBuffer
@@ -60,7 +58,8 @@ internal class Mp3AudioWriter(private val context: Context) {
         if (parsed.scheme in listOf("https", "http")) extractor.setDataSource(uri, mapOf("User-Agent" to "Yandex-Music-API"))
         else extractor.setDataSource(context, parsed, null)
     }
-    suspend fun write(uri: String, track: Track, index: Int, count: Int, output: OutputStream, quality: Mp3Quality = Mp3Quality.KBPS320) {
+    suspend fun write(uri: String, track: Track, index: Int, count: Int, output: OutputStream,
+        quality: Mp3Quality = Mp3Quality.KBPS320, picture: Mp3Picture? = null) {
         val extractor = MediaExtractor()
         try {
             open(extractor, uri)
@@ -70,7 +69,7 @@ internal class Mp3AudioWriter(private val context: Context) {
             extractor.selectTrack(audio)
             val format = extractor.getTrackFormat(audio)
             if (format.containsKey("crypto-key")) throw IOException("Protected audio")
-            output.write(tags(track, index, count))
+            Mp3Tags.write(output, track, index, count, picture)
             val sameBitrate = format.containsKey(MediaFormat.KEY_BIT_RATE) && format.getInteger(MediaFormat.KEY_BIT_RATE) == quality.kbps * 1000
             if (format.getString(MediaFormat.KEY_MIME) == "audio/mpeg" && sameBitrate) copyMp3(extractor, output)
             else transcode(extractor, format, output, quality.kbps)
@@ -152,15 +151,5 @@ internal class Mp3AudioWriter(private val context: Context) {
         AudioFormat.ENCODING_PCM_FLOAT -> buffer.float.let { if (it.isFinite()) it else 0f }
         AudioFormat.ENCODING_PCM_32BIT -> buffer.int / 2147483648f
         else -> { val a = buffer.get().toInt() and 255; val b = buffer.get().toInt() and 255; val c = buffer.get().toInt(); ((c shl 16) or (b shl 8) or a) / 8388608f }
-    }
-    private fun tags(track: Track, index: Int, count: Int): ByteArray {
-        val frames = ByteArrayOutputStream()
-        for ((id, value) in listOf("TIT2" to track.title, "TPE1" to track.artist, "TALB" to track.album, "TRCK" to "${index + 1}/$count")) {
-            val text = byteArrayOf(1) + value.take(1000).toByteArray(Charsets.UTF_16)
-            val out = DataOutputStream(frames); out.writeBytes(id); out.writeInt(text.size); out.writeShort(0); out.write(text)
-        }
-        val bytes = frames.toByteArray(); val size = bytes.size
-        return byteArrayOf(73, 68, 51, 3, 0, 0, ((size shr 21) and 127).toByte(), ((size shr 14) and 127).toByte(),
-            ((size shr 7) and 127).toByte(), (size and 127).toByte()) + bytes
     }
 }

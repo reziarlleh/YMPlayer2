@@ -108,6 +108,49 @@ class SystemBrowserTest {
         } finally { main { app.playback.stop(); browser.release() }; screen.close(); runBlocking { app.library.forgetFolder(TestMusicProvider.tree.toString()) } }
     }
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
+    @Test fun backgroundServiceSwitchesStationsFromSystemMediaButtons() {
+        val app = context.applicationContext as PlayerApplication
+        context.contentResolver.call(Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
+        val screen = androidx.test.core.app.ActivityScenario.launch(MainActivity::class.java)
+        val browser = MediaBrowser.Builder(context, SessionToken(context, service)).buildAsync().get(20, TimeUnit.SECONDS)
+        val field = dev.petrov.ymplayer2.playback.AndroidRadio::class.java.getDeclaredField("api").apply { isAccessible = true }
+        val original = field.get(app.radio)
+        val audio = android.provider.DocumentsContract.buildDocumentUriUsingTree(TestMusicProvider.tree, "one.wav").toString()
+        val fixture = RadioFixtureApi { audio }
+        val stations = listOf(fixture.one, fixture.two)
+        val lineup = dev.petrov.ymplayer2.core.RadioLineup(dev.petrov.ymplayer2.core.RadioListSource(
+            dev.petrov.ymplayer2.core.RadioListKind.ALL), stations, 0, null)
+        try {
+            awaitState { app.playback.state.value.connected }
+            main { field.set(app.radio, fixture); app.radio.play(stations.first(), lineup = lineup) }
+            awaitState { app.radio.state.value.playing }
+            val notifications = context.getSystemService(android.app.NotificationManager::class.java)
+            fun token() = notifications.activeNotifications.firstNotNullOfOrNull {
+                androidx.core.os.BundleCompat.getParcelable(it.notification.extras, android.app.Notification.EXTRA_MEDIA_SESSION, android.media.session.MediaSession.Token::class.java)
+            }
+            awaitState { token() != null }
+            val controller = main { PlatformController(context, requireNotNull(token())) }
+            screen.moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
+            fun key(code: Int) { main {
+                controller.dispatchMediaButtonEvent(KeyEvent(KeyEvent.ACTION_DOWN, code))
+                controller.dispatchMediaButtonEvent(KeyEvent(KeyEvent.ACTION_UP, code))
+            } }
+            val response = kotlinx.coroutines.CompletableDeferred<Unit>()
+            main { fixture.gate = response }
+            key(KeyEvent.KEYCODE_MEDIA_NEXT)
+            awaitState { app.radio.state.value.buffering && app.radio.state.value.station?.slug == fixture.two.slug }
+            Thread.sleep(2_500)
+            main { response.complete(Unit); fixture.gate = null }
+            awaitState { app.radio.state.value.playing && app.radio.state.value.station?.slug == fixture.two.slug }
+            key(KeyEvent.KEYCODE_MEDIA_PREVIOUS)
+            awaitState { app.radio.state.value.playing && app.radio.state.value.station?.slug == fixture.one.slug }
+            main { browser.stop() }
+            awaitState { !app.radio.state.value.playing }
+        } finally {
+            main { app.radio.release(); field.set(app.radio, original); browser.release() }
+            screen.close()
+        }
+    }
     private val context get() = instrumentation.targetContext
     private val service get() = ComponentName(context, AudioService::class.java)
     private fun <T> main(block: () -> T): T {

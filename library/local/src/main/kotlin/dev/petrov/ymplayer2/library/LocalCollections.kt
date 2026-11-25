@@ -47,6 +47,7 @@ class LocalCollections(context: Context, private val catalog: Catalog, scope: Co
                         is CollectionEdit.AddMany -> change.trackIds
                         is CollectionEdit.CreateMany -> change.trackIds
                         is CollectionEdit.Favorite -> listOfNotNull(change.trackId.takeIf { change.selected })
+                        is CollectionEdit.FavoriteMany -> change.trackIds
                         else -> emptyList()
                     }
                     val known = if (referenceIds.isEmpty()) emptyMap() else if (catalog is IndexedLocalLibrary)
@@ -69,6 +70,26 @@ class LocalCollections(context: Context, private val catalog: Catalog, scope: Co
             val next = state.value.profiles - profileId
             write(next)
             mutable.value = state.value.copy(profiles = next, issue = null)
+        } }
+    }
+    /** Replace old IDs in one transaction across all profiles, including disconnected accounts. */
+    suspend fun remapTracks(replacements: Map<String, Track>) {
+        if (replacements.isEmpty()) return
+        loaded.await()
+        withContext(Dispatchers.IO) { mutex.withLock {
+            val before = state.value
+            check(before.writable)
+            fun remap(references: List<SavedTrack>) = references.map { old ->
+                replacements[old.id]?.saved()?.copy(addedOrder = old.addedOrder) ?: old
+            }.distinctBy(SavedTrack::id)
+            val profiles = before.profiles.mapValues { (_, data) -> data.copy(
+                favorites = remap(data.favorites),
+                playlists = data.playlists.map { it.copy(tracks = remap(it.tracks)) })
+            }
+            if (profiles != before.profiles) {
+                write(profiles)
+                mutable.value = before.copy(profiles = profiles, issue = null)
+            }
         } }
     }
     private fun write(profiles: Map<String, ProfileCollections>) {
@@ -94,10 +115,11 @@ class LocalCollections(context: Context, private val catalog: Catalog, scope: Co
         }
     }
     private fun encodeTracks(tracks: List<SavedTrack>) = JSONArray(tracks.map {
-        JSONObject().put("id", it.id).put("title", it.title).put("artist", it.artist).put("source", it.source.name).put("duration", it.duration).put("tint", it.tint)
+        JSONObject().put("id", it.id).put("title", it.title).put("artist", it.artist).put("source", it.source.name).put("duration", it.duration).put("tint", it.tint).put("addedOrder", it.addedOrder)
     })
-    private fun decodeTracks(array: JSONArray) = array.objects().map {
-        SavedTrack(it.getString("id"), it.getString("title"), it.getString("artist"), Source.valueOf(it.getString("source")), it.getInt("duration"), it.getInt("tint"))
+    private fun decodeTracks(array: JSONArray) = array.objects().mapIndexed { index, it ->
+        SavedTrack(it.getString("id"), it.getString("title"), it.getString("artist"), Source.valueOf(it.getString("source")), it.getInt("duration"), it.getInt("tint"),
+            it.optLong("addedOrder", index.toLong() + 1))
     }.distinctBy { it.id }
     private fun JSONArray.objects() = (0 until length()).map(::getJSONObject)
 }

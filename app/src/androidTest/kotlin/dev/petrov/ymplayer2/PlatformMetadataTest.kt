@@ -4,6 +4,7 @@ package dev.petrov.ymplayer2
 import android.media.MediaMetadata
 import android.media.session.MediaController
 import android.media.session.PlaybackState
+import android.view.KeyEvent
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.media3.session.MediaSession
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -39,6 +40,39 @@ class PlatformMetadataTest {
     }
     @After fun stop() {
         compose.runOnIdle { if (::session.isInitialized) session.release(); f.radio.release(); f.player.stop() }
+    }
+    @Test fun frameworkMediaKeysTuneRadioAcrossPageWhileBrowsingAndKeepMusicQueue() {
+        val tracks = f.library.testTracks.take(2)
+        val stations = (0..20).map { f.radioApi.one.copy(slug = "station-$it", name = "FM $it") }
+        compose.runOnIdle {
+            f.player.playQueue(tracks.map { it.id })
+            f.radioApi.catalogRows = stations
+            f.radioCatalog.open()
+        }
+        waitFor { f.player.state.value.playing && f.radioCatalog.state.value.stations.size == 20 }
+        compose.runOnIdle {
+            f.player.seek(9)
+            f.radioCatalog.play(stations[19])
+            f.radioCatalog.search("другой список")
+        }
+        fun has(action: Long) = ((controller.playbackState?.actions ?: 0L) and action) != 0L
+        fun key(code: Int) {
+            assertTrue(controller.dispatchMediaButtonEvent(KeyEvent(KeyEvent.ACTION_DOWN, code)))
+            controller.dispatchMediaButtonEvent(KeyEvent(KeyEvent.ACTION_UP, code))
+        }
+        waitFor { f.radio.state.value.playing && has(PlaybackState.ACTION_SKIP_TO_NEXT) && has(PlaybackState.ACTION_SKIP_TO_PREVIOUS) }
+        key(KeyEvent.KEYCODE_MEDIA_NEXT)
+        waitFor { controller.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) == "FM 20" && f.radio.state.value.playing &&
+            !has(PlaybackState.ACTION_SKIP_TO_NEXT) && has(PlaybackState.ACTION_SKIP_TO_PREVIOUS) }
+        key(KeyEvent.KEYCODE_MEDIA_PREVIOUS)
+        waitFor { controller.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) == "FM 19" && f.radio.state.value.playing }
+        controller.transportControls.skipToPrevious()
+        waitFor { f.radio.state.value.station?.slug == "station-18" }
+        compose.runOnIdle { f.player.toggle() }
+        waitFor { f.player.state.value.playing && f.player.state.value.current?.id == tracks.first().id && f.player.state.value.positionSeconds >= 9 }
+        assertFalse(f.radio.state.value.ownsOutput)
+        controller.transportControls.skipToNext()
+        waitFor { f.player.state.value.current?.id == tracks[1].id }
     }
     @Test fun musicPublishesDisplayFieldsAndArtThenClearsOldArtworkOnNext() {
         val cover = f.library.testTracks.single { it.artworkUri != null }

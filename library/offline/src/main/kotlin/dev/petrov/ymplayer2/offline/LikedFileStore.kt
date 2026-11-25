@@ -19,8 +19,7 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption.*
 import java.security.MessageDigest
 
-/** Permanent, account-scoped files. Audio, genuine artwork and checksums are independent.
- * Port of 1.x cacheLiked/CacheFileIntegrity/CachedMediaValidator; never writes a logo as a cover. */
+/** Permanent account-scoped files. MP3 stores its cover as ID3 artwork. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class LikedFileStore(private val context: Context, private val diagnostic: (OperationDiagnostic) -> Unit = {}) : OfflineStore {
     private val automatic = context.applicationContext.getSharedPreferences("offline-downloads", Context.MODE_PRIVATE)
@@ -155,9 +154,14 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
                     val prefix = hash(key(track.id))
                     val audio = files["$prefix.audio"]?.takeIf { it.isFile && it.bytes in 1..(128L * 1024 * 1024) && "$prefix.audio.invalid" !in files }
                     val cover = files["$prefix.cover"]?.takeIf { it.isFile && it.bytes in 1..(8L * 1024 * 1024) && "$prefix.cover.invalid" !in files }
-                    audio?.let { track.copy(offline = true, available = true, uri = it.node.uri.toString(),
-                        artworkUri = cover?.node?.uri?.toString(), sizeBytes = it.bytes + (cover?.bytes ?: 0),
-                        artworkRevision = cover?.let { image -> "${image.bytes}:${image.modified}:${record.metadata.optString("coverRevision")}" }) }
+                    audio?.let {
+                        val artwork = cover?.node?.uri?.toString() ?: if (record.metadata.optBoolean("embeddedArtwork"))
+                            OfflineArtworkProvider.coverUri(context, it.node.uri) else null
+                        val revision = if (artwork != null)
+                            "${cover?.bytes ?: it.bytes}:${cover?.modified ?: it.modified}:${record.metadata.optString("coverRevision")}" else null
+                        track.copy(offline = true, available = true, uri = it.node.uri.toString(),
+                            artworkUri = artwork, sizeBytes = it.bytes + (cover?.bytes ?: 0), artworkRevision = revision)
+                    }
                 } catch (e: CancellationException) { throw e }
                 catch (_: Exception) { null }
             }.sortedWith(compareBy(Track::artist, Track::title))
@@ -187,11 +191,12 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             }
             val audio = completed(".audio", metadata?.optLong("audioBytes") ?: 0, 128L * 1024 * 1024)
             if (!audio) missing += id
-            val cover = completed(".cover", metadata?.optLong("coverBytes") ?: 0, 8L * 1024 * 1024)
+            val embedded = audio && metadata?.optBoolean("embeddedArtwork") == true
+            val cover = embedded || completed(".cover", metadata?.optLong("coverBytes") ?: 0, MAX_COVER_BYTES.toLong())
             val original = metadata?.let { runCatching { decode(it) }.getOrNull() }
             val coverSource = metadata?.optString("coverSource")?.takeIf { it.isNotBlank() && it != "null" } ?: original?.artworkUri
             val sameCover = track.artworkUri == null || track.artworkUri == coverSource
-            val noCover = track.artworkUri == null && snapshot.files[prefix + ".cover"] == null
+            val noCover = track.artworkUri == null && !embedded && snapshot.files[prefix + ".cover"] == null
             if (audio && (cover && sameCover || noCover) && original != null &&
                 encode(original).toString() == encode(track).toString()) {
                 cached[id]?.let { ready[id] = OfflineItem(it, false, false, noCover) }
@@ -231,6 +236,8 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             val encoded = encode(track)
             for (field in listOf("audioBytes", "coverBytes")) if (original?.has(field) == true) encoded.put(field, original.getLong(field))
             if (original?.has("coverRevision") == true) encoded.put("coverRevision", original.getString("coverRevision"))
+            var embedded = original?.optBoolean("embeddedArtwork") == true
+            if (embedded) encoded.put("embeddedArtwork", true)
             encoded.put("coverSource", originalCover ?: JSONObject.NULL)
             suspend fun saveMetadata() {
                 check(allowed)
@@ -247,6 +254,8 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
             if (originalTrack == null || encode(originalTrack).toString() != encode(track).toString()) saveMetadata()
             var audioFailed = false; var coverFailed = false; var noCover = false
             var audioReady = false; var coverReady = false; var coverReplaced = false
+            var coverSource = originalCover
+            var inspectEmbedded = verifyExisting
             fun completed(file: StorageNode, expected: Long, limit: Long): Boolean {
                 if (!file.isFile) return false
                 val bytes = file.length()
@@ -258,29 +267,41 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
                 if (!audioReady) audioReady = valid(audio, track.durationSeconds * 1000L, true, reuseProof = false)
                 if (!audioReady) {
                     if (!track.available) throw MusicException(MusicFailure.UNAVAILABLE)
+                    if (embedded) {
+                        try { preserveEmbeddedCover(audio, cover, allowed) }
+                        catch (e: CancellationException) { throw e }
+                        catch (e: Revoked) { throw e }
+                        catch (e: Exception) { reportFailure(e) }
+                        embedded = false
+                        encoded.remove("embeddedArtwork")
+                        saveMetadata()
+                    }
                     retryOfflineTransfer(transfer) {
                         check(allowed)
                         download(resolve(), audio, 128L * 1024 * 1024, track.durationSeconds * 1000L, true, allowed, transfer)
                     }
                     audioReady = true
+                    inspectEmbedded = true
                 }
             } catch (e: CancellationException) { throw e }
             catch (e: Revoked) { throw e }
             catch (e: OfflineException) { throw e }
             catch (e: Exception) { reportFailure(e); audioFailed = true }
+            if (audioReady && inspectEmbedded)
+                embedded = embeddedPicture(context, audio.uri) != null
             try {
                 val sourceChanged = track.artworkUri != null && track.artworkUri != originalCover
-                coverReady = !sourceChanged && !verifyExisting && completed(cover, original?.optLong("coverBytes") ?: 0, 8L * 1024 * 1024)
+                coverReady = !sourceChanged && !verifyExisting && completed(cover, original?.optLong("coverBytes") ?: 0, MAX_COVER_BYTES.toLong())
                 if (!coverReady && !sourceChanged) coverReady = valid(cover, 0, false, reuseProof = false)
-                if (!coverReady) {
-                    val uri = track.artworkUri
+                if (!coverReady && (!embedded || sourceChanged)) {
+                    val uri = track.artworkUri ?: originalCover
                     if (uri == null) noCover = true
                     else {
                         retryOfflineTransfer(transfer) {
                             check(allowed)
-                            download(uri, cover, 8L * 1024 * 1024, 0, false, allowed, transfer)
+                            download(uri, cover, MAX_COVER_BYTES.toLong(), 0, false, allowed, transfer)
                         }
-                        coverReady = true; coverReplaced = true
+                        coverReady = true; coverReplaced = true; coverSource = uri
                     }
                 }
             } catch (e: CancellationException) { throw e }
@@ -291,17 +312,42 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
                 // An unavailable replacement must not hide an intact older picture.
                 coverReady = valid(cover, 0, false, reuseProof = false)
             }
+            var embeddedNow = false
+            if (audioReady && coverReady) {
+                try {
+                    embeddedNow = embedCover(audio, cover, track, allowed)
+                    if (embeddedNow) embedded = true
+                } catch (e: CancellationException) { throw e }
+                catch (e: Revoked) { throw e }
+                catch (e: Exception) { reportFailure(e) }
+            }
             if (audioReady) encoded.put("audioBytes", audio.length())
-            if (coverReady) encoded.put("coverBytes", cover.length())
+            if (embedded) encoded.put("embeddedArtwork", true) else encoded.remove("embeddedArtwork")
+            val externalCover = cover.takeIf { coverReady && !embeddedNow }
+            if (externalCover != null) encoded.put("coverBytes", externalCover.length()) else encoded.remove("coverBytes")
             // A repair may restore identical bytes with an unchanged provider mtime.
             // Its new revision must still retry an earlier failed UI image read.
-            if (coverReplaced) encoded.put("coverRevision", java.util.UUID.randomUUID().toString())
-            encoded.put("coverSource", (if (coverReplaced) track.artworkUri else originalCover) ?: JSONObject.NULL)
+            if (coverReplaced || embeddedNow) encoded.put("coverRevision", java.util.UUID.randomUUID().toString())
+            encoded.put("coverSource", coverSource ?: JSONObject.NULL)
             if (original?.toString() != encoded.toString()) saveMetadata()
+            if (embeddedNow) lock.withLock {
+                check(allowed)
+                // Keep the old picture until both the MP3 and its metadata are committed.
+                runCatching {
+                    if (cover.delete()) {
+                        checksum(cover).delete()
+                        invalidMarker(cover).delete()
+                        invalidate(cover)
+                        catalogGeneration.incrementAndGet()
+                    }
+                }
+            }
             val result = if (audioReady && audio.isFile && audio.length() > 0) track.copy(offline = true, available = true,
-                uri = audio.uri.toString(), artworkUri = cover.takeIf { coverReady }?.uri?.toString(),
-                sizeBytes = audio.length() + if (coverReady) cover.length() else 0L,
-                artworkRevision = if (coverReady) coverRevision(cover, encoded.optString("coverRevision")) else null) else null
+                uri = audio.uri.toString(),
+                artworkUri = externalCover?.uri?.toString() ?: if (embedded) OfflineArtworkProvider.coverUri(context, audio.uri) else null,
+                sizeBytes = audio.length() + (externalCover?.length() ?: 0L),
+                artworkRevision = if (embedded || externalCover != null)
+                    coverRevision(externalCover ?: audio, encoded.optString("coverRevision")) else null) else null
             lock.withLock { check(allowed); OfflineItem(result, audioFailed, coverFailed, noCover) }
         } catch (_: Revoked) { OfflineItem(null, false, false, false) }
     } }
@@ -357,9 +403,12 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
         val audio = part(root, track.id, ".audio")
         if (!valid(audio, track.durationSeconds * 1000L, true, reuseProof)) return null
         val cover = part(root, track.id, ".cover").takeIf { valid(it, 0, false, reuseProof) }
+        val embedded = OfflineArtworkProvider.isCoverUri(context, track.artworkUri) &&
+            embeddedPicture(context, audio.uri) != null
         return track.copy(offline = true, available = true, uri = audio.uri.toString(),
-            artworkUri = cover?.let { it.uri.toString() }, sizeBytes = audio.length() + (cover?.length() ?: 0),
-            artworkRevision = cover?.let { track.artworkRevision ?: coverRevision(it) })
+            artworkUri = cover?.uri?.toString() ?: if (embedded) OfflineArtworkProvider.coverUri(context, audio.uri) else null,
+            sizeBytes = audio.length() + (cover?.length() ?: 0),
+            artworkRevision = if (cover != null || embedded) track.artworkRevision ?: coverRevision(cover ?: audio) else null)
     }
     private fun coverRevision(file: StorageNode, revision: String? = null): String {
         val verified = revision?.takeIf { it.isNotBlank() } ?: synchronized(proofLock) { proofs[proofKey(file)]?.checksum }
@@ -431,20 +480,57 @@ class LikedFileStore(private val context: Context, private val diagnostic: (Oper
                 }
             }
             if (bytes <= 0 || length >= 0 && length != bytes || !validate(temp, duration, audio)) throw IOException("Incomplete offline media")
-            val digest = fileHash(temp)
-            currentCoroutineContext().ensureActive()
-            lock.withLock {
-                check(allowed)
-                // A crash between these renames leaves an unknown checksum, requiring packet/image validation.
-                catalogGeneration.incrementAndGet()
-                invalidate(target)
-                checksum(target).let { if (it.exists()) it.delete() }
-                target.replace(temp)
-                write(checksum(target), digest.toByteArray())
-                invalidMarker(target).let { if (it.exists()) it.delete() }
-                proof(target).takeIf { it.modified > 0 }?.let { verified -> synchronized(proofLock) { proofs[proofKey(target)] = verified } }
-            }
+            publish(temp, target, allowed)
         } finally { runCatching { source.close() }; temp.delete() }
+    }
+    private suspend fun preserveEmbeddedCover(audio: StorageNode, cover: StorageNode, allowed: () -> Boolean) {
+        if (valid(cover, 0, false, reuseProof = false)) return
+        val picture = embeddedPicture(context, audio.uri)?.let(::mp3Picture) ?: return
+        check(allowed)
+        val temp = StorageNode.temporary(cover.parentFile!!, "artwork-")
+        try {
+            temp.writeBytes(picture.bytes)
+            if (!validCover(context, temp)) throw IOException("Invalid recovered MP3 artwork")
+            publish(temp, cover, allowed)
+        } finally { temp.delete() }
+    }
+    private suspend fun embedCover(audio: StorageNode, cover: StorageNode, track: Track, allowed: () -> Boolean): Boolean {
+        val extractor = MediaExtractor()
+        val mp3 = try {
+            extractor.setDataSource(context, audio.uri, null)
+            (0 until extractor.trackCount).any { extractor.getTrackFormat(it).getString(MediaFormat.KEY_MIME) == "audio/mpeg" }
+        } finally { extractor.release() }
+        if (!mp3) return false
+        val picture = cover.inputStream().use { mp3Picture(it.readCoverBytes()) } ?: throw IOException("Invalid MP3 artwork")
+        if (embeddedPicture(context, audio.uri)?.contentEquals(picture.bytes) == true) return true
+        val directory = audio.parentFile!!
+        if (directory.usableSpace < audio.length() + picture.bytes.size + 16L * 1024 * 1024) throw IOException("Not enough space for MP3 artwork")
+        val temp = StorageNode.temporary(directory, "artwork-")
+        try {
+            check(allowed)
+            audio.inputStream().buffered().use { input ->
+                temp.outputStream().buffered().use { output -> Mp3Tags.embed(input, output, track, picture) }
+            }
+            if (temp.length() > 128L * 1024 * 1024 || embeddedPicture(context, temp.uri)?.contentEquals(picture.bytes) != true ||
+                !validate(temp, track.durationSeconds * 1000L, true)) throw IOException("Invalid MP3 after writing artwork")
+            publish(temp, audio, allowed)
+            return true
+        } finally { temp.delete() }
+    }
+    private suspend fun publish(temp: StorageNode, target: StorageNode, allowed: () -> Boolean) {
+        val digest = fileHash(temp)
+        currentCoroutineContext().ensureActive()
+        lock.withLock {
+            check(allowed)
+            // A crash between these renames leaves an unknown checksum, requiring validation.
+            catalogGeneration.incrementAndGet()
+            invalidate(target)
+            checksum(target).let { if (it.exists() && !it.delete()) throw IOException("Cannot replace cache checksum") }
+            target.replace(temp)
+            write(checksum(target), digest.toByteArray())
+            invalidMarker(target).let { if (it.exists()) it.delete() }
+            proof(target).takeIf { it.modified > 0 }?.let { verified -> synchronized(proofLock) { proofs[proofKey(target)] = verified } }
+        }
     }
     private suspend fun fileHash(file: StorageNode): String {
         val digest = MessageDigest.getInstance("SHA-256")

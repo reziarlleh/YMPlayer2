@@ -1,10 +1,32 @@
 package dev.petrov.ymplayer2.core
 
+import java.util.UUID
+
 enum class PlaybackSource { DEVICE, MY_WAVE, OFFLINE, LOCAL_FAVORITES, YANDEX_LIKES, LIST, OBJECT_WAVE }
+
+/** Stable identity is independent of the visible playlist or folder name. */
+data class LocalListTarget(val key: String, val title: String = "", val folderPath: String = "") {
+    val playlistId: String? get() = key.takeIf { it.startsWith("playlist:") }?.removePrefix("playlist:")
+    val selection: Boolean get() = key.startsWith("selection:")
+
+    companion object {
+        val favorites = LocalListTarget("favorites")
+        fun playlist(id: String, name: String) = LocalListTarget("playlist:$id", name)
+        fun folder(entry: MediaFileEntry) = LocalListTarget("folder:${entry.fileKey}", entry.name, entry.path)
+        fun selection(ids: List<String>, name: String): LocalListTarget {
+            val fingerprint = UUID.nameUUIDFromBytes(ids.joinToString("\u0000").toByteArray(Charsets.UTF_8))
+            return LocalListTarget("selection:$fingerprint", name)
+        }
+    }
+}
 
 /** A label and a radio seed, not a second queue or a copy of the remote collection. */
 data class PlaybackOrigin(val source: PlaybackSource = PlaybackSource.DEVICE, val title: String = "",
-    val wave: WaveRequest? = null)
+    val wave: WaveRequest? = null, val localList: LocalListTarget? = null)
+
+fun LocalListTarget.origin() = PlaybackOrigin(
+    if (this == LocalListTarget.favorites) PlaybackSource.LOCAL_FAVORITES else PlaybackSource.LIST,
+    title, localList = this)
 
 fun MusicEntity.waveRequest(): WaveRequest? {
     if (!id.matches(Regex("[0-9]+"))) return null

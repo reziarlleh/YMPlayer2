@@ -14,8 +14,10 @@ class RadioFixtureApi(private val uri: () -> String) : RadioApi {
     val likes = mutableMapOf<String, Set<String>>()
     var catalogRows: List<RadioStation>? = null
     val catalogCursors = mutableListOf<String?>()
+    var onNextPage: (suspend () -> Unit)? = null
     override suspend fun stations(region: String?, cursor: String?): RadioPage {
         catalogCursors += cursor
+        if (cursor != null) onNextPage?.invoke()
         val rows = catalogRows ?: return RadioPage(listOf(one, two))
         val offset = cursor?.toInt() ?: 0
         val next = (offset + 20).takeIf { it < rows.size }

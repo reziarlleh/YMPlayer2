@@ -254,20 +254,20 @@ internal fun sessionPlayer(player: Player, playback: AndroidPlayback,
         val commands = super.getAvailableCommands().buildUpon()
             .add(Player.COMMAND_SEEK_TO_NEXT).add(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
             .add(Player.COMMAND_SEEK_TO_PREVIOUS).add(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
-        if (!playback.state.value.canSkipNext) commands.remove(Player.COMMAND_SEEK_TO_NEXT).remove(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
-        if (!playback.state.value.canSkipPrevious) commands.remove(Player.COMMAND_SEEK_TO_PREVIOUS).remove(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
+        val radio = playback.radio?.state?.value.takeIf { playback.radioMode }
+        if (!(radio?.canNext ?: playback.state.value.canSkipNext)) commands.remove(Player.COMMAND_SEEK_TO_NEXT).remove(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+        if (!(radio?.canPrevious ?: playback.state.value.canSkipPrevious)) commands.remove(Player.COMMAND_SEEK_TO_PREVIOUS).remove(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
         if (playback.radioMode || !playback.state.value.supportsQueueOrdering) commands.remove(Player.COMMAND_SET_REPEAT_MODE).remove(Player.COMMAND_SET_SHUFFLE_MODE)
         if (playback.radioMode) commands.remove(Player.COMMAND_SEEK_TO_MEDIA_ITEM).remove(Player.COMMAND_SEEK_IN_CURRENT_MEDIA_ITEM)
             .remove(Player.COMMAND_SEEK_TO_DEFAULT_POSITION).remove(Player.COMMAND_SEEK_BACK).remove(Player.COMMAND_SEEK_FORWARD)
-            .remove(Player.COMMAND_SEEK_TO_NEXT).remove(Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
-            .remove(Player.COMMAND_SEEK_TO_PREVIOUS).remove(Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
         return commands.build()
     }
     override fun isCommandAvailable(command: Int) = availableCommands.contains(command)
-    override fun seekToNext() { if (!playback.radioMode) playback.skip(1) }
-    override fun seekToNextMediaItem() { if (!playback.radioMode) playback.skip(1) }
-    override fun seekToPrevious() { if (!playback.radioMode) playback.skip(-1) }
-    override fun seekToPreviousMediaItem() { if (!playback.radioMode) playback.skip(-1) }
+    private fun skip(direction: Int) { if (playback.radioMode) playback.radio?.skip(direction) else playback.skip(direction) }
+    override fun seekToNext() = skip(1)
+    override fun seekToNextMediaItem() = skip(1)
+    override fun seekToPrevious() = skip(-1)
+    override fun seekToPreviousMediaItem() = skip(-1)
     override fun play() { observe(SessionTransportCommand.PLAY); playRequested() }
     private fun playRequested() {
         if (selectedSource == null && playback.radioMode) { playback.radio?.play(); return }

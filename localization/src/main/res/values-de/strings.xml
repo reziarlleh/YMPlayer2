@@ -174,7 +174,6 @@
     <string name="msg_3fbf9e4ea1c1" formatted="false">"Vorheriger Titel"</string>
     <string name="msg_407f871778d3" formatted="false">"Zurücksetzen"</string>
     <string name="msg_414209446572" formatted="false">"Titel entfernen"</string>
-    <string name="msg_414a326c7fbe" formatted="false">"Mein Mix · wird geladen…"</string>
     <string name="msg_417875482e57" formatted="false">"Playlist bearbeiten"</string>
     <string name="msg_4195b215e9f0" formatted="false">"Nach Downloads exportieren"</string>
     <string name="msg_422f550c9cff" formatted="false">"Hauptprofil"</string>
@@ -461,7 +460,7 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="msg_aed87524dfde" formatted="false">"Protokoll wird geladen…"</string>
     <string name="msg_af45ec8c56b7" formatted="false">"Verschieben"</string>
     <string name="msg_af72c5eb8791" formatted="false">"Öffne die Seitenleiste auf K4811 mit einem kurzen Wischen von der Mitte des linken oder rechten Randes oder der Mitte des unteren Randes. Der unsichtbare Gestenbereich belegt nur einen kleinen Teil des Randes."</string>
-    <string name="msg_af9d1711a669" formatted="false">"Wähle einen Ordner im Systemdialog. Deine Musik bleibt an ihrem Speicherort; die App erhält nur Lesezugriff."</string>
+    <string name="msg_af9d1711a669" formatted="false">"Wähle einen Ordner mit Musik. Deine Dateien bleiben an ihrem Speicherort."</string>
     <string name="msg_b011fc656a0f" formatted="false">"Zu Lieblingsalben hinzufügen"</string>
     <string name="msg_b095f9e901e7" formatted="false">"Die Playlist wurde bereits gelöscht"</string>
     <string name="msg_b0acd0c9bfb1" formatted="false">"Wieder empfehlen"</string>
@@ -791,5 +790,56 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="profile_start_on_description" formatted="false">"Die Wiedergabe bei jedem Öffnen der App fortsetzen."</string>
     <string name="search_top" formatted="false">"Top"</string>
     <string name="search_genre_wave" formatted="false">"Mein Mix nach Genre"</string>
+    <string name="files_actions" formatted="false">"Aktionen"</string>
+    <string name="files_append" formatted="false">"Ans Ende der Warteschlange"</string>
+    <string name="files_copy" formatted="false">"Kopieren"</string>
+    <string name="files_create_folder" formatted="false">"Ordner erstellen"</string>
+    <string name="files_delete_many" formatted="false">"Ausgewählte Dateien vom Speicher löschen (@0@)?"</string>
+    <string name="files_delete_named" formatted="false">"„@0@“ vom Speicher löschen?"</string>
+    <string name="files_destination" formatted="false">"Zielordner wählen"</string>
+    <string name="files_directory_delete_warning" formatted="false">"Der gesamte Ordnerinhalt wird gelöscht."</string>
+    <string name="files_dirs" formatted="false">"Ordner"</string>
+    <string name="files_empty" formatted="false">"Hier ist keine Musik"</string>
+    <string name="files_issue" formatted="false">"Vorgang fehlgeschlagen. Speicher und Ordnerzugriff prüfen."</string>
+    <string name="files_next" formatted="false">"Als Nächstes abspielen"</string>
+    <string name="files_no_matches" formatted="false">"Keine Treffer"</string>
+    <string name="files_partial" formatted="false">"Erledigt: @0@. Fehlgeschlagen: @1@"</string>
+    <string name="files_play_selected" formatted="false">"Auswahl abspielen (@0@)"</string>
+    <string name="files_play_tree" formatted="false">"Ordner mit Unterordnern abspielen"</string>
+    <string name="files_range" formatted="false">"Bereich auswählen"</string>
+    <string name="files_range_end" formatted="false">"Letzten Eintrag wählen"</string>
+    <string name="files_range_start" formatted="false">"Ersten Eintrag wählen"</string>
+    <string name="files_search_hint" formatted="false">"Ordner und Unterordner durchsuchen"</string>
+    <string name="files_select_all" formatted="false">"Alle auswählen (@0@)"</string>
+    <string name="files_select_matches" formatted="false">"Treffer auswählen (@0@)"</string>
+    <string name="files_sort_name" formatted="false">"Dateiname"</string>
+    <string name="files_sort_newest" formatted="false">"Neueste zuerst"</string>
+    <string name="files_sort_oldest" formatted="false">"Älteste zuerst"</string>
+    <string name="files_to_named" formatted="false">"Zu „@0@“ hinzufügen (@1@)"</string>
+    <string name="files_unavailable" formatted="false">"Speicher getrennt"</string>
+    <string name="folder_another" formatted="false">"Anderer Ordner"</string>
+    <string name="folder_connected" formatted="false">"Bereits verbunden"</string>
+    <string name="folder_granted" formatted="false">"Freigegebene Ordner"</string>
+    <string name="folder_last_export" formatted="false">"Letzter Exportordner"</string>
+    <string name="library_cached_tracks" formatted="false">"Titel im Cache"</string>
+    <string name="library_local_files" formatted="false">"Lokale Dateien"</string>
+    <string name="local_list_history" formatted="false">"Zuletzt gespielte lokale Listen"</string>
+    <string name="local_list_unavailable" formatted="false">"Die Titel dieser Liste sind nicht verfügbar. Prüfe, ob das Laufwerk angeschlossen ist."</string>
+    <string name="local_pin" formatted="false">"„@0@“ anheften"</string>
+    <string name="local_selection_name" formatted="false">"Auswahl · @0@"</string>
+    <string name="local_unpin" formatted="false">"„@0@“ lösen"</string>
+    <string name="playlist_added_order" formatted="false">"Hinzugefügte Reihenfolge"</string>
+    <string name="playlist_move_before" formatted="false">"Vor Titel…"</string>
+    <string name="playlist_move_first" formatted="false">"An den Anfang"</string>
+    <string name="playlist_move_last" formatted="false">"Ans Ende"</string>
+    <string name="playlist_order_action" formatted="false">"Sortieren"</string>
+    <string name="playlist_range_end" formatted="false">"Letzten Titel des Bereichs wählen"</string>
+    <string name="playlist_range_start" formatted="false">"Ersten Titel des Bereichs wählen"</string>
+    <string name="playlist_remove_selected" formatted="false">"Aus Wiedergabeliste entfernen"</string>
+    <string name="playlist_selected_all" formatted="false">"Angezeigte auswählen (@0@)"</string>
+    <string name="playlist_stale_edit" formatted="false">"Die Liste wurde geändert. Versuche es erneut."</string>
+    <string name="playlist_undo_order" formatted="false">"Umordnung rückgängig machen"</string>
+    <string name="radio_next_station" formatted="false">"Nächster Sender"</string>
+    <string name="radio_previous_station" formatted="false">"Vorheriger Sender"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

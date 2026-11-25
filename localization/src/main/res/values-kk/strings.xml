@@ -174,7 +174,6 @@
     <string name="msg_3fbf9e4ea1c1" formatted="false">"Алдыңғы трек"</string>
     <string name="msg_407f871778d3" formatted="false">"Қалпына келтіру"</string>
     <string name="msg_414209446572" formatted="false">"Тректі алып тастау"</string>
-    <string name="msg_414a326c7fbe" formatted="false">"Менің толқыным · жүктелуде…"</string>
     <string name="msg_417875482e57" formatted="false">"Плейлистті өңдеу"</string>
     <string name="msg_4195b215e9f0" formatted="false">"Downloads қалтасына экспорттау"</string>
     <string name="msg_422f550c9cff" formatted="false">"Негізгі"</string>
@@ -461,7 +460,7 @@
     <string name="msg_aed87524dfde" formatted="false">"Журнал жүктелуде…"</string>
     <string name="msg_af45ec8c56b7" formatted="false">"Орнын ауыстыру"</string>
     <string name="msg_af72c5eb8791" formatted="false">"K4811 жүйесінде панельді сол не оң жақ шеттің ортасынан немесе төменгі шеттің ортасынан қысқа сырғытумен ашыңыз. Қимыл аймағы көрінбейді және шеттің шағын бөлігін ғана қамтиды."</string>
-    <string name="msg_af9d1711a669" formatted="false">"Жүйелік терезеде қалтаны таңдаңыз. Музыка өз орнында қалады, қолданба тек оқу рұқсатын алады."</string>
+    <string name="msg_af9d1711a669" formatted="false">"Музыка бар қалтаны таңдаңыз. Файлдар өз орнында қалады."</string>
     <string name="msg_b011fc656a0f" formatted="false">"Сүйікті альбомдарға қосу"</string>
     <string name="msg_b095f9e901e7" formatted="false">"Плейлист бұрын жойылған"</string>
     <string name="msg_b0acd0c9bfb1" formatted="false">"Қайта ұсынуға рұқсат беру"</string>
@@ -791,5 +790,56 @@
     <string name="profile_start_on_description" formatted="false">"Қолданба ашылған сайын ойнатуды жалғастыру."</string>
     <string name="search_top" formatted="false">"Үздік нәтижелер"</string>
     <string name="search_genre_wave" formatted="false">"Жанр бойынша Менің толқыным"</string>
+    <string name="files_actions" formatted="false">"Әрекеттер"</string>
+    <string name="files_append" formatted="false">"Кезек соңына қосу"</string>
+    <string name="files_copy" formatted="false">"Көшіру"</string>
+    <string name="files_create_folder" formatted="false">"Қалта жасау"</string>
+    <string name="files_delete_many" formatted="false">"Таңдалған файлдар тасымалдағыштан жойылсын ба (@0@)?"</string>
+    <string name="files_delete_named" formatted="false">"«@0@» тасымалдағыштан жойылсын ба?"</string>
+    <string name="files_destination" formatted="false">"Мақсатты қалтаны таңдаңыз"</string>
+    <string name="files_directory_delete_warning" formatted="false">"Қалтаның барлық мазмұны жойылады."</string>
+    <string name="files_dirs" formatted="false">"Қалталар"</string>
+    <string name="files_empty" formatted="false">"Мұнда музыка жоқ"</string>
+    <string name="files_issue" formatted="false">"Әрекет орындалмады. Тасымалдағыш пен қалтаға кіру рұқсатын тексеріңіз."</string>
+    <string name="files_next" formatted="false">"Келесі ойнату"</string>
+    <string name="files_no_matches" formatted="false">"Сәйкестік жоқ"</string>
+    <string name="files_partial" formatted="false">"Орындалды: @0@. Орындалмады: @1@"</string>
+    <string name="files_play_selected" formatted="false">"Таңдалғандарды ойнату (@0@)"</string>
+    <string name="files_play_tree" formatted="false">"Қалтаны ішкі қалталарымен ойнату"</string>
+    <string name="files_range" formatted="false">"Аралықты таңдау"</string>
+    <string name="files_range_end" formatted="false">"Соңғы элементті таңдаңыз"</string>
+    <string name="files_range_start" formatted="false">"Бірінші элементті таңдаңыз"</string>
+    <string name="files_search_hint" formatted="false">"Осы қалта мен ішкі қалталардан іздеу"</string>
+    <string name="files_select_all" formatted="false">"Барлығын таңдау (@0@)"</string>
+    <string name="files_select_matches" formatted="false">"Табылғандарды таңдау (@0@)"</string>
+    <string name="files_sort_name" formatted="false">"Файл атауы"</string>
+    <string name="files_sort_newest" formatted="false">"Алдымен жаңалары"</string>
+    <string name="files_sort_oldest" formatted="false">"Алдымен ескілері"</string>
+    <string name="files_to_named" formatted="false">"«@0@» ішіне қосу (@1@)"</string>
+    <string name="files_unavailable" formatted="false">"Тасымалдағыш ажыратылды"</string>
+    <string name="folder_another" formatted="false">"Басқа қалта"</string>
+    <string name="folder_connected" formatted="false">"Бұрын қосылған"</string>
+    <string name="folder_granted" formatted="false">"Рұқсат берілген қалталар"</string>
+    <string name="folder_last_export" formatted="false">"Соңғы экспорт қалтасы"</string>
+    <string name="library_cached_tracks" formatted="false">"Кэштегі тректер"</string>
+    <string name="library_local_files" formatted="false">"Жергілікті файлдар"</string>
+    <string name="local_list_history" formatted="false">"Соңғы жергілікті тізімдер"</string>
+    <string name="local_list_unavailable" formatted="false">"Тізімдегі тректер қолжетімсіз. Жинақтауыштың қосылғанын тексеріңіз."</string>
+    <string name="local_pin" formatted="false">"«@0@» тізімін бекіту"</string>
+    <string name="local_selection_name" formatted="false">"Таңдалғандар · @0@"</string>
+    <string name="local_unpin" formatted="false">"«@0@» тізімін бекітуден шығару"</string>
+    <string name="playlist_added_order" formatted="false">"Қосылу реті"</string>
+    <string name="playlist_move_before" formatted="false">"Тректің алдына…"</string>
+    <string name="playlist_move_first" formatted="false">"Басына"</string>
+    <string name="playlist_move_last" formatted="false">"Соңына"</string>
+    <string name="playlist_order_action" formatted="false">"Реттеу"</string>
+    <string name="playlist_range_end" formatted="false">"Аралықтың соңғы трегін таңдаңыз"</string>
+    <string name="playlist_range_start" formatted="false">"Аралықтың бірінші трегін таңдаңыз"</string>
+    <string name="playlist_remove_selected" formatted="false">"Ойнату тізімінен алып тастау"</string>
+    <string name="playlist_selected_all" formatted="false">"Көрсетілгендерді таңдау (@0@)"</string>
+    <string name="playlist_stale_edit" formatted="false">"Тізім өзгерді. Қайталап көріңіз."</string>
+    <string name="playlist_undo_order" formatted="false">"Орын ауыстыруды болдырмау"</string>
+    <string name="radio_next_station" formatted="false">"Келесі станция"</string>
+    <string name="radio_previous_station" formatted="false">"Алдыңғы станция"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>

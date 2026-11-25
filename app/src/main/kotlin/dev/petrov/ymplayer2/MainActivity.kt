@@ -21,6 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -196,11 +197,51 @@ class MainActivity : ComponentActivity() {
             }
             val exportPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
                 if (uri != null) try {
-                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    rememberExportFolderAccess(uri)
                     startTransfer(FileTransferService.EXPORT, uri.toString())
                 } catch (_: Exception) { graph.audioExporter.report("Не удалось получить доступ к выбранной папке.") }
             }
+            val openExportFolder: () -> Unit = {
+                try { exportPicker.launch(null) }
+                catch (_: ActivityNotFoundException) {
+                    graph.audioExporter.report("Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.")
+                }
+            }
+            val newLibraryFolder: () -> Unit = {
+                if (android.os.Build.VERSION.SDK_INT <= 29) folderMethods = true else openSystemFolder()
+            }
+            var savedFolders by remember { mutableStateOf<List<AllowedFolder>>(emptyList()) }
+            var choosingExport by remember { mutableStateOf(false) }
+            var folderLookup by remember { mutableStateOf<Job?>(null) }
+            val chooseFolder: (Boolean) -> Unit = { export ->
+                folderLookup?.cancel()
+                val roots = graph.library.state.value.roots.mapTo(hashSetOf()) { it.uri }
+                val request = graph.audioExporter.state.value.request
+                val recent = if (export) graph.audioExporter.lastDestination() else null
+                folderLookup = lifecycleScope.launch {
+                    val choices = withContext(Dispatchers.IO) { allowedFolders(export, roots, recent) }
+                    if (!export || request != null && graph.audioExporter.state.value.request == request) {
+                        choosingExport = export
+                        savedFolders = choices
+                        if (choices.isEmpty()) {
+                            if (export) openExportFolder() else newLibraryFolder()
+                        }
+                    }
+                }
+            }
+            if (savedFolders.isNotEmpty()) dev.petrov.ymplayer2.designsystem.PrismTheme(appearance.read(), skinState.active) {
+                AllowedFolderDialog(savedFolders, select = { folder ->
+                    savedFolders = emptyList()
+                    if (choosingExport) startTransfer(FileTransferService.EXPORT, folder) else model.addFolder(folder, source)
+                }, another = {
+                    savedFolders = emptyList()
+                    if (choosingExport) openExportFolder() else newLibraryFolder()
+                }, dismiss = { savedFolders = emptyList() })
+            }
             key(activeProfile.profileId) { ShellApp(model, BuildConfig.VERSION_NAME, skin = skinState.active, skins = graph.skins,
+                mediaFiles = graph.mediaFiles,
+                initialCloudLibrary = graph.navigation.getBoolean("library-online:${activeProfile.profileId}", graph.navigation.getBoolean("online", false)),
+                saveCloudLibrary = { graph.navigation.edit().putBoolean("library-online:${activeProfile.profileId}", it).apply() },
                 playbackStart = graph.playbackStart,
                 initialTheme = appearance.read(), saveTheme = appearance::save,
                 initialRoute = graph.shellRoute(),
@@ -215,7 +256,7 @@ class MainActivity : ComponentActivity() {
                 startActivity(Intent(this, ClipActivity::class.java).putExtra(ClipActivity.EXTRA_PLAY, true))
             }, addFolder = {
                 source = it; pickerIssue = null
-                if (android.os.Build.VERSION.SDK_INT <= 29) folderMethods = true else openSystemFolder()
+                chooseFolder(false)
             }, cacheLocation = graph.cacheLocation, exporter = graph.audioExporter,
                 pickCacheFolder = {
                     try {
@@ -227,10 +268,7 @@ class MainActivity : ComponentActivity() {
                     catch (_: ActivityNotFoundException) { graph.cacheLocation.report("Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.") }
                 }, resetCacheFolder = { startTransfer(FileTransferService.MOVE, null) },
                 confirmCacheFolder = { startTransfer(FileTransferService.CONNECT, it) },
-                pickExportFolder = {
-                    try { exportPicker.launch(null) }
-                    catch (_: ActivityNotFoundException) { graph.audioExporter.report("Не найден системный выбор папки. Установите DocumentsUI или совместимый файловый менеджер.") }
-                }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
+                pickExportFolder = { chooseFolder(true) }, folderIssue = pickerIssue, onExit = ::finish, equalizer = equalizer::open, syncOffline = {
                 try { androidx.core.content.ContextCompat.startForegroundService(this, android.content.Intent(this, OfflineSyncService::class.java)) }
                 catch (_: Exception) { graph.offline.report(tr(Msg.msg_91cf8019c9e4)) }
             }, auditOffline = {

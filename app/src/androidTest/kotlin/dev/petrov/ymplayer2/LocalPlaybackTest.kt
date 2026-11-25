@@ -89,7 +89,9 @@ class LocalPlaybackTest {
     @Test fun historyRecordsAudiblePlaybackAndOpensFromLibraryWithConfirmedClear() {
         runBlocking { graph.history.clear(localProfile) }
         val track = library.testTracks.first()
-        compose.runOnIdle { player.playQueue(listOf(track.id)); player.toggle() }
+        compose.runOnIdle { player.clearQueue() }
+        waitFor { player.state.value.queueCount == 0 }
+        compose.runOnIdle { player.enqueue(track.id) }
         waitFor { player.state.value.current?.id == track.id && !player.state.value.playing }
         assertEquals(0, runBlocking { graph.history.page(localProfile).total })
         compose.runOnIdle { player.toggle() }
@@ -98,6 +100,7 @@ class LocalPlaybackTest {
         val entry = runBlocking { graph.history.page(localProfile).items.single() }
         assertEquals(track.id, entry.track.id); assertNull(entry.track.uri)
         compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("library_more").performClick()
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
         compose.onNodeWithTag("open_history").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
         compose.onNodeWithTag("open_history").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
@@ -110,7 +113,7 @@ class LocalPlaybackTest {
         compose.onNodeWithTag("history_empty").assertIsDisplayed()
         assertEquals(2, library.testTracks.size)
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
-        compose.onNodeWithTag("open_history").assertIsDisplayed()
+        compose.onNodeWithTag("library_more").assertIsDisplayed()
     }
 
     @Test fun recentlyAddedUsesSafIndexAndRemoteNavigationWithoutRescanReordering() {
@@ -119,6 +122,7 @@ class LocalPlaybackTest {
         runBlocking { library.refresh() }
         assertEquals(first, runBlocking { library.pageRecentTracks().items.map { it.id } })
         compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("library_more").performClick()
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
         compose.onNodeWithTag("open_recent").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
         compose.onNodeWithTag("open_recent").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
@@ -131,7 +135,7 @@ class LocalPlaybackTest {
         compose.onNodeWithTag("recent_LOCAL").performClick()
         compose.onNodeWithTag("track_${first.first()}").assertIsDisplayed()
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
-        compose.onNodeWithTag("open_recent").assertIsDisplayed()
+        compose.onNodeWithTag("library_more").assertIsDisplayed()
     }
 
     @Test fun recentlyAddedLoadsNextPageAndRetainsDisconnectedUsbRows() {
@@ -140,6 +144,7 @@ class LocalPlaybackTest {
         val rows = runBlocking { library.pageRecentTracks(limit = 100).items }
         assertEquals(83, rows.size)
         compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("library_more").performClick()
         compose.onNodeWithTag("open_recent").performClick()
         waitFor { compose.onAllNodesWithTag("track_${rows.first().id}").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("recent_list").performScrollToNode(hasTestTag("recent_more"))
@@ -188,7 +193,7 @@ class LocalPlaybackTest {
             compose.onNodeWithTag(tag).performClick()
         }
         try {
-            compose.onNodeWithTag("nav_library").performClick()
+            compose.onNodeWithTag("nav_search").performClick()
             action("bulk_start")
             action("select_${first.id}")
             action("catalog_more")
@@ -226,6 +231,7 @@ class LocalPlaybackTest {
         val ids = runBlocking { library.pageRecentTracks().items.map { it.id } }
         val name = "Recent-batch-${System.nanoTime()}"
         compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("library_more").performClick()
         compose.onNodeWithTag("open_recent").performClick()
         compose.onNodeWithTag("bulk_start").performClick()
         for (id in ids) {
@@ -246,7 +252,7 @@ class LocalPlaybackTest {
     }
 
     @Test fun bulkSelectionResetsOnFilterProfileSectionAndBack() {
-        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("nav_search").performClick()
         fun action(tag: String) {
             compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag(tag))
             compose.onNodeWithTag(tag).performClick()
@@ -263,9 +269,9 @@ class LocalPlaybackTest {
         waitFor { player.state.value.profileId == roadProfile }
         action("bulk_start")
         compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
-        compose.onNodeWithTag("nav_search").performClick()
-        action("bulk_start")
-        compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("bulk_start").performClick()
+        compose.onNodeWithTag("files_play_selected").assertIsNotEnabled()
     }
 
     @Test fun unsupportedAiffIsExcludedEvenWithAudioMimeAndWavExtensionFallbackRemains() = runBlocking {
@@ -911,7 +917,7 @@ class LocalPlaybackTest {
         compose.onNodeWithTag("queue_clear").performClick()
         waitFor { player.state.value.queue.isEmpty() }
         assertTrue(player.state.value.queue.isEmpty())
-        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("nav_search").performClick()
         compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("enqueue_$one"))
         compose.onNodeWithTag("enqueue_$one").performClick()
         waitFor { player.state.value.queue.map { it.id } == listOf(one) }

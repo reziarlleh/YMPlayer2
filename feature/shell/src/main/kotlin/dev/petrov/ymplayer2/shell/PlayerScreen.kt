@@ -28,13 +28,10 @@ import dev.petrov.ymplayer2.designsystem.*
 import dev.petrov.ymplayer2.designsystem.skin.*
 import kotlinx.coroutines.launch
 
-/** The third shortcut is a UI slot; its assignment may later come from a user-selected list. */
-internal data class PlayerListShortcut(val label: String, val enabled: Boolean, val selected: Boolean, val play: () -> Unit)
-
 /** Only artwork is flexible. Transport and actions never live in a scroll container. */
 @Composable internal fun PlayerScreen(state: PlaybackState, player: PlaybackController, wide: Boolean, short: Boolean, queue: () -> Unit, demo: Boolean = true, folders: () -> Unit = {},
     taste: MusicTaste? = null, signIn: () -> Unit = {}, artist: (ArtistRef) -> Unit = {}, equalizer: (Boolean) -> Unit = {}, playlists: CloudPlaylists? = null, collections: UserCollections? = null, offline: OfflineMusic? = null,
-    listShortcut: PlayerListShortcut? = null, accountAction: ((AccountActionKind) -> Unit)? = null) {
+    accountAction: ((AccountActionKind) -> Unit)? = null) {
     var details by remember(state.current?.id, state.profileId) { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
     var issue by remember { mutableStateOf(false) }
@@ -42,7 +39,6 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
     val myWaveActive = !sourcePending && state.wave && state.origin.source == PlaybackSource.MY_WAVE
     var configureWave by remember(state.profileId, myWaveActive) { mutableStateOf(false) }
     val saved = collections?.state?.collectAsStateWithLifecycle()?.value
-    val favorites = saved?.profile(state.profileId)?.favorites.orEmpty()
     val cached = offline?.state?.collectAsStateWithLifecycle()?.value
     val sourceLabel = when (state.pendingSource ?: state.origin.source) {
         PlaybackSource.DEVICE -> tr(Msg.player_source_device)
@@ -50,7 +46,7 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
         PlaybackSource.OFFLINE -> tr(Msg.player_source_offline)
         PlaybackSource.LOCAL_FAVORITES -> tr(Msg.player_source_favorites)
         PlaybackSource.YANDEX_LIKES -> tr(Msg.msg_840370e3fad2)
-        PlaybackSource.LIST -> state.origin.title.ifBlank { tr(Msg.player_source_list) }
+        PlaybackSource.LIST -> state.origin.localList?.let { localListLabel(it) } ?: state.origin.title.ifBlank { tr(Msg.player_source_list) }
         PlaybackSource.OBJECT_WAVE -> tr(Msg.wave_source_title, state.origin.title)
     }
     val waveSettings = player.waveSettings
@@ -66,10 +62,6 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
         text = { Text(message ?: if (state.waveLoading) tr(Msg.msg_c989e98d6470) else tr(Msg.msg_2f4f45e427e6)) },
         confirmButton = { TextButton({ issue = false }) { Text(tr(Msg.msg_a7a4033657e8)) } })
     val account = taste?.state?.collectAsStateWithLifecycle()?.value
-    val userList = listShortcut ?: PlayerListShortcut(tr(Msg.player_source_favorites), favorites.isNotEmpty() && saved?.ready == true,
-        state.origin.source == PlaybackSource.LOCAL_FAVORITES) {
-        player.playList(favorites.map(SavedTrack::id), origin = PlaybackOrigin(PlaybackSource.LOCAL_FAVORITES))
-    }
     val toolbar: @Composable () -> Unit = {
         Column(Modifier.fillMaxWidth()) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -81,7 +73,7 @@ internal data class PlayerListShortcut(val label: String, val enabled: Boolean, 
                         cached?.enabled == true, "player_source_offline") {
                         if (state.profileId == UserProfiles.LOCAL_PROFILE_ID) accountAction?.invoke(AccountActionKind.OFFLINE_PLAY) ?: signIn() else player.playOffline()
                     }
-                    SourceShortcut(UiIcon.PLAYLIST, userList.label, !sourcePending && userList.selected, userList.enabled, "player_source_list", userList.play)
+                    LocalListsShortcut(state, saved, player::resumeLocalList, player::pinLocalList)
                     if (myWaveActive && waveSettings != null) ActionIcon(UiIcon.MORE, tr(Msg.wave_settings_title),
                         { if (account?.signedIn == true) configureWave = true else signIn() }, Modifier.testTag("my_wave_settings"))
                     Spacer(Modifier.weight(1f))

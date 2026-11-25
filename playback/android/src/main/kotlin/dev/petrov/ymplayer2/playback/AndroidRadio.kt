@@ -8,6 +8,7 @@ import dev.petrov.ymplayer2.core.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import org.json.JSONArray
 import org.json.JSONObject
 
 /** Borrows AudioService's engine. Never creates a second player, service, token store or audio queue. */
@@ -25,6 +26,10 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
     private var work: Job? = null
     private var polling: Job? = null
     private var retry: Job? = null
+    private var pageWork: Job? = null
+    private var lineup: RadioLineup? = null
+    private var savedLineup: RadioLineup? = null
+    private var stationWithoutSavedList = false
     private var retryCount = 0
     private var wantsPlay = false
     private var pendingPlay = false
@@ -65,20 +70,96 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
         release()
         profileLoaded = true
         val saved = runCatching { JSONObject(prefs.getString("station:$profile", "")!!) }.getOrNull()
-        val station = saved?.let { runCatching { RadioStation(it.getString("slug"), it.getString("name"),
-            it.optString("logo").takeIf(String::isNotBlank), it.optString("color").takeIf(String::isNotBlank),
-            it.optString("stream").takeIf(String::isNotBlank), it.optString("region").takeIf(String::isNotBlank)) }.getOrNull() }
-        mutable.value = RadioPlaybackState(profile, station)
+        val station = saved?.let { runCatching { it.station() }.getOrNull() }
+        lineup = runCatching {
+            val data = JSONObject(prefs.getString("lineup:$profile", null) ?: return@runCatching null)
+            val rows = data.getJSONArray("stations")
+            val stations = (0 until rows.length()).map { rows.getJSONObject(it).station() }
+            val index = saved?.optInt("index", -1) ?: -1
+            if (station == null || stations.getOrNull(index)?.slug != station.slug) return@runCatching null
+            RadioLineup(RadioListSource(RadioListKind.valueOf(data.getString("kind")), data.optString("value")),
+                stations, index, data.optString("cursor").takeIf(String::isNotBlank))
+        }.getOrNull()
+        savedLineup = lineup
+        stationWithoutSavedList = station != null && lineup == null
+        region = lineup?.source?.region
+        mutable.value = RadioPlaybackState(profile, station, canPrevious = lineup?.canPrevious == true, canNext = lineup?.canNext == true)
     }
-    override fun play(station: RadioStation?, region: String?) {
+    override fun play(station: RadioStation?, region: String?, lineup: RadioLineup?) {
         val selected = station ?: return
+        if (lineup != null || selected.slug != state.value.station?.slug) stationWithoutSavedList = false
+        pageWork?.cancel(); pageWork = null
         work?.cancel(); polling?.cancel(); retry?.cancel(); generation++
-        this.region = region; retryCount = 0; wantsPlay = true
+        this.lineup = lineup ?: this.lineup?.takeIf { selected.slug == state.value.station?.slug &&
+            (selected.streamSlug == null || selected.streamSlug == state.value.station?.streamSlug) }
+        this.region = this.lineup?.source?.region ?: region
+        retryCount = 0; wantsPlay = true
         music.yieldToRadio()
-        mutable.value = RadioPlaybackState(state.value.profileId, selected, ownsOutput = true, buffering = true)
-        saveStation(selected)
+        select(selected, buffering = true)
         launchState.write(state.value.profileId, PlaybackOutput.RADIO, true)
         if (engine == null) { pendingPlay = true; music.connect() } else resolve()
+    }
+    private fun select(station: RadioStation, buffering: Boolean) {
+        mutable.value = RadioPlaybackState(state.value.profileId, station, ownsOutput = true, buffering = buffering,
+            canPrevious = lineup?.canPrevious == true, canNext = lineup?.canNext == true)
+        saveStation(station)
+        music.radioCommandsChanged()
+    }
+    override fun attachRestoredList(lineup: RadioLineup) {
+        if (!stationWithoutSavedList || this.lineup != null) return
+        val station = state.value.station ?: return
+        if (lineup.stations.getOrNull(lineup.index)?.slug != station.slug) return
+        this.lineup = lineup
+        stationWithoutSavedList = false
+        region = lineup.source.region
+        mutable.value = state.value.copy(canPrevious = lineup.canPrevious, canNext = lineup.canNext)
+        saveStation(station)
+        music.radioCommandsChanged()
+    }
+
+    override fun skip(direction: Int) {
+        val current = lineup ?: return
+        if (!state.value.ownsOutput || direction == 0) return
+        val index = current.index + direction.compareTo(0)
+        if (index in current.stations.indices) {
+            pageWork?.cancel(); pageWork = null
+            tune(current.copy(index = index))
+            return
+        }
+        val cursor = current.cursor ?: return
+        if (direction < 0 || pageWork?.isActive == true) return
+        val ticket = generation
+        val profile = state.value.profileId
+        pageWork = scope.launch {
+            try {
+                val page = current.source.page(api, profile, cursor)
+                if (ticket != generation || lineup !== current) return@launch
+                val extended = current.append(page)
+                if (index in extended.stations.indices) tune(extended.copy(index = index))
+                else {
+                    lineup = extended
+                    mutable.value = state.value.copy(canNext = false, listIssue = null)
+                    state.value.station?.let(::saveStation)
+                    music.radioCommandsChanged()
+                }
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) {
+                if (ticket == generation && lineup === current) {
+                    diagnostic(diagnosticFailure(DiagnosticOperation.RADIO_STATIONS, e))
+                    mutable.value = state.value.copy(listIssue = e.radioIssue())
+                }
+            }
+        }
+    }
+    private fun tune(next: RadioLineup) {
+        val station = next.stations[next.index]
+        if (wantsPlay) play(station, next.source.region, next)
+        else {
+            halt(persist = true)
+            lineup = next
+            region = next.source.region
+            select(station, buffering = false)
+        }
     }
     private fun resolve() {
         val selected = state.value.station ?: return
@@ -143,6 +224,7 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
     private fun halt(persist: Boolean) {
         if (persist && state.value.ownsOutput) launchState.write(state.value.profileId, PlaybackOutput.RADIO, false)
         generation++; wantsPlay = false; pendingPlay = false
+        pageWork?.cancel(); pageWork = null
         work?.cancel(); polling?.cancel(); retry?.cancel(); work = null; polling = null; retry = null
         if (state.value.ownsOutput) engine?.let { it.stop(); it.clearMediaItems() }
         mutable.value = state.value.copy(playing = false, buffering = false, reconnecting = false, issue = null, onAir = RadioOnAir())
@@ -152,7 +234,7 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
     fun restoreOnLaunch(profile: String, playing: Boolean) {
         switchProfile(profile)
         val station = state.value.station ?: return
-        if (playing) play(station, station.regionName) else {
+        if (playing) play(station) else {
             music.yieldToRadio()
             mutable.value = state.value.copy(ownsOutput = true)
         }
@@ -168,8 +250,21 @@ class AndroidRadio(private val context: Context, private val music: AndroidPlayb
             .setArtworkUri(station?.logoUri?.let(Uri::parse)).build()
     }
     private fun saveStation(station: RadioStation) {
-        val data = JSONObject().put("slug", station.slug).put("name", station.name).put("logo", station.logoUri.orEmpty())
-            .put("color", station.logoColor.orEmpty()).put("stream", station.streamSlug.orEmpty()).put("region", station.regionName.orEmpty())
-        prefs.edit().putString("station:${state.value.profileId}", data.toString()).apply()
+        val profile = state.value.profileId
+        val list = lineup
+        val edit = prefs.edit().putString("station:$profile", station.json().put("index", list?.index).toString())
+        if (list?.stations !== savedLineup?.stations || list?.source != savedLineup?.source || list?.cursor != savedLineup?.cursor) {
+            if (list == null) edit.remove("lineup:$profile")
+            else edit.putString("lineup:$profile", JSONObject().put("kind", list.source.kind.name).put("value", list.source.value)
+                .put("cursor", list.cursor).put("stations", JSONArray(list.stations.map { it.json() })).toString())
+        }
+        edit.apply()
+        savedLineup = list
     }
 }
+
+private fun RadioStation.json() = JSONObject().put("slug", slug).put("name", name).put("logo", logoUri)
+    .put("color", logoColor).put("stream", streamSlug).put("region", regionName)
+private fun JSONObject.station() = RadioStation(getString("slug"), getString("name"),
+    optString("logo").takeIf(String::isNotBlank), optString("color").takeIf(String::isNotBlank),
+    optString("stream").takeIf(String::isNotBlank), optString("region").takeIf(String::isNotBlank))

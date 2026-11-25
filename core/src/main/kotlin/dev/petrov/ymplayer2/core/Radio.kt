@@ -32,11 +32,14 @@ interface RadioApi {
 data class RadioPlaybackState(val profileId: String = "", val station: RadioStation? = null,
     val onAir: RadioOnAir = RadioOnAir(), val ownsOutput: Boolean = false,
     val playing: Boolean = false, val buffering: Boolean = false, val reconnecting: Boolean = false,
-    val issue: RadioIssue? = null)
+    val issue: RadioIssue? = null, val canPrevious: Boolean = false, val canNext: Boolean = false,
+    val listIssue: RadioIssue? = null)
 interface RadioAudio {
     val state: StateFlow<RadioPlaybackState>
     fun switchProfile(profile: String)
-    fun play(station: RadioStation? = state.value.station, region: String? = null)
+    fun play(station: RadioStation? = state.value.station, region: String? = null, lineup: RadioLineup? = null)
+    fun skip(direction: Int)
+    fun attachRestoredList(lineup: RadioLineup)
     fun stop()
 }
 enum class RadioTab { COLLECTION, CITIES, GENRES, ALL }
@@ -70,6 +73,7 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
     private var genresLoaded = false
     private var detailJob: Job? = null
     private var detailGeneration = 0L
+    private var detailLineup: RadioLineup? = null
     private val likeJobs = mutableMapOf<String, Job>()
     init { scope.launch {
         accounts.state.map { Triple(it.profileId, it.phase == AuthPhase.SIGNED_IN, it.account?.id) }
@@ -135,11 +139,16 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
     fun refresh() { loadList(); refreshCollection(); if (state.value.tab in setOf(RadioTab.CITIES, RadioTab.GENRES)) loadOptions(state.value.tab, refresh = true) }
     fun more() { if (!state.value.busy && state.value.hasNext && state.value.issue == null) loadList(append = true) }
     fun retryMore() { if (!state.value.busy && state.value.hasNext) loadList(append = true) }
-    fun openStation(station: RadioStation) {
+    fun openStation(station: RadioStation, fromFavourites: Boolean = false, fromPlayer: Boolean = false) {
+        detailLineup = if (fromPlayer) null else state.value.lineup(station, fromFavourites)
+        loadDetail(station)
+    }
+    fun retryDetail() { state.value.detail?.let(::loadDetail) }
+    private fun loadDetail(station: RadioStation) {
         val ticket = ++detailGeneration
         detailJob?.cancel()
         val profile = state.value.profileId
-        val region = region(state.value)
+        val region = detailLineup?.source?.region
         mutable.value = state.value.copy(detail = station, detailBusy = true, detailIssue = null)
         detailJob = scope.launch {
             try {
@@ -150,8 +159,7 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
             catch (e: Exception) { if (ticket == detailGeneration && profile == state.value.profileId) mutable.value = state.value.copy(detailBusy = false, detailIssue = e.radioIssue()) }
         }
     }
-    fun closeStation() { detailGeneration++; detailJob?.cancel(); mutable.value = state.value.copy(detail = null, detailBusy = false, detailIssue = null) }
-    private fun region(s: RadioCatalogState) = s.filter?.slug?.takeIf { s.tab == RadioTab.CITIES }
+    fun closeStation() { detailGeneration++; detailJob?.cancel(); detailLineup = null; mutable.value = state.value.copy(detail = null, detailBusy = false, detailIssue = null) }
     private fun loadList(append: Boolean = false, debounce: Boolean = false) {
         val ticket = ++searchGeneration
         listJob?.cancel()
@@ -162,17 +170,15 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
         listJob = scope.launch {
             try {
                 if (debounce) delay(350)
-                val page = when {
-                    request.query.isNotBlank() -> api.search(request.query.trim(), null, if (append) request.cursor else null)
-                    request.tab == RadioTab.CITIES && request.filter != null -> api.city(request.filter.slug, if (append) request.cursor else null)
-                    request.tab == RadioTab.GENRES && request.filter != null -> api.genre(request.filter.slug, null, if (append) request.cursor else null)
-                    else -> api.stations(region(request), if (append) request.cursor else null)
-                }
+                val page = request.listSource().page(api, request.profileId, if (append) request.cursor else null)
                 if (ticket == searchGeneration) {
                     val rows = ((if (append) request.stations else emptyList()) + page.stations).distinctBy { "${it.slug}:${it.streamSlug}" }
                     mutable.value = state.value.copy(busy = false, stations = rows,
                         hasNext = page.hasNext && !page.cursor.isNullOrBlank() && page.cursor != (if (append) request.cursor else null) &&
                             (!append || rows.size > request.stations.size), cursor = page.cursor)
+                    val station = playback.value.station
+                    if (station != null && playback.value.profileId == request.profileId)
+                        state.value.lineup(station, false)?.let(audio::attachRestoredList)
                 }
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) { if (ticket == searchGeneration) mutable.value = state.value.copy(busy = false, issue = e.radioIssue()) }
@@ -218,7 +224,12 @@ class RadioController(val accounts: AccountAuth, val api: RadioApi, val audio: R
         }
         likeJobs[station.slug]?.start()
     }
-    fun play(station: RadioStation? = playback.value.station) = audio.play(station, region(state.value))
+    fun play() = audio.play()
+    fun play(station: RadioStation, fromFavourites: Boolean = false) {
+        val lineup = state.value.lineup(station, fromFavourites)
+        audio.play(station, lineup?.source?.region, lineup)
+    }
+    fun playDetail() = audio.play(state.value.detail, detailLineup?.source?.region, detailLineup)
 }
 fun Exception.radioIssue(): RadioIssue = when (this) {
     is RadioException -> issue

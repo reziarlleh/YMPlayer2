@@ -166,11 +166,3 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) { content() } },
         confirmButton = { TextButton(dismiss, Modifier.prismFocus()) { Text(tr(Msg.msg_ef05d57959cf)) } })
 }
-
-@Composable internal fun WaveButton(player: PlaybackController, signedIn: Boolean, signIn: () -> Unit, started: () -> Unit = {}, modifier: Modifier = Modifier) {
-    val state by player.state.collectAsStateWithLifecycle()
-    Button({ if (signedIn) { player.playMyWave(); started() } else signIn() }, modifier.prismFocus().testTag("my_wave"), enabled = !state.waveLoading) {
-        SkinIcon(UiIcon.WAVE, null); Spacer(Modifier.width(8.dp))
-        Text(if (state.waveLoading) tr(Msg.msg_414a326c7fbe) else tr(Msg.msg_de1ea8c09caa))
-    }
-}

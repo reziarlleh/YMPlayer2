@@ -23,8 +23,20 @@ import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class LocalIndexMigrationTest {
+    /** Private files and a distinct database name also isolate this fixture on Android 6. */
+    private fun migrationContext() = object : android.content.ContextWrapper(InstrumentationRegistry.getInstrumentation().targetContext) {
+        override fun getFilesDir() = File(baseContext.cacheDir, "qa-index-migration").apply { mkdirs() }
+        override fun getCacheDir() = File(filesDir, "cache").apply { mkdirs() }
+        override fun getDatabasePath(name: String) = baseContext.getDatabasePath("qa-migration-$name")
+        override fun deleteDatabase(name: String) = baseContext.deleteDatabase("qa-migration-$name")
+        override fun openOrCreateDatabase(name: String, mode: Int, factory: SQLiteDatabase.CursorFactory?) =
+            baseContext.openOrCreateDatabase("qa-migration-$name", mode, factory)
+        override fun openOrCreateDatabase(name: String, mode: Int, factory: SQLiteDatabase.CursorFactory?, handler: android.database.DatabaseErrorHandler?) =
+            baseContext.openOrCreateDatabase("qa-migration-$name", mode, factory, handler)
+    }
+
     @Test fun versionOneIndexUpgradesWithoutLosingUnavailableReferences() = runBlocking {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext.createDeviceProtectedStorageContext()
+        val context = migrationContext()
         context.deleteDatabase("local-catalog.db")
         context.getDatabasePath("local-catalog.db").parentFile?.mkdirs()
         val db = SQLiteDatabase.openOrCreateDatabase(context.getDatabasePath("local-catalog.db"), null)
@@ -53,7 +65,7 @@ class LocalIndexMigrationTest {
             assertFalse(library.pageTracks(CatalogFilter()).items.single().available)
             SQLiteDatabase.openDatabase(context.getDatabasePath("local-catalog.db").path, null,
                 SQLiteDatabase.OPEN_READONLY).use { upgraded ->
-                assertEquals(4, upgraded.version)
+                assertEquals(5, upgraded.version)
                 upgraded.rawQuery("SELECT added_at FROM tracks WHERE id='usb:kept'", null).use { cursor ->
                     assertTrue(cursor.moveToFirst())
                     assertEquals("Legacy tracks must not be dated as newly added on upgrade", 0L, cursor.getLong(0))
@@ -70,7 +82,7 @@ class LocalIndexMigrationTest {
     }
 
     @Test fun groupedPagesKeepFilteredCountsAndDeterministicSamples() = runBlocking {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext.createDeviceProtectedStorageContext()
+        val context = migrationContext()
         context.deleteDatabase("local-catalog.db")
         val oldFile = File(context.filesDir, "local-library.json")
         fun track(id: String, title: String, artist: String, source: String) = JSONObject()
@@ -108,8 +120,7 @@ class LocalIndexMigrationTest {
     }
 
     @Test fun oldJsonImportsOnceAndKeepsStableIdAcrossRestart() = runBlocking {
-        // Device-protected storage isolates the migration fixture from the running app's library.
-        val context = InstrumentationRegistry.getInstrumentation().targetContext.createDeviceProtectedStorageContext()
+        val context = migrationContext()
         context.deleteDatabase("local-catalog.db")
         val oldFile = File(context.filesDir, "local-library.json")
         val track = JSONObject().put("id", "local:stable-id").put("title", "Прежняя запись")

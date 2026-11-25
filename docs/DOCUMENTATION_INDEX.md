@@ -4,6 +4,8 @@
 [«Топ» и жанровые волны в поиске](SEARCH_TOP_2_9_0_VERIFICATION.md) · [B-055](BUG_REPORT.md#b-055--синхронизация-офлайн-кэша-прерывается-при-сне-планшета) ·
 [4PDA №128 и шапка](FORUM_RELEASE_2_9_0_2026_11_19.md).
 
+[План 2.9.1](PLAN_2_9_1.md) · [новая медиатека и её проверки](LIBRARY_2_9_1_VERIFICATION.md) · [обложки MP3 и разрешения папок](MP3_ARTWORK_AND_FOLDER_ACCESS_2_9_1_VERIFICATION.md).
+
 [Выпуск 2.8.3-build150](RELEASE_2_8_3_VERIFICATION.md) · [аудит и проверки](AUDIT_2_8_3_VERIFICATION.md) ·
 [4PDA №126 и шапка на 18 ноября](FORUM_RELEASE_2_8_3_2026_11_18.md).
 D-001…D-005 сняты с активной очереди владельцем. D-011 остаётся открыт.

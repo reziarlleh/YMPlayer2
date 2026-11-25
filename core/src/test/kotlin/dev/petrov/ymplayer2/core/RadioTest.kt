@@ -8,6 +8,29 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class RadioTest {
+    @Test fun stationSwitchingKeepsSelectedRegionalStreamAndOriginalList() = runTest {
+        val audio = Audio()
+        val cityStations = listOf(station, station.copy(streamSlug = "south"))
+        val api = Api().apply { cityPage = { RadioPage(cityStations, true, "city-page2") } }
+        val c = RadioController(auth(), api, audio, backgroundScope)
+        runCurrent(); c.open(); c.tab(RadioTab.CITIES); c.filter(RadioFilter("city", "City")); runCurrent()
+        c.play(cityStations.last())
+        val line = requireNotNull(audio.lineup)
+        assertEquals(RadioListSource(RadioListKind.CITY, "city"), line.source)
+        assertEquals(1, line.index)
+        assertTrue(line.canNext && line.canPrevious)
+        c.tab(RadioTab.GENRES); c.filter(RadioFilter("rock", "Rock")); runCurrent()
+        assertEquals(line, audio.lineup)
+        c.play(c.state.value.stations.single())
+        assertEquals(RadioListSource(RadioListKind.GENRE, "rock"), audio.lineup?.source)
+        assertFalse(requireNotNull(audio.lineup).canNext)
+        c.search("  rock  "); advanceTimeBy(350); runCurrent()
+        c.play(c.state.value.stations.single())
+        assertEquals(RadioListSource(RadioListKind.SEARCH, "rock"), audio.lineup?.source)
+        val exhausted = line.append(RadioPage(cityStations, true, "cyclic"))
+        assertNull(exhausted.cursor)
+        assertFalse(exhausted.canNext)
+    }
     @Test fun duplicatePageWithChangingCursorDoesNotPaginateForever() = runTest {
         var calls = 0
         val api = Api().apply { catalog = { calls++; RadioPage(listOf(station), true, "page-$calls") } }
@@ -72,7 +95,10 @@ class RadioTest {
     private class Audio : RadioAudio {
         override val state = MutableStateFlow(RadioPlaybackState())
         override fun switchProfile(profile: String) { state.value = RadioPlaybackState(profile) }
-        override fun play(station: RadioStation?, region: String?) { state.value = state.value.copy(station = station, ownsOutput = true) }
+        var lineup: RadioLineup? = null
+        override fun play(station: RadioStation?, region: String?, lineup: RadioLineup?) { this.lineup = lineup; state.value = state.value.copy(station = station, ownsOutput = true) }
+        override fun skip(direction: Int) = Unit
+        override fun attachRestoredList(lineup: RadioLineup) = Unit
         override fun stop() { state.value = state.value.copy(playing = false) }
     }
     private fun TestScope.auth() = AccountAuth(DemoCatalog().profiles, object : DeviceAuthApi {

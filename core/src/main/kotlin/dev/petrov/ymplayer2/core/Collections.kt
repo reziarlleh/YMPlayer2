@@ -3,7 +3,8 @@ package dev.petrov.ymplayer2.core
 import kotlinx.coroutines.flow.StateFlow
 
 /** A reference, never a copy of audio or a playable URI from stale metadata. */
-data class SavedTrack(val id: String, val title: String, val artist: String, val source: Source, val duration: Int, val tint: Int) {
+data class SavedTrack(val id: String, val title: String, val artist: String, val source: Source, val duration: Int, val tint: Int,
+    val addedOrder: Long = 0) {
     fun resolve(catalog: Map<String, Track>): Track = catalog[id] ?: Track(id, title, artist, "", source, duration,
         offline = true, available = false, tint = tint, genre = "")
 }
@@ -24,6 +25,10 @@ sealed interface CollectionEdit {
     data class Remove(val playlistId: String, val trackId: String) : CollectionEdit
     data class Move(val playlistId: String, val trackId: String, val toIndex: Int) : CollectionEdit
     data class Favorite(val trackId: String, val selected: Boolean) : CollectionEdit
+    data class FavoriteMany(val trackIds: List<String>) : CollectionEdit
+    /** Null identifies the built-in favorites list. A stale sort or undo cannot overwrite newer edits. */
+    data class Reorder(val playlistId: String?, val expected: List<String>, val order: List<String>) : CollectionEdit
+    data class RemoveMany(val playlistId: String?, val trackIds: Set<String>) : CollectionEdit
 }
 interface UserCollections {
     val state: StateFlow<CollectionsState>
@@ -44,19 +49,23 @@ fun ProfileCollections.edited(change: CollectionEdit, catalog: Map<String, Track
         require(playlists.any { it.id == id }) { "Плейлист уже удалён" }
         return copy(playlists = playlists.map { if (it.id == id) transform(it) else it })
     }
+    fun updateTracks(id: String?, transform: (List<SavedTrack>) -> List<SavedTrack>) =
+        if (id == null) copy(favorites = transform(favorites)) else update(id) { it.copy(tracks = transform(it.tracks)) }
+    fun append(existing: List<SavedTrack>, ids: List<String>): List<SavedTrack> {
+        val existingIds = existing.mapTo(hashSetOf(), SavedTrack::id)
+        var ordinal = existing.maxOfOrNull(SavedTrack::addedOrder) ?: 0L
+        val refs = ids.distinct().map(::reference).filter { existingIds.add(it.id) }
+        return existing + refs.map { it.copy(addedOrder = ++ordinal) }
+    }
     return when (change) {
-        is CollectionEdit.Create -> copy(playlists = playlists + LocalPlaylist(newId(), name(change.name), listOfNotNull(change.initialTrackId?.let(::reference))))
+        is CollectionEdit.Create -> copy(playlists = playlists + LocalPlaylist(newId(), name(change.name), append(emptyList(), listOfNotNull(change.initialTrackId))))
         is CollectionEdit.Rename -> update(change.playlistId) { it.copy(name = name(change.name, it.id)) }
         is CollectionEdit.Delete -> copy(playlists = playlists.filterNot { it.id == change.playlistId })
         is CollectionEdit.Add -> update(change.playlistId) { list ->
-            if (list.tracks.any { it.id == change.trackId }) list else list.copy(tracks = list.tracks + reference(change.trackId))
+            if (list.tracks.any { it.id == change.trackId }) list else list.copy(tracks = append(list.tracks, listOf(change.trackId)))
         }
-        is CollectionEdit.AddMany -> {
-            // Validate the entire input before committing, including IDs already in the list.
-            val refs = change.trackIds.distinct().map(::reference)
-            update(change.playlistId) { list -> list.copy(tracks = (list.tracks + refs).distinctBy(SavedTrack::id)) }
-        }
-        is CollectionEdit.CreateMany -> copy(playlists = playlists + LocalPlaylist(newId(), name(change.name), change.trackIds.distinct().map(::reference)))
+        is CollectionEdit.AddMany -> updateTracks(change.playlistId) { append(it, change.trackIds) }
+        is CollectionEdit.CreateMany -> copy(playlists = playlists + LocalPlaylist(newId(), name(change.name), append(emptyList(), change.trackIds)))
         is CollectionEdit.Remove -> update(change.playlistId) { it.copy(tracks = it.tracks.filterNot { track -> track.id == change.trackId }) }
         is CollectionEdit.Move -> update(change.playlistId) { list ->
             val from = list.tracks.indexOfFirst { it.id == change.trackId }
@@ -64,6 +73,14 @@ fun ProfileCollections.edited(change: CollectionEdit, catalog: Map<String, Track
             else list.copy(tracks = list.tracks.toMutableList().apply { add(change.toIndex, removeAt(from)) })
         }
         is CollectionEdit.Favorite -> if (!change.selected) copy(favorites = favorites.filterNot { it.id == change.trackId })
-            else if (favorites.any { it.id == change.trackId }) this else copy(favorites = favorites + reference(change.trackId))
+            else if (favorites.any { it.id == change.trackId }) this else copy(favorites = append(favorites, listOf(change.trackId)))
+        is CollectionEdit.FavoriteMany -> copy(favorites = append(favorites, change.trackIds))
+        is CollectionEdit.RemoveMany -> updateTracks(change.playlistId) { rows -> rows.filterNot { it.id in change.trackIds } }
+        is CollectionEdit.Reorder -> updateTracks(change.playlistId) { rows ->
+            require(rows.map(SavedTrack::id) == change.expected) { "Список изменился. Повторите действие." }
+            val byId = rows.associateBy(SavedTrack::id)
+            require(change.order.size == rows.size && change.order.toSet() == byId.keys)
+            change.order.map(byId::getValue)
+        }
     }
 }

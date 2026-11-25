@@ -20,6 +20,7 @@ public class TestStorageProvider extends DocumentsProvider {
     public static final Uri exportTree = DocumentsContract.buildTreeDocumentUri(AUTHORITY, "export");
     private long available = 2L * 1024 * 1024 * 1024;
     private boolean unavailable, failWrite;
+    private boolean interruptRename, renamedQueryPending;
     private volatile CountDownLatch audioTailGate;
     private volatile CountDownLatch existingAudioGate;
     // Providers run in the test APK's own process, outside the target APK's
@@ -72,6 +73,7 @@ public class TestStorageProvider extends DocumentsProvider {
         finally { catalogWaiters.decrementAndGet(); }
     }
     @Override public MatrixCursor queryDocument(String id, String[] projection) throws FileNotFoundException {
+        if (renamedQueryPending) { renamedQueryPending = false; throw new FileNotFoundException(); }
         catalogQueries.incrementAndGet();
         if (catalogFile(id)) { catalogFileQueries.incrementAndGet(); catalogAwait(catalogQueryGate); }
         MatrixCursor c = cursor(projection); File f = file(id); if (f.exists()) row(c, id, f); return c;
@@ -95,6 +97,7 @@ public class TestStorageProvider extends DocumentsProvider {
     @Override public String renameDocument(String id, String name) throws FileNotFoundException {
         File old = file(id), target = new File(old.getParentFile(), name);
         if (target.exists() || !old.renameTo(target)) throw new FileNotFoundException();
+        if (interruptRename) { interruptRename = false; renamedQueryPending = true; }
         return id.substring(0, id.lastIndexOf('/') + 1) + name;
     }
     @Override public void deleteDocument(String id) throws FileNotFoundException {
@@ -153,13 +156,20 @@ public class TestStorageProvider extends DocumentsProvider {
             CountDownLatch previous = audioTailGate; audioTailGate = null;
             if (previous != null) previous.countDown();
             audioOpens.set(0);
-            unavailable = false; failWrite = false; available = 2L * 1024 * 1024 * 1024; delete(base());
+            unavailable = false; failWrite = false; interruptRename = false; renamedQueryPending = false;
+            available = 2L * 1024 * 1024 * 1024; delete(base());
             new File(base(), "store").mkdirs(); new File(base(), "export").mkdirs();
             grantAccess();
         } else if (method.equals("storage-grant")) { grantAccess();
+        } else if (method.equals("storage-grant-subtree")) {
+            Uri subtree = DocumentsContract.buildTreeDocumentUri(AUTHORITY, arg);
+            getContext().grantUriPermission("dev.petrov.ymplayer2.dev", subtree,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION |
+                Intent.FLAG_GRANT_PREFIX_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         } else if (method.equals("storage-space")) available = Long.parseLong(arg);
         else if (method.equals("storage-unavailable")) unavailable = Boolean.parseBoolean(arg);
         else if (method.equals("storage-fail-write")) failWrite = Boolean.parseBoolean(arg);
+        else if (method.equals("storage-interrupt-rename")) interruptRename = true;
         else if (method.equals("storage-catalog-gate")) {
             releaseCatalogGates();
             if ("query".equals(arg)) catalogQueryGate = new CountDownLatch(1);
@@ -174,7 +184,9 @@ public class TestStorageProvider extends DocumentsProvider {
         } else if (method.equals("storage-seed-catalog") || method.equals("storage-edit-catalog")) {
             try {
                 String profile = extras.getString("profile", "cold"), account = extras.getString("account", "account");
-                File directory = file(extras.getString("root", "store") + "/v1/" + digest(profile + "\u0000" + account)); directory.mkdirs();
+                String directoryId = extras.getString("directory");
+                if (directoryId == null) directoryId = extras.getString("root", "store") + "/v1/" + digest(profile + "\u0000" + account);
+                File directory = file(directoryId); directory.mkdirs();
                 if (method.equals("storage-seed-catalog")) {
                     int count = extras.getInt("count", 400);
                     if (count < 1 || count > 2000) throw new IllegalArgumentException("Fixture count");

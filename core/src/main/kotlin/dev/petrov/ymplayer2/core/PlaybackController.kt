@@ -29,6 +29,7 @@ data class PlaybackState(
     val previousAvailable: Boolean? = null, val nextAvailable: Boolean? = null,
     /** Requested source while local metadata is being prepared; never a committed queue origin. */
     val pendingSource: PlaybackSource? = null,
+    val localLists: LocalListHistory = LocalListHistory(),
 ) {
     val current: Track? get() = currentTrack ?: queue.getOrNull(index - queueOffset)
     val queueCount: Int get() = queueTotal ?: queue.size
@@ -63,6 +64,7 @@ interface PlaybackController {
     fun setContinueWave(enabled: Boolean) = Unit
     fun enqueue(trackId: String)
     fun enqueueMany(trackIds: List<String>) { trackIds.distinct().forEach(::enqueue) }
+    fun enqueueNext(trackIds: List<String>)
     fun moveInQueue(trackId: String, toIndex: Int)
     fun removeFromQueue(trackId: String)
     fun clearQueue()
@@ -72,6 +74,11 @@ interface PlaybackController {
     fun playWave(request: WaveRequest) = Unit
     fun playOffline() = Unit
     fun playList(trackIds: List<String>, startId: String? = null, origin: PlaybackOrigin) = playQueue(trackIds, startId)
+    /** Null membership restores a folder/selection snapshot. Named playlists supply their current members. */
+    fun resumeLocalList(target: LocalListTarget, members: List<SavedTrack>? = null) {
+        if (members != null) playList(members.map(SavedTrack::id), origin = target.origin())
+    }
+    fun pinLocalList(target: LocalListTarget, pinned: Boolean) = Unit
     fun retryWave() = Unit
     /** Retry preparation only if playback is still requested; never changes Pause/Stop to Play. */
     fun retryPlayback() = Unit
@@ -141,6 +148,12 @@ class DemoPlaybackController(private val catalog: Catalog, restored: PlaybackChe
         val s = state.value
         val track = catalog.tracks(s.profileId).find { it.id == trackId && it.available } ?: return
         if (s.queue.none { it.id == trackId }) mutableState.value = s.copy(queue = s.queue + track)
+    }
+    override fun enqueueNext(trackIds: List<String>) {
+        val before = state.value
+        val available = catalog.tracks(before.profileId).filter(Track::available).associateBy(Track::id)
+        val updated = before.queue.withNextGroup(trackIds.mapNotNull(available::get), before.current?.id, Track::id)
+        mutableState.value = before.copy(queue = updated, index = updated.indexOfFirst { it.id == before.current?.id }.coerceAtLeast(0))
     }
     override fun moveInQueue(trackId: String, toIndex: Int) {
         val s = state.value

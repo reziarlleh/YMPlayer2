@@ -11,7 +11,7 @@ import dev.petrov.ymplayer2.core.*
 /** Transactional metadata index. Document URIs point to the original media; audio is never copied. */
 internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkCache,
     databaseName: String = "local-catalog.db", private val now: () -> Long = System::currentTimeMillis) :
-    SQLiteOpenHelper(context, databaseName, null, 4) {
+    SQLiteOpenHelper(context, databaseName, null, 5) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
@@ -23,7 +23,8 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
             uri TEXT NOT NULL, root TEXT NOT NULL, size INTEGER NOT NULL, modified INTEGER NOT NULL,
             artwork TEXT, artwork_checked INTEGER NOT NULL,
             title_key TEXT NOT NULL, artist_key TEXT NOT NULL, album_key TEXT NOT NULL,
-            added_at INTEGER NOT NULL DEFAULT 0
+            added_at INTEGER NOT NULL DEFAULT 0,
+            file_name TEXT, disc_number INTEGER, track_number INTEGER
         )""")
         db.execSQL("CREATE INDEX tracks_order ON tracks(title_key, id)")
         db.execSQL("CREATE INDEX tracks_source_order ON tracks(source, title_key, id)")
@@ -36,17 +37,18 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        require(oldVersion in 1..3 && newVersion == 4) { "Unsupported local catalog schema $oldVersion → $newVersion" }
+        require(oldVersion in 1..4 && newVersion == 5) { "Unsupported local catalog schema $oldVersion → $newVersion" }
         if (oldVersion < 2) db.execSQL("CREATE INDEX tracks_source_order ON tracks(source, title_key, id)")
         // Zero means the first appearance predates this feature, not the date of upgrading.
         if (oldVersion < 3) {
             db.execSQL("ALTER TABLE tracks ADD COLUMN added_at INTEGER NOT NULL DEFAULT 0")
             db.execSQL("CREATE INDEX tracks_recent ON tracks(added_at DESC,id)")
         }
-        // Old rows cannot distinguish a missing tag from a genuine Russian name.
-        // Re-read original media on the next complete scan; never rewrite names by string matching.
-        db.execSQL("UPDATE tracks SET artwork_checked=0 WHERE artist=? OR album=? OR genre=?",
-            arrayOf("Неизвестный исполнитель", "Без альбома", "Без жанра"))
+        db.execSQL("ALTER TABLE tracks ADD COLUMN file_name TEXT")
+        db.execSQL("ALTER TABLE tracks ADD COLUMN disc_number INTEGER")
+        db.execSQL("ALTER TABLE tracks ADD COLUMN track_number INTEGER")
+        // Keep references and dates; the next successful scan reads missing tags from original media.
+        db.execSQL("UPDATE tracks SET artwork_checked=0")
     }
 
     fun initialized(): Boolean = readableDatabase.rawQuery("SELECT value FROM meta WHERE key='initialized'", null).use { it.moveToFirst() }
@@ -80,6 +82,7 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
                 put("title_key", track.title.lowercase()); put("artist_key", track.artist.lowercase())
                 put("album_key", track.album.lowercase())
                 put("added_at", existingDates[track.id] ?: firstSeen)
+                put("file_name", track.fileName); put("disc_number", track.discNumber); put("track_number", track.trackNumber)
             })
         }
     }
@@ -181,7 +184,7 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
         val sourceWhere = if (source == null) "" else " WHERE source=?"
         val sourceAnd = if (source == null) "" else " AND source=?"
         fun anchor(sql: String, args: Array<String>): Pair<Track, String>? = db.rawQuery(sql, args).use { cursor ->
-            if (cursor.moveToFirst()) track(cursor) to cursor.getString(16) else null
+            if (cursor.moveToFirst()) track(cursor) to cursor.getString(cursor.getColumnIndexOrThrow("title_key")) else null
         }
         fun rows(sql: String, args: Array<String>): List<Track> = db.rawQuery(sql, args).use { cursor ->
             buildList { while (cursor.moveToNext()) add(track(cursor)) }
@@ -330,12 +333,14 @@ internal class LocalCatalogIndex(context: Context, private val artwork: ArtworkC
         return Track(id, cursor.getString(1), cursor.getString(2), cursor.getString(3),
             Source.valueOf(cursor.getString(4)), cursor.getInt(5), true, cursor.getInt(6) != 0,
             cursor.getString(7), cursor.getString(8), cursor.getInt(9), cursor.getString(10),
-            cursor.getString(11), cursor.getLong(12), cursor.getLong(13), cursor.getString(14)?.let(artwork::uri))
+            cursor.getString(11), cursor.getLong(12), cursor.getLong(13), cursor.getString(14)?.let(artwork::uri),
+            fileName = cursor.getString(16), discNumber = if (cursor.isNull(17)) null else cursor.getInt(17),
+            trackNumber = if (cursor.isNull(18)) null else cursor.getInt(18))
     }
 
     private fun validate(offset: Int, limit: Int) { require(offset >= 0 && limit in 1..50_000 && offset <= Int.MAX_VALUE - limit) }
 
     private companion object {
-        const val trackColumns = "id,title,artist,album,source,duration,available,genre,folder,tint,uri,root,size,modified,artwork,artwork_checked"
+        const val trackColumns = "id,title,artist,album,source,duration,available,genre,folder,tint,uri,root,size,modified,artwork,artwork_checked,file_name,disc_number,track_number"
     }
 }

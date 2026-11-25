@@ -117,9 +117,10 @@ class CatalogSourcesTest {
         compose.onNodeWithTag("online_kind_ALBUMS").assertIsFocused()
         section.assertIsSelected()
         assertEquals(MusicKind.TRACKS, fixture.online.state.value.request.kind)
-        val wave = compose.onNodeWithTag("my_wave")
-        wave.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
-        wave.assertIsFocused()
+        compose.onNodeWithTag("my_wave").assertDoesNotExist()
+        val source = compose.onNodeWithTag("source_yandex")
+        source.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+        source.assertIsFocused()
         compose.runOnIdle {
             assertFalse("Native D-pad needs non-touch mode", compose.activity.window.decorView.isInTouchMode)
             assertTrue("The fixture window must receive native keys", compose.activity.window.decorView.hasWindowFocus())
@@ -136,33 +137,16 @@ class CatalogSourcesTest {
         assertFalse(player.state.value.playing)
     }
 
-    @Test fun selectedCatalogRowsRemainReachableAndFocusDoesNotChangeFilters() {
+    @Test fun movingFocusBetweenLibrarySourcesAndTabsDoesNotChangeSelection() {
         compose.onNodeWithTag("nav_library").performClick()
-        await { fixture.online.state.value.loaded }
-        compose.onNodeWithTag("filter_available").performClick()
+        val requests = fixture.requests
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
-        compose.waitForIdle()
-        fun fromTo(from: String, direction: androidx.compose.ui.input.key.Key, to: String) {
+        for ((from, to) in listOf("source_local" to "source_yandex", "library_folders" to "category_PLAYLISTS")) {
             compose.onNodeWithTag(from).performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
-            compose.onNodeWithTag(from).assertIsFocused().performKeyInput { pressKey(direction) }
-            compose.onNodeWithTag(to).assertIsFocused()
+            compose.onNodeWithTag(from).assertIsSelected().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionRight) }
+            compose.onNodeWithTag(to).assertIsFocused().assertIsNotSelected()
         }
-        val down = androidx.compose.ui.input.key.Key.DirectionDown
-        val up = androidx.compose.ui.input.key.Key.DirectionUp
-        compose.onNodeWithTag("category_TRACKS").assertIsSelected()
-        compose.onNodeWithTag("filter_all").assertIsSelected()
-        compose.onNodeWithTag("filter_available").assertIsSelected()
-        fromTo("manage_folders", down, "category_TRACKS")
-        fromTo("category_TRACKS", down, "filter_all")
-        fromTo("filter_all", down, "filter_available")
-        fromTo("filter_available", up, "filter_all")
-        fromTo("filter_all", up, "category_TRACKS")
-        fromTo("category_TRACKS", up, "manage_folders")
-        fromTo("manage_folders", up, "bulk_start")
-        fromTo("bulk_start", up, "source_local")
-        fromTo("source_local", androidx.compose.ui.input.key.Key.DirectionRight, "source_yandex")
-        compose.onNodeWithTag("source_local").assertIsSelected()
-        compose.onNodeWithTag("source_yandex").assertIsNotSelected()
+        assertEquals(requests, fixture.requests)
         assertFalse(player.state.value.playing)
     }
 
@@ -174,9 +158,9 @@ class CatalogSourcesTest {
         for (kind in listOf(MusicKind.TRACKS, MusicKind.ALBUMS, MusicKind.ARTISTS, MusicKind.PLAYLISTS)) {
             compose.runOnIdle { fixture.online.collection(kind) }
             await { fixture.online.state.value.loaded && fixture.online.state.value.request.kind == kind }
-            val wave = compose.onNodeWithTag("my_wave")
-            wave.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
-            wave.assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionDown) }
+            val source = compose.onNodeWithTag("source_yandex")
+            source.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+            source.assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionDown) }
             compose.onNodeWithTag("online_kind_${kind.name}").assertIsFocused().assertIsSelected()
             assertEquals(kind, fixture.online.state.value.request.kind)
         }
@@ -185,12 +169,17 @@ class CatalogSourcesTest {
 
     @Test fun onlineBulkSelectionSurvivesProviderPaginationAndQueuesBothTracks() {
         compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
         await { fixture.online.state.value.loaded && fixture.online.state.value.request.collection }
-        action("bulk_start")
-        action("select_yandex:1:7")
-        action("catalog_online_more")
+        fun choose(tag: String) {
+            compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+        }
+        choose("bulk_start")
+        choose("select_yandex:1:7")
+        choose("online_more")
         await { fixture.online.state.value.entries.size == 2 }
-        action("select_yandex:2:7")
+        choose("select_yandex:2:7")
         compose.onNodeWithTag("bulk_count").assertTextContains("2", substring = true)
         compose.onNodeWithTag("bulk_enqueue").performClick()
         await { player.state.value.queueCount == 2 }
@@ -198,9 +187,12 @@ class CatalogSourcesTest {
         assertFalse(player.state.value.playing)
     }
 
-    @Test fun sharedTracksLoadEachSourceOnDemandAndPlayMixedReferences() {
-        compose.onNodeWithTag("nav_library").performClick()
-        await { fixture.online.state.value.loaded && fixture.online.state.value.request.collection }
+    @Test fun globalSearchLoadsEachSourceOnDemandAndPlaysMixedReferences() {
+        compose.onNodeWithTag("nav_search").performClick()
+        action("search_input")
+        compose.onNodeWithTag("search_input").performTextInput("o")
+        compose.onNodeWithTag("search_input").performImeAction()
+        await { fixture.online.state.value.loaded && fixture.online.state.value.request.query == "o" }
         val local = fixture.library.testTracks.first { it.source == Source.LOCAL }.id
         val usb = fixture.library.testTracks.first { it.source == Source.USB }.id
         showTrack(local); showTrack(usb); showTrack("yandex:1:7")
@@ -251,28 +243,32 @@ class CatalogSourcesTest {
         compose.onNodeWithTag("catalog_online_issue").assertDoesNotExist()
     }
 
-    @Test fun albumDetailsReturnToSharedCatalogAndGuestCannotSeeAccountRows() {
+    @Test fun collectionKeepsRecommendationsAndAlbumDetailsWhileLocalFilesStaySeparate() {
         compose.onNodeWithTag("nav_library").performClick()
-        action("category_ALBUMS")
+        compose.onNodeWithTag("source_yandex").performClick()
+        fun choose(tag: String) {
+            compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+        }
+        choose("online_recommendations")
+        await { fixture.online.state.value.request.recommended && fixture.online.state.value.loaded }
+        compose.onNodeWithTag("source_local").performClick()
+        compose.onNodeWithTag("local_file_list").assertIsDisplayed()
+        compose.onNodeWithTag("open_offline").assertDoesNotExist()
+        compose.onNodeWithTag("source_yandex").performClick()
+        compose.onNodeWithTag("online_recommendations").assertIsSelected()
+        choose("online_kind_ALBUMS")
         await { fixture.online.state.value.loaded && fixture.online.state.value.request.kind == MusicKind.ALBUMS }
-        compose.onNodeWithTag("catalog_list").performScrollToNode(hasText("Без альбома"))
-        capture("albums")
-        action("catalog_entity_album:7")
+        choose("online_entity_7")
         await { fixture.online.state.value.request.entity?.id == "7" && fixture.online.state.value.loaded }
-        compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("online_up"))
-        compose.onNodeWithTag("online_up").performClick()
-        action("catalog_entity_album:7") // Parent state/order remains available after returning.
-        compose.onNodeWithTag("online_up").performScrollTo().performClick()
-        action("category_TRACKS")
-        await { fixture.online.state.value.loaded && fixture.online.state.value.request.kind == MusicKind.TRACKS }
+        choose("online_up")
+        compose.onNodeWithTag("online_kind_ALBUMS").assertIsSelected()
         compose.runOnIdle { player.switchProfile("guest") }
-        await { player.state.value.profileId == "guest" && fixture.online.state.value.profileId == "guest" }
-        assertFalse(fixture.online.state.value.signedIn)
-        showTrack(fixture.library.testTracks.first().id)
-        compose.onNodeWithTag("track_yandex:1:7").assertDoesNotExist()
-        action("filter_YANDEX")
-        compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("catalog_sign_in"))
-        compose.onNodeWithTag("catalog_sign_in").assertIsDisplayed()
+        await { !fixture.online.state.value.signedIn && player.state.value.profileId == "guest" }
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_local").performClick()
+        compose.onNodeWithTag("local_file_list").assertIsDisplayed()
+        compose.onNodeWithTag("online_list").assertDoesNotExist()
     }
 
     @Test fun offlineFilterUsesOnlyDownloadedLikesAndStartsNoOnlineRequest() {
@@ -283,8 +279,7 @@ class CatalogSourcesTest {
         await { fixture.taste.state.value.shelf(TasteKind.TRACK).list.liked == setOf("1") }
         compose.runOnIdle { fixture.offline.sync() }
         await { !fixture.offline.state.value.running && fixture.offline.state.value.tracks.size == 1 }
-        compose.onNodeWithTag("nav_library").performClick()
-        await { fixture.online.state.value.loaded }
+        compose.onNodeWithTag("nav_search").performClick()
         action("filter_offline")
         val requests = fixture.requests
         showTrack(fixture.library.testTracks.first().id); showTrack("yandex:1:7")
@@ -352,30 +347,38 @@ class CatalogSourcesTest {
         capture("offline-search")
     }
 
-    @Test fun localGenreAndUsbFolderDoNotRequestInventedRemoteSections() {
+    @Test fun usbFolderPlaysRecursivelyWithoutAProviderRequest() {
         compose.onNodeWithTag("nav_library").performClick()
-        await { fixture.online.state.value.loaded }
         val requests = fixture.requests
-        action("category_GENRES")
-        compose.onNodeWithTag("catalog_list").performScrollToNode(hasText("Без жанра"))
-        action("category_FOLDERS")
-        action("filter_USB")
-        compose.onNodeWithTag("catalog_list").performScrollToNode(hasText("secondary"))
+        val usb = fixture.library.testTracks.single { it.source == Source.USB }
+        val tree = TestMusicProvider.secondaryTree
+        val document = android.provider.DocumentsContract.buildDocumentUriUsingTree(tree, android.provider.DocumentsContract.getTreeDocumentId(tree))
+        val root = "file_$document"
+        compose.onNodeWithTag("local_file_list").performScrollToNode(hasTestTag(root))
+        compose.onNodeWithTag(root).performClick()
+        val source = runBlocking { fixture.mediaFiles.roots().single { it.rootUri == tree.toString() } }
+        val child = runBlocking { fixture.mediaFiles.children(source).single() }
+        assertEquals(usb.id, child.trackId)
+        assertEquals(listOf(usb.id), runBlocking { fixture.mediaFiles.tracks(listOf(source)).map(Track::id) })
+        compose.onNodeWithTag("local_file_list").performScrollToNode(hasTestTag("file_${child.uri}"))
+        compose.onNodeWithTag("play_folder").performScrollTo().assertIsEnabled().performClick()
+        try { await { player.state.value.current?.id == usb.id && player.state.value.positionSeconds >= 1 } }
+        catch (failure: Throwable) { throw AssertionError("Expected ${usb.id}; player=${player.state.value}; UI=${compose.onRoot().printToString()}", failure) }
         assertEquals(requests, fixture.requests)
-        compose.onNodeWithText("secondary").performClick()
-        showTrack(fixture.library.testTracks.first { it.source == Source.USB }.id)
+        compose.onNodeWithTag("files_up").performClick()
+        compose.onNodeWithTag("local_file_list").performScrollToNode(hasTestTag(root))
+        compose.onNodeWithTag(root).assertIsDisplayed()
     }
 
     @Test fun tvDpadChoosesOnlineSourceAndStartsShownTrack() {
         if (compose.activity.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK != android.content.res.Configuration.UI_MODE_TYPE_TELEVISION) return
         compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+        compose.onNodeWithTag("source_yandex").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
         await { fixture.online.state.value.loaded }
-        compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("filter_YANDEX"))
-        compose.onNodeWithTag("filter_YANDEX").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
-        compose.onNodeWithTag("filter_YANDEX").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
-        compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("catalog_play_all"))
-        compose.onNodeWithTag("catalog_play_all").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
-        compose.onNodeWithTag("catalog_play_all").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
+        compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("online_play_all"))
+        compose.onNodeWithTag("online_play_all").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
+        compose.onNodeWithTag("online_play_all").assertIsFocused().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
         await { player.state.value.current?.source == Source.YANDEX && player.state.value.positionSeconds >= 1 }
         assertEquals(1, player.state.value.queueCount)
     }

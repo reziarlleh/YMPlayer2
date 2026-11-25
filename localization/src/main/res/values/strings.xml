@@ -174,7 +174,6 @@
     <string name="msg_3fbf9e4ea1c1" formatted="false">"Previous track"</string>
     <string name="msg_407f871778d3" formatted="false">"Reset"</string>
     <string name="msg_414209446572" formatted="false">"Remove track"</string>
-    <string name="msg_414a326c7fbe" formatted="false">"My Vibe · loading…"</string>
     <string name="msg_417875482e57" formatted="false">"Editing playlist"</string>
     <string name="msg_4195b215e9f0" formatted="false">"Export to Downloads"</string>
     <string name="msg_422f550c9cff" formatted="false">"Main"</string>
@@ -461,7 +460,7 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="msg_aed87524dfde" formatted="false">"Loading log…"</string>
     <string name="msg_af45ec8c56b7" formatted="false">"Move"</string>
     <string name="msg_af72c5eb8791" formatted="false">"On K4811, use a short swipe from the middle of the left or right edge, or the center of the bottom edge. The gesture area is invisible and covers only a small part of the edge."</string>
-    <string name="msg_af9d1711a669" formatted="false">"Choose a folder in the system picker. Your music stays where it is; the app only gets read access."</string>
+    <string name="msg_af9d1711a669" formatted="false">"Choose a folder with music. Your files stay where they are."</string>
     <string name="msg_b011fc656a0f" formatted="false">"Like album"</string>
     <string name="msg_b095f9e901e7" formatted="false">"The playlist has already been deleted"</string>
     <string name="msg_b0acd0c9bfb1" formatted="false">"Allow recommendations again"</string>
@@ -791,5 +790,56 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="profile_start_on_description" formatted="false">"Resume playback whenever you open the app."</string>
     <string name="search_top" formatted="false">"Top"</string>
     <string name="search_genre_wave" formatted="false">"My Vibe by genre"</string>
+    <string name="files_actions" formatted="false">"Actions"</string>
+    <string name="files_append" formatted="false">"Add to end of queue"</string>
+    <string name="files_copy" formatted="false">"Copy"</string>
+    <string name="files_create_folder" formatted="false">"Create folder"</string>
+    <string name="files_delete_many" formatted="false">"Delete selected files from storage (@0@)?"</string>
+    <string name="files_delete_named" formatted="false">"Delete “@0@” from storage?"</string>
+    <string name="files_destination" formatted="false">"Choose destination folder"</string>
+    <string name="files_directory_delete_warning" formatted="false">"Everything in this folder will be deleted."</string>
+    <string name="files_dirs" formatted="false">"Folders"</string>
+    <string name="files_empty" formatted="false">"No music here"</string>
+    <string name="files_issue" formatted="false">"Operation failed. Check storage and folder access."</string>
+    <string name="files_next" formatted="false">"Play next"</string>
+    <string name="files_no_matches" formatted="false">"No matches"</string>
+    <string name="files_partial" formatted="false">"Completed: @0@. Failed: @1@"</string>
+    <string name="files_play_selected" formatted="false">"Play selected (@0@)"</string>
+    <string name="files_play_tree" formatted="false">"Play folder and subfolders"</string>
+    <string name="files_range" formatted="false">"Select range"</string>
+    <string name="files_range_end" formatted="false">"Choose the last item"</string>
+    <string name="files_range_start" formatted="false">"Choose the first item"</string>
+    <string name="files_search_hint" formatted="false">"Search this folder and subfolders"</string>
+    <string name="files_select_all" formatted="false">"Select all (@0@)"</string>
+    <string name="files_select_matches" formatted="false">"Select matches (@0@)"</string>
+    <string name="files_sort_name" formatted="false">"File name"</string>
+    <string name="files_sort_newest" formatted="false">"Newest first"</string>
+    <string name="files_sort_oldest" formatted="false">"Oldest first"</string>
+    <string name="files_to_named" formatted="false">"Add to “@0@” (@1@)"</string>
+    <string name="files_unavailable" formatted="false">"Storage disconnected"</string>
+    <string name="folder_another" formatted="false">"Another folder"</string>
+    <string name="folder_connected" formatted="false">"Already connected"</string>
+    <string name="folder_granted" formatted="false">"Authorized folders"</string>
+    <string name="folder_last_export" formatted="false">"Last export folder"</string>
+    <string name="library_cached_tracks" formatted="false">"Cached tracks"</string>
+    <string name="library_local_files" formatted="false">"Local files"</string>
+    <string name="local_list_history" formatted="false">"Recent local lists"</string>
+    <string name="local_list_unavailable" formatted="false">"Tracks in this list are unavailable. Check the storage connection."</string>
+    <string name="local_pin" formatted="false">"Pin “@0@”"</string>
+    <string name="local_selection_name" formatted="false">"Selection · @0@"</string>
+    <string name="local_unpin" formatted="false">"Unpin “@0@”"</string>
+    <string name="playlist_added_order" formatted="false">"Order added"</string>
+    <string name="playlist_move_before" formatted="false">"Before track…"</string>
+    <string name="playlist_move_first" formatted="false">"To the beginning"</string>
+    <string name="playlist_move_last" formatted="false">"To the end"</string>
+    <string name="playlist_order_action" formatted="false">"Sort playlist"</string>
+    <string name="playlist_range_end" formatted="false">"Choose the last track in the range"</string>
+    <string name="playlist_range_start" formatted="false">"Choose the first track in the range"</string>
+    <string name="playlist_remove_selected" formatted="false">"Remove from playlist"</string>
+    <string name="playlist_selected_all" formatted="false">"Select shown (@0@)"</string>
+    <string name="playlist_stale_edit" formatted="false">"The playlist changed. Try again."</string>
+    <string name="playlist_undo_order" formatted="false">"Undo reorder"</string>
+    <string name="radio_next_station" formatted="false">"Next station"</string>
+    <string name="radio_previous_station" formatted="false">"Previous station"</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

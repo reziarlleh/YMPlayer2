@@ -7,6 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import dev.petrov.ymplayer2.core.*
 import dev.petrov.ymplayer2.offline.Mp3AudioWriter
+import dev.petrov.ymplayer2.offline.Mp3Picture
+import dev.petrov.ymplayer2.offline.mp3Picture
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
@@ -23,11 +25,26 @@ class Mp3WriterTest {
     private fun asset(name: String) = File(context.cacheDir, "export-writer-input." + name.substringAfterLast('.')).also { file ->
         instrument.context.assets.open(name).use { input -> file.outputStream().use(input::copyTo) }
     }
-    private fun write(input: File, duration: Int): File {
-        val output = File(context.cacheDir, "export-writer-result.mp3")
+    private fun write(input: File, duration: Int, name: String = "export-writer-result.mp3", picture: Mp3Picture? = null): File {
+        val output = File(context.cacheDir, name)
         val track = Track("local-test", "Название", "Исполнитель", "Альбом", Source.LOCAL, duration, true)
-        runBlocking { output.outputStream().use { Mp3AudioWriter(context).write(Uri.fromFile(input).toString(), track, 0, 1, it) } }
+        runBlocking { output.outputStream().use { Mp3AudioWriter(context).write(Uri.fromFile(input).toString(), track, 0, 1, it, picture = picture) } }
         return output
+    }
+    private fun cover(file: File): ByteArray {
+        val retriever = MediaMetadataRetriever()
+        return try {
+            retriever.setDataSource(file.path)
+            requireNotNull(retriever.embeddedPicture)
+        } finally { retriever.release() }
+    }
+    private fun bitrate(file: File): Int? {
+        val extractor = MediaExtractor()
+        return try {
+            extractor.setDataSource(context, Uri.fromFile(file), null)
+            val format = extractor.getTrackFormat(0)
+            if (format.containsKey(MediaFormat.KEY_BIT_RATE)) format.getInteger(MediaFormat.KEY_BIT_RATE) else null
+        } finally { extractor.release() }
     }
     private fun packets(file: File): List<List<Byte>> {
         val ex = MediaExtractor()
@@ -74,10 +91,22 @@ class Mp3WriterTest {
             assertTrue("Export must contain audible samples", energy / samples > 0.0001)
         } finally { runCatching { codec?.stop() }; codec?.release(); ex.release() }
     }
-    @Test fun genuineMp3KeepsEveryCompressedPacketAndDecodes() {
-        val input = asset("cover.mp3"); val output = write(input, 30)
-        try { assertEquals(packets(input), packets(output)); decode(output, 30) }
-        finally { input.delete(); output.delete() }
+    @Test fun exportedMp3KeepsArtworkAndCopiesPacketsWhenBitrateIsKnown() {
+        val fixture = asset("cover.mp3")
+        // The source fixture has a lower bitrate than the export setting. Encode once
+        // at the selected bitrate to exercise the exact-copy branch on the next write.
+        val input = write(fixture, 30, "export-writer-matching-bitrate.mp3")
+        val picture = requireNotNull(mp3Picture(cover(fixture)))
+        val output = write(input, 30, picture = picture)
+        try {
+            val sourceBitrate = bitrate(input)
+            if (sourceBitrate == 320_000) {
+                assertTrue("MP3 packets must stay byte-for-byte identical", packets(input) == packets(output))
+            }
+            assertArrayEquals(picture.bytes, cover(output))
+            decode(output, 30)
+            instrument.sendStatus(2, android.os.Bundle().apply { putString("exportSourceBitrate", sourceBitrate?.toString() ?: "unreported") })
+        } finally { fixture.delete(); input.delete(); output.delete() }
     }
     @Test fun aacIsConvertedToAudibleFullLengthMp3() {
         val input = asset("clip-transport/fixture.mp4"); val output = write(input, 12)

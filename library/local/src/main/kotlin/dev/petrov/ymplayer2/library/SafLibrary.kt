@@ -106,7 +106,14 @@ class SafLibrary(context: Context, scope: CoroutineScope,
         val direct = tree.scheme == "file"
         require(direct || tree.scheme == "content" && androidx.core.provider.DocumentsContractCompat.isTreeUri(tree))
         if (direct) check(File(requireNotNull(tree.path)).isDirectory)
-        else resolver.takePersistableUriPermission(tree, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        else if (resolver.persistedUriPermissions.none { it.uri == tree && it.isReadPermission && it.isWritePermission }) {
+            val read = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            try { resolver.takePersistableUriPermission(tree, read or Intent.FLAG_GRANT_WRITE_URI_PERMISSION) }
+            catch (_: SecurityException) {
+                if (resolver.persistedUriPermissions.none { it.uri == tree && it.isReadPermission })
+                    resolver.takePersistableUriPermission(tree, read)
+            }
+        }
         if (state.value.roots.none { it.uri == uri }) {
             val doc = if (direct) tree else Documents.buildDocumentUriUsingTree(tree, Documents.getTreeDocumentId(tree))
             val name = if (direct) File(requireNotNull(tree.path)).name else resolver.query(doc, arrayOf(Documents.Document.COLUMN_DISPLAY_NAME), null, null, null)?.use {
@@ -127,7 +134,7 @@ class SafLibrary(context: Context, scope: CoroutineScope,
     }
 
     override suspend fun forgetFolder(uri: String) = operation {
-        // Only our index and our grant change; no DocumentsContract.deleteDocument call.
+        // A directory can also be an export destination. Keep the Android grant for reuse.
         val next = state.value.copy(
             roots = state.value.roots.filterNot { it.uri == uri },
             tracks = emptyList(), issue = null,
@@ -135,7 +142,6 @@ class SafLibrary(context: Context, scope: CoroutineScope,
         index.forgetRoot(uri)
         indexRevision++
         mutable.value = next
-        runCatching { resolver.releasePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION) }
     }
 
     private suspend fun operation(block: suspend () -> Unit) {
@@ -204,12 +210,9 @@ class SafLibrary(context: Context, scope: CoroutineScope,
                         pending.add(documentId to "$folder / $name")
                         continue
                     }
-                    val extension = name.substringAfterLast('.', "").lowercase(java.util.Locale.ROOT)
-                    // Media3 has no AIFF extractor. An audio/* MIME must not bypass this.
-                    if (extension in aiffExtensions || mime.lowercase(java.util.Locale.ROOT) in aiffMimeTypes) continue
-                    if (!mime.startsWith("audio/") && extension !in extensions) continue
+                    if (!supportedLocalAudio(name, mime)) continue
                     val uri = Documents.buildDocumentUriUsingTree(tree, documentId)
-                    val id = "local:" + MessageDigest.getInstance("SHA-256").digest(uri.toString().toByteArray()).joinToString("") { byte -> "%02x".format(byte) }
+                    val id = localTrackId(uri)
                     if (id in result) continue
                     val size = it.getLong(3)
                     val modified = it.getLong(4)
@@ -243,15 +246,15 @@ class SafLibrary(context: Context, scope: CoroutineScope,
                 check(++entries <= 50000) { "Entry limit" }
                 val canonical = entry.canonicalFile
                 // Do not follow links outside the folder chosen by the user.
-                if (!canonical.toPath().startsWith(boundary.toPath())) continue
+                if (!insideMusicRoot(canonical, boundary)) continue
                 if (entry.isDirectory) {
                     // Shared Android/data and obb contain app-private files, not music folders.
                     if (directory.name == "Android" && entry.name in setOf("data", "obb")) continue
                     pending.add(canonical to "$folder / ${entry.name}")
-                } else if (entry.isFile && entry.extension.lowercase(java.util.Locale.ROOT) in extensions) {
+                } else if (entry.isFile && supportedLocalAudio(entry.name, "")) {
                     check(entry.canRead())
                     val uri = Uri.fromFile(canonical)
-                    val id = "local:" + MessageDigest.getInstance("SHA-256").digest(uri.toString().toByteArray()).joinToString("") { "%02x".format(it) }
+                    val id = localTrackId(uri)
                     val size = entry.length(); val modified = entry.lastModified()
                     val cached = index.cachedTrack(id, artworkChecked)?.takeIf { track ->
                         modified > 0 && track.modifiedMillis == modified && track.sizeBytes == size && id in artworkChecked && artwork.present(track.artworkUri)
@@ -271,6 +274,8 @@ class SafLibrary(context: Context, scope: CoroutineScope,
         var album = ""
         var genre = ""
         var duration = 0
+        var disc: Int? = null
+        var number: Int? = null
         var cover: String? = null
         // Invalid tags don't hide a file: the player reports a decoding error if necessary.
         runCatching {
@@ -283,6 +288,8 @@ class SafLibrary(context: Context, scope: CoroutineScope,
                     artist = tag(MediaMetadataRetriever.METADATA_KEY_ARTIST) ?: artist
                     album = tag(MediaMetadataRetriever.METADATA_KEY_ALBUM) ?: album
                     genre = tag(MediaMetadataRetriever.METADATA_KEY_GENRE) ?: genre
+                    disc = tag(MediaMetadataRetriever.METADATA_KEY_DISC_NUMBER)?.substringBefore('/')?.trim()?.toIntOrNull()
+                    number = tag(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER)?.substringBefore('/')?.trim()?.toIntOrNull()
                     duration = ((tag(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLongOrNull() ?: 0L) / 1000).coerceIn(0, Int.MAX_VALUE.toLong()).toInt()
                     cover = artwork.store(retriever.embeddedPicture)
                 }
@@ -290,7 +297,8 @@ class SafLibrary(context: Context, scope: CoroutineScope,
         }
         artworkChecked += id
         return Track(id, title, artist, album, root.source, duration, true, genre = genre, folder = folder,
-            tint = (id.hashCode() and Int.MAX_VALUE) % 6, uri = uri.toString(), rootId = root.uri, sizeBytes = size, modifiedMillis = modified, artworkUri = cover)
+            tint = (id.hashCode() and Int.MAX_VALUE) % 6, uri = uri.toString(), rootId = root.uri, sizeBytes = size, modifiedMillis = modified,
+            artworkUri = cover, fileName = name, discNumber = disc, trackNumber = number)
     }
 
     private fun readLegacyIndex(): LibrarySnapshot {
@@ -312,9 +320,21 @@ class SafLibrary(context: Context, scope: CoroutineScope,
     }
 
     private fun JSONArray.objects() = (0 until length()).map(::getJSONObject)
-    private companion object {
-        val extensions = setOf("mp3", "m4a", "aac", "flac", "ogg", "opus", "wav", "amr")
-        val aiffExtensions = setOf("aiff", "aif", "aifc")
-        val aiffMimeTypes = setOf("audio/aiff", "audio/x-aiff", "audio/x-aifc")
-    }
 }
+
+internal fun localTrackId(uri: Uri): String = "local:" + MessageDigest.getInstance("SHA-256")
+    .digest(uri.toString().toByteArray()).joinToString("") { "%02x".format(it) }
+
+private val extensions = setOf("mp3", "m4a", "aac", "flac", "ogg", "opus", "wav", "amr")
+private val aiffExtensions = setOf("aiff", "aif", "aifc")
+private val aiffMimeTypes = setOf("audio/aiff", "audio/x-aiff", "audio/x-aifc")
+
+internal fun supportedLocalAudio(name: String, mime: String): Boolean {
+    val extension = name.substringAfterLast('.', "").lowercase(java.util.Locale.ROOT)
+    val type = mime.lowercase(java.util.Locale.ROOT)
+    return extension !in aiffExtensions && type !in aiffMimeTypes && (extension in extensions || type.startsWith("audio/"))
+}
+
+// Both arguments must already be canonical. Works on mounted-storage fallback on API 23.
+internal fun insideMusicRoot(file: File, root: File) = file == root ||
+    file.path.startsWith(root.path.trimEnd(File.separatorChar) + File.separator)

@@ -1,10 +1,13 @@
 @file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 package dev.petrov.ymplayer2
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.provider.DocumentsContract as Docs
 import android.media.MediaExtractor
 import android.media.MediaFormat
+import android.media.MediaMetadataRetriever
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -15,6 +18,7 @@ import org.junit.*
 import org.junit.Assert.*
 import org.junit.runner.RunWith
 import java.io.File
+import java.io.RandomAccessFile
 import java.security.MessageDigest
 
 @RunWith(AndroidJUnit4::class)
@@ -184,7 +188,120 @@ class FileTransferTest {
         compose.runOnIdle { h.audioExporter.ask(request); h.audioExporter.template(template); h.audioExporter.start(TestStorageProvider.exportTree.toString()) }
         waitFor { !h.audioExporter.state.value.running }
         assertEquals(h.audioExporter.state.value.toString(), 0, h.audioExporter.state.value.failed)
-        assertEquals(h.audioExporter.state.value.toString(), 2, h.audioExporter.state.value.completed)
+        assertEquals(h.audioExporter.state.value.toString(), request.tracks?.size ?: 2, h.audioExporter.state.value.completed)
+    }
+    private fun read(uri: String) = resolver.openInputStream(Uri.parse(uri))!!.use { it.readBytes() }
+    private fun embedded(uri: String): ByteArray? {
+        val retriever = MediaMetadataRetriever()
+        return try {
+            retriever.setDataSource(compose.activity, Uri.parse(uri))
+            retriever.embeddedPicture
+        } finally { retriever.release() }
+    }
+    private fun withoutId3(bytes: ByteArray): ByteArray {
+        if (String(bytes, 0, 3, Charsets.US_ASCII) != "ID3") return bytes
+        var size = 0
+        for (index in 6..9) size = (size shl 7) or (bytes[index].toInt() and 127)
+        return bytes.copyOfRange(10 + size, bytes.size)
+    }
+    @Test fun mp3CacheAndOldCacheExportUseRealEmbeddedArtwork() {
+        val instruments = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+        val source = File.createTempFile("cover-source", ".mp3", h.context.cacheDir)
+        val picture = File.createTempFile("expected-cover", ".png", h.context.cacheDir)
+        try {
+            val mpeg = withoutId3(instruments.context.assets.open("cover.mp3").use { it.readBytes() })
+            source.writeBytes(mpeg)
+            val bitmap = Bitmap.createBitmap(17, 13, Bitmap.Config.ARGB_8888)
+            bitmap.eraseColor(Color.rgb(69, 115, 208))
+            picture.outputStream().use { stream -> assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)) }
+            bitmap.recycle()
+            val expected = picture.readBytes()
+            val origin = Uri.fromFile(source).toString()
+            val pictureUri = Uri.fromFile(picture).toString()
+            val input = Track("yandex:embedded-mp3", "Мой трек", "Исполнитель", "Альбом", Source.YANDEX,
+                0, false, artworkUri = pictureUri)
+            val fresh = runBlocking { h.offlineStore.sync(owner, input, { origin }, { true }, {}).track }!!
+            val freshFile = File(Uri.parse(fresh.uri!!).path!!)
+            assertFalse(File(freshFile.parentFile, freshFile.nameWithoutExtension + ".cover").exists())
+            assertArrayEquals(expected, embedded(fresh.uri!!))
+            assertArrayEquals(expected, read(fresh.artworkUri!!))
+            assertArrayEquals(mpeg, withoutId3(freshFile.readBytes()))
+
+            RandomAccessFile(freshFile, "rw").use {
+                val offset = it.length() - 1
+                it.seek(offset)
+                val last = it.readUnsignedByte()
+                it.seek(offset)
+                it.writeByte(last xor 1)
+            }
+            assertArrayEquals(expected, embedded(fresh.uri!!))
+            assertTrue(picture.delete())
+            var audioReplaced = false
+            val repaired = runBlocking {
+                h.offlineStore.sync(owner, input, { audioReplaced = true; origin }, { true }, {})
+            }
+            assertTrue(audioReplaced)
+            assertFalse(repaired.audioFailed)
+            assertFalse(repaired.coverFailed)
+            assertArrayEquals(expected, embedded(repaired.track!!.uri!!))
+            assertArrayEquals(mpeg, withoutId3(freshFile.readBytes()))
+            picture.writeBytes(expected)
+
+            val oldInput = input.copy(id = "yandex:3:7")
+            val before = runBlocking { h.offlineStore.sync(owner, oldInput.copy(artworkUri = null), { origin }, { true }, {}).track }!!
+            val audio = File(Uri.parse(before.uri!!).path!!)
+            val oldCover = File(audio.parentFile, audio.nameWithoutExtension + ".cover")
+            oldCover.writeBytes(expected)
+            val coverHash = MessageDigest.getInstance("SHA-256").digest(expected)
+                .joinToString("") { "%02x".format(it.toInt() and 255) }
+            File(oldCover.parentFile, oldCover.name + ".sha256").writeText(coverHash)
+            val metadata = File(audio.parentFile, audio.nameWithoutExtension + ".json")
+            metadata.writeText(org.json.JSONObject(metadata.readText()).put("artwork", pictureUri)
+                .put("coverSource", pictureUri).put("coverBytes", oldCover.length()).toString())
+            assertTrue(picture.delete())
+            val requests = h.resolvedQualities.size
+            compose.runOnIdle {
+                h.tasteLists["owner" to TasteKind.TRACK] = TasteList(setOf("3"))
+                h.offlineSnapshotOverride = LikedSnapshot(setOf("3"), listOf(oldInput))
+                h.offline.sync()
+            }
+            waitFor { !h.offline.state.value.running && h.offline.state.value.tracks.singleOrNull()?.id == oldInput.id }
+            val oldTrack = h.offline.state.value.tracks.single()
+            h.offlineNetwork = false
+            h.streamFailure = MusicFailure.NETWORK
+            export(AudioExportRequest("owner", "Legacy", tracks = listOf(oldTrack)), "legacy-{number}")
+            assertArrayEquals(expected, embedded(entries(TestStorageProvider.exportTree).single().second.toString()))
+            assertEquals(TestStorageProvider.exportTree.toString(), h.audioExporter.lastDestination())
+            assertTrue("A regular export still has access to the legacy cover", oldCover.exists())
+
+            compose.runOnIdle {
+                h.offlineNetwork = true
+                h.offline.verifyAndRepair()
+            }
+            waitFor { !h.offline.state.value.running }
+            val fixed = h.offline.state.value
+            assertEquals(0, fixed.audioFailures)
+            assertEquals(0, fixed.coverFailures)
+            assertEquals(requests, h.resolvedQualities.size)
+            assertFalse(oldCover.exists())
+            assertArrayEquals(mpeg, withoutId3(audio.readBytes()))
+            assertArrayEquals(expected, embedded(fixed.tracks.single().uri!!))
+            val reopened = runBlocking { dev.petrov.ymplayer2.offline.LikedFileStore(h.context).catalog(owner) }
+            assertArrayEquals(expected, read(reopened.first { it.id == oldInput.id }.artworkUri!!))
+            move()
+            val moved = h.offline.state.value.tracks.single()
+            assertEquals("content", Uri.parse(moved.uri!!).scheme)
+            assertArrayEquals(expected, read(moved.artworkUri!!))
+
+            val wav = h.library.testTracks.first().copy(artworkUri = moved.artworkUri)
+            export(AudioExportRequest("owner", "WAV", tracks = listOf(wav)), "wav-{number}")
+            val transcoded = entries(TestStorageProvider.exportTree).single { it.first.startsWith("wav-") }.second
+            assertMp3(transcoded)
+            assertArrayEquals(expected, embedded(transcoded.toString()))
+        } finally {
+            source.delete()
+            picture.delete()
+        }
     }
     private fun assertMp3(uri: Uri) {
         val extractor = MediaExtractor()

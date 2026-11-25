@@ -77,6 +77,7 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
         prefs.edit().putInt("kbps", value.kbps).apply()
     }
     override fun cancel() { job?.cancel() }
+    fun lastDestination(): String? = prefs.getString("destination", null)
     fun report(message: String) { mutable.value = state.value.copy(message = message) }
     override fun start(destination: String) {
         val before = state.value; val request = before.request ?: return
@@ -92,6 +93,7 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                     recoverTemporary()
                     val folder = Uri.parse(destination).let { if (it.scheme == "file") StorageNode.file(context, java.io.File(it.path!!)) else StorageNode.tree(context, it) }
                     if (!folder.isDirectory) throw IOException("Destination unavailable")
+                    prefs.edit().putString("destination", destination).apply()
                     val tracks = request.tracks ?: resolve(request)
                     mutable.value = state.value.copy(total = tracks.size)
                     if (tracks.isEmpty()) throw IOException("No tracks")
@@ -115,8 +117,13 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
                                 download(source, downloaded!!, folder, expected)
                                 downloaded!!.uri.toString()
                             } else source
+                            val cover = coverForExport(profile, track, input)
+                            if (folder.usableSpace < expected + (cover?.bytes?.size ?: 0) + 16L * 1024 * 1024)
+                                throw IOException("Недостаточно места для экспорта MP3.")
                             temp = temporary(folder, ".YMPlayer2-export-")
-                            temp.outputStream().buffered().use { output -> writer.write(input, track, index, tracks.size, output, before.quality) }
+                            temp.outputStream().buffered().use { output ->
+                                writer.write(input, track, index, tracks.size, output, before.quality, cover)
+                            }
                             currentCoroutineContext().ensureActive()
                             if (accounts.state.value.profileId != profile || accounts.state.value.account?.id != account) throw CancellationException("Profile changed")
                             validate(temp, track.durationSeconds)
@@ -156,6 +163,31 @@ class AudioExporter(private val context: Context, private val accounts: AccountA
         val status = generateSequence(error) { it.cause }.take(20)
             .filterIsInstance<HttpDataSource.InvalidResponseCodeException>().firstOrNull()?.responseCode
         diagnostic(diagnosticFailure(DiagnosticOperation.MP3_EXPORT, error, httpStatus = status))
+    }
+    private suspend fun coverForExport(profile: String, track: Track, input: String): Mp3Picture? {
+        val cached = if (track.source == Source.YANDEX) offline.cachedTrack(profile, track.id)?.artworkUri else null
+        cached?.let { readExportCover(it) }?.let { return it }
+        embeddedPicture(context, Uri.parse(input))?.let(::mp3Picture)?.let { return it }
+        return track.artworkUri?.takeUnless { it == cached }?.let { readExportCover(it) }
+    }
+    private suspend fun readExportCover(reference: String): Mp3Picture? {
+        currentCoroutineContext().ensureActive()
+        return try {
+            val uri = Uri.parse(reference)
+            val bytes = when (uri.scheme) {
+                "file", "content" -> context.contentResolver.openInputStream(uri)?.use { it.readCoverBytes() }
+                "http", "https" -> DataSourceInputStream(
+                    DefaultHttpDataSource.Factory().setUserAgent("Yandex-Music-API")
+                        .setConnectTimeoutMs(8000).setReadTimeoutMs(8000).createDataSource(), DataSpec(uri)
+                ).use { it.readCoverBytes() }
+                else -> null
+            }
+            bytes?.let(::mp3Picture)
+        } catch (e: CancellationException) { throw e }
+        catch (_: Exception) {
+            // The audio is still exportable when the cover cannot be read.
+            null
+        }
     }
     private suspend fun download(uri: String, target: StorageNode, folder: StorageNode, outputBytes: Long) {
         val data = DefaultHttpDataSource.Factory().setUserAgent("Yandex-Music-API").setConnectTimeoutMs(15_000).setReadTimeoutMs(20_000).createDataSource()

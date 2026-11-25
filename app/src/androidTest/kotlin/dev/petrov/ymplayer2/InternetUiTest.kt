@@ -39,7 +39,8 @@ class InternetUiTest {
         compose.onNodeWithTag("internet_notice").assertDoesNotExist()
         compose.onNodeWithTag("source_yandex").performClick()
         compose.onNodeWithTag("internet_waiting").assertIsDisplayed()
-        compose.waitUntil(8000) { compose.onAllNodesWithTag("internet_retry").fetchSemanticsNodes().isNotEmpty() }
+        compose.mainClock.advanceTimeBy(5100)
+        compose.onNodeWithTag("internet_retry").assertIsDisplayed()
         compose.onNodeWithTag("source_local").performClick()
         compose.onNodeWithTag("internet_notice").assertDoesNotExist()
         compose.onNodeWithTag("nav_search").performClick()

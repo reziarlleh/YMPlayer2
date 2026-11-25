@@ -6,6 +6,17 @@ import org.junit.Test
 class DemoPlaybackControllerTest {
     private val catalog = DemoCatalog()
     private val player = DemoPlaybackController(catalog)
+    @Test fun nextGroupKeepsThePlayingTrackAndItsPosition() {
+        val tracks = catalog.tracks("owner").filter(Track::available).take(4)
+        val (a, b, c, d) = tracks.map(Track::id)
+        player.playQueue(listOf(a, b, c, d), c)
+        player.seek(31)
+        player.enqueueNext(listOf(d, a, d, c))
+        assertEquals(listOf(b, c, d, a), player.state.value.queue.map(Track::id))
+        assertEquals(c, player.state.value.current?.id)
+        assertEquals(31, player.state.value.positionSeconds)
+        assertTrue(player.state.value.playing)
+    }
     @Test fun profilesKeepSeparatePausedSessions() {
         player.toggle(); player.seek(83)
         player.switchProfile("guest")
