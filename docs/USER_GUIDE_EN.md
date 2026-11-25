@@ -1,5 +1,7 @@
 # YMPlayer2 — user guide
 
+Current stable release — [2.9.1-build156](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.1-build156).
+
 In the 2.9.1 test build, open **Library → Local files → Folders** to play a folder and its subfolders. Select folders, uncheck individual tracks, then add the selection to a playlist. Open a playlist to sort it or move selected tracks before a song. **Yandex Music** retains your collection and recommendations. Downloaded likes are under **Profile → Offline cache**.
 
 This guide covers the stable **YMPlayer2 2.9.0-build151**, for Android6 and later.
@@ -729,7 +731,7 @@ Signed beta93 on Android9: the station grid with the English interface.
 
 [Example of a full station card](qa/radio-catalog-2026-10-07/emulator-5560-signed93-detail.png).
 
-In the 2.9.1 manual build, the previous and next media buttons on a headset, a remote or the system player tune the neighbouring station. The radio panel also has these buttons. Starting a station from favourites, a city, a genre, search or the full catalogue keeps that list available while you browse elsewhere. Next loads more stations at a page boundary. The first and last stations only offer the direction that has a neighbour. After Stop, the buttons select a station silently until you press Play.
+In 2.9.1, the previous and next media buttons on a headset, a remote or the system player tune the neighbouring station. The radio panel also has these buttons. Starting a station from favourites, a city, a genre, search or the full catalogue keeps that list available while you browse elsewhere. Next loads more stations at a page boundary. The first and last stations only offer the direction that has a neighbour. After Stop, the buttons select a station silently until you press Play.
 
 ## Returning to your session
 

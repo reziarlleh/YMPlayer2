@@ -1,5 +1,7 @@
 # Документация YMPlayer2
 
+Текущий стабильный выпуск — [2.9.1-build156](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.1-build156).
+
 [Стабильный 2.9.0-build151 и доставка](RELEASE_2_9_0_VERIFICATION.md) · [подписанный APK](MANUAL_2_9_0_BUILD151.md) ·
 [«Топ» и жанровые волны в поиске](SEARCH_TOP_2_9_0_VERIFICATION.md) · [B-055](BUG_REPORT.md#b-055--синхронизация-офлайн-кэша-прерывается-при-сне-планшета) ·
 [4PDA №128 и шапка](FORUM_RELEASE_2_9_0_2026_11_19.md).
