@@ -4,7 +4,7 @@
 
 ## 26 ноября 2026 — выпуск YMPlayer2 2.9.1-build156
 
-Опубликован принятый APK Build 156 с полным списком изменений 2.9.1. Четыре файла GitHub совпали с локальным архивом. APK с jsDelivr и 4PDA совпали по SHA-256. GitHub Raw, jsDelivr и Gcore возвращают Build 156 в обоих манифестах. В шапке 4PDA обновлены версия, описание и ссылки. APK в шапке имеет номер 36634291, ссылка на прошлый 151 ведёт в №128. [GitHub](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.1-build156) · [Шапка 4PDA](https://4pda.to/forum/index.php?showtopic=1127108#entry145319180).
+Опубликован принятый APK Build 156 с полным списком изменений 2.9.1. Четыре файла GitHub совпали с локальным архивом. APK с jsDelivr и 4PDA совпали по SHA-256. GitHub Raw, jsDelivr и Gcore возвращают Build 156 в обоих манифестах. В шапке 4PDA обновлены версия, описание и ссылки. APK в шапке имеет номер 36634291, ссылка на прошлый 151 ведёт в №128. По уточнению владельца опубликован [пост №131](https://4pda.to/forum/index.php?showtopic=1127108&view=findpost&p=146214727) с коротким описанием и APK 36634596. APK из поста совпал с релизным, ссылка на пост добавлена в шапку. [GitHub](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.1-build156) · [Шапка 4PDA](https://4pda.to/forum/index.php?showtopic=1127108#entry145319180).
 
 ## 25 ноября 2026 — запуск «Моей волны» с плеера
 
