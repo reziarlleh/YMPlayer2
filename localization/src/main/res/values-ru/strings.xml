@@ -788,6 +788,8 @@
     <string name="profile_start_auto_description" formatted="false">"Восстанавливать последнее состояние."</string>
     <string name="profile_start_off_description" formatted="false">"Не запускать автоматически. Уже играющая фоном музыка продолжает играть."</string>
     <string name="profile_start_on_description" formatted="false">"Продолжать воспроизведение при каждом открытии приложения."</string>
+    <string name="online_select_all_tracks" formatted="false">"Выбрать все треки"</string>
+    <string name="search_prompt" formatted="false">"Введите название, чтобы начать поиск."</string>
     <string name="search_top" formatted="false">"Топ"</string>
     <string name="search_genre_wave" formatted="false">"Моя волна по жанру"</string>
     <string name="files_actions" formatted="false">"Действия"</string>
@@ -840,11 +842,9 @@
     <string name="playlist_stale_edit" formatted="false">"Список изменился. Повторите действие."</string>
     <string name="playlist_undo_order" formatted="false">"Отменить перестановку"</string>
     <string name="radio_next_station" formatted="false">"Следующая станция"</string>
-    <string name="radio_previous_station" formatted="false">"Предыдущая станция"</string>
-    <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
     <string name="car_resume" formatted="false">"Продолжить воспроизведение"</string>
     <string name="car_clip_audio" formatted="false">"Клипы · только звук"</string>
     <string name="car_track_waves" formatted="false">"Волны по трекам"</string>
-    <string name="search_prompt" formatted="false">"Введите название, чтобы начать поиск."</string>
-    <string name="online_select_all_tracks" formatted="false">"Выбрать все треки"</string>
+    <string name="radio_previous_station" formatted="false">"Предыдущая станция"</string>
+    <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d трека</item><item quantity="many">%d треков</item><item quantity="other">%d трека</item></plurals>
 </resources>

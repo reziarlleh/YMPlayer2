@@ -788,6 +788,8 @@ Puedes añadir tu propio texto entre las variables. Ejemplo: {number}. {artist} 
     <string name="profile_start_auto_description" formatted="false">"Restaurar el último estado de reproducción."</string>
     <string name="profile_start_off_description" formatted="false">"No iniciar automáticamente. La música que ya suena en segundo plano continúa."</string>
     <string name="profile_start_on_description" formatted="false">"Reanudar la reproducción cada vez que se abre la aplicación."</string>
+    <string name="online_select_all_tracks" formatted="false">"Seleccionar todas las pistas"</string>
+    <string name="search_prompt" formatted="false">"Introduce un nombre para empezar a buscar."</string>
     <string name="search_top" formatted="false">"Destacados"</string>
     <string name="search_genre_wave" formatted="false">"Mi mix por género"</string>
     <string name="files_actions" formatted="false">"Acciones"</string>
@@ -840,11 +842,9 @@ Puedes añadir tu propio texto entre las variables. Ejemplo: {number}. {artist} 
     <string name="playlist_stale_edit" formatted="false">"La lista ha cambiado. Vuelve a intentarlo."</string>
     <string name="playlist_undo_order" formatted="false">"Deshacer reordenación"</string>
     <string name="radio_next_station" formatted="false">"Emisora siguiente"</string>
-    <string name="radio_previous_station" formatted="false">"Emisora anterior"</string>
-    <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
     <string name="car_resume" formatted="false">"Reanudar reproducción"</string>
     <string name="car_clip_audio" formatted="false">"Clips · solo audio"</string>
     <string name="car_track_waves" formatted="false">"Radio por canción"</string>
-    <string name="search_prompt" formatted="false">"Introduce un nombre para empezar a buscar."</string>
-    <string name="online_select_all_tracks" formatted="false">"Seleccionar todas las pistas"</string>
+    <string name="radio_previous_station" formatted="false">"Emisora anterior"</string>
+    <plurals name="track_count"><item quantity="one">%d canción</item><item quantity="many">%d canciones</item><item quantity="other">%d canciones</item></plurals>
 </resources>

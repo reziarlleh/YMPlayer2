@@ -98,6 +98,7 @@ internal val messagePatterns = buildList {
     addAll(patterns81())
     addAll(patterns82())
     addAll(patterns83())
+    addAll(patterns84())
 }
 
 private fun patterns0() = listOf(
@@ -6595,6 +6596,22 @@ private fun patterns78() = listOf(
     MessagePattern(Msg.profile_start_on_description, "ru", "Продолжать воспроизведение при каждом открытии приложения."),
     MessagePattern(Msg.profile_start_on_description, "es", "Reanudar la reproducción cada vez que se abre la aplicación."),
     MessagePattern(Msg.profile_start_on_description, "uk", "Продовжувати відтворення під час кожного відкриття застосунку."),
+    MessagePattern(Msg.online_select_all_tracks, "be", "Выбраць усе трэкі"),
+    MessagePattern(Msg.online_select_all_tracks, "en", "Select all tracks"),
+    MessagePattern(Msg.online_select_all_tracks, "fr", "Sélectionner tous les titres"),
+    MessagePattern(Msg.online_select_all_tracks, "de", "Alle Titel auswählen"),
+    MessagePattern(Msg.online_select_all_tracks, "kk", "Барлық тректі таңдау"),
+    MessagePattern(Msg.online_select_all_tracks, "ru", "Выбрать все треки"),
+    MessagePattern(Msg.online_select_all_tracks, "es", "Seleccionar todas las pistas"),
+    MessagePattern(Msg.online_select_all_tracks, "uk", "Вибрати всі треки"),
+    MessagePattern(Msg.search_prompt, "be", "Увядзіце назву, каб пачаць пошук."),
+    MessagePattern(Msg.search_prompt, "en", "Enter a name to start searching."),
+    MessagePattern(Msg.search_prompt, "fr", "Saisissez un nom pour lancer la recherche."),
+    MessagePattern(Msg.search_prompt, "de", "Gib einen Namen ein, um die Suche zu starten."),
+    MessagePattern(Msg.search_prompt, "kk", "Іздеуді бастау үшін атауын енгізіңіз."),
+    MessagePattern(Msg.search_prompt, "ru", "Введите название, чтобы начать поиск."),
+    MessagePattern(Msg.search_prompt, "es", "Introduce un nombre para empezar a buscar."),
+    MessagePattern(Msg.search_prompt, "uk", "Введіть назву, щоб почати пошук."),
     MessagePattern(Msg.search_top, "be", "Топ"),
     MessagePattern(Msg.search_top, "en", "Top"),
     MessagePattern(Msg.search_top, "fr", "Meilleurs résultats"),
@@ -6639,6 +6656,9 @@ private fun patterns78() = listOf(
     MessagePattern(Msg.files_create_folder, "en", "Create folder"),
     MessagePattern(Msg.files_create_folder, "fr", "Créer un dossier"),
     MessagePattern(Msg.files_create_folder, "de", "Ordner erstellen"),
+)
+
+private fun patterns79() = listOf(
     MessagePattern(Msg.files_create_folder, "kk", "Қалта жасау"),
     MessagePattern(Msg.files_create_folder, "ru", "Создать папку"),
     MessagePattern(Msg.files_create_folder, "es", "Crear carpeta"),
@@ -6655,9 +6675,6 @@ private fun patterns78() = listOf(
     MessagePattern(Msg.files_delete_named, "en", "Delete “@0@” from storage?"),
     MessagePattern(Msg.files_delete_named, "fr", "Supprimer «@0@» du support ?"),
     MessagePattern(Msg.files_delete_named, "de", "„@0@“ vom Speicher löschen?"),
-)
-
-private fun patterns79() = listOf(
     MessagePattern(Msg.files_delete_named, "kk", "«@0@» тасымалдағыштан жойылсын ба?"),
     MessagePattern(Msg.files_delete_named, "ru", "Удалить с носителя «@0@»?"),
     MessagePattern(Msg.files_delete_named, "es", "¿Eliminar «@0@» del dispositivo?"),
@@ -6722,6 +6739,9 @@ private fun patterns79() = listOf(
     MessagePattern(Msg.files_partial, "en", "Completed: @0@. Failed: @1@"),
     MessagePattern(Msg.files_partial, "fr", "Effectué : @0@. Échec : @1@"),
     MessagePattern(Msg.files_partial, "de", "Erledigt: @0@. Fehlgeschlagen: @1@"),
+)
+
+private fun patterns80() = listOf(
     MessagePattern(Msg.files_partial, "kk", "Орындалды: @0@. Орындалмады: @1@"),
     MessagePattern(Msg.files_partial, "ru", "Выполнено: @0@. Не удалось: @1@"),
     MessagePattern(Msg.files_partial, "es", "Completado: @0@. Error: @1@"),
@@ -6738,9 +6758,6 @@ private fun patterns79() = listOf(
     MessagePattern(Msg.files_play_tree, "en", "Play folder and subfolders"),
     MessagePattern(Msg.files_play_tree, "fr", "Lire le dossier et ses sous-dossiers"),
     MessagePattern(Msg.files_play_tree, "de", "Ordner mit Unterordnern abspielen"),
-)
-
-private fun patterns80() = listOf(
     MessagePattern(Msg.files_play_tree, "kk", "Қалтаны ішкі қалталарымен ойнату"),
     MessagePattern(Msg.files_play_tree, "ru", "Играть папку с подпапками"),
     MessagePattern(Msg.files_play_tree, "es", "Reproducir carpeta y subcarpetas"),
@@ -6805,6 +6822,9 @@ private fun patterns80() = listOf(
     MessagePattern(Msg.files_sort_newest, "en", "Newest first"),
     MessagePattern(Msg.files_sort_newest, "fr", "Les plus récents d’abord"),
     MessagePattern(Msg.files_sort_newest, "de", "Neueste zuerst"),
+)
+
+private fun patterns81() = listOf(
     MessagePattern(Msg.files_sort_newest, "kk", "Алдымен жаңалары"),
     MessagePattern(Msg.files_sort_newest, "ru", "Сначала новые"),
     MessagePattern(Msg.files_sort_newest, "es", "Más recientes primero"),
@@ -6821,9 +6841,6 @@ private fun patterns80() = listOf(
     MessagePattern(Msg.files_to_named, "en", "Add to “@0@” (@1@)"),
     MessagePattern(Msg.files_to_named, "fr", "Ajouter à «@0@» (@1@)"),
     MessagePattern(Msg.files_to_named, "de", "Zu „@0@“ hinzufügen (@1@)"),
-)
-
-private fun patterns81() = listOf(
     MessagePattern(Msg.files_to_named, "kk", "«@0@» ішіне қосу (@1@)"),
     MessagePattern(Msg.files_to_named, "ru", "Добавить в «@0@» (@1@)"),
     MessagePattern(Msg.files_to_named, "es", "Añadir a «@0@» (@1@)"),
@@ -6888,6 +6905,9 @@ private fun patterns81() = listOf(
     MessagePattern(Msg.local_list_history, "en", "Recent local lists"),
     MessagePattern(Msg.local_list_history, "fr", "Listes locales récentes"),
     MessagePattern(Msg.local_list_history, "de", "Zuletzt gespielte lokale Listen"),
+)
+
+private fun patterns82() = listOf(
     MessagePattern(Msg.local_list_history, "kk", "Соңғы жергілікті тізімдер"),
     MessagePattern(Msg.local_list_history, "ru", "Последние локальные списки"),
     MessagePattern(Msg.local_list_history, "es", "Listas locales recientes"),
@@ -6904,9 +6924,6 @@ private fun patterns81() = listOf(
     MessagePattern(Msg.local_pin, "en", "Pin “@0@”"),
     MessagePattern(Msg.local_pin, "fr", "Épingler « @0@ »"),
     MessagePattern(Msg.local_pin, "de", "„@0@“ anheften"),
-)
-
-private fun patterns82() = listOf(
     MessagePattern(Msg.local_pin, "kk", "«@0@» тізімін бекіту"),
     MessagePattern(Msg.local_pin, "ru", "Закрепить «@0@»"),
     MessagePattern(Msg.local_pin, "es", "Fijar «@0@»"),
@@ -6971,6 +6988,9 @@ private fun patterns82() = listOf(
     MessagePattern(Msg.playlist_range_end, "en", "Choose the last track in the range"),
     MessagePattern(Msg.playlist_range_end, "fr", "Sélectionnez le dernier titre de la plage"),
     MessagePattern(Msg.playlist_range_end, "de", "Letzten Titel des Bereichs wählen"),
+)
+
+private fun patterns83() = listOf(
     MessagePattern(Msg.playlist_range_end, "kk", "Аралықтың соңғы трегін таңдаңыз"),
     MessagePattern(Msg.playlist_range_end, "ru", "Укажите последний трек диапазона"),
     MessagePattern(Msg.playlist_range_end, "es", "Elige la última pista del intervalo"),
@@ -6987,9 +7007,6 @@ private fun patterns82() = listOf(
     MessagePattern(Msg.playlist_remove_selected, "en", "Remove from playlist"),
     MessagePattern(Msg.playlist_remove_selected, "fr", "Retirer de la playlist"),
     MessagePattern(Msg.playlist_remove_selected, "de", "Aus Wiedergabeliste entfernen"),
-)
-
-private fun patterns83() = listOf(
     MessagePattern(Msg.playlist_remove_selected, "kk", "Ойнату тізімінен алып тастау"),
     MessagePattern(Msg.playlist_remove_selected, "ru", "Убрать из плейлиста"),
     MessagePattern(Msg.playlist_remove_selected, "es", "Quitar de la lista"),
@@ -7026,10 +7043,37 @@ private fun patterns83() = listOf(
     MessagePattern(Msg.radio_next_station, "ru", "Следующая станция"),
     MessagePattern(Msg.radio_next_station, "es", "Emisora siguiente"),
     MessagePattern(Msg.radio_next_station, "uk", "Наступна станція"),
+    MessagePattern(Msg.car_resume, "be", "Працягнуць прайграванне"),
+    MessagePattern(Msg.car_resume, "en", "Resume playback"),
+    MessagePattern(Msg.car_resume, "fr", "Reprendre la lecture"),
+    MessagePattern(Msg.car_resume, "de", "Wiedergabe fortsetzen"),
+    MessagePattern(Msg.car_resume, "kk", "Ойнатуды жалғастыру"),
+    MessagePattern(Msg.car_resume, "ru", "Продолжить воспроизведение"),
+    MessagePattern(Msg.car_resume, "es", "Reanudar reproducción"),
+    MessagePattern(Msg.car_resume, "uk", "Продовжити відтворення"),
+    MessagePattern(Msg.car_clip_audio, "be", "Кліпы · толькі гук"),
+    MessagePattern(Msg.car_clip_audio, "en", "Clips · audio only"),
+    MessagePattern(Msg.car_clip_audio, "fr", "Clips · audio uniquement"),
+    MessagePattern(Msg.car_clip_audio, "de", "Clips · nur Audio"),
+    MessagePattern(Msg.car_clip_audio, "kk", "Клиптер · тек дыбыс"),
+    MessagePattern(Msg.car_clip_audio, "ru", "Клипы · только звук"),
+    MessagePattern(Msg.car_clip_audio, "es", "Clips · solo audio"),
+    MessagePattern(Msg.car_clip_audio, "uk", "Кліпи · лише звук"),
+    MessagePattern(Msg.car_track_waves, "be", "Хвалі па трэках"),
+    MessagePattern(Msg.car_track_waves, "en", "Track radio"),
+    MessagePattern(Msg.car_track_waves, "fr", "Radios par titre"),
+    MessagePattern(Msg.car_track_waves, "de", "Titelradio"),
+    MessagePattern(Msg.car_track_waves, "kk", "Тректер бойынша толқындар"),
+    MessagePattern(Msg.car_track_waves, "ru", "Волны по трекам"),
+    MessagePattern(Msg.car_track_waves, "es", "Radio por canción"),
+    MessagePattern(Msg.car_track_waves, "uk", "Хвилі за треками"),
     MessagePattern(Msg.radio_previous_station, "be", "Папярэдняя станцыя"),
     MessagePattern(Msg.radio_previous_station, "en", "Previous station"),
     MessagePattern(Msg.radio_previous_station, "fr", "Station précédente"),
     MessagePattern(Msg.radio_previous_station, "de", "Vorheriger Sender"),
+)
+
+private fun patterns84() = listOf(
     MessagePattern(Msg.radio_previous_station, "kk", "Алдыңғы станция"),
     MessagePattern(Msg.radio_previous_station, "ru", "Предыдущая станция"),
     MessagePattern(Msg.radio_previous_station, "es", "Emisora anterior"),

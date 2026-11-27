@@ -788,6 +788,8 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="profile_start_auto_description" formatted="false">"Den letzten Wiedergabestatus wiederherstellen."</string>
     <string name="profile_start_off_description" formatted="false">"Nicht automatisch starten. Bereits im Hintergrund laufende Wiedergabe läuft weiter."</string>
     <string name="profile_start_on_description" formatted="false">"Die Wiedergabe bei jedem Öffnen der App fortsetzen."</string>
+    <string name="online_select_all_tracks" formatted="false">"Alle Titel auswählen"</string>
+    <string name="search_prompt" formatted="false">"Gib einen Namen ein, um die Suche zu starten."</string>
     <string name="search_top" formatted="false">"Top"</string>
     <string name="search_genre_wave" formatted="false">"Mein Mix nach Genre"</string>
     <string name="files_actions" formatted="false">"Aktionen"</string>
@@ -840,11 +842,9 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="playlist_stale_edit" formatted="false">"Die Liste wurde geändert. Versuche es erneut."</string>
     <string name="playlist_undo_order" formatted="false">"Umordnung rückgängig machen"</string>
     <string name="radio_next_station" formatted="false">"Nächster Sender"</string>
-    <string name="radio_previous_station" formatted="false">"Vorheriger Sender"</string>
-    <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
     <string name="car_resume" formatted="false">"Wiedergabe fortsetzen"</string>
     <string name="car_clip_audio" formatted="false">"Clips · nur Audio"</string>
     <string name="car_track_waves" formatted="false">"Titelradio"</string>
-    <string name="search_prompt" formatted="false">"Gib einen Namen ein, um die Suche zu starten."</string>
-    <string name="online_select_all_tracks" formatted="false">"Alle Titel auswählen"</string>
+    <string name="radio_previous_station" formatted="false">"Vorheriger Sender"</string>
+    <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
 </resources>

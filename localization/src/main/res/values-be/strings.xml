@@ -788,6 +788,8 @@
     <string name="profile_start_auto_description" formatted="false">"Аднаўляць апошні стан прайгравання."</string>
     <string name="profile_start_off_description" formatted="false">"Не запускаць аўтаматычна. Музыка, якая ўжо грае ў фоне, працягвае граць."</string>
     <string name="profile_start_on_description" formatted="false">"Працягваць прайграванне пры кожным адкрыцці праграмы."</string>
+    <string name="online_select_all_tracks" formatted="false">"Выбраць усе трэкі"</string>
+    <string name="search_prompt" formatted="false">"Увядзіце назву, каб пачаць пошук."</string>
     <string name="search_top" formatted="false">"Топ"</string>
     <string name="search_genre_wave" formatted="false">"Мая хваля па жанры"</string>
     <string name="files_actions" formatted="false">"Дзеянні"</string>
@@ -840,11 +842,9 @@
     <string name="playlist_stale_edit" formatted="false">"Спіс змяніўся. Паўтарыце дзеянне."</string>
     <string name="playlist_undo_order" formatted="false">"Скасаваць перастаноўку"</string>
     <string name="radio_next_station" formatted="false">"Наступная станцыя"</string>
-    <string name="radio_previous_station" formatted="false">"Папярэдняя станцыя"</string>
-    <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
     <string name="car_resume" formatted="false">"Працягнуць прайграванне"</string>
     <string name="car_clip_audio" formatted="false">"Кліпы · толькі гук"</string>
     <string name="car_track_waves" formatted="false">"Хвалі па трэках"</string>
-    <string name="search_prompt" formatted="false">"Увядзіце назву, каб пачаць пошук."</string>
-    <string name="online_select_all_tracks" formatted="false">"Выбраць усе трэкі"</string>
+    <string name="radio_previous_station" formatted="false">"Папярэдняя станцыя"</string>
+    <plurals name="track_count"><item quantity="one">%d трэк</item><item quantity="few">%d трэкі</item><item quantity="many">%d трэкаў</item><item quantity="other">%d трэка</item></plurals>
 </resources>

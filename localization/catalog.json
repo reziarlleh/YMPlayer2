@@ -12548,6 +12548,38 @@
     }
   },
   {
+    "key": "online_select_all_tracks",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/OnlineLibrarySelection.kt"
+    ],
+    "source": "Выбрать все треки",
+    "english": "Select all tracks",
+    "translations": {
+      "be": "Выбраць усе трэкі",
+      "kk": "Барлық тректі таңдау",
+      "uk": "Вибрати всі треки",
+      "de": "Alle Titel auswählen",
+      "es": "Seleccionar todas las pistas",
+      "fr": "Sélectionner tous les titres"
+    }
+  },
+  {
+    "key": "search_prompt",
+    "locations": [
+      "feature/shell/src/main/kotlin/dev/petrov/ymplayer2/shell/SearchWorkspace.kt"
+    ],
+    "source": "Введите название, чтобы начать поиск.",
+    "english": "Enter a name to start searching.",
+    "translations": {
+      "be": "Увядзіце назву, каб пачаць пошук.",
+      "kk": "Іздеуді бастау үшін атауын енгізіңіз.",
+      "uk": "Введіть назву, щоб почати пошук.",
+      "de": "Gib einen Namen ein, um die Suche zu starten.",
+      "es": "Introduce un nombre para empezar a buscar.",
+      "fr": "Saisissez un nom pour lancer la recherche."
+    }
+  },
+  {
     "key": "search_top",
     "source": "Топ",
     "english": "Top",
@@ -13377,6 +13409,55 @@
       "de": "Nächster Sender",
       "es": "Emisora siguiente",
       "fr": "Station suivante"
+    }
+  },
+  {
+    "key": "car_resume",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/CarCatalog.kt"
+    ],
+    "source": "Продолжить воспроизведение",
+    "english": "Resume playback",
+    "translations": {
+      "be": "Працягнуць прайграванне",
+      "kk": "Ойнатуды жалғастыру",
+      "uk": "Продовжити відтворення",
+      "de": "Wiedergabe fortsetzen",
+      "es": "Reanudar reproducción",
+      "fr": "Reprendre la lecture"
+    }
+  },
+  {
+    "key": "car_clip_audio",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/CarCatalog.kt",
+      "app/src/main/kotlin/dev/petrov/ymplayer2/CarOnlineLibrary.kt"
+    ],
+    "source": "Клипы · только звук",
+    "english": "Clips · audio only",
+    "translations": {
+      "be": "Кліпы · толькі гук",
+      "kk": "Клиптер · тек дыбыс",
+      "uk": "Кліпи · лише звук",
+      "de": "Clips · nur Audio",
+      "es": "Clips · solo audio",
+      "fr": "Clips · audio uniquement"
+    }
+  },
+  {
+    "key": "car_track_waves",
+    "locations": [
+      "app/src/main/kotlin/dev/petrov/ymplayer2/CarOnlineLibrary.kt"
+    ],
+    "source": "Волны по трекам",
+    "english": "Track radio",
+    "translations": {
+      "be": "Хвалі па трэках",
+      "kk": "Тректер бойынша толқындар",
+      "uk": "Хвилі за треками",
+      "de": "Titelradio",
+      "es": "Radio por canción",
+      "fr": "Radios par titre"
     }
   },
   {

@@ -788,6 +788,8 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="profile_start_auto_description" formatted="false">"Restore the last playback state."</string>
     <string name="profile_start_off_description" formatted="false">"Do not start automatically. Music already playing in the background continues."</string>
     <string name="profile_start_on_description" formatted="false">"Resume playback whenever you open the app."</string>
+    <string name="online_select_all_tracks" formatted="false">"Select all tracks"</string>
+    <string name="search_prompt" formatted="false">"Enter a name to start searching."</string>
     <string name="search_top" formatted="false">"Top"</string>
     <string name="search_genre_wave" formatted="false">"My Vibe by genre"</string>
     <string name="files_actions" formatted="false">"Actions"</string>
@@ -840,11 +842,9 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="playlist_stale_edit" formatted="false">"The playlist changed. Try again."</string>
     <string name="playlist_undo_order" formatted="false">"Undo reorder"</string>
     <string name="radio_next_station" formatted="false">"Next station"</string>
-    <string name="radio_previous_station" formatted="false">"Previous station"</string>
-    <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
     <string name="car_resume" formatted="false">"Resume playback"</string>
     <string name="car_clip_audio" formatted="false">"Clips · audio only"</string>
     <string name="car_track_waves" formatted="false">"Track radio"</string>
-    <string name="search_prompt" formatted="false">"Enter a name to start searching."</string>
-    <string name="online_select_all_tracks" formatted="false">"Select all tracks"</string>
+    <string name="radio_previous_station" formatted="false">"Previous station"</string>
+    <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
 </resources>

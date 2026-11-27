@@ -788,6 +788,8 @@
     <string name="profile_start_auto_description" formatted="false">"Ойнатудың соңғы күйін қалпына келтіру."</string>
     <string name="profile_start_off_description" formatted="false">"Автоматты түрде бастамау. Фонда ойнап тұрған музыка жалғаса береді."</string>
     <string name="profile_start_on_description" formatted="false">"Қолданба ашылған сайын ойнатуды жалғастыру."</string>
+    <string name="online_select_all_tracks" formatted="false">"Барлық тректі таңдау"</string>
+    <string name="search_prompt" formatted="false">"Іздеуді бастау үшін атауын енгізіңіз."</string>
     <string name="search_top" formatted="false">"Үздік нәтижелер"</string>
     <string name="search_genre_wave" formatted="false">"Жанр бойынша Менің толқыным"</string>
     <string name="files_actions" formatted="false">"Әрекеттер"</string>
@@ -840,11 +842,9 @@
     <string name="playlist_stale_edit" formatted="false">"Тізім өзгерді. Қайталап көріңіз."</string>
     <string name="playlist_undo_order" formatted="false">"Орын ауыстыруды болдырмау"</string>
     <string name="radio_next_station" formatted="false">"Келесі станция"</string>
-    <string name="radio_previous_station" formatted="false">"Алдыңғы станция"</string>
-    <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
     <string name="car_resume" formatted="false">"Ойнатуды жалғастыру"</string>
     <string name="car_clip_audio" formatted="false">"Клиптер · тек дыбыс"</string>
     <string name="car_track_waves" formatted="false">"Тректер бойынша толқындар"</string>
-    <string name="search_prompt" formatted="false">"Іздеуді бастау үшін атауын енгізіңіз."</string>
-    <string name="online_select_all_tracks" formatted="false">"Барлық тректі таңдау"</string>
+    <string name="radio_previous_station" formatted="false">"Алдыңғы станция"</string>
+    <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
 </resources>
