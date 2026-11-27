@@ -2,7 +2,7 @@
 
 Автомобильная проекция со смартфона, подключение и проверка сборки 2.10.0 — [Android Auto](ANDROID_AUTO_2_10_0.md).
 
-Текущий стабильный выпуск — [2.10.0-build162](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build162).
+Текущий стабильный выпуск — [2.10.0-build162](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build162). [Проверки GitHub, автообновления и 4PDA](RELEASE_2_10_0_VERIFICATION.md).
 
 [Стабильный 2.9.0-build151 и доставка](RELEASE_2_9_0_VERIFICATION.md) · [подписанный APK](MANUAL_2_9_0_BUILD151.md) ·
 [«Топ» и жанровые волны в поиске](SEARCH_TOP_2_9_0_VERIFICATION.md) · [B-055](BUG_REPORT.md#b-055--синхронизация-офлайн-кэша-прерывается-при-сне-планшета) ·
