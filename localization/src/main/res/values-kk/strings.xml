@@ -842,4 +842,9 @@
     <string name="radio_next_station" formatted="false">"Келесі станция"</string>
     <string name="radio_previous_station" formatted="false">"Алдыңғы станция"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="other">%d трек</item></plurals>
+    <string name="car_resume" formatted="false">"Ойнатуды жалғастыру"</string>
+    <string name="car_clip_audio" formatted="false">"Клиптер · тек дыбыс"</string>
+    <string name="car_track_waves" formatted="false">"Тректер бойынша толқындар"</string>
+    <string name="search_prompt" formatted="false">"Іздеуді бастау үшін атауын енгізіңіз."</string>
+    <string name="online_select_all_tracks" formatted="false">"Барлық тректі таңдау"</string>
 </resources>

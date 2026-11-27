@@ -1,6 +1,7 @@
 package dev.petrov.ymplayer2.core
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -41,10 +42,19 @@ data class OnlineMusicState(
 )
 
 /** Main-dispatcher screen coordinator. Search cancellation is backed by explicit response tickets. */
-class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private val scope: CoroutineScope) {
+class OnlineMusic private constructor(val accounts: AccountAuth, val api: OnlineMusicApi, private val scope: CoroutineScope,
+    private val mutableCatalog: MutableStateFlow<OnlineCatalogState>) {
+    constructor(accounts: AccountAuth, api: OnlineMusicApi, scope: CoroutineScope) :
+        this(accounts, api, scope, MutableStateFlow(OnlineCatalogState()))
+
+    /** Shares playable metadata with the player, while queries, pages and details are independent. */
+    fun searchSession(scope: CoroutineScope) = OnlineMusic(accounts, api, scope, mutableCatalog).also { search ->
+        scope.launch { playlistChanges.collect { (playlist, deleted) -> search.applyPlaylistChange(playlist, deleted) } }
+    }
+
+    private val playlistChanges = MutableSharedFlow<Pair<CloudPlaylist, Boolean>>(extraBufferCapacity = 1)
     private val mutable = MutableStateFlow(OnlineMusicState())
     val state = mutable.asStateFlow()
-    private val mutableCatalog = MutableStateFlow(OnlineCatalogState())
     val catalog = mutableCatalog.asStateFlow()
     private var generation = 0L
     private var job: Job? = null
@@ -58,7 +68,7 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
                 val previous = catalog.value
                 mutableCatalog.value = OnlineCatalogState(profile, phase,
                     if (profile == previous.profileId && phase == AuthPhase.SIGNED_IN && previous.enabled) previous.tracks else emptyList())
-                if (profile != previous.profileId || (phase == AuthPhase.SIGNED_IN) != previous.enabled) {
+                if (profile != state.value.profileId || (phase == AuthPhase.SIGNED_IN) != state.value.signedIn) {
                     invalidateRequest(); parents.clear(); artistCardDepth = null
                     mutable.value = OnlineMusicState(profile, phase == AuthPhase.SIGNED_IN)
                 }
@@ -109,10 +119,19 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
         if (state.value.request.collection && state.value.request.entity == null) load(0)
     }
     fun playlistChanged(playlist: CloudPlaylist, deleted: Boolean) {
+        applyPlaylistChange(playlist, deleted)
+        playlistChanges.tryEmit(playlist to deleted)
+    }
+
+    private fun applyPlaylistChange(playlist: CloudPlaylist, deleted: Boolean) {
+        if (!state.value.signedIn || accounts.state.value.account?.id != playlist.ownerId) return
         val entity = state.value.request.entity
         val matching = entity?.kind == MusicKind.PLAYLISTS && entity.id == playlist.id && entity.ownerId == playlist.ownerId
         if (matching) {
-            if (deleted) { collection(MusicKind.PLAYLISTS); return }
+            if (deleted) {
+                if (state.value.request.collection) collection(MusicKind.PLAYLISTS) else if (up()) retry()
+                return
+            }
             mutable.value = state.value.copy(request = state.value.request.copy(entity = playlist.entity()))
             load(0)
         }
@@ -167,7 +186,7 @@ class OnlineMusic(val accounts: AccountAuth, val api: OnlineMusicApi, private va
                 delay(delayMillis)
                 val response = api.page(before.profileId, before.request, page)
                 ensureActive()
-                if (generation != ticket || state.value.profileId != before.profileId) return@launch
+                if (generation != ticket || catalog.value.profileId != before.profileId || !catalog.value.enabled) return@launch
                 val entries = ((if (page == 0) emptyList() else before.entries) + response.entries).distinctBy(MusicEntry::id)
                 val tracks = (catalog.value.tracks + response.entries.mapNotNull(MusicEntry::track)).associateBy(Track::id).values.toList().takeLast(4000)
                 mutableCatalog.value = catalog.value.copy(tracks = tracks)

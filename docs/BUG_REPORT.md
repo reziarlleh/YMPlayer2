@@ -1,6 +1,6 @@
 # Багрепорт YMPlayer2
 
-Текущий стабильный выпуск — [2.9.1-build156](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.1-build156).
+Текущий стабильный выпуск — [2.10.0-build162](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build162).
 
 ## B-058 — «Играть папку» могла оставить пустую очередь
 

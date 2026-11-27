@@ -3,7 +3,7 @@ package dev.petrov.ymplayer2.shell
 import android.os.Bundle
 import dev.petrov.ymplayer2.core.ArtistRef
 
-internal enum class AccountActionKind { ACCOUNT, CLIPS, RADIO, MY_WAVE, OFFLINE_PLAY, OFFLINE_LIST, OFFLINE_SEARCH, YANDEX_LIBRARY, YANDEX_SEARCH, ARTIST }
+internal enum class AccountActionKind { ACCOUNT, CLIPS, RADIO, MY_WAVE, OFFLINE_PLAY, OFFLINE_LIST, YANDEX_LIBRARY, YANDEX_SEARCH, ARTIST }
 internal data class AccountAction(val kind: AccountActionKind, val query: String = "", val artist: ArtistRef? = null)
 internal data class AccountContinuation(val action: AccountAction, val returnRoute: String,
     val originProfile: String, val targetProfile: String? = null) {

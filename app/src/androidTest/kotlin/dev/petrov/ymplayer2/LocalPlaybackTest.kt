@@ -176,10 +176,10 @@ class LocalPlaybackTest {
         } finally { store.edit(localProfile, dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) }
     }
 
-    @Test fun bulkSelectionSurvivesPaginationAndAddsInChosenOrderWithRemote() {
+    @Test fun bulkSelectionSurvivesLocalSearchPaginationAndAddsInChosenOrder() {
         provider("bulk", "81")
         runBlocking { library.refresh() }
-        val rows = runBlocking { library.pageTracks(CatalogFilter(), limit = 100).items }
+        val rows = runBlocking { library.pageTracks(CatalogFilter(query = "bulk"), limit = 100).items }
         val first = rows[5]; val last = rows.last()
         val store = graph.collections
         waitFor { store.state.value.ready }
@@ -189,11 +189,14 @@ class LocalPlaybackTest {
         compose.runOnIdle { player.clearQueue() }
         waitFor { player.state.value.queueCount == 0 }
         fun action(tag: String) {
+            waitFor { compose.onAllNodesWithTag("local_search_loading").fetchSemanticsNodes().isEmpty() }
             compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag(tag))
             compose.onNodeWithTag(tag).performClick()
         }
         try {
             compose.onNodeWithTag("nav_search").performClick()
+            compose.onNodeWithTag("search_input").performTextInput("bulk")
+            compose.onNodeWithTag("search_input").performImeAction()
             action("bulk_start")
             action("select_${first.id}")
             action("catalog_more")
@@ -251,15 +254,22 @@ class LocalPlaybackTest {
         } finally { runBlocking { store.edit(localProfile, dev.petrov.ymplayer2.core.CollectionEdit.Delete(list.id)) } }
     }
 
-    @Test fun bulkSelectionResetsOnFilterProfileSectionAndBack() {
+    @Test fun bulkSelectionResetsOnQueryProfileSectionAndBack() {
         compose.onNodeWithTag("nav_search").performClick()
         fun action(tag: String) {
+            waitFor { compose.onAllNodesWithTag("local_search_loading").fetchSemanticsNodes().isEmpty() }
             compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag(tag))
             compose.onNodeWithTag(tag).performClick()
         }
-        val id = library.testTracks.first().id
+        fun query(value: String) {
+            compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("search_input"))
+            compose.onNodeWithTag("search_input").performTextReplacement(value)
+            compose.onNodeWithTag("search_input").performImeAction()
+        }
+        query("one")
+        val id = library.testTracks.first { it.title.contains("one", true) }.id
         action("bulk_start"); action("select_$id")
-        action("filter_LOCAL")
+        query("on")
         action("bulk_start")
         compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
         androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_BACK)
@@ -267,6 +277,7 @@ class LocalPlaybackTest {
         action("bulk_start"); action("select_$id")
         compose.runOnIdle { player.switchProfile(roadProfile) }
         waitFor { player.state.value.profileId == roadProfile }
+        query("one")
         action("bulk_start")
         compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
         compose.onNodeWithTag("nav_library").performClick()
@@ -918,6 +929,9 @@ class LocalPlaybackTest {
         waitFor { player.state.value.queue.isEmpty() }
         assertTrue(player.state.value.queue.isEmpty())
         compose.onNodeWithTag("nav_search").performClick()
+        compose.onNodeWithTag("search_input").performTextInput("one")
+        compose.onNodeWithTag("search_input").performImeAction()
+        waitFor { compose.onAllNodesWithTag("local_search_loading").fetchSemanticsNodes().isEmpty() }
         compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("enqueue_$one"))
         compose.onNodeWithTag("enqueue_$one").performClick()
         waitFor { player.state.value.queue.map { it.id } == listOf(one) }

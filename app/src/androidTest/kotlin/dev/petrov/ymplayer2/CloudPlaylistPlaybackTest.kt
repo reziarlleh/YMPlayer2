@@ -43,7 +43,7 @@ class CloudPlaylistPlaybackTest {
         compose.onNodeWithTag("nav_search").performClick(); compose.onNodeWithTag("source_yandex").performClick()
         compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("online_query"))
         compose.onNodeWithTag("online_query").performTextInput("fixture"); compose.onNodeWithTag("online_query").performImeAction()
-        waitFor { h.online.state.value.loaded && !h.online.state.value.loading }
+        waitFor { compose.activity.search.state.value.loaded && !compose.activity.search.state.value.loading }
         click("online_play_all", "online_list"); waitFor { player.state.value.positionSeconds >= 1 }
         compose.onNodeWithTag("nav_player").performClick()
     }

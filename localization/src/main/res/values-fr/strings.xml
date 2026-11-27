@@ -842,4 +842,9 @@ Vous pouvez ajouter du texte entre les variables. Exemple: {number}. {artist} - 
     <string name="radio_next_station" formatted="false">"Station suivante"</string>
     <string name="radio_previous_station" formatted="false">"Station précédente"</string>
     <plurals name="track_count"><item quantity="one">%d titre</item><item quantity="many">%d titres</item><item quantity="other">%d titres</item></plurals>
+    <string name="car_resume" formatted="false">"Reprendre la lecture"</string>
+    <string name="car_clip_audio" formatted="false">"Clips · audio uniquement"</string>
+    <string name="car_track_waves" formatted="false">"Radios par titre"</string>
+    <string name="search_prompt" formatted="false">"Saisissez un nom pour lancer la recherche."</string>
+    <string name="online_select_all_tracks" formatted="false">"Sélectionner tous les titres"</string>
 </resources>

@@ -784,6 +784,8 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     profile_start_auto_description("Восстанавливать последнее состояние.", "Restore the last playback state.", R.string.profile_start_auto_description),
     profile_start_off_description("Не запускать автоматически. Уже играющая фоном музыка продолжает играть.", "Do not start automatically. Music already playing in the background continues.", R.string.profile_start_off_description),
     profile_start_on_description("Продолжать воспроизведение при каждом открытии приложения.", "Resume playback whenever you open the app.", R.string.profile_start_on_description),
+    online_select_all_tracks("Выбрать все треки", "Select all tracks", R.string.online_select_all_tracks),
+    search_prompt("Введите название, чтобы начать поиск.", "Enter a name to start searching.", R.string.search_prompt),
     search_top("Топ", "Top", R.string.search_top),
     search_genre_wave("Моя волна по жанру", "My Vibe by genre", R.string.search_genre_wave),
     files_actions("Действия", "Actions", R.string.files_actions),
@@ -836,5 +838,8 @@ enum class Msg(val source: String, val english: String, val resource: Int) {
     playlist_stale_edit("Список изменился. Повторите действие.", "The playlist changed. Try again.", R.string.playlist_stale_edit),
     playlist_undo_order("Отменить перестановку", "Undo reorder", R.string.playlist_undo_order),
     radio_next_station("Следующая станция", "Next station", R.string.radio_next_station),
+    car_resume("Продолжить воспроизведение", "Resume playback", R.string.car_resume),
+    car_clip_audio("Клипы · только звук", "Clips · audio only", R.string.car_clip_audio),
+    car_track_waves("Волны по трекам", "Track radio", R.string.car_track_waves),
     radio_previous_station("Предыдущая станция", "Previous station", R.string.radio_previous_station);
 }

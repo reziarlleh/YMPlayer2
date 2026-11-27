@@ -842,4 +842,9 @@ You can add your own text between variables. Example: {number}. {artist} - {titl
     <string name="radio_next_station" formatted="false">"Next station"</string>
     <string name="radio_previous_station" formatted="false">"Previous station"</string>
     <plurals name="track_count"><item quantity="one">%d track</item><item quantity="other">%d tracks</item></plurals>
+    <string name="car_resume" formatted="false">"Resume playback"</string>
+    <string name="car_clip_audio" formatted="false">"Clips · audio only"</string>
+    <string name="car_track_waves" formatted="false">"Track radio"</string>
+    <string name="search_prompt" formatted="false">"Enter a name to start searching."</string>
+    <string name="online_select_all_tracks" formatted="false">"Select all tracks"</string>
 </resources>

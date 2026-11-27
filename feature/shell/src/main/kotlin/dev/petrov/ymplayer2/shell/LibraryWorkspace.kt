@@ -49,7 +49,7 @@ import dev.petrov.ymplayer2.localization.*
         when {
             cloud && model.online != null -> holder.SaveableStateProvider("cloud") {
                 OnlineScreen(model.online, model.player, false, { navigate("account") }, model.taste, { navigate("player") },
-                    artist = openArtist, playlists = model.cloudPlaylists, exporter = exporter)
+                    artist = openArtist, playlists = model.cloudPlaylists, exporter = exporter, librarySelection = true)
             }
             playlists -> holder.SaveableStateProvider("playlists") {
                 LocalPlaylistWorkspace(model, playback, files, false, navigate)

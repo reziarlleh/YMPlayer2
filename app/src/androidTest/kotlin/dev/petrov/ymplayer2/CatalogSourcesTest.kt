@@ -34,13 +34,10 @@ class CatalogSourcesTest {
         if (tag.startsWith("track_")) compose.onNodeWithTag(tag).performTouchInput {
             // Artist names have their own action. Hit the play icon at the row's right edge.
             click(androidx.compose.ui.geometry.Offset(width - 12f, height / 2f))
-        } else if (tag.startsWith("filter_") && compose.activity.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_TYPE_MASK == android.content.res.Configuration.UI_MODE_TYPE_TELEVISION) {
-            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(android.view.KeyEvent.KEYCODE_DPAD_DOWN)
-            compose.onNodeWithTag(tag).performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.RequestFocus) { it() }
-            compose.onNodeWithTag(tag).assertIsFocused().assertIsDisplayed().performKeyInput { pressKey(androidx.compose.ui.input.key.Key.DirectionCenter) }
         } else compose.onNodeWithTag(tag).performClick()
     }
     private fun showTrack(id: String) {
+        await { compose.onAllNodesWithTag("local_search_loading").fetchSemanticsNodes().isEmpty() }
         try { compose.onNodeWithTag("catalog_list").performScrollToNode(hasTestTag("track_$id")) }
         catch (failure: AssertionError) {
             androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()?.let { bitmap ->
@@ -187,60 +184,119 @@ class CatalogSourcesTest {
         assertFalse(player.state.value.playing)
     }
 
-    @Test fun globalSearchLoadsEachSourceOnDemandAndPlaysMixedReferences() {
-        compose.onNodeWithTag("nav_search").performClick()
-        action("search_input")
-        compose.onNodeWithTag("search_input").performTextInput("o")
-        compose.onNodeWithTag("search_input").performImeAction()
-        await { fixture.online.state.value.loaded && fixture.online.state.value.request.query == "o" }
-        val local = fixture.library.testTracks.first { it.source == Source.LOCAL }.id
-        val usb = fixture.library.testTracks.first { it.source == Source.USB }.id
-        showTrack(local); showTrack(usb); showTrack("yandex:1:7")
-        assertTrue(fixture.resolved.isEmpty())
-        val requests = fixture.requests
-        action("catalog_online_more")
-        await { fixture.online.state.value.entries.size == 2 }
-        assertEquals(requests + 1, fixture.requests)
-        showTrack("yandex:2:7")
-        capture("tracks")
-        action("catalog_play_all")
-        await { player.state.value.playing && player.state.value.queueCount == 5 && player.state.value.positionSeconds >= 1 }
-        assertTrue(player.state.value.referenceQueue)
-        assertTrue(player.state.value.queue.size <= 3)
-        assertEquals((fixture.library.testTracks.map(Track::id) + listOf("yandex:1:7", "yandex:2:7")).toSet(), player.state.value.explicitQueueIds)
-        repeat(3) {
-            val before = player.state.value.current!!.id
-            compose.runOnIdle { player.skip(1) }
-            await { player.state.value.current?.id != before }
+    @Test fun yandexLibrarySelectsAllPagesAndRangeThenPlaysOnlyRemainingTracks() {
+        compose.runOnIdle { fixture.onlineTrackCount = 4 }
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
+        await { fixture.online.state.value.loaded && fixture.online.state.value.nextPage != null }
+        fun control(tag: String) {
+            compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
         }
-        await { player.state.value.current?.source == Source.YANDEX && player.state.value.positionSeconds >= 1 }
-        action("filter_USB"); showTrack(usb)
-        compose.onNodeWithTag("track_$local").assertDoesNotExist()
-        compose.onNodeWithTag("track_yandex:1:7").assertDoesNotExist()
-        action("filter_YANDEX"); showTrack("yandex:1:7")
-        compose.onNodeWithTag("track_$usb").assertDoesNotExist()
+        fun menu(tag: String) {
+            compose.onNodeWithTag("online_selection_menu").performClick()
+            compose.onNodeWithTag(tag).performClick()
+        }
+        control("bulk_start")
+        menu("online_select_all")
+        await { fixture.online.state.value.entries.size == 4 && !fixture.online.state.value.loading }
+        compose.waitUntil(5000) {
+            compose.onAllNodesWithTag("online_selection_loading").fetchSemanticsNodes().isEmpty()
+        }
+        compose.onNodeWithTag("bulk_count").assertTextContains("4", substring = true)
+        menu("online_clear_selection")
+        compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
+        menu("online_select_range")
+        control("select_yandex:2:7")
+        compose.onNodeWithTag("online_range_hint").assertIsDisplayed()
+        control("select_yandex:4:7")
+        compose.onNodeWithTag("bulk_count").assertTextContains("3", substring = true)
+        control("select_yandex:3:7")
+        compose.onNodeWithTag("select_yandex:3:7").assertIsOff()
+        compose.onNodeWithTag("online_play_selected").performClick()
+        await { player.state.value.playing && player.state.value.queueCount == 2 }
+        assertEquals(listOf("yandex:2:7", "yandex:4:7"), runBlocking { player.queuePage(0).items.map(Track::id) })
+        compose.onNodeWithTag("online_selection_menu").assertDoesNotExist()
     }
 
-    @Test fun commonSearchAndOnlineFailureKeepLocalResultsUsable() {
+    @Test fun yandexAlbumCancelClearsSelectionBeforeLeavingDetails() {
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
+        fun control(tag: String) {
+            compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+        }
+        control("online_kind_ALBUMS")
+        await { fixture.online.state.value.loaded && fixture.online.state.value.request.kind == MusicKind.ALBUMS }
+        control("online_entity_7")
+        await { fixture.online.state.value.loaded && fixture.online.state.value.request.entity?.id == "7" }
+        control("bulk_start")
+        control("select_yandex:1:7")
+        control("online_up")
+        compose.onNodeWithTag("online_selection_menu").assertDoesNotExist()
+        assertEquals("7", fixture.online.state.value.request.entity?.id)
+        control("bulk_start")
+        compose.onNodeWithTag("bulk_count").assertTextContains("0", substring = true)
+        compose.onNodeWithTag("bulk_cancel").performClick()
+        control("online_up")
+        compose.onNodeWithTag("online_kind_ALBUMS").assertIsSelected()
+        assertFalse(player.state.value.playing)
+    }
+
+    @Test fun blankAndClearedSearchDoNotShowCatalogOrSelection() {
         compose.onNodeWithTag("nav_search").performClick()
+        val requests = fixture.requests
+        compose.onNodeWithTag("search_prompt").assertIsDisplayed()
+        compose.onNodeWithTag("bulk_start").assertDoesNotExist()
+        compose.onNodeWithTag("catalog_play_all").assertDoesNotExist()
+        compose.onNodeWithTag("open_offline").assertDoesNotExist()
+        val local = fixture.library.testTracks.first { it.source == Source.LOCAL }.id
+        val usb = fixture.library.testTracks.first { it.source == Source.USB }.id
+        compose.onNodeWithTag("track_$local").assertDoesNotExist()
         action("search_input")
-        // Search real metadata, not the UI-only label for an absent artist tag.
         compose.onNodeWithTag("search_input").performTextInput("o")
         compose.onNodeWithTag("search_input").performImeAction()
-        await { fixture.online.state.value.loaded && fixture.online.state.value.request.query == "o" }
-        val local = fixture.library.testTracks.first { it.title.contains("one", true) }
-        showTrack(local.id); showTrack("yandex:1:7")
-        compose.runOnIdle { fixture.failure = MusicFailure.NETWORK }
-        action("search_input"); compose.onNodeWithTag("search_input").performTextReplacement("one")
+        showTrack(local); showTrack(usb)
+        compose.onNodeWithTag("bulk_start").assertIsDisplayed()
+        action("catalog_play_all")
+        await { player.state.value.playing && player.state.value.queueCount == 3 }
+        assertEquals(fixture.library.testTracks.map(Track::id).toSet(), player.state.value.explicitQueueIds)
+        action("search_input")
+        compose.onNodeWithTag("search_input").performTextReplacement("   ")
         compose.onNodeWithTag("search_input").performImeAction()
-        await { fixture.online.state.value.issue != null }
+        compose.onNodeWithTag("search_prompt").assertIsDisplayed()
+        compose.onNodeWithTag("track_$usb").assertDoesNotExist()
+        compose.onNodeWithTag("bulk_start").assertDoesNotExist()
+        assertEquals(requests, fixture.requests)
+    }
+
+    @Test fun yandexSearchErrorDoesNotAffectLocalSearchOrCollection() {
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("source_yandex").performClick()
+        fun onlineControl(tag: String) {
+            compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag(tag))
+            compose.onNodeWithTag(tag).performClick()
+        }
+        onlineControl("online_recommendations")
+        await { fixture.online.state.value.loaded && fixture.online.state.value.request.recommended }
+        val savedCollection = fixture.online.state.value
+        compose.onNodeWithTag("nav_search").performClick()
+        action("source_yandex")
+        compose.onNodeWithTag("online_kind_TOP").assertIsSelected()
+        compose.onNodeWithTag("bulk_start").assertDoesNotExist()
+        compose.runOnIdle { fixture.failure = MusicFailure.NETWORK }
+        onlineControl("online_query")
+        compose.onNodeWithTag("online_query").performTextInput("one")
+        compose.onNodeWithTag("online_query").performImeAction()
+        await { compose.activity.search.state.value.issue != null }
+        compose.onNodeWithTag("online_issue").assertIsDisplayed()
+        onlineControl("source_local")
+        val local = fixture.library.testTracks.first { it.title.contains("one", true) }
         showTrack(local.id)
-        action("track_${local.id}")
-        await { player.state.value.current?.id == local.id && player.state.value.positionSeconds >= 1 }
-        action("catalog_online_issue")
-        compose.onNodeWithTag("catalog_online_issue").assertIsDisplayed()
-        action("filter_LOCAL"); showTrack(local.id)
-        compose.onNodeWithTag("catalog_online_issue").assertDoesNotExist()
+        compose.onNodeWithTag("online_issue").assertDoesNotExist()
+        compose.onNodeWithTag("nav_library").performClick()
+        compose.onNodeWithTag("online_recommendations").assertIsSelected()
+        assertEquals(savedCollection, fixture.online.state.value)
     }
 
     @Test fun collectionKeepsRecommendationsAndAlbumDetailsWhileLocalFilesStaySeparate() {
@@ -271,36 +327,7 @@ class CatalogSourcesTest {
         compose.onNodeWithTag("online_list").assertDoesNotExist()
     }
 
-    @Test fun offlineFilterUsesOnlyDownloadedLikesAndStartsNoOnlineRequest() {
-        compose.runOnIdle {
-            fixture.tasteLists["owner" to TasteKind.TRACK] = TasteList(setOf("1"))
-            fixture.taste.refresh(TasteKind.TRACK)
-        }
-        await { fixture.taste.state.value.shelf(TasteKind.TRACK).list.liked == setOf("1") }
-        compose.runOnIdle { fixture.offline.sync() }
-        await { !fixture.offline.state.value.running && fixture.offline.state.value.tracks.size == 1 }
-        compose.onNodeWithTag("nav_search").performClick()
-        action("filter_offline")
-        val requests = fixture.requests
-        showTrack(fixture.library.testTracks.first().id); showTrack("yandex:1:7")
-        compose.onNodeWithTag("track_yandex:2:7").assertDoesNotExist()
-        action("filter_YANDEX"); showTrack("yandex:1:7")
-        assertEquals(requests, fixture.requests)
-        compose.runOnIdle { fixture.streamFailure = MusicFailure.NETWORK }
-        val resolved = fixture.resolved.size
-        action("track_yandex:1:7")
-        try { await { player.state.value.current?.id == "yandex:1:7" && player.state.value.positionSeconds >= 1 } }
-        catch (failure: AssertionError) { throw AssertionError("Playback=${player.state.value}; offline=${fixture.offline.state.value}; resolved=${fixture.resolved}", failure) }
-        assertTrue(player.state.value.current!!.offline)
-        assertEquals(resolved, fixture.resolved.size)
-    }
-
-    @Test fun offlineSourceSearchStaysInSearchAndFiltersOnlyProfileCache() {
-        fun query(value: String) {
-            action("search_input")
-            compose.onNodeWithTag("search_input").performTextReplacement(value)
-            compose.onNodeWithTag("search_input").performImeAction()
-        }
+    @Test fun downloadedYandexTrackNeverAppearsInLocalFileSearch() {
         compose.runOnIdle {
             fixture.tasteLists["owner" to TasteKind.TRACK] = TasteList(setOf("1"))
             fixture.taste.refresh(TasteKind.TRACK)
@@ -310,41 +337,12 @@ class CatalogSourcesTest {
         await { !fixture.offline.state.value.running && fixture.offline.state.value.tracks.size == 1 }
         val cached = fixture.offline.state.value.tracks.single()
         compose.onNodeWithTag("nav_search").performClick()
-        query("Онлайн")
-        await { fixture.online.state.value.loaded && fixture.online.state.value.request.query == "Онлайн" }
-        compose.onNodeWithTag("open_offline").performClick()
-        compose.onNodeWithTag("open_offline").assertIsSelected()
-        compose.onNodeWithTag("nav_search").assertIsSelected()
-        compose.onNodeWithTag("offline_list").assertDoesNotExist()
-        compose.onNodeWithTag("search_input").assertTextContains("Онлайн")
-        val requests = fixture.requests
-        for (query in listOf(cached.title, cached.artist, cached.album).filter(String::isNotBlank)) {
-            query(query.uppercase())
-            showTrack(cached.id)
-            compose.onNodeWithTag("track_yandex:2:7").assertDoesNotExist()
-            fixture.library.testTracks.forEach { compose.onNodeWithTag("track_${it.id}").assertDoesNotExist() }
-        }
-        query("нет такого трека в кэше")
-        compose.onNodeWithTag("track_${cached.id}").assertDoesNotExist()
-        assertEquals("Offline search must not start provider requests", requests, fixture.requests)
-        compose.onNodeWithTag("source_yandex").performClick()
-        await { fixture.online.state.value.request.query == "нет такого трека в кэше" && fixture.online.state.value.loaded }
-        compose.onNodeWithTag("online_query").assertTextContains("нет такого трека в кэше")
-        compose.onNodeWithTag("source_local").performClick()
-        compose.onNodeWithTag("search_input").assertTextContains("нет такого трека в кэше")
-        compose.onNodeWithTag("open_offline").performClick()
-        query("")
-        showTrack(cached.id)
-        compose.runOnIdle { player.switchProfile("guest") }
-        await { fixture.offline.state.value.owner == null && player.state.value.profileId == "guest" }
-        // The profile change can refocus the search field on short Android 6 windows.
+        action("search_input")
+        compose.onNodeWithTag("search_input").performTextInput(cached.title)
         compose.onNodeWithTag("search_input").performImeAction()
-        await { compose.onAllNodesWithTag("open_offline").fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithTag("open_offline").performClick()
+        await { compose.onAllNodesWithTag("local_search_loading").fetchSemanticsNodes().isEmpty() }
         compose.onNodeWithTag("track_${cached.id}").assertDoesNotExist()
-        compose.onNodeWithTag("nav_search").assertIsSelected()
-        compose.onNodeWithTag("offline_list").assertDoesNotExist()
-        capture("offline-search")
+        compose.onNodeWithTag("open_offline").assertDoesNotExist()
     }
 
     @Test fun usbFolderPlaysRecursivelyWithoutAProviderRequest() {

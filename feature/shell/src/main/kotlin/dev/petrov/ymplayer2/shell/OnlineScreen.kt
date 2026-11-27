@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -19,7 +17,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.petrov.ymplayer2.core.*
@@ -28,23 +25,26 @@ import dev.petrov.ymplayer2.designsystem.skin.*
 
 @Composable internal fun OnlineScreen(music: OnlineMusic, player: PlaybackController, search: Boolean, signIn: () -> Unit, taste: MusicTaste? = null, waveStarted: () -> Unit = {},
     artist: (ArtistRef) -> Unit = { music.open(MusicEntity(it.id, it.name, MusicKind.ARTISTS)) }, standalone: Boolean = false, closeArtist: () -> Unit = {}, playlists: CloudPlaylists? = null,
-    searchQuery: String? = null, onSearchQueryChange: (String) -> Unit = {}, exporter: AudioExportAccess? = null) {
+    searchQuery: String? = null, onSearchQueryChange: (String) -> Unit = {}, exporter: AudioExportAccess? = null,
+    searchSources: @Composable () -> Unit = {}, librarySelection: Boolean = false) {
     val state by music.state.collectAsStateWithLifecycle()
     val playback by player.state.collectAsStateWithLifecycle()
     val cloudState = playlists?.state?.collectAsStateWithLifecycle()?.value
     val keyboard = LocalSoftwareKeyboardController.current
     val request = state.request
     val query = searchQuery ?: request.query
+    val detail = request.entity
     val topSelected = search && (request.topSearch || request.collection)
+    val matchesQuery = !search || detail != null ||
+        query.isNotBlank() && !request.collection && request.entity == null && request.query == query.take(200)
     fun submitSearch(value: String) { if (topSelected) music.searchTop(value) else music.search(value, request.kind) }
     fun changeQuery(value: String) { onSearchQueryChange(value); submitSearch(value) }
-    val detail = request.entity
-    val selection = rememberTrackSelection(playback.profileId, request, query, search)
+    val selection = rememberTrackSelection(playback.profileId, state.profileId, state.signedIn, request, query, search)
     fun up() { if (standalone && detail?.kind == MusicKind.ARTISTS) closeArtist() else music.up() }
     BackHandler(detail != null) { up() }
     LaunchedEffect(search, searchQuery, state.profileId, state.signedIn) {
         if (!standalone && detail == null) {
-            if (search && (request.collection || request.query != query)) submitSearch(query)
+            if (search && (request.collection || request.query != query.take(200))) submitSearch(query)
             if (!search && state.signedIn && (!request.collection || !state.loaded && !state.loading && state.issue == null)) music.collection()
         }
     }
@@ -54,6 +54,7 @@ import dev.petrov.ymplayer2.designsystem.skin.*
         extra = { playlists?.let { AddToCloudPlaylist(track, it) { actions = null } } }) { actions = null } }
     val entries = if (request.recommended) state.entries.filter { entry -> entry.track?.let { preferences?.allows(it) != false } ?: true } else state.entries
     val shownTracks = entries.mapNotNull(MusicEntry::track)
+    val librarySelectionMode = remember(selection) { OnlineLibrarySelection(selection) }
     val filtersReady = !request.recommended || preferences?.let { it.shelf(TasteKind.TRACK).ready && it.shelf(TasteKind.ARTIST).ready } != false
     fun play(trackId: String? = null) {
         if (!filtersReady) return
@@ -63,10 +64,14 @@ import dev.petrov.ymplayer2.designsystem.skin.*
     }
     val queued = playback.explicitQueueIds ?: playback.queue.mapTo(hashSetOf(), Track::id)
     Column(Modifier.fillMaxSize()) {
-    if (selection.active) SelectionToolbar(selection, player)
+    if (!librarySelection && matchesQuery && selection.active) SelectionToolbar(selection, player)
     LazyColumn(Modifier.weight(1f).fillMaxWidth().imePadding().testTag("online_list"), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        item {
-            if (detail != null) TextButton({ up() }, Modifier.prismFocus().testTag("online_up")) { Text(tr(Msg.msg_1478970270d1)) }
+        if (search && detail == null) {
+            item(key = "search_input") { SearchInput(query, ::changeQuery, "online_query") }
+            item(key = "search_sources") { searchSources() }
+        }
+        if (!search || detail != null) item {
+            if (detail != null) TextButton({ if (librarySelection && selection.active) librarySelectionMode.back() else up() }, Modifier.prismFocus().testTag("online_up")) { Text(tr(Msg.msg_1478970270d1)) }
             val title: @Composable () -> Unit = { Text(detail?.title ?: if (search) tr(Msg.msg_fede8859c53f) else tr(Msg.msg_5fbef357e55e), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold) }
             val target = detail?.tasteTarget()
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -94,13 +99,6 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                 }
             }
             if (detail == null) {
-                if (search) item {
-                    OutlinedTextField(query, ::changeQuery, Modifier.fillMaxWidth().prismFocus().testTag("online_query"),
-                        label = { Text(tr(Msg.msg_0918b4ba9268)) }, singleLine = true,
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                        keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                        trailingIcon = { if (query.isNotEmpty()) ActionIcon(UiIcon.CLOSE, tr(Msg.msg_6e1f7baa472f), { changeQuery("") }) })
-                }
                 item {
                     val selected = if (topSelected) "TOP" else if (request.recommended) "recommended" else request.kind.name
                     ChoiceRow(selected, Modifier.fillMaxWidth()) { choice ->
@@ -123,23 +121,39 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                     OutlinedButton({ playlists.newPlaylist(null) }, Modifier.prismFocus().testTag("cloud_create"), enabled = cloudState?.owner != null && !cloudState.busy) { Text(tr(Msg.msg_14b10e3e0473)) }
                 }
             }
+            if (search && detail == null && query.isBlank()) {
+                item { Text(tr(Msg.search_prompt), Modifier.testTag("online_empty"), color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                return@LazyColumn
+            }
+            if (!matchesQuery) return@LazyColumn
             if (state.loading) item { LinearProgressIndicator(Modifier.fillMaxWidth().testTag("online_loading")); Text(tr(Msg.msg_22a5d9112486)) }
             if (state.issue != null) item {
                 Text(trIssue(state.issue!!), color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("online_issue"))
                 OutlinedButton(music::retry, Modifier.prismFocus().testTag("online_retry"), enabled = !state.loading) { Text(tr(Msg.msg_5189135a6110)) }
             }
             if (!state.loading && state.issue == null && entries.isEmpty()) item {
-                Text(if (search && request.query.isBlank() && detail == null) tr(Msg.msg_298252296d09)
-                    else if (state.loaded) tr(Msg.msg_2f9654f4d1a1) else tr(Msg.msg_39cef1f5fa63), Modifier.testTag("online_empty"))
+                Text(if (state.loaded) tr(Msg.msg_2f9654f4d1a1) else tr(Msg.msg_39cef1f5fa63), Modifier.testTag("online_empty"))
             }
-            if (shownTracks.any { it.available }) item {
+            if (shownTracks.isNotEmpty() && (!librarySelection || !selection.active)) item(key = "result_actions") {
                 if (!filtersReady) {
                     Text(tr(Msg.msg_a3e2c7d263a6))
                     TextButton({ taste?.refresh(TasteKind.TRACK); taste?.refresh(TasteKind.ARTIST) }, Modifier.prismFocus()) { Text(tr(Msg.msg_68cc12d616b8)) }
                 }
-                OutlinedButton({ play() }, Modifier.prismFocus().testTag("online_play_all"), enabled = filtersReady) { Text(tr(Msg.msg_9cbbe230cb66)) }
+                val playShown: @Composable () -> Unit = {
+                    if (shownTracks.any { it.available }) OutlinedButton({ play() }, Modifier.prismFocus().testTag("online_play_all"), enabled = filtersReady) {
+                        Text(tr(Msg.msg_9cbbe230cb66))
+                    }
+                }
+                if (search && detail == null) ResultActions {
+                    playShown()
+                    if (!selection.active) BeginTrackSelection(selection)
+                } else {
+                    playShown()
+                    if (!selection.active) {
+                        if (librarySelection) BeginTrackSelection(selection) else SelectionToolbar(selection, player)
+                    }
+                }
             }
-            if (shownTracks.isNotEmpty() && !selection.active) item(key = "bulk") { SelectionToolbar(selection, player) }
             items(entries, key = MusicEntry::id) { entry ->
                 val track = entry.track
                 val wave = entry.wave
@@ -150,7 +164,9 @@ import dev.petrov.ymplayer2.designsystem.skin.*
                     play = { play(track.id) },
                     enqueue = { player.enqueue(track.id) }, queued = track.id in queued, more = if (taste != null) ({ actions = track }) else null, taste = taste, artist = artist,
                     checked = if (selection.active) selection.contains(track.id) else null,
-                    toggleSelection = if (selection.active) ({ selection.toggle(track) }) else null)
+                    toggleSelection = if (selection.active) ({
+                        if (librarySelection) librarySelectionMode.toggle(track, shownTracks) else selection.toggle(track)
+                    }) else null)
                 else entry.entity?.let { entity ->
                     val label: @Composable () -> Unit = { Surface(onClick = { keyboard?.hide(); music.open(entity) }, modifier = Modifier.fillMaxWidth().prismFocus().testTag("online_entity_${entity.id}"), shape = MaterialTheme.shapes.medium) {
                         Column(Modifier.padding(16.dp)) {
@@ -170,6 +186,11 @@ import dev.petrov.ymplayer2.designsystem.skin.*
             }
         }
     }
+    if (librarySelection && selection.active) OnlineLibrarySelectionBar(
+        librarySelectionMode, shownTracks, state, music, player, filtersReady,
+        allows = { !request.recommended || preferences?.allows(it) != false },
+        play = { tracks -> player.playList(tracks, origin = request.playbackOrigin(music.accounts.state.value.account?.id)) },
+    )
     }
 }
 

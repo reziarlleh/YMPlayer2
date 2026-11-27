@@ -842,4 +842,9 @@
     <string name="radio_next_station" formatted="false">"Наступна станція"</string>
     <string name="radio_previous_station" formatted="false">"Попередня станція"</string>
     <plurals name="track_count"><item quantity="one">%d трек</item><item quantity="few">%d треки</item><item quantity="many">%d треків</item><item quantity="other">%d треку</item></plurals>
+    <string name="car_resume" formatted="false">"Продовжити відтворення"</string>
+    <string name="car_clip_audio" formatted="false">"Кліпи · лише звук"</string>
+    <string name="car_track_waves" formatted="false">"Хвилі за треками"</string>
+    <string name="search_prompt" formatted="false">"Введіть назву, щоб почати пошук."</string>
+    <string name="online_select_all_tracks" formatted="false">"Вибрати всі треки"</string>
 </resources>

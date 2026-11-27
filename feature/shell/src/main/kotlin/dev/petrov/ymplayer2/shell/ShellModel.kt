@@ -13,6 +13,7 @@ import dev.petrov.ymplayer2.core.*
 
 /** Screens depend on contracts; the debug demo supplies its own explicit fixtures. */
 class ShellModel(val catalog: Catalog, val player: PlaybackController, savedState: SavedStateHandle, val collections: UserCollections? = null, val accounts: AccountAuth? = null, val online: OnlineMusic? = null, val taste: MusicTaste? = null, val offline: OfflineMusic? = null, val audioQuality: AudioQualityPreferences? = null, val cloudPlaylists: CloudPlaylists? = null, val history: ListeningLog? = null, val radio: RadioController? = null) : ViewModel() {
+    val yandexSearch by lazy { online?.searchSession(viewModelScope) }
     private val navigationState = savedState
     private val pendingAccount = kotlinx.coroutines.flow.MutableStateFlow(AccountContinuation.read(savedState["accountAction"]))
     internal val accountContinuation = pendingAccount.asStateFlow()

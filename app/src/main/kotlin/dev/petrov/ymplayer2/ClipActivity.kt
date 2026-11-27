@@ -34,12 +34,19 @@ class ClipActivity : ComponentActivity() {
     private var internetCheck: dev.petrov.ymplayer2.core.InternetCheck? = null
     private var initialClipStarted = false
     private var initialPlayRequested = true
+    private val handOffToCar: () -> Unit = {
+        clips?.pause()
+        clips?.close()
+        clips = null
+        finish()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         hideSystemBars()
         val graph = application as PlayerApplication
         graph.clipActivities++
+        graph.handOffPhoneClips = handOffToCar
         val profile = graph.playback.state.value.profileId
         clipProfile = profile
         graph.accounts.activate(profile)
@@ -168,6 +175,7 @@ class ClipActivity : ComponentActivity() {
         internetCheck?.close(); internetCheck = null
         controls = null; clips?.close(); clips = null
         val graph = application as PlayerApplication
+        if (graph.handOffPhoneClips === handOffToCar) graph.handOffPhoneClips = null
         graph.clipActivities = (graph.clipActivities - 1).coerceAtLeast(0)
         super.onDestroy()
     }

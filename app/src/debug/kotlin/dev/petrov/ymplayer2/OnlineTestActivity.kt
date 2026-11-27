@@ -285,6 +285,8 @@ class FixtureInternetConnection : InternetConnection {
 }
 
 class OnlineTestActivity : ComponentActivity() {
+    lateinit var search: OnlineMusic
+        private set
     val harness get() = ViewModelProvider(this)[OnlineHarness::class.java]
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -293,6 +295,7 @@ class OnlineTestActivity : ComponentActivity() {
             val model: ShellModel = viewModel(factory = viewModelFactory {
                 initializer { ShellModel(harness.library, harness.player, createSavedStateHandle(), collections = harness.collections, accounts = harness.auth, online = harness.online, taste = harness.taste, offline = harness.offline, audioQuality = harness.audioQuality, cloudPlaylists = harness.cloudPlaylists, history = harness.history, radio = harness.radioCatalog) }
             })
+            search = requireNotNull(model.yandexSearch)
             ShellApp(model, "Online fixture", onExit = ::finish, equalizer = { harness.equalizerRequests += it }, internet = harness.internet,
                 cacheLocation = harness.cacheLocation, exporter = harness.audioExporter, mediaFiles = harness.mediaFiles)
         } }

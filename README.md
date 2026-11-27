@@ -12,16 +12,18 @@ YMPlayer2 — самостоятельное приложение. Для раб
   <img src="docs/design/brand/tv-banner.png" width="640" alt="YMPlayer2">
 </p>
 
-**[Скачать APK — 2.9.1-build156](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
+**[Скачать APK — 2.10.0-build162](https://github.com/reziarlleh/YMPlayer2/releases/latest)** ·
 [Что нового](CHANGELOG.md) ·
 [Обсуждение и APK на 4PDA](https://4pda.to/forum/index.php?showtopic=1127108)
 
-[Резервная загрузка APK](https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.9.1-build156/releases/2.9.1-build156/YMPlayer-2.9.1-build156.apk) ·
+[Резервная загрузка APK](https://cdn.jsdelivr.net/gh/reziarlleh/YMPlayer2@apk-2.10.0-build162/releases/2.10.0-build162/YMPlayer-2.10.0-build162.apk) ·
 [Как пользоваться Радио](docs/USER_GUIDE.md#радио).
 
 Требуется **Android 6.0 или новее**. Установка поверх предыдущей2.x сохраняет
 настройки, аккаунты и музыку. «Моя волна» сохраняет очередь и позицию при
 переключении на офлайн, локальную музыку или радио и обратно.
+
+В 2.10.0 появилась поддержка Android Auto со смартфона. [Как подключить к машине](docs/ANDROID_AUTO_2_10_0.md).
 
 ## Возможности
 

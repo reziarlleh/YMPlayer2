@@ -43,7 +43,7 @@ private val destinations get() = listOf(
     Destination("clips", tr(Msg.msg_6daecbeea4b6), UiIcon.CLIPS),
 )
 
-@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, initialOfflineSearch: Boolean = false, saveSources: (Boolean, Boolean) -> Unit = { _, _ -> }, internet: InternetConnection? = null, initialTheme: String = "dark", saveTheme: (String) -> Unit = {}, cacheLocation: CacheLocationAccess? = null, pickCacheFolder: () -> Unit = {}, resetCacheFolder: () -> Unit = {}, exporter: AudioExportAccess? = null, pickExportFolder: () -> Unit = {}, auditOffline: () -> Unit = { model.offline?.verifyAndRepair() }, confirmCacheFolder: ((String) -> Unit)? = null, playbackStart: PlaybackStartPreferences? = null,
+@Composable fun ShellApp(model: ShellModel, version: String, addFolder: (Source) -> Unit = {}, folderIssue: String? = null, skin: AppSkin = PrismSkin, onExit: () -> Unit = {}, equalizer: (Boolean) -> Unit = {}, syncOffline: () -> Unit = { model.offline?.sync() }, diagnostics: DiagnosticsAccess? = null, openClips: (() -> Unit)? = null, sideBar: SideBarAccess? = null, updates: UpdateAccess? = null, skins: SkinRepository? = null, importSkin: () -> Unit = {}, diagnosticScreen: (String, Boolean, Int, Int) -> Unit = { _, _, _, _ -> }, initialRoute: String = "player", onRouteChanged: (String) -> Unit = {}, initialOnlineSource: Boolean = false, saveSearchSource: (Boolean) -> Unit = {}, internet: InternetConnection? = null, initialTheme: String = "dark", saveTheme: (String) -> Unit = {}, cacheLocation: CacheLocationAccess? = null, pickCacheFolder: () -> Unit = {}, resetCacheFolder: () -> Unit = {}, exporter: AudioExportAccess? = null, pickExportFolder: () -> Unit = {}, auditOffline: () -> Unit = { model.offline?.verifyAndRepair() }, confirmCacheFolder: ((String) -> Unit)? = null, playbackStart: PlaybackStartPreferences? = null,
     mediaFiles: LocalMediaFiles? = null, initialCloudLibrary: Boolean = initialOnlineSource, saveCloudLibrary: (Boolean) -> Unit = {}) {
     val playback by model.player.state.collectAsStateWithLifecycle()
     val startModes = playbackStart?.state?.collectAsStateWithLifecycle()?.value
@@ -51,9 +51,6 @@ private val destinations get() = listOf(
     val exporting = exporter?.state?.collectAsStateWithLifecycle()?.value?.running == true
     val radioPlayback = model.radio?.playback?.collectAsStateWithLifecycle()?.value
     val library by model.library.collectAsStateWithLifecycle()
-    val offlineState = model.offline?.state?.collectAsStateWithLifecycle()?.value
-    val profileOfflineState = offlineState?.takeIf { it.owner?.profileId == playback.profileId }
-    val cachedTracks = profileOfflineState?.tracks.orEmpty()
     val demo = model.local == null
     var savedRoute by rememberSaveable { mutableStateOf(initialRoute) }
     // Video is a separate Activity. Keep the underlying section, including an old restored Bundle.
@@ -73,11 +70,10 @@ private val destinations get() = listOf(
     var theme by rememberSaveable { mutableStateOf(initialTheme) }
     var catalogState by rememberSaveable { mutableStateOf(CatalogState.READY) }
     var collectionTrack by remember(playback.profileId) { mutableStateOf<Track?>(null) }
-    var onlineSource by rememberSaveable(playback.profileId) { mutableStateOf(initialOnlineSource) }
-    var offlineSearch by rememberSaveable(playback.profileId) { mutableStateOf(initialOfflineSearch) }
+    var onlineSource by rememberSaveable(playback.profileId) { mutableStateOf(initialOnlineSource && !localProfile()) }
     var cloudLibrary by rememberSaveable(playback.profileId) { mutableStateOf(initialCloudLibrary && !localProfile()) }
     LaunchedEffect(cloudLibrary) { saveCloudLibrary(cloudLibrary) }
-    LaunchedEffect(onlineSource, offlineSearch) { saveSources(onlineSource, offlineSearch) }
+    LaunchedEffect(onlineSource) { saveSearchSource(onlineSource) }
     var searchQuery by rememberSaveable(playback.profileId) { mutableStateOf("") }
     val holder = rememberSaveableStateHolder()
     val navigationRoute = if (route in listOf("playlists", "favorites", "folders", "history", "recent")) "library" else route
@@ -119,11 +115,9 @@ private val destinations get() = listOf(
             AccountActionKind.MY_WAVE -> { navigateDirect("player"); model.player.playMyWave() }
             AccountActionKind.OFFLINE_PLAY -> { navigateDirect("player"); model.player.playOffline() }
             AccountActionKind.OFFLINE_LIST -> navigateDirect("offline")
-            AccountActionKind.OFFLINE_SEARCH -> { onlineSource = false; offlineSearch = true; searchQuery = pending.action.query; navigateDirect("search") }
             AccountActionKind.YANDEX_LIBRARY, AccountActionKind.YANDEX_SEARCH -> {
                 if (pending.action.kind == AccountActionKind.YANDEX_SEARCH) {
-                    onlineSource = true; offlineSearch = false; searchQuery = pending.action.query
-                    model.online?.searchTop(searchQuery, debounce = false)
+                    onlineSource = true; searchQuery = pending.action.query
                     navigateDirect("search")
                 } else { cloudLibrary = true; navigateDirect("library") }
             }
@@ -219,7 +213,7 @@ private val destinations get() = listOf(
                                 (playback.wave || playback.origin.source == PlaybackSource.YANDEX_LIKES ||
                                     playback.current?.let { it.source == Source.YANDEX && !it.offline } == true)
                             val needsInternet = route == "radio" || route == "artist" || route == "account" ||
-                                route == "library" && cloudLibrary || route == "search" && onlineSource || route == "player" && onlinePlayer
+                                route == "library" && cloudLibrary || route == "search" && onlineSource && searchQuery.isNotBlank() || route == "player" && onlinePlayer
                             if (needsInternet) key(route, playback.profileId, onlineSource) {
                                 InternetNotice(internet) { manual ->
                                     model.accounts?.retryAccount()
@@ -229,7 +223,8 @@ private val destinations get() = listOf(
                                             if (manual && radioPlayback?.issue == RadioIssue.NETWORK)
                                                 model.radio?.audio?.play()
                                         }
-                                        "library", "search", "artist" -> model.online?.reconnect()
+                                        "library", "artist" -> model.online?.reconnect()
+                                        "search" -> if (searchQuery.isNotBlank()) model.yandexSearch?.reconnect()
                                         "player" -> if (manual && !playback.playing && (playback.waveIssue != null || playback.error != null)) model.player.retryPlayback()
                                     }
                                 }
@@ -246,41 +241,14 @@ private val destinations get() = listOf(
                                                 if (cloud && localProfile()) requestAccount(AccountAction(AccountActionKind.YANDEX_LIBRARY))
                                                 else cloudLibrary = cloud
                                             }, navigate = navigate, openArtist = openArtist, exporter = exporter)
-                                        "search" -> Column(Modifier.fillMaxSize()) {
-                                            model.online?.let { online ->
-                                                if (!typingInShortWindow) ChoiceRow(if (onlineSource) "yandex" else if (offlineSearch) "offline" else "local", Modifier.fillMaxWidth().padding(horizontal = 16.dp)) { choice ->
-                                                    FilterChip(!onlineSource && !offlineSearch, { onlineSource = false; offlineSearch = false }, { Text(tr(Msg.msg_00231affc201)) }, choice("local").prismFocus().testTag("source_local"))
-                                                    FilterChip(onlineSource, {
-                                                        if (localProfile()) requestAccount(AccountAction(AccountActionKind.YANDEX_SEARCH, searchQuery))
-                                                        else {
-                                                            if (!onlineSource) online.searchTop(searchQuery, debounce = false)
-                                                            onlineSource = true
-                                                            offlineSearch = false
-                                                        }
-                                                    }, { Text(tr(Msg.msg_c39959813ccd)) }, choice("yandex").prismFocus().testTag("source_yandex"))
-                                                    if (model.offline != null) FilterChip(offlineSearch, {
-                                                        if (localProfile()) requestAccount(AccountAction(AccountActionKind.OFFLINE_SEARCH, searchQuery))
-                                                        else { onlineSource = false; offlineSearch = true }
-                                                    }, { Text(tr(Msg.msg_aa07f084155c)) }, choice("offline").prismFocus().testTag("open_offline"))
-                                                }
-                                            }
-                                            val cacheOnly = offlineSearch
-                                            if (onlineSource && model.online != null) OnlineScreen(model.online, model.player, true, { navigate("account") }, model.taste, { navigate("player") }, artist = openArtist, playlists = model.cloudPlaylists,
-                                                searchQuery = searchQuery, onSearchQueryChange = { searchQuery = it }, exporter = exporter)
-                                            else CatalogScreen(if (demo) model.catalog.tracks(playback.profileId) else emptyList(), model.player, true, if (demo) catalogState else CatalogState.READY,
-                                            demo = demo, folders = { navigate("folders") }, scanning = if (cacheOnly) profileOfflineState?.ready == false else library.scanning, issue = if (cacheOnly) profileOfflineState?.message else library.issue,
-                                            collections = model.collections != null, playlists = { navigate("playlists") }, favorites = { navigate("favorites") },
-                                            more = model.collections?.let { { track -> collectionTrack = track } },
-                                            indexed = if (cacheOnly) null else model.local as? IndexedLocalLibrary,
-                                            indexedSources = library.roots.mapTo(linkedSetOf(), LibraryRoot::source),
-                                            noLocalRoots = library.roots.isEmpty(),
-                                            music = model.online, taste = model.taste, cached = cachedTracks,
-                                            artist = openArtist, cloudPlaylists = model.cloudPlaylists, signIn = { navigate("account") },
-                                            onlineHome = { if (localProfile()) requestAccount(AccountAction(AccountActionKind.YANDEX_LIBRARY)) else onlineSource = true }, waveStarted = { navigate("player") },
-                                            cacheOnly = cacheOnly, searchQuery = searchQuery, onSearchQueryChange = { searchQuery = it },
-                                            collectionStore = model.collections,
-                                            retry = { if (demo) catalogState = CatalogState.READY else model.refresh() })
-                                        }
+                                        "search" -> SearchWorkspace(model, library, onlineSource, searchQuery,
+                                            onQueryChange = { searchQuery = it }, showSources = !typingInShortWindow,
+                                            chooseYandex = { enabled ->
+                                                if (enabled && localProfile()) requestAccount(AccountAction(AccountActionKind.YANDEX_SEARCH, searchQuery))
+                                                else onlineSource = enabled
+                                            },
+                                            signIn = { navigate("account") }, waveStarted = { navigate("player") },
+                                            openArtist = openArtist, showTrackActions = { collectionTrack = it }, exporter = exporter)
                                         "playlists", "favorites" -> LocalPlaylistWorkspace(model, playback, mediaFiles, route == "favorites", navigate)
                                         "queue" -> QueueScreen(playback, model.player, model.taste, openArtist)
                                         "offline" -> model.offline?.let { offline -> OfflineScreen(offline, model.player, exporter?.let { e -> { e.ask(AudioExportRequest(playback.profileId, trMessage("Мне нравится · офлайн"), tracks = offline.tracks(playback.profileId))) } }) }

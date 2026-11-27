@@ -842,4 +842,9 @@ Du kannst eigenen Text zwischen den Variablen einfügen. Beispiel: {number}. {ar
     <string name="radio_next_station" formatted="false">"Nächster Sender"</string>
     <string name="radio_previous_station" formatted="false">"Vorheriger Sender"</string>
     <plurals name="track_count"><item quantity="one">%d Titel</item><item quantity="other">%d Titel</item></plurals>
+    <string name="car_resume" formatted="false">"Wiedergabe fortsetzen"</string>
+    <string name="car_clip_audio" formatted="false">"Clips · nur Audio"</string>
+    <string name="car_track_waves" formatted="false">"Titelradio"</string>
+    <string name="search_prompt" formatted="false">"Gib einen Namen ein, um die Suche zu starten."</string>
+    <string name="online_select_all_tracks" formatted="false">"Alle Titel auswählen"</string>
 </resources>

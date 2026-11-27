@@ -1,11 +1,17 @@
 # YMPlayer2 — user guide
 
-Current stable release — [2.9.1-build156](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.1-build156).
+Current stable release — [2.10.0-build162](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build162).
 
-In the 2.9.1 test build, open **Library → Local files → Folders** to play a folder and its subfolders. Select folders, uncheck individual tracks, then add the selection to a playlist. Open a playlist to sort it or move selected tracks before a song. **Yandex Music** retains your collection and recommendations. Downloaded likes are under **Profile → Offline cache**.
+## Android Auto from your phone · from 2.10.0
 
-This guide covers the stable **YMPlayer2 2.9.0-build151**, for Android6 and later.
-[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.9.0-build151) · [Signing and verification](MANUAL_2_9_0_BUILD151.md).
+Install the build on your phone, select a profile and grant access to music folders. Connect the phone to a compatible car and select YMPlayer2 in Android Auto. Browse local and USB folders, playlists, cached favourites, Yandex Music and radio. Clips play as audio. The car uses the active phone profile.
+
+For a sideloaded APK, open **Android Auto settings** on the phone. Expand the version information and tap it ten times. Confirm developer mode and enable **Unknown sources** under **Developer settings** in the overflow menu. Check **Customize launcher** and reconnect. [Google’s testing instructions](https://developer.android.com/training/cars/testing#unknown-sources).
+
+In 2.9.1, open **Library → Local files → Folders** to play a folder and its subfolders. Select folders, uncheck individual tracks, then add the selection to a playlist. Open a playlist to sort it or move selected tracks before a song. **Yandex Music** retains your collection and recommendations. Downloaded likes are under **Profile → Offline cache**.
+
+YMPlayer2 requires Android 6.0 or later.
+[Download the APK](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build162) · [Signing and verification](RELEASE_2_10_0_VERIFICATION.md).
 The player has three source shortcuts and a temporary wave window of up to ten tracks.
 My Vibe settings, radio sources and list modes are available in the stable release.
 Installing an update over an earlier2.x release keeps your app data.
@@ -116,12 +122,9 @@ container, codec and device decoder also matter. AIFF is excluded; APE, WMA,
 DSD and a dedicated ALAC decoder are not included in the supported set. There is
 no bundled FFmpeg decoder package. See the [format details in the Russian guide](USER_GUIDE.md#форматы-локальной-музыки).
 
-In **Search**, select **All music**, **Yandex Music** or **Offline**. Offline
-search looks only in downloaded liked tracks for the current profile and stays
-on the search page. The query remains when you switch sources. Yandex search
-also supports artists, albums and playlists and requires sign-in. **Top**
-combines result types. A result labeled **My Wave by genre** starts that
-wave and opens the player.
+In 2.10.0, use **Local files** to search device and USB music or **Yandex Music** to search the online catalogue. Results stay empty until you enter a query. Use **Select tracks** beside the results. Downloaded likes remain in **Profile → Offline cache**.
+
+Yandex search requires sign-in. **Top** combines result types. A result labeled **My Wave by genre** starts that wave and opens the player. Other tabs narrow the results to tracks, artists, albums or playlists. The query remains when you switch sources.
 
 ## Listening history
 
@@ -200,6 +203,8 @@ works in every profile.
 
 Choose **Yandex Music** in the library to browse liked tracks, favorite albums,
 favorite artists and playlists. Recommendations show suggested playlists.
+
+In 2.10.0, **Select tracks** opens a bottom bar in the Yandex Music library. Tap a row to toggle its check box. Use **⋮** to select a range, clear the selection, select the loaded tracks, or load the rest of the list and select all tracks. Play the selection, add it to the queue, or close selection with **×**.
 
 Songs you uploaded to your playlist on the Yandex Music website also appear
 in the normal track list. Access depends on your account; other users' private
@@ -668,7 +673,7 @@ your phone when using a TV; it leads to the same donation page as the button.
 | Code accepted in the browser, sign-in still pending | Return to the account page; check network/profile and request a new code if it expired. |
 | No device tracks | Add the folder through Music folders, grant access and refresh the library. |
 | USB entries unavailable | Reconnect storage and check folder access. Playlist/history metadata is not a substitute for the source file. |
-| Offline search is empty | Check the cache switch, profile and synchronization. Check pending downloads and the Wi-Fi-only setting; a queued like may still be waiting for a connection or a successful transfer. |
+| Downloaded likes are missing | Check the cache switch, profile and synchronization. Check pending downloads and the Wi-Fi-only setting; a queued like may still be waiting for a connection or a successful transfer. |
 | Downloads sound unchanged after changing quality | The setting affects new downloads. Delete the cache and synchronize again to replace it. |
 | Custom skin will not import | Select the complete .ymskin file and check its package format. The active skin remains in place on error. |
 | No equalizer available | Install a compatible equalizer/DSP or select an available system handler. |

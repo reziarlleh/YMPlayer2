@@ -39,6 +39,14 @@ class PlayerApplication : Application(), PlaybackHost {
     val skins by lazy { dev.petrov.ymplayer2.designsystem.skin.SkinRepository(this, scope) }
     val launchState by lazy { dev.petrov.ymplayer2.playback.LaunchStateStore(this) }
     val clipCheckpoints by lazy { dev.petrov.ymplayer2.clips.ClipCheckpointStore(this) }
+    internal val carArtwork by lazy { CarArtwork(this) }
+    override val carCatalog: dev.petrov.ymplayer2.playback.CarCatalog by lazy { AppCarCatalog(this) }
+    internal var handOffPhoneClips: (() -> Unit)? = null
+    internal fun playCarClips() {
+        handOffPhoneClips?.invoke()
+        val profile = playback.state.value.profileId
+        playback.startCarClips { engine, changed -> CarClipPlayback(this, profile, engine, changed) }
+    }
     val playbackStart by lazy { loadPlaybackStartSettings(this) }
     private val uiEntries = dev.petrov.ymplayer2.core.PlaybackUiEntries()
     private var interfacePlayJob: Job? = null
@@ -116,7 +124,7 @@ class PlayerApplication : Application(), PlaybackHost {
             playback.connect()
             if (playbackStart.mode(playback.state.value.profileId) == dev.petrov.ymplayer2.core.PlaybackStartMode.AUTO)
                 playback.restoreForegroundSessionIfNeeded()
-            return freshActivity && clipActivities == 0 && navigation.getString("route", "player") == "clips" &&
+            return freshActivity && !playback.carClipOutputActive && clipActivities == 0 && navigation.getString("route", "player") == "clips" &&
                 launchState.read(playback.state.value.profileId).output == dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS
         }
         launchRestored = true
@@ -140,9 +148,11 @@ class PlayerApplication : Application(), PlaybackHost {
                 false
             }
             dev.petrov.ymplayer2.playback.PlaybackOutput.RADIO -> {
-                radio.restoreOnLaunch(profile, automatic && saved.playing); false
+                if (radio.state.value.let { !it.playing && !it.buffering && !it.reconnecting })
+                    radio.restoreOnLaunch(profile, automatic && saved.playing)
+                false
             }
-            dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS -> clipActivities == 0 && navigation.getString("route", "player") == "clips"
+            dev.petrov.ymplayer2.playback.PlaybackOutput.CLIPS -> !playback.carClipOutputActive && clipActivities == 0 && navigation.getString("route", "player") == "clips"
         }
     }
     override fun onAudioServiceEvent(event: AudioServiceEvent) {

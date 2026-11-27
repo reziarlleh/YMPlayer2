@@ -284,7 +284,9 @@ class ClipWaveController(
     private fun upcoming(): YandexClip? = history.getOrNull(cursor + 1)?.clip
         ?: pending.firstOrNull()?.takeIf { it.clip.id == prefetched?.first }?.clip
     private fun mediaItem(clip: YandexClip, stream: ClipStream) = MediaItem.Builder()
-        .setMediaId(clip.id).setUri(stream.url).apply { stream.mimeType?.let(::setMimeType) }.build()
+        .setMediaId(clip.id).setUri(stream.url).setMediaMetadata(androidx.media3.common.MediaMetadata.Builder()
+            .setTitle(clip.title).setArtist(clip.artist).setDisplayTitle(clip.title).setSubtitle(clip.artist)
+            .setArtworkUri(clip.thumbnailUrl?.let(android.net.Uri::parse)).build()).apply { stream.mimeType?.let(::setMimeType) }.build()
     private fun send(clip: QueuedClip, event: ClipFeedback, seconds: Float = 0f) {
         if (clip.sessionId.isBlank()) return
         scope.launch { try { api.feedback(profileId, clip.sessionId, clip.clip, event, seconds) }
@@ -303,11 +305,11 @@ class ClipWaveController(
     }
     private fun current() = history.getOrNull(cursor)
     private fun stale(generation: Int) = closed || generation != operation
-    fun close() {
+    fun close(releasePlayer: Boolean = true) {
         closed = true; ++operation
         loadingJob?.cancel(); prefetchJob?.cancel()
         player.removeListener(listener)
-        player.release()
+        if (releasePlayer) player.release()
         preloader?.release()
     }
 }

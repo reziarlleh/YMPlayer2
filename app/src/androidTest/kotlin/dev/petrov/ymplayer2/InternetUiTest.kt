@@ -33,7 +33,7 @@ class InternetUiTest {
         compose.waitUntil(3000) { compose.onAllNodesWithTag("internet_notice").fetchSemanticsNodes().isEmpty() }
         compose.onNodeWithTag("radio_screen").assertIsDisplayed()
     }
-    @Test fun onlineLibraryAndSearchUseNoticeButLocalAndOfflineDoNot() {
+    @Test fun onlineLibraryAndNonemptyYandexSearchUseNoticeButLocalDoesNot() {
         compose.runOnIdle { f.internet.available.value = false }
         compose.onNodeWithTag("nav_library").performClick()
         compose.onNodeWithTag("internet_notice").assertDoesNotExist()
@@ -45,10 +45,12 @@ class InternetUiTest {
         compose.onNodeWithTag("internet_notice").assertDoesNotExist()
         compose.onNodeWithTag("nav_search").performClick()
         compose.onNodeWithTag("source_yandex").performClick()
-        compose.onNodeWithTag("internet_waiting").assertIsDisplayed()
-        compose.onNodeWithTag("open_offline").performClick()
         compose.onNodeWithTag("internet_notice").assertDoesNotExist()
-        compose.onNodeWithTag("source_local").performClick()
+        compose.onNodeWithTag("online_query").performTextInput("instrumental")
+        compose.onNodeWithTag("online_query").performImeAction()
+        compose.onNodeWithTag("internet_waiting").assertIsDisplayed()
+        compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("source_local"))
+        compose.onNodeWithTag("source_local", useUnmergedTree = true).performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick)
         compose.onNodeWithTag("internet_notice").assertDoesNotExist()
     }
     @Test fun quickConnectionSuppressesErrorAndStoppedRadioRemainsStopped() {

@@ -248,8 +248,7 @@ class MainActivity : ComponentActivity() {
                 internet = graph.internet,
                 onRouteChanged = { graph.navigation.edit().putString("route", it).apply() },
                 initialOnlineSource = graph.navigation.getBoolean("online", false),
-                initialOfflineSearch = graph.navigation.getBoolean("offline", false),
-                saveSources = { online, offline -> graph.navigation.edit().putBoolean("online", online).putBoolean("offline", offline).apply() }, importSkin = {
+                saveSearchSource = { online -> graph.navigation.edit().putBoolean("online", online).apply() }, importSkin = {
                 try { skinPicker.launch(arrayOf("*/*")) }
                 catch (_: ActivityNotFoundException) { graph.skins.report(tr(Msg.msg_80cedf587a28)) }
             }, diagnostics = journal, diagnosticScreen = journal::screen, sideBar = sideBar, updates = updates, openClips = {

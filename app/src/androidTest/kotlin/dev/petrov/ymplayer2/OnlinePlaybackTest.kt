@@ -25,7 +25,7 @@ class OnlinePlaybackTest {
         runBlocking { fixture.library.state.value.roots.forEach { fixture.library.forgetFolder(it.uri) } }
         compose.activity.contentResolver.call(android.net.Uri.parse("content://dev.petrov.ymplayer2.test.control"), "fixtures", null, null)
         runBlocking { fixture.library.addFolder(TestMusicProvider.tree.toString(), Source.LOCAL) }
-        waitFor { fixture.library.testTracks.size == 2 && fixture.online.state.value.signedIn }
+        waitFor { fixture.library.testTracks.size == 2 && compose.activity.search.state.value.signedIn }
     }
     @After fun stop() { compose.runOnIdle { player.stop() } }
     private fun search(query: String = "fixture") {
@@ -33,8 +33,8 @@ class OnlinePlaybackTest {
         compose.onNodeWithTag("online_list").performScrollToNode(hasTestTag("online_query"))
         compose.onNodeWithTag("online_query").performTextReplacement(query)
         compose.onNodeWithTag("online_query").performImeAction()
-        try { waitFor { fixture.online.state.value.loaded && fixture.online.state.value.request.query == query } }
-        catch (e: Throwable) { throw AssertionError("Fixture search state: ${fixture.online.state.value}; requests=${fixture.requests}", e) }
+        try { waitFor { compose.activity.search.state.value.loaded && compose.activity.search.state.value.request.query == query } }
+        catch (e: Throwable) { throw AssertionError("Fixture search state: ${compose.activity.search.state.value}; requests=${fixture.requests}", e) }
         val label = androidx.test.platform.app.InstrumentationRegistry.getArguments().getString("m5Screenshot")
         if (label != null && label.matches(Regex("[a-z0-9-]+"))) {
             compose.waitForIdle()
@@ -56,26 +56,26 @@ class OnlinePlaybackTest {
         }
         search("инструментал")
         compose.onNodeWithTag("online_kind_TOP").assertIsSelected()
-        assertEquals(firstPage, fixture.online.state.value.entries)
+        assertEquals(firstPage, compose.activity.search.state.value.entries)
         action("online_entity_7")
-        waitFor { fixture.online.state.value.request.entity == album }
+        waitFor { compose.activity.search.state.value.request.entity == album }
         waitFor { compose.onAllNodesWithTag("navigate_up").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("navigate_up").performClick()
-        waitFor { fixture.online.state.value.request.entity == null && fixture.online.state.value.entries == firstPage }
+        waitFor { compose.activity.search.state.value.request.entity == null && compose.activity.search.state.value.entries == firstPage }
         action("online_kind_TRACKS")
-        waitFor { fixture.online.state.value.loaded && !fixture.online.state.value.request.topSearch }
-        assertTrue(fixture.online.state.value.entries.all { it.track != null })
+        waitFor { compose.activity.search.state.value.loaded && !compose.activity.search.state.value.request.topSearch }
+        assertTrue(compose.activity.search.state.value.entries.all { it.track != null })
         action("online_kind_TOP")
-        waitFor { fixture.online.state.value.loaded && fixture.online.state.value.entries == firstPage }
+        waitFor { compose.activity.search.state.value.loaded && compose.activity.search.state.value.entries == firstPage }
         action("online_more")
-        waitFor { fixture.online.state.value.entries.size == 3 && fixture.online.state.value.nextPage == null }
+        waitFor { compose.activity.search.state.value.entries.size == 3 && compose.activity.search.state.value.nextPage == null }
         action("online_wave:rock")
         waitFor { player.state.value.playing && player.state.value.origin.source == PlaybackSource.OBJECT_WAVE }
         assertEquals(rock, fixture.waveSelections.last())
         assertEquals(rock, player.state.value.origin.wave)
     }
     @Test fun onlineQueueStreamsLazilyAndRecoversPausedWithoutSignedUrls() {
-        search(); action("online_more"); waitFor { fixture.online.state.value.entries.size == 2 }
+        search(); action("online_more"); waitFor { compose.activity.search.state.value.entries.size == 2 }
         assertTrue(fixture.resolved.isEmpty())
         action("online_play_all")
         waitFor { player.state.value.playing && player.state.value.positionSeconds >= 1 }
@@ -98,7 +98,7 @@ class OnlinePlaybackTest {
         search(); action("online_play_all"); waitFor { player.state.value.positionSeconds >= 1 }
         val local = fixture.library.testTracks.first().id
         compose.runOnIdle { player.enqueue(local); fixture.auth.signOut() }
-        waitFor { !fixture.online.state.value.signedIn && player.state.value.queue.none { it.source == Source.YANDEX } }
+        waitFor { !compose.activity.search.state.value.signedIn && player.state.value.queue.none { it.source == Source.YANDEX } }
         assertEquals(listOf(local), player.state.value.queue.map { it.id }); assertFalse(player.state.value.playing)
         assertFalse(fixture.checkpointText().contains("yandex:"))
     }
@@ -128,7 +128,7 @@ class OnlinePlaybackTest {
         waitFor { fixture.resolved.isNotEmpty() }
         compose.runOnIdle { player.switchProfile("road") }
         waitFor { player.state.value.profileId == "road" && fixture.auth.state.value.profileId == "road" }
-        compose.waitUntil(5000) { fixture.online.state.value.profileId == "road" }
+        compose.waitUntil(5000) { compose.activity.search.state.value.profileId == "road" }
         Thread.sleep(1800)
         assertFalse(player.state.value.playing); assertTrue(player.state.value.queue.none { it.source == Source.YANDEX })
     }
@@ -143,17 +143,17 @@ class OnlinePlaybackTest {
     @Test fun detailsBackAndRetryLeaveExistingAudioAlone() {
         val local = fixture.library.testTracks.first().id
         compose.runOnIdle { player.playQueue(listOf(local)) }; waitFor { player.state.value.positionSeconds >= 1 }
-        search(); action("online_kind_ALBUMS"); waitFor { fixture.online.state.value.entries.firstOrNull()?.entity != null }
-        action("online_entity_7"); waitFor { fixture.online.state.value.request.entity != null }
+        search(); action("online_kind_ALBUMS"); waitFor { compose.activity.search.state.value.entries.firstOrNull()?.entity != null }
+        action("online_entity_7"); waitFor { compose.activity.search.state.value.request.entity != null }
         // TV IME closes asynchronously; the short-window toolbar returns after its inset update.
         waitFor { compose.onAllNodesWithTag("navigate_up").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("navigate_up").performClick()
-        waitFor { fixture.online.state.value.request.entity == null }
-        assertEquals(MusicKind.ALBUMS, fixture.online.state.value.request.kind)
+        waitFor { compose.activity.search.state.value.request.entity == null }
+        assertEquals(MusicKind.ALBUMS, compose.activity.search.state.value.request.kind)
         compose.runOnIdle { fixture.failure = MusicFailure.NETWORK; fixture.online.search("other", MusicKind.TRACKS, false) }
-        waitFor { fixture.online.state.value.issue != null }
+        waitFor { compose.activity.search.state.value.issue != null }
         compose.runOnIdle { fixture.failure = null }; action("online_retry")
-        waitFor { fixture.online.state.value.loaded && fixture.online.state.value.issue == null }
+        waitFor { compose.activity.search.state.value.loaded && compose.activity.search.state.value.issue == null }
         assertEquals(local, player.state.value.current!!.id); assertTrue(player.state.value.playing)
     }
 }

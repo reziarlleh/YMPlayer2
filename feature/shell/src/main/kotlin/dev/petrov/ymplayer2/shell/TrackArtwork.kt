@@ -40,21 +40,26 @@ private val coverMemory = object : LruCache<String, Bitmap>(4 * 1024 * 1024) {
     key(uri, revision) {
         val bitmap by produceState<Bitmap?>(null, uri, revision) {
             value = if (uri == null) null else withContext(Dispatchers.IO) {
-                val cacheKey = "$uri\u0000${revision.orEmpty()}"
-                coverMemory.get(cacheKey) ?: runCatching {
-                    val parsed = Uri.parse(uri)
-                    when (parsed.scheme) {
-                        "file", "content", "android.resource" -> context.contentResolver.openInputStream(parsed)?.use { input ->
-                            decodeCover(readCoverBytes(input, 8 * 1024 * 1024))
-                        }
-                        else -> readOnlineCover(uri)
-                    }
-                }.getOrNull()?.also { coverMemory.put(cacheKey, it) }
+                readPublicArtwork(context, uri, revision)
             }
         }
         if (bitmap == null) placeholder()
         else Image(bitmap!!.asImageBitmap(), label, modifier.testTag(tag), contentScale = contentScale)
     }
+}
+
+/** Blocking, bounded image read shared by the phone UI and the car artwork provider. */
+fun readPublicArtwork(context: android.content.Context, uri: String, revision: String? = null): Bitmap? {
+    val cacheKey = "$uri\u0000${revision.orEmpty()}"
+    return coverMemory.get(cacheKey) ?: runCatching {
+        val parsed = Uri.parse(uri)
+        when (parsed.scheme) {
+            "file", "content", "android.resource" -> context.contentResolver.openInputStream(parsed)?.use { input ->
+                decodeCover(readCoverBytes(input, 8 * 1024 * 1024))
+            }
+            else -> readOnlineCover(uri)
+        }
+    }.getOrNull()?.also { coverMemory.put(cacheKey, it) }
 }
 
 private fun readCoverBytes(input: java.io.InputStream, limit: Int): ByteArray {
