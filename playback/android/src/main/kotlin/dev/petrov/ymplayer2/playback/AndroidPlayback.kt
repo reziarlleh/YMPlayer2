@@ -1526,9 +1526,14 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                         waveCurrentAudioJob?.join()
                     val candidate = if (queued != null) waveBatch?.copy(tracks = listOfNotNull(waveItems[queued.id]))
                         ?: throw MusicException(MusicFailure.NO_PROGRESS)
-                    else pendingWaveBatch ?: WaveLoader(api, diagnostic).load(profile, waveBatch, waveHistory.seen, activeWaveRequest) {
-                        taste?.state?.value?.allows(it) != false
-                    }.also { pendingWaveBatch = it }
+                    else pendingWaveBatch ?: run {
+                        val excluded = if (state.value.origin.source == PlaybackSource.MY_WAVE)
+                            waveHistory.personalWaveExclusions(logicalQueue.mapTo(hashSetOf()) { it.tasteTarget().key })
+                        else waveHistory.seen
+                        WaveLoader(api, diagnostic).load(profile, waveBatch, excluded, activeWaveRequest) {
+                            taste?.state?.value?.allows(it) != false
+                        }.also { pendingWaveBatch = it }
+                    }
                     val item = candidate.tracks.single()
                     val quality = streamQuality()
                     try {
@@ -1543,7 +1548,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                     } catch (e: MusicException) {
                         if (e.failure != MusicFailure.UNAVAILABLE) throw e
                         // Reject only this candidate; keep the current audio and advance the cursor.
-                        waveItems[item.track.id] = item; waveHistory.remember(item.track.tasteTarget().key)
+                        waveItems[item.track.id] = item
+                        waveHistory.remember(item.track.tasteTarget().key, refreshRecency = queued == null)
                         if (queued == null) waveBatch = candidate
                         pendingWaveBatch = null
                         if (queued != null) syncQueue(logicalQueue.filterNot { it.id == item.track.id })
@@ -1555,7 +1561,8 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
                     val first = waveBatch == null
                     if (queued == null) waveBatch = candidate
                     pendingWaveBatch = null
-                    waveItems[item.track.id] = item; waveHistory.remember(item.track.tasteTarget().key)
+                    waveItems[item.track.id] = item
+                    waveHistory.remember(item.track.tasteTarget().key, refreshRecency = queued == null)
                     if (first) feedback(item.track.id, WaveFeedback.RADIO_STARTED)
                     val before = state.value.current?.id
                     val next = (WaveQueueWindow.retain(logicalQueue, before) + item.track).distinctBy(Track::id)
@@ -1579,7 +1586,9 @@ class AndroidPlayback(private val context: Context, private val library: LocalLi
             } catch (e: CancellationException) { throw e }
             catch (e: Exception) {
                 if (ticket == waveGeneration) {
-                    val failureDiagnostic = wavePreparationDiagnostic(e)
+                    val failureDiagnostic = if (e is MusicException && e.failure == MusicFailure.NO_PROGRESS)
+                        OperationDiagnostic(DiagnosticOperation.WAVE_DRAIN, DiagnosticCategory.NO_PROGRESS)
+                    else wavePreparationDiagnostic(e)
                     diagnostic(failureDiagnostic)
                     launchSourceFailed(failureDiagnostic.category)
                     val failure = if (isWaveStorageFailure(e)) MusicFailure.STORAGE else

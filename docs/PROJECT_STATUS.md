@@ -1,8 +1,10 @@
 # Текущий статус YMPlayer2
 
+В Build 164 «Моя волна» принимает подходящий трек из первого пакета Яндекса. TalkBack открывает плавающую панель через свёрнутую ручку. [Изменения и проверки](RELEASE_2_10_0_BUILD164_VERIFICATION.md).
+
 Владелец принял Build 162. В 2.10.0 появились Android Auto со смартфона, раздельный поиск и массовый выбор в медиатеке Яндекса. [Android Auto](ANDROID_AUTO_2_10_0.md).
 
-Текущий стабильный выпуск — [2.10.0-build162](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build162). Android 6.0 и новее. [Проверки](RELEASE_2_10_0_VERIFICATION.md).
+Текущий стабильный выпуск — [2.10.0-build164](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build164). Android 6.0 и новее. [Проверки](RELEASE_2_10_0_BUILD164_VERIFICATION.md).
 
 ## Стабильный выпуск от 19 ноября — 2.9.0-build151
 

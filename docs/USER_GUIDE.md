@@ -1,6 +1,6 @@
 # YMPlayer2 — руководство пользователя
 
-Текущий стабильный выпуск — [2.10.0-build162](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build162).
+Текущий стабильный выпуск — [2.10.0-build164](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build164).
 
 ## Android Auto со смартфона · с версии 2.10.0
 

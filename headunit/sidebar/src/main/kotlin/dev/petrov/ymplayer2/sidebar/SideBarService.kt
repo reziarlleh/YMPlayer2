@@ -220,9 +220,16 @@ class SideBarService : Service() {
         private var downY = 0f
         init {
             contentDescription = tr(Msg.msg_57816af2d9ca)
+            isClickable = true
             // Keep only the small touch window; the collapsed handle has no visible pixels.
             background = null
         }
+        override fun performClick(): Boolean {
+            super.performClick()
+            expand(target)
+            return true
+        }
+
         override fun onTouchEvent(event: MotionEvent): Boolean {
             when (event.actionMasked) {
                 MotionEvent.ACTION_DOWN -> { downX = event.rawX; downY = event.rawY; return true }
@@ -233,7 +240,7 @@ class SideBarService : Service() {
                         SideBarEdge.LEFT -> dx > dp(24) && dx > kotlin.math.abs(dy) * 1.12f
                         SideBarEdge.RIGHT -> dx < -dp(24) && -dx > kotlin.math.abs(dy) * 1.12f
                         SideBarEdge.BOTTOM -> dy < -dp(24) && -dy > kotlin.math.abs(dx) * 1.12f
-                    }) expand(target)
+                    }) performClick()
                     return true
                 }
                 MotionEvent.ACTION_UP -> return true

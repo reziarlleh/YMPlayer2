@@ -1,6 +1,6 @@
 # YMPlayer2 — user guide
 
-Current stable release — [2.10.0-build162](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build162).
+Current stable release — [2.10.0-build164](https://github.com/reziarlleh/YMPlayer2/releases/tag/v2.10.0-build164).
 
 ## Android Auto from your phone · from 2.10.0
 

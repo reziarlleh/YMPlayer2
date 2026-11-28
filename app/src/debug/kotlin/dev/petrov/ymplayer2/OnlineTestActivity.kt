@@ -208,6 +208,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
     val waveRequests = mutableListOf<Int>()
     var waveEchoOnce: Int? = null
     var waveRecoveryNeedsDrainedCursor = false
+    var waveHistoryReply = emptyList<Int>()
     val waveRecoveryCursors = mutableListOf<String?>()
     val waveFeedback = mutableListOf<Triple<String, WaveTrack, WaveFeedback>>()
     val waveSelections = mutableListOf<WaveRequest>()
@@ -222,12 +223,16 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
         }
         private suspend fun repeatedHistory(request: WaveRequest): WaveBatch = batch(4).copy(
             tracks = listOf(1, 2, 3, 1, 2).map { WaveTrack(onlineTrack(it), "repeated4") }, request = request)
+        private suspend fun historyReply(request: WaveRequest): WaveBatch = batch(waveHistoryReply.last()).let { tail ->
+            tail.copy(tracks = waveHistoryReply.map { WaveTrack(onlineTrack(it), "history", sessionId = tail.sessionId) }, request = request)
+        }
         override suspend fun start(profileId: String) = batch(1)
         override suspend fun start(profileId: String, request: WaveRequest): WaveBatch {
             waveSelections += request
             return batch(1).copy(request = request)
         }
         override suspend fun next(profileId: String, previous: WaveBatch): WaveBatch {
+            if (waveHistoryReply.isNotEmpty()) return historyReply(previous.request)
             if (waveRecoveryNeedsDrainedCursor && previous.cursor in setOf("3", "4"))
                 return repeatedHistory(previous.request)
             val id = waveEchoOnce ?: previous.cursor.toInt() + 1
@@ -235,6 +240,7 @@ class OnlineHarness(app: Application) : AndroidViewModel(app) {
             return batch(id).copy(request = previous.request)
         }
         override suspend fun recover(profileId: String, previous: WaveBatch?, request: WaveRequest): WaveBatch {
+            if (waveHistoryReply.isNotEmpty()) return historyReply(request)
             if (!waveRecoveryNeedsDrainedCursor) return start(profileId, request)
             waveRecoveryCursors += previous?.cursor
             return if (previous?.cursor == "4") batch(5).copy(request = request) else repeatedHistory(request)

@@ -1,6 +1,8 @@
 # Версии и релизы YMPlayer2
 
-Стабильный выпуск **2.10.0-build162** принят владельцем. Оба канала stable, releaseState=accepted, package dev.petrov.ymplayer2 и minSdk 23. [Проверка выпуска](RELEASE_2_10_0_VERIFICATION.md) · [Android Auto](ANDROID_AUTO_2_10_0.md).
+Стабильный выпуск **2.10.0-build164**. Оба канала stable, releaseState=accepted, package dev.petrov.ymplayer2 и minSdk 23. [Проверка выпуска](RELEASE_2_10_0_BUILD164_VERIFICATION.md).
+
+Номер 163 использован для промежуточного локального APK. [Разбор](MY_WAVE_HISTORY_RECOVERY_2026_11_28.md).
 
 Исходные формат, начальная версия и сквозной Build зафиксированы владельцем
 2026-09-09. Действующее правило достижения целей версии уточнено 2026-10-28;

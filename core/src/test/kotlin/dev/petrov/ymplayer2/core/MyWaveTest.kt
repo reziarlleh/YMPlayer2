@@ -150,6 +150,34 @@ class MyWaveTest {
         assertEquals(history.seen, restored.seen)
         restored.clear(); assertTrue(restored.seen.isEmpty())
     }
+    @Test fun personalWaveAcceptsFirstEligibleServerTrackEvenIfItIsInOlderHistory() = runTest {
+        val history = WaveHistory().apply { (1..15).forEach { remember(it.toString()) } }
+        val activeQueue = setOf("1")
+        val api = Api().apply {
+            handle = {
+                val tracks = listOf(1, 15, 2, 4, 3, 16).flatMap { batch(it).tracks }.map { it.copy(sessionId = "offer") }
+                WaveBatch(tracks, "offer", "16")
+            }
+        }
+        val next = WaveLoader(api).load("owner", null, history.personalWaveExclusions(activeQueue)) {
+            it.tasteTarget().key != "2"
+        }
+        assertEquals("4", next.tracks.single().track.tasteTarget().key)
+        assertEquals("4", next.cursor)
+        assertEquals("offer", next.tracks.single().sessionId)
+        assertEquals(1, api.starts + api.continuations)
+        history.remember("4", refreshRecency = true)
+        assertTrue("4" in history.personalWaveExclusions(activeQueue))
+    }
+    @Test fun personalWaveDoesNotLoopWhenServerOffersOnlyRecentTracks() = runTest {
+        val history = WaveHistory().apply { (1..15).forEach { remember(it.toString()) } }
+        val recentOnly = Api().apply { handle = { batch(15) } }
+        try {
+            WaveLoader(recentOnly).load("owner", null, history.personalWaveExclusions(emptySet())) { true }
+            fail("A recently played track must not be reused")
+        } catch (e: MusicException) { assertEquals(MusicFailure.NO_PROGRESS, e.failure) }
+        assertEquals(11, recentOnly.starts + recentOnly.continuations)
+    }
     @Test fun recoveryDelaysAreBoundedAndFatalAuthNeverRetries() {
         val retry = WaveRecovery()
         for (attempt in 1..3) {

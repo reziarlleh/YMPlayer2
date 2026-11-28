@@ -223,6 +223,29 @@ class MyWavePlaybackTest {
         waitFor { "yandex:3:7" in player.bufferedWaveAudioIds() }
         assertTrue(player.bufferedWaveAudioIds().containsAll(setOf("yandex:2:7", "yandex:3:7")))
     }
+    @Test fun personalWaveContinuesWhenServerOnlyOffersOlderTracksFromHistory() {
+        val account = requireNotNull(fixture.auth.state.value.account)
+        val history = org.json.JSONArray((10..31).map(Int::toString)).toString()
+        val nextAudio = CompletableDeferred<Unit>()
+        compose.runOnIdle {
+            fixture.context.getSharedPreferences("playback", android.content.Context.MODE_PRIVATE).edit()
+                .putString("myWaveSeen:owner:${account.id}", history).apply()
+            fixture.waveHistoryReply = (10..14).toList()
+            fixture.streamGates = mapOf("yandex:10:7" to nextAudio)
+        }
+        compose.onNodeWithTag("player_source_wave").performClick()
+        waitFor { fixture.resolved.any { it.second == "yandex:10:7" } }
+        compose.runOnIdle {
+            assertEquals(listOf(1, 14), fixture.waveRequests)
+            nextAudio.complete(Unit)
+        }
+        assertEquals("yandex:1:7", player.state.value.current?.id)
+        waitFor { player.state.value.queue.any { it.id == "yandex:10:7" } }
+        compose.runOnIdle { player.seek(player.state.value.current!!.durationSeconds - 1) }
+        waitFor { player.state.value.current?.id == "yandex:10:7" && player.state.value.playing }
+        waitFor { player.state.value.queue.any { it.id == "yandex:11:7" } }
+        assertEquals(1, player.state.value.queue.count { it.id == "yandex:10:7" })
+    }
     @Test fun badFirstAudioAndBadFutureAudioAreSkippedWithoutStoppingGoodTrack() {
         compose.runOnIdle { fixture.brokenStreamTrackIds = setOf("yandex:1:7", "yandex:3:7"); player.playMyWave() }
         waitFor { player.state.value.current?.id == "yandex:2:7" && player.state.value.positionSeconds >= 1 }
